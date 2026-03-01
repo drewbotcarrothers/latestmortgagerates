@@ -1,0 +1,36 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build Next.js app
+        run: npm run build
+      
+      - name: Deploy to Hostinger via SFTP
+        uses: easingthemes/ssh-deploy@v5.0.3
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SFTP_HOST }}
+          REMOTE_USER: ${{ secrets.SFTP_USERNAME }}
+          TARGET: ${{ secrets.REMOTE_PATH }}
+          SOURCE: "dist/"
+          ARGS: "-avzr --delete"
