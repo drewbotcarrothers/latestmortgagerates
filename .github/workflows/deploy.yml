@@ -25,9 +25,6 @@ jobs:
       - name: Build Next.js app
         run: npm run build
       
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-      
       - name: Deploy to Hostinger via SFTP
         env:
           SFTP_USER: ${{ secrets.SFTP_USERNAME }}
@@ -35,12 +32,10 @@ jobs:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
         run: |
-          lftp <<EOF
-          set ssl:verify-certificate no
-          set sftp:auto-confirm yes
-          set net:timeout 30
-          set net:max-retries 3
-          open -u "$SFTP_USER","$SFTP_PASS" sftp://$SFTP_HOST:65002
-          mirror -R --delete --verbose dist/ $REMOTE_PATH
+          sudo apt-get install -y sshpass
+          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 $SFTP_USER@$SFTP_HOST <<SFTP_EOF
+          lcd dist
+          cd $REMOTE_PATH
+          put -r *
           bye
-          EOF
+          SFTP_EOF
