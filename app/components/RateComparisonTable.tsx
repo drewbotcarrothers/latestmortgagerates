@@ -13,6 +13,7 @@ interface Rate {
   posted_rate?: number | null;
   ltv_tier?: string | null;
   spread_to_prime?: string | null;
+  source_url?: string | null;
 }
 
 interface RateComparisonTableProps {
