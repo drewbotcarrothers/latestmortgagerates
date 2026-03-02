@@ -201,7 +201,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                 </td>
                 <td className="p-4">
                   <a
-                    href={rate.source_url}
+                    href={rate.source_url || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition"
