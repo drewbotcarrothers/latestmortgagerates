@@ -40,12 +40,12 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y lftp
           
-          # Use lftp for reliable FTP upload
+          # Use lftp for reliable FTP upload to root directory
           lftp -u "$FTP_USER,$FTP_PASS" -p 21 "$FTP_HOST" << 'EOF'
           set ssl:verify-certificate no
           set ftp:ssl-allow no
           lcd dist
-          cd /public_html
+          cd .
           mirror -R . .
           bye
           EOF
