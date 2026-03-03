@@ -25,23 +25,28 @@ jobs:
       - name: Build Next.js app
         run: npm run build
       
+      - name: Verify build output
+        run: |
+          echo "Contents of dist folder:"
+          ls -la dist/
+          echo "Size of dist/_next folder:"
+          du -sh dist/_next 2>/dev/null || echo "_next folder missing or empty"
+
       - name: Deploy to Hostinger via SFTP
         env:
           SFTP_USER: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
         run: |
-          sudo apt-get install -y sshpass
-          # Create remote directory
-          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 $SFTP_USER@$SFTP_HOST <<MKDIR_EOF || true
-          mkdir $REMOTE_PATH
-          bye
-          MKDIR_EOF
-          # Upload all files recursively using rsync-style approach
-          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 $SFTP_USER@$SFTP_HOST <<SFTP_EOF
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Create batch file for SFTP commands
+          cat > sftp_batch.txt << 'EOF'
           lcd dist
-          cd $REMOTE_PATH
+          cd /public_html
           put -r .
           bye
-          SFTP_EOF
+          EOF
+          
+          # Execute SFTP with batch file
+          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 -b sftp_batch.txt $SFTP_USER@$SFTP_HOST
