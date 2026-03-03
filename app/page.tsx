@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import RateFilters from "./components/RateFilters";
 import RateComparisonTable from "./components/RateComparisonTable";
 import MortgageCalculator from "./components/MortgageCalculator";
@@ -29,6 +29,23 @@ interface Rate {
 
 // Import rates from JSON file
 import ratesData from "../data/rates.json";
+
+// Static date component to avoid hydration mismatch
+function CurrentDate() {
+  const [date, setDate] = useState<string>("");
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString('en-CA'));
+  }, []);
+  return <span>{date || "-"}</span>;
+}
+
+function CurrentDateTime() {
+  const [date, setDate] = useState<string>("");
+  useEffect(() => {
+    setDate(new Date().toLocaleString('en-CA'));
+  }, []);
+  return <span>{date || "-"}</span>;
+}
 
 export default function Home() {
   const [filters, setFilters] = useState<FilterState>({
@@ -98,7 +115,7 @@ export default function Home() {
               </p>
             </div>
             <div className="text-right text-sm text-gray-500">
-              <div>Rates updated: {new Date().toLocaleDateString('en-CA')}</div>
+              <div>Rates updated: <CurrentDate /></div>
               <div>{ratesData.length} rates from {lenders.length} lenders</div>
             </div>
           </div>
@@ -174,7 +191,7 @@ export default function Home() {
             <footer className="mt-12 text-center text-sm text-gray-500">
               <p>Rates are for comparison purposes only. Actual rates may vary based on your specific situation.</p>
               <p className="mt-2">Data sources: RBC, TD, BMO, Scotiabank, CIBC, nesto, Tangerine</p>
-              <p className="mt-2 text-xs">Last updated: {new Date().toLocaleString('en-CA')}</p>
+              <p className="mt-2 text-xs">Last updated: <CurrentDateTime /></p>
             </footer>
           </div>
         </div>
