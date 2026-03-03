@@ -40,6 +40,6 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y ncftp
           
-          # Upload to public_html using ncftpput
+          # Upload to public_html using ncftpput (relative path)
           cd dist
-          ncftpput -R -v -u "$FTP_USER" -p "$FTP_PASS" "$FTP_HOST" /public_html .
+          ncftpput -R -v -u "$FTP_USER" -p "$FTP_PASS" "$FTP_HOST" . .
