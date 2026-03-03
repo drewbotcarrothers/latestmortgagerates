@@ -40,12 +40,23 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y lftp
           
-          # Use lftp for reliable FTP upload to root directory
+          # Use lftp for reliable FTP upload to public_html
           lftp -u "$FTP_USER,$FTP_PASS" -p 21 "$FTP_HOST" << 'EOF'
           set ssl:verify-certificate no
           set ftp:ssl-allow no
+          set ftp:use-feat no
+          set ftp:charset utf8
+          
+          # Upload files
           lcd dist
-          cd .
-          mirror -R . .
+          cd public_html
+          mirror -R --delete --verbose . .
+          
+          # Set permissions (files: 644, directories: 755)
+          queue
+          chmod -R 644 index.html
+          chmod -R 644 404.html
+          chmod -R 755 _next
+          
           bye
           EOF
