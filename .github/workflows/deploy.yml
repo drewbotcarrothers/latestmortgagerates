@@ -32,6 +32,16 @@ jobs:
           echo "Size of dist/_next folder:"
           du -sh dist/_next 2>/dev/null || echo "_next folder missing or empty"
 
+      - name: Debug SFTP secrets (check if set)
+        run: |
+          echo "SFTP_HOST is set: $([[ -n \"$SFTP_HOST\" ]] && echo 'YES' || echo 'NO')"
+          echo "SFTP_USER is set: $([[ -n \"$SFTP_USER\" ]] && echo 'YES' || echo 'NO')"
+          echo "SFTP_PASS length: ${#SFTP_PASS}"
+        env:
+          SFTP_USER: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+
       - name: Deploy to Hostinger via SFTP
         env:
           SFTP_USER: ${{ secrets.SFTP_USERNAME }}
@@ -48,5 +58,5 @@ jobs:
           bye
           EOF
           
-          # Execute SFTP with batch file
-          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 -b sftp_batch.txt $SFTP_USER@$SFTP_HOST
+          # Execute SFTP with verbose output
+          sshpass -p "$SFTP_PASS" sftp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 -b sftp_batch.txt $SFTP_USER@$SFTP_HOST
