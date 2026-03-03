@@ -32,31 +32,20 @@ jobs:
           echo "Size of dist/_next folder:"
           du -sh dist/_next 2>/dev/null || echo "_next folder missing or empty"
 
-      - name: Debug SFTP secrets (check if set)
-        run: |
-          echo "SFTP_HOST is set: $([[ -n \"$SFTP_HOST\" ]] && echo 'YES' || echo 'NO')"
-          echo "SFTP_USER is set: $([[ -n \"$SFTP_USER\" ]] && echo 'YES' || echo 'NO')"
-          echo "SFTP_PASS length: ${#SFTP_PASS}"
+      - name: Deploy to Hostinger via FTP
         env:
-          SFTP_USER: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-
-      - name: Deploy to Hostinger via SFTP
-        env:
-          SFTP_USER: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PASS: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
-          sudo apt-get update && sudo apt-get install -y sshpass
+          sudo apt-get update && sudo apt-get install -y lftp
           
-          # Create batch file for SFTP commands
-          cat > sftp_batch.txt << 'EOF'
+          # Use lftp for reliable FTP upload
+          lftp -u "$FTP_USER,$FTP_PASS" -p 21 "$FTP_HOST" << 'EOF'
+          set ssl:verify-certificate no
+          set ftp:ssl-allow no
           lcd dist
           cd /public_html
-          put -r .
+          mirror -R . .
           bye
           EOF
-          
-          # Execute SFTP with verbose output
-          sshpass -p "$SFTP_PASS" sftp -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 -b sftp_batch.txt $SFTP_USER@$SFTP_HOST
