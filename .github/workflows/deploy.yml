@@ -33,9 +33,15 @@ jobs:
           REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
         run: |
           sudo apt-get install -y sshpass
+          # Create remote directory
+          sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 $SFTP_USER@$SFTP_HOST <<MKDIR_EOF || true
+          mkdir $REMOTE_PATH
+          bye
+          MKDIR_EOF
+          # Upload all files recursively using rsync-style approach
           sshpass -p "$SFTP_PASS" sftp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 $SFTP_USER@$SFTP_HOST <<SFTP_EOF
           lcd dist
           cd $REMOTE_PATH
-          put -r *
+          put -r .
           bye
           SFTP_EOF
