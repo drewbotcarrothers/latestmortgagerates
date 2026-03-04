@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import LenderLogo from "./LenderLogo";
 
 interface Rate {
   lender_name: string;
@@ -163,8 +164,13 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                   />
                 </td>
                 <td className="p-4">
-                  <div className="font-medium text-gray-900">{rate.lender_name}</div>
-                  <div className="text-xs text-gray-500">{rate.lender_slug.toUpperCase()}</div>
+                  <div className="flex items-center gap-3">
+                    <LenderLogo lenderSlug={rate.lender_slug} size="md" />
+                    <div>
+                      <div className="font-medium text-gray-900">{rate.lender_name}</div>
+                      <div className="text-xs text-gray-500">{rate.lender_slug.toUpperCase()}</div>
+                    </div>
+                  </div>
                 </td>
                 <td className="p-4">
                   <span className="font-medium">{getTermLabel(rate.term_months)}</span>

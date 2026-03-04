@@ -132,7 +132,21 @@ export default function Home() {
               <div className="space-y-2">
                 {topRates.fixed5yr.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <span>{rate.lender_name}</span>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
+                        rate.lender_slug === 'nesto' ? 'bg-emerald-500 text-white' :
+                        rate.lender_slug === 'tangerine' ? 'bg-orange-500 text-white' :
+                        rate.lender_slug === 'cibc' ? 'bg-red-600 text-white' :
+                        rate.lender_slug === 'rbc' ? 'bg-blue-700 text-yellow-400' :
+                        rate.lender_slug === 'bmo' ? 'bg-red-700 text-white' :
+                        rate.lender_slug === 'td' ? 'bg-green-600 text-white' :
+                        rate.lender_slug === 'scotiabank' ? 'bg-red-500 text-white' :
+                        'bg-gray-400 text-white'
+                      }`}>
+                        {rate.lender_slug === 'td' ? 'TD' : rate.lender_slug.charAt(0).toUpperCase()}
+                      </div>
+                      <span>{rate.lender_name}</span>
+                    </div>
                     <span className="text-2xl font-bold">{rate.rate.toFixed(2)}%</span>
                   </div>
                 ))}
