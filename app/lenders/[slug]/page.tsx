@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import LenderLogo from "../../components/LenderLogo";
+import Navigation from "../../components/Navigation";
 
 // Force static generation for static export
 export const dynamic = "force-static";
@@ -186,12 +187,7 @@ export default async function LenderPage({ params }: PageProps) {
                 </p>
               </div>
             </div>
-            <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base">
-              <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
-              <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
-              <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
-              <Link href="/tools" className="text-gray-600 hover:text-blue-600 transition">Tools</Link>
-            </nav>
+            <Navigation currentPage="rates" />
           </div>
         </div>
       </header>

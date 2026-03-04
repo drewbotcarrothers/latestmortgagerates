@@ -6,6 +6,7 @@ import RateFilters from "./components/RateFilters";
 import RateComparisonTable from "./components/RateComparisonTable";
 import MortgageCalculator from "./components/MortgageCalculator";
 import RateStats from "./components/RateStats";
+import Navigation from "./components/Navigation";
 
 interface FilterState {
   term: string;
@@ -115,12 +116,7 @@ export default function Home() {
                 Compare current rates from Big 5 banks and monoline lenders
               </p>
             </div>
-            <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base">
-              <Link href="/" className="text-blue-600 font-medium border-b-2 border-blue-600">Rates</Link>
-              <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
-              <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
-              <Link href="/tools" className="text-gray-600 hover:text-blue-600 transition">Tools</Link>
-            </nav>
+            <Navigation currentPage="rates" />
             <div className="text-right text-sm text-gray-500">
               <div>Rates updated: <CurrentDate /></div>
               <div>{ratesData.length} rates from {lenders.length} lenders</div>
