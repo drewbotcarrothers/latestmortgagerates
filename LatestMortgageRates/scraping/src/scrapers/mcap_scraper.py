@@ -1,32 +1,42 @@
 """MCAP mortgage rate scraper."""
 
 import re
+from decimal import Decimal
 from typing import List
-from playwright.sync_api import sync_playwright
+from datetime import datetime
+from pathlib import Path
+
 from loguru import logger
 
-from .base import BaseScraper, ScrapedRate
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
+from models import RawRate, RateType, MortgageType
 
 
-class MCAPScraper(BaseScraper):
+class MCAPScraper:
     """Scraper for MCAP mortgage rates."""
     
     LENDER_SLUG = "mcap"
     LENDER_NAME = "MCAP"
-    SOURCE_URL = "https://www.mcap.com/business/products/residential-mortgages"
+    RATE_URL = "https://www.mcap.com/business/products/residential-mortgages"
     
-    def scrape(self) -> List[ScrapedRate]:
+    def __init__(self):
+        self.scraped_at = datetime.utcnow()
+    
+    def scrape(self) -> List[RawRate]:
         """Scrape MCAP mortgage rates."""
         rates = []
         
         logger.info(f"Starting scrape for {self.LENDER_NAME}")
         
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
+        try:
+            from playwright.sync_api import sync_playwright
             
-            try:
-                page.goto(self.SOURCE_URL, wait_until="networkidle")
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
+                
+                page.goto(self.RATE_URL, wait_until="networkidle")
                 page.wait_for_load_state("domcontentloaded")
                 page.wait_for_timeout(2000)
                 
@@ -44,7 +54,7 @@ class MCAPScraper(BaseScraper):
                     for match in matches:
                         try:
                             years = int(match[0])
-                            rate = float(match[1])
+                            rate = Decimal(match[1])
                             if rate < 2 or rate > 10:
                                 continue
                             found_rates.append((years, rate, "fixed"))
@@ -61,16 +71,16 @@ class MCAPScraper(BaseScraper):
                         unique_rates.append((years, rate, rate_type))
                 
                 for years, rate, rate_type in unique_rates:
-                    rate_obj = ScrapedRate(
-                        lender_name=self.LENDER_NAME,
+                    rate_obj = RawRate(
                         lender_slug=self.LENDER_SLUG,
+                        lender_name=self.LENDER_NAME,
                         term_months=years * 12,
-                        rate_type=rate_type,
-                        mortgage_type="uninsured",
+                        rate_type=RateType.FIXED,
+                        mortgage_type=MortgageType.UNINSURED,
                         rate=rate,
-                        source_url=self.SOURCE_URL,
+                        source_url=self.RATE_URL,
                         scraped_at=self.scraped_at,
-                        raw_data={"years": years, "rate": rate}
+                        raw_data={"years": years, "rate": str(rate)}
                     )
                     rates.append(rate_obj)
                     logger.debug(f"Found {years}yr fixed: {rate}%")
@@ -80,18 +90,18 @@ class MCAPScraper(BaseScraper):
                 var_match = re.search(var_pattern, content)
                 if var_match:
                     try:
-                        rate = float(var_match.group(1))
+                        rate = Decimal(var_match.group(1))
                         if 2 <= rate <= 10:
-                            rate_obj = ScrapedRate(
-                                lender_name=self.LENDER_NAME,
+                            rate_obj = RawRate(
                                 lender_slug=self.LENDER_SLUG,
+                                lender_name=self.LENDER_NAME,
                                 term_months=60,
-                                rate_type="variable",
-                                mortgage_type="uninsured",
+                                rate_type=RateType.VARIABLE,
+                                mortgage_type=MortgageType.UNINSURED,
                                 rate=rate,
-                                source_url=self.SOURCE_URL,
+                                source_url=self.RATE_URL,
                                 scraped_at=self.scraped_at,
-                                raw_data={"rate": rate}
+                                raw_data={"rate": str(rate)}
                             )
                             rates.append(rate_obj)
                             logger.debug(f"Found 5yr variable: {rate}%")
@@ -100,9 +110,8 @@ class MCAPScraper(BaseScraper):
                 
                 browser.close()
                 
-            except Exception as e:
-                logger.error(f"Error scraping {self.LENDER_NAME}: {e}")
-                browser.close()
+        except Exception as e:
+            logger.error(f"Error scraping {self.LENDER_NAME}: {e}")
         
         logger.info(f"Scraped {len(rates)} rates from {self.LENDER_NAME}")
         return rates
