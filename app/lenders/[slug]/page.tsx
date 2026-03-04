@@ -176,14 +176,22 @@ export default async function LenderPage({ params }: PageProps) {
             </ol>
           </nav>
           
-          <div className="flex items-center gap-4">
-            <LenderLogo lenderSlug={slug} size="lg" />
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">{lenderName} Mortgage Rates</h1>
-              <p className="text-gray-600 mt-1">
-                Compare current {lenderName} mortgage rates in Canada
-              </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <LenderLogo lenderSlug={slug} size="lg" />
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">{lenderName} Mortgage Rates</h1>
+                <p className="text-gray-600 mt-1">
+                  Compare current {lenderName} mortgage rates in Canada
+                </p>
+              </div>
             </div>
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
+              <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
+              <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
+              <Link href="/tools" className="text-gray-600 hover:text-blue-600 transition">Tools</Link>
+            </nav>
           </div>
         </div>
       </header>

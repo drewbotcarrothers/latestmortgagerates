@@ -94,8 +94,18 @@ export default function BlogPage() {
             </ol>
           </nav>
           
-          <h1 className="text-3xl font-bold text-gray-900">Mortgage Guides & Resources</h1>
-          <p className="text-gray-600 mt-2">Expert advice and tips for Canadian homebuyers</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Mortgage Guides & Resources</h1>
+              <p className="text-gray-600 mt-2">Expert advice and tips for Canadian homebuyers</p>
+            </div>
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
+              <Link href="/blog" className="text-blue-600 font-medium border-b-2 border-blue-600">Guides</Link>
+              <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
+              <Link href="/tools" className="text-gray-600 hover:text-blue-600 transition">Tools</Link>
+            </nav>
+          </div>
         </div>
       </header>
 

@@ -282,7 +282,7 @@ export default function GlossaryPage() {
   return (
     <main className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 py-6">
           <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
               <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
@@ -290,20 +290,21 @@ export default function GlossaryPage() {
               <li className="text-gray-900 font-medium">Glossary</li>
             </ol>
           </nav>
-
-          <h1 className="text-3xl font-bold text-gray-900">
-            Mortgage Glossary
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Key terms and definitions every Canadian homebuyer should know
-          </p>
-
-          {/* Alphabet Navigation */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            {Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map((letter) => (
-              <a
-                key={letter}
-                href={`#${letter}`}
+          
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Mortgage Glossary</h1>
+              <p className="text-gray-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
+            </div>
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
+              <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
+              <Link href="/glossary" className="text-blue-600 font-medium border-b-2 border-blue-600">Glossary</Link>
+              <Link href="/tools" className="text-gray-600 hover:text-blue-600 transition">Tools</Link>
+            </nav>
+          </div>
+        </div>
+      </header>
                 className="w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium text-blue-600 hover:bg-blue-50 transition"
               >
                 {letter}
@@ -331,7 +332,7 @@ export default function GlossaryPage() {
         }}
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Categories */}
         <div className="mb-8 flex flex-wrap gap-2">
           <span className="text-sm text-gray-500">Jump to:</span>
