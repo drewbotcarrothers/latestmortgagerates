@@ -340,7 +340,7 @@ export default function GlossaryPage() {
             >
               {cat}
             </a>
-          )}
+          ))}
         </div>
 
         {/* Terms by Category */}
