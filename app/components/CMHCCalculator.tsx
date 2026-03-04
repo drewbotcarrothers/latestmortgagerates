@@ -97,12 +97,14 @@ export default function CMHCCalculator() {
               className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <p className="text-xs text-gray-500 mt-1">
-            Minimum required: ${minDownPayment.toLocaleString(undefined, {maximumFractionDigits: 0})} ({(minDownPayment/homePrice*100).toFixed(0)}%)
-          </p>
+          {minDownPayment < homePrice * 0.2 && (
+            <p className="text-xs text-amber-600 mt-1">
+              Minimum required: ${minDownPayment.toLocaleString(undefined, {maximumFractionDigits: 0})} ({(minDownPayment/homePrice*100).toFixed(0)}%)
+            </p>
+          )}
         </div>
 
-        <!-- Visual Down Payment Slider -->
+        {/* Visual Down Payment Slider */}
         <div>
           <div className="flex justify-between text-sm text-gray-600 mb-1">
             <span>5%</span>
