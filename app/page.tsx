@@ -7,6 +7,7 @@ import RateComparisonTable from "./components/RateComparisonTable";
 import MortgageCalculator from "./components/MortgageCalculator";
 import RateStats from "./components/RateStats";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 interface FilterState {
   term: string;
@@ -27,24 +28,27 @@ interface Rate {
   ltv_tier?: string | null;
   spread_to_prime?: string | null;
   source_url: string;
+  scraped_at?: string;
 }
 
-// Import rates from JSON file
+// Import rates and metadata from JSON files
 import ratesData from "../data/rates.json";
+import metadata from "../data/metadata.json";
 
-// Static date component to avoid hydration mismatch
-function CurrentDate() {
+// Format the last updated date from metadata
+function LastUpdated() {
   const [date, setDate] = useState<string>("");
   useEffect(() => {
-    setDate(new Date().toLocaleDateString('en-CA'));
-  }, []);
-  return <span>{date || "-"}</span>;
-}
-
-function CurrentDateTime() {
-  const [date, setDate] = useState<string>("");
-  useEffect(() => {
-    setDate(new Date().toLocaleString('en-CA'));
+    if (metadata?.last_updated) {
+      const d = new Date(metadata.last_updated);
+      setDate(d.toLocaleString('en-CA', { 
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }));
+    }
   }, []);
   return <span>{date || "-"}</span>;
 }
@@ -103,30 +107,40 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                 Latest Mortgage Rates Canada
               </h1>
-              <p className="text-gray-600 mt-2">
+              <p className="text-gray-600 dark:text-gray-300 mt-2">
                 Compare current rates from Big 5 banks and monoline lenders
               </p>
             </div>
             <Navigation currentPage="rates" />
-            <div className="text-right text-sm text-gray-500">
-              <div>Rates updated: <CurrentDate /></div>
-              <div>{ratesData.length} rates from {lenders.length} lenders</div>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Last updated: <LastUpdated /></span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span>{ratesData.length} rates from {lenders.length} lenders</span>
             </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section - Top Rates */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <h2 className="text-xl font-semibold mb-4">Top Rates Today</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,24 +151,21 @@ export default function Home() {
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
                       <div className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
-                        rate.lender_slug === 'nesto' ? 'bg-emerald-500 text-white' :
-                        rate.lender_slug === 'tangerine' ? 'bg-orange-500 text-white' :
-                        rate.lender_slug === 'cibc' ? 'bg-red-600 text-white' :
-                        rate.lender_slug === 'rbc' ? 'bg-blue-700 text-yellow-400' :
-                        rate.lender_slug === 'bmo' ? 'bg-red-700 text-white' :
-                        rate.lender_slug === 'td' ? 'bg-green-600 text-white' :
-                        rate.lender_slug === 'scotiabank' ? 'bg-red-500 text-white' :
-                        'bg-gray-400 text-white'
+                        i === 0 ? 'bg-green-500' : i === 1 ? 'bg-blue-500' : 'bg-gray-500'
                       }`}>
-                        {rate.lender_slug === 'td' ? 'TD' : rate.lender_slug.charAt(0).toUpperCase()}
+                        {i + 1}
                       </div>
-                      <span className="hover:underline">{rate.lender_name}</span>
+                      <span>{rate.lender_name}</span>
                     </Link>
-                    <span className="text-2xl font-bold">{rate.rate.toFixed(2)}%</span>
+                    <div className="text-right">
+                      <span className="text-lg font-bold">{rate.rate}%</span>
+                      {rate.apr && <span className="text-xs text-white/70 ml-1">APR {rate.apr}%</span>}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+            
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <h3 className="text-sm font-medium mb-3">5-Year Variable Uninsured</h3>
               <div className="space-y-2">
@@ -162,71 +173,74 @@ export default function Home() {
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
                       <div className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
-                        rate.lender_slug === 'nesto' ? 'bg-emerald-500 text-white' :
-                        rate.lender_slug === 'tangerine' ? 'bg-orange-500 text-white' :
-                        rate.lender_slug === 'cibc' ? 'bg-red-600 text-white' :
-                        rate.lender_slug === 'rbc' ? 'bg-blue-700 text-yellow-400' :
-                        rate.lender_slug === 'bmo' ? 'bg-red-700 text-white' :
-                        rate.lender_slug === 'td' ? 'bg-green-600 text-white' :
-                        rate.lender_slug === 'scotiabank' ? 'bg-red-500 text-white' :
-                        'bg-gray-400 text-white'
+                        i === 0 ? 'bg-green-500' : i === 1 ? 'bg-blue-500' : 'bg-gray-500'
                       }`}>
-                        {rate.lender_slug === 'td' ? 'TD' : rate.lender_slug.charAt(0).toUpperCase()}
+                        {i + 1}
                       </div>
-                      <span className="hover:underline">{rate.lender_name}</span>
+                      <span>{rate.lender_name}</span>
                     </Link>
-                    <span className="text-2xl font-bold">{rate.rate.toFixed(2)}%</span>
+                    <div className="text-right">
+                      <span className="text-lg font-bold">{rate.rate}%</span>
+                      {rate.spread_to_prime && (
+                        <span className="text-xs text-white/70 ml-1">{rate.spread_to_prime}</span>
+                      )}
+                    </div>
                   </div>
                 ))}
+                {topRates.variable5yr.length === 0 && (
+                  <p className="text-white/70 text-sm">No variable rates currently available</p>
+                )}
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Rate Stats */}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <RateStats rates={ratesData as Rate[]} />
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <MortgageCalculator />
-          </div>
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        {/* Filters */}
+        <div className="mb-6">
+          <RateFilters 
+            onFilterChange={handleFilterChange}
+            lenders={lenders}
+          />
+        </div>
 
-          {/* Main Content Area */}
-          <div className="lg:col-span-3">
-            
-            {/* Statistics */}
-            <RateStats rates={ratesData as Rate[]} />
+        {/* Rate Table */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <RateComparisonTable rates={filteredRates} />
+        </div>
 
-            {/* Filters */}
-            <RateFilters onFilterChange={handleFilterChange} lenders={lenders} />
+        {/* Download CSV Section */}
+        <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Download Rate Data</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Download the complete rate dataset in CSV format for your own analysis.
+          </p>
+          <a 
+            href="/api/rates" 
+            download="mortgage-rates.csv"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Download CSV
+          </a>
+        </div>
 
-            {/* Results Count & Reset */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-gray-600">
-                Showing {filteredRates.length} of {ratesData.length} rates
-              </div>
-              <button
-                onClick={resetFilters}
-                className="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 border border-blue-600 rounded hover:bg-blue-50"
-              >
-                Reset Filters
-              </button>
-            </div>
-
-            {/* Rate Comparison Table */}
-            <RateComparisonTable rates={filteredRates} />
-
-            {/* Footer Info */}
-            <footer className="mt-12 text-center text-sm text-gray-500">
-              <p>Rates are for comparison purposes only. Actual rates may vary based on your specific situation.</p>
-              <p className="mt-2">Data sources: RBC, TD, BMO, Scotiabank, CIBC, nesto, Tangerine</p>
-              <p className="mt-2 text-xs">Last updated: <CurrentDateTime /></p>
-            </footer>
-          </div>
+        {/* Mortgage Calculator */}
+        <div className="mt-8">
+          <MortgageCalculator />
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }
