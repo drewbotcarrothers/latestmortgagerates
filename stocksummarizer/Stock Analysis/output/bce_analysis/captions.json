@@ -1,0 +1,41 @@
+{
+  "ticker": "BCE",
+  "scenes": [
+    {
+      "timestamp": "0:00-0:30",
+      "caption": "What if I told you Canada's largest telecom is trading like it's going bankrupt?"
+    },
+    {
+      "timestamp": "0:30-1:30",
+      "caption": "BCE - 145 years old, $32.8B market cap, 10M+ subscribers"
+    },
+    {
+      "timestamp": "1:30-3:00",
+      "caption": "Trading at just 5.3x P/E - 52% discount to sector"
+    },
+    {
+      "timestamp": "3:00-5:00",
+      "caption": "Bell operates 4 business segments with duopoly wireless position"
+    },
+    {
+      "timestamp": "5:00-8:00",
+      "caption": "4.97% dividend yield vs 3% GIC - 66% advantage"
+    },
+    {
+      "timestamp": "8:00-10:00",
+      "caption": "Bull case: Mean reversion, rate cuts, defensive moat"
+    },
+    {
+      "timestamp": "10:00-12:00",
+      "caption": "Bear case: High payout ratio, debt load, cord-cutting"
+    },
+    {
+      "timestamp": "12:00-14:00",
+      "caption": "Valuation math: 10x P/E = $65 target (+84% upside)"
+    },
+    {
+      "timestamp": "14:00-15:00",
+      "caption": "Bottom line: Asymmetric bet for patient income investors"
+    }
+  ]
+}
