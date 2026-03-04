@@ -118,6 +118,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center gap-6">
               <Link href="/" className="text-blue-600 font-medium border-b-2 border-blue-600">Rates</Link>
               <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
+              <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
             </nav>
             <div className="text-right text-sm text-gray-500">
               <div>Rates updated: <CurrentDate /></div>
