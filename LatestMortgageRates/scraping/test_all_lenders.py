@@ -1,5 +1,5 @@
 """
-Test all lenders (Big 5 + Monolines) with live captured rates.
+Test all lenders (Big 5 + Additional Lenders) with live captured rates.
 Scrapes rates from all banks and saves to database.
 """
 
@@ -24,12 +24,15 @@ from src.scrapers.scotiabank_scraper import ScotiabankScraper
 from src.scrapers.cibc_scraper import CIBCScraper
 from src.scrapers.nesto_scraper import NestoScraper
 from src.scrapers.tangerine_scraper import TangerineScraper
+from src.scrapers.meridian_scraper import MeridianScraper
+from src.scrapers.simplii_scraper import SimpliiScraper
+from src.scrapers.eqbank_scraper import EQBankScraper
 
 
 def scrape_all_lenders():
     """Scrape all banks and monoline lenders, save to database."""
     
-    logger.info("Starting full lender scraping pipeline (Big 5 + Monolines)")
+    logger.info("Starting full lender scraping pipeline (10 lenders)")
     start_time = time.time()
     
     # Initialize components
@@ -47,13 +50,17 @@ def scrape_all_lenders():
         # Monoline Lenders
         NestoScraper(),
         TangerineScraper(),
+        # Additional Lenders
+        MeridianScraper(),
+        SimpliiScraper(),
+        EQBankScraper(),
     ]
     
     all_rates = []
     results = []
     
     print("\n" + "="*70)
-    print("SCRAPING ALL LENDERS (Big 5 + Monolines)")
+    print("SCRAPING ALL LENDERS (10 Lenders)")
     print("="*70)
     
     for scraper in scrapers:
