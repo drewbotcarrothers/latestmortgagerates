@@ -27,8 +27,9 @@ export function generateStaticParams() {
 }
 
 // Generate dynamic metadata for SEO
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
   
   if (lenderRates.length === 0) {
     return {
@@ -48,13 +49,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description,
     keywords: [`${lenderName} mortgage rates`, `${lenderName} rates`, "Canadian mortgage rates", "fixed mortgage", "variable mortgage", `${lenderName} Canada`],
     alternates: {
-      canonical: `https://latestmortgagerates.ca/lenders/${params.slug}`,
+      canonical: `https://latestmortgagerates.ca/lenders/${slug}`,
     },
     openGraph: {
       title,
       description,
       type: "website",
-      url: `https://latestmortgagerates.ca/lenders/${params.slug}`,
+      url: `https://latestmortgagerates.ca/lenders/${slug}`,
       locale: "en_CA",
       siteName: "Latest Mortgage Rates Canada",
     },
@@ -111,8 +112,13 @@ function generateStructuredData(lenderName: string, rates: Rate[], slug: string)
   };
 }
 
-export default function LenderPage({ params }: { params: { slug: string } }) {
-  const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === params.slug);
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function LenderPage({ params }: PageProps) {
+  const { slug } = await params;
+  const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
   
   if (lenderRates.length === 0) {
     notFound();
@@ -129,7 +135,7 @@ export default function LenderPage({ params }: { params: { slug: string } }) {
   const bestFixed = fixedRates[0];
   const bestVariable = variableRates[0];
   
-  const structuredData = generateStructuredData(lenderName, lenderRates, params.slug);
+  const structuredData = generateStructuredData(lenderName, lenderRates, slug);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -166,7 +172,7 @@ export default function LenderPage({ params }: { params: { slug: string } }) {
           </nav>
           
           <div className="flex items-center gap-4">
-            <LenderLogo lenderSlug={params.slug} size="lg" />
+            <LenderLogo lenderSlug={slug} size="lg" />
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{lenderName} Mortgage Rates</h1>
               <p className="text-gray-600 mt-1">
