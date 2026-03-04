@@ -45,6 +45,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://latestmortgagerates.ca/privacy",
+      lastModified: new Date("2026-03-04"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://latestmortgagerates.ca/terms",
+      lastModified: new Date("2026-03-04"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
     ...uniqueLenders.map((slug) => ({
       url: `https://latestmortgagerates.ca/lenders/${slug}`,
       lastModified: new Date(),

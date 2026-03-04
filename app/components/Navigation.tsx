@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import ThemeToggle from "./ThemeToggle";
 
 interface NavigationProps {
   currentPage?: "rates" | "guides" | "glossary" | "tools";
@@ -20,9 +19,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   return (
     <nav className="relative">
-      {/* Mobile Menu Button & Theme Toggle */}
+      {/* Mobile Menu Button */}
       <div className="flex items-center gap-2 md:hidden">
-        <ThemeToggle />
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -69,9 +67,6 @@ export default function Navigation({ currentPage }: NavigationProps) {
             {item.label}
           </Link>
         ))}
-        <div className="ml-2 pl-2 border-l border-gray-200 dark:border-gray-700">
-          <ThemeToggle />
-        </div>
       </div>
 
       {/* Mobile Navigation Dropdown */}
