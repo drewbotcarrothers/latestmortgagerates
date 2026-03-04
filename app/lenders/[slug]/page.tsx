@@ -314,19 +314,24 @@ export default async function LenderPage({ params }: PageProps) {
         {/* Footer */}
         <footer className="mt-8 text-center text-sm text-gray-500">
           <p>Rates are for comparison purposes only. Visit {lenderName}'s website for actual rates.</p>
-          {lenderRates[0]?.source_url && (
-            <p className="mt-2">
-              Data source:{" "}
-              <a
-                href={lenderRates[0].source_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                {lenderName} Official Website
-              </a>
-            </p>
-          )}
+          {
+            (() => {
+              const firstSourceUrl = lenderRates[0]?.source_url;
+              return firstSourceUrl ? (
+                <p className="mt-2">
+                  Data source:{" "}
+                  <a
+                    href={firstSourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    {lenderName} Official Website
+                  </a>
+                </p>
+              ) : null;
+            })()
+          }
         </footer>
       </div>
     </main>
