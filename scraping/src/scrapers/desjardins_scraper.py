@@ -36,7 +36,7 @@ class DesjardinsScraper:
                 browser = p.chromium.launch(headless=True)
                 page = browser.new_page()
                 
-                page.goto(self.RATE_URL, wait_until="networkidle", timeout=60000)
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=15000)
                 page.wait_for_load_state("domcontentloaded")
                 page.wait_for_timeout(3000)
                 
