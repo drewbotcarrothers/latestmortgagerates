@@ -305,14 +305,6 @@ export default function GlossaryPage() {
           </div>
         </div>
       </header>
-                className="w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium text-blue-600 hover:bg-blue-50 transition"
-              >
-                {letter}
-              </a>
-            ))}
-          </div>
-        </div>
-      </header>
 
       <script
         type="application/ld+json"
