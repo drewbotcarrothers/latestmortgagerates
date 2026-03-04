@@ -110,7 +110,7 @@ export default function PrivacyPage() {
             <p className="text-gray-700 dark:text-gray-300 mb-4">We do not sell your personal information. We may share data with:</p>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2 mb-4">
               <li>Service providers (hosting, analytics, email delivery)</li>
-              <li<Legal authorities when required by law</li>
+              <li>Legal authorities when required by law</li>
               <li>Business partners (with your consent)</li>
             </ul>
           </section>
