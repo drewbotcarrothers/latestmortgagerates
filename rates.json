@@ -8,7 +8,7 @@
     "rate": 5.99,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -22,7 +22,7 @@
     "rate": 5.14,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -36,7 +36,7 @@
     "rate": 4.44,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -50,7 +50,7 @@
     "rate": 4.49,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -64,7 +64,7 @@
     "rate": 4.49,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -78,7 +78,7 @@
     "rate": 4.0,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": "Prime - 0.45%"
@@ -92,7 +92,7 @@
     "rate": 5.5,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -106,7 +106,7 @@
     "rate": 5.9,
     "posted_rate": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973671",
+    "scraped_at": "2026-03-04T10:38:06.797715",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -120,7 +120,7 @@
     "rate": 5.91,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -134,7 +134,7 @@
     "rate": 3.85,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -148,7 +148,7 @@
     "rate": 3.6,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -162,7 +162,7 @@
     "rate": 4.47,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -176,7 +176,7 @@
     "rate": 3.64,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -190,7 +190,7 @@
     "rate": 3.4,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": "Prime - 1.05%"
@@ -204,7 +204,7 @@
     "rate": 5.84,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -218,7 +218,7 @@
     "rate": 7.39,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "0-65%",
     "spread_to_prime": null
@@ -232,7 +232,7 @@
     "rate": 4.29,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "65-80%",
     "spread_to_prime": null
@@ -246,7 +246,7 @@
     "rate": 4.19,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "65-80%",
     "spread_to_prime": null
@@ -260,7 +260,7 @@
     "rate": 3.85,
     "posted_rate": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973670",
+    "scraped_at": "2026-03-04T10:38:06.797714",
     "apr": null,
     "ltv_tier": "65-80%",
     "spread_to_prime": null
@@ -274,7 +274,7 @@
     "rate": 4.39,
     "posted_rate": null,
     "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973668",
+    "scraped_at": "2026-03-04T10:38:06.797710",
     "apr": "4.41",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -288,7 +288,7 @@
     "rate": 4.15,
     "posted_rate": null,
     "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973668",
+    "scraped_at": "2026-03-04T10:38:06.797710",
     "apr": "4.17",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -302,7 +302,7 @@
     "rate": 4.54,
     "posted_rate": null,
     "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973668",
+    "scraped_at": "2026-03-04T10:38:06.797710",
     "apr": "4.56",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -316,7 +316,7 @@
     "rate": 4.19,
     "posted_rate": null,
     "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973668",
+    "scraped_at": "2026-03-04T10:38:06.797710",
     "apr": "4.21",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -330,7 +330,7 @@
     "rate": 5.95,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -344,7 +344,7 @@
     "rate": 4.9,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -358,7 +358,7 @@
     "rate": 5.84,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -372,7 +372,7 @@
     "rate": 5.14,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -386,7 +386,7 @@
     "rate": 6.05,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -400,7 +400,7 @@
     "rate": 5.99,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -414,7 +414,7 @@
     "rate": 6.09,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -428,7 +428,7 @@
     "rate": 6.4,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -442,7 +442,7 @@
     "rate": 6.8,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -456,7 +456,7 @@
     "rate": 9.75,
     "posted_rate": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973665",
+    "scraped_at": "2026-03-04T10:38:06.797708",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -470,7 +470,7 @@
     "rate": 4.39,
     "posted_rate": null,
     "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973662",
+    "scraped_at": "2026-03-04T10:38:06.797706",
     "apr": "4.42",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -484,7 +484,7 @@
     "rate": 4.49,
     "posted_rate": null,
     "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973662",
+    "scraped_at": "2026-03-04T10:38:06.797706",
     "apr": "4.51",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -498,7 +498,7 @@
     "rate": 4.64,
     "posted_rate": null,
     "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973662",
+    "scraped_at": "2026-03-04T10:38:06.797706",
     "apr": "4.66",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -512,7 +512,7 @@
     "rate": 4.15,
     "posted_rate": null,
     "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-03-01T13:38:52.973662",
+    "scraped_at": "2026-03-04T10:38:06.797706",
     "apr": "4.17",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -526,7 +526,7 @@
     "rate": 4.49,
     "posted_rate": 6.05,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973658",
+    "scraped_at": "2026-03-04T10:38:06.797703",
     "apr": "4.525",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -540,7 +540,7 @@
     "rate": 4.64,
     "posted_rate": 6.09,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973658",
+    "scraped_at": "2026-03-04T10:38:06.797703",
     "apr": "4.661",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -554,7 +554,7 @@
     "rate": 4.29,
     "posted_rate": 4.6,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973658",
+    "scraped_at": "2026-03-04T10:38:06.797703",
     "apr": "4.311",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -568,7 +568,7 @@
     "rate": 4.64,
     "posted_rate": 6.09,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-03-01T13:38:52.973658",
+    "scraped_at": "2026-03-04T10:38:06.797703",
     "apr": "4.661",
     "ltv_tier": null,
     "spread_to_prime": null
@@ -582,7 +582,7 @@
     "rate": 4.39,
     "posted_rate": 4.43,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973654",
+    "scraped_at": "2026-03-04T10:38:06.797700",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -596,7 +596,7 @@
     "rate": 4.59,
     "posted_rate": 4.62,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973654",
+    "scraped_at": "2026-03-04T10:38:06.797700",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -610,7 +610,7 @@
     "rate": 3.95,
     "posted_rate": 3.98,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973654",
+    "scraped_at": "2026-03-04T10:38:06.797700",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -624,7 +624,7 @@
     "rate": 4.29,
     "posted_rate": 4.32,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973654",
+    "scraped_at": "2026-03-04T10:38:06.797700",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
@@ -638,7 +638,7 @@
     "rate": 3.65,
     "posted_rate": 3.68,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-03-01T13:38:52.973654",
+    "scraped_at": "2026-03-04T10:38:06.797700",
     "apr": null,
     "ltv_tier": null,
     "spread_to_prime": null
