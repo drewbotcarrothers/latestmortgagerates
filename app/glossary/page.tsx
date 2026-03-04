@@ -296,7 +296,7 @@ export default function GlossaryPage() {
               <h1 className="text-3xl font-bold text-gray-900">Mortgage Glossary</h1>
               <p className="text-gray-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
             </div>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base">
               <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
               <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
               <Link href="/glossary" className="text-blue-600 font-medium border-b-2 border-blue-600">Glossary</Link>

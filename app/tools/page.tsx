@@ -40,7 +40,7 @@ export default function ToolsPage() {
                 Free tools to help you plan your mortgage
               </p>
             </div>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base">
               <Link href="/" className="text-gray-600 hover:text-blue-600 transition">Rates</Link>
               <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
               <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>

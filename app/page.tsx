@@ -115,7 +115,7 @@ export default function Home() {
                 Compare current rates from Big 5 banks and monoline lenders
               </p>
             </div>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base">
               <Link href="/" className="text-blue-600 font-medium border-b-2 border-blue-600">Rates</Link>
               <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition">Guides</Link>
               <Link href="/glossary" className="text-gray-600 hover:text-blue-600 transition">Glossary</Link>
