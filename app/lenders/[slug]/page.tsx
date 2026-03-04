@@ -193,14 +193,16 @@ export default async function LenderPage({ params }: PageProps) {
               <p className="text-green-100 mt-1">
                 {getTermLabel(bestFixed.term_months)} {formatRateType(bestFixed.mortgage_type)}
               </p>
-              <a
-                href={bestFixed.source_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 px-6 py-2 bg-white text-green-700 rounded-lg font-medium hover:bg-gray-100 transition"
-              >
-                View Rate
-              </a>
+              {bestFixed.source_url && (
+                <a
+                  href={bestFixed.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-4 px-6 py-2 bg-white text-green-700 rounded-lg font-medium hover:bg-gray-100 transition"
+                >
+                  View Rate
+                </a>
+              )}
             </div>
           )}
           
@@ -211,14 +213,16 @@ export default async function LenderPage({ params }: PageProps) {
               <p className="text-blue-100 mt-1">
                 {getTermLabel(bestVariable.term_months)} {formatRateType(bestVariable.mortgage_type)}
               </p>
-              <a
-                href={bestVariable.source_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-4 px-6 py-2 bg-white text-blue-700 rounded-lg font-medium hover:bg-gray-100 transition"
-              >
-                View Rate
-              </a>
+              {bestVariable.source_url && (
+                <a
+                  href={bestVariable.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-4 px-6 py-2 bg-white text-blue-700 rounded-lg font-medium hover:bg-gray-100 transition"
+                >
+                  View Rate
+                </a>
+              )}
             </div>
           )}
         </div>
