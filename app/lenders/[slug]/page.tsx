@@ -93,16 +93,18 @@ function generateStructuredData(lenderName: string, rates: Rate[], slug: string)
     provider: {
       "@type": "BankOrCreditUnion",
       name: lenderName,
-      url: rates[0]?.source_url || `https://latestmortgagerates.ca/lenders/${slug}`,
+      url: rates.find((r) => r.source_url)?.source_url || `https://latestmortgagerates.ca/lenders/${slug}`,
     },
-    offers: rates.map((rate) => ({
-      "@type": "AggregateOffer",
-      price: rate.rate.toString(),
-      priceCurrency: "CAD",
-      description: `${formatRateType(rate.rate_type)} rate for ${getTermLabel(rate.term_months)}`,
-      availability: "https://schema.org/InStock",
-      url: rate.source_url,
-    })),
+    offers: rates
+      .filter((rate) => rate.source_url)
+      .map((rate) => ({
+        "@type": "AggregateOffer",
+        price: rate.rate.toString(),
+        priceCurrency: "CAD",
+        description: `${formatRateType(rate.rate_type)} rate for ${getTermLabel(rate.term_months)}`,
+        availability: "https://schema.org/InStock",
+        url: rate.source_url,
+      })),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: lowestRate.toFixed(2),
@@ -312,17 +314,19 @@ export default async function LenderPage({ params }: PageProps) {
         {/* Footer */}
         <footer className="mt-8 text-center text-sm text-gray-500">
           <p>Rates are for comparison purposes only. Visit {lenderName}'s website for actual rates.</p>
-          <p className="mt-2">
-            Data source:{" "}
-            <a
-              href={lenderRates[0]?.source_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              {lenderName} Official Website
-            </a>
-          </p>
+          {lenderRates[0]?.source_url && (
+            <p className="mt-2">
+              Data source:{" "}
+              <a
+                href={lenderRates[0].source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                {lenderName} Official Website
+              </a>
+            </p>
+          )}
         </footer>
       </div>
     </main>
