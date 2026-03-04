@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: "https://latestmortgagerates.ca/glossary",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     ...uniqueLenders.map((slug) => ({
       url: `https://latestmortgagerates.ca/lenders/${slug}`,
       lastModified: new Date(),
