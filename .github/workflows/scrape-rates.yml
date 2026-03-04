@@ -1,4 +1,5 @@
 name: Scrape Mortgage Rates
+# Scrapes rates from 19 Canadian lenders daily
 
 on:
   schedule:
