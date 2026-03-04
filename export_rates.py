@@ -13,7 +13,7 @@ from database import Database
 
 
 def export_rates_to_json():
-    """Export all rates to JSON file for website."""
+    """Export all rates to JSON file for website, removing duplicates."""
     
     db = Database()
     rates = db.get_latest_rates()
@@ -22,9 +22,36 @@ def export_rates_to_json():
         print("No rates found in database")
         return
     
-    # Process rates
-    processed_rates = []
+    # Process rates and remove duplicates
+    # Keep only the most recent rate for each unique combination
+    # of (lender_slug, term_months, rate_type, mortgage_type)
+    seen_keys = {}
+    deduplicated_rates = []
+    
     for rate in rates:
+        # Create a unique key for this rate
+        key = (
+            rate.get("lender_slug", ""),
+            rate.get("term_months", 0),
+            rate.get("rate_type", ""),
+            rate.get("mortgage_type", "")
+        )
+        
+        scraped_at = rate.get("scraped_at", "")
+        
+        # Keep only the most recent rate for each key
+        if key not in seen_keys or scraped_at > seen_keys[key]["scraped_at"]:
+            if key in seen_keys:
+                # We'll replace this one
+                pass
+            seen_keys[key] = rate
+    
+    # Build the final list from seen_keys
+    unique_rates = list(seen_keys.values())
+    
+    # Process rates for JSON export
+    processed_rates = []
+    for rate in unique_rates:
         # Parse raw_data if it's a string
         raw_data = rate.get("raw_data", {})
         if isinstance(raw_data, str):
@@ -55,7 +82,7 @@ def export_rates_to_json():
     with open(output_file, 'w') as f:
         json.dump(processed_rates, f, indent=2)
     
-    print(f"Exported {len(processed_rates)} rates to {output_file}")
+    print(f"Exported {len(processed_rates)} unique rates to {output_file}")
     
     # Also export metadata
     metadata = {
@@ -69,6 +96,11 @@ def export_rates_to_json():
         json.dump(metadata, f, indent=2)
     
     print(f"Exported metadata to {metadata_file}")
+    
+    # Print deduplication stats
+    removed = len(rates) - len(unique_rates)
+    if removed > 0:
+        print(f"\nRemoved {removed} duplicate rate(s)")
     
     # Print summary
     print("\nRate Summary:")
