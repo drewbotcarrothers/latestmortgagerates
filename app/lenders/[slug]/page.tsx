@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import LenderLogo from "../../components/LenderLogo";
 
+// Force static generation for static export
+export const dynamic = "force-static";
+
 // Import rates data
 import ratesData from "../../../data/rates.json";
 

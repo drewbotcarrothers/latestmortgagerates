@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+// Force static generation for static export
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Mortgage Glossary | Key Terms & Definitions | Latest Mortgage Rates Canada",
   description: "Comprehensive mortgage glossary explaining key terms for Canadian homebuyers. Understand amortization, CMHC, GDS ratio, LTV, and more mortgage terminology.",

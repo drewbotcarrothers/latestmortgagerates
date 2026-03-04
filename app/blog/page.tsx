@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+// Force static generation for static export
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Mortgage Guides & Resources | Latest Mortgage Rates Canada",
   description: "Expert mortgage guides, tips, and resources for Canadian homebuyers. Learn about fixed vs variable rates, stress tests, first-time buyer programs, and more.",

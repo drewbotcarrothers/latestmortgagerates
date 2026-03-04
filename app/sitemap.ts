@@ -5,6 +5,9 @@ interface Rate {
   lender_slug: string;
 }
 
+// Force static generation for static export
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const uniqueLenders = [...new Set((ratesData as Rate[]).map((r) => r.lender_slug))];
   

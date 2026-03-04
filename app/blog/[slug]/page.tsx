@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+// Force static generation for static export
+export const dynamic = "force-static";
+
 interface BlogPost {
   slug: string;
   title: string;
