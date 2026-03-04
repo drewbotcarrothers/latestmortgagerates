@@ -22,17 +22,26 @@ from src.scrapers.td_scraper import TDScraper
 from src.scrapers.bmo_scraper import BMOScraper
 from src.scrapers.scotiabank_scraper import ScotiabankScraper
 from src.scrapers.cibc_scraper import CIBCScraper
+from src.scrapers.nationalbank_scraper import NationalBankScraper
 from src.scrapers.nesto_scraper import NestoScraper
 from src.scrapers.tangerine_scraper import TangerineScraper
 from src.scrapers.meridian_scraper import MeridianScraper
 from src.scrapers.simplii_scraper import SimpliiScraper
 from src.scrapers.eqbank_scraper import EQBankScraper
+from src.scrapers.desjardins_scraper import DesjardinsScraper
+from src.scrapers.firstnational_scraper import FirstNationalScraper
+from src.scrapers.mcap_scraper import MCAPScraper
+from src.scrapers.laurentian_scraper import LaurentianBankScraper
+from src.scrapers.manulife_scraper import ManulifeBankScraper
+from src.scrapers.motive_scraper import MotiveScraper
+from src.scrapers.alterna_scraper import AlternaScraper
+from src.scrapers.rfa_scraper import RFAScraper
 
 
 def scrape_all_lenders():
     """Scrape all banks and monoline lenders, save to database."""
     
-    logger.info("Starting full lender scraping pipeline (10 lenders)")
+    logger.info("Starting full lender scraping pipeline (21 lenders)")
     start_time = time.time()
     
     # Initialize components
@@ -41,26 +50,36 @@ def scrape_all_lenders():
     
     # All scrapers
     scrapers = [
-        # Big 5 Banks
+        # Big 6 Banks
         RBCScraper(),
         TDScraper(),
         BMOScraper(),
         ScotiabankScraper(),
         CIBCScraper(),
-        # Monoline Lenders
+        NationalBankScraper(),
+        # Digital/Direct Bank Lenders
         NestoScraper(),
         TangerineScraper(),
-        # Additional Lenders
-        MeridianScraper(),
-        SimpliiScraper(),
         EQBankScraper(),
+        SimpliiScraper(),
+        MotiveScraper(),
+        AlternaScraper(),
+        # Credit Unions
+        MeridianScraper(),
+        DesjardinsScraper(),
+        # Monoline Lenders
+        FirstNationalScraper(),
+        MCAPScraper(),
+        LaurentianBankScraper(),
+        ManulifeBankScraper(),
+        RFAScraper(),
     ]
     
     all_rates = []
     results = []
     
     print("\n" + "="*70)
-    print("SCRAPING ALL LENDERS (10 Lenders)")
+    print("SCRAPING ALL LENDERS (19 Lenders)")
     print("="*70)
     
     for scraper in scrapers:
@@ -154,7 +173,7 @@ def scrape_all_lenders():
     for r in sorted_rates:
         apr = r.raw_data.get("apr", "")
         apr_str = f" (APR: {apr}%)" if apr else ""
-        print(f"  {r.lender_name:20} {r.rate}%{apr_str}")
+        print(f"  {r.lender_name:25} {r.rate}%{apr_str}")
     
     if not sorted_rates:
         print("  No 5-year fixed uninsured rates found")
@@ -174,7 +193,7 @@ def scrape_all_lenders():
     for r in sorted_insured:
         ltv = r.raw_data.get("ltv_tier", "")
         ltv_str = f" (LTV: {ltv})" if ltv else ""
-        print(f"  {r.lender_name:20} {r.rate}%{ltv_str}")
+        print(f"  {r.lender_name:25} {r.rate}%{ltv_str}")
     
     if not sorted_insured:
         print("  No 5-year fixed insured rates found")
@@ -196,7 +215,7 @@ def scrape_all_lenders():
         posted_str = f" (posted: {posted}%)" if posted else ""
         spread = r.raw_data.get("spread_to_prime", "")
         spread_str = f" [{spread}]" if spread else ""
-        print(f"  {r.lender_name:20} {r.rate}%{posted_str}{spread_str}")
+        print(f"  {r.lender_name:25} {r.rate}%{posted_str}{spread_str}")
     
     if not sorted_var:
         print("  No 5-year variable uninsured rates found")
@@ -218,7 +237,7 @@ def scrape_all_lenders():
         spread_str = f" [{spread}]" if spread else ""
         ltv = r.raw_data.get("ltv_tier", "")
         ltv_str = f" (LTV: {ltv})" if ltv else ""
-        print(f"  {r.lender_name:20} {r.rate}%{spread_str}{ltv_str}")
+        print(f"  {r.lender_name:25} {r.rate}%{spread_str}{ltv_str}")
     
     if not sorted_var_ins:
         print("  No 5-year variable insured rates found")
