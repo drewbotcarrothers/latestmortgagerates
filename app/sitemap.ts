@@ -37,6 +37,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "vancouver",
     "montreal",
     "calgary",
+    "ottawa",
+    "edmonton",
+    "winnipeg",
+    "halifax",
+    "hamilton",
+    "victoria",
+    "kitchener",
+    "london",
+    "quebec-city",
   ];
 
   return [
