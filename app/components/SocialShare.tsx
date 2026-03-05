@@ -55,7 +55,7 @@ export default function SocialShare({
       <span className="text-sm text-gray-600 mr-2">Share:</span>
       
       {/* Native Share (Mobile) */}
-      {typeof navigator !== "undefined" && navigator.share && (
+      {typeof navigator !== "undefined" && (navigator as Navigator).share && (
         <button
           onClick={handleNativeShare}
           className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition"

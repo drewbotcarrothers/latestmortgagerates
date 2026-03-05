@@ -30,6 +30,7 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
+  // Original posts
   {
     slug: "fixed-vs-variable-mortgage-rates",
     title: "Fixed vs Variable Mortgage Rates: Which is Right for You?",
@@ -78,6 +79,87 @@ const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     publishedAt: "2026-03-03",
   },
+  // NEW POSTS - 10 new blog posts
+  {
+    slug: "closing-costs-canada",
+    title: "Closing Costs in Canada: Complete Guide for Homebuyers",
+    excerpt: "Understand all the costs involved when buying a home in Canada, from down payments to land transfer tax, legal fees, and more. Budget 1.5-4% of purchase price.",
+    category: "Home Buying",
+    readTime: "10 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "mortgage-pre-approval-guide",
+    title: "How to Get Mortgage Pre-Approval in Canada",
+    excerpt: "A step-by-step guide to mortgage pre-approval, including required documents, how long it takes, and tips to improve your chances of approval.",
+    category: "Home Buying",
+    readTime: "8 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "variable-vs-fixed-rates-2025",
+    title: "Variable vs Fixed Rates: 2025 Market Outlook",
+    excerpt: "Expert analysis of the 2024-2025 mortgage rate outlook. Should you choose variable or fixed based on current market conditions and predictions?",
+    category: "Mortgage Strategy",
+    readTime: "9 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "best-mortgage-rates-toronto",
+    title: "Best Mortgage Rates in Toronto 2025",
+    excerpt: "Find the lowest mortgage rates in Toronto and GTA. Compare rates from top lenders, understand Toronto market conditions, and get local insights.",
+    category: "City Guides",
+    readTime: "7 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "best-mortgage-rates-vancouver",
+    title: "Best Mortgage Rates in Vancouver 2025",
+    excerpt: "Find the lowest mortgage rates in Vancouver and Greater Vancouver Area. Compare rates for BC homebuyers and understand the local market.",
+    category: "City Guides",
+    readTime: "7 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "best-mortgage-rates-calgary-montreal",
+    title: "Best Mortgage Rates in Calgary and Montreal 2025",
+    excerpt: "Compare mortgage rates in Calgary and Montreal, two of Canada's most affordable major housing markets. Learn about unique local factors.",
+    category: "City Guides",
+    readTime: "8 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "refinancing-your-mortgage",
+    title: "Refinancing Your Mortgage: When Does It Make Sense?",
+    excerpt: "Learn when to refinance your mortgage, how much you can save, what costs to expect, and strategies to minimize fees.",
+    category: "Mortgage Strategy",
+    readTime: "9 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "porting-vs-breaking-mortgage",
+    title: "Porting vs Breaking Your Mortgage: What You Need to Know",
+    excerpt: "Understand the difference between porting your mortgage and breaking it when selling your home. Save thousands by making the right choice.",
+    category: "Mortgage Strategy",
+    readTime: "7 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "mortgage-default-insurance-explained",
+    title: "Mortgage Default Insurance (CMHC) Explained",
+    excerpt: "Everything you need to know about mortgage default insurance, including costs, providers like CMHC/Sagen/Canada Guaranty, and how it affects your mortgage.",
+    category: "Mortgage Basics",
+    readTime: "8 min read",
+    publishedAt: "2026-03-04",
+  },
+  {
+    slug: "improve-credit-score-mortgage",
+    title: "How to Improve Your Credit Score for Better Mortgage Rates",
+    excerpt: "Actionable strategies to boost your credit score and qualify for the best mortgage rates. Quick wins and long-term improvements.",
+    category: "Mortgage Strategy",
+    readTime: "9 min read",
+    publishedAt: "2026-03-04",
+  },
 ];
 
 const categories = [...new Set(blogPosts.map((post) => post.category))];
@@ -108,6 +190,18 @@ export default function BlogPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            {/* Category Pills */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200 transition"
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
             <div className="space-y-6">
               {blogPosts.map((post) => (
                 <article
@@ -140,6 +234,11 @@ export default function BlogPage() {
                 </article>
               ))}
             </div>
+
+            {/* Pagination - simplified */}
+            <div className="mt-8 flex justify-center">
+              <p className="text-gray-500 text-sm">Showing all {blogPosts.length} guides</p>
+            </div>
           </div>
 
           <aside className="lg:col-span-1">
@@ -148,20 +247,30 @@ export default function BlogPage() {
               <ul className="space-y-2">
                 {categories.map((category) => (
                   <li key={category}>
-                    <a
-                      href="#"
-                      className="text-gray-600 hover:text-blue-600 transition"
-                    >
+                    <span className="text-gray-600">
                       {category}
-                    </a>
+                    </span>
+                    <span className="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                      {blogPosts.filter(p => p.category === category).length}
+                    </span>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-8 pt-6 border-t border-gray-200">
+                <h3 className="font-semibold text-gray-900 mb-4">Popular Cities</h3>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto</Link></li>
+                  <li><Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver</Link></li>
+                  <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary</Link></li>
+                  <li><Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal</Link></li>
+                </ul>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-gray-200">
                 <h3 className="font-semibold text-gray-900 mb-4">Compare Rates</h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  See today&apos;s best mortgage rates from all major Canadian lenders.
+                  See today's best mortgage rates from all major Canadian lenders.
                 </p>
                 <Link
                   href="/"
