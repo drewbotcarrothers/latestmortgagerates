@@ -8,6 +8,8 @@ import MortgageCalculator from "./components/MortgageCalculator";
 import RateStats from "./components/RateStats";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import StructuredData from "./components/StructuredData";
+import SocialShare from "./components/SocialShare";
 
 interface FilterState {
   term: string;
@@ -106,8 +108,14 @@ export default function Home() {
     });
   };
 
+  // Get last updated date for structured data
+  const lastUpdatedDate = metadata?.last_updated || new Date().toISOString();
+
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      {/* JSON-LD Structured Data */}
+      <StructuredData rates={ratesData as Rate[]} lastUpdated={lastUpdatedDate} />
+      
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -232,6 +240,19 @@ export default function Home() {
             </svg>
             Download CSV
           </a>
+        </div>
+
+        {/* Social Sharing */}
+        <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Share These Rates</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Found a great rate? Share it with friends and family.
+          </p>
+          <SocialShare 
+            url="https://latestmortgagerates.ca"
+            title="Latest Mortgage Rates Canada"
+            description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${topRates.fixed5yr[0]?.rate}% from ${topRates.fixed5yr[0]?.lender_name}`}
+          />
         </div>
 
         {/* Mortgage Calculator */}
