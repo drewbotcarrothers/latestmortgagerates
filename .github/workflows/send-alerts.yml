@@ -1,0 +1,75 @@
+name: Send Rate Alert Emails
+
+on:
+  schedule:
+    # Daily at 9:00 AM EST
+    - cron: '0 14 * * *'
+    # Weekly on Sundays at 9:00 AM EST
+    - cron: '0 14 * * 0'
+    # Monthly on 1st at 9:00 AM EST
+    - cron: '0 14 1 * *'
+  workflow_dispatch:
+
+jobs:
+  send-daily:
+    if: github.event.schedule == '0 14 * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        working-directory: ./LatestMortgageRates/web
+        run: npm install
+        
+      - name: Send daily alerts
+        working-directory: ./LatestMortgageRates/web
+        run: npx ts-node scripts/send-rate-alerts.ts daily
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+  send-weekly:
+    if: github.event.schedule == '0 14 * * 0' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        working-directory: ./LatestMortgageRates/web
+        run: npm install
+        
+      - name: Send weekly alerts
+        working-directory: ./LatestMortgageRates/web
+        run: npx ts-node scripts/send-rate-alerts.ts weekly
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+  send-monthly:
+    if: github.event.schedule == '0 14 1 * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        working-directory: ./LatestMortgageRates/web
+        run: npm install
+        
+      - name: Send monthly alerts
+        working-directory: ./LatestMortgageRates/web
+        run: npx ts-node scripts/send-rate-alerts.ts monthly
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
