@@ -23,7 +23,7 @@ jobs:
           python-version: '3.11'
       
       - name: Install Python dependencies
-        working-directory: ./LatestMortgageRates/web/scraping
+        working-directory: ./scraping
         run: |
           pip install -r requirements.txt
       
@@ -33,24 +33,21 @@ jobs:
           python -m playwright install chromium
       
       - name: Run rate scrapers
-        working-directory: ./LatestMortgageRates/web/scraping
+        working-directory: ./scraping
         run: |
           python test_all_lenders.py
       
       - name: Export rates to JSON
-        working-directory: ./LatestMortgageRates/web
         run: |
           python export_rates.py
       
       - name: Check for changes
         id: check_changes
-        working-directory: ./LatestMortgageRates/web
         run: |
           git diff --quiet rates.json || echo "changed=true" >> $GITHUB_OUTPUT
       
       - name: Commit and push if rates changed
         if: steps.check_changes.outputs.changed == 'true'
-        working-directory: ./LatestMortgageRates/web
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
