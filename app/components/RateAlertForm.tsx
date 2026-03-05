@@ -20,7 +20,8 @@ export default function RateAlertForm({ embedded = false }: RateAlertFormProps) 
     setError(null);
 
     try {
-      const response = await fetch("/api/subscribe", {
+      // Submit to PHP backend on Hostinger
+      const response = await fetch("/subscribe.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, frequency }),
