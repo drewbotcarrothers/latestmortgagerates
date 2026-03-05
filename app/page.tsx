@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
+import RateAlertForm from "./components/RateAlertForm";
 
 interface FilterState {
   term: string;
@@ -260,6 +261,9 @@ export default function Home() {
           <MortgageCalculator />
         </div>
       </div>
+
+      {/* Rate Alert Subscription */}
+      <RateAlertForm />
 
       <Footer />
     </main>
