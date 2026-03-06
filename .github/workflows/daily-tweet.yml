@@ -2,6 +2,8 @@ name: Daily Rate Tweet
 on:
   schedule:
     - cron: '0 14 * * *'
+  workflow_dispatch: 
+  
 jobs:
   tweet:
     runs-on: ubuntu-latest
