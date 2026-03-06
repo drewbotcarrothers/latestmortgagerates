@@ -1,23 +1,23 @@
 {
-  "last_updated": "2026-03-06T22:23:07.116473",
+  "last_updated": "2026-03-06T23:13:32.291965",
   "total_rates": 97,
   "lenders": [
-    "nesto",
-    "nationalbank",
-    "bmo",
-    "cibc",
-    "mcap",
     "manulife",
-    "eqbank",
-    "simplii",
-    "tangerine",
-    "laurentian",
+    "mcap",
     "desjardins",
-    "alterna",
-    "firstnational",
-    "motive",
-    "rfa",
+    "meridian",
+    "nesto",
     "scotiabank",
-    "meridian"
+    "bmo",
+    "motive",
+    "tangerine",
+    "cibc",
+    "eqbank",
+    "alterna",
+    "simplii",
+    "rfa",
+    "firstnational",
+    "nationalbank",
+    "laurentian"
   ]
 }
