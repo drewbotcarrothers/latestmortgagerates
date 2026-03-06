@@ -9,10 +9,7 @@ on:
         description: 'Dry run (log only, do not post)'
         required: false
         default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: string
 
 jobs:
   tweet:
