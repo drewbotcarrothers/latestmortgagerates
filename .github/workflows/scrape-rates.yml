@@ -24,17 +24,21 @@ jobs:
           python-version: '3.11'
           
       - name: Install Python dependencies
+        working-directory: ./scraping
         run: pip install -r requirements.txt
         
       - name: Install Playwright browsers
+        working-directory: ./scraping
         run: |
           pip install playwright
           python -m playwright install chromium
           
       - name: Run rate scrapers
+        working-directory: ./scraping
         run: python test_all_lenders.py
         
       - name: Export rates to JSON
+        working-directory: ./scraping
         run: python export_to_site.py
         
       - name: Check for changes
