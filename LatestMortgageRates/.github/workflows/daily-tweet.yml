@@ -6,10 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Dry run (log only, don't post)"
+        description: 'Dry run (log only, do not post)'
         required: false
         default: 'false'
-        type: boolean
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   tweet:
