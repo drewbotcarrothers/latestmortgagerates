@@ -39,7 +39,7 @@ jobs:
         
       - name: Export rates to JSON
         working-directory: ./scraping
-        run: python export_to_site.py
+        run: python export_rates.py
         
       - name: Check for changes
         id: check_changes
