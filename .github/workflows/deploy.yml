@@ -36,9 +36,9 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y ncftp
           
-          # Upload to public_html using ncftpput
+          # Upload to the correct Hostinger path
           cd dist
-          ncftpput -R -v -u "$SFTP_USERNAME" -p "$SFTP_PASSWORD" "$SFTP_HOST" public_html .
+          ncftpput -R -v -u "$SFTP_USERNAME" -p "$SFTP_PASSWORD" "$SFTP_HOST" /home/u163076614/domains/latestmortgagerates.ca/public_html .
         env:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
