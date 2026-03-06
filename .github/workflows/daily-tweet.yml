@@ -1,4 +1,3 @@
-yaml
 name: Daily Rate Tweet
 on:
   schedule:
