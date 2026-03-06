@@ -12,25 +12,34 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+        
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+          
       - name: Install dependencies
         run: npm ci
-      
+        
       - name: Build Next.js app
         run: npm run build
-      
-      - name: Deploy to Hostinger via SFTP
-        uses: easingthemes/ssh-deploy@v5.0.3
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SFTP_HOST }}
-          REMOTE_USER: ${{ secrets.SFTP_USERNAME }}
-          TARGET: ${{ secrets.REMOTE_PATH }}
-          SOURCE: "dist/"
-          ARGS: "-avzr --delete"
+        
+      - name: List dist contents
+        run: |
+          echo "Contents of dist folder:"
+          ls -la dist/
+          echo "Size of dist/_next folder:"
+          du -sh dist/_next 2>/dev/null || echo "_next folder missing or empty"
+          
+      - name: Deploy to Hostinger via FTP
+        run: |
+          sudo apt-get update && sudo apt-get install -y ncftp
+          
+          # Upload to the correct Hostinger path
+          cd dist
+          ncftpput -R -v -u "$SFTP_USERNAME" -p "$SFTP_PASSWORD" "$SFTP_HOST" . .
+        env:
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
