@@ -26,22 +26,19 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Check directory structure
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Listing root:"
-          ls -la
-          echo "Listing LatestMortgageRates/web:"
-          ls -la LatestMortgageRates/web/ || echo "Directory doesn't exist"
-      
       - name: Install dependencies
-        working-directory: ./LatestMortgageRates/web
+        working-directory: ./web
         run: |
-          npm install twitter-api-v2 dotenv tsx
+          npm ci --include=dev || npm install
+          npm install twitter-api-v2 dotenv tsx --save
+      
+      - name: Verify data exists
+        working-directory: ./web
+        run: |
+          ls -la data/rates.json data/metadata.json
       
       - name: Run daily tweet
-        working-directory: ./LatestMortgageRates/web
+        working-directory: ./web
         run: npx tsx scripts/daily-tweet.ts
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
