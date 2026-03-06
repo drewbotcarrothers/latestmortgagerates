@@ -38,8 +38,14 @@ jobs:
           python test_all_lenders.py
       
       - name: Export rates to JSON
+        working-directory: ./scraping
         run: |
           python export_rates.py
+      
+      - name: Copy JSON files to website data folder
+        run: |
+          cp ./rates.json ./LatestMortgageRates/web/data/rates.json
+          cp ./metadata.json ./LatestMortgageRates/web/data/metadata.json
       
       - name: Check for changes
         id: check_changes
@@ -51,6 +57,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add rates.json metadata.json
+          git add rates.json metadata.json LatestMortgageRates/web/data/rates.json LatestMortgageRates/web/data/metadata.json
           git commit -m "Update rates: $(date +'%Y-%m-%d')"
           git push
