@@ -1,22 +1,22 @@
 name: Daily Rate Tweet
-
 on:
   schedule:
     - cron: '0 14 * * *'
-
 jobs:
   tweet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install dependencies
+      - name: Install deps
         working-directory: ./web
-        run: npm ci || npm install && npm install tsx twitter-api-v2
-      - name: Run daily tweet
+        run: npm ci || npm install
+      - name: Add deps
+        working-directory: ./web
+        run: npm install tsx twitter-api-v2
+      - name: Tweet
         working-directory: ./web
         run: npx tsx scripts/daily-tweet.ts
         env:
