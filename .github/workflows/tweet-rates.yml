@@ -1,0 +1,35 @@
+name: Tweet Latest Mortgage Rates
+
+on:
+  workflow_run:
+    workflows: ["Scrape Mortgage Rates"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  tweet-rates:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        working-directory: ./LatestMortgageRates/web
+        run: npm install
+        
+      - name: Post to Twitter
+        working-directory: ./LatestMortgageRates/web
+        run: npx ts-node scripts/post-to-twitter.ts
+        env:
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
