@@ -38,7 +38,7 @@ jobs:
           
           # Upload to the correct Hostinger path
           cd dist
-          ncftpput -R -v -u "$SFTP_USERNAME" -p "$SFTP_PASSWORD" "$SFTP_HOST" domains/latestmortgagerates.ca/public_html .
+          ncftpput -R -v -u "$SFTP_USERNAME" -p "$SFTP_PASSWORD" "$SFTP_HOST" . .
         env:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
