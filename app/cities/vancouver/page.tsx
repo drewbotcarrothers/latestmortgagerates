@@ -1,18 +1,49 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+// Vancouver-specific FAQs
+const vancouverFaqs = [
+  {
+    question: "What are current mortgage rates in Vancouver?",
+    answer: "Current Vancouver mortgage rates are competitive with 5-year fixed rates starting from 4.14% and 5-year variable rates from 3.80%. Rates are slightly lower than Toronto due to competitive BC credit union market.",
+  },
+  {
+    question: "How does BC property transfer tax work?",
+    answer: "BC property transfer tax applies to fair market value: 1% on first $200,000, 2% on $200,000-$2M, 3% on $2M-$3M, and 5% above $3M. First-time buyers may qualify for exemptions on properties under $500,000.",
+  },
+  {
+    question: "Are Vancouver mortgage rates different from rest of Canada?",
+    answer: "Base rates are similar nationally, but BC has a strong credit union presence (Vancity, Coast Capital) that often offers competitive rates. The foreign buyer ban has also affected Vancouver market dynamics.",
+  },
+  {
+    question: "What is the average home price in Vancouver?",
+    answer: "As of 2025, the average detached home price in Greater Vancouver is around $2 million, with condos averaging $750,000. These high prices require larger mortgages and impact monthly payments significantly.",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Vancouver 2025 | Latest Mortgage Rates Canada",
-  description: "Find the lowest mortgage rates in Vancouver and Greater Vancouver Area. Compare rates from top BC lenders, understand Vancouver market conditions.",
-  keywords: "Vancouver mortgage rates, GVA mortgage rates, BC mortgage rates, Vancouver mortgage broker, Vancouver home buyer",
+  title: "Best Mortgage Rates Vancouver 2025 | Current & Historical BC Rates",
+  description: "Find the lowest mortgage rates in Vancouver and GVA for 2025. Compare rates from 20+ BC lenders including credit unions, banks & online lenders. 5-year fixed from 4.14%. Updated daily.",
+  keywords: "Vancouver mortgage rates, GVA mortgage rates, BC mortgage rates, Vancouver mortgage broker, Vancouver home buyer, BC property transfer tax, credit union rates",
   alternates: {
     canonical: "https://latestmortgagerates.ca/cities/vancouver",
   },
   openGraph: {
+    title: "Best Mortgage Rates Vancouver 2025 | Compare BC Lenders",
+    description: "Find the lowest mortgage rates in Vancouver and Greater Vancouver. 5-year fixed from 4.14%. Compare credit unions, banks & online lenders.",
+    type: "website",
+    url: "https://latestmortgagerates.ca/cities/vancouver",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "Best Mortgage Rates Vancouver 2025",
-    description: "Compare the lowest mortgage rates from Vancouver's top lenders",
+    description: "Compare Vancouver mortgage rates from BC lenders. 5-year fixed from 4.14%.",
+  },
+};
     type: "website",
     url: "https://latestmortgagerates.ca/cities/vancouver",
   },
@@ -21,6 +52,7 @@ export const metadata: Metadata = {
 export default function VancouverPage() {
   return (
     <main className="min-h-screen bg-gray-100">
+      {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -35,6 +67,25 @@ export default function VancouverPage() {
               containedIn: "British Columbia",
             },
             url: "https://latestmortgagerates.ca/cities/vancouver",
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: vancouverFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
           }),
         }}
       />
@@ -202,6 +253,21 @@ export default function VancouverPage() {
               </Link>
             </div>
           </aside>
+        </div>
+      </div>
+
+      {/* Social Sharing Section */}
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="font-bold text-gray-900 mb-2">Share Vancouver Mortgage Rates</h3>
+          <p className="text-gray-600 text-sm mb-4">
+            Know someone buying in Vancouver? Share these rates with them.
+          </p>
+          <SocialShare 
+            url="https://latestmortgagerates.ca/cities/vancouver"
+            title="Best Mortgage Rates in Vancouver 2025"
+            description="Compare the lowest mortgage rates in Vancouver and GVA. 5-year fixed from 4.14%."
+          />
         </div>
       </div>
     </main>
