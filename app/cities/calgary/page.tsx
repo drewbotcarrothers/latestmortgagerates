@@ -1,20 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+// Calgary-specific FAQs
+const calgaryFaqs = [
+  {
+    question: "What are current mortgage rates in Calgary?",
+    answer: "Current Calgary mortgage rates are competitive with 5-year fixed rates starting from 4.19% and 5-year variable rates from 3.85%. Calgary's market is more affordable than Toronto or Vancouver, with average home prices around $540,000.",
+  },
+  {
+    question: "Does Alberta have land transfer tax?",
+    answer: "No! Alberta is one of the few provinces with no land transfer tax. This saves homebuyers thousands compared to Ontario or BC. You only pay a small property registration fee of approximately $300-500 depending on property value.",
+  },
+  {
+    question: "Is Calgary a good place to buy a home?",
+    answer: "Calgary offers excellent value with average home prices around $540,000 - significantly lower than Toronto ($1.2M) or Vancouver ($2M). The energy sector drives the economy, and there's no provincial sales tax on goods.",
+  },
+  {
+    question: "Which lenders offer the best rates in Calgary?",
+    answer: "Calgary has strong representation from major banks, credit unions (Servus, Connect First), and online lenders. Due to no land transfer tax, homebuyers can often qualify for better rates with larger down payments.",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Calgary 2025 | Latest Mortgage Rates Canada",
-  description: "Find the lowest mortgage rates in Calgary. Compare rates from Alberta lenders, enjoy no land transfer tax, and lower closing costs.",
-  keywords: "Calgary mortgage rates, Alberta mortgage rates, Calgary mortgage broker, best rates Calgary, Calgary home buyer",
+  title: "Best Mortgage Rates Calgary 2025 | Alberta's Most Affordable Market",
+  description: "Find the lowest mortgage rates in Calgary for 2025. Compare rates from Alberta lenders. No land transfer tax! 5-year fixed from 4.19%. Average home price $540K.",
+  keywords: "Calgary mortgage rates, Alberta mortgage rates, Calgary mortgage broker, best rates Calgary, Calgary home buyer, no land transfer tax Alberta, Alberta mortgage",
   alternates: {
     canonical: "https://latestmortgagerates.ca/cities/calgary",
   },
   openGraph: {
-    title: "Best Mortgage Rates Calgary 2025",
-    description: "Compare the lowest mortgage rates from Calgary lenders - no land transfer tax in Alberta!",
+    title: "Best Mortgage Rates Calgary 2025 | No Land Transfer Tax!",
+    description: "Compare Calgary mortgage rates from Alberta lenders. No land transfer tax! 5-year fixed from 4.19%. Average home price $540K.",
     type: "website",
     url: "https://latestmortgagerates.ca/cities/calgary",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Mortgage Rates Calgary 2025",
+    description: "Calgary mortgage rates - no land transfer tax! 5-year fixed from 4.19%.",
   },
 };
 
