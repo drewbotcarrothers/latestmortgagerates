@@ -1234,21 +1234,32 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!post) {
     return {
-      title: "Post Not Found | Latest Mortgage Rates Canada",
+      title: "Page Not Found | Latest Mortgage Rates Canada",
+      description: "The page you're looking for could not be found. Browse our mortgage guides and rate comparison tools.",
     };
   }
   
-  const relatedKeywords = [
-    "Canadian mortgage",
+  // Generate keywords based on post content
+  const baseKeywords = [
     "mortgage rates Canada",
-    "home buyer tips",
+    "Canadian mortgage",
+    "home buying",
     "mortgage advice",
+    "Canada real estate",
+    post.category.toLowerCase(),
   ];
+  
+  // Extract additional keywords from title
+  const titleKeywords = post.title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(" ")
+    .filter(word => word.length > 3);
   
   return {
     title: `${post.title} | Latest Mortgage Rates Canada`,
-    description: post.excerpt,
-    keywords: [...post.title.split(" "), post.category.toLowerCase(), ...relatedKeywords],
+    description: post.excerpt || `Learn about ${post.title.toLowerCase()} in Canada. Expert advice, tips, and current mortgage rate information for Canadian homebuyers.`,
+    keywords: [...new Set([...baseKeywords, ...titleKeywords])],
     alternates: {
       canonical: `https://latestmortgagerates.ca/blog/${post.slug}`,
     },
@@ -1258,13 +1269,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "article",
       url: `https://latestmortgagerates.ca/blog/${post.slug}`,
       publishedTime: post.publishedAt,
+      modifiedTime: post.publishedAt,
       authors: ["Latest Mortgage Rates Canada"],
       section: post.category,
+      tags: [post.category, "mortgage", "Canada", "real estate"],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      creator: "@latestmortgage",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }

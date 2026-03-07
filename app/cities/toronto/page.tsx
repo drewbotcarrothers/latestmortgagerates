@@ -4,24 +4,51 @@ import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+// Toronto-specific FAQs for Schema markup
+const torontoFaqs = [
+  {
+    question: "What are current mortgage rates in Toronto?",
+    answer: "Current Toronto mortgage rates are competitive with 5-year fixed rates starting from 4.19% and 5-year variable rates from 3.85%. Rates vary by lender including major banks like RBC, TD, Scotiabank, BMO, CIBC, as well as monoline lenders and credit unions.",
+  },
+  {
+    question: "Are mortgage rates higher in Toronto than other cities?",
+    answer: "No, Toronto's mortgage rates are consistent with national rates. The difference is that Toronto's high home prices ($1.2M+ average) require larger mortgages, making even small rate differences more impactful on monthly payments.",
+  },
+  {
+    question: "What is the Toronto land transfer tax?",
+    answer: "Toronto homebuyers pay both Ontario provincial land transfer tax and Toronto municipal LTT. First-time buyers get rebates up to $4,000 provincial and $4,475 municipal (total $8,475). On a $700,000 home, expect to pay approximately $20,000-$23,000 in land transfer taxes before rebates.",
+  },
+  {
+    question: "Which lenders offer the best rates in Toronto?",
+    answer: "The best mortgage rates in Toronto often come from monoline lenders like MCAP, First National, and CMLS, as well as online lenders like Tangerine and EQ Bank. Big 5 banks (RBC, TD, Scotiabank, BMO, CIBC) may match competitive rates for existing customers.",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Toronto 2025 | Latest Mortgage Rates Canada",
-  description: "Find the lowest mortgage rates in Toronto and GTA. Compare rates from top Canadian lenders, understand Toronto market conditions, and connect with local mortgage brokers.",
-  keywords: "Toronto mortgage rates, GTA mortgage rates, Toronto mortgage broker, best rates Toronto, Toronto home buyer",
+  title: "Best Mortgage Rates Toronto 2025 | Current & Historical Rates",
+  description: "Find the lowest mortgage rates in Toronto and GTA for 2025. Compare rates from 20+ lenders including Big 5 banks, monoline lenders & credit unions. 5-year fixed from 4.19%. Updated daily.",
+  keywords: "Toronto mortgage rates, GTA mortgage rates, Toronto mortgage broker, best rates Toronto, Toronto home buyer, Toronto land transfer tax, mortgage rates today",
   alternates: {
     canonical: "https://latestmortgagerates.ca/cities/toronto",
   },
   openGraph: {
-    title: "Best Mortgage Rates Toronto 2025",
-    description: "Compare the lowest mortgage rates from Toronto's top lenders",
+    title: "Best Mortgage Rates Toronto 2025 | Compare 20+ Lenders",
+    description: "Find the lowest mortgage rates in Toronto and GTA. 5-year fixed from 4.19%. Compare Big 5 banks, monoline lenders & credit unions.",
     type: "website",
     url: "https://latestmortgagerates.ca/cities/toronto",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Mortgage Rates Toronto 2025",
+    description: "Compare Toronto mortgage rates from 20+ lenders. 5-year fixed from 4.19%.",
   },
 };
 
 export default function TorontoPage() {
   return (
     <main className="min-h-screen bg-gray-100">
+      {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -36,6 +63,25 @@ export default function TorontoPage() {
               containedIn: "Ontario",
             },
             url: "https://latestmortgagerates.ca/cities/toronto",
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: torontoFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
           }),
         }}
       />
