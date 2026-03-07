@@ -9,6 +9,27 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        // Professional Financial Color Palette
+        primary: {
+          DEFAULT: '#0f172a', // Deep Navy
+          light: '#1e293b',
+          dark: '#020617',
+        },
+        accent: {
+          DEFAULT: '#0891b2', // Teal/Cyan
+          light: '#22d3ee',
+          dark: '#0e7490',
+        },
+        success: {
+          DEFAULT: '#059669', // Deep Emerald
+          light: '#10b981',
+        },
+        highlight: {
+          DEFAULT: '#d97706', // Amber/Gold
+          light: '#f59e0b',
+        },
+      },
       transitionDuration: {
         '400': '400ms',
       },

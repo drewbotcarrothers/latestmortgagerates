@@ -23,12 +23,12 @@ export default function Navigation({ currentPage }: NavigationProps) {
       <div className="flex items-center gap-2 md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
         >
           <svg
-            className={`w-6 h-6 text-gray-700 dark:text-gray-200 transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`}
+            className={`w-6 h-6 text-slate-700 dark:text-slate-200 transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -60,8 +60,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
             href={item.href}
             className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
               currentPage === item.id
-                ? "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300"
+                : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-teal-600 dark:hover:text-teal-400"
             }`}
           >
             {item.label}
@@ -71,7 +71,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
       {/* Mobile Navigation Dropdown */}
       <div 
-        className={`absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 md:hidden z-50 overflow-hidden transition-all duration-300 ${
+        className={`absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-2 md:hidden z-50 overflow-hidden transition-all duration-300 ${
           isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
@@ -82,8 +82,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
             onClick={() => setIsMenuOpen(false)}
             className={`flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 ${
               currentPage === item.id
-                ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-r-2 border-blue-500"
-                : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                ? "bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-300 border-r-2 border-teal-500"
+                : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
             }`}
             style={{ 
               transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms',
