@@ -113,25 +113,25 @@ export default function Home() {
   const lastUpdatedDate = metadata?.last_updated || new Date().toISOString();
 
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* JSON-LD Structured Data */}
       <StructuredData rates={ratesData as Rate[]} lastUpdated={lastUpdatedDate} />
       
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
+      <header className="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
                 Latest Mortgage Rates Canada
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 mt-2">
+              <p className="text-slate-600 dark:text-slate-300 mt-2">
                 Compare current rates from Big 5 banks and monoline lenders
               </p>
             </div>
             <Navigation currentPage="rates" />
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -149,7 +149,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section - Top Rates */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white">
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <h2 className="text-xl font-semibold mb-4">Top Rates Today</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -159,8 +159,8 @@ export default function Home() {
                 {topRates.fixed5yr.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                      <div className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
-                        i === 0 ? 'bg-green-500' : i === 1 ? 'bg-blue-500' : 'bg-gray-500'
+                      <div className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                        i === 0 ? 'bg-emerald-500' : i === 1 ? 'bg-cyan-500' : 'bg-slate-500'
                       }`}>
                         {i + 1}
                       </div>
@@ -181,8 +181,8 @@ export default function Home() {
                 {topRates.variable5yr.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                      <div className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
-                        i === 0 ? 'bg-green-500' : i === 1 ? 'bg-blue-500' : 'bg-gray-500'
+                      <div className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
+                        i === 0 ? 'bg-emerald-500' : i === 1 ? 'bg-cyan-500' : 'bg-slate-500'
                       }`}>
                         {i + 1}
                       </div>
@@ -234,7 +234,7 @@ export default function Home() {
           <a 
             href="/api/rates" 
             download="mortgage-rates.csv"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+            className="inline-flex items-center px-5 py-2.5 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition shadow-sm hover:shadow-md"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
