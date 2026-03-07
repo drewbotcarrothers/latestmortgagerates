@@ -207,21 +207,21 @@ const categories = [...new Set(blogPosts.map((post) => post.category))];
 
 export default function BlogPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-slate-50">
+      <header className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Blog</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Blog</li>
             </ol>
           </nav>
           
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Mortgage Guides & Resources</h1>
-              <p className="text-gray-600 mt-2">Expert advice and tips for Canadian homebuyers</p>
+              <h1 className="text-3xl font-bold text-slate-900">Mortgage Guides & Resources</h1>
+              <p className="text-slate-600 mt-2">Expert advice and tips for Canadian homebuyers</p>
             </div>
             <Navigation currentPage="guides" />
           </div>
@@ -236,7 +236,7 @@ export default function BlogPage() {
               {categories.map((category) => (
                 <button
                   key={category}
-                  className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200 transition"
+                  className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-medium text-gray-700 hover:bg-teal-50 hover:border-teal-200 transition"
                 >
                   {category}
                 </button>
@@ -251,19 +251,19 @@ export default function BlogPage() {
                 >
                   <Link href={`/blog/${post.slug}`} className="block p-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                      <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
                         {post.category}
                       </span>
-                      <span className="text-sm text-gray-500">{post.readTime}</span>
+                      <span className="text-sm text-slate-500">{post.readTime}</span>
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">
+                    <h2 className="text-xl font-bold text-slate-900 mb-2 hover:text-teal-600 transition">
                       {post.title}
                     </h2>
-                    <p className="text-gray-600">{post.excerpt}</p>
+                    <p className="text-slate-600">{post.excerpt}</p>
                     
                     <div className="mt-4 flex items-center justify-between">
-                      <span className="text-blue-600 font-medium">Read more →</span>
-                      <time className="text-sm text-gray-500">
+                      <span className="text-teal-600 font-medium">Read more →</span>
+                      <time className="text-sm text-slate-500">
                         {new Date(post.publishedAt).toLocaleDateString('en-CA', {
                           year: 'numeric',
                           month: 'long',
@@ -278,52 +278,52 @@ export default function BlogPage() {
 
             {/* Pagination - simplified */}
             <div className="mt-8 flex justify-center">
-              <p className="text-gray-500 text-sm">Showing all {blogPosts.length} guides</p>
+              <p className="text-slate-500 text-sm">Showing all {blogPosts.length} guides</p>
             </div>
           </div>
 
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-semibold text-gray-900 mb-4">Categories</h3>
+              <h3 className="font-semibold text-slate-900 mb-4">Categories</h3>
               <ul className="space-y-2">
                 {categories.map((category) => (
                   <li key={category}>
-                    <span className="text-gray-600">
+                    <span className="text-slate-600">
                       {category}
                     </span>
-                    <span className="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                    <span className="ml-2 text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
                       {blogPosts.filter(p => p.category === category).length}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="font-semibold text-gray-900 mb-4">Popular Cities</h3>
+              <div className="mt-8 pt-6 border-t border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-4">Popular Cities</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto</Link>
-                  <Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver</Link>
-                  <Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary</Link>
-                  <Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal</Link>
-                  <Link href="/cities/ottawa" className="text-blue-600 hover:underline">Ottawa</Link>
-                  <Link href="/cities/edmonton" className="text-blue-600 hover:underline">Edmonton</Link>
-                  <Link href="/cities/hamilton" className="text-blue-600 hover:underline">Hamilton</Link>
-                  <Link href="/cities/kitchener" className="text-blue-600 hover:underline">Kitchener</Link>
-                  <Link href="/cities/london" className="text-blue-600 hover:underline">London</Link>
-                  <Link href="/cities/winnipeg" className="text-blue-600 hover:underline">Winnipeg</Link>
-                  <Link href="/cities/halifax" className="text-blue-600 hover:underline">Halifax</Link>
-                  <Link href="/cities/saskatoon" className="text-blue-600 hover:underline">Saskatoon</Link>
-                  <Link href="/cities/regina" className="text-blue-600 hover:underline">Regina</Link>
-                  <Link href="/cities/barrie" className="text-blue-600 hover:underline">Barrie</Link>
+                  <Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto</Link>
+                  <Link href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver</Link>
+                  <Link href="/cities/calgary" className="text-teal-600 hover:underline">Calgary</Link>
+                  <Link href="/cities/montreal" className="text-teal-600 hover:underline">Montreal</Link>
+                  <Link href="/cities/ottawa" className="text-teal-600 hover:underline">Ottawa</Link>
+                  <Link href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton</Link>
+                  <Link href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton</Link>
+                  <Link href="/cities/kitchener" className="text-teal-600 hover:underline">Kitchener</Link>
+                  <Link href="/cities/london" className="text-teal-600 hover:underline">London</Link>
+                  <Link href="/cities/winnipeg" className="text-teal-600 hover:underline">Winnipeg</Link>
+                  <Link href="/cities/halifax" className="text-teal-600 hover:underline">Halifax</Link>
+                  <Link href="/cities/saskatoon" className="text-teal-600 hover:underline">Saskatoon</Link>
+                  <Link href="/cities/regina" className="text-teal-600 hover:underline">Regina</Link>
+                  <Link href="/cities/barrie" className="text-teal-600 hover:underline">Barrie</Link>
                 </div>
-                <Link href="/" className="text-sm text-blue-600 hover:underline mt-3 inline-block">
+                <Link href="/" className="text-sm text-teal-600 hover:underline mt-3 inline-block">
                   View all cities →
                 </Link>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <h3 className="font-semibold text-gray-900 mb-4">Compare Rates</h3>
-                <p className="text-gray-600 text-sm mb-4">
+              <div className="mt-8 pt-6 border-t border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-4">Compare Rates</h3>
+                <p className="text-slate-600 text-sm mb-4">
                   See today's best mortgage rates from all major Canadian lenders.
                 </p>
                 <Link
