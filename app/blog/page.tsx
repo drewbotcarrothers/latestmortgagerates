@@ -160,6 +160,47 @@ const blogPosts: BlogPost[] = [
     readTime: "9 min read",
     publishedAt: "2026-03-04",
   },
+  // NEW POSTS - March 2026
+  {
+    slug: "how-much-mortgage-can-i-afford",
+    title: "How Much Mortgage Can I Afford? Complete Affordability Guide",
+    excerpt: "Calculate how much house you can afford in Canada. Learn about GDS/TDS ratios, stress test rules, and down payment requirements.",
+    category: "Mortgage Calculator",
+    readTime: "8 min read",
+    publishedAt: "2026-03-07",
+  },
+  {
+    slug: "mortgage-renewal-guide-2025",
+    title: "Mortgage Renewal Guide 2025: How to Save Thousands",
+    excerpt: "Everything you need to know about renewing your mortgage in 2025. Learn when to renew, how to negotiate, and strategies to get the best rate.",
+    category: "Mortgage Strategy",
+    readTime: "9 min read",
+    publishedAt: "2026-03-07",
+  },
+  {
+    slug: "self-employed-mortgage-canada",
+    title: "Self-Employed Mortgage Guide: How to Qualify",
+    excerpt: "How to get a mortgage when you're self-employed in Canada. Learn about income verification, stated income programs, and documentation requirements.",
+    category: "Mortgage Basics",
+    readTime: "8 min read",
+    publishedAt: "2026-03-07",
+  },
+  {
+    slug: "investment-property-mortgages",
+    title: "Investment Property Mortgages: What You Need to Know",
+    excerpt: "How to finance rental properties in Canada. Learn about down payments, rental income qualification, and financing strategies for investors.",
+    category: "Mortgage Strategy",
+    readTime: "9 min read",
+    publishedAt: "2026-03-07",
+  },
+  {
+    slug: "home-buyer-incentive-canada",
+    title: "First-Time Home Buyer Incentive: Complete Guide",
+    excerpt: "Everything you need to know about the Government of Canada's First-Time Home Buyer Incentive program. Is it right for you?",
+    category: "First-Time Buyers",
+    readTime: "7 min read",
+    publishedAt: "2026-03-07",
+  },
 ];
 
 const categories = [...new Set(blogPosts.map((post) => post.category))];
@@ -259,12 +300,25 @@ export default function BlogPage() {
 
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <h3 className="font-semibold text-gray-900 mb-4">Popular Cities</h3>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto</Link></li>
-                  <li><Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver</Link></li>
-                  <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary</Link></li>
-                  <li><Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal</Link></li>
-                </ul>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto</Link>
+                  <Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver</Link>
+                  <Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary</Link>
+                  <Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal</Link>
+                  <Link href="/cities/ottawa" className="text-blue-600 hover:underline">Ottawa</Link>
+                  <Link href="/cities/edmonton" className="text-blue-600 hover:underline">Edmonton</Link>
+                  <Link href="/cities/hamilton" className="text-blue-600 hover:underline">Hamilton</Link>
+                  <Link href="/cities/kitchener" className="text-blue-600 hover:underline">Kitchener</Link>
+                  <Link href="/cities/london" className="text-blue-600 hover:underline">London</Link>
+                  <Link href="/cities/winnipeg" className="text-blue-600 hover:underline">Winnipeg</Link>
+                  <Link href="/cities/halifax" className="text-blue-600 hover:underline">Halifax</Link>
+                  <Link href="/cities/saskatoon" className="text-blue-600 hover:underline">Saskatoon</Link>
+                  <Link href="/cities/regina" className="text-blue-600 hover:underline">Regina</Link>
+                  <Link href="/cities/barrie" className="text-blue-600 hover:underline">Barrie</Link>
+                </div>
+                <Link href="/" className="text-sm text-blue-600 hover:underline mt-3 inline-block">
+                  View all cities →
+                </Link>
               </div>
 
               <div className="mt-8 pt-6 border-t border-gray-200">
