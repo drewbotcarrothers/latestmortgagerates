@@ -45,6 +45,13 @@ jobs:
         run: |
           python export_rates.py
       
+      - name: Copy JSON files to data folder
+        run: |
+          mkdir -p ./data
+          cp ./rates.json ./data/rates.json
+          cp ./metadata.json ./data/metadata.json
+          ls -la ./data/
+      
       - name: Check for changes
         id: check_changes
         run: |
