@@ -1,26 +1,54 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+// Ottawa-specific FAQs
+const ottawaFaqs = [
+  {
+    question: "What are current mortgage rates in Ottawa?",
+    answer: "Current Ottawa mortgage rates are competitive with 5-year fixed rates starting from 4.19% and 5-year variable rates from 3.85%. Ottawa offers a balanced market with average home prices around $650,000 - more affordable than Toronto but with strong government job stability.",
+  },
+  {
+    question: "Is Ottawa a good market for first-time buyers?",
+    answer: "Yes! Ottawa is ideal for first-time buyers with stable government employment, reasonable home prices ($650K average vs $1.2M Toronto), and Ontario's first-time buyer rebates including up to $4,000 for land transfer tax.",
+  },
+  {
+    question: "How is Ottawa's real estate market different?",
+    answer: "Ottawa's market is heavily influenced by government employment, creating stability. Prices grew steadily during the pandemic and have stabilized. The tech sector (Kanata) is booming, adding demand. Average commute times are lower than Toronto.",
+  },
+  {
+    question: "Which areas of Ottawa are most affordable?",
+    answer: "Barrhaven, Orleans, and Kanata offer good value. Downtown condos are pricier per sqft. Consider Gatineau (QC side) for lower prices but remember Quebec's different tax structure and welcome tax (taxe de bienvenue).",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Ottawa 2025 | Parliament Hill Mortgages",
-  description: "Find the lowest mortgage rates in Ottawa and Gatineau. Compare rates from Ottawa lenders and learn about government employee mortgage programs.",
-  keywords: "Ottawa mortgage rates, Ottawa mortgage broker, government employee mortgage, Gatineau mortgage, Ottawa home buyer",
+  title: "Best Mortgage Rates Ottawa 2025 | Government City Value",
+  description: "Find the lowest mortgage rates in Ottawa for 2025. Stable government employment, average home price $650K. Compare rates from Ontario lenders. 5-year fixed from 4.19%.",
+  keywords: "Ottawa mortgage rates, Ottawa mortgage broker, best rates Ottawa, Ottawa home buyer, Ottawa real estate, capital region mortgage",
   alternates: {
     canonical: "https://latestmortgagerates.ca/cities/ottawa",
   },
   openGraph: {
-    title: "Best Mortgage Rates Ottawa 2025",
-    description: "Compare Ottawa mortgage rates from top lenders. Special programs for government workers.",
+    title: "Best Mortgage Rates Ottawa 2025 | Government City Value",
+    description: "Ottawa mortgage rates. Stable government jobs, affordable housing. Average $650K - compare Toronto! 5-year fixed from 4.19%.",
     type: "website",
     url: "https://latestmortgagerates.ca/cities/ottawa",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Mortgage Rates Ottawa 2025",
+    description: "Ottawa mortgage rates - stable market, government jobs! 5-year fixed from 4.19%.",
   },
 };
 
 export default function OttawaPage() {
   return (
     <main className="min-h-screen bg-gray-100">
+      {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -28,13 +56,32 @@ export default function OttawaPage() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             name: "Latest Mortgage Rates Canada - Ottawa",
-            description: "Best mortgage rates in Ottawa and Gatineau",
+            description: "Best mortgage rates in Ottawa, Ontario",
             areaServed: {
               "@type": "City",
               name: "Ottawa",
               containedIn: "Ontario",
             },
             url: "https://latestmortgagerates.ca/cities/ottawa",
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: ottawaFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
           }),
         }}
       />
@@ -52,10 +99,10 @@ export default function OttawaPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
-                <span>🏛️ Government Employee Programs Available</span>
+                <span>Stable Government Employment</span>
               </div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Ottawa 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Nation's capital with stable employment and affordable housing</p>
+              <p className="text-gray-600 mt-2 text-lg">Canada's capital offers stable employment and affordable homes. Find the lowest mortgage rates.</p>
             </div>
           </div>
         </div>
@@ -71,165 +118,103 @@ export default function OttawaPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed Rate</p>
+                  <p className="text-sm text-gray-600">5-Year Fixed</p>
                   <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable Rate</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
-              </div>
-              
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <h3 className="font-semibold text-blue-900 mb-2">🎯 Ottawa's Government Employee Advantage</h3>
-                <p className="text-blue-800">
-                  Federal employees in Ottawa often qualify for special mortgage programs with lower rates, higher income multipliers, and flexible qualifying criteria.
-                </p>
-              </div>
-              
-              <div className="mt-6">
-                <Link href="/" className="block text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                  Compare All Ottawa Rates →
-                </Link>
-              </div>
-            </section>
-
-            {/* Ottawa Market Overview */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Ottawa Housing Market Overview</h2>
-              
-              <p className="text-gray-700 mb-4">
-                Ottawa offers some of the best value among major Canadian cities. With stable federal employment and consistent population growth, the Ottawa market is known for its predictability and steady appreciation.
-              </p>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Average Home Prices (2025)</h3>
-              
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Detached Homes</p>
-                  <p className="text-xl font-bold text-gray-900">$750,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Semi-Detached</p>
-                  <p className="text-xl font-bold text-gray-900">$585,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Townhouses</p>
-                  <p className="text-xl font-bold text-gray-900">$495,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Condos</p>
-                  <p className="text-xl font-bold text-gray-900">$425,000</p>
-                </div>
-              </div>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Why Ottawa is a Great Place to Buy</h3>
-              
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                <li><strong>Stable Employment:</strong> Federal government is the largest employer</li>
-                <li><strong>Lower Prices:</strong> 30-40% cheaper than Toronto</li>
-                <li><strong>No Municipal LTT:</strong> Only provincial land transfer tax applies</li>
-                <li><strong>Growing Tech Sector:</strong> Kanata "Silicon Valley North"</li>
-                <li><strong>Quality of Life:</strong> Ranked best city in Canada for quality of life</li>
-                <li><strong>Bilingual Advantage:</strong> French proficiency can help with government jobs</li>
-              </ul>
-            </section>
-
-            {/* Government Employee Section */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Mortgages for Government Employees</h2>
-              
-              <p className="text-gray-700 mb-4">
-                Over 40% of Ottawa's workforce is employed by the federal government. Several lenders offer special programs:
-              </p>
-              
-              <div className="space-y-4">
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Higher Income Multipliers</h3>
-                  <p className="text-gray-700">Some lenders use gross income x 5 instead of x 4 for government employees with stable positions.</p>
+                  <p className="text-sm text-gray-500">Best available rate</p>
                 </div>
                 
+                <div className="bg-green-50 rounded-lg p-4">
+                  <p className="text-sm text-gray-600">5-Year Variable</p>
+                  <p className="text-3xl font-bold text-green-600">3.85%</p>
+                  <p className="text-sm text-gray-500">Prime -0.60%</p>
+                </div>
+              </div>
+              
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>Ottawa Market Insight:</strong> Ottawa's government-driven economy provides 
+                  stability. Average home price $650K vs $1.2M in Toronto.
+                </p>
+              </div>
+            </section>
+
+            {/* First-time Buyer Section */}
+            <section className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Programs</h2>
+              
+              <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Pension Income Counted 100%</h3>
-                  <p className="text-gray-700">Your future defined benefit pension counts fully toward qualifying income.</p>
+                  <h3 className="font-semibold text-gray-900">Ontario Land Transfer Tax Rebate</h3>
+                  <p className="text-gray-700">First-time buyers can receive up to $4,000 rebate, 
+                  covering the full tax on homes up to $368,000.</p>
+                </div>                
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">First Home Savings Account (FHSA)</h3>
+                  <p className="text-gray-700">The FHSA combines RRSP tax deductions with TFSA-like withdrawals for your first home.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Union Membership Benefits</h3>
-                  <p className="text-gray-700">Many credit unions (like Meridian) offer special rates to federal employees.</p>
-                </div>
-                
-                <div className="border-l-4 border-orange-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Security of Employment</h3>
-                  <p className="text-gray-700">Government jobs are viewed as low-risk, which can mean easier approvals.</p>
+                  <h3 className="font-semibold text-gray-900">Home Buyers' Plan (HBP)</h3>
+                  <p className="text-gray-700">Withdraw up to $35,000 from your RRSP ($70K for couples) for your down payment, tax-free.</p>
                 </div>
               </div>
             </section>
 
-            {/* Ottawa vs Gatineau */}
+            {/* Ottawa Market Factors */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Ottawa vs Gatineau: Cross-Border Considerations</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Ottawa Market Factors</h2>
               
-              <p className="text-gray-700 mb-4">
-                Many Ottawa workers consider buying in Gatineau, QC for lower prices. Here's what to know:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-green-200 rounded-lg p-4 bg-green-50">
-                  <h3 className="font-semibold text-green-900 mb-2">Gatineau Advantages</h3>
-                  <ul className="text-sm text-green-800 space-y-1">
-                    <li>• Lower home prices (15-20%)</li>
-                    <li>• Cheaper daycare ($8/day)</li>
-                    <li>• Lower car insurance</li>
-                    <li>• French immersion schools</li>
-                  </ul>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Government Employment Stability</h3>
+                  <p className="text-gray-700">Federal government is largest employer, providing steady demand during economic downturns.</p>
                 </div>
-                <div className="border border-orange-200 rounded-lg p-4 bg-orange-50">
-                  <h3 className="font-semibold text-orange-900 mb-2">Ottawa Advantages</h3>
-                  <ul className="text-sm text-orange-800 space-y-1">
-                    <li>• Higher income potential</li>
-                    <li>• More job opportunities</li>
-                    <li>• English services</li>
-                    <li>• Better infrastructure</li>
-                  </ul>
+                
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Tech Sector Growth</h3>
+                  <p className="text-gray-700">Kanata tech hub (Silicon Valley North) is booming with Shopify, Nokia, and startups.</p>
                 </div>
-              </div>
-              
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-700">
-                  <strong>Note:</strong> Living in Quebec means paying Quebec income tax and dealing with different mortgage regulations. Calculate carefully!
-                </p>
+                
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Bilingual Advantage</h3>
+                  <p className="text-gray-700">Access to both Ontario and Quebec job markets. Consider Gatineau for lower prices.</p>
+                </div>
+                
+                <div className="border-l-4 border-orange-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Lower Commute Times</h3>
+                  <p className="text-gray-700">Average commute ~30 min vs 60+ minutes in Toronto. Better work-life balance.</p>
+                </div>
               </div>
             </section>
           </div>
 
           {/* Sidebar */}
           <aside className="lg:col-span-1">
-            <div className="bg-blue-50 rounded-lg shadow-md p-6 sticky top-4 border border-blue-200">
-              <h3 className="font-bold text-blue-900 mb-4">Are You a Government Employee?</h3>
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+              <h3 className="font-bold text-gray-900 mb-4">Why Ottawa?</h3>
+              
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500">✓</span>
-                  <span className="text-blue-800">Special qualification programs</span>
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">Stable government jobs</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500">✓</span>
-                  <span className="text-blue-800">Pension income fully counted</span>
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">More affordable than Toronto</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500">✓</span>
-                  <span className="text-blue-800">Union member discounts</span>
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">Growing tech sector</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500">✓</span>
-                  <span className="text-blue-800">Secure employment premiums</span>
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">Shorter commute times</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">First-time buyer friendly</span>
                 </li>
               </ul>
-              <Link href="/" className="block text-center mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                Get Government Rates
-              </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
@@ -238,19 +223,30 @@ export default function OttawaPage() {
                 <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
                 <li><Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal Rates</Link></li>
                 <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary Rates</Link></li>
-                <li><Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Ottawa Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/blog/first-time-home-buyer-guide-canada" className="text-blue-600 hover:underline">First-Time Buyer Guide</Link></li>
-                <li><Link href="/blog/closing-costs-canada" className="text-blue-600 hover:underline">Ottawa Closing Costs</Link></li>
-                <li><Link href="/tools" className="text-blue-600 hover:underline">Mortgage Calculator</Link></li>
-              </ul>
+            <div className="bg-blue-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Compare Ottawa Rates</h3>
+              <p className="text-gray-600 text-sm mb-4">See rates from Ottawa mortgage brokers and lenders.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                View Rates
+              </Link>
             </div>
           </aside>
+        </div>
+
+        {/* Social Sharing Section */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="font-bold text-gray-900 mb-2">Share Ottawa Mortgage Rates</h3>
+          <p className="text-gray-600 text-sm mb-4">
+            Know someone buying in Ottawa? Share these rates!
+          </p>
+          <SocialShare 
+            url="https://latestmortgagerates.ca/cities/ottawa"
+            title="Best Mortgage Rates in Ottawa 2025"
+            description="Stable government jobs, affordable housing in Canada's capital. Compare the lowest mortgage rates. 5-year fixed from 4.19%."
+          />
         </div>
       </div>
     </main>

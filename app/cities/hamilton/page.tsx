@@ -1,20 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+// Hamilton-specific FAQs
+const hamiltonFaqs = [
+  {
+    question: "What are current mortgage rates in Hamilton?",
+    answer: "Current Hamilton mortgage rates are competitive with 5-year fixed rates starting from 4.19% and 5-year variable rates from 3.85%. Hamilton offers value with average home prices around $800,000 - significantly less than Toronto's $1.2M average.",
+  },
+  {
+    question: "Is Hamilton part of the GTA?",
+    answer: "Hamilton is part of the Greater Toronto and Hamilton Area (GTHA) but not the GTA proper. It's about 70km from Toronto with GO Train service. Many Toronto workers moved here for affordability while commuting to the city.",
+  },
+  {
+    question: "Is Hamilton good for first-time buyers?",
+    answer: "Hamilton offers a middle ground - more affordable than Toronto ($800K vs $1.2M) with city amenities. Strong rental demand makes it popular for investors. First-time buyers get access to all Ontario first-time buyer programs.",
+  },
+  {
+    question: "How is Hamilton's real estate market?",
+    answer: "Hamilton's market cooled from 2021 peaks but remains stable. Significant development along the waterfront and in the downtown core. Growing tech scene and life sciences sector at McMaster Innovation Park.",
+  },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Hamilton 2025 | Ontario Steel City",
-  description: "Find the lowest mortgage rates in Hamilton. Compare rates from Golden Horseshoe lenders in this growing alternative to Toronto.",
-  keywords: "Hamilton mortgage rates, Hamilton mortgage broker, Golden Horseshoe mortgage, Toronto alternative, Hamilton home buyer",
+  title: "Best Mortgage Rates Hamilton 2025 | Toronto Alternative",
+  description: "Find the lowest mortgage rates in Hamilton for 2025. GTA alternative, average home price $800K. Compare Ontario lenders. 5-year fixed from 4.19%. GO Train to Toronto.",
+  keywords: "Hamilton mortgage rates, Hamilton mortgage broker, best rates Hamilton, Hamilton home buyer, GTA mortgage, Toronto commuter",
   alternates: {
     canonical: "https://latestmortgagerates.ca/cities/hamilton",
   },
   openGraph: {
-    title: "Best Mortgage Rates Hamilton 2025",
-    description: "Compare Hamilton mortgage rates. Affordable alternative to Toronto in the Golden Horseshoe.",
+    title: "Best Mortgage Rates Hamilton 2025 | Toronto Alternative",
+    description: "Hamilton mortgage rates - GTA living, Toronto prices! Average $800K. 5-year fixed from 4.19%.",
     type: "website",
     url: "https://latestmortgagerates.ca/cities/hamilton",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Mortgage Rates Hamilton 2025",
+    description: "Hamilton - Toronto alternative! $800K average homes. 5-year fixed from 4.19%.",
   },
 };
 
@@ -38,6 +65,23 @@ export default function HamiltonPage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: hamiltonFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -51,11 +95,11 @@ export default function HamiltonPage() {
           
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
-                <span>🏭 Toronto Alternative - 40% Cheaper!</span>
+              <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
+                <span>🚆 GO Train to Toronto</span>
               </div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Hamilton 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">The Golden Horseshoe's hidden gem for affordable homeownership</p>
+              <p className="text-gray-600 mt-2 text-lg">The affordable GTA alternative. $800K average vs $1.2M in Toronto. Find your rate.</p>
             </div>
           </div>
         </div>
@@ -63,144 +107,77 @@ export default function HamiltonPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Current Rates Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Hamilton Mortgage Rates</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed Rate</p>
+                  <p className="text-sm text-gray-600">5-Year Fixed</p>
                   <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
+                  <p className="text-sm text-gray-500">Best available rate</p>
                 </div>
+                
                 <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable Rate</p>
+                  <p className="text-sm text-gray-600">5-Year Variable</p>
                   <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
+                  <p className="text-sm text-gray-500">Prime -0.60%</p>
                 </div>
               </div>
               
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                <h3 className="font-semibold text-green-900 mb-2">💰 Hamilton vs Toronto Price Gap</h3>
-                <p className="text-green-800">
-                  Hamilton homes are 40-50% cheaper than Toronto. A Toronto buyer can buy in Hamilton with $200K+ left over - enough to pay off a significant portion of their mortgage!
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-sm text-gray-700">
+                  <strong>Hamilton Advantage:</strong> $800K average saves $400K+ vs Toronto. 
+                  GO Train commuter service to Union Station (70 min).
                 </p>
-              </div>
-              
-              <div className="mt-6">
-                <Link href="/" className="block text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                  Compare All Hamilton Rates →
-                </Link>
               </div>
             </section>
 
-            {/* Hamilton Market Overview */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Hamilton Housing Market Overview</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Programs</h2>
               
-              <p className="text-gray-700 mb-4">
-                Once known as Canada's steel town, Hamilton has transformed into a diverse, arts-focused city with incredible water access along Lake Ontario. Downtown revitalization and GO Train access to Toronto have made it a premier destination for escaping Toronto prices.
-              </p>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Average Home Prices (2025)</h3>
-              
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Detached Homes</p>
-                  <p className="text-xl font-bold text-gray-900">$825,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Semi-Detached</p>
-                  <p className="text-xl font-bold text-gray-900">$725,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Townhouses</p>
-                  <p className="text-xl font-bold text-gray-900">$685,000</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Condos</p>
-                  <p className="text-xl font-bold text-gray-900">$475,000</p>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Ontario LTT Rebate</h3>
+                  <p className="text-gray-700">Up to $4,000 rebate on Ontario land transfer tax for first-time buyers.</p>
+                </div>                
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">FHSA + HBP</h3>
+                  <p className="text-gray-700">Combine First Home Savings Account ($40K) with Home Buyers' Plan ($35K) for $75K down payment.</p>
                 </div>
               </div>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Why Choose Hamilton?  </h3>
-              
-              <ul className="list-disc pl-5 space-y-2 text-gray-700">
-                <li><strong>GO Train Access:</strong> 1 hour to Toronto Union Station</li>
-                <li><strong>Waterfront Living:</strong> Beach access, waterfront trail, harbor</li>
-                <li><strong>Arts District:</strong> James Street North, galleries, festivals</li>
-                <li><strong>Healthcare Hub:</strong> McMaster University teaching hospital</li>
-                <li><strong>Nature:</strong> Niagara Escarpment, conservation areas</li>
-                <li><strong>Value:</strong> Better house for your money than GTA</li>
-              </ul>
             </section>
 
-            {/* Hamilton vs Toronto */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Hamilton vs Toronto: Commuter Comparison</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Hamilton Market Factors</h2>
               
-              <p className="text-gray-700 mb-4">
-                Many Hamilton residents commute to Toronto. Is it worth it? Let's break down the numbers:
-              </p>
-              
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="p-3 text-left font-semibold text-gray-900">Factor</th>
-                      <th className="p-3 text-left font-semibold text-blue-900">Hamilton</th>
-                      <th className="p-3 text-left font-semibold text-purple-900">Toronto</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    <tr>
-                      <td className="p-3 text-gray-700">Avg Detached Price</td>
-                      <td className="p-3 text-blue-700 font-semibold">$825,000</td>
-                      <td className="p-3 text-purple-700">$1,450,000</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 text-gray-700">Monthly Payment (20% down)</td>
-                      <td className="p-3 text-blue-700 font-semibold">$4,250</td>
-                      <td className="p-3 text-purple-700">$7,485</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 text-gray-700">Minimum Down Payment (10%)</td>
-                      <td className="p-3 text-blue-700 font-semibold">$82,500</td>
-                      <td className="p-3 text-purple-700">$145,000</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3 text-gray-700">GO Train Monthly Pass</td>
-                      <td className="p-3 text-blue-700">$433</td>
-                      <td className="p-3 text-purple-700">$0</td>
-                    </tr>
-                    <tr className="bg-green-50">
-                      <td className="p-3 text-gray-700 font-semibold">Total Monthly Cost</td>
-                      <td className="p-3 text-green-700 font-bold">$4,683</td>
-                      <td className="p-3 text-purple-700">$7,485</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div className="mt-4 p-4 bg-green-50 rounded-lg">
-                <p className="text-green-800">
-                  <strong>Bottom Line:</strong> Even with commuting costs, you save $2,800+/month buying in Hamilton vs Toronto. That's $33,600/year!
-                </p>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">GO Transit Connection</h3>
+                  <p className="text-gray-700">Regular train service to Toronto. Many residents commute while enjoying lower home prices.</p>
+                </div>
+                
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">McMaster University</h3>
+                  <p className="text-gray-700">Top-ranked research university drives innovation and talent. Strong student rental market.</p>
+                </div>
+                
+                <div className="border-l-4 border-purple-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">Waterfront Development</h3>
+                  <p className="text-gray-700">Regeneration of the west harbour area with new condos, parks, and amenities.</p>
+                </div>
               </div>
             </section>
           </div>
 
-          {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Hamilton Highlights</h3>
+              <h3 className="font-bold text-gray-900 mb-4">Why Hamilton?</h3>
               
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">40-50% cheaper than Toronto</span>
+                  <span className="text-gray-700">$400K+ savings vs Toronto</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500">✓</span>
@@ -208,11 +185,11 @@ export default function HamiltonPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Lake Ontario waterfront</span>
+                  <span className="text-gray-700">Strong rental market</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Downtown revitalization</span>
+                  <span className="text-gray-700">Waterfront development</span>
                 </li>
               </ul>
             </div>
@@ -221,16 +198,27 @@ export default function HamiltonPage() {
               <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
-                <li><Link href="/cities/ottawa" className="text-blue-600 hover:underline">Ottawa Rates</Link></li>
-                <li><Link href="/cities/london" className="text-blue-600 hover:underline">London Rates</Link></li>
+                <li><Link href="/cities/oshawa" className="text-blue-600 hover:underline">Oshawa Rates</Link></li>
+                <li><Link href="/cities/barrie" className="text-blue-600 hover:underline">Barrie Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 mt-6 border border-blue-200">
-              <h3 className="font-bold text-blue-900 mb-2">First-Time Buyer</h3>
-              <p className="text-blue-800 text-sm">
-                Hamilton is excellent for first-time buyers escaping Toronto. You get a real house (not a condo) for $600K-$800K!
-              </p>
+            <div className="bg-blue-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Compare Hamilton Rates</h3>
+              <p className="text-gray-600 text-sm mb-4">See rates from Hamilton mortgage brokers.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                View Rates
+              </Link>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Share Hamilton Rates</h3>
+              <p className="text-gray-600 text-sm mb-4">Know someone buying in Hamilton?</p>
+              <SocialShare 
+                url="https://latestmortgagerates.ca/cities/hamilton"
+                title="Best Mortgage Rates in Hamilton 2025"
+                description="Toronto alternative! $800K average homes, GO Train access. 5-year fixed from 4.19%."
+              />
             </div>
           </aside>
         </div>

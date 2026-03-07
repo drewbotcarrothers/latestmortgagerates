@@ -48,6 +48,7 @@ export const metadata: Metadata = {
 export default function CalgaryPage() {
   return (
     <main className="min-h-screen bg-gray-100">
+      {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -62,6 +63,25 @@ export default function CalgaryPage() {
               containedIn: "Alberta",
             },
             url: "https://latestmortgagerates.ca/cities/calgary",
+          }),
+        }}
+      />
+
+      {/* FAQPage Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: calgaryFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
           }),
         }}
       />
@@ -228,6 +248,19 @@ export default function CalgaryPage() {
               </ul>
             </div>
           </aside>
+        </div>
+
+        {/* Social Sharing Section */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="font-bold text-gray-900 mb-2">Share Calgary Mortgage Rates</h3>
+          <p className="text-gray-600 text-sm mb-4">
+            Know someone buying in Calgary? Share these rates with them.
+          </p>
+          <SocialShare 
+            url="https://latestmortgagerates.ca/cities/calgary"
+            title="Best Mortgage Rates in Calgary 2025"
+            description="No land transfer tax in Calgary! Compare the lowest mortgage rates from Alberta lenders. 5-year fixed from 4.19%."
+          />
         </div>
       </div>
     </main>
