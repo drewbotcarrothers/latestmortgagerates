@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import SocialShare from "../../components/SocialShare";
 
 // Force static generation for static export
 export const dynamic = "force-static";
@@ -1328,11 +1329,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post.category}
           </span>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{post.title}</h1>
-          <div className="flex items-center gap-4 text-sm text-gray-500">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
             <span>{post.readTime}</span>
             <span>•</span>
             <time>{new Date(post.publishedAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
           </div>
+          <SocialShare 
+            url={`https://latestmortgagerates.ca/blog/${post.slug}`}
+            title={post.title}
+            description={post.excerpt}
+          />
         </div>
       </header>
 

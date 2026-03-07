@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
@@ -228,6 +229,21 @@ export default function TorontoPage() {
               </Link>
             </div>
           </aside>
+        </div>
+      </div>
+
+      {/* Social Sharing Section */}
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="font-bold text-gray-900 mb-2">Share Toronto Mortgage Rates</h3>
+          <p className="text-gray-600 text-sm mb-4">
+            Know someone buying in Toronto? Share these rates with them.
+          </p>
+          <SocialShare 
+            url="https://latestmortgagerates.ca/cities/toronto"
+            title="Best Mortgage Rates in Toronto 2025"
+            description="Compare the lowest mortgage rates in Toronto and GTA. 5-year fixed from 4.19%."
+          />
         </div>
       </div>
     </main>
