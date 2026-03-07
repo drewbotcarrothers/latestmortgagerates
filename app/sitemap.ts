@@ -46,6 +46,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "kitchener",
     "london",
     "quebec-city",
+    "saskatoon",
+    "regina",
+    "st-johns",
+    "barrie",
+    "oshawa",
   ];
 
   return [
