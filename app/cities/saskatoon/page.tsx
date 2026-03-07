@@ -1,45 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+const saskatoonFaqs = [
+  { question: "What are current mortgage rates in Saskatoon?", answer: "Current Saskatoon mortgage rates are competitive with 5-year fixed rates from 4.19% and variable from 3.85%. Saskatoon offers excellent value with average home prices around $380,000 - one of Canada's most affordable growing cities." },
+  { question: "Does Saskatoon have land transfer tax?", answer: "No! Saskatchewan has no land transfer tax. Only a small land title registration fee (~$350-500). This saves buyers thousands compared to Ontario and BC. Combined with affordable prices, Saskatoon is perfect for first-time buyers." },
+  { question: "Is Saskatoon a good city to buy in?", answer: "Absolutely! Saskatoon is one of Canada's fastest-growing cities with affordable housing ($380K average), strong job market in agriculture/tech/healthcare, and excellent quality of life. Called the 'Paris of the Prairies' for its bridges and university." },
+  { question: "What drives Saskatoon's economy?", answer: "Agriculture and potash mining are traditional anchors. Growing tech sector (tech incubator), University of Saskatchewan (research powerhouse), and healthcare. Stable economy during resource cycles." },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates Saskatoon 2025 | Latest Mortgage Rates Canada",
-  description: "Find the lowest mortgage rates in Saskatoon. Compare rates from top Saskatchewan lenders, understand Saskatoon market conditions, and connect with local mortgage brokers.",
-  keywords: "Saskatoon mortgage rates, Saskatchewan mortgage rates, Saskatoon mortgage broker, best rates Saskatoon, Saskatoon home buyer",
-  alternates: {
-    canonical: "https://latestmortgagerates.ca/cities/saskatoon",
-  },
-  openGraph: {
-    title: "Best Mortgage Rates Saskatoon 2025",
-    description: "Compare the lowest mortgage rates from Saskatoon's top lenders",
-    type: "website",
-    url: "https://latestmortgagerates.ca/cities/saskatoon",
-  },
+  title: "Best Mortgage Rates Saskatoon 2025 | Paris of the Prairies",
+  description: "Find the lowest mortgage rates in Saskatoon for 2025. No land transfer tax! Average home price $380K. Fast-growing prairie city. 5-year fixed from 4.19%.",
+  keywords: "Saskatoon mortgage rates, Saskatchewan mortgage, Saskatoon mortgage broker, best rates Saskatoon",
+  alternates: { canonical: "https://latestmortgagerates.ca/cities/saskatoon" },
+  openGraph: { title: "Best Mortgage Rates Saskatoon 2025 | Prairies", description: "Paris of the Prairies! No land transfer tax. 5-year fixed from 4.19%.", url: "https://latestmortgagerates.ca/cities/saskatoon", type: "website", locale: "en_CA" },
+  twitter: { card: "summary_large_image", title: "Best Mortgage Rates Saskatoon 2025", description: "$380K average, no LTT! 5-year fixed from 4.19%." },
 };
 
 export default function SaskatoonPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            name: "Latest Mortgage Rates Canada - Saskatoon",
-            description: "Best mortgage rates in Saskatoon and Saskatchewan",
-            areaServed: {
-              "@type": "City",
-              name: "Saskatoon",
-              containedIn: "Saskatchewan",
-            },
-            url: "https://latestmortgagerates.ca/cities/saskatoon",
-          }),
-        }}
-      />
+    <main className="min-h-screen bg-gray-100">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: "Latest Mortgage Rates Canada - Saskatoon", description: "Best mortgage rates in Saskatoon", areaServed: { "@type": "City", name: "Saskatoon", containedIn: "Saskatchewan" }, url: "https://latestmortgagerates.ca/cities/saskatoon" }),
+      }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: saskatoonFaqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }),
+      }} />
 
-      <header className="bg-white shadow-sm border-b border-slate-200">
+      <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
@@ -48,11 +39,11 @@ export default function SaskatoonPage() {
               <li className="text-gray-900 font-medium">Saskatoon</li>
             </ol>
           </nav>
-          
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
+              <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium mb-3"><span>🌾 Paris of the Prairies</span></div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Saskatoon 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Compare the lowest rates from Saskatchewan lenders and find your perfect mortgage</p>
+              <p className="text-gray-600 mt-2 text-lg">Fast-growing prairie city. No land transfer tax! Average home $380K.</p>
             </div>
           </div>
         </div>
@@ -60,235 +51,64 @@ export default function SaskatoonPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Current Rates Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Saskatoon Mortgage Rates</h2>
-              <p className="text-gray-600 mb-6">Updated daily with the best rates from Saskatoon-area lenders including major banks, credit unions, and online lenders.</p>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed Rate</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable Rate</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
+                <div className="bg-blue-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Fixed</p><p className="text-3xl font-bold text-blue-600">4.19%</p><p className="text-sm text-gray-500">Best available rate</p></div>
+                <div className="bg-green-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Variable</p><p className="text-3xl font-bold text-green-600">3.85%</p><p className="text-sm text-gray-500">Prime -0.60%</p></div>
               </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-700">3-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">4.39%</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-700">10-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">4.54%</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-gray-700">1-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">5.49%</span>
-                </div>
-              </div>
-              
-              <div className="mt-6">
-                <Link href="/" className="block text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                  Compare All Saskatoon Rates →
-                </Link>
-              </div>
+              <div className="bg-gray-50 rounded-lg p-4"><p className="text-sm text-gray-700"><strong>Prairie Advantage:</strong> ~$380K average, no LTT. Fast-growing economy with university and ag-tech.</p></div>
             </section>
 
-            {/* Market Overview */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Saskatoon Housing Market Overview</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-blue-600">$380K</p>
-                  <p className="text-sm text-gray-600">Average Home Price</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-green-600">3.2%</p>
-                  <p className="text-sm text-gray-600">YoY Price Change</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-purple-600">45</p>
-                  <p className="text-sm text-gray-600">Days on Market</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Saskatoon's housing market offers excellent value compared to major Canadian cities. With an average home price around $380,000, 
-                the city provides affordable homeownership opportunities while maintaining steady growth. The market benefits from a diverse economy 
-                including agriculture, mining, and technology sectors.
-              </p>
-              <p className="text-gray-600">
-                First-time buyers find Saskatoon particularly attractive due to lower entry prices and the city&apos;s strong rental market 
-                for future investment potential. The steady population growth and economic stability make it an ideal location for 
-                long-term real estate investment.
-              </p>
-            </section>
-
-            {/* First-Time Buyers */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Home Buyers in Saskatoon</h2>
-              <p className="text-gray-600 mb-4">
-                Saskatoon is one of Canada&apos;s most affordable cities for first-time home buyers. With average home prices significantly lower 
-                than national averages, buyers can enter the market with more manageable down payments.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Minimum Down Payment (5%)</p>
-                  <p className="text-2xl font-bold text-blue-600">~$19,000</p>
-                  <p className="text-xs text-gray-500">Based on $380K average</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Recommended Down Payment (10%)</p>
-                  <p className="text-2xl font-bold text-green-600">~$38,000</p>
-                  <p className="text-xs text-gray-500">Reduces mortgage insurance</p>
-                </div>
-              </div>
-              <p className="text-gray-600">
-                Saskatchewan offers additional first-time buyer programs, including the Saskatchewan First Home Plan which provides 
-                repayable assistance. Combined with federal programs, Saskatoon buyers have multiple pathways to homeownership.
-              </p>
-            </section>
-
-            {/* Regional Lender Highlights */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Featured Saskatoon Lenders</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">Conexus Credit Union</h3>
-                  <p className="text-sm text-gray-600">Saskatchewan-based credit union with competitive rates and local expertise. Offers exclusive member benefits and flexible mortgage terms.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">Affinity Credit Union</h3>
-                  <p className="text-sm text-gray-600">Strong local presence across Saskatchewan with competitive pricing and personalized service for Saskatoon residents.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">Saskatoon Brokers</h3>
-                  <p className="text-sm text-gray-600">Local mortgage brokers with deep knowledge of the Saskatoon market and relationships with multiple lenders.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">National Lenders</h3>
-                  <p className="text-sm text-gray-600">Major banks and online lenders competing for Saskatoon business with competitive rates and digital convenience.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* FAQ Section */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Saskatchewan Programs</h2>
               <div className="space-y-4">
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Why are Saskatoon mortgage rates competitive?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Saskatoon benefits from strong competition between Saskatchewan credit unions, national banks, and mortgage brokers. 
-                    The affordable housing market and stable economy encourage lenders to offer attractive rates to qualified borrowers.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Should I choose fixed or variable rates in Saskatoon?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    With Saskatoon&apos;s affordable home prices, both options work well. Variable rates offer lower initial payments and flexibility, 
-                    while fixed rates provide payment certainty. Many local lenders offer hybrid options combining both.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Are Saskatoon credit unions better than banks?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Saskatchewan credit unions often offer competitive rates and community-focused service. However, national banks may provide 
-                    better rates on certain products. Always compare offers from both credit unions and banks to find your best rate.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>What&apos;s the best neighborhood to buy in Saskatoon?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Popular neighborhoods include Stonebridge, Evergreen, and The Meadows for newer homes. The Caswell Hill and Varsity View 
-                    areas offer character homes with established communities. Your mortgage broker can help assess affordability in different areas.
-                  </p>
-                </details>
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">No Land Transfer Tax</h3><p className="text-gray-700">Save thousands in closing costs. Only small registration fee applies.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">First-Time Home Buyers' Tax Credit</h3><p className="text-gray-700">Saskatchewan offers tax credits for first-time buyers.</p></div>
+              </div>
+            </section>
+
+            <section className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Saskatoon Market Factors</h2>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">University of Saskatchewan</h3><p className="text-gray-700">Research powerhouse driving innovation economy. Strong rental demand from students.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">Agriculture Tech Hub</h3><p className="text-gray-700">Global ag-tech research center. Innovations in crop science and ag automation.</p></div>
               </div>
             </section>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick Contact */}
-            <div className="bg-blue-600 rounded-lg shadow-md p-6 text-white">
-              <h3 className="text-xl font-bold mb-2">Need a Saskatoon Mortgage Expert?</h3>
-              <p className="text-blue-100 mb-4">Connect with local brokers who know the Saskatoon market.</p>
-              <Link href="/#contact" className="block text-center px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-gray-100 transition">
-                Get Free Quotes
-              </Link>
-            </div>
-
-            {/* Rate Calculator */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Payment Calculator</h3>
-              <p className="text-gray-600 text-sm mb-4">Estimate your monthly payments for Saskatoon homes.</p>
-              <div className="bg-gray-50 rounded p-3 mb-3">
-                <p className="text-sm text-gray-600">Example: $380K home, 10% down</p>
-                <p className="text-xl font-bold text-blue-600">~$1,850/month</p>
-                <p className="text-xs text-gray-500">Based on 4.19% 5-year fixed</p>
-              </div>
-              <Link href="/#calculator" className="block text-center text-blue-600 hover:text-blue-800 font-medium">
-                Full Calculator →
-              </Link>
-            </div>
-
-            {/* Related Cities */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Other Saskatchewan Cities</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/cities/regina" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Regina Mortgage Rates</span>
-                  </Link>
-                </li>
+          <aside className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+              <h3 className="font-bold text-gray-900 mb-4">Why Saskatoon?</h3>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">NO land transfer tax</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">$380K average homes</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Research university</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Growing tech sector</span></li>
               </ul>
             </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Related Cities</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/cities/edmonton" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Edmonton Mortgage Rates</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cities/calgary" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Calgary Mortgage Rates</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cities/winnipeg" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Winnipeg Mortgage Rates</span>
-                  </Link>
-                </li>
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/cities/regina" className="text-blue-600 hover:underline">Regina Rates</Link></li>
+                <li><Link href="/cities/edmonton" className="text-blue-600 hover:underline">Edmonton Rates</Link></li>
+                <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary Rates</Link></li>
               </ul>
             </div>
-          </div>
+            <div className="bg-blue-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Compare Saskatoon Rates</h3>
+              <p className="text-gray-600 text-sm mb-4">See rates from Saskatchewan lenders.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Share Saskatoon Rates</h3>
+              <SocialShare url="https://latestmortgagerates.ca/cities/saskatoon"
+                title="Best Mortgage Rates Saskatoon 2025"
+                description="Paris of the Prairies! No land transfer tax, $380K average. 5-year fixed from 4.19%."
+              />
+            </div>
+          </aside>
         </div>
       </div>
     </main>

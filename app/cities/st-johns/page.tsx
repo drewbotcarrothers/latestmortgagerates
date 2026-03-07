@@ -1,43 +1,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SocialShare from "../../components/SocialShare";
 
 export const dynamic = "force-static";
 
+const stJohnsFaqs = [
+  { question: "What are current mortgage rates in St. John's?", answer: "Current St. John's mortgage rates are competitive with 5-year fixed rates from 4.19% and variable from 3.85%. St. John's offers exceptional value with average home prices around $315,000 - the most affordable major city in Canada." },
+  { question: "Does Newfoundland have land transfer tax?", answer: "No! Newfoundland and Labrador does not have land transfer tax. You only pay legal fees (~$800-1,500) for closing. This is one of the lowest cost closing provinces in Canada." },
+  { question: "Is St. John's a good place for first-time buyers?", answer: "Extremely good! At ~$315K average it's Canada's most affordable major city. No land transfer tax. Low property taxes. You can buy a beautiful home in a city center for under $400K." },
+  { question: "What drives St. John's economy?", answer: "Oil and gas offshore are major drivers (Hibernia, Hebron, Terra Nova). Memorial University is significant. Provincial government. Ocean research and fishing. Economy fluctuates with oil but has diversified." },
+];
+
 export const metadata: Metadata = {
-  title: "Best Mortgage Rates St. John's 2025 | Latest Mortgage Rates Canada",
-  description: "Find the lowest mortgage rates in St. John's. Compare rates from top Newfoundland and Labrador lenders, understand St. John's market conditions, and connect with local mortgage brokers.",
-  keywords: "St John's mortgage rates, Newfoundland mortgage rates, St John's mortgage broker, best rates St. John's, St. John's home buyer",
-  alternates: {
-    canonical: "https://latestmortgagerates.ca/cities/st-johns",
-  },
-  openGraph: {
-    title: "Best Mortgage Rates St. John's 2025",
-    description: "Compare the lowest mortgage rates from St. John's top lenders",
-    type: "website",
-    url: "https://latestmortgagerates.ca/cities/st-johns",
-  },
+  title: "Best Mortgage Rates St. John's 2025 | Canada's Cheapest City",
+  description: "Find the lowest mortgage rates in St. John's for 2025. No land transfer tax! Average home price $315K. Canada's most affordable major city. 5-year fixed from 4.19%.",
+  keywords: "St. Johns mortgage rates, Newfoundland mortgage, St. John's mortgage broker, best rates St. John's",
+  alternates: { canonical: "https://latestmortgagerates.ca/cities/st-johns" },
+  openGraph: { title: "Best Mortgage Rates St. John's 2025 | Canada's Cheapest", description: "Canada's lowest prices! $315K average. 5-year fixed from 4.19%.", url: "https://latestmortgagerates.ca/cities/st-johns", type: "website", locale: "en_CA" },
+  twitter: { card: "summary_large_image", title: "Best Mortgage Rates St. John's 2025", description: "$315K average! Canada's cheapest big city. 5-year fixed from 4.19%." },
 };
 
 export default function StJohnsPage() {
   return (
     <main className="min-h-screen bg-gray-100">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            name: "Latest Mortgage Rates Canada - St. John's",
-            description: "Best mortgage rates in St. John's and Newfoundland",
-            areaServed: {
-              "@type": "City",
-              name: "St. John's",
-              containedIn: "Newfoundland and Labrador",
-            },
-            url: "https://latestmortgagerates.ca/cities/st-johns",
-          }),
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: "Latest Mortgage Rates Canada - St. John's", description: "Best mortgage rates in St. John's", areaServed: { "@type": "City", name: "St. John's", containedIn: "Newfoundland" }, url: "https://latestmortgagerates.ca/cities/st-johns" }),
+      }} />
+      
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: stJohnsFaqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }),
+      }} />
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -48,11 +40,11 @@ export default function StJohnsPage() {
               <li className="text-gray-900 font-medium">St. John's</li>
             </ol>
           </nav>
-          
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
+              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3"><span>🏠 Canada's Most Affordable City!</span></div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in St. John's 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Compare the lowest rates from Newfoundland lenders and find your perfect mortgage</p>
+              <p className="text-gray-600 mt-2 text-lg">Atlantic Canada's oldest city. $315K average! No land transfer tax. Find your rate.</p>
             </div>
           </div>
         </div>
@@ -60,236 +52,67 @@ export default function StJohnsPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Current Rates Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Current St. John's Mortgage Rates</h2>
-              <p className="text-gray-600 mb-6">Updated daily with the best rates from Newfoundland lenders including major banks, credit unions, and online lenders.</p>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed Rate</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable Rate</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Starting from</p>
-                </div>
+                <div className="bg-blue-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Fixed</p><p className="text-3xl font-bold text-blue-600">4.19%</p><p className="text-sm text-gray-500">Best available rate</p></div>
+                <div className="bg-green-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Variable</p><p className="text-3xl font-bold text-green-600">3.85%</p><p className="text-sm text-gray-500">Prime -0.60%</p></div>
               </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-700">3-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">4.39%</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-gray-700">10-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">4.54%</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-gray-700">1-Year Fixed</span>
-                  <span className="font-semibold text-gray-900">5.49%</span>
-                </div>
-              </div>
-              
-              <div className="mt-6">
-                <Link href="/" className="block text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-                  Compare All St. John's Rates →
-                </Link>
-              </div>
+              <div className="bg-gray-50 rounded-lg p-4"><p className="text-sm text-gray-700"><strong>Eastern Value:</strong> ~$315K average = Canada's cheapest major city. Historic colorful houses!</p></div>
             </section>
 
-            {/* Market Overview */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">St. John's Housing Market Overview</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-blue-600">$315K</p>
-                  <p className="text-sm text-gray-600">Average Home Price</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-green-600">2.5%</p>
-                  <p className="text-sm text-gray-600">YoY Price Change</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <p className="text-3xl font-bold text-purple-600">65</p>
-                  <p className="text-sm text-gray-600">Days on Market</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                St. John's offers Atlantic Canada's most affordable housing market for a capital city, with average home prices around $315,000. 
-                The market has stabilized following offshore oil industry adjustments, creating opportunities for buyers seeking affordable 
-                coastal living.
-              </p>
-              <p className="text-gray-600">
-                The city combines rich cultural heritage with modern amenities and stunning natural beauty. With a growing tech sector 
-                and diversified economy, St. John's presents excellent value for first-time buyers and investors seeking affordable 
-                Canadian real estate.
-              </p>
-            </section>
-
-            {/* First-Time Buyers */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Home Buyers in St. John's</h2>
-              <p className="text-gray-600 mb-4">
-                St. John's offers one of Canada's most affordable entry points to homeownership. With average prices well below national 
-                averages and government first-time buyer programs, the city is ideal for new buyers seeking affordable coastal living.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Minimum Down Payment (5%)</p>
-                  <p className="text-2xl font-bold text-blue-600">~$15,750</p>
-                  <p className="text-xs text-gray-500">Based on $315K average</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600 mb-1">Recommended Down Payment (10%)</p>
-                  <p className="text-2xl font-bold text-green-600">~$31,500</p>
-                  <p className="text-xs text-gray-500">Reduces mortgage insurance</p>
-                </div>
-              </div>
-              <p className="text-gray-600">
-                Newfoundland buyers can access federal programs plus unique provincial incentives. Local lenders understand the 
-                Newfoundland market and offer flexible terms for first-time buyers entering this affordable coastal market.
-              </p>
-            </section>
-
-            {/* Regional Lender Highlights */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Featured St. John's Lenders</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">Newfoundland & Labrador Credit Union</h3>
-                  <p className="text-sm text-gray-600">Province's largest credit union with deep local knowledge and competitive rates for St. John's buyers.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">St. John's Brokers</h3>
-                  <p className="text-sm text-gray-600">Local mortgage professionals with specialized knowledge of the Newfoundland market and lender relationships.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">Regional Banks</h3>
-                  <p className="text-sm text-gray-600">Atlantic-focused banks offering competitive rates tailored to Newfoundland homebuyers.</p>
-                </div>
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
-                  <h3 className="font-semibold text-gray-900">National Lenders</h3>
-                  <p className="text-sm text-gray-600">Major banks and online lenders competing for St. John's business with Atlantic region rates.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* FAQ Section */}
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Newfoundland Programs</h2>
               <div className="space-y-4">
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Why are St. John's prices so affordable?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    St. John's offers excellent value due to its geographic location and market cycles. After oil industry adjustments, 
-                    prices have stabilized at affordable levels while the economy diversifies. Lower land costs and steady development 
-                    maintain this affordability.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Should I get a fixed or variable rate in St. John's?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    With St. John's affordable prices, both options are viable. Fixed rates provide payment certainty in a recovering market, 
-                    while variable offers lower initial costs. Local brokers can help assess which suits your risk tolerance.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>Are St. John's lenders competitive?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Newfoundland lenders are very competitive, with provincial credit unions offering rates matching or beating 
-                    national banks. The smaller market means more personalized service and flexible terms.
-                  </p>
-                </details>
-                <details className="group">
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-                    <span>What neighborhoods are best in St. John's?</span>
-                    <span className="transition group-open:rotate-180">▼</span>
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Popular areas include Paradise and Mount Pearl for families, Torbay Road area for convenience, and downtown 
-                    for character homes. The city offers diverse neighborhoods at very affordable prices compared to mainland Canada.
-                  </p>
-                </details>
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">No Land Transfer Tax</h3><p className="text-gray-700">Only legal fees apply. Lowest closing costs in Canada.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">Home Purchase Program</h3><p className="text-gray-700">Provincial grants for first-time buyers available.</p></div>
+              </div>
+            </section>
+
+            <section className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">St. John's Market Factors</h2>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">Jellybean Row Houses</h3><p className="text-gray-700">Colorful historic homes in downtown. Unique character properties.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">Signal Hill</h3><p className="text-gray-700">Historic landmark with stunning harbor views. Tourism and culture hub.</p></div>
+                <div className="border-l-4 border-purple-500 pl-4"><h3 className="font-semibold text-gray-900">Memorial University</h3><p className="text-gray-700">Affordable tuition attracts 18,000+ students. Strong rental market.</p></div>
               </div>
             </section>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick Contact */}
-            <div className="bg-blue-600 rounded-lg shadow-md p-6 text-white">
-              <h3 className="text-xl font-bold mb-2">Need a St. John's Mortgage Expert?</h3>
-              <p className="text-blue-100 mb-4">Connect with local brokers who know the Newfoundland market.</p>
-              <Link href="/#contact" className="block text-center px-4 py-2 bg-white text-blue-600 rounded-lg font-medium hover:bg-gray-100 transition">
-                Get Free Quotes
-              </Link>
-            </div>
-
-            {/* Rate Calculator */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Payment Calculator</h3>
-              <p className="text-gray-600 text-sm mb-4">Estimate your monthly payments for St. John's homes.</p>
-              <div className="bg-gray-50 rounded p-3 mb-3">
-                <p className="text-sm text-gray-600">Example: $315K home, 10% down</p>
-                <p className="text-xl font-bold text-blue-600">~$1,530/month</p>
-                <p className="text-xs text-gray-500">Based on 4.19% 5-year fixed</p>
-              </div>
-              <Link href="/#calculator" className="block text-center text-blue-600 hover:text-blue-800 font-medium">
-                Full Calculator →
-              </Link>
-            </div>
-
-            {/* Related Cities */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Atlantic Canada</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/cities/halifax" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Halifax Mortgage Rates</span>
-                  </Link>
-                </li>
+          <aside className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+              <h3 className="font-bold text-gray-900 mb-4">Why St. John's?</h3>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">$315K average homes</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">NO land transfer tax</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Colorful Jellybean Row</span></li>
+                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Rich history and culture</span></li>
               </ul>
             </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Related Cities</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/cities/moncton" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Moncton (Coming Soon)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cities/charlottetown" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Charlottetown (Coming Soon)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cities/fredericton" className="text-blue-600 hover:text-blue-800 flex items-center">
-                    <span>→</span>
-                    <span className="ml-2">Fredericton (Coming Soon)</span>
-                  </Link>
-                </li>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/cities/halifax" className="text-blue-600 hover:underline">Halifax Rates</Link></li>
+                <li><Link href="/cities/moncton" className="text-blue-600 hover:underline">Moncton Rates</Link></li>
               </ul>
             </div>
-          </div>
+            
+            <div className="bg-blue-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Compare St. John's Rates</h3>
+              <p className="text-gray-600 text-sm mb-4">See rates from Newfoundland lenders.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+              <h3 className="font-bold text-gray-900 mb-2">Share St. John's Rates</h3>
+              <SocialShare url="https://latestmortgagerates.ca/cities/st-johns"
+                title="Best Mortgage Rates St. John's 2025"
+                description="Canada's cheapest major city! $315K average, Jellybean Row houses. 5-year fixed from 4.19%."
+              />
+            </div>
+          </aside>
         </div>
       </div>
     </main>
