@@ -55,6 +55,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add rates.json metadata.json
+          git add rates.json metadata.json data/rates.json data/metadata.json
           git commit -m "Update rates: $(date +'%Y-%m-%d')"
           git push
