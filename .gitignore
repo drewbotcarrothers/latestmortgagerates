@@ -32,3 +32,6 @@ __pycache__/
 
 # Data (kept in repo for deployment)
 # data/
+
+# TypeScript
+*.tsbuildinfo
