@@ -11,7 +11,7 @@ const kitchenerFaqs = [
   },
   {
     question: "Is Kitchener-Waterloo part of the GTA?",
-    answer: "No, Kitchener-Waterloo is the anchor of the separate "Tech Triangle" region about 100km from Toronto. With GO Train expansion and easy highway access, it's becoming a popular alternative for Toronto commuters seeking more affordable housing.",
+    answer: "No, Kitchener-Waterloo is the anchor of the separate 'Tech Triangle' region about 100km from Toronto. With GO Train expansion and easy highway access, it's becoming a popular alternative for Toronto commuters seeking more affordable housing.",
   },
   {
     question: "Why is Kitchener-Waterloo called the 'Tech Triangle'?",

@@ -44,10 +44,6 @@ export const metadata: Metadata = {
     description: "Compare Vancouver mortgage rates from BC lenders. 5-year fixed from 4.14%.",
   },
 };
-    type: "website",
-    url: "https://latestmortgagerates.ca/cities/vancouver",
-  },
-};
 
 export default function VancouverPage() {
   return (
