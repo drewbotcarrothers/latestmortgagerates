@@ -25,8 +25,7 @@ interface RateComparisonTableProps {
 export default function RateComparisonTable({ rates }: RateComparisonTableProps) {
   const [sortField, setSortField] = useState<keyof Rate>("rate");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [selectedRates, setSelectedRates] = useState<Set< number
-genumber>(new Set());
+  const [selectedRates, setSelectedRates] = useState<Set<number>>(new Set());
 
   const handleSort = (field: keyof Rate) => {
     if (sortField === field) {
