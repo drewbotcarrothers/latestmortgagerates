@@ -15,10 +15,10 @@ const rateTypes = [
 ];
 
 interface Rate {
-  lender: string;
+  lender_name: string;
   rate: number;
-  type: string;
-  term_months?: number;
+  rate_type: string;
+  term_months: number;
 }
 
 interface RatesData {
@@ -38,13 +38,13 @@ function loadRates(): RatesData {
 function getTopRates(rates: Rate[], rateType: string, limit: number = 4): Rate[] {
   // Filter by rate type
   let filtered = rates.filter(r => {
-    if (rateType === '5-Year Fixed') return r.type === 'fixed' && r.term_months === 60;
-    if (rateType === '5-Year Variable') return r.type === 'variable' && r.term_months === 60;
-    if (rateType === '3-Year Fixed') return r.type === 'fixed' && r.term_months === 36;
-    if (rateType === '3-Year Variable') return r.type === 'variable' && r.term_months === 36;
-    if (rateType === '2-Year Fixed') return r.type === 'fixed' && r.term_months === 24;
-    if (rateType === '4-Year Fixed') return r.type === 'fixed' && r.term_months === 48;
-    if (rateType === '10-Year Fixed') return r.type === 'fixed' && r.term_months === 120;
+    if (rateType === '5-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 60;
+    if (rateType === '5-Year Variable') return r.rate_type === 'variable' && r.term_months === 60;
+    if (rateType === '3-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 36;
+    if (rateType === '3-Year Variable') return r.rate_type === 'variable' && r.term_months === 36;
+    if (rateType === '2-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 24;
+    if (rateType === '4-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 48;
+    if (rateType === '10-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 120;
     return false;
   });
 
@@ -63,13 +63,13 @@ function formatTweet(topRates: Rate[], rateType: string, icon: string): string {
   topRates.forEach((rate, index) => {
     const emoji = rankingEmojis[index] || '•';
     // Shorten lender name if needed
-    const lenderShort = rate.lender.length > 15 
-      ? rate.lender.substring(0, 12) + '...' 
-      : rate.lender;
+    const lenderShort = rate.lender_name.length > 15 
+      ? rate.lender_name.substring(0, 12) + '...' 
+      : rate.lender_name;
     tweet += `${emoji} ${lenderShort}: ${rate.rate.toFixed(2)}%\n`;
   });
   
-  tweet += `\nCompare all 112 rates at 👇\n`;
+  tweet += `\nCompare all rates at 👇\n`;
   tweet += `latestmortgagerates.ca`;
   
   return tweet;
@@ -111,7 +111,7 @@ async function postTweet() {
     }
     
     console.log(`🏆 Top rates for ${rateType}:`);
-    topRates.forEach((r, i) => console.log(`  ${i + 1}. ${r.lender}: ${r.rate}%`));
+    topRates.forEach((r, i) => console.log(`  ${i + 1}. ${r.lender_name}: ${r.rate}%`));
     
     // Format tweet
     const tweetText = formatTweet(topRates, rateType, icon);
