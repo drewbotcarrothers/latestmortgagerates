@@ -111,19 +111,34 @@ function formatTweet(topRates: Rate[], rateType: string, icon: string): string {
 
 async function postTweet() {
   try {
-    // Check for required env vars
-    const requiredEnvVars = [
-      'TWITTER_API_KEY',
-      'TWITTER_API_SECRET', 
-      'TWITTER_ACCESS_TOKEN',
-      'TWITTER_ACCESS_SECRET'
-    ];
+    // Check for OAuth 2.0 credentials first
+    const clientId = process.env.TWITTER_CLIENT_ID;
+    const clientSecret = process.env.TWITTER_CLIENT_SECRET;
+    const accessToken = process.env.TWITTER_ACCESS_TOKEN;
     
-    for (const envVar of requiredEnvVars) {
-      if (!process.env[envVar]) {
-        console.error(`❌ Missing environment variable: ${envVar}`);
-        process.exit(1);
-      }
+    // Fall back to OAuth 1.0a if OAuth 2.0 not available
+    const apiKey = process.env.TWITTER_API_KEY;
+    const apiSecret = process.env.TWITTER_API_SECRET;
+    const accessSecret = process.env.TWITTER_ACCESS_SECRET;
+    
+    let client: TwitterApi;
+    
+    if (clientId && clientSecret && accessToken) {
+      console.log('🔐 Using OAuth 2.0 authentication');
+      client = new TwitterApi(accessToken);
+    } else if (apiKey && apiSecret && accessToken && accessSecret) {
+      console.log('🔐 Using OAuth 1.0a authentication');
+      client = new TwitterApi({
+        appKey: apiKey,
+        appSecret: apiSecret,
+        accessToken: accessToken,
+        accessSecret: accessSecret,
+      });
+    } else {
+      console.error('❌ Missing Twitter credentials. Need either:');
+      console.error('   OAuth 2.0: TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, TWITTER_ACCESS_TOKEN');
+      console.error('   OAuth 1.0a: TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET');
+      process.exit(1);
     }
 
     // Get today's rate type
@@ -150,14 +165,6 @@ async function postTweet() {
     const tweetText = formatTweet(topRates, rateType, icon);
     console.log(`\n📝 Tweet text (${tweetText.length} chars):`);
     console.log(tweetText);
-    
-    // Initialize Twitter client
-    const client = new TwitterApi({
-      appKey: process.env.TWITTER_API_KEY!,
-      appSecret: process.env.TWITTER_API_SECRET!,
-      accessToken: process.env.TWITTER_ACCESS_TOKEN!,
-      accessSecret: process.env.TWITTER_ACCESS_SECRET!,
-    });
     
     // Post tweet
     console.log(`\n🚀 Posting tweet...`);
