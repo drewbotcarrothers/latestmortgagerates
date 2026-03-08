@@ -123,10 +123,8 @@ async function postTweet() {
     
     let client: TwitterApi;
     
-    if (clientId && clientSecret && accessToken) {
-      console.log('🔐 Using OAuth 2.0 authentication');
-      client = new TwitterApi(accessToken);
-    } else if (apiKey && apiSecret && accessToken && accessSecret) {
+    // Prefer OAuth 1.0a for posting tweets (requires user context)
+    if (apiKey && apiSecret && accessToken && accessSecret) {
       console.log('🔐 Using OAuth 1.0a authentication');
       client = new TwitterApi({
         appKey: apiKey,
@@ -134,9 +132,13 @@ async function postTweet() {
         accessToken: accessToken,
         accessSecret: accessSecret,
       });
+    } else if (accessToken) {
+      // OAuth 2.0 Bearer token (App-only, read-only)
+      console.log('🔐 Using OAuth 2.0 Bearer token (read-only)');
+      console.log('⚠️  Warning: App-only auth cannot post tweets. Use OAuth 1.0a instead.');
+      client = new TwitterApi(accessToken);
     } else {
-      console.error('❌ Missing Twitter credentials. Need either:');
-      console.error('   OAuth 2.0: TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, TWITTER_ACCESS_TOKEN');
+      console.error('❌ Missing Twitter credentials. Need:');
       console.error('   OAuth 1.0a: TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET');
       process.exit(1);
     }
