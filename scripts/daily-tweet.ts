@@ -14,28 +14,44 @@ const rateTypes = [
   { type: '2-Year Fixed', icon: '🎯' },       // Saturday
 ];
 
-interface Rate {
+interface RawRate {
   lender_name: string;
   rate: number;
   rate_type: string;
   term_months: number;
 }
 
-interface RatesData {
-  rates: Rate[];
-  metadata: {
-    last_updated: string;
-    source: string;
-  };
+interface Rate {
+  lender_name: string;
+  rate: number;
 }
 
-function loadRates(): RatesData {
+function loadRates(): RawRate[] {
   const dataPath = path.join(__dirname, '..', 'data', 'rates.json');
+  console.log(`📂 Loading rates from: ${dataPath}`);
+  
+  if (!fs.existsSync(dataPath)) {
+    console.error(`❌ Rates file not found at ${dataPath}`);
+    process.exit(1);
+  }
+  
   const data = fs.readFileSync(dataPath, 'utf8');
-  return JSON.parse(data);
+  const parsed = JSON.parse(data);
+  
+  // Handle both array and object with rates property
+  const rates = Array.isArray(parsed) ? parsed : parsed.rates;
+  
+  console.log(`📈 Loaded ${rates.length} rates`);
+  
+  // Log first rate to debug
+  if (rates.length > 0) {
+    console.log('🔍 Sample rate:', JSON.stringify(rates[0], null, 2));
+  }
+  
+  return rates;
 }
 
-function getTopRates(rates: Rate[], rateType: string, limit: number = 4): Rate[] {
+function getTopRates(rates: RawRate[], rateType: string, limit: number = 4): Rate[] {
   // Filter by rate type
   let filtered = rates.filter(r => {
     if (rateType === '5-Year Fixed') return r.rate_type === 'fixed' && r.term_months === 60;
@@ -48,11 +64,22 @@ function getTopRates(rates: Rate[], rateType: string, limit: number = 4): Rate[]
     return false;
   });
 
+  console.log(`🔍 Found ${filtered.length} rates for ${rateType}`);
+  
+  if (filtered.length === 0) {
+    // Show what rate_types and term_months we have
+    const types = [...new Set(rates.map(r => `${r.rate_type}-${r.term_months}`))];
+    console.log('📋 Available rate types:', types.slice(0, 10));
+  }
+
   // Sort by rate (lowest first)
   filtered.sort((a, b) => a.rate - b.rate);
 
-  // Return top N
-  return filtered.slice(0, limit);
+  // Return top N with just the fields we need
+  return filtered.slice(0, limit).map(r => ({
+    lender_name: r.lender_name || 'Unknown',
+    rate: r.rate
+  }));
 }
 
 function formatTweet(topRates: Rate[], rateType: string, icon: string): string {
@@ -60,14 +87,21 @@ function formatTweet(topRates: Rate[], rateType: string, icon: string): string {
   
   let tweet = `${icon} Best Canadian ${rateType} Mortgage Rates\n\n`;
   
-  topRates.forEach((rate, index) => {
-    const emoji = rankingEmojis[index] || '•';
+  for (let i = 0; i < topRates.length; i++) {
+    const rate = topRates[i];
+    const emoji = rankingEmojis[i] || '•';
+    
+    if (!rate.lender_name) {
+      console.warn(`⚠️ Missing lender_name for rate ${i}:`, rate);
+      continue;
+    }
+    
     // Shorten lender name if needed
     const lenderShort = rate.lender_name.length > 15 
       ? rate.lender_name.substring(0, 12) + '...' 
       : rate.lender_name;
     tweet += `${emoji} ${lenderShort}: ${rate.rate.toFixed(2)}%\n`;
-  });
+  }
   
   tweet += `\nCompare all rates at 👇\n`;
   tweet += `latestmortgagerates.ca`;
@@ -100,10 +134,9 @@ async function postTweet() {
     console.log(`📊 Tweeting: ${rateType}`);
     
     // Load and filter rates
-    const data = loadRates();
-    console.log(`📈 Loaded ${data.rates.length} rates`);
+    const rates = loadRates();
     
-    const topRates = getTopRates(data.rates, rateType);
+    const topRates = getTopRates(rates, rateType);
     
     if (topRates.length === 0) {
       console.error(`❌ No rates found for ${rateType}`);
