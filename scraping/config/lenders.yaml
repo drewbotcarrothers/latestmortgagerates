@@ -8,7 +8,7 @@ lenders:
     slug: "rbc"
     type: "bank"
     rate_url: "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html"
-    scrape_method: "browser"  # Requires JavaScript
+    scrape_method: "browser"
     frequency: "6h"
     priority: 1
     
@@ -48,44 +48,111 @@ lenders:
     frequency: "6h"
     priority: 1
     
-  # Monolines & Digital Lenders
-  nesto:
-    name: "nesto"
-    slug: "nesto"
-    type: "digital"
-    rate_url: "https://www.nesto.ca/mortgage-rates/"
-    scrape_method: "web_fetch"
-    frequency: "12h"
-    priority: 2
-    
+  # Digital Banks
   tangerine:
     name: "Tangerine"
     slug: "tangerine"
     type: "digital"
-    rate_url: "https://www.tangerine.ca/en/products/borrowing/mortgages"
+    rate_url: "https://www.tangerine.ca/en/rates/mortgage-rates"
+    scrape_method: "web_fetch"
+    frequency: "12h"
+    priority: 2
+
+  simplii:
+    name: "Simplii Financial"
+    slug: "simplii"
+    type: "digital"
+    rate_url: "https://www.simplii.com/en/rates/mortgage-rates.html"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2
 
-# Aggregators (multiple lenders in one scrape)
-ratehub:
-    name: "Ratehub"
-    slug: "ratehub"
-    type: "aggregator"
-    rate_url: "https://www.ratehub.ca/best-mortgage-rates"
-    scrape_method: "http"
-    frequency: "6h"
-    priority: 1
-    notes: "Aggregates rates from Big 5 + monolines"
+  eqbank:
+    name: "EQ Bank"
+    slug: "eqbank"
+    type: "digital"
+    rate_url: "https://www.eqbank.ca/personal-banking/mortgages/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
 
-# Bank of Canada API (no browser needed)
-benchmarks:
-  boc_valet:
-    name: "Bank of Canada Valet API"
-    type: "api"
-    base_url: "https://www.bankofcanada.ca/valet"
-    endpoints:
-      posted_rates: "/observations/group/POSTED_CHARTERED_BANKS/json?recent=4"
-      broker_average: "/observations/BROKER_AVERAGE_5YR_VRM/json?recent=10"
+# Credit Unions & Regional Banks
+vancity:
+    name: "Vancity"
+    slug: "vancity"
+    type: "credit_union"
+    rate_url: "https://www.vancity.com/personal/rates/#mortgage"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "BC credit union - major market share"
+
+atb:
+    name: "ATB Financial"
+    slug: "atb"
+    type: "regional_bank"
+    rate_url: "https://www.atb.com/en/personal/borrow/mortgage-rates.html"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Alberta provincial bank"
+
+cwb:
+    name: "Canadian Western Bank"
+    slug: "cwb"
+    type: "regional_bank"
+    rate_url: "https://www.cwb.com/personal/rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Western Canada focused"
+
+coastcapital:
+    name: "Coast Capital Savings"
+    slug: "coastcapital"
+    type: "credit_union"
+    rate_url: "https://www.coastcapitalsavings.com/rates/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "BC credit union"
+
+# Monoline Lenders
+nesto:
+    name: "nesto"
+    slug: "nesto"
+    type: "monoline"
+    rate_url: "https://www.nesto.ca/mortgage-rates/"
+    scrape_method: "web_fetch"
+    frequency: "12h"
+    priority: 2
+
+cmls:
+    name: "CMLS Financial"
+    slug: "cmls"
+    type: "monoline"
+    rate_url: "https://www.cmls.ca/rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Large monoline lender - broker only"
+
+merix:
+    name: "Merix Financial"
+    slug: "merix"
+    type: "monoline"
+    rate_url: "https://www.merix.com/rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Major monoline lender - broker only"
+
+cmhc:
+    name: "CMHC"
+    slug: "cmhc"
+    type: "aggregator"
+    rate_url: "https://www.cmhc-schl.gc.ca/professionals/housing-markets-data-and-research/interest-rates"
+    scrape_method: "browser"
     frequency: "24h"
     priority: 0
+    notes: "National Housing Authority - industry benchmarks"
