@@ -21,12 +21,12 @@ jobs:
           node-version: '20'
           
       - name: Install dependencies
-        working-directory: ./LatestMortgageRates/web
+        working-directory: app
         run: npm install
         
       - name: Post to Twitter
-        working-directory: ./LatestMortgageRates/web
-        run: npx ts-node scripts/post-to-twitter.ts
+        working-directory: app
+        run: npx ts-node ../scripts/daily-tweet.ts
         env:
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
