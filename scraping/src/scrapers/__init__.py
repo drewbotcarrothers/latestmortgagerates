@@ -18,6 +18,9 @@ from .butler_scraper import ButlerMortgageScraper
 from .intellimortgage_scraper import IntelliMortgageScraper
 from .streetcapital_scraper import StreetCapitalScraper
 from .centum_scraper import CentumScraper
+from .ratesca_scraper import RatesCaScraper
+from .lowestrates_scraper import LowestRatesScraper
+from .wowa_scraper import WOWAScraper
 
 __all__ = [
     'BaseScraper',
@@ -39,4 +42,7 @@ __all__ = [
     'IntelliMortgageScraper',
     'StreetCapitalScraper',
     'CentumScraper',
+    'RatesCaScraper',
+    'LowestRatesScraper',
+    'WOWAScraper',
 ]

@@ -76,8 +76,8 @@ lenders:
     frequency: "12h"
     priority: 2
 
-# Credit Unions & Regional Banks
-vancity:
+  # Credit Unions & Regional Banks
+  vancity:
     name: "Vancity"
     slug: "vancity"
     type: "credit_union"
@@ -87,7 +87,7 @@ vancity:
     priority: 2
     notes: "BC credit union - major market share"
 
-atb:
+  atb:
     name: "ATB Financial"
     slug: "atb"
     type: "regional_bank"
@@ -97,7 +97,7 @@ atb:
     priority: 2
     notes: "Alberta provincial bank"
 
-cwb:
+  cwb:
     name: "Canadian Western Bank"
     slug: "cwb"
     type: "regional_bank"
@@ -107,7 +107,7 @@ cwb:
     priority: 2
     notes: "Western Canada focused"
 
-coastcapital:
+  coastcapital:
     name: "Coast Capital Savings"
     slug: "coastcapital"
     type: "credit_union"
@@ -117,8 +117,8 @@ coastcapital:
     priority: 2
     notes: "BC credit union"
 
-# Monoline Lenders
-nesto:
+  # Monoline Lenders
+  nesto:
     name: "nesto"
     slug: "nesto"
     type: "monoline"
@@ -127,7 +127,7 @@ nesto:
     frequency: "12h"
     priority: 2
 
-cmls:
+  cmls:
     name: "CMLS Financial"
     slug: "cmls"
     type: "monoline"
@@ -137,7 +137,7 @@ cmls:
     priority: 2
     notes: "Large monoline lender - broker only"
 
-merix:
+  merix:
     name: "Merix Financial"
     slug: "merix"
     type: "monoline"
@@ -147,7 +147,7 @@ merix:
     priority: 2
     notes: "Major monoline lender - broker only"
 
-lendwise:
+  lendwise:
     name: "Lendwise"
     slug: "lendwise"
     type: "monoline"
@@ -157,7 +157,7 @@ lendwise:
     priority: 2
     notes: "Online mortgage lender"
 
-butlermortgage:
+  butlermortgage:
     name: "Butler Mortgage"
     slug: "butlermortgage"
     type: "monoline"
@@ -167,7 +167,7 @@ butlermortgage:
     priority: 2
     notes: "Major mortgage brokerage with direct lending"
 
-intellimortgage:
+  intellimortgage:
     name: "IntelliMortgage"
     slug: "intellimortgage"
     type: "monoline"
@@ -177,7 +177,7 @@ intellimortgage:
     priority: 2
     notes: "Online mortgage platform"
 
-streetcapital:
+  streetcapital:
     name: "Street Capital"
     slug: "streetcapital"
     type: "monoline"
@@ -187,7 +187,7 @@ streetcapital:
     priority: 2
     notes: "Major monoline lender"
 
-centum:
+  centum:
     name: "Centum"
     slug: "centum"
     type: "monoline"
@@ -197,10 +197,42 @@ centum:
     priority: 2
     notes: "Largest mortgage brokerage network in Canada"
 
-cmhc:
+  # Rate Aggregators
+  ratesca:
+    name: "Rates.ca"
+    slug: "ratesca"
+    type: "aggregator"
+    rate_url: "https://www.rates.ca/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "6h"
+    priority: 1
+    notes: "Aggregates 30+ lenders - comprehensive rate comparison"
+
+  lowestrates:
+    name: "LowestRates.ca"
+    slug: "lowestrates"
+    type: "aggregator"
+    rate_url: "https://www.lowestrates.ca/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "6h"
+    priority: 1
+    notes: "Major rate comparison platform"
+
+  wowa:
+    name: "WOWA.ca"
+    slug: "wowa"
+    type: "aggregator"
+    rate_url: "https://www.wowa.ca/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "6h"
+    priority: 1
+    notes: "Financial comparison platform with mortgage rates"
+
+  # Benchmark Sources
+  cmhc:
     name: "CMHC"
     slug: "cmhc"
-    type: "aggregator"
+    type: "benchmark"
     rate_url: "https://www.cmhc-schl.gc.ca/professionals/housing-markets-data-and-research/interest-rates"
     scrape_method: "browser"
     frequency: "24h"
