@@ -13,6 +13,11 @@ from .cwb_scraper import CWBScraper
 from .coastcapital_scraper import CoastCapitalScraper
 from .cmls_scraper import CMLSScraper
 from .merix_scraper import MerixScraper
+from .lendwise_scraper import LendwiseScraper
+from .butler_scraper import ButlerMortgageScraper
+from .intellimortgage_scraper import IntelliMortgageScraper
+from .streetcapital_scraper import StreetCapitalScraper
+from .centum_scraper import CentumScraper
 
 __all__ = [
     'BaseScraper',
@@ -29,4 +34,9 @@ __all__ = [
     'CoastCapitalScraper',
     'CMLSScraper',
     'MerixScraper',
+    'LendwiseScraper',
+    'ButlerMortgageScraper',
+    'IntelliMortgageScraper',
+    'StreetCapitalScraper',
+    'CentumScraper',
 ]

@@ -147,6 +147,56 @@ merix:
     priority: 2
     notes: "Major monoline lender - broker only"
 
+lendwise:
+    name: "Lendwise"
+    slug: "lendwise"
+    type: "monoline"
+    rate_url: "https://www.lendwise.com/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Online mortgage lender"
+
+butlermortgage:
+    name: "Butler Mortgage"
+    slug: "butlermortgage"
+    type: "monoline"
+    rate_url: "https://www.butlermortgage.com/rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Major mortgage brokerage with direct lending"
+
+intellimortgage:
+    name: "IntelliMortgage"
+    slug: "intellimortgage"
+    type: "monoline"
+    rate_url: "https://www.intellimortgage.com/rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Online mortgage platform"
+
+streetcapital:
+    name: "Street Capital"
+    slug: "streetcapital"
+    type: "monoline"
+    rate_url: "https://www.streetcapital.ca/mortgage-rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Major monoline lender"
+
+centum:
+    name: "Centum"
+    slug: "centum"
+    type: "monoline"
+    rate_url: "https://www.centum.ca/our-rates"
+    scrape_method: "browser"
+    frequency: "12h"
+    priority: 2
+    notes: "Largest mortgage brokerage network in Canada"
+
 cmhc:
     name: "CMHC"
     slug: "cmhc"
