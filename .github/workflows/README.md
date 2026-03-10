@@ -99,9 +99,9 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 Required secrets (set in GitHub Settings > Secrets and variables > Actions):
 
 ### Deployment
-- `FTP_HOST` - Hostinger FTP server
-- `FTP_USERNAME` - FTP username
-- `FTP_PASSWORD` - FTP password
+- `SFTP_HOST` - Hostinger FTP server
+- `SFTP_USERNAME` - FTP username
+- `SFTP_PASSWORD` - FTP password
 
 ### Social Media (X/Twitter)
 - `TWITTER_CLIENT_ID` - OAuth 2.0 Client ID
