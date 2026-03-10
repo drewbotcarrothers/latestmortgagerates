@@ -1,0 +1,55 @@
+name: Post to Social Media
+
+on:
+  schedule:
+    # Daily at 9:00 AM EST (14:00 UTC) - after morning scrape
+    - cron: '0 14 * * *'
+    # Weekly on Sundays at 10:00 AM EST (15:00 UTC)
+    - cron: '0 15 * * 0'
+  workflow_dispatch:
+    inputs:
+      post_type:
+        description: 'Type of post'
+        required: true
+        default: 'daily_rates'
+        type: choice
+        options:
+          - daily_rates
+          - weekly_summary
+          - best_rates
+
+jobs:
+  post-to-x:
+    name: Post to X (Twitter)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tweet script
+        run: npx tsx scripts/daily-tweet.ts
+        env:
+          TWITTER_CLIENT_ID: ${{ secrets.TWITTER_CLIENT_ID }}
+          TWITTER_CLIENT_SECRET: ${{ secrets.TWITTER_CLIENT_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+
+  # Optional: Add other social platforms here
+  # post-to-bluesky:
+  #   name: Post to Bluesky
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Post to Bluesky
+  #       run: echo "Bluesky integration coming soon"

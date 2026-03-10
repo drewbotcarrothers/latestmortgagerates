@@ -1,0 +1,73 @@
+name: Send Email Alerts
+
+on:
+  schedule:
+    # Daily: 9:00 AM EST
+    - cron: '0 14 * * *'
+    # Weekly: Sundays at 9:00 AM EST
+    - cron: '0 15 * * 0'
+    # Monthly: 1st of month at 9:00 AM EST
+    - cron: '0 14 1 * *'
+  workflow_dispatch:
+    inputs:
+      frequency:
+        description: 'Alert frequency'
+        required: true
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - weekly
+          - monthly
+
+env:
+  SMTP_HOST: ${{ secrets.SMTP_HOST }}
+  SMTP_PORT: ${{ secrets.SMTP_PORT }}
+  SMTP_USER: ${{ secrets.SMTP_USER }}
+  SMTP_PASS: ${{ secrets.SMTP_PASS }}
+
+jobs:
+  send-alerts:
+    name: Send Rate Alerts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Determine frequency
+        id: frequency
+        run: |
+          # Map schedule to frequency
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "freq=${{ github.event.inputs.frequency }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" == "0 14 1 * *" ]; then
+            echo "freq=monthly" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" == "0 15 * * 0" ]; then
+            echo "freq=weekly" >> $GITHUB_OUTPUT
+          else
+            echo "freq=daily" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send emails
+        run: |
+          echo "Sending ${{ steps.frequency.outputs.freq }} rate alerts..."
+          # TODO: Implement email sending logic
+          # Option 1: Use a Node.js script with nodemailer
+          # Option 2: Use a third-party service like SendGrid/Mailgun API
+          # Option 3: Use GitHub Actions marketplace SMTP action
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: email-logs-${{ steps.frequency.outputs.freq }}-${{ github.run_id }}
+          path: |
+            logs/
+            *.log
+          retention-days: 30
+          if-no-files-found: ignore
