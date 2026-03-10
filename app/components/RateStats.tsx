@@ -1,7 +1,5 @@
 "use client";
 
-import { TrendingDown, TrendingUp, Minus } from "lucide-react";
-
 interface Rate {
   lender_name: string;
   lender_slug: string;
@@ -18,32 +16,33 @@ interface RateStatsProps {
   rates: Rate[];
 }
 
+// Inline SVG icons
+const TrendingDownIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>
+);
+
 export default function RateStats({ rates }: RateStatsProps) {
   // Calculate statistics
   const stats = {
     fixed5yrUninsured: {
       rates: rates.filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured"),
       label: "5-Year Fixed",
-      icon: TrendingDown,
+      icon: TrendingDownIcon,
       color: "emerald",
     },
     fixed5yrInsured: {
       rates: rates.filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "insured"),
       label: "5-Year Fixed (Insured)",
-      icon: TrendingDown,
+      icon: TrendingDownIcon,
       color: "teal",
     },
     variable5yrUninsured: {
       rates: rates.filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured"),
       label: "5-Year Variable",
-      icon: TrendingDown,
+      icon: TrendingDownIcon,
       color: "cyan",
-    },
-    variable5yrInsured: {
-      rates: rates.filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "insured"),
-      label: "5-Year Variable (Insured)",
-      icon: TrendingDown,
-      color: "teal",
     },
   };
 
@@ -71,7 +70,7 @@ export default function RateStats({ rates }: RateStatsProps) {
   const StatCard = ({ title, data, icon: Icon, color }: { 
     title: string; 
     data: Rate[]; 
-    icon: typeof TrendingDown;
+    icon: typeof TrendingDownIcon;
     color: string;
   }) => {
     const stats = calcStats(data);
@@ -104,7 +103,7 @@ export default function RateStats({ rates }: RateStatsProps) {
       <div className="card-default p-5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3 mb-4">
           <div className={`p-2 rounded-lg ${colors.bg}`}>
-            <Icon className={`w-5 h-5 ${colors.text}`} />
+            <Icon />
           </div>
           <h3 className="text-sm font-semibold text-slate-700">{title}</h3>
         </div>
@@ -162,7 +161,7 @@ export default function RateStats({ rates }: RateStatsProps) {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <StatCard 
           title={stats.fixed5yrUninsured.label} 
           data={stats.fixed5yrUninsured.rates}

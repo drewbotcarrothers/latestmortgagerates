@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpDown, ArrowUp, ArrowDown, ChevronRight } from "lucide-react";
 import LenderLogo from "./LenderLogo";
 
 interface Rate {
@@ -23,10 +22,34 @@ interface RateComparisonTableProps {
   rates: Rate[];
 }
 
+// Inline SVG icons
+const ArrowUpDownIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+  </svg>
+);
+
+const ArrowUpIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+  </svg>
+);
+
+const ArrowDownIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+  </svg>
+);
+
+const ChevronRightIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+);
+
 export default function RateComparisonTable({ rates }: RateComparisonTableProps) {
   const [sortField, setSortField] = useState<keyof Rate>("rate");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
 
   const handleSort = (field: keyof Rate) => {
     if (sortField === field) {
@@ -47,16 +70,6 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
     const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
     return sortDirection === "asc" ? comparison : -comparison;
   });
-
-  const toggleRow = (index: number) => {
-    const newExpanded = new Set(expandedRows);
-    if (newExpanded.has(index)) {
-      newExpanded.delete(index);
-    } else {
-      newExpanded.add(index);
-    }
-    setExpandedRows(newExpanded);
-  };
 
   const getTermLabel = (months: number) => {
     if (months < 12) return `${months}m`;
@@ -89,18 +102,10 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
   };
 
   const SortIcon = ({ field }: { field: keyof Rate }) => {
-    if (sortField !== field) return <ArrowUpDown className="w-4 h-4 text-slate-400" />;
+    if (sortField !== field) return <ArrowUpDownIcon />;
     return sortDirection === "asc" ? 
-      <ArrowUp className="w-4 h-4 text-teal-600" /> : 
-      <ArrowDown className="w-4 h-4 text-teal-600" />;
-  };
-
-  const RateValue = ({ rate }: { rate: number }) => {
-    return (
-      <span className="text-lg font-bold text-emerald-600">
-        {rate.toFixed(2)}%
-      </span>
-    );
+      <span className="text-teal-600"><ArrowUpIcon /></span> : 
+      <span className="text-teal-600"><ArrowDownIcon /></span>;
   };
 
   return (
@@ -163,71 +168,68 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
             </tr>
           ) : (
             sortedRates.map((rate, index) => (
-              <>
-                <tr
-                  key={index}
-                  className="group hover:bg-slate-50/80 transition-colors cursor-pointer"
-                  onClick={() => toggleRow(index)}
-                >
-                  <td className="py-4 px-4">
+              <tr
+                key={index}
+                className="group hover:bg-slate-50/80 transition-colors"
+              >
+                <td className="py-4 px-4">
+                  <Link
+                    href={`/lenders/${rate.lender_slug}`}
+                    className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                  >
+                    <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                  </Link>
+                </td>
+                
+                <td className="py-4 px-3">
+                  <span className="font-medium text-slate-900">{getTermLabel(rate.term_months)}</span>
+                </td>
+                
+                <td className="py-4 px-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {getRateTypeBadge(rate.rate_type)}
+                    {getMortgageTypeBadge(rate.mortgage_type)}
+                  </div>
+                </td>
+                
+                <td className="py-4 px-3">
+                  <div className="flex flex-col">
+                    <span className="text-lg font-bold text-emerald-600">
+                      {rate.rate.toFixed(2)}%
+                    </span>
+                    {rate.posted_rate && (
+                      <span className="text-xs text-slate-400 line-through">
+                        {rate.posted_rate.toFixed(2)}%
+                      </span>
+                    )}
+                  </div>
+                </td>
+                
+                <td className="py-4 px-3 hidden sm:table-cell">
+                  <div className="text-sm text-slate-500">
+                    {(rate.apr || rate.spread_to_prime) ? (
+                      <div className="space-y-0.5">
+                        {rate.apr && <div>APR: {rate.apr}%</div>}
+                        {rate.spread_to_prime && <div>{rate.spread_to_prime}</div>}
+                      </div>
+                    ) : (
+                      <span className="text-slate-400">--</span>
+                    )}
+                  </div>
+                </td>
+                
+                <td className="py-4 px-4 text-right">
+                  <div className="flex items-center justify-end gap-2">
                     <Link
                       href={`/lenders/${rate.lender_slug}`}
-                      className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
                     >
-                      <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                      View
+                      <ChevronRightIcon />
                     </Link>
-                  </td>
-                  
-                  <td className="py-4 px-3">
-                    <span className="font-medium text-slate-900">{getTermLabel(rate.term_months)}</span>
-                  </td>
-                  
-                  <td className="py-4 px-3">
-                    <div className="flex flex-wrap gap-1.5">
-                      {getRateTypeBadge(rate.rate_type)}
-                      {getMortgageTypeBadge(rate.mortgage_type)}
-                    </div>
-                  </td>
-                  
-                  <td className="py-4 px-3">
-                    <div className="flex flex-col">
-                      <RateValue rate={rate.rate} />
-                      {rate.posted_rate && (
-                        <span className="text-xs text-slate-400 line-through">
-                          {rate.posted_rate.toFixed(2)}%
-                        </span>
-                      )}
-                    </div>
-                  </td>
-                  
-                  <td className="py-4 px-3 hidden sm:table-cell">
-                    <div className="text-sm text-slate-500">
-                      {(rate.apr || rate.spread_to_prime) ? (
-                        <div className="space-y-0.5">
-                          {rate.apr && <div>APR: {rate.apr}%</div>}
-                          {rate.spread_to_prime && <div>{rate.spread_to_prime}</div>}
-                        </div>
-                      ) : (
-                        <span className="text-slate-400">--</span>
-                      )}
-                    </div>
-                  </td>
-                  
-                  <td className="py-4 px-4 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <Link
-                        href={`/lenders/${rate.lender_slug}`}
-                        className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        View
-                        <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              </>
+                  </div>
+                </td>
+              </tr>
             ))
           )}
         </tbody>
@@ -236,7 +238,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
       <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500 flex items-center justify-between">
         <span>Showing {sortedRates.length} rates</span>
         <span className="text-xs text-slate-400">
-          Click row to see details • Sorted by {sortField}
+          Sorted by {sortField}
         </span>
       </div>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { SlidersHorizontal, X } from "lucide-react";
 
 interface FilterState {
   term: string;
@@ -14,6 +13,19 @@ interface RateFiltersProps {
   onFilterChange: (filters: FilterState) => void;
   lenders: string[];
 }
+
+// Inline SVG icons
+const SlidersHorizontalIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+  </svg>
+);
+
+const XIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
 
 export default function RateFilters({ onFilterChange, lenders }: RateFiltersProps) {
   const [filters, setFilters] = useState<FilterState>({
@@ -51,7 +63,7 @@ export default function RateFilters({ onFilterChange, lenders }: RateFiltersProp
       <div className="flex items-center justify-between p-4 border-b border-slate-200">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-teal-50 rounded-lg">
-            <SlidersHorizontal className="w-5 h-5 text-teal-600" />
+            <SlidersHorizontalIcon />
           </div>
           <div>
             <h2 className="font-semibold text-slate-900">Filter Rates</h2>
@@ -65,7 +77,7 @@ export default function RateFilters({ onFilterChange, lenders }: RateFiltersProp
               onClick={resetFilters}
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
             >
-              <X className="w-4 h-4" />
+              <XIcon />
               Clear ({activeFilterCount})
             </button>
           )}
