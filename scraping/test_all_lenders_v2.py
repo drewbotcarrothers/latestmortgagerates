@@ -1,6 +1,7 @@
 """
 Test all lenders (30 direct lenders - NO aggregators).
 Scrapes rates from all banks and saves to database.
+With timeouts and comprehensive error handling.
 """
 
 import sys
@@ -11,6 +12,10 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from loguru import logger
 import time
+import signal
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Optional
 
 from src.database import Database
 from src.validator import RateValidator
@@ -53,7 +58,7 @@ from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
 
 
-# Define approved lender slugs ( whitelist )
+# Define approved lender slugs (whitelist)
 APPROVED_LENDERS = {
     'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank',
     'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna',
@@ -62,6 +67,48 @@ APPROVED_LENDERS = {
     'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
     'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum'
 }
+
+# Default timeout per scraper (seconds)
+SCRAPER_TIMEOUT = 60  # 1 minute per scraper
+
+
+class ScraperTimeout(Exception):
+    """Raised when a scraper exceeds its timeout."""
+    pass
+
+
+def run_scraper_with_timeout(scraper, timeout_secs=SCRAPER_TIMEOUT):
+    """
+    Run a scraper with a timeout.
+    Returns (rates, result, duration) tuple.
+    """
+    start_time = time.time()
+    rates = []
+    error_msg = None
+    
+    def scrape_thread():
+        nonlocal rates, error_msg
+        try:
+            rates = scraper.scrape()
+        except Exception as e:
+            error_msg = str(e)
+    
+    # Start scraper in a thread
+    thread = threading.Thread(target=scrape_thread)
+    thread.start()
+    thread.join(timeout=timeout_secs)
+    
+    duration = time.time() - start_time
+    
+    if thread.is_alive():
+        # Scraper is still running after timeout
+        logger.warning(f"Scraper {scraper.LENDER_SLUG} timed out after {timeout_secs}s")
+        return [], f"TIMEOUT after {timeout_secs}s", duration
+    
+    if error_msg:
+        return [], error_msg, duration
+    
+    return rates, None, duration
 
 
 def scrape_all_lenders():
@@ -74,99 +121,134 @@ def scrape_all_lenders():
     db = Database()
     validator = RateValidator()
     
-    # All scrapers - organized by category (NO aggregators)
-    scrapers = [
+    # All scraper classes - organized by category
+    scraper_classes = [
         # Big 6 Banks (6)
-        RBCScraper(),
-        TDScraper(),
-        BMOScraper(),
-        ScotiabankScraper(),
-        CIBCScraper(),
-        NationalBankScraper(),
+        ("RBC", RBCScraper),
+        ("TD", TDScraper),
+        ("BMO", BMOScraper),
+        ("Scotia", ScotiabankScraper),
+        ("CIBC", CIBCScraper),
+        ("NBC", NationalBankScraper),
         
         # Digital Banks (6)
-        NestoScraper(),
-        TangerineScraper(),
-        EQBankScraper(),
-        SimpliiScraper(),
-        MotiveScraper(),
-        AlternaScraper(),
+        ("Nesto", NestoScraper),
+        ("Tangerine", TangerineScraper),
+        ("EQ Bank", EQBankScraper),
+        ("Simplii", SimpliiScraper),
+        ("Motive", MotiveScraper),
+        ("Alterna", AlternaScraper),
         
         # Credit Unions (4)
-        MeridianScraper(),
-        DesjardinsScraper(),
-        VancityScraper(),
-        CoastCapitalScraper(),
+        ("Meridian", MeridianScraper),
+        ("Desjardins", DesjardinsScraper),
+        ("Vancity", VancityScraper),
+        ("Coast Capital", CoastCapitalScraper),
         
         # Regional Banks (2)
-        ATBScraper(),
-        CWBScraper(),
+        ("ATB", ATBScraper),
+        ("CWB", CWBScraper),
         
         # Monoline Lenders (11)
-        FirstNationalScraper(),
-        MCAPScraper(),
-        LaurentianBankScraper(),
-        ManulifeBankScraper(),
-        RFAScraper(),
-        CMLSScraper(),
-        MerixScraper(),
-        LendwiseScraper(),
-        ButlerMortgageScraper(),
-        IntelliMortgageScraper(),
-        StreetCapitalScraper(),
-        CentumScraper(),
+        ("First National", FirstNationalScraper),
+        ("MCAP", MCAPScraper),
+        ("Laurentian", LaurentianBankScraper),
+        ("Manulife", ManulifeBankScraper),
+        ("RFA", RFAScraper),
+        ("CMLS", CMLSScraper),
+        ("Merix", MerixScraper),
+        ("Lendwise", LendwiseScraper),
+        ("Butler", ButlerMortgageScraper),
+        ("IntelliMortgage", IntelliMortgageScraper),
+        ("Street Capital", StreetCapitalScraper),
+        ("Centum", CentumScraper),
     ]
     
     all_rates = []
     results = []
     
-    print("\n" + "="*70)
-    print(f"SCRAPING ALL LENDERS ({len(scrapers)} Direct Lenders - NO Aggregators)")
-    print("="*70)
+    print("\n" + "="*80)
+    print(f"SCRAPING ALL LENDERS ({len(scraper_classes)} Direct Lenders - NO Aggregators)")
+    print("="*80)
+    print(f"Timeout per scraper: {SCRAPER_TIMEOUT}s")
+    print("="*80)
     
-    for i, scraper in enumerate(scrapers, 1):
-        bank_start = time.time()
+    # Run each scraper with timeout
+    for i, (short_name, ScraperClass) in enumerate(scraper_classes, 1):
+        scraped_at = time.time()
+        
         try:
-            rates = scraper.scrape()
-            bank_duration = time.time() - bank_start
-            
+            scraper = ScraperClass()
+        except Exception as e:
+            logger.error(f"Failed to initialize {short_name}: {e}")
+            results.append(ScrapingResult(
+                lender_slug=short_name.lower(),
+                success=False,
+                rates_found=0,
+                error_message=f"INIT ERROR: {e}",
+                scraped_at=scraped_at,
+                duration_seconds=0
+            ))
+            print(f"\n[{i:2}/{len(scraper_classes)}] {short_name:20} FAILED - Init error: {e}")
+            continue
+        
+        # Run with timeout
+        rates, error, duration = run_scraper_with_timeout(scraper, SCRAPER_TIMEOUT)
+        
+        if error:
+            logger.error(f"Failed to scrape {scraper.LENDER_SLUG}: {error}")
+            results.append(ScrapingResult(
+                lender_slug=scraper.LENDER_SLUG,
+                success=False,
+                rates_found=0,
+                error_message=error,
+                scraped_at=scraped_at,
+                duration_seconds=duration
+            ))
+            status = "TIMEOUT" if "TIMEOUT" in error else "FAILED"
+            print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} {status:8} {error[:40]}")
+        else:
             all_rates.extend(rates)
             results.append(ScrapingResult(
                 lender_slug=scraper.LENDER_SLUG,
                 success=True,
                 rates_found=len(rates),
-                scraped_at=scraper.scraped_at,
-                duration_seconds=bank_duration
+                scraped_at=scraped_at,
+                duration_seconds=duration
             ))
-            
-            print(f"\n[{i}/{len(scrapers)}] {scraper.LENDER_NAME}: {len(rates)} rates")
-            
-        except Exception as e:
-            bank_duration = time.time() - bank_start
-            logger.error(f"Failed to scrape {scraper.LENDER_SLUG}: {e}")
-            results.append(ScrapingResult(
-                lender_slug=scraper.LENDER_SLUG,
-                success=False,
-                rates_found=0,
-                error_message=str(e),
-                scraped_at=scraper.scraped_at,
-                duration_seconds=bank_duration
-            ))
-            print(f"\n[{i}/{len(scrapers)}] {scraper.LENDER_NAME}: FAILED - {e}")
+            print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} OK       {len(rates)} rates ({duration:.1f}s)")
+    
+    # Print summary of scraping results
+    print("\n" + "="*80)
+    print("SCRAPING SUMMARY")
+    print("="*80)
+    
+    successful = [r for r in results if r.success]
+    failed = [r for r in results if not r.success]
+    
+    print(f"\nSuccessful: {len(successful)}/{len(scraper_classes)}")
+    print(f"Failed:     {len(failed)}/{len(scraper_classes)}")
+    
+    if failed:
+        print("\nFailed scrapers:")
+        for r in failed:
+            print(f"  - {r.lender_slug:20} {r.error_message[:50]}")
     
     # Filter rates: only approved lenders, no aggregators
-    print("\n" + "="*70)
+    print("\n" + "="*80)
     print("FILTERING RATES - Removing aggregators and unknown lenders")
-    print("="*70)
+    print("="*80)
     
     filtered_rates = []
     removed_count = 0
+    removed_lenders = set()
     
     for rate in all_rates:
         # Check if lender is in approved list
         if rate.lender_slug not in APPROVED_LENDERS:
             logger.warning(f"Removing rate from unapproved lender: {rate.lender_slug}")
             removed_count += 1
+            removed_lenders.add(rate.lender_slug)
             continue
         
         # Check if source is an aggregator
@@ -178,14 +260,17 @@ def scrape_all_lenders():
         
         filtered_rates.append(rate)
     
+    if removed_lenders:
+        print(f"Removed lenders not in approved list: {removed_lenders}")
+    
     print(f"Original rates: {len(all_rates)}")
     print(f"Filtered rates: {len(filtered_rates)}")
     print(f"Removed: {removed_count} (aggregators/unknown lenders)")
     
     # Validate and save rates
-    print("\n" + "="*70)
+    print("\n" + "="*80)
     print("VALIDATING AND SAVING RATES")
-    print("="*70)
+    print("="*80)
     
     valid_rates = []
     invalid_rates = []
@@ -197,13 +282,23 @@ def scrape_all_lenders():
                 valid_rates.append(rate)
             else:
                 invalid_rates.append((rate, errors))
+                logger.warning(f"Invalid rate: {rate.lender_slug} {rate.term_months}mo - {errors}")
         except Exception as e:
             logger.warning(f"Validation error for {rate.lender_slug}: {e}")
-            valid_rates.append(rate)
+            valid_rates.append(rate)  # Keep it anyway
     
-    print(f"\nTotal rates: {len(filtered_rates)}")
-    print(f"Valid: {len(valid_rates)}")
-    print(f"Invalid: {len(invalid_rates)}")
+    print(f"Total rates:   {len(filtered_rates)}")
+    print(f"Valid:         {len(valid_rates)}")
+    print(f"Invalid:       {len(invalid_rates)}")
+    
+    # Group by lender for summary
+    lender_counts = {}
+    for rate in valid_rates:
+        lender_counts[rate.lender_slug] = lender_counts.get(rate.lender_slug, 0) + 1
+    
+    print(f"\nRates by lender ({len(lender_counts)} lenders):")
+    for lender, count in sorted(lender_counts.items(), key=lambda x: -x[1]):
+        print(f"  {lender:20} {count:3} rates")
     
     # Save to database
     if valid_rates:
@@ -219,16 +314,15 @@ def scrape_all_lenders():
     for result in results:
         try:
             db.log_scraping_result(result)
-        except:
-            pass
+        except Exception as e:
+            logger.warning(f"Failed to log result for {result.lender_slug}: {e}")
     
     # Export to website data
-    print("\n" + "="*70)
+    print("\n" + "="*80)
     print("EXPORTING TO WEBSITE DATA")
-    print("="*70)
+    print("="*80)
     
     try:
-        # Convert to JSON format expected by website
         import json
         from datetime import datetime
         
@@ -243,10 +337,10 @@ def scrape_all_lenders():
                 "rate": float(rate.rate),
                 "posted_rate": float(rate.posted_rate) if rate.posted_rate else None,
                 "source_url": rate.source_url,
-                "scraped_at": rate.scraped_at.isoformat(),
-                "apr": rate.raw_data.get("apr"),
-                "ltv_tier": rate.raw_data.get("ltv_tier"),
-                "spread_to_prime": rate.raw_data.get("spread_to_prime"),
+                "scraped_at": rate.scraped_at.isoformat() if hasattr(rate.scraped_at, 'isoformat') else str(rate.scraped_at),
+                "apr": rate.raw_data.get("apr") if rate.raw_data else None,
+                "ltv_tier": rate.raw_data.get("ltv_tier") if rate.raw_data else None,
+                "spread_to_prime": rate.raw_data.get("spread_to_prime") if rate.raw_data else None,
             })
         
         # Save to rates.json
@@ -262,10 +356,21 @@ def scrape_all_lenders():
         metadata = {
             "last_updated": datetime.now().isoformat(),
             "total_rates": len(export_data),
-            "total_lenders": len(set(r["lender_slug"] for r in export_data)),
-            "scrapers_run": len(scrapers),
-            "scrapers_successful": sum(1 for r in results if r.success),
-            "lenders": sorted(set(r["lender_slug"] for r in export_data))
+            "total_lenders": len(lender_counts),
+            "scrapers_run": len(scraper_classes),
+            "scrapers_successful": len(successful),
+            "scrapers_failed": len(failed),
+            "lenders": sorted(lender_counts.keys()),
+            "scraper_results": [
+                {
+                    "lender": r.lender_slug,
+                    "success": r.success,
+                    "rates_found": r.rates_found,
+                    "duration": r.duration_seconds,
+                    "error": r.error_message[:100] if r.error_message else None
+                }
+                for r in results
+            ]
         }
         
         metadata_path = Path(__file__).parent.parent / "data" / "metadata.json"
@@ -277,11 +382,13 @@ def scrape_all_lenders():
     except Exception as e:
         logger.error(f"Failed to export: {e}")
         print(f"Export error: {e}")
+        import traceback
+        traceback.print_exc()
     
-    # Show 5-year fixed comparison (TOP 20)
-    print("\n" + "="*70)
+    # Show 5-year fixed comparison (Top 20)
+    print("\n" + "="*80)
     print("5-YEAR FIXED RATE COMPARISON (Top 20 Lowest)")
-    print("="*70)
+    print("="*80)
     
     comparison_rates = [r for r in valid_rates 
                        if r.term_months == 60 
@@ -290,7 +397,7 @@ def scrape_all_lenders():
     sorted_rates = sorted(comparison_rates, key=lambda x: x.rate)[:20]
     
     for i, r in enumerate(sorted_rates, 1):
-        spread = r.raw_data.get("spread_to_prime", "")
+        spread = r.raw_data.get("spread_to_prime", "") if r.raw_data else ""
         spread_str = f" [{spread}]" if spread else ""
         print(f"  {i:2}. {r.lender_name:25} {r.rate}%{spread_str}")
     
@@ -298,9 +405,9 @@ def scrape_all_lenders():
         print("  No 5-year fixed rates found")
     
     # Show 5-year variable comparison
-    print("\n" + "="*70)
+    print("\n" + "="*80)
     print("5-YEAR VARIABLE RATE COMPARISON (Top 15 Lowest)")
-    print("="*70)
+    print("="*80)
     
     variable_rates = [r for r in valid_rates 
                      if r.term_months == 60 
@@ -309,32 +416,52 @@ def scrape_all_lenders():
     sorted_var = sorted(variable_rates, key=lambda x: x.rate)[:15]
     
     for i, r in enumerate(sorted_var, 1):
-        spread = r.raw_data.get("spread_to_prime", "")
+        spread = r.raw_data.get("spread_to_prime", "") if r.raw_data else ""
         spread_str = f" [{spread}]" if spread else ""
         print(f"  {i:2}. {r.lender_name:25} {r.rate}%{spread_str}")
     
     if not sorted_var:
         print("  No 5-year variable rates found")
     
-    # Total time
+    # Final summary
     total_duration = time.time() - start_time
-    success_count = sum(1 for r in results if r.success)
     
-    print("\n" + "="*70)
-    print(f"PIPELINE COMPLETE: {success_count}/{len(scrapers)} lenders scraped successfully")
-    print(f"Total rates exported: {len(valid_rates)}")
-    print(f"Total time: {total_duration:.2f}s")
-    print(f"Data exported to: data/rates.json")
-    print("="*70)
+    print("\n" + "="*80)
+    print("FINAL SUMMARY")
+    print("="*80)
+    print(f"Total scrapers:     {len(scraper_classes)}")
+    print(f"Successful:           {len(successful)}")
+    print(f"Failed/Timeout:       {len(failed)}")
+    print(f"Total rates scraped:  {len(all_rates)}")
+    print(f"Valid rates:          {len(valid_rates)}")
+    print(f"Total lenders:        {len(lender_counts)}")
+    print(f"Total time:           {total_duration:.2f}s")
+    print(f"Data exported to:     data/rates.json")
+    print("="*80)
     
-    return results, valid_rates
+    # Return error code if too many failures
+    if len(failed) > len(scraper_classes) * 0.5:  # More than 50% failed
+        print("\nWARNING: More than 50% of scrapers failed!")
+        return results, valid_rates, 1
+    
+    return results, valid_rates, 0
 
 
 if __name__ == "__main__":
-    results, rates = scrape_all_lenders()
+    results, rates, exit_code = scrape_all_lenders()
     
-    # Show final status
-    print("\nFinal Status:")
+    # Show final status table
+    print("\n" + "="*80)
+    print("SCRAPER STATUS TABLE")
+    print("="*80)
+    print(f"{'Lender':<25} {'Status':<10} {'Rates':<8} {'Time(s)':<10} {'Error'}")
+    print("-"*80)
+    
     for r in results:
-        status = "OK" if r.success else "FAILED"
-        print(f"  {r.lender_slug:20} {status:7} {r.rates_found} rates")
+        status = "OK" if r.success else ("TIMEOUT" if "TIMEOUT" in (r.error_message or "") else "FAILED")
+        error = r.error_message[:30] if r.error_message else ""
+        print(f"{r.lender_slug:<25} {status:<10} {r.rates_found:<8} {r.duration_seconds:<10.1f} {error}")
+    
+    print("="*80)
+    
+    sys.exit(exit_code)

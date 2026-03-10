@@ -66,14 +66,27 @@ jobs:
         id: scrape
         working-directory: scraping
         run: |
-          python test_all_lenders_v2.py
+          python test_all_lenders_v2.py || true
+          # Output scraper summary
+          echo "Scraper completed"
           # Count rates in output
-          RATES_COUNT=$(ls -1 ../data/rates/*.json 2>/dev/null | wc -l || echo "0")
+          RATES_COUNT=$(ls -1 ../data/rates.json 2>/dev/null | wc -l || echo "0")
           echo "rates_count=$RATES_COUNT" >> $GITHUB_OUTPUT
+        continue-on-error: true
 
       - name: Check for data changes
         id: check_changes
         run: |
+          # Show scraper results
+          echo "=== SCRAPER RESULTS ==="
+          if [ -f data/metadata.json ]; then
+            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f\"\\nTotal Lenders: {d.get('total_lenders', 0)}\"); print(f\"Total Rates: {d.get('total_rates', 0)}\"); print(f\"Successful: {d.get('scrapers_successful', 0)}/{d.get('scrapers_run', 0)}\"); print(f\"Failed: {d.get('scrapers_failed', 0)}/{d.get('scrapers_run', 0)}\")" 2>/dev/null || echo "Could not parse metadata"
+            echo ""
+            echo "Failed scrapers:"
+            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f\"  - {r['lender']}: {r['error'][:50]}\") for r in d.get('scraper_results', []) if not r['success']]" 2>/dev/null || echo "  (none listed)"
+          fi
+          echo "======================="
+          
           git add data/
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
