@@ -20,7 +20,7 @@ class ButlerMortgageScraper:
     
     LENDER_SLUG = "butlermortgage"
     LENDER_NAME = "Butler Mortgage"
-    RATE_URL = "https://www.butlermortgage.com/rates"
+    RATE_URL = "https://www.butlermortgage.ca/low-mortgage-rates/"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()
