@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-03-09T08:57:44.074258",
+  "last_updated": "2026-03-10T00:05:46.065128",
   "total_rates": 187,
   "total_lenders": 30,
-  "scrapers_run": 33,
-  "scrapers_successful": 33,
+  "scrapers_run": 30,
+  "scrapers_successful": 30,
   "lenders": [
     "alterna",
     "atb",
