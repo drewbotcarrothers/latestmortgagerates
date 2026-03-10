@@ -144,7 +144,7 @@ export default function RateFilters({ onFilterChange, lenders }: RateFiltersProp
               >
                 <option value="all">All Types</option>
                 <option value="insured">Insured (≤20% down)</option>
-                <option value="uninsured">Uninsured (>20% down)</option>
+                <option value="uninsured">Uninsured (&gt;20% down)</option>
               </select>
             </div>
 
