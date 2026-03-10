@@ -1,5 +1,5 @@
 """
-Test all lenders (Original 19 + NEW 14 = 33 lenders).
+Test all lenders (30 direct lenders - NO aggregators).
 Scrapes rates from all banks and saves to database.
 """
 
@@ -52,23 +52,29 @@ from src.scrapers.intellimortgage_scraper import IntelliMortgageScraper
 from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
 
-# Import NEW scrapers - Rate Aggregators
-from src.scrapers.ratesca_scraper import RatesCaScraper
-from src.scrapers.lowestrates_scraper import LowestRatesScraper
-from src.scrapers.wowa_scraper import WOWAScraper
+
+# Define approved lender slugs ( whitelist )
+APPROVED_LENDERS = {
+    'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank',
+    'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna',
+    'meridian', 'desjardins', 'vancity', 'coastcapital',
+    'atb', 'cwb',
+    'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
+    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum'
+}
 
 
 def scrape_all_lenders():
     """Scrape all lenders, save to database, and export for website."""
     
-    logger.info("Starting full lender scraping pipeline (33 lenders)")
+    logger.info("Starting full lender scraping pipeline (30 direct lenders)")
     start_time = time.time()
     
     # Initialize components
     db = Database()
     validator = RateValidator()
     
-    # All scrapers - organized by category
+    # All scrapers - organized by category (NO aggregators)
     scrapers = [
         # Big 6 Banks (6)
         RBCScraper(),
@@ -78,7 +84,7 @@ def scrape_all_lenders():
         CIBCScraper(),
         NationalBankScraper(),
         
-        # Digital Banks (5)
+        # Digital Banks (6)
         NestoScraper(),
         TangerineScraper(),
         EQBankScraper(),
@@ -86,7 +92,7 @@ def scrape_all_lenders():
         MotiveScraper(),
         AlternaScraper(),
         
-        # Credit Unions (5)
+        # Credit Unions (4)
         MeridianScraper(),
         DesjardinsScraper(),
         VancityScraper(),
@@ -96,7 +102,7 @@ def scrape_all_lenders():
         ATBScraper(),
         CWBScraper(),
         
-        # Monoline Lenders (10)
+        # Monoline Lenders (11)
         FirstNationalScraper(),
         MCAPScraper(),
         LaurentianBankScraper(),
@@ -109,18 +115,13 @@ def scrape_all_lenders():
         IntelliMortgageScraper(),
         StreetCapitalScraper(),
         CentumScraper(),
-        
-        # Rate Aggregators (3)
-        RatesCaScraper(),
-        LowestRatesScraper(),
-        WOWAScraper(),
     ]
     
     all_rates = []
     results = []
     
     print("\n" + "="*70)
-    print(f"SCRAPING ALL LENDERS ({len(scrapers)} Lenders)")
+    print(f"SCRAPING ALL LENDERS ({len(scrapers)} Direct Lenders - NO Aggregators)")
     print("="*70)
     
     for i, scraper in enumerate(scrapers, 1):
@@ -153,6 +154,34 @@ def scrape_all_lenders():
             ))
             print(f"\n[{i}/{len(scrapers)}] {scraper.LENDER_NAME}: FAILED - {e}")
     
+    # Filter rates: only approved lenders, no aggregators
+    print("\n" + "="*70)
+    print("FILTERING RATES - Removing aggregators and unknown lenders")
+    print("="*70)
+    
+    filtered_rates = []
+    removed_count = 0
+    
+    for rate in all_rates:
+        # Check if lender is in approved list
+        if rate.lender_slug not in APPROVED_LENDERS:
+            logger.warning(f"Removing rate from unapproved lender: {rate.lender_slug}")
+            removed_count += 1
+            continue
+        
+        # Check if source is an aggregator
+        source_lower = rate.source_url.lower() if rate.source_url else ""
+        if any(agg in source_lower for agg in ['rates.ca', 'lowestrates.ca', 'wowa.ca']):
+            logger.warning(f"Removing aggregator rate from: {rate.source_url}")
+            removed_count += 1
+            continue
+        
+        filtered_rates.append(rate)
+    
+    print(f"Original rates: {len(all_rates)}")
+    print(f"Filtered rates: {len(filtered_rates)}")
+    print(f"Removed: {removed_count} (aggregators/unknown lenders)")
+    
     # Validate and save rates
     print("\n" + "="*70)
     print("VALIDATING AND SAVING RATES")
@@ -161,7 +190,7 @@ def scrape_all_lenders():
     valid_rates = []
     invalid_rates = []
     
-    for rate in all_rates:
+    for rate in filtered_rates:
         try:
             is_valid, product, warnings, errors = validator.validate_rate(rate)
             if is_valid:
@@ -172,7 +201,7 @@ def scrape_all_lenders():
             logger.warning(f"Validation error for {rate.lender_slug}: {e}")
             valid_rates.append(rate)
     
-    print(f"\nTotal rates: {len(all_rates)}")
+    print(f"\nTotal rates: {len(filtered_rates)}")
     print(f"Valid: {len(valid_rates)}")
     print(f"Invalid: {len(invalid_rates)}")
     
@@ -236,6 +265,7 @@ def scrape_all_lenders():
             "total_lenders": len(set(r["lender_slug"] for r in export_data)),
             "scrapers_run": len(scrapers),
             "scrapers_successful": sum(1 for r in results if r.success),
+            "lenders": sorted(set(r["lender_slug"] for r in export_data))
         }
         
         metadata_path = Path(__file__).parent.parent / "data" / "metadata.json"
@@ -292,7 +322,7 @@ def scrape_all_lenders():
     
     print("\n" + "="*70)
     print(f"PIPELINE COMPLETE: {success_count}/{len(scrapers)} lenders scraped successfully")
-    print(f"Total rates: {len(valid_rates)}")
+    print(f"Total rates exported: {len(valid_rates)}")
     print(f"Total time: {total_duration:.2f}s")
     print(f"Data exported to: data/rates.json")
     print("="*70)
