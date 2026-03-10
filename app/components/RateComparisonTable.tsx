@@ -167,10 +167,8 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                 </td>
                 <td className="p-3">
                   <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                    <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
-                    <div>
-                      <div className="font-medium text-slate-900 hover:text-teal-600 transition text-sm">{rate.lender_name}</div>
-                    </div>
+                    <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} />
+                    <div className="font-medium text-slate-900 hover:text-teal-600 transition text-sm">{rate.lender_name}</div>
                   </Link>
                 </td>
                 <td className="p-3">
@@ -239,7 +237,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                   className="rounded border-slate-300 mr-1"
                 />
                 <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80">
-                  <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                  <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} />
                   <div>
                     <div className="font-semibold text-slate-900 text-sm leading-tight">{rate.lender_name}</div>
                     <div className="text-xs text-slate-500">{getTermLabel(rate.term_months)} {rate.term_months === 60 && <span className="text-amber-600">★</span>}</div>
