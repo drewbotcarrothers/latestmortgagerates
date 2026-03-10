@@ -281,21 +281,21 @@ const categories = [...new Set(glossaryTerms.map((t) => t.category))].sort();
 
 export default function GlossaryPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-slate-50">
+      <header className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Glossary</li>
+              <li><Link href="/" className="hover:text-teal-600 transition">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Glossary</li>
             </ol>
           </nav>
           
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Mortgage Glossary</h1>
-              <p className="text-gray-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
+              <h1 className="text-3xl font-bold text-slate-900">Mortgage Glossary</h1>
+              <p className="text-slate-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
             </div>
             <Navigation currentPage="glossary" />
           </div>
@@ -322,13 +322,13 @@ export default function GlossaryPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Categories */}
-        <div className="mb-8 flex flex-wrap gap-2">
-          <span className="text-sm text-gray-500">Jump to:</span>
+        <div className="mb-8 flex flex-wrap gap-2 items-center">
+          <span className="text-sm text-slate-500">Jump to:</span>
           {categories.map((cat) => (
             <a
               key={cat}
               href={`#${cat.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-teal-600 hover:text-teal-700 font-medium transition-colors"
             >
               {cat}
             </a>
@@ -344,20 +344,20 @@ export default function GlossaryPage() {
               id={category.toLowerCase().replace(/\s+/g, "-")}
               className="mb-12"
             >
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-2 border-b-2 border-teal-500">
                 {category}
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {terms.map((term) => (
                   <article
                     key={term.slug}
-                    id={term.term.charAt(0)}
-                    className="bg-white rounded-lg shadow-sm p-6 scroll-mt-20"
+                    id={term.slug}
+                    className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 scroll-mt-20 hover:shadow-md hover:border-teal-200 transition-all duration-200"
                   >
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    <h3 className="text-xl font-semibold text-slate-900 mb-3">
                       {term.term}
                     </h3>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed">
                       {term.definition}
                     </p>
                   </article>
@@ -368,16 +368,16 @@ export default function GlossaryPage() {
         })}
 
         {/* CTA */}
-        <div className="mt-12 bg-blue-50 rounded-lg p-6 text-center">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">
+        <div className="mt-12 bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-2">
             Ready to Find Your Rate?
           </h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-slate-300 mb-6">
             Compare mortgage rates from Canada's top lenders and save thousands.
           </p>
           <Link
             href="/"
-            className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+            className="inline-block px-6 py-3 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition-all duration-200"
           >
             Compare Rates Now
           </Link>

@@ -212,7 +212,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><Link href="/" className="hover:text-teal-600 transition">Home</Link></li>
               <li><span className="text-slate-400">/</span></li>
               <li className="text-slate-900 font-medium">Blog</li>
             </ol>
@@ -236,7 +236,7 @@ export default function BlogPage() {
               {categories.map((category) => (
                 <button
                   key={category}
-                  className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-medium text-gray-700 hover:bg-teal-50 hover:border-teal-200 transition"
+                  className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 transition-all duration-200"
                 >
                   {category}
                 </button>
@@ -247,22 +247,27 @@ export default function BlogPage() {
               {blogPosts.map((post) => (
                 <article
                   key={post.slug}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                  className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-lg hover:border-teal-200 transition-all duration-200"
                 >
                   <Link href={`/blog/${post.slug}`} className="block p-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
+                      <span className="px-3 py-1 bg-teal-50 text-teal-700 border border-teal-200 rounded-full text-sm font-medium">
                         {post.category}
                       </span>
                       <span className="text-sm text-slate-500">{post.readTime}</span>
                     </div>
-                    <h2 className="text-xl font-bold text-slate-900 mb-2 hover:text-teal-600 transition">
+                    <h2 className="text-xl font-bold text-slate-900 mb-2 hover:text-teal-600 transition-colors">
                       {post.title}
                     </h2>
                     <p className="text-slate-600">{post.excerpt}</p>
                     
                     <div className="mt-4 flex items-center justify-between">
-                      <span className="text-teal-600 font-medium">Read more →</span>
+                      <span className="text-teal-600 font-medium flex items-center gap-1">
+                        Read more 
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </span>
                       <time className="text-sm text-slate-500">
                         {new Date(post.publishedAt).toLocaleDateString('en-CA', {
                           year: 'numeric',
@@ -276,22 +281,22 @@ export default function BlogPage() {
               ))}
             </div>
 
-            {/* Pagination - simplified */}
+            {/* Pagination */}
             <div className="mt-8 flex justify-center">
               <p className="text-slate-500 text-sm">Showing all {blogPosts.length} guides</p>
             </div>
           </div>
 
           <aside className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sticky top-4">
               <h3 className="font-semibold text-slate-900 mb-4">Categories</h3>
               <ul className="space-y-2">
                 {categories.map((category) => (
-                  <li key={category}>
+                  <li key={category} className="flex items-center justify-between">
                     <span className="text-slate-600">
                       {category}
                     </span>
-                    <span className="ml-2 text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
                       {blogPosts.filter(p => p.category === category).length}
                     </span>
                   </li>
@@ -301,22 +306,22 @@ export default function BlogPage() {
               <div className="mt-8 pt-6 border-t border-slate-200">
                 <h3 className="font-semibold text-slate-900 mb-4">Popular Cities</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto</Link>
-                  <Link href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver</Link>
-                  <Link href="/cities/calgary" className="text-teal-600 hover:underline">Calgary</Link>
-                  <Link href="/cities/montreal" className="text-teal-600 hover:underline">Montreal</Link>
-                  <Link href="/cities/ottawa" className="text-teal-600 hover:underline">Ottawa</Link>
-                  <Link href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton</Link>
-                  <Link href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton</Link>
-                  <Link href="/cities/kitchener" className="text-teal-600 hover:underline">Kitchener</Link>
-                  <Link href="/cities/london" className="text-teal-600 hover:underline">London</Link>
-                  <Link href="/cities/winnipeg" className="text-teal-600 hover:underline">Winnipeg</Link>
-                  <Link href="/cities/halifax" className="text-teal-600 hover:underline">Halifax</Link>
-                  <Link href="/cities/saskatoon" className="text-teal-600 hover:underline">Saskatoon</Link>
-                  <Link href="/cities/regina" className="text-teal-600 hover:underline">Regina</Link>
-                  <Link href="/cities/barrie" className="text-teal-600 hover:underline">Barrie</Link>
+                  <Link href="/cities/toronto" className="text-teal-600 hover:text-teal-700 transition-colors">Toronto</Link>
+                  <Link href="/cities/vancouver" className="text-teal-600 hover:text-teal-700 transition-colors">Vancouver</Link>
+                  <Link href="/cities/calgary" className="text-teal-600 hover:text-teal-700 transition-colors">Calgary</Link>
+                  <Link href="/cities/montreal" className="text-teal-600 hover:text-teal-700 transition-colors">Montreal</Link>
+                  <Link href="/cities/ottawa" className="text-teal-600 hover:text-teal-700 transition-colors">Ottawa</Link>
+                  <Link href="/cities/edmonton" className="text-teal-600 hover:text-teal-700 transition-colors">Edmonton</Link>
+                  <Link href="/cities/hamilton" className="text-teal-600 hover:text-teal-700 transition-colors">Hamilton</Link>
+                  <Link href="/cities/kitchener" className="text-teal-600 hover:text-teal-700 transition-colors">Kitchener</Link>
+                  <Link href="/cities/london" className="text-teal-600 hover:text-teal-700 transition-colors">London</Link>
+                  <Link href="/cities/winnipeg" className="text-teal-600 hover:text-teal-700 transition-colors">Winnipeg</Link>
+                  <Link href="/cities/halifax" className="text-teal-600 hover:text-teal-700 transition-colors">Halifax</Link>
+                  <Link href="/cities/saskatoon" className="text-teal-600 hover:text-teal-700 transition-colors">Saskatoon</Link>
+                  <Link href="/cities/regina" className="text-teal-600 hover:text-teal-700 transition-colors">Regina</Link>
+                  <Link href="/cities/barrie" className="text-teal-600 hover:text-teal-700 transition-colors">Barrie</Link>
                 </div>
-                <Link href="/" className="text-sm text-teal-600 hover:underline mt-3 inline-block">
+                <Link href="/" className="text-sm text-teal-600 hover:text-teal-700 transition-colors mt-3 inline-block">
                   View all cities →
                 </Link>
               </div>
@@ -328,7 +333,7 @@ export default function BlogPage() {
                 </p>
                 <Link
                   href="/"
-                  className="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  className="block w-full text-center px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all duration-200 font-medium"
                 >
                   View Rates
                 </Link>
