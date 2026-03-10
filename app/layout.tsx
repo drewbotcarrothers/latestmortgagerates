@@ -107,6 +107,18 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7909541570116920"
           crossOrigin="anonymous"
         />
+        {/* Google Analytics (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSK93NSP6Y"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-JSK93NSP6Y');
+            `,
+          }}
+        />
       </head>
       <body className="antialiased transition-colors duration-300">
         <ThemeProvider>
