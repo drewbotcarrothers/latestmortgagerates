@@ -101,6 +101,12 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7909541570116920"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased transition-colors duration-300">
         <ThemeProvider>
