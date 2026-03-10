@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SlidersHorizontal, X } from "lucide-react";
 
 interface FilterState {
   term: string;
@@ -22,123 +23,142 @@ export default function RateFilters({ onFilterChange, lenders }: RateFiltersProp
     lender: "all",
   });
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const handleChange = (key: keyof FilterState, value: string) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
 
+  const resetFilters = () => {
+    const newFilters = {
+      term: "all",
+      rateType: "all",
+      mortgageType: "all",
+      lender: "all",
+    };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
+  };
+
+  const hasActiveFilters = Object.values(filters).some(v => v !== "all");
+  const activeFilterCount = Object.values(filters).filter(v => v !== "all").length;
+
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Find Your Rate</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {/* Term Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Term
-          </label>
-          <select
-            value={filters.term}
-            onChange={(e) => handleChange("term", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">All Terms</option>
-            <option value="12">1 Year</option>
-            <option value="24">2 Years</option>
-            <option value="36">3 Years</option>
-            <option value="48">4 Years</option>
-            <option value="60">5 Years</option>
-            <option value="84">7 Years</option>
-            <option value="120">10 Years</option>
-          </select>
+    <div className="card-default overflow-hidden">
+      {/* Header Bar */}
+      <div className="flex items-center justify-between p-4 border-b border-slate-200">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-teal-50 rounded-lg">
+            <SlidersHorizontal className="w-5 h-5 text-teal-600" />
+          </div>
+          <div>
+            <h2 className="font-semibold text-slate-900">Filter Rates</h2>
+            <p className="text-sm text-slate-500">Find your perfect mortgage rate</p>
+          </div>
         </div>
 
-        {/* Rate Type Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Rate Type
-          </label>
-          <select
-            value={filters.rateType}
-            onChange={(e) => handleChange("rateType", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        <div className="flex items-center gap-3">
+          {hasActiveFilters && (
+            <button
+              onClick={resetFilters}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
+            >
+              <X className="w-4 h-4" />
+              Clear ({activeFilterCount})
+            </button>
+          )}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="btn-secondary text-sm"
           >
-            <option value="all">All Types</option>
-            <option value="fixed">Fixed</option>
-            <option value="variable">Variable</option>
-          </select>
-        </div>
-
-        {/* Mortgage Type Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Mortgage Type
-          </label>
-          <select
-            value={filters.mortgageType}
-            onChange={(e) => handleChange("mortgageType", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">All Types</option>
-            <option value="insured">Insured (LTV 80%)</option>
-            <option value="uninsured">Uninsured</option>
-          </select>
-        </div>
-
-        {/* Lender Filter */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Lender
-          </label>
-          <select
-            value={filters.lender}
-            onChange={(e) => handleChange("lender", e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="all">All Lenders</option>
-            {lenders.map((lender) => (
-              <option key={lender} value={lender}>
-                {lender.charAt(0).toUpperCase() + lender.slice(1)}
-              </option>
-            ))}
-          </select>
+            {isExpanded ? "Hide Filters" : "Show Filters"}
+          </button>
         </div>
       </div>
 
-      {/* Quick Presets */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        <span className="text-sm text-gray-600">Quick filters:</span>
-        <button
-          onClick={() => {
-            const newFilters = { term: "60", rateType: "fixed", mortgageType: "uninsured", lender: "all" };
-            setFilters(newFilters);
-            onFilterChange(newFilters);
-          }}
-          className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
-        >
-          5-Year Fixed Uninsured
-        </button>
-        <button
-          onClick={() => {
-            const newFilters = { term: "60", rateType: "variable", mortgageType: "uninsured", lender: "all" };
-            setFilters(newFilters);
-            onFilterChange(newFilters);
-          }}
-          className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200"
-        >
-          5-Year Variable Uninsured
-        </button>
-        <button
-          onClick={() => {
-            const newFilters = { term: "60", rateType: "fixed", mortgageType: "insured", lender: "all" };
-            setFilters(newFilters);
-            onFilterChange(newFilters);
-          }}
-          className="px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
-        >
-          5-Year Fixed Insured
-        </button>
+      {/* Filter Form */}
+      <div className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-[500px]' : 'max-h-0'}`}>
+        <div className="p-4 bg-slate-50/50 border-t border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Term Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-slate-700">
+                Term
+              </label>
+              <select
+                value={filters.term}
+                onChange={(e) => handleChange("term", e.target.value)}
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+              >
+                <option value="all">All Terms</option>
+                <option value="6">6 Months</option>
+                <option value="12">1 Year</option>
+                <option value="24">2 Years</option>
+                <option value="36">3 Years</option>
+                <option value="48">4 Years</option>
+                <option value="60">5 Years</option>
+                <option value="84">7 Years</option>
+                <option value="120">10 Years</option>
+              </select>
+            </div>
+
+            {/* Rate Type Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-slate-700">
+                Rate Type
+              </label>
+              <select
+                value={filters.rateType}
+                onChange={(e) => handleChange("rateType", e.target.value)}
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+              >
+                <option value="all">All Types</option>
+                <option value="fixed">Fixed Rate</option>
+                <option value="variable">Variable Rate</option>
+              </select>
+            </div>
+
+            {/* Mortgage Type Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-slate-700">
+                Mortgage Type
+              </label>
+              <select
+                value={filters.mortgageType}
+                onChange={(e) => handleChange("mortgageType", e.target.value)}
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+              >
+                <option value="all">All Types</option>
+                <option value="insured">Insured (≤20% down)</option>
+                <option value="uninsured">Uninsured (>20% down)</option>
+              </select>
+            </div>
+
+            {/* Lender Filter */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-slate-700">
+                Lender
+              </label>
+              <select
+                value={filters.lender}
+                onChange={(e) => handleChange("lender", e.target.value)}
+                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
+              >
+                <option value="all">All Lenders</option>
+                {lenders.map((lender) => (
+                  <option key={lender} value={lender}>
+                    {lender.charAt(0).toUpperCase() + lender.slice(1).replace(/-/g, " ")}
+                  </option>
+                ))}
+              </select>
+              <div className="text-xs text-slate-500 mt-1">
+                {lenders.length} lenders available
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

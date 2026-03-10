@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowUpDown, ArrowUp, ArrowDown, ChevronRight } from "lucide-react";
 import LenderLogo from "./LenderLogo";
 
 interface Rate {
@@ -25,7 +26,7 @@ interface RateComparisonTableProps {
 export default function RateComparisonTable({ rates }: RateComparisonTableProps) {
   const [sortField, setSortField] = useState<keyof Rate>("rate");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [selectedRates, setSelectedRates] = useState<Set<number>>(new Set());
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
 
   const handleSort = (field: keyof Rate) => {
     if (sortField === field) {
@@ -47,14 +48,14 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
     return sortDirection === "asc" ? comparison : -comparison;
   });
 
-  const toggleSelection = (index: number) => {
-    const newSelected = new Set(selectedRates);
-    if (newSelected.has(index)) {
-      newSelected.delete(index);
+  const toggleRow = (index: number) => {
+    const newExpanded = new Set(expandedRows);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
     } else {
-      newSelected.add(index);
+      newExpanded.add(index);
     }
-    setSelectedRates(newSelected);
+    setExpandedRows(newExpanded);
   };
 
   const getTermLabel = (months: number) => {
@@ -64,225 +65,180 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
   };
 
   const getRateTypeBadge = (type: string) => {
-    const colors: Record<string, string> = {
-      fixed: "bg-emerald-100 text-emerald-800 border border-emerald-200",
-      variable: "bg-cyan-100 text-cyan-800 border border-cyan-200",
+    const styles: Record<string, string> = {
+      fixed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      variable: "bg-teal-50 text-teal-700 border-teal-200",
     };
     return (
-      <span className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${colors[type] || "bg-slate-100 text-slate-800"}`}>
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type] || "bg-slate-100 text-slate-700"}`}>
         {type === "fixed" ? "Fixed" : "Variable"}
       </span>
     );
   };
 
   const getMortgageTypeBadge = (type: string) => {
-    const colors: Record< string, string> = {
-      insured: "bg-teal-100 text-teal-800 border border-teal-200",
-      uninsured: "bg-slate-100 text-slate-800 border border-slate-200",
+    const styles: Record<string, string> = {
+      insured: "bg-amber-50 text-amber-700 border-amber-200",
+      uninsured: "bg-slate-50 text-slate-600 border-slate-200",
     };
     return (
-      <span className={`px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${colors[type] || "bg-slate-100"}`}>
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type] || "bg-slate-100 border-slate-200"}`}>
         {type === "insured" ? "Insured" : "Uninsured"}
       </span>
     );
   };
 
+  const SortIcon = ({ field }: { field: keyof Rate }) => {
+    if (sortField !== field) return <ArrowUpDown className="w-4 h-4 text-slate-400" />;
+    return sortDirection === "asc" ? 
+      <ArrowUp className="w-4 h-4 text-teal-600" /> : 
+      <ArrowDown className="w-4 h-4 text-teal-600" />;
+  };
+
+  const RateValue = ({ rate }: { rate: number }) => {
+    return (
+      <span className="text-lg font-bold text-emerald-600">
+        {rate.toFixed(2)}%
+      </span>
+    );
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
-      {/* Comparison Summary */}
-      {selectedRates.size > 0 && (
-        <div className="bg-teal-50 p-3 border-b border-teal-200">
-          <div className="flex items-center justify-between">
-            <span className="text-teal-800 font-medium text-sm">
-              {selectedRates.size} rate{selectedRates.size > 1 ? "s" : ""} selected
-            </span>
-            <button
-              onClick={() => setSelectedRates(new Set())}
-              className="text-sm text-teal-600 hover:text-teal-800"
-            >
-              Clear
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Desktop Table View */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-slate-50 border-b border-slate-200">
-            <tr>
-              <th className="p-3 text-left">
-                <input
-                  type="checkbox"
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedRates(new Set(sortedRates.map((_, i) => i)));
-                    } else {
-                      setSelectedRates(new Set());
-                    }
-                  }}
-                  checked={selectedRates.size === sortedRates.length && sortedRates.length > 0}
-                  className="rounded border-slate-300"
-                />
-              </th>
-              <th 
-                className="p-3 text-left font-semibold text-slate-700 cursor-pointer hover:bg-slate-100 text-sm"
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <tr className="bg-slate-50 border-b border-slate-200">
+            <th className="text-left py-4 px-4 font-semibold text-slate-700 text-sm">
+              <button
                 onClick={() => handleSort("lender_name")}
+                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
               >
-                Lender {sortField === "lender_name" && (sortDirection === "asc" ? "↑" : "↓")}
-              </th>
-              <th 
-                className="p-3 text-left font-semibold text-slate-700 cursor-pointer hover:bg-slate-100 text-sm"
+                Lender
+                <SortIcon field="lender_name" />
+              </button>
+            </th>
+            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
+              <button
                 onClick={() => handleSort("term_months")}
+                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
               >
-                Term {sortField === "term_months" && (sortDirection === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="p-3 text-left font-semibold text-slate-700 text-sm">Type</th>
-              <th className="p-3 text-left font-semibold text-slate-700 text-sm">Mortgage</th>
-              <th 
-                className="p-3 text-left font-semibold text-slate-700 cursor-pointer hover:bg-slate-100 text-sm"
+                Term
+                <SortIcon field="term_months" />
+              </button>
+            </th>
+            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
+              Type
+            </th>
+            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
+              <button
                 onClick={() => handleSort("rate")}
+                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
               >
-                Rate {sortField === "rate" && (sortDirection === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="p-3 text-left font-semibold text-slate-700 text-sm">Details</th>
-              <th className="p-3 text-left font-semibold text-slate-700 text-sm">Action</th>
+                Rate
+                <SortIcon field="rate" />
+              </button>
+            </th>
+            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm hidden sm:table-cell">
+              Details
+            </th>
+            <th className="text-right py-4 px-4 font-semibold text-slate-700 text-sm">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-200">
+          {sortedRates.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="py-12 text-center text-slate-500">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-lg font-medium">No rates found</p>
+                  <p className="text-sm text-slate-400">Try adjusting your filters</p>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {sortedRates.map((rate, index) => (
-              <tr 
-                key={index} 
-                className={`border-b border-slate-100 hover:bg-slate-50 transition ${
-                  selectedRates.has(index) ? "bg-teal-50" : ""
-                }`}
-              >
-                <td className="p-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedRates.has(index)}
-                    onChange={() => toggleSelection(index)}
-                    className="rounded border-slate-300"
-                  />
-                </td>
-                <td className="p-3">
-                  <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                    <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} />
-                    <div className="font-medium text-slate-900 hover:text-teal-600 transition text-sm">{rate.lender_name}</div>
-                  </Link>
-                </td>
-                <td className="p-3">
-                  <span className="font-medium text-sm text-slate-700">{getTermLabel(rate.term_months)}</span>
-                  {rate.term_months === 60 && (
-                    <span className="ml-1 px-1.5 py-0.5 text-xs bg-amber-100 text-amber-800 rounded border border-amber-200">Popular</span>
-                  )}
-                </td>
-                <td className="p-3">{getRateTypeBadge(rate.rate_type)}</td>
-                <td className="p-3">{getMortgageTypeBadge(rate.mortgage_type)}</td>
-                <td className="p-3">
-                  <div className="text-xl font-bold text-emerald-600">
-                    {rate.rate.toFixed(2)}%
-                  </div>
-                  {rate.posted_rate && (
-                    <div className="text-xs text-slate-500 line-through">
-                      Posted: {rate.posted_rate.toFixed(2)}%
+          ) : (
+            sortedRates.map((rate, index) => (
+              <>
+                <tr
+                  key={index}
+                  className="group hover:bg-slate-50/80 transition-colors cursor-pointer"
+                  onClick={() => toggleRow(index)}
+                >
+                  <td className="py-4 px-4">
+                    <Link
+                      href={`/lenders/${rate.lender_slug}`}
+                      className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                    </Link>
+                  </td>
+                  
+                  <td className="py-4 px-3">
+                    <span className="font-medium text-slate-900">{getTermLabel(rate.term_months)}</span>
+                  </td>
+                  
+                  <td className="py-4 px-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {getRateTypeBadge(rate.rate_type)}
+                      {getMortgageTypeBadge(rate.mortgage_type)}
                     </div>
-                  )}
-                  {rate.apr && (
-                    <div className="text-xs text-slate-600">
-                      APR: {rate.apr}%
+                  </td>
+                  
+                  <td className="py-4 px-3">
+                    <div className="flex flex-col">
+                      <RateValue rate={rate.rate} />
+                      {rate.posted_rate && (
+                        <span className="text-xs text-slate-400 line-through">
+                          {rate.posted_rate.toFixed(2)}%
+                        </span>
+                      )}
                     </div>
-                  )}
-                </td>
-                <td className="p-3">
-                  <div className="text-xs text-slate-600">
-                    {rate.ltv_tier && (
-                      <div>LTV: {rate.ltv_tier}</div>
-                    )}
-                    {rate.spread_to_prime && (
-                      <div>Spread: {rate.spread_to_prime}</div>
-                    )}
-                  </div>
-                </td>
-                <td className="p-3">
-                  <a
-                    href={rate.source_url || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-teal-600 text-white rounded-lg text-xs font-medium hover:bg-teal-700 transition whitespace-nowrap shadow-sm hover:shadow"
-                  >
-                    View Rate
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  </td>
+                  
+                  <td className="py-4 px-3 hidden sm:table-cell">
+                    <div className="text-sm text-slate-500">
+                      {(rate.apr || rate.spread_to_prime) ? (
+                        <div className="space-y-0.5">
+                          {rate.apr && <div>APR: {rate.apr}%</div>}
+                          {rate.spread_to_prime && <div>{rate.spread_to_prime}</div>}
+                        </div>
+                      ) : (
+                        <span className="text-slate-400">--</span>
+                      )}
+                    </div>
+                  </td>
+                  
+                  <td className="py-4 px-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/lenders/${rate.lender_slug}`}
+                        className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        View
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              </>
+            ))
+          )}
+        </tbody>
+      </table>
+      
+      <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500 flex items-center justify-between">
+        <span>Showing {sortedRates.length} rates</span>
+        <span className="text-xs text-slate-400">
+          Click row to see details • Sorted by {sortField}
+        </span>
       </div>
-
-      {/* Mobile Card View */}
-      <div className="md:hidden">
-        {sortedRates.map((rate, index) => (
-          <div 
-            key={index}
-            className={`p-4 border-b border-slate-100 ${selectedRates.has(index) ? "bg-teal-50" : "bg-white"}`}
-          >
-            {/* Header: Lender + Rate */}
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={selectedRates.has(index)}
-                  onChange={() => toggleSelection(index)}
-                  className="rounded border-slate-300 mr-1"
-                />
-                <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80">
-                  <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} />
-                  <div>
-                    <div className="font-semibold text-slate-900 text-sm leading-tight">{rate.lender_name}</div>
-                    <div className="text-xs text-slate-500">{getTermLabel(rate.term_months)} {rate.term_months === 60 && <span className="text-amber-600">★</span>}</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-emerald-600 leading-none">{rate.rate.toFixed(2)}%</div>
-                {rate.posted_rate && (
-                  <div className="text-xs text-slate-500 line-through">{rate.posted_rate.toFixed(2)}%</div>
-                )}
-              </div>
-            </div>
-
-            {/* Badges Row */}
-            <div className="flex flex-wrap gap-2 mb-2">
-              {getRateTypeBadge(rate.rate_type)}
-              {getMortgageTypeBadge(rate.mortgage_type)}
-            </div>
-
-            {/* Details */}
-            <div className="text-xs text-slate-600 mb-3 space-y-0.5">
-              {rate.apr && <div>APR: {rate.apr}%</div>}
-              {rate.ltv_tier && <div>LTV: {rate.ltv_tier}</div>}
-              {rate.spread_to_prime && <div>Spread: {rate.spread_to_prime}</div>}
-            </div>
-
-            {/* Action Button */}
-            <a
-              href={rate.source_url || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full text-center px-4 py-2 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition shadow-sm hover:shadow"
-            >
-              View Rate
-            </a>
-          </div>
-        ))}
-      </div>
-
-      {sortedRates.length === 0 && (
-        <div className="p-8 text-center text-slate-500">
-          No rates found matching your criteria.
-        </div>
-      )}
     </div>
   );
 }

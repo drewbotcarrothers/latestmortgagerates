@@ -113,91 +113,99 @@ export default function Home() {
   const lastUpdatedDate = metadata?.last_updated || new Date().toISOString();
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <main className="min-h-screen bg-slate-50">
       {/* JSON-LD Structured Data */}
       <StructuredData rates={ratesData as Rate[]} lastUpdated={lastUpdatedDate} />
       
       {/* Header */}
-      <header className="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
+      <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-slate-900">
                 Latest Mortgage Rates Canada
               </h1>
-              <p className="text-slate-600 dark:text-slate-300 mt-2">
-                Compare current rates from Big 5 banks and monoline lenders
+              <p className="text-slate-500 mt-2 max-w-2xl">
+                Compare current rates from Canada's top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
               </p>
             </div>
             <Navigation currentPage="rates" />
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Last updated: <LastUpdated /></span>
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              <span>{ratesData.length} rates from {lenders.length} lenders</span>
+              <span>Tracking {ratesData.length} rates from {lenders.length} lenders</span>
             </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section - Top Rates */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <h2 className="text-xl font-semibold mb-4">Top Rates Today</h2>
+      <div className="hero-gradient text-white">
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-6 tracking-wide uppercase">Top Rates Today</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <h3 className="text-sm font-medium mb-3">5-Year Fixed Uninsured</h3>
-              <div className="space-y-2">
+            {/* Best Fixed Rates */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <h3 className="text-sm font-medium text-teal-100 mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                5-Year Fixed Uninsured
+              </h3>
+              <div className="space-y-3">
                 {topRates.fixed5yr.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                      <div className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
-                        i === 0 ? 'bg-emerald-500' : i === 1 ? 'bg-cyan-500' : 'bg-slate-500'
+                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
+                      <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
+                        i === 0 ? 'rank-best' : i === 1 ? 'rank-good bg-teal-500 text-white shadow-teal-500/30' : 'rank-avg'
                       }`}>
                         {i + 1}
                       </div>
-                      <span>{rate.lender_name}</span>
+                      <span className="text-slate-100">{rate.lender_name}</span>
                     </Link>
                     <div className="text-right">
-                      <span className="text-lg font-bold">{rate.rate}%</span>
-                      {rate.apr && <span className="text-xs text-white/70 ml-1">APR {rate.apr}%</span>}
+                      <span className="text-xl font-bold text-emerald-300">{rate.rate.toFixed(2)}%</span>
+                      {rate.apr && <span className="text-xs text-slate-300 ml-2">APR {rate.apr}%</span>}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-              <h3 className="text-sm font-medium mb-3">5-Year Variable Uninsured</h3>
-              <div className="space-y-2">
+            {/* Best Variable Rates */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <h3 className="text-sm font-medium text-teal-100 mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                5-Year Variable Uninsured
+              </h3>
+              <div className="space-y-3">
                 {topRates.variable5yr.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-2 hover:opacity-80 transition">
-                      <div className={`w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center ${
-                        i === 0 ? 'bg-emerald-500' : i === 1 ? 'bg-cyan-500' : 'bg-slate-500'
+                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
+                      <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
+                        i === 0 ? 'rank-best' : i === 1 ? 'rank-good bg-teal-500 text-white shadow-teal-500/30' : 'rank-avg'
                       }`}>
                         {i + 1}
                       </div>
-                      <span>{rate.lender_name}</span>
+                      <span className="text-slate-100">{rate.lender_name}</span>
                     </Link>
                     <div className="text-right">
-                      <span className="text-lg font-bold">{rate.rate}%</span>
+                      <span className="text-xl font-bold text-teal-300">{rate.rate.toFixed(2)}%</span>
                       {rate.spread_to_prime && (
-                        <span className="text-xs text-white/70 ml-1">{rate.spread_to_prime}</span>
+                        <span className="text-xs text-slate-300 ml-2">{rate.spread_to_prime}</span>
                       )}
                     </div>
                   </div>
                 ))}
                 {topRates.variable5yr.length === 0 && (
-                  <p className="text-white/70 text-sm">No variable rates currently available</p>
+                  <p className="text-slate-300 text-sm">No variable rates currently available</p>
                 )}
               </div>
             </div>
@@ -206,12 +214,12 @@ export default function Home() {
       </div>
 
       {/* Rate Stats */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <RateStats rates={ratesData as Rate[]} />
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 pb-8">
+      <div className="max-w-7xl mx-auto px-4 pb-12">
         {/* Filters */}
         <div className="mb-6">
           <RateFilters 
@@ -221,39 +229,47 @@ export default function Home() {
         </div>
 
         {/* Rate Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        <div className="card-default overflow-hidden">
           <RateComparisonTable rates={filteredRates} />
         </div>
 
         {/* Download CSV Section */}
-        <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Download Rate Data</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Download the complete rate dataset in CSV format for your own analysis.
-          </p>
-          <a 
-            href="/api/rates" 
-            download="mortgage-rates.csv"
-            className="inline-flex items-center px-5 py-2.5 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition shadow-sm hover:shadow-md"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            Download CSV
-          </a>
+        <div className="mt-8 card-default p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-1">Download Rate Data</h2>
+              <p className="text-slate-500 text-sm">
+                Download the complete rate dataset in CSV format for your own analysis.
+              </p>
+            </div>
+            <a 
+              href="/api/rates" 
+              download="mortgage-rates.csv"
+              className="btn-primary"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download CSV
+            </a>
+          </div>
         </div>
 
         {/* Social Sharing */}
-        <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Share These Rates</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Found a great rate? Share it with friends and family.
-          </p>
-          <SocialShare 
-            url="https://latestmortgagerates.ca"
-            title="Latest Mortgage Rates Canada"
-            description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${topRates.fixed5yr[0]?.rate}% from ${topRates.fixed5yr[0]?.lender_name}`}
-          />
+        <div className="mt-8 card-default p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-1">Share These Rates</h2>
+              <p className="text-slate-500 text-sm">
+                Found a great rate? Share it with friends and family.
+              </p>
+            </div>
+            <SocialShare 
+              url="https://latestmortgagerates.ca"
+              title="Latest Mortgage Rates Canada"
+              description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${topRates.fixed5yr[0]?.rate}% from ${topRates.fixed5yr[0]?.lender_name}`}
+            />
+          </div>
         </div>
 
         {/* Mortgage Calculator */}
