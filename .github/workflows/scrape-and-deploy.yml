@@ -70,8 +70,9 @@ jobs:
           # Output scraper summary
           echo "Scraper completed"
           # Count rates in output
-          RATES_COUNT=$(ls -1 ../data/rates.json 2>/dev/null | wc -l || echo "0")
+          RATES_COUNT=$(cat ../data/rates.json 2>/dev/null | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" || echo "0")
           echo "rates_count=$RATES_COUNT" >> $GITHUB_OUTPUT
+          echo "Scraped $RATES_COUNT rates"
         continue-on-error: true
 
       - name: Check for data changes
@@ -156,6 +157,16 @@ jobs:
         with:
           name: scraped-data
           path: data/
+
+      - name: Verify data integrity
+        run: |
+          node scripts/verify-data.js data/rates.json data/metadata.json
+          echo "Data verified:"
+          cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Rates: {d.get("total_rates", 0)}'); print(f'  Lenders: {d.get("total_lenders", 0)}'); print(f'  Last updated: {d.get("last_updated", "unknown")}')"
+        continue-on-error: false
+
+      - name: Clear Next.js cache
+        run: rm -rf .next dist
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
