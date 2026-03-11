@@ -161,8 +161,8 @@ jobs:
       - name: Verify data integrity
         run: |
           node scripts/verify-data.js data/rates.json data/metadata.json
-          echo "Data verified:"
-          cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  Rates: {d.get("total_rates", 0)}'); print(f'  Lenders: {d.get("total_lenders", 0)}'); print(f'  Last updated: {d.get("last_updated", "unknown")}')"
+          echo "Data summary:"
+          cat data/metadata.json
         continue-on-error: false
 
       - name: Clear Next.js cache
