@@ -180,6 +180,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create version marker
+        run: |
+          echo "Build: $(date -u)" > dist/build-info.txt
+          echo "Rates: $(cat data/metadata.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("total_rates", 0))')" >> dist/build-info.txt
+          echo "Lenders: $(cat data/metadata.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("total_lenders", 0))')" >> dist/build-info.txt
+          cat dist/build-info.txt
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -211,3 +218,4 @@ jobs:
           local-dir: ./dist/
           server-dir: /public_html/
           timeout: 60000
+          dangerous-clean-slate: true
