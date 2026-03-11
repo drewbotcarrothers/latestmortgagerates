@@ -56,6 +56,7 @@ from src.scrapers.butler_scraper import ButlerMortgageScraper
 from src.scrapers.intellimortgage_scraper import IntelliMortgageScraper
 from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
+from src.scrapers.truenorth_scraper import TrueNorthMortgageScraper
 
 
 # Define approved lender slugs (whitelist)
@@ -65,7 +66,8 @@ APPROVED_LENDERS = {
     'meridian', 'desjardins', 'vancity', 'coastcapital',
     'atb', 'cwb',
     'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
-    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum'
+    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum',
+    'truenorth'
 }
 
 # Default timeout per scraper (seconds)
@@ -162,6 +164,7 @@ def scrape_all_lenders():
         ("IntelliMortgage", IntelliMortgageScraper),
         ("Street Capital", StreetCapitalScraper),
         ("Centum", CentumScraper),
+        ("True North", TrueNorthMortgageScraper),
     ]
     
     all_rates = []
