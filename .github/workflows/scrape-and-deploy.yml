@@ -144,6 +144,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: git pull origin main || git pull origin master
+        continue-on-error: true
+
+      - name: Download scraped data
+        uses: actions/download-artifact@v4
+        with:
+          name: scraped-data
+          path: data/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
