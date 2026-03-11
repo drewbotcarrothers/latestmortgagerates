@@ -177,6 +177,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug data before build
+        run: |
+          echo "=== DEBUG: Checking data before build ==="
+          echo "Current directory:"
+          pwd
+          echo "Data directory listing:"
+          ls -la data/ || echo "No data directory"
+          echo "Rates.json size:"
+          wc -l data/rates.json || echo "No rates.json"
+          echo "Metadata:"
+          cat data/metadata.json || echo "No metadata.json"
+          echo "=== END DEBUG ==="
+
       - name: Build
         run: npm run build
 
