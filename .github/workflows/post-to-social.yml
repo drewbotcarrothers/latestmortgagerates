@@ -18,6 +18,27 @@ on:
           - weekly_summary
           - best_rates
 
+name: Post to Social Media
+
+on:
+  schedule:
+    - cron: '0 14 * * *'  # Daily 9 AM EST
+    - cron: '0 15 * * 0'  # Weekly Sunday 10 AM EST
+  workflow_dispatch:
+    inputs:
+      post_type:
+        description: 'Type of post'
+        required: true
+        default: 'daily_rates'
+        type: choice
+        options:
+          - daily_rates
+          - weekly_summary
+          - best_rates
+
+env:
+  NODE_VERSION: '20'
+
 jobs:
   post-to-x:
     name: Post to X (Twitter)
@@ -29,13 +50,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
+        working-directory: app
         run: npm ci
 
       - name: Run tweet script
+        working-directory: app
         run: npx tsx scripts/daily-tweet.ts
         env:
           TWITTER_CLIENT_ID: ${{ secrets.TWITTER_CLIENT_ID }}

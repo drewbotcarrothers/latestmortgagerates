@@ -1,10 +1,14 @@
-name: Scrape Rates & Deploy (Fixed)
+name: Scrape Rates & Deploy
 
 on:
   schedule:
-    - cron: '0 11 * * *'
-    - cron: '0 23 * * *'
+    - cron: '0 11 * * *'  # 6 AM EST
+    - cron: '0 23 * * *'  # 6 PM EST
   workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  PYTHON_VERSION: '3.11'
 
 jobs:
   scrape-and-deploy:
@@ -12,28 +16,29 @@ jobs:
     permissions:
       contents: write
     steps:
+      # Step 1: Checkout
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      # Step 2: Scrape rates
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependencies
+      - name: Install Python dependencies
+        working-directory: scraping
         run: |
-          cd scraping
           pip install -r requirements.txt
           pip install playwright
           python -m playwright install chromium
 
-      - name: Scrape rates
-        run: |
-          cd scraping
-          python test_all_lenders_v2.py || true
+      - name: Run scraper
+        working-directory: scraping
+        run: python test_all_lenders_v2.py || true
 
+      # Step 3: Commit data changes
       - name: Commit and push data
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -46,24 +51,30 @@ jobs:
             git push
           fi
 
-      - name: Setup Node
+      # Step 4: Build website
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: Build
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci
+
+      - name: Build Next.js app
+        working-directory: app
+        run: npm run build
+
+      - name: Create build info
         run: |
-          cd app
-          npm ci
-          cd ..
-          rm -rf .next dist
-          cd app
-          npm run build
-          cd ..
+          mkdir -p dist
           echo "Build timestamp: $(date +%s)" > dist/build-info.txt
+          echo "Rates: $(python3 -c "import json; print(len(json.load(open('data/rates.json'))))" 2>/dev/null || echo "unknown")" >> dist/build-info.txt
           cp data/rates.json dist/
           cp data/metadata.json dist/
+          cat dist/build-info.txt
 
+      # Step 5: Deploy to Hostinger
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
