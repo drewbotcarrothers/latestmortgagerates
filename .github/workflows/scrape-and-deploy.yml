@@ -1,9 +1,7 @@
----
-name: Scrape Rates & Deploy (Simple)
+name: Scrape Rates & Deploy (Fixed)
 
 on:
   schedule:
-    # Run twice daily: 6 AM and 6 PM EST
     - cron: '0 11 * * *'
     - cron: '0 23 * * *'
   workflow_dispatch:
@@ -34,18 +32,18 @@ jobs:
           cd scraping
           python test_all_lenders_v2.py || true
 
-      - name: Commit if changed
+      - name: Commit and push data
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add data/
-          git diff --cached --quiet || git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
-          git pull --rebase origin master || true
-          git push
-        continue-on-error: true
-
-      - name: Pull latest
-        run: git pull origin master
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin master
+            git push
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v4
