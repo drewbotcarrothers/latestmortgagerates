@@ -55,11 +55,14 @@ jobs:
         run: |
           cd app
           npm ci
+          cd ..
           rm -rf .next dist
+          cd app
           npm run build
+          cd ..
           echo "Build timestamp: $(date +%s)" > dist/build-info.txt
-          cp ../data/rates.json dist/
-          cp ../data/metadata.json dist/
+          cp data/rates.json dist/
+          cp data/metadata.json dist/
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -67,6 +70,6 @@ jobs:
           server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          local-dir: ./app/dist/
+          local-dir: ./dist/
           server-dir: ./
           dangerous-clean-slate: true
