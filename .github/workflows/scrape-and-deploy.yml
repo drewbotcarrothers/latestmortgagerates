@@ -1,228 +1,62 @@
 ---
-name: Scrape Rates & Deploy
+name: Scrape Rates & Deploy (Simple)
 
 on:
   schedule:
-    # Run twice daily: 6 AM and 6 PM EST (11:00 and 23:00 UTC)
-    - cron: '0 11 * * *'   # 6:00 AM EST
-    - cron: '0 23 * * *'   # 6:00 PM EST
+    # Run twice daily: 6 AM and 6 PM EST
+    - cron: '0 11 * * *'
+    - cron: '0 23 * * *'
   workflow_dispatch:
-    inputs:
-      full_scrape:
-        description: 'Run full scrape (30+ lenders) vs quick scrape'
-        required: false
-        default: true
-        type: boolean
-
-concurrency:
-  group: scrape-and-deploy
-  cancel-in-progress: false
-
-permissions:
-  contents: write
-  actions: write
-
-env:
-  PYTHON_VERSION: '3.11'
 
 jobs:
-  # Job 1: Scrape mortgage rates
-  scrape:
-    name: Scrape Mortgage Rates
+  scrape-and-deploy:
     runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.check_changes.outputs.changed }}
-      rates_count: ${{ steps.scrape.outputs.rates_count }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-          cache-dependency-path: scraping/requirements.txt
+          python-version: '3.11'
 
-      - name: Install Python dependencies
-        working-directory: scraping
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          cd scraping
           pip install -r requirements.txt
           pip install playwright
+          python -m playwright install chromium
 
-      - name: Install Playwright browsers
-        run: python -m playwright install chromium
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('scraping/requirements.txt') }}
-          restore-keys: playwright-${{ runner.os }}-
-
-      - name: Run scraper
-        id: scrape
-        working-directory: scraping
+      - name: Scrape rates
         run: |
+          cd scraping
           python test_all_lenders_v2.py || true
-          # Output scraper summary
-          echo "Scraper completed"
-          # Count rates in output
-          RATES_COUNT=$(cat ../data/rates.json 2>/dev/null | python3 -c "import json,sys; print(len(json.load(sys.stdin)))" || echo "0")
-          echo "rates_count=$RATES_COUNT" >> $GITHUB_OUTPUT
-          echo "Scraped $RATES_COUNT rates"
-        continue-on-error: true
 
-      - name: Check for data changes
-        id: check_changes
+      - name: Commit if changed
         run: |
-          # Show scraper results
-          echo "=== SCRAPER RESULTS ==="
-          if [ -f data/metadata.json ]; then
-            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f\"\nTotal Lenders: {d.get('total_lenders', 0)}\"); print(f\"Total Rates: {d.get('total_rates', 0)}\"); print(f\"Successful: {d.get('scrapers_successful', 0)}/{d.get('scrapers_run', 0)}\"); print(f\"Failed: {d.get('scrapers_failed', 0)}/{d.get('scrapers_run', 0)}\")" 2>/dev/null || echo "Could not parse metadata"
-            echo ""
-            echo "Failed scrapers:"
-            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f\"  - {r['lender']}: {r['error'][:50]}\") for r in d.get('scraper_results', []) if not r['success']]" 2>/dev/null || echo "  (none listed)"
-          fi
-          echo "======================="
-          
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
           git add data/
-          if git diff --staged --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "No changes detected in data files"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in data files"
-            git diff --staged --stat
-          fi
-
-      - name: Upload scraped data
-        if: steps.check_changes.outputs.changed == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: scraped-data
-          path: |
-            data/rates.json
-            data/metadata.json
-            data/rates/
-          retention-days: 7
-
-  # Job 2: Commit changes (only if data changed)
-  commit:
-    name: Commit Changes
-    runs-on: ubuntu-latest
-    needs: scrape
-    if: needs.scrape.outputs.changed == 'true'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      - name: Download scraped data
-        uses: actions/download-artifact@v4
-        with:
-          name: scraped-data
-          path: data/
-
-      - name: Commit and push
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add data/
-          git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC') [${{ needs.scrape.outputs.rates_count }} rates]"
+          git diff --cached --quiet || git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
           git pull --rebase origin master || true
           git push
-
-  # Job 3: Build (only if data changed)
-  build:
-    name: Build Application
-    runs-on: ubuntu-latest
-    needs: [scrape, commit]
-    if: needs.scrape.outputs.changed == 'true'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Pull latest changes
-        run: git pull origin main || git pull origin master
         continue-on-error: true
 
-      - name: Download scraped data
-        uses: actions/download-artifact@v4
-        with:
-          name: scraped-data
-          path: data/
+      - name: Pull latest
+        run: git pull origin master
 
-      - name: Verify data integrity
-        run: |
-          node scripts/verify-data.js data/rates.json data/metadata.json
-          echo "Data summary:"
-          cat data/metadata.json
-        continue-on-error: false
-
-      - name: Clear Next.js cache
-        run: rm -rf .next dist
-
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Debug data before build
-        run: |
-          echo "=== DEBUG: Checking data before build ==="
-          echo "Current directory:"
-          pwd
-          echo "Data directory listing:"
-          ls -la data/ || echo "No data directory"
-          echo "Rates.json size:"
-          wc -l data/rates.json || echo "No rates.json"
-          echo "Metadata:"
-          cat data/metadata.json || echo "No metadata.json"
-          echo "=== END DEBUG ==="
 
       - name: Build
-        run: npm run build
-
-      - name: Create version marker
         run: |
-          echo "Build: $(date -u)" > dist/build-info.txt
-          echo "Rates: $(cat data/metadata.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("total_rates", 0))')" >> dist/build-info.txt
-          echo "Lenders: $(cat data/metadata.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("total_lenders", 0))')" >> dist/build-info.txt
-          cat dist/build-info.txt
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: dist/
-          retention-days: 1
-
-  # Job 4: Deploy (only if build succeeded)
-  deploy:
-    name: Deploy to Hostinger
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: production
-      url: https://latestmortgagerates.ca
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: dist/
+          npm ci
+          rm -rf .next dist
+          npm run build
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -232,40 +66,4 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /public_html/
-          timeout: 60000
           dangerous-clean-slate: true
-
-      - name: Clear Hostinger CDN Cache
-        run: |
-          echo "Clearing Hostinger CDN cache..."
-          # Note: Hostinger Cloudflare integration sync should auto-clear
-          # but we add a timestamp file for cache-busting
-          TIMESTAMP=$(date +%s)
-          echo "$TIMESTAMP" > dist/cache-bust.txt
-          echo "Cache bust timestamp: $TIMESTAMP"
-          # Try to trigger cache invalidation via Cloudflare API
-          # If CF_API_TOKEN is configured
-          if [ -n "${{ secrets.CF_API_TOKEN }}" ]; then
-            curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
-              -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
-              -H "Content-Type: application/json" \
-              --data '{"purge_everything":true}' || echo "Cache purge failed, continuing..."
-          else
-            echo "Cloudflare API token not configured"
-            echo "Manual purge steps:"
-            echo "  1. Log into Hostinger hPanel"
-            echo "  2. Go to Websites -> Manage -> Cache"
-            echo "  3. Click 'Purge All'"
-            echo "  4. Or set Cache TTL to 1 second temporarily"
-          fi
-
-      - name: Verify deployment
-        run: |
-          echo "=== Deployment Verification ==="
-          echo "Build info:"
-          cat dist/build-info.txt || echo "No build info"
-          echo ""
-          echo "Cache bust:"
-          cat dist/cache-bust.txt || echo ""
-          echo "=== Deployed to https://latestmortgagerates.ca ==="
-          echo "Check /build-info.txt on the live site for details"
