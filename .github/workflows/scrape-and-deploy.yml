@@ -1,3 +1,4 @@
+---
 name: Scrape Rates & Deploy
 
 on:
@@ -81,7 +82,7 @@ jobs:
           # Show scraper results
           echo "=== SCRAPER RESULTS ==="
           if [ -f data/metadata.json ]; then
-            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f\"\\nTotal Lenders: {d.get('total_lenders', 0)}\"); print(f\"Total Rates: {d.get('total_rates', 0)}\"); print(f\"Successful: {d.get('scrapers_successful', 0)}/{d.get('scrapers_run', 0)}\"); print(f\"Failed: {d.get('scrapers_failed', 0)}/{d.get('scrapers_run', 0)}\")" 2>/dev/null || echo "Could not parse metadata"
+            cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(f\"\nTotal Lenders: {d.get('total_lenders', 0)}\"); print(f\"Total Rates: {d.get('total_rates', 0)}\"); print(f\"Successful: {d.get('scrapers_successful', 0)}/{d.get('scrapers_run', 0)}\"); print(f\"Failed: {d.get('scrapers_failed', 0)}/{d.get('scrapers_run', 0)}\")" 2>/dev/null || echo "Could not parse metadata"
             echo ""
             echo "Failed scrapers:"
             cat data/metadata.json | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f\"  - {r['lender']}: {r['error'][:50]}\") for r in d.get('scraper_results', []) if not r['success']]" 2>/dev/null || echo "  (none listed)"
@@ -134,6 +135,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add data/
           git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC') [${{ needs.scrape.outputs.rates_count }} rates]"
+          git pull --rebase origin master || true
           git push
 
   # Job 3: Build (only if data changed)
@@ -232,3 +234,38 @@ jobs:
           server-dir: /public_html/
           timeout: 60000
           dangerous-clean-slate: true
+
+      - name: Clear Hostinger CDN Cache
+        run: |
+          echo "Clearing Hostinger CDN cache..."
+          # Note: Hostinger Cloudflare integration sync should auto-clear
+          # but we add a timestamp file for cache-busting
+          TIMESTAMP=$(date +%s)
+          echo "$TIMESTAMP" > dist/cache-bust.txt
+          echo "Cache bust timestamp: $TIMESTAMP"
+          # Try to trigger cache invalidation via Cloudflare API
+          # If CF_API_TOKEN is configured
+          if [ -n "${{ secrets.CF_API_TOKEN }}" ]; then
+            curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+              -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              --data '{"purge_everything":true}' || echo "Cache purge failed, continuing..."
+          else
+            echo "Cloudflare API token not configured"
+            echo "Manual purge steps:"
+            echo "  1. Log into Hostinger hPanel"
+            echo "  2. Go to Websites -> Manage -> Cache"
+            echo "  3. Click 'Purge All'"
+            echo "  4. Or set Cache TTL to 1 second temporarily"
+          fi
+
+      - name: Verify deployment
+        run: |
+          echo "=== Deployment Verification ==="
+          echo "Build info:"
+          cat dist/build-info.txt || echo "No build info"
+          echo ""
+          echo "Cache bust:"
+          cat dist/cache-bust.txt || echo ""
+          echo "=== Deployed to https://latestmortgagerates.ca ==="
+          echo "Check /build-info.txt on the live site for details"
