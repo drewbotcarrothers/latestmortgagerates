@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
-import CMHCCalculator from "../../components/CMHCCalculator";
+import Navigation from "../../../components/Navigation";
+import Footer from "../../../components/Footer";
+import CMHCCalculator from "../../../components/CMHCCalculator";
 
 export const metadata: Metadata = {
   title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",

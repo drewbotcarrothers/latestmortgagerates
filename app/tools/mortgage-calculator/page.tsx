@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
-import MortgageCalculator from "../components/MortgageCalculator";
+import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
+import MortgageCalculator from "../../components/MortgageCalculator";
 
 export const metadata: Metadata = {
   title: "Mortgage Payment Calculator Canada | Calculate Monthly Payments",
