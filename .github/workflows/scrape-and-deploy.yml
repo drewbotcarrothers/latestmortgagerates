@@ -76,13 +76,15 @@ jobs:
           cp data/metadata.json dist/
           cat dist/build-info.txt
 
-      # Step 5: Deploy to Hostinger
-      - name: Deploy to Hostinger
+      # Step 5: Deploy to Hostinger via FTP
+      - name: Deploy to Hostinger (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
           local-dir: ./dist/
           server-dir: ./
           dangerous-clean-slate: true
