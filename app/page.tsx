@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import RateFilters from "./components/RateFilters";
 import RateComparisonTable from "./components/RateComparisonTable";
@@ -119,15 +120,27 @@ export default function Home() {
       
       {/* Header */}
       <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">
-                Latest Mortgage Rates Canada
-              </h1>
-              <p className="text-slate-500 mt-2 max-w-2xl">
-                Compare current rates from Canada's top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
-              </p>
+            <div className="flex items-center gap-4">
+              <Link href="/" className="flex-shrink-0">
+                <Image
+                  src="/logo.png"
+                  alt="Latest Mortgage Rates Canada"
+                  width={48}
+                  height={48}
+                  className="rounded-lg"
+                  priority
+                />
+              </Link>
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900">
+                  Latest Mortgage Rates Canada
+                </h1>
+                <p className="text-slate-500 text-sm max-w-xl">
+                  Compare current rates from Canada's top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
+                </p>
+              </div>
             </div>
             <Navigation currentPage="rates" />
           </div>

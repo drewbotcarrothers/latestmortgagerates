@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://latestmortgagerates.ca",
   },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Latest Mortgage Rates Canada",
     description: "Compare the latest mortgage rates from Canada's top lenders including Big 5 banks and monoline lenders. Updated daily.",
@@ -22,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://latestmortgagerates.ca/og-image.png",
+        url: "https://latestmortgagerates.ca/logo.png",
         width: 1200,
         height: 630,
         alt: "Latest Mortgage Rates Canada - Compare Rates from Top Lenders",
@@ -34,7 +39,7 @@ export const metadata: Metadata = {
     title: "Latest Mortgage Rates Canada",
     description: "Compare the latest mortgage rates from Canada's top lenders. Updated daily.",
     creator: "@latestmortgage",
-    images: ["https://latestmortgagerates.ca/og-image.png"],
+    images: ["https://latestmortgagerates.ca/logo.png"],
   },
   robots: {
     index: true,
