@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "../../../components/Navigation";
-import Footer from "../../../components/Footer";
-import LandTransferCalculator from "../../../components/LandTransferCalculator";
+import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
+import LandTransferCalculator from "../../components/LandTransferCalculator";
 
 export const metadata: Metadata = {
   title: "Land Transfer Tax Calculator Canada | Provincial & Municipal Taxes",

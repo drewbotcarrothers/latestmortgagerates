@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "../../../components/Navigation";
-import Footer from "../../../components/Footer";
-import AffordabilityCalculator from "../../../components/AffordabilityCalculator";
+import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
+import AffordabilityCalculator from "../../components/AffordabilityCalculator";
 
 export const metadata: Metadata = {
   title: "Mortgage Affordability Calculator Canada | How Much Can You Afford?",
