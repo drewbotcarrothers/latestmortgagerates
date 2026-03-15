@@ -278,6 +278,16 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
   const termPayments = termYears * paymentsPerYear;
   const termSchedule = schedule.slice(0, Math.min(termPayments, schedule.length));
   
+  // Calculate term totals (only for the term period, not full amortization)
+  const termTotalPaid = termSchedule.reduce((sum, entry) => sum + entry.payment, 0);
+  const termTotalInterest = termSchedule.reduce((sum, entry) => sum + entry.interestPayment, 0);
+  const termPrincipalPaid = termSchedule.length > 0 
+    ? mortgageAmount - termSchedule[termSchedule.length - 1].balance 
+    : 0;
+  const termRemainingBalance = termSchedule.length > 0 
+    ? termSchedule[termSchedule.length - 1].balance 
+    : mortgageAmount;
+  
   // Calculate without prepayments for comparison
   let balanceNoPrepay = mortgageAmount;
   let interestNoPrepay = 0;
@@ -306,10 +316,10 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
     regularPayment,
     actualPayment: schedule[0]?.payment || regularPayment,
     totalPayments: paymentCount,
-    totalInterestPaid,
-    totalPaid,
-    principalPaid: mortgageAmount - balance,
-    remainingBalance: balance,
+    totalInterestPaid: termTotalInterest,  // Interest paid during term only
+    totalPaid: termTotalPaid,  // Total paid during term only
+    principalPaid: termPrincipalPaid,  // Principal paid during term only
+    remainingBalance: termRemainingBalance,  // Balance at end of term
     interestSavings,
     payoffYears,
     schedule: termSchedule,
