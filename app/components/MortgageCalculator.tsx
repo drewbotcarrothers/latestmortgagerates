@@ -215,7 +215,7 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
   const periodRate = rate / 100 / paymentsPerYear;
   const totalPayments = amortizationYears * paymentsPerYear;
   
-  // Calculate base monthly payment
+  // Calculate base monthly payment using standard amortization formula
   const baseMonthlyPayment =
     (mortgageAmount * monthlyRate * Math.pow(1 + monthlyRate, amortizationYears * 12)) /
     (Math.pow(1 + monthlyRate, amortizationYears * 12) - 1);
@@ -223,10 +223,30 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
   const regularPayment = calculatePaymentFromMonthly(baseMonthlyPayment, paymentFrequency);
   const increasedPayment = regularPayment * (1 + monthlyIncreasePercent / 100);
   
-  // Calculate schedule with prepayments
+  // === SCENARIO 1: Full amortization WITHOUT prepayments (baseline) ===
+  let balanceNoPrepay = mortgageAmount;
+  let totalInterestNoPrepay = 0;
+  let paymentsNoPrepay = 0;
+  
+  while (balanceNoPrepay > 0 && paymentsNoPrepay < totalPayments * 2) {
+    paymentsNoPrepay++;
+    const interestPayment = balanceNoPrepay * periodRate;
+    const principalPayment = regularPayment - interestPayment;
+    
+    if (principalPayment >= balanceNoPrepay) {
+      // Final payment - only pay remaining balance + interest
+      totalInterestNoPrepay += balanceNoPrepay * periodRate;
+      break;
+    }
+    
+    balanceNoPrepay -= principalPayment;
+    totalInterestNoPrepay += interestPayment;
+  }
+  
+  // === SCENARIO 2: Full amortization WITH prepayments ===
   let balance = mortgageAmount;
-  let totalInterestPaid = 0;
-  let totalPaid = 0;
+  let totalInterestWithPrepay = 0;
+  let totalPaidWithPrepay = 0;
   let paymentCount = 0;
   const schedule: AmortizationEntry[] = [];
   let yearlyLumpSumApplied = false;
@@ -236,7 +256,7 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
     paymentCount++;
     const currentYearNum = Math.ceil(paymentCount / paymentsPerYear);
     
-    // Apply annual lump sum at the beginning of each year (except first payment)
+    // Apply annual lump sum at the beginning of each year (after year 1)
     if (currentYearNum > currentYear && annualLumpSum > 0 && !yearlyLumpSumApplied) {
       balance = Math.max(0, balance - annualLumpSum);
       yearlyLumpSumApplied = true;
@@ -259,8 +279,8 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
     }
     
     const actualPayment = principalPayment + interestPayment;
-    totalInterestPaid += interestPayment;
-    totalPaid += actualPayment;
+    totalInterestWithPrepay += interestPayment;
+    totalPaidWithPrepay += actualPayment;
     
     schedule.push({
       period: paymentCount,
@@ -268,17 +288,17 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
       principalPayment,
       interestPayment,
       balance: Math.max(0, balance),
-      cumulativeInterest: totalInterestPaid,
+      cumulativeInterest: totalInterestWithPrepay,
       cumulativePrincipal: mortgageAmount - balance,
     });
     
     if (balance <= 0) break;
   }
   
+  // === Calculate term-specific values (from WITH prepay schedule) ===
   const termPayments = termYears * paymentsPerYear;
   const termSchedule = schedule.slice(0, Math.min(termPayments, schedule.length));
   
-  // Calculate term totals (only for the term period, not full amortization)
   const termTotalPaid = termSchedule.reduce((sum, entry) => sum + entry.payment, 0);
   const termTotalInterest = termSchedule.reduce((sum, entry) => sum + entry.interestPayment, 0);
   const termPrincipalPaid = termSchedule.length > 0 
@@ -288,28 +308,8 @@ function calculateMortgage(params: MortgageParams): PaymentResult {
     ? termSchedule[termSchedule.length - 1].balance 
     : mortgageAmount;
   
-  // Calculate without prepayments for comparison
-  let balanceNoPrepay = mortgageAmount;
-  let interestNoPrepay = 0;
-  let paymentsNoPrepay = 0;
-  
-  while (balanceNoPrepay > 0 && paymentsNoPrepay < totalPayments * 2) {
-    paymentsNoPrepay++;
-    const interestPayment = balanceNoPrepay * periodRate;
-    const principalPayment = regularPayment - interestPayment;
-    
-    if (principalPayment >= balanceNoPrepay) {
-      interestNoPrepay += balanceNoPrepay * periodRate;
-      break;
-    }
-    
-    balanceNoPrepay -= principalPayment;
-    interestNoPrepay += interestPayment;
-  }
-  
-  const totalInterestNoPrepay = interestNoPrepay + (regularPayment * paymentsNoPrepay - mortgageAmount);
-  const interestSavings = totalInterestNoPrepay - totalInterestPaid;
-  
+  // === Interest savings over full amortization ===
+  const interestSavings = totalInterestNoPrepay - totalInterestWithPrepay;
   const payoffYears = paymentCount / paymentsPerYear;
   
   return {
