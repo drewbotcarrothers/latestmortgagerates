@@ -48,9 +48,8 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
-            # Pull rebase to handle any commits pushed since checkout
-            git pull --rebase origin master
-            git push
+            # Force push to avoid race conditions - data updates are authoritative
+            git push --force-with-lease origin master
           fi
 
       # Step 4: Build website
