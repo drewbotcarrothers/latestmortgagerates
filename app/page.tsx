@@ -6,7 +6,6 @@ import Link from "next/link";
 import RateFilters from "./components/RateFilters";
 import RateComparisonTable from "./components/RateComparisonTable";
 import MortgageCalculator from "./components/MortgageCalculator";
-import RateStats from "./components/RateStats";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import StructuredData from "./components/StructuredData";
@@ -57,6 +56,24 @@ function LastUpdated() {
   return <span>{date || "-"}</span>;
 }
 
+// Calculate market stats for a rate category
+function calcMarketStats(rateList: Rate[]) {
+  if (rateList.length === 0) return null;
+  const sorted = [...rateList].sort((a, b) => a.rate - b.rate);
+  const lowest = sorted[0];
+  const highest = sorted[sorted.length - 1];
+  const avg = sorted.reduce((acc, r) => acc + r.rate, 0) / sorted.length;
+  const spread = highest.rate - lowest.rate;
+  
+  return {
+    top3: sorted.slice(0, 3),
+    lowest,
+    avg: avg.toFixed(2),
+    count: sorted.length,
+    spread: spread.toFixed(2),
+  };
+}
+
 export default function Home() {
   const [filters, setFilters] = useState<FilterState>({
     term: "all",
@@ -82,19 +99,18 @@ export default function Home() {
     });
   }, [filters]);
 
-  // Get top rates for display
-  const topRates = useMemo(() => {
-    const fiveYearFixed = (ratesData as Rate[])
-      .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured")
-      .sort((a, b) => a.rate - b.rate)
-      .slice(0, 3);
+  // Get market stats for display
+  const marketStats = useMemo(() => {
+    const fixed5yr = (ratesData as Rate[])
+      .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured");
     
-    const fiveYearVariable = (ratesData as Rate[])
-      .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured")
-      .sort((a, b) => a.rate - b.rate)
-      .slice(0, 3);
+    const variable5yr = (ratesData as Rate[])
+      .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured");
 
-    return { fixed5yr: fiveYearFixed, variable5yr: fiveYearVariable };
+    return {
+      fixed: calcMarketStats(fixed5yr),
+      variable: calcMarketStats(variable5yr),
+    };
   }, []);
 
   const handleFilterChange = (newFilters: FilterState) => {
@@ -161,19 +177,30 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section - Top Rates */}
+      {/* Today's Best Rates - Consolidated Section */}
       <div className="hero-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 py-10">
-          <h2 className="text-lg font-medium text-slate-200 mb-6 tracking-wide uppercase">Top Rates Today</h2>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h2>
+            <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Best Fixed Rates */}
+            {/* Fixed Rates Card */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
-              <h3 className="text-sm font-medium text-teal-100 mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                5-Year Fixed Uninsured
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  5-Year Fixed Uninsured
+                </h3>
+                {marketStats.fixed && (
+                  <span className="text-xs text-slate-400">{marketStats.fixed.count} lenders</span>
+                )}
+              </div>
+              
+              {/* Top 3 Rankings */}
               <div className="space-y-3">
-                {topRates.fixed5yr.map((rate, i) => (
+                {marketStats.fixed?.top3.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
                       <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
@@ -190,16 +217,37 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+              
+              {/* Market Context */}
+              {marketStats.fixed && (
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-400">Market Average</span>
+                    <span className="text-slate-200 font-medium">{marketStats.fixed.avg}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm mt-2">
+                    <span className="text-slate-400">Potential Savings</span>
+                    <span className="text-emerald-300 font-medium">{marketStats.fixed.spread}%</span>
+                  </div>
+                </div>
+              )}
             </div>
             
-            {/* Best Variable Rates */}
+            {/* Variable Rates Card */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
-              <h3 className="text-sm font-medium text-teal-100 mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                5-Year Variable Uninsured
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  5-Year Variable Uninsured
+                </h3>
+                {marketStats.variable && (
+                  <span className="text-xs text-slate-400">{marketStats.variable.count} lenders</span>
+                )}
+              </div>
+              
+              {/* Top 3 Rankings */}
               <div className="space-y-3">
-                {topRates.variable5yr.map((rate, i) => (
+                {marketStats.variable?.top3.map((rate, i) => (
                   <div key={i} className="flex items-center justify-between">
                     <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
                       <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
@@ -217,22 +265,31 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
-                {topRates.variable5yr.length === 0 && (
+                {(!marketStats.variable || marketStats.variable.top3.length === 0) && (
                   <p className="text-slate-300 text-sm">No variable rates currently available</p>
                 )}
               </div>
+              
+              {/* Market Context */}
+              {marketStats.variable && marketStats.variable.top3.length > 0 && (
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-400">Market Average</span>
+                    <span className="text-slate-200 font-medium">{marketStats.variable.avg}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm mt-2">
+                    <span className="text-slate-400">Potential Savings</span>
+                    <span className="text-teal-300 font-medium">{marketStats.variable.spread}%</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Rate Stats */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <RateStats rates={ratesData as Rate[]} />
-      </div>
-
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 pb-12">
+      <div className="max-w-7xl mx-auto px-4 py-8 pb-12">
         {/* Filters */}
         <div className="mb-6">
           <RateFilters 
@@ -280,7 +337,7 @@ export default function Home() {
             <SocialShare 
               url="https://latestmortgagerates.ca"
               title="Latest Mortgage Rates Canada"
-              description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${topRates.fixed5yr[0]?.rate}% from ${topRates.fixed5yr[0]?.lender_name}`}
+              description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${marketStats.fixed?.lowest.rate}% from ${marketStats.fixed?.lowest.lender_name}`}
             />
           </div>
         </div>
