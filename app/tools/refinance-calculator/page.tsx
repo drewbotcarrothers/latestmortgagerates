@@ -127,7 +127,7 @@ export default function RefinancePage() {
                   <strong>Rate drop of 1%+:</strong> Generally worth exploring
                 </li>
                 <li>
-                  <strong>Remaining term > 2 years:</strong> More time to recover costs
+                  <strong>Remaining term &gt; 2 years:</strong> More time to recover costs
                 </li>
                 <li>
                   <strong>Home value increased:</strong> May eliminate CMHC insurance
