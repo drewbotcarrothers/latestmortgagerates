@@ -157,6 +157,18 @@ const tools: ToolCardProps[] = [
       "What's the cost to break my mortgage?",
     ],
   },
+  {
+    title: "Stress Test Qualifier",
+    description: "Check if you qualify for a mortgage under Canada's stress test rules. Calculate GDS and TDS ratios to see if you can get approved.",
+    href: "/tools/stress-test-qualifier",
+    icon: "✅",
+    questions: [
+      "Will I pass the stress test?",
+      "What are my GDS and TDS ratios?",
+      "How much income do I need?",
+      "Do I qualify for a mortgage?",
+    ],
+  },
 ];
 
 export default function ToolsPage() {
