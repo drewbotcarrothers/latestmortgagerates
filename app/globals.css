@@ -249,7 +249,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* Hero gradients - professional navy */
 .hero-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #164e63 100%);
 }
 
 .hero-gradient-accent {
