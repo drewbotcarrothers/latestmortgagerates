@@ -109,6 +109,42 @@ const tools: ToolCardProps[] = [
       "Is mortgage insurance required for my purchase?",
     ],
   },
+  {
+    title: "Rent vs Buy Calculator",
+    description: "Compare the financial impact of renting vs buying a home. See your break-even point and long-term net worth with each option.",
+    href: "/tools/rent-vs-buy-calculator",
+    icon: "⚖️",
+    questions: [
+      "Should I rent or buy a home?",
+      "What's my break-even point?",
+      "Which option builds more wealth?",
+      "How do appreciation and investments compare?",
+    ],
+  },
+  {
+    title: "Refinance Calculator",
+    description: "Calculate if refinancing your mortgage makes sense. Compare rates, estimate penalties, and see your break-even point and savings.",
+    href: "/tools/refinance-calculator",
+    icon: "🔄",
+    questions: [
+      "Should I refinance my mortgage?",
+      "What's my penalty to break early?",
+      "When will I break even?",
+      "How much will I save by refinancing?",
+    ],
+  },
+  {
+    title: "Closing Costs Calculator",
+    description: "Calculate total closing costs for buying a home in Canada. Includes land transfer tax, legal fees, and province-specific rebates.",
+    href: "/tools/closing-costs-calculator",
+    icon: "💰",
+    questions: [
+      "How much are closing costs?",
+      "What fees do I pay when buying?",
+      "Do I qualify for first-time buyer rebates?",
+      "How much cash do I need to close?",
+    ],
+  },
 ];
 
 export default function ToolsPage() {
@@ -177,7 +213,7 @@ export default function ToolsPage() {
 
       {/* Tools Grid */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {tools.map((tool) => (
             <ToolCard key={tool.href} {...tool} />
           ))}
