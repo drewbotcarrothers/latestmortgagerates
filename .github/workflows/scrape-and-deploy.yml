@@ -43,13 +43,13 @@ jobs:
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
+          # Pull latest to avoid race conditions
+          git pull --rebase origin master || true
           git add data/
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
-            # Pull any changes and rebase to avoid race conditions
-            git pull --rebase origin master || true
             git push origin master
           fi
 
