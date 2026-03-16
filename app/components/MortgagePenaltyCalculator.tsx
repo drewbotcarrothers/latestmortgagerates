@@ -32,6 +32,9 @@ export default function MortgagePenaltyCalculator() {
     lenderType: 'bank',
   });
 
+  const formatCurrency = (value: number) => 
+    `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
+
   const results = useMemo((): PenaltyResult => {
     const monthlyRate = params.currentRate / 100 / 12;
     
@@ -98,9 +101,6 @@ export default function MortgagePenaltyCalculator() {
       explanation,
     };
   }, [params]);
-
-  const formatCurrency = (value: number) => 
-    `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">

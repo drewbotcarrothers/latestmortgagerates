@@ -41,6 +41,9 @@ export default function StressTestQualifier() {
     amortization: 25,
   });
 
+  const formatCurrency = (value: number) => 
+    `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
+
   const results = useMemo((): StressTestResult => {
     // Bank of Canada benchmark rate (as of 2026)
     const benchmarkRate = 5.25;
@@ -112,9 +115,6 @@ export default function StressTestQualifier() {
       incomeNeeded: Math.round(incomeNeeded),
     };
   }, [params]);
-
-  const formatCurrency = (value: number) => 
-    `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
