@@ -28,8 +28,8 @@ export default function CMHCCalculatorPage() {
                 <Image
                   src="/logo.png"
                   alt="Latest Mortgage Rates Canada"
-                  width={48}
-                  height={48}
+                  width={56}
+                  height={56}
                   className="rounded-lg"
                   priority
                 />
