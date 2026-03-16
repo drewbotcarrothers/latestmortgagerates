@@ -145,6 +145,18 @@ const tools: ToolCardProps[] = [
       "How much cash do I need to close?",
     ],
   },
+  {
+    title: "Mortgage Penalty Calculator",
+    description: "Calculate your penalty for breaking your mortgage early. Estimate 3-month interest or IRD penalties for fixed and variable rates.",
+    href: "/tools/mortgage-penalty-calculator",
+    icon: "⚠️",
+    questions: [
+      "How much is my mortgage penalty?",
+      "3 months interest or IRD - which applies?",
+      "Can I reduce my penalty?",
+      "What's the cost to break my mortgage?",
+    ],
+  },
 ];
 
 export default function ToolsPage() {
