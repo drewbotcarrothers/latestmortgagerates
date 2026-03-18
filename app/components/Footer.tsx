@@ -98,8 +98,8 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
               <Image
                 src="/logo.png"
                 alt="Latest Mortgage Rates Canada"
-                width={40}
-                height={40}
+                width={50}
+                height={50}
                 className="rounded-lg"
               />
               <div>

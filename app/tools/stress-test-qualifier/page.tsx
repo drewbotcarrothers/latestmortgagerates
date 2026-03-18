@@ -27,8 +27,8 @@ export default function StressTestPage() {
                 <Image
                   src="/logo.png"
                   alt="Latest Mortgage Rates Canada"
-                  width={56}
-                  height={56}
+                  width={70}
+                  height={70}
                   className="rounded-lg"
                   priority
                 />
