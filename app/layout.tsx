@@ -113,14 +113,14 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         {/* Google Analytics (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSK93NSP6Y"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYL8HBJY2X"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-JSK93NSP6Y');
+              gtag('config', 'G-HYL8HBJY2X');
             `,
           }}
         />
