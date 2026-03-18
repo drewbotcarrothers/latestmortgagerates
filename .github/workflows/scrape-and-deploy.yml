@@ -74,15 +74,14 @@ jobs:
           cp data/metadata.json dist/
           cat dist/build-info.txt
 
-      # Step 5: Deploy to Hostinger via FTP
-      - name: Deploy to Hostinger (FTP)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # Step 5: Deploy to Hostinger via SFTP
+      - name: Deploy to Hostinger (SFTP)
+        uses: appleboy/scp-action@v0.1.4
         with:
-          server: ${{ secrets.SFTP_HOST }}
+          host: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./dist/
-          server-dir: ./
-          dangerous-clean-slate: true
+          port: 22
+          source: "./dist/*"
+          target: "/public_html/"
+          strip_components: 1
