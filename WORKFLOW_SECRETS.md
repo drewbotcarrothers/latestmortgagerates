@@ -4,35 +4,36 @@
 
 The following secrets are **REQUIRED** for the scrape-and-deploy workflow to function:
 
-### FTP Deployment Secrets (MANDATORY)
+### SFTP Deployment Secrets (MANDATORY)
 
 **DO NOT CHANGE THESE SECRET NAMES** - They are configured in GitHub and must match exactly:
 
 | Secret Name | Purpose | Example |
 |-------------|---------|---------|
-| `SFTP_HOST` | FTP server hostname | `files.000webhost.com` or IP address |
-| `SFTP_USERNAME` | FTP username | `user@example.com` |
-| `SFTP_PASSWORD` | FTP password | `********` |
+| `SFTP_HOST` | SFTP server hostname | `hostinger-server.com` or IP address |
+| `SFTP_USERNAME` | SFTP username | `user@example.com` |
+| `SFTP_PASSWORD` | SFTP password | `********` |
 
-**⚠️ IMPORTANT:** The workflow uses `ftps-legacy` protocol on port 21, not standard SFTP on port 22.
+**⚠️ IMPORTANT:** The workflow uses **SFTP protocol on port 22**.
 
 ## Where Used
 
 These secrets are referenced in `.github/workflows/scrape-and-deploy.yml`:
 
 ```yaml
-- name: Deploy to Hostinger (FTP)
+- name: Deploy to Hostinger (SFTP)
   uses: SamKirkland/FTP-Deploy-Action@v4.3.5
   with:
     server: ${{ secrets.SFTP_HOST }}
     username: ${{ secrets.SFTP_USERNAME }}
     password: ${{ secrets.SFTP_PASSWORD }}
-    port: 21
-    protocol: ftps-legacy
+    port: 22
+    protocol: sftp
 ```
 
 ## History
 
+- **2026-03-21**: Changed from `ftps-legacy` to `sftp` protocol (port 22) - Hostinger requires SFTP not FTPS
 - **2026-03-18**: Changed from `FTP_*` to `SFTP_*` to match existing GitHub secrets
 - Secrets configured in: GitHub Repo → Settings → Secrets and variables → Actions
 
@@ -49,4 +50,7 @@ If you need to update the secret values:
 → The secrets are missing or misnamed. Check that `SFTP_HOST`, `SFTP_USERNAME`, and `SFTP_PASSWORD` exist in GitHub secrets.
 
 **Error: "Authentication failed"**
-→ The secret values are incorrect. Verify the FTP credentials with your hosting provider (Hostinger).
+→ The secret values are incorrect. Verify the SFTP credentials with your hosting provider (Hostinger).
+
+**Error: "SSL routines:ssl3_get_record:wrong version number"**
+→ The protocol is wrong. Hostinger requires SFTP (SSH-based), not FTPS (FTP over SSL).
