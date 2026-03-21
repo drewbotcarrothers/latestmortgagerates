@@ -74,16 +74,16 @@ jobs:
           cp data/metadata.json dist/
           cat dist/build-info.txt
 
-      # Step 5: Deploy to Hostinger via FTP
+      # Step 5: Deploy to Hostinger via SFTP
       # ⚠️ WARNING: Secret names must match GitHub configuration (SFTP_* not FTP_*)
       # See WORKFLOW_SECRETS.md for details
-      - name: Deploy to Hostinger (FTP)
+      - name: Deploy to Hostinger (SFTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          port: 21
-          protocol: ftps-legacy
+          port: 22
+          protocol: sftp
           local-dir: ./dist/
           dangerous-clean-slate: true
