@@ -75,6 +75,8 @@ jobs:
           cat dist/build-info.txt
 
       # Step 5: Deploy to Hostinger via FTP
+      # ⚠️ WARNING: Secret names must match GitHub configuration (SFTP_* not FTP_*)
+      # See WORKFLOW_SECRETS.md for details
       - name: Deploy to Hostinger (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
