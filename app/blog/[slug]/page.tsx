@@ -1,1265 +1,35 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import SocialShare from "../../components/SocialShare";
+import Image from "next/image";
+import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
+import { blogPosts, getPostBySlug, categories, getRecentPosts } from "../data";
 
-// Force static generation for static export
-export const dynamic = "force-static";
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  readTime: string;
-  publishedAt: string;
-  content: string[];
-  faqs?: { question: string; answer: string }[];
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
-const blogPosts: Record<string, BlogPost> = {
-  "fixed-vs-variable-mortgage-rates": {
-    slug: "fixed-vs-variable-mortgage-rates",
-    title: "Fixed vs Variable Mortgage Rates: Which is Right for You?",
-    excerpt: "Compare the pros and cons of fixed and variable rate mortgages in Canada.",
-    category: "Mortgage Basics",
-    readTime: "5 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## What Are Fixed Rate Mortgages?",
-      "",
-      "A fixed rate mortgage guarantees your interest rate stays the same for the entire term of your mortgage, typically 1-10 years. Your monthly payments remain constant, giving you predictable budgeting and peace of mind.",
-      "",
-      "**Key benefits of fixed rates:**",
-      "",
-      "- **Payment stability**: Your monthly payment never changes",
-      "- **Budgeting ease**: Perfect for first-time buyers and those on fixed incomes",
-      "- **Protection from rate increases**: If rates go up, your payment stays the same",
-      "- **Lower stress**: No need to worry about market fluctuations",
-      "",
-      "**Current best 5-year fixed rates**: Starting from 4.19%",
-      "",
-      "## What Are Variable Rate Mortgages?",
-      "",
-      "A variable rate mortgage has an interest rate that fluctuates with your lender's prime rate. When the Bank of Canada changes its overnight rate, your lender's prime rate typically follows, affecting your monthly payment or amortization.",
-      "",
-      "**Key benefits of variable rates:**",
-      "",
-      "- **Lower initial rates**: Variable rates are typically lower than fixed rates",
-      "- **Potential savings**: Historically, variable rates have cost less over time",
-      "- **Flexibility**: Often come with lower prepayment penalties",
-      "- **Benefits from rate drops**: When rates decrease, you pay less interest",
-      "",
-      "**Current best 5-year variable rates**: Starting from 3.85%",
-      "",
-      "## Which Should You Choose?",
-      "",
-      "### Choose a Fixed Rate If:",
-      "",
-      "- You prefer predictable monthly payments",
-      "- You're buying your first home and want stability",
-      "- You believe interest rates will rise significantly",
-      "- You have a fixed income or tight budget",
-      "- You value peace of mind over potential savings",
-      "",
-      "### Choose a Variable Rate If:",
-      "",
-      "- You can handle some payment uncertainty",
-      "- You have financial cushion for rate increases",
-      "- You believe rates will stay stable or decrease",
-      "- You may sell or refinance before term ends (lower penalties)",
-      "- You're comfortable with market fluctuations",
-      "",
-      "## The Hybrid Approach",
-      "",
-      "Some borrowers split their mortgage into fixed and variable portions—typically 50/50 or 60/40. This hedges your bets: you get some payment stability while potentially benefiting from rate decreases on the variable portion.",
-      "",
-      "## Current Market Outlook",
-      "",
-      "With the Bank of Canada having cut rates recently, variable rate mortgages are looking attractive for risk-tolerant borrowers. However, fixed rates have also become more competitive, offering near-historic lows.",
-      "",
-      "**Bottom line**: There's no universally right answer. Your choice should reflect your risk tolerance, financial situation, and market outlook. Compare current rates and speak with a mortgage professional before deciding.",
-    ],
-    faqs: [
-      {
-        question: "Can I switch from variable to fixed during my term?",
-        answer: "Yes, most lenders allow you to convert from a variable rate to a fixed rate at any time without penalty. However, you'll be locked into the fixed rate available at that time.",
-      },
-      {
-        question: "What happens when my mortgage term ends?",
-        answer: "At the end of your term, you'll need to renew your mortgage. This is an opportunity to renegotiate your rate and potentially switch between fixed and variable.",
-      },
-    ],
-  },
-  "first-time-home-buyer-guide-canada": {
-    slug: "first-time-home-buyer-guide-canada",
-    title: "First-Time Home Buyer Guide: Everything You Need to Know",
-    excerpt: "A complete guide for first-time buyers in Canada.",
-    category: "First-Time Buyers",
-    readTime: "8 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## Introduction",
-      "",
-      "Buying your first home is one of the biggest financial decisions you'll make. This guide covers everything Canadian first-time buyers need to know, from saving your down payment to closing the deal.",
-      "",
-      "## Down Payment Requirements",
-      "",
-      "In Canada, your minimum down payment depends on the purchase price:",
-      "",
-      "- **Under $500,000**: Minimum 5% of purchase price",
-      "- **$500,000 to $999,999**: 5% on first $500,000 + 10% on remainder",
-      "- **$1,000,000 or more**: Minimum 20% required",
-      "",
-      "**Pro tip**: Saving 20% avoids CMHC insurance (0.6% - 4% of mortgage amount), but isn't always practical in expensive markets.",
-      "",
-      "## First-Time Buyer Programs",
-      "",
-      "### 1. First Home Savings Account (FHSA)",
-      "",
-      "The FHSA is a game-changer for first-time buyers:",
-      "",
-      "- Contribute up to $8,000/year (lifetime max $40,000)",
-      "- Contributions are tax-deductible",
-      "- Withdrawals are tax-free",
-      "- Can combine with RRSP Home Buyers' Plan",
-      "",
-      "### 2. RRSP Home Buyers' Plan (HBP)",
-      "",
-      "- Withdraw up to $35,000 from your RRSP ($70,000 for couples)",
-      "- Must repay over 15 years",
-      "- No tax on withdrawal",
-      "",
-      "### 3. Land Transfer Tax Rebates",
-      "",
-      "Many provinces offer rebates:",
-      "",
-      "- **Ontario**: Up to $4,000 rebate",
-      "- **BC**: Up to $8,000 rebate",
-      "- **Toronto**: Additional municipal rebate up to $4,475",
-    ],
-    faqs: [
-      {
-        question: "What's the minimum credit score needed?",
-        answer: "Most lenders require 600 minimum, but 680+ gets you the best rates.",
-      },
-      {
-        question: "Can I buy a home with no down payment?",
-        answer: "No, minimum 5% is required for properties under $500,000.",
-      },
-    ],
-  },
-  "mortgage-stress-test-canada": {
-    slug: "mortgage-stress-test-canada",
-    title: "Understanding the Mortgage Stress Test in Canada",
-    excerpt: "What is the mortgage stress test and how does it affect your borrowing power?",
-    category: "Mortgage Rules",
-    readTime: "6 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## What is the Mortgage Stress Test?",
-      "",
-      "The mortgage stress test ensures borrowers can afford their mortgage payments even if interest rates rise. Lenders must qualify you using the higher of: your contract rate + 2% or 5.25%.",
-      "",
-      "## GDS and TDS Ratios",
-      "",
-      "Your Gross Debt Service (GDS) ratio includes mortgage, property tax, and heating costs—maximum 32% of gross income. Total Debt Service (TDS) includes all debt payments—maximum 40% of gross income.",
-      "",
-      "## How to Pass the Stress Test",
-      "",
-      "- Reduce your debt",
-      "- Increase your down payment",
-      "- Consider longer amortization",
-      "- Add a co-signer",
-      "- Shop for the lowest rate",
-    ],
-    faqs: [
-      {
-        question: "Can I avoid the stress test?",
-        answer: "If you're putting 20%+ down and renewing with your current lender, you typically avoid it.",
-      },
-    ],
-  },
-  "insured-vs-uninsured-mortgages": {
-    slug: "insured-vs-uninsured-mortgages",
-    title: "Insured vs Uninsured Mortgages: CMHC Premiums Explained",
-    excerpt: "Understanding the difference between insured and conventional mortgages.",
-    category: "Mortgage Basics",
-    readTime: "5 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## Insured vs Uninsured Mortgages",
-      "",
-      "Insured mortgages require default insurance when you put down less than 20%. Premiums range from 2.80% (15-19.99% down) to 4.00% (5-9.99% down).",
-      "",
-      "Uninsured conventional mortgages require 20% down but offer more flexibility and no premium costs.",
-    ],
-    faqs: [
-      {
-        question: "Is CMHC insurance refundable?",
-        answer: "No, it's a one-time premium added to your mortgage.",
-      },
-    ],
-  },
-  "mortgage-prepayment-penalties": {
-    slug: "mortgage-prepayment-penalties",
-    title: "Mortgage Prepayment Penalties Explained",
-    excerpt: "Learn how prepayment penalties work and how to minimize them.",
-    category: "Mortgage Strategy",
-    readTime: "7 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## When Penalties Apply",
-      "",
-      "Penalties may apply when you sell before term ends, refinance, switch lenders, or pay off your mortgage early.",
-      "",
-      "## Fixed Rate Penalties",
-      "",
-      "The greater of interest rate differential (IRD) or three months' interest.",
-      "",
-      "## Variable Rate Penalties",
-      "",
-      "Three months' interest only—typically much lower than fixed rates.",
-      "",
-      "## How to Avoid Penalties",
-      "",
-      "- Port your mortgage to a new property",
-      "- Use prepayment privileges",
-      "- Wait until renewal",
-    ],
-  },
-  "prime-rate-explained-canada": {
-    slug: "prime-rate-explained-canada",
-    title: "What is the Prime Rate and How Does It Affect Your Mortgage?",
-    excerpt: "Everything you need to know about Canada's prime rate.",
-    category: "Mortgage Basics",
-    readTime: "4 min read",
-    publishedAt: "2026-03-03",
-    content: [
-      "## Understanding Prime Rate",
-      "",
-      "The prime rate is what banks charge their most creditworthy customers. Currently approximately 5.45%. It's typically: Bank of Canada overnight rate + 2.0-2.2%.",
-      "",
-      "## Impact on Mortgages",
-      "",
-      "Variable rate mortgages change with prime rate. HELOCs typically charge prime + 0.5-1.0%. Fixed rates follow bond yields, not prime.",
-    ],
-    faqs: [
-      {
-        question: "How often does prime rate change?",
-        answer: "It follows Bank of Canada decisions, typically 8 times per year.",
-      },
-    ],
-  },
-  // NEW BLOG POSTS
-  "closing-costs-canada": {
-    slug: "closing-costs-canada",
-    title: "Closing Costs in Canada: Complete Guide for Homebuyers",
-    excerpt: "Understand all the costs involved when buying a home in Canada, from down payments to land transfer tax and legal fees.",
-    category: "Home Buying",
-    readTime: "10 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## Introduction to Closing Costs",
-      "",
-      "When purchasing a home in Canada, closing costs add 1.5% to 4% of the property's purchase price. For a $700,000 home, budget an extra $10,500 to $28,000 beyond your down payment.",
-      "",
-      "## Down Payment Requirements",
-      "",
-      "- **Under $500,000**: Minimum 5%",
-      "- **$500,000 to $999,999**: 5% on first $500,000 + 10% on remainder",
-      "- **$1,000,000 and above**: Minimum 20%",
-      "",
-      "## Land Transfer Tax",
-      "",
-      "Provincial tax paid when property changes ownership. Ontario rates: 0.5% on first $55,000, 1% to $250,000, 1.5% to $400,000, 2% above $400,000. BC and Quebec have different rates.",
-      "",
-      "## Legal Fees and Disbursements",
-      "",
-      "Real estate lawyer costs: $800-$1,500 in fees plus $400-$800 in disbursements. Title insurance: $250-$400.",
-      "",
-      "## Other Closing Costs",
-      "",
-      "- Home inspection: $400-$600",
-      "- Appraisal: $300-$500",
-      "- CMHC insurance premium: 2.8%-4% of mortgage (if less than 20% down)",
-      "- Property tax adjustments",
-      "- Moving costs: $1,000-$5,000",
-      "",
-      "## First-Time Buyer Rebates",
-      "",
-      "- Ontario: Up to $4,000",
-      "- British Columbia: Up to $8,000",
-      "- Toronto: Additional municipal rebate up to $4,475",
-      "- PEI: Full exemption",
-    ],
-    faqs: [
-      {
-        question: "Can closing costs be added to my mortgage?",
-        answer: "Generally no, except for CMHC premiums which are capitalized. Closing costs require cash.",
-      },
-      {
-        question: "When do I pay closing costs?",
-        answer: "Most are paid on closing day via bank draft from your lawyer.",
-      },
-    ],
-  },
-  "mortgage-pre-approval-guide": {
-    slug: "mortgage-pre-approval-guide",
-    title: "How to Get Mortgage Pre-Approval in Canada",
-    excerpt: "A step-by-step guide to mortgage pre-approval, including required documents and tips for success.",
-    category: "Home Buying",
-    readTime: "8 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## What is Mortgage Pre-Approval?",
-      "",
-      "Pre-approval is a lender's conditional commitment to lend you a specific amount based on your finances. It locks in an interest rate for 90-120 days and strengthens your offers.",
-      "",
-      "## Required Documents",
-      "",
-      "**Proof of Income:**",
-      "- Letter of employment",
-      "- Recent pay stubs",
-      "- T4s and Notice of Assessment",
-      "",
-      "**Proof of Assets:**",
-      "- Bank statements (90 days)",
-      "- Investment account statements",
-      "- RRSP/FHSA statements",
-      "",
-      "**Other Documents:**",
-      "- ID verification",
-      "- Credit report consent",
-      "",
-      "## The Pre-Approval Process",
-      "",
-      "1. Gather documents (3-5 days)",
-      "2. Submit application to lender or broker",
-      "3. Credit check performed",
-      "4. Income and debt verification",
-      "5. Receive pre-approval letter",
-      "",
-      "## Pre-Approval vs Pre-Qualification",
-      "",
-      "Pre-qualification is an estimate based on self-reported info. Pre-approval involves credit checks and document verification.",
-      "",
-      "## Tips for Success",
-      "",
-      "- Check and improve your credit score first",
-      "- Avoid major purchases before applying",
-      "- Don't change jobs",
-      "- Save for a larger down payment",
-      "- Pay down existing debt",
-    ],
-    faqs: [
-      {
-        question: "How long does pre-approval take?",
-        answer: "24-72 hours for standard applications, longer for self-employed or complex situations.",
-      },
-      {
-        question: "Does pre-approval guarantee a mortgage?",
-        answer: "No, it's conditional. Final approval requires property appraisal and verification of unchanged finances.",
-      },
-    ],
-  },
-  "variable-vs-fixed-rates-2025": {
-    slug: "variable-vs-fixed-rates-2025",
-    title: "Variable vs Fixed Rates: 2025 Market Outlook",
-    excerpt: "Expert analysis of the 2024-2025 mortgage rate outlook to help you choose between variable and fixed rates.",
-    category: "Mortgage Strategy",
-    readTime: "9 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## 2024-2025 Rate Environment",
-      "",
-      "After aggressive rate hikes in 2022-2023, the Bank of Canada began cutting rates in mid-2024. Current prime rate sits around 5.45%, down from the 7.20% peak.",
-      "",
-      "## Market Predictions for 2025",
-      "",
-      "Economists expect gradual rate cuts through 2025 as inflation continues cooling. Most forecasts suggest:",
-      "",
-      "- 2-3 additional rate cuts by end of 2025",
-      "- Prime rate potentially reaching 4.5-5.0%",
-      "- Fixed rates remaining relatively stable",
-      "",
-      "## Variable Rate Prospects",
-      "",
-      "If the Bank of Canada continues cutting, variable rate holders will benefit from:",
-      "",
-      "- Lower monthly payments or more principal being paid",
-      "- Lower total interest costs over the term",
-      "- Flexibility to convert to fixed if rates rise",
-      "",
-      "**Risk**: If inflation resurges, rates could stay higher longer.",
-      "",
-      "## Fixed Rate Outlook",
-      "",
-      "Fixed rates currently offer stability with rates that have already factored in expected cuts. Benefits include:",
-      "",
-      "- Payment certainty for the full term",
-      "- Protection from rate volatility",
-      "- Locking in near historic lows",
-      "",
-      "## Historical Performance",
-      "",
-      "Over the past 30 years, variable rates have cost less than fixed rates about 75% of the time. However, during volatile periods (like 2022-2023), fixed rates provided better protection.",
-      "",
-      "## Which to Choose?",
-      "",
-      "**Consider variable if:**",
-      "- You're comfortable with some uncertainty",
-      "- You have financial flexibility for higher payments",
-      "- You believe rates will fall further",
-      "",
-      "**Consider fixed if:**",
-      "- You need payment certainty",
-      "- You're risk-averse",
-      "- You're at maximum affordability",
-    ],
-    faqs: [
-      {
-        question: "Will rates go down in 2025?",
-        answer: "Most economists predict gradual cuts, but it depends on inflation and economic performance.",
-      },
-      {
-        question: "Should I wait for rates to drop before buying?",
-        answer: "Timing the market is difficult. Focus on overall affordability and your personal situation rather than trying to predict rates.",
-      },
-    ],
-  },
-  "best-mortgage-rates-toronto": {
-    slug: "best-mortgage-rates-toronto",
-    title: "Best Mortgage Rates in Toronto 2025",
-    excerpt: "Find the lowest mortgage rates in Toronto. Compare rates from top lenders for the GTA housing market.",
-    category: "City Guides",
-    readTime: "7 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## Toronto Mortgage Market 2025",
-      "",
-      "Toronto's housing market remains competitive. Average home prices in the GTA hover around $1.1-1.2 million, making mortgage rates critical to affordability.",
-      "",
-      "## Current Toronto Rates",
-      "",
-      "**5-Year Fixed**: Starting from 4.19%",
-      "**5-Year Variable**: Starting from 3.85%",
-      "**3-Year Fixed**: Starting from 4.39%",
-      "**10-Year Fixed**: Starting from 4.54%",
-      "",
-      "## Toronto Market Characteristics",
-      "",
-      "- High prices mean many buyers need insured mortgages with less than 20% down",
-      "- Condo market differs significantly from detached homes",
-      "- Municipal land transfer tax doubles costs",
-      "- First-time buyer rebates available up to $4,000 provincial + $4,475 municipal",
-      "",
-      "## Getting the Best Rate in Toronto",
-      "",
-      "1. Work with a broker familiar with GTA lenders",
-      "2. Consider credit unions for competitive rates",
-      "3. Online lenders often beat big bank rates",
-      "4. Ask about rate holds (90-120 days)",
-      "5. Consider all terms, not just 5-year",
-      "",
-      "## Toronto-Specific Tips",
-      "",
-      "- Condos often have higher monthly fees affecting qualifying amounts",
-      "- Close to transit adds value and may improve rates",
-      "- Some lenders offer special programs for downtown properties",
-    ],
-    faqs: [
-      {
-        question: "Are rates higher in Toronto?",
-        answer: "Rates are generally consistent nationally, but Toronto's high prices mean more buyers need insured mortgages which can have different qualification rules.",
-      },
-    ],
-  },
-  "best-mortgage-rates-vancouver": {
-    slug: "best-mortgage-rates-vancouver",
-    title: "Best Mortgage Rates in Vancouver 2025",
-    excerpt: "Find the lowest mortgage rates in Vancouver and Greater Vancouver Area. Compare rates for BC homebuyers.",
-    category: "City Guides",
-    readTime: "7 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## Vancouver Mortgage Market 2025",
-      "",
-      "Greater Vancouver's market shows resilience with average detached home prices around $2 million and condos around $750,000. High prices amplify the importance of securing the best rate.",
-      "",
-      "## Current Vancouver Rates",
-      "",
-      "**5-Year Fixed**: Starting from 4.14%",
-      "**5-Year Variable**: Starting from 3.80%",
-      "**3-Year Fixed**: Starting from 4.34%",
-      "",
-      "## BC Property Transfer Tax",
-      "",
-      "BC's property transfer tax applies to fair market value:",
-      "- 1% on first $200,000",
-      "- 2% on $200,000 to $2,000,000",
-      "- 3% on $2,000,000 to $3,000,000",
-      "- 5% on amounts over $3,000,000",
-      "",
-      "First-time buyers may qualify for exemptions on properties under $500,000.",
-      "",
-      "## Vancouver Market Factors",
-      "",
-      "- Foreign buyer ban affects demand",
-      "- Speculation and vacancy tax may apply",
-      "- Many buyers use co-signers due to high prices",
-      "- Credit unions are popular alternatives",
-      "",
-      "## Getting the Best Rate in Vancouver",
-      "",
-      "1. Shop multiple lenders including credit unions",
-      "2. Consider longer amortizations (30 years) for affordability",
-      "3. Explore mortgage brokers with BC specialist knowledge",
-      "4. Ask about portable mortgages if you may relocate",
-    ],
-    faqs: [
-      {
-        question: "Do Vancouver rates differ from rest of Canada?",
-        answer: "Base rates are similar, but Vancouver's high prices mean different qualification challenges.",
-      },
-    ],
-  },
-  "best-mortgage-rates-calgary-montreal": {
-    slug: "best-mortgage-rates-calgary-montreal",
-    title: "Best Mortgage Rates in Calgary and Montreal 2025",
-    excerpt: "Compare mortgage rates in Calgary and Montreal, two of Canada's most affordable major housing markets.",
-    category: "City Guides",
-    readTime: "8 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## Calgary Mortgage Market 2025",
-      "",
-      "Calgary remains one of Canada's most affordable major cities. Average home prices around $540,000 provide excellent value compared to Toronto and Vancouver.",
-      "",
-      "### Alberta Advantages",
-      "",
-      "- **No land transfer tax** (saves thousands vs other provinces)",
-      "- Higher average incomes support affordability",
-      "- No provincial sales tax on CMHC premiums",
-      "- Lower closing costs overall",
-      "",
-      "### Current Calgary Rates",
-      "",
-      "**5-Year Fixed**: Starting from 4.19%",
-      "**5-Year Variable**: Starting from 3.85%",
-      "**3-Year Fixed**: Starting from 4.39%",
-      "",
-      "## Montreal Mortgage Market 2025",
-      "",
-      "Montreal offers relative affordability with average home prices around $540,000. The market has different dynamics with more multiplex properties.",
-      "",
-      "### Quebec Market Characteristics",
-      "",
-      "- Different qualification rules (TDS up to 40%)",
-      "- Welcome Tax (taxe de bienvenue) applies",
-      "- More multiplex housing options",
-      "- Strong credit union presence (caisses populaires)",
-      "",
-      "### Current Montreal Rates",
-      "",
-      "**5-Year Fixed**: Starting from 4.24%",
-      "**5-Year Variable**: Starting from 3.90%",
-      "",
-      "## Comparing the Two Markets",
-      "",
-      "| Factor | Calgary | Montreal |",
-      "|--------|---------|----------|",
-      "| Avg Home Price | ~$540K | ~$540K |",
-      "| Land Transfer Tax | $0 | Varies |",
-      "| Economic Base | Energy | Tech/Finance |",
-      "| Market Trend | Stable | Growing |",
-      "",
-      "Both cities offer significantly better affordability than Toronto or Vancouver.",
-    ],
-    faqs: [
-      {
-        question: "Are rates better in Calgary or Montreal?",
-        answer: "Rates are comparable, but Calgary's lack of land transfer tax makes overall costs lower.",
-      },
-    ],
-  },
-  "refinancing-your-mortgage": {
-    slug: "refinancing-your-mortgage",
-    title: "Refinancing Your Mortgage: When Does It Make Sense?",
-    excerpt: "Learn when to refinance your mortgage, how much you can save, and what costs to expect.",
-    category: "Mortgage Strategy",
-    readTime: "9 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## What is Mortgage Refinancing?",
-      "",
-      "Refinancing replaces your existing mortgage with a new one, typically to get a better rate, access equity, or change loan terms.",
-      "",
-      "## Reasons to Refinance",
-      "",
-      "**Rate Reduction**:",
-      "- Current rates are lower than your rate",
-      "- Calculate break-even point (savings vs penalty costs)",
-      "",
-      "**Access Equity**:",
-      "- Borrow up to 80% of home value for renovations, investments, or debt consolidation",
-      "- Usually requires home appreciation",
-      "",
-      "**Change Terms**:",
-      "- Switch from variable to fixed (or vice versa)",
-      "- Extend amortization to lower payments",
-      "- Add or remove co-signers",
-      "",
-      "## When Refinancing Makes Sense",
-      "",
-      "**The 1-2% Rule**: Generally worth it if you can reduce your rate by 1-2% or more.",
-      "",
-      "**Break-Even Calculation**:",
-      "1. Calculate monthly savings with new rate",
-      "2. Add up all refinancing costs",
-      "3. Divide costs by monthly savings = months to break even",
-      "",
-      "**Example**:",
-      "- Current rate: 5.5%",
-      "- New rate: 4.2%",
-      "- Penalty: $8,000",
-      "- Legal/appraisal: $2,000",
-      "- Monthly savings: $400",
-      "- Break-even: 25 months",
-      "",
-      "## Refinancing Costs",
-      "",
-      "- Prepayment penalty: $3,000-$15,000+",
-      "- Legal fees: $800-$1,500",
-      "- Appraisal: $300-$500",
-      "- Discharge fees: $200-$400",
-      "",
-      "## Alternatives to Refinancing",
-      "",
-      "- **Blend and extend**: Combine old rate with new, no penalty",
-      "- **Home equity line of credit**: Access equity separately",
-      "- **Wait for renewal**: No penalty at end of term",
-    ],
-    faqs: [
-      {
-        question: "How often can I refinance?",
-        answer: "Typically every 6-12 months, but penalties usually make frequent refinancing uneconomical.",
-      },
-      {
-        question: "Does refinancing hurt my credit?",
-        answer: "The credit check causes a small temporary dip. Multiple refinances in short periods may concern lenders.",
-      },
-    ],
-  },
-  "porting-vs-breaking-mortgage": {
-    slug: "porting-vs-breaking-mortgage",
-    title: "Porting vs Breaking Your Mortgage: What You Need to Know",
-    excerpt: "Understand the difference between porting your mortgage and breaking it when selling your home.",
-    category: "Mortgage Strategy",
-    readTime: "7 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## What is Mortgage Porting?",
-      "",
-      "Porting transfers your existing mortgage to a new property, keeping your current rate and terms while avoiding prepayment penalties. Most porting allows 30-120 days to close on your new home after selling.",
-      "",
-      "## Advantages of Porting",
-      "",
-      "- **No prepayment penalty**: Save thousands on penalties",
-      "- **Keep your rate**: If your rate is better than current market rates",
-      "- **Maintain terms**: Keep prepayment privileges and other features",
-      "- **Blend option**: May be able to add new funds at blended rate",
-      "",
-      "## When Porting Works",
-      "",
-      "**Ideal scenarios**:",
-      "- Selling and buying simultaneously",
-      "- Your current rate is lower than market rates",
-      "- You want to avoid penalties",
-      "- Buying in similar price range",
-      "",
-      "## Breaking Your Mortgage",
-      "",
-      "Breaking means paying out your mortgage before term ends, triggering prepayment penalties.",
-      "",
-      "**When Breaking Makes Sense**:",
-      "- Rates have dropped significantly",
-      "- Moving to a lower cost area",
-      "- Need different mortgage features",
-      "- Penalty is low (near renewal)",
-      "",
-      "## Port vs Break Comparison",
-      "",
-      "| Factor | Porting | Breaking |",
-      "|--------|---------|----------|",
-      "| Penalty | None | 3 months interest to $10K+ |",
-      "| Rate | Keep existing | Lock new rate |",
-      "| Flexibility | Limited | Full |",
-      "| Timeline | 30-120 days | Immediate |",
-      "",
-      "## Questions to Ask Your Lender",
-      "",
-      "- How long do I have to port?",
-      "- Can I port to any property or just similar type/location?",
-      "- What happens if new home costs more?",
-      "- Can I blend and extend when porting?",
-    ],
-    faqs: [
-      {
-        question: "How long do I have to port my mortgage?",
-        answer: "Most lenders allow 30-120 days between selling your old home and closing on the new one. Some offer extended portability up to 6-12 months.",
-      },
-      {
-        question: "Can I port if I need a bigger mortgage?",
-        answer: "Yes, most lenders allow you to increase your mortgage amount when porting. The additional amount typically at current rates (or blended rate if offered).",
-      },
-    ],
-  },
-  "mortgage-default-insurance-explained": {
-    slug: "mortgage-default-insurance-explained",
-    title: "Mortgage Default Insurance (CMHC) Explained",
-    excerpt: "Everything you need to know about mortgage default insurance, including costs, providers, and how it affects your mortgage.",
-    category: "Mortgage Basics",
-    readTime: "8 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## What is Mortgage Default Insurance?",
-      "",
-      "Mortgage default insurance protects lenders if a borrower stops making payments. It's required for mortgages with less than 20% down payment (high-ratio mortgages). Premiums are added to your mortgage balance.",
-      "",
-      "The three providers in Canada are:",
-      "- **CMHC** (Canada Mortgage and Housing Corporation) - government",
-      "- **Sagen** (formerly Genworth) - private",
-      "- **Canada Guaranty** - private",
-      "",
-      "## Premium Rates",
-      "",
-      "Premium is calculated as percentage of mortgage amount:",
-      "",
-      "| Down Payment | Premium Rate |",
-      "|--------------|--------------|",
-      "| 5% - 9.99%   | 4.00%        |",
-      "| 10% - 14.99% | 3.10%        |",
-      "| 15% - 19.99% | 2.80%        |",
-      "",
-      "**Example**: $500,000 home with 10% down",
-      "- Mortgage: $450,000",
-      "- Premium (3.10%): $13,950 added to mortgage",
-      "- Total mortgage: $463,950",
-      "",
-      "## How Insurance Affects Your Mortgage",
-      "",
-      "**Maximum Amortization**: 25 years only (not 30)",
-      "",
-      "**Stress Test**: You must qualify using your contract rate + 2% or 5.25%, whichever is higher",
-      "",
-      "**Refinancing**: Limited flexibility to refinance without paying off insurance",
-      "",
-      "**Provincial Tax**: PST on the premium is paid upfront, not financed",
-      "",
-      "## Benefits of Insured Mortgages",
-      "",
-      "- **Lower interest rates**: Insured mortgages often have lowest rates",
-      "- **Enter market sooner**: Buy with just 5% down",
-      "- **Better lender access**: More lenders compete for insured mortgages",
-      "",
-      "## Drawbacks",
-      "",
-      "- Premium cost adds thousands over mortgage life",
-      "- Shorter maximum amortization (25 years)",
-      "- Provincial tax on premium",
-      "- Less refinancing flexibility",
-    ],
-    faqs: [
-      {
-        question: "Is mortgage insurance the same as life insurance?",
-        answer: "No. Mortgage default insurance protects the lender. Mortgage life insurance pays off your mortgage if you die. They are completely different products.",
-      },
-      {
-        question: "Can I remove mortgage insurance?",
-        answer: "Once added, it stays for the life of the mortgage. To remove it, you'd need to refinance when you have 20%+ equity, but refinancing has costs.",
-      },
-    ],
-  },
-  "improve-credit-score-mortgage": {
-    slug: "improve-credit-score-mortgage",
-    title: "How to Improve Your Credit Score for Better Mortgage Rates",
-    excerpt: "Actionable strategies to boost your credit score and qualify for the best mortgage rates in Canada.",
-    category: "Mortgage Strategy",
-    readTime: "9 min read",
-    publishedAt: "2026-03-04",
-    content: [
-      "## Why Credit Score Matters for Mortgages",
-      "",
-      "Your credit score significantly impacts your mortgage options:",
-      "",
-      "- **680+**: Best rates, all lender options",
-      "- **650-679**: Good rates, most lenders available",
-      "- **600-649**: Higher rates, limited options",
-      "- **Below 600**: Alternative lenders only, highest rates",
-      "",
-      "## Understanding Your Credit Score",
-      "",
-      "Credit scores in Canada range from 300-900. The main factors affecting your score:",
-      "",
-      "- Payment history (35%): Paying bills on time",
-      "- Credit utilization (30%): How much of available credit you use",
-      "- Credit history length (15%): Average age of accounts",
-      "- Credit mix (10%): Types of credit (loans, cards, lines)",
-      "- New credit inquiries (10%): Recent applications",
-      "",
-      "## Quick Wins (1-3 Months)",
-      "",
-      "**1. Pay down credit card balances**",
-      "Keep utilization under 30%, ideally under 10%. If you have a $10,000 limit, keep balance under $1,000.",
-      "",
-      "**2. Make all payments on time**",
-      "Set up automatic payments. Even one missed payment can hurt your score.",
-      "",
-      "**3. Don't apply for new credit**",
-      "Each hard inquiry slightly lowers your score. Stop applying 6+ months before mortgage.",
-      "",
-      "## Medium-Term Strategies (3-12 Months)",
-      "",
-      "**1. Keep old credit cards open**",
-      "Length of credit history matters. Keep your oldest cards active with small purchases.",
-      "",
-      "**2. Increase credit limits**",
-      "Higher limits lower your utilization ratio. Request increases on existing cards.",
-      "",
-      "**3. Diversify credit types**",
-      "Mix of credit card, line of credit, and installment loan shows responsible management.",
-      "",
-      "**4. Dispute errors on your report**",
-      "Check Equifax and TransUnion reports. Dispute any inaccuracies.",
-      "",
-      "## What NOT to Do Before a Mortgage",
-      "",
-      "- **Don't close old credit cards**: Hurts credit history length",
-      "- **Don't miss any payments**: Stay perfect for 12+ months",
-      "- **Don't max out credit**: Keep utilization low",
-      "- **Don't co-sign loans**: Counts as your debt",
-      "- **Don't switch jobs**: Employment stability matters",
-      "",
-      "## Monitoring Your Score",
-      "",
-      "Use free services like Borrowell or Credit Karma to track your score monthly. Check your full credit reports annually from both bureaus.",
-    ],
-    faqs: [
-      {
-        question: "How fast can I improve my credit score?",
-        answer: "You can see improvements in 1-3 months by paying down balances. Significant increases (50+ points) typically take 6-12 months of good habits.",
-      },
-      {
-        question: "Will checking my score hurt it?",
-        answer: "No. Checking your own score is a soft inquiry and doesn't affect your credit. Only hard inquiries from lenders impact your score.",
-      },
-    ],
-  },
-  // NEW BLOG POSTS - March 2026
-  "how-much-mortgage-can-i-afford": {
-    slug: "how-much-mortgage-can-i-afford",
-    title: "How Much Mortgage Can I Afford? Complete Affordability Guide",
-    excerpt: "Calculate how much house you can afford in Canada. Learn about GDS/TDS ratios, stress test rules, and down payment requirements.",
-    category: "Mortgage Calculator",
-    readTime: "8 min read",
-    publishedAt: "2026-03-07",
-    content: [
-      "## The Affordability Formula",
-      "",
-      "In Canada, lenders use two key ratios to determine how much mortgage you qualify for:",
-      "",
-      "## Gross Debt Service (GDS) Ratio",
-      "",
-      "Your GDS ratio includes:",
-      "- Monthly mortgage payment",
-      "- Property taxes",
-      "- Heating costs",
-      "- 50% of condo fees (if applicable)",
-      "",
-      "**Maximum GDS: 32% of gross income**",
-      "",
-      "**Example**: With $8,000/month gross income, max housing costs = $2,560",
-      "",
-      "## Total Debt Service (TDS) Ratio",
-      "",
-      "Your TDS includes everything in GDS plus:",
-      "- Car payments",
-      "- Credit card minimums",
-      "- Student loans",
-      "- Other debt payments",
-      "",
-      "**Maximum TDS: 40% of gross income**",
-      "",
-      "## The Mortgage Stress Test",
-      "",
-      "Lenders must qualify you using the higher of:",
-      "- Your contract rate + 2%",
-      "- 5.25% (current floor rate)",
-      "",
-      "At 5.25% qualifying rate, a $500,000 mortgage with 25-year amortization requires $2,983/month payment.",
-      "",
-      "## Down Payment Requirements",
-      "",
-      "- **Under $500K**: 5% minimum",
-      "- **$500K-$999K**: 5% on first $500K + 10% on remainder",
-      "- **$1M+**: 20% minimum",
-      "",
-      "Don't forget closing costs: budget 1.5-4% of purchase price.",
-      "",
-      "## Income Requirements by Home Price",
-      "",
-      "Approximate household income needed for different purchase prices (10% down, 25-year amortization, 5.25% stress test):",
-      "",
-      "- **$400,000 home**: ~$85,000/year income",
-      "- **$600,000 home**: ~$120,000/year income",
-      "- **$800,000 home**: ~$155,000/year income",
-      "- **$1,000,000 home**: ~$190,000/year income",
-      "- **$1,500,000 home**: ~$280,000/year income",
-      "",
-      "## How to Afford More",
-      "",
-      "**Increase your down payment**: Larger down = smaller mortgage = lower payments",
-      "",
-      "**Extend amortization**: 30-year vs 25-year reduces payments ~8%",
-      "",
-      "**Pay off debt**: Clearing credit cards can significantly increase affordability",
-      "",
-      "**Add co-signer**: Parents or family members can help qualify",
-      "",
-      "**Increase income**: Before applying, avoid job changes, seek promotions",
-    ],
-    faqs: [
-      {
-        question: "Do lenders look at gross or net income?",
-        answer: "Gross (before-tax) income. Lenders verify income with T4s, Notice of Assessment, and pay stubs.",
-      },
-      {
-        question: "Does my credit score affect how much I can borrow?",
-        answer: "Yes. Higher scores (680+) get better rates. Below 600, you may not qualify with traditional lenders.",
-      },
-    ],
-  },
-  "mortgage-renewal-guide-2025": {
-    slug: "mortgage-renewal-guide-2025",
-    title: "Mortgage Renewal Guide 2025: How to Save Thousands",
-    excerpt: "Everything you need to know about renewing your mortgage in 2025. Learn when to renew, how to negotiate, and strategies to get the best rate.",
-    category: "Mortgage Strategy",
-    readTime: "9 min read",
-    publishedAt: "2026-03-07",
-    content: [
-      "## When to Renew Your Mortgage",
-      "",
-      "Most mortgages in Canada have 5-year terms. As your renewal date approaches (120 days before), your current lender must send a renewal offer.",
-      "",
-      "**Key timeline:**",
-      "- **120 days out**: Lender sends renewal offer",
-      "- **90-120 days**: Shop other lenders, get pre-approved",
-      "- **60-90 days**: Compare offers, negotiate",
-      "- **30 days**: Make final decision",
-      "",
-      "## Should You Stay or Switch?",
-      "",
-      "Your current bank knows 69% of Canadians just sign the renewal without shopping. Don't be one of them!",
-      "",
-      "**Reasons to stay**:",
-      "- They're offering a competitive rate",
-      "- You value the convenience",
-      "- You want to avoid paperwork",
-      "",
-      "**Reasons to switch**:",
-      "- Another lender offers a better rate",
-      "- You want better prepayment privileges",
-      "- Your needs have changed",
-      "",
-      "## Current Renewal Rates (2025)",
-      "",
-      "**5-Year Fixed**: Starting from 4.19%",
-      "**5-Year Variable**: Starting from 3.85%",
-      "**3-Year Fixed**: Starting from 4.39%",
-      "**2-Year Fixed**: Starting from 4.59%",
-      "",
-      "Rates are down significantly from 2023 peaks. Renewal is a great time to save.",
-      "",
-      "## How to Negotiate Your Renewal",
-      "",
-      "**Get multiple quotes**: Contact at least 3 lenders or a mortgage broker",
-      "",
-      "**Use your leverage**: Tell your current lender you have better offers",
-      "",
-      "**Ask for more than rates**: Negotiate prepayment privileges, penalty terms",
-      "",
-      "**Consider a broker**: They access 20+ lenders and negotiate for you",
-      "",
-      "## Renewal Strategies",
-      "",
-      "**Lock in early**: If rates are rising, lock 90-120 days before renewal",
-      "",
-      "**Blend and extend**: Combine old rate with new if you have time remaining",
-      "",
-      "**Open mortgage**: Stay flexible if you plan to sell soon",
-      "",
-      "## Costs When Switching Lenders",
-      "",
-      "- Legal fees: $800-$1,200",
-      "- Appraisal: $300-$500",
-      "- Discharge fee: $200-$400",
-      "- Title insurance: Optional, ~$250",
-      "",
-      "Many lenders offer cashback to cover these costs ($1,000-$5,000).",
-      "",
-      "## Renewal Mistakes to Avoid",
-      "",
-      "- Signing the first offer without shopping",
-      "- Not understanding prepayment penalties",
-      "- Forgetting to adjust amortization if rates changed",
-      "- Missing the notification deadline",
-    ],
-    faqs: [
-      {
-        question: "Can my lender deny my renewal?",
-        answer: "Rarely. But if you've missed payments or your financial situation changed significantly, they might. This is another reason to shop around.",
-      },
-      {
-        question: "What if my mortgage is underwater (value < balance)?",
-        answer: "If your home value dropped below your mortgage balance, switching lenders may be difficult. Your current lender will usually renew.",
-      },
-    ],
-  },
-  "self-employed-mortgage-canada": {
-    slug: "self-employed-mortgage-canada",
-    title: "Self-Employed Mortgage Guide: How to Qualify",
-    excerpt: "How to get a mortgage when you're self-employed in Canada. Learn about income verification, stated income programs, and documentation requirements.",
-    category: "Mortgage Basics",
-    readTime: "8 min read",
-    publishedAt: "2026-03-07",
-    content: [
-      "## The Self-Employed Mortgage Challenge",
-      "",
-      "Self-employed Canadians make up 15% of the workforce but face unique mortgage challenges. Tax write-offs can make your income appear lower on paper, which affects qualification.",
-      "",
-      "## Income Verification Requirements",
-      "",
-      "**Traditional Lenders (A Banks) require:**",
-      "- 2 years of tax returns (T1 General)",
-      "- Notice of Assessments (NOAs)",
-      "- Financial statements (if incorporated)",
-      "- Bank statements (3-6 months)",
-      "",
-      "**How Lenders Calculate Income:**",
-      "",
-      "Lenders use your **net income** after expenses, NOT gross revenue.",
-      "",
-      "**Example**: $100,000 revenue - $40,000 expenses = $60,000 qualifying income",
-      "",
-      "Some lenders add back certain expenses like depreciation and business-use-of-home.",
-      "",
-      "## Stated Income Programs",
-    ],
-    faqs: [
-      {
-        question: "Do self-employed pay higher mortgage rates?",
-        answer: "Not necessarily. With good documentation and credit, you can get the same rates as salaried employees. Alternative lenders may charge 0.5-2% more.",
-      },
-      {
-        question: "Can I use my gross revenue instead of net?",
-        answer: "Rarely. Most lenders require net income. Some alternative lenders have 'stated income' programs that consider gross revenue for established businesses.",
-      },
-    ],
-  },
-  "investment-property-mortgages": {
-    slug: "investment-property-mortgages",
-    title: "Investment Property Mortgages: What You Need to Know",
-    excerpt: "How to finance rental properties in Canada. Learn about down payments, rental income qualification, and financing strategies for investors.",
-    category: "Mortgage Strategy",
-    readTime: "9 min read",
-    publishedAt: "2026-03-07",
-    content: [
-      "## Investment Property Requirements",
-      "",
-      "Investment properties (rental properties) have stricter requirements than owner-occupied homes:",
-      "",
-      "**Down Payment**: Minimum 20% required",
-      "**Max Properties**: Most lenders limit to 4-6 rental properties",
-      "**Amortization**: Up to 30 years available",
-      "**Rates**: Slightly higher than owner-occupied (0.1-0.3%)",
-      "",
-      "## Qualifying with Rental Income",
-      "",
-      "Lenders treat rental income differently on applications:",
-      "",
-      "**80% of Gross Rent**: Most common approach - only 80% of gross rental income is used",
-      "",
-      "**50% Add-Back**: Some lenders add 50% of net rental income to your total income",
-      "",
-      "**Offset Method**: Rental income must cover mortgage + taxes + expenses",
-      "",
-      "## The Smith Manoeuvre",
-      "",
-      "A popular Canadian strategy that converts mortgage interest into tax deductions:",
-      "",
-      "1. Get a readvanceable mortgage (HELOC + mortgage)",
-      "2. Pay down mortgage principal",
-      "3. Re-borrow via HELOC to invest",
-      "4. HELOC interest is tax-deductible",
-      "5. Investment returns help pay mortgage",
-      "",
-      "**Warning**: Consult a tax professional. This is complex and requires discipline.",
-      "",
-      "## Multi-Unit (Duplex/Triplex) Mortgages",
-      "",
-      "Small multi-unit properties have special rules:",
-      "",
-      "- **Owner-occupied**: 5% down (if you live in one unit)",
-      "- **Full rental**: 20% down required",
-      "- **Rental income**: Easier to qualify using rental income",
-      "- **Commercial vs Residential**: 5+ units = commercial financing",
-      "",
-      "## Financing Strategies",
-      "",
-      "**HELOC for Down Payment**: Use home equity line on primary residence",
-      "",
-      "**Vendor Take-Back**: Seller finances part of purchase",
-      "",
-      "**Private Lenders**: Higher rates but more flexible",
-      "",
-      "**Joint Ventures**: Partner with others to buy",
-      "",
-      "## Tax Considerations",
-      "",
-      "- Mortgage interest is tax deductible",
-      "- Depreciation (CCA) can defer taxes",
-      "- Capital gains tax on sale",
-      "- Consider incorporation for multiple properties",
-    ],
-    faqs: [
-      {
-        question: "Can I qualify with no other income if rental income covers it?",
-        answer: "Rarely. Most lenders still require personal income to qualify, though some private/alternative lenders may consider this.",
-      },
-      {
-        question: "Should I buy in a corporation?",
-        answer: "For multiple properties, incorporation offers liability protection and tax deferral. For 1-2 properties, the costs may outweigh benefits. Consult an accountant.",
-      },
-    ],
-  },
-  "home-buyer-incentive-canada": {
-    slug: "home-buyer-incentive-canada",
-    title: "First-Time Home Buyer Incentive: Complete Guide",
-    excerpt: "Everything you need to know about the Government of Canada's First-Time Home Buyer Incentive program. Is it right for you?",
-    category: "First-Time Buyers",
-    readTime: "7 min read",
-    publishedAt: "2026-03-07",
-    content: [
-      "## What is the First-Time Home Buyer Incentive?",
-      "",
-      "The FTHBI is a shared-equity mortgage program where the government provides 5% or 10% of your home's purchase price for the down payment, reducing your monthly mortgage payments.",
-      "",
-      "## Key Details",
-      "",
-      "- **Government contribution**: 5% (existing homes) or 10% (new construction)",
-      "- **No monthly payments** on the incentive amount",
-      "- **No interest** charged",
-      "- **Repayment**: After 25 years OR when you sell",
-      "- **Shared appreciation/depreciation**: You repay based on home value at time of sale",
-      "",
-      "## Income and Price Limits",
-      "",
-      "**Income Cap**: Household income must be $150,000 or less (higher in Vancouver/Victoria/Toronto)",
-      "",
-      "**Maximum Purchase Price**: $500,000 (or 4.5x income in some markets)",
-      "",
-      "**Minimum Down Payment**: You must contribute at least 5%",
-      "",
-      "## Is the FTHBI Worth It?",
-      "",
-      "**Advantages:**",
-      "- Lower monthly payments (5-10% less)",
-      "- No interest on the incentive",
-      "- Easier qualification",
-      "",
-      "**Disadvantages:**",
-      "- You must pay back 5-10% of FUTURE home value (not original amount)",
-      "- If home appreciates significantly, you pay more",
-      "- Limited property types",
-      "- Income/price caps limit use in expensive markets",
-      "",
-      "## Example Calculation",
-      "",
-      "Purchase price: $400,000",
-      "Government incentive: 5% = $20,000",
-      "Your mortgage: $380,000 instead of $400,000",
-      "",
-      "**If home sells for $500,000:**",
-      "Repayment: 5% of $500,000 = $25,000 (not $20,000)",
-      "",
-      "**If home sells for $300,000:**",
-      "Repayment: 5% of $300,000 = $15,000",
-      "",
-      "## Alternatives to Consider",
-      "",
-      "**FHSA (First Home Savings Account)**:",
-      "- More flexible",
-      "- Save up to $40,000 tax-free",
-      "- No repayment required",
-      "","**RRSP Home Buyers' Plan**:",
-      "- Borrow from RRSP",
-      "- Repay over 15 years",
-      "- No shared equity",
-      "",
-      "**Gifted Down Payment**:",
-      "- Family gift (no strings attached)",
-      "- Can combine with other programs",
-    ],
-    faqs: [
-      {
-        question: "Can I combine FTHBI with other programs?",
-        answer: "Yes, you can combine with RRSP HBP and FHSA, but your total down payment must meet program requirements.",
-      },
-      {
-        question: "What if I want to refinance or move?",
-        answer: "You must get CMHC approval to refinance. If selling, the incentive is due at closing.",
-      },
-    ],
-  },
-};
-
-export function generateStaticParams() {
-  return Object.keys(blogPosts).map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts[slug];
+  const post = getPostBySlug(slug);
   
   if (!post) {
     return {
-      title: "Page Not Found | Latest Mortgage Rates Canada",
-      description: "The page you're looking for could not be found. Browse our mortgage guides and rate comparison tools.",
+      title: "Post Not Found | Latest Mortgage Rates Canada",
     };
   }
   
-  // Generate keywords based on post content
-  const baseKeywords = [
-    "mortgage rates Canada",
-    "Canadian mortgage",
-    "home buying",
-    "mortgage advice",
-    "Canada real estate",
-    post.category.toLowerCase(),
-  ];
-  
-  // Extract additional keywords from title
-  const titleKeywords = post.title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(" ")
-    .filter(word => word.length > 3);
-  
   return {
     title: `${post.title} | Latest Mortgage Rates Canada`,
-    description: post.excerpt || `Learn about ${post.title.toLowerCase()} in Canada. Expert advice, tips, and current mortgage rate information for Canadian homebuyers.`,
-    keywords: [...new Set([...baseKeywords, ...titleKeywords])],
+    description: post.excerpt,
+    keywords: post.tags,
+    authors: [{ name: post.author }],
     alternates: {
       canonical: `https://latestmortgagerates.ca/blog/${post.slug}`,
     },
@@ -1268,187 +38,224 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.excerpt,
       type: "article",
       url: `https://latestmortgagerates.ca/blog/${post.slug}`,
-      publishedTime: post.publishedAt,
-      modifiedTime: post.publishedAt,
-      authors: ["Latest Mortgage Rates Canada"],
-      section: post.category,
-      tags: [post.category, "mortgage", "Canada", "real estate"],
+      locale: "en_CA",
+      siteName: "Latest Mortgage Rates Canada",
+      authors: [post.author],
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      section: categories[post.category].label,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      creator: "@latestmortgage",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
     },
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+function generateStructuredData(post: typeof blogPosts[0]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    datePublished: post.date,
+    dateModified: post.date,
+    publisher: {
+      "@type": "Organization",
+      name: "Latest Mortgage Rates Canada",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://latestmortgagerates.ca/logo.png",
+      },
+    },
+    articleSection: categories[post.category].label,
+    keywords: post.tags.join(", "),
+  };
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = blogPosts[slug];
+  const post = getPostBySlug(slug);
+  const recentPosts = getRecentPosts(3).filter(p => p.slug !== slug);
   
   if (!post) {
-    notFound();
+    return (
+      <main className="min-h-screen bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-slate-900 mb-4">Article Not Found</h1>
+            <p className="text-slate-600 mb-6">The article you're looking for doesn't exist.</p>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+            >
+              Back to Blog
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
   }
-
+  
+  const categoryInfo = categories[post.category];
+  
   return (
-    <main className="min-h-screen bg-gray-100">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.title,
-            description: post.excerpt,
-            author: {
-              "@type": "Organization",
-              name: "Latest Mortgage Rates Canada",
-              url: "https://latestmortgagerates.ca",
-            },
-            datePublished: post.publishedAt,
-            articleSection: post.category,
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://latestmortgagerates.ca/blog/${post.slug}`,
-            },
-            ...(post.faqs && {
-              "@type": ["BlogPosting", "FAQPage"],
-              mainEntity: post.faqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            }),
-          }),
+          __html: JSON.stringify(generateStructuredData(post)),
         }}
       />
+      
+      <main className="min-h-screen bg-slate-50">
+        <header className="bg-white border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Link href="/" className="flex-shrink-0">
+                  <Image
+                    src="/logo.png"
+                    alt="Latest Mortgage Rates Canada"
+                    width={70}
+                    height={70}
+                    className="rounded-lg"
+                    priority
+                  />
+                </Link>
+                <div>
+                  <h1 className="text-2xl font-bold text-slate-900">Latest Mortgage Rates Canada</h1>
+                </div>
+              </div>
+              <Navigation currentPage="blog" />
+            </div>
+          </div>
+        </header>
 
-      <header className="bg-white shadow-sm">
-        <div className="max-w-3xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-            <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li><Link href="/blog" className="hover:text-blue-600">Blog</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium truncate max-w-xs">{post.title}</li>
-            </ol>
+        <article className="max-w-4xl mx-auto px-4 py-8">
+          <nav className="text-sm text-slate-500 mb-6">
+            <Link href="/" className="hover:text-slate-700">Home</Link>
+            <span className="mx-2">/</span>
+            <Link href="/blog" className="hover:text-slate-700">Blog</Link>
+            <span className="mx-2">/</span>
+            <span className="text-slate-900">{post.title}</span>
           </nav>
-          
-          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-3">
-            {post.category}
-          </span>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{post.title}</h1>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-            <span>{post.readTime}</span>
-            <span>•</span>
-            <time>{new Date(post.publishedAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+
+          <header className="mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-3 py-1 bg-teal-100 text-teal-700 text-sm font-medium rounded-full">
+                {categoryInfo.label}
+              </span>
+              <span className="text-slate-500">{post.readTime} min read</span>
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              {post.title}
+            </h1>
+            
+            <p className="text-xl text-slate-600">{post.excerpt}</p>
+            
+            <div className="flex items-center gap-4 mt-6 pt-6 border-t border-slate-200">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-xl">👤</div>
+                <div>
+                  <p className="font-medium text-slate-900">{post.author}</p>
+                  <p className="text-sm text-slate-500">{post.authorTitle}</p>
+                </div>
+              </div>
+              
+              <div className="ml-auto text-right">
+                <time dateTime={post.date} className="text-slate-600">
+                  {new Date(post.date).toLocaleDateString('en-CA', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </div>
+            </div>
+          </header>
+
+          <div className="aspect-video bg-slate-200 rounded-xl mb-8 relative overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-300 to-slate-400">
+              <span className="text-slate-500 text-8xl">📰</span>
+            </div>
           </div>
-          <SocialShare 
-            url={`https://latestmortgagerates.ca/blog/${post.slug}`}
-            title={post.title}
-            description={post.excerpt}
+
+          <div 
+            className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-a:text-teal-600 prose-strong:text-slate-900"
+            dangerouslySetInnerHTML={{
+              __html: post.content
+                  .replace(/\*\*/g, '')
+                  .replace(/## /g, '<h2 class="text-2xl font-bold mt-8 mb-4 text-slate-900">')
+                  .replace(/\n\n/g, '</p><p class="mb-4 leading-relaxed">')
+                  .replace(/\n\n/, '<p class="mb-4 leading-relaxed">')
+            }}
           />
-        </div>
-      </header>
 
-      <article className="bg-white shadow-sm">
-        <div className="max-w-3xl mx-auto px-4 py-8">
-          <div className="prose prose-lg max-w-none">
-            {post.content.map((paragraph, index) => {
-              if (paragraph.startsWith("## ")) {
-                return <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">{paragraph.replace("## ", "")}</h2>;
-              }
-              if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
-                return <p key={index} className="font-bold text-gray-900">{paragraph.replace(/\*\*/g, "")}</p>;
-              }
-              if (paragraph.startsWith("- ")) {
-                return <li key={index} className="ml-6 text-gray-700">{paragraph.replace("- ", "")}</li>;
-              }
-              if (paragraph.startsWith("|")) {
-                return null;
-              }
-              if (paragraph === "") {
-                return <br key={index} />;
-              }
-              return <p key={index} className="text-gray-700 mb-4">{paragraph}</p>;
-            })}
+          <div className="mt-12 pt-8 border-t border-slate-200">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">Tags</h3>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {post.faqs && (
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-              <div className="space-y-6">
-                {post.faqs.map((faq, index) => (
-                  <div key={index} className="bg-gray-50 rounded-lg p-6">
-                    <h3 className="font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </div>
+          <div className="mt-12 bg-blue-50 rounded-xl p-6 border border-blue-100">
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">Compare Today's Best Rates</h3>
+            <p className="text-slate-600 mb-4">
+              See how rates from Canada's top lenders compare before your renewal or purchase.
+            </p>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
+            >
+              View Current Rates
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+
+          {recentPosts.length > 0 && (
+            <div className="mt-12">
+              <h3 className="text-xl font-bold text-slate-900 mb-6">More Articles</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {recentPosts.map((recentPost) => (
+                  <Link
+                    key={recentPost.slug}
+                    href={`/blog/${recentPost.slug}`}
+                    className="bg-white rounded-lg shadow-sm border border-slate-200 p-4 hover:shadow-md transition-shadow"
+                  >
+                    <span className="text-xs font-medium text-teal-600 uppercase">
+                      {categories[recentPost.category].label}
+                    </span>
+                    <h4 className="font-semibold text-slate-900 mt-2 line-clamp-2">
+                      {recentPost.title}
+                    </h4>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {recentPost.readTime} min read
+                    </p>
+                  </Link>
                 ))}
               </div>
             </div>
           )}
+        </article>
 
-          <div className="mt-12 bg-blue-50 rounded-lg p-6">
-            <h3 className="font-bold text-gray-900 mb-2">Ready to Compare Mortgage Rates?</h3>
-            <p className="text-gray-600 mb-4">
-              See today&apos;s best rates from Canada&apos;s top lenders and find your perfect mortgage.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/"
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
-              >
-                Compare Rates
-              </Link>
-              <Link
-                href="/blog"
-                className="px-6 py-2 bg-white text-blue-600 border border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition"
-              >
-                More Guides
-              </Link>
-            </div>
-          </div>
-
-          {/* Related Articles */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 mb-6">Related Articles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.values(blogPosts)
-                .filter((p) => p.slug !== slug && p.category === post.category)
-                .slice(0, 4)
-                .map((relatedPost) => (
-                  <Link
-                    key={relatedPost.slug}
-                    href={`/blog/${relatedPost.slug}`}
-                    className="block p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition group"
-                  >
-                    <span className="text-xs font-medium text-blue-600 mb-1 block">{relatedPost.category}</span>
-                    <h4 className="font-medium text-gray-900 group-hover:text-blue-700 transition">
-                      {relatedPost.title}
-                    </h4>
-                    <span className="text-sm text-gray-500 mt-1 block">{relatedPost.readTime}</span>
-                  </Link>
-                ))}
-            </div>
-          </div>
-        </div>
-      </article>
-    </main>
+        <Footer />
+      </main>
+    </>
   );
 }
