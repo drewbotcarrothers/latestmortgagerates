@@ -58,28 +58,30 @@ from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
 from src.scrapers.truenorth_scraper import TrueNorthMortgageScraper
 
+# Import NEW scrapers - Digital Banks (Fintech)
+from src.scrapers.wealthsimple_scraper import WealthsimpleScraper
+
 # Import NEW scrapers - National Alternative Lenders (March 2025)
 from src.scrapers.equitable_scraper import EquitableBankScraper
 from src.scrapers.hometrust_scraper import HomeTrustScraper
-from src.scrapers.wealthsimple_scraper import WealthsimpleScraper
 
 
-# Define approved lender slugs (whitelist)
+# Define approved lender slugs (whitelist) - organized by category
 APPROVED_LENDERS = {
-    # Big 6 Banks
+    # Big 6 Banks (6)
     'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank',
-    # Digital Banks
-    'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna',
-    # Credit Unions
+    # Digital Banks (7) - Online-first banks
+    'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna', 'wealthsimple',
+    # Credit Unions (4)
     'meridian', 'desjardins', 'vancity', 'coastcapital',
-    # Regional Banks
+    # Regional Banks (2)
     'atb', 'cwb',
-    # Monoline Lenders
+    # Monoline Lenders (13) - Mortgage specialists
     'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
-    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum',
-    'truenorth',
-    # National Alternative Lenders (Added March 2025)
-    'equitable', 'hometrust', 'wealthsimple',
+    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 
+    'streetcapital', 'centum', 'truenorth',
+    # National Alternative Lenders (2) - Alternative lending specialists
+    'equitable', 'hometrust',
 }
 
 # Default timeout per scraper (seconds)
@@ -145,13 +147,14 @@ def scrape_all_lenders():
         ("CIBC", CIBCScraper),
         ("NBC", NationalBankScraper),
         
-        # Digital Banks (6)
+        # Digital Banks (7) - Online-only or digital-first banks
         ("Nesto", NestoScraper),
         ("Tangerine", TangerineScraper),
         ("EQ Bank", EQBankScraper),
         ("Simplii", SimpliiScraper),
         ("Motive", MotiveScraper),
         ("Alterna", AlternaScraper),
+        ("Wealthsimple", WealthsimpleScraper),  # Fintech with full banking capabilities
         
         # Credit Unions (4)
         ("Meridian", MeridianScraper),
@@ -163,7 +166,7 @@ def scrape_all_lenders():
         ("ATB", ATBScraper),
         ("CWB", CWBScraper),
         
-        # Monoline Lenders (11)
+        # Monoline Lenders (13) - Mortgage specialists
         ("First National", FirstNationalScraper),
         ("MCAP", MCAPScraper),
         ("Laurentian", LaurentianBankScraper),
@@ -178,10 +181,9 @@ def scrape_all_lenders():
         ("Centum", CentumScraper),
         ("True North", TrueNorthMortgageScraper),
         
-        # National Alternative Lenders (3) - Added March 2025
+        # National Alternative Lenders (2) - Alternative lending specialists
         ("Equitable Bank", EquitableBankScraper),
         ("Home Trust", HomeTrustScraper),
-        ("Wealthsimple", WealthsimpleScraper),
     ]
     
     all_rates = []
