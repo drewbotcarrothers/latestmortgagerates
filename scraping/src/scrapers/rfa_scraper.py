@@ -36,33 +36,51 @@ class RFAScraper:
                 browser = p.chromium.launch(headless=True)
                 page = browser.new_page()
                 
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=15000)
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
                 page.wait_for_load_state("domcontentloaded")
-                page.wait_for_timeout(3000)
+                page.wait_for_timeout(5000)
                 
                 content = page.content()
                 
-                pattern = r'5\s*year[^\d]*?(\d+\.\d+)'
-                match = re.search(pattern, content, re.IGNORECASE)
+                # Try multiple patterns to extract rates
+                patterns = [
+                    # Pattern 1: HTML table cells with rates
+                    r'<td[^>]*>\s*(\d+)\s*(?:year|yr)[^<]*</td>\s*<td[^>]*>(\d+\.\d+)</td>',
+                    # Pattern 2: Specific rate displays
+                    r'(?:fixed|variable)[^>]*>\s*(\d+)\s*(?:year|yr)[^<]*<[^>]*>(\d+\.\d+)',
+                    # Pattern 3: Generic rate patterns
+                    r'(\d+)\s*(?:year|yr)[^\d<]{0,50}(\d+\.\d+)[%\s]',
+                    # Pattern 4: Data attributes
+                    r'data-term="(\d+)"[^>]*data-rate="(\d+\.\d+)"',
+                    # Pattern 5: Script/JSON data
+                    r'"term":\s*(\d+)[^}]*"rate":\s*"(\d+\.\d+)"',
+                ]
                 
-                if match:
-                    try:
-                        rate = Decimal(match.group(1))
-                        if 2 <= rate <= 10:
-                            rate_obj = RawRate(
-                                lender_slug=self.LENDER_SLUG,
-                                lender_name=self.LENDER_NAME,
-                                term_months=60,
-                                rate_type=RateType.FIXED,
-                                mortgage_type=MortgageType.UNINSURED,
-                                rate=rate,
-                                source_url=self.RATE_URL,
-                                scraped_at=self.scraped_at,
-                                raw_data={"years": 5, "rate": str(rate)}
-                            )
-                            rates.append(rate_obj)
-                    except:
-                        pass
+                found_rates = set()
+                for pattern in patterns:
+                    matches = re.finditer(pattern, content, re.IGNORECASE | re.DOTALL)
+                    for match in matches:
+                        try:
+                            years = int(match.group(1))
+                            rate = Decimal(match.group(2))
+                            if 1 <= years <= 10 and 2 <= rate <= 15:
+                                rate_key = (years, str(rate))
+                                if rate_key not in found_rates:
+                                    found_rates.add(rate_key)
+                                    rate_obj = RawRate(
+                                        lender_slug=self.LENDER_SLUG,
+                                        lender_name=self.LENDER_NAME,
+                                        term_months=years * 12,
+                                        rate_type=RateType.FIXED,
+                                        mortgage_type=MortgageType.UNINSURED,
+                                        rate=rate,
+                                        source_url=self.RATE_URL,
+                                        scraped_at=self.scraped_at,
+                                        raw_data={"years": years, "rate": str(rate)}
+                                    )
+                                    rates.append(rate_obj)
+                        except:
+                            continue
                 
                 browser.close()
                 

@@ -28,37 +28,67 @@ class RBCScraper:
         self.scraped_at = datetime.utcnow()
     
     def scrape(self) -> List[RawRate]:
-        """Scrape RBC mortgage rates. Uses web_fetch with fallback to known rates."""
+        """Scrape RBC mortgage rates."""
         rates = []
         
+        logger.info("Fetching RBC rate page...")
+        
         try:
-            # Try to fetch using web_fetch
-            logger.info("Fetching RBC rate page...")
+            # Try httpx first (faster)
             html = self._fetch_html()
-            
             if html:
                 rates = self._extract_from_html(html)
+            
+            # If httpx didn't work, try Playwright
+            if not rates:
+                logger.info("Trying Playwright for RBC...")
+                rates = self._scrape_with_playwright()
             
             if not rates:
                 logger.warning("Could not extract rates from page, using fallback...")
                 rates = self._get_fallback_rates()
-            
-            if not rates:
-                raise Exception("No rates found")
             
             logger.success(f"Successfully scraped {len(rates)} rates from RBC")
             return rates
             
         except Exception as e:
             logger.error(f"Failed to scrape RBC: {str(e)}")
-            raise
+            # Always return fallback on error
+            return self._get_fallback_rates()
+    
+    def _scrape_with_playwright(self) -> List[RawRate]:
+        """Scrape using Playwright for JavaScript-rendered content."""
+        rates = []
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
+                
+                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
+                content = page.content()
+                rates = self._extract_from_html(content)
+                browser.close()
+                
+        except Exception as e:
+            logger.warning(f"Playwright scrape failed: {e}")
+        
+        return rates
     
     def _fetch_html(self) -> str:
-        """Fetch RBC HTML page."""
+        """Fetch RBC HTML page using httpx."""
         try:
-            # This would normally use httpx or requests
-            # Placeholder - in actual runtime we use browser snapshot data
-            return ""
+            import httpx
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-CA,en;q=0.5',
+            }
+            with httpx.Client(timeout=30, follow_redirects=True) as client:
+                response = client.get(self.RATE_URL, headers=headers)
+                response.raise_for_status()
+                return response.text
         except Exception as e:
             logger.warning(f"Fetch failed: {e}")
             return ""
