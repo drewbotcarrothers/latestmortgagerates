@@ -326,8 +326,10 @@ def scrape_all_lenders():
     if valid_rates:
         try:
             db.save_raw_rates(valid_rates)
+            db.record_rate_history(valid_rates)  # Record for trend analysis
             logger.success(f"Saved {len(valid_rates)} rates to database")
             print(f"\nSaved {len(valid_rates)} rates to database")
+            print(f"Recorded rate history for trend tracking")
         except Exception as e:
             logger.error(f"Failed to save rates: {e}")
             print(f"Error saving: {e}")

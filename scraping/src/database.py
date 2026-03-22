@@ -5,7 +5,7 @@ This acts as the buffer between scraping and production.
 
 import sqlite3
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
 from typing import List, Optional
@@ -222,6 +222,119 @@ class Database:
             logger.success(f"Scraped {result.lender_slug}: {result.rates_found} rates in {result.duration_seconds:.1f}s")
         else:
             logger.error(f"Failed to scrape {result.lender_slug}: {result.error_message}")
+    
+    def record_rate_history(self, rates: List[RawRate]):
+        """Record rate history for trend analysis."""
+        import uuid
+        recorded_at = datetime.utcnow().isoformat()
+        
+        with self._get_connection() as conn:
+            history_count = 0
+            for rate in rates:
+                history_id = str(uuid.uuid4())
+                conn.execute("""
+                    INSERT INTO rate_history
+                    (id, lender_id, term_months, rate_type, rate, recorded_at)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (
+                    history_id,
+                    rate.lender_slug,
+                    rate.term_months,
+                    rate.rate_type.value,
+                    str(rate.rate),
+                    recorded_at
+                ))
+                history_count += 1
+            conn.commit()
+        
+        logger.info(f"Recorded {history_count} rate history entries")
+    
+    def get_rate_history(self, lender_slug: str = None, term_months: int = 60, 
+                        days: int = 90) -> List[dict]:
+        """Get rate history for trend charting.
+        
+        Args:
+            lender_slug: Filter by specific lender, or None for all lenders average
+            term_months: Term period (12, 24, 36, 48, 60, etc)
+            days: Number of days of history to retrieve
+        """
+        cutoff_date = (datetime.utcnow() - timedelta(days=days)).isoformat()
+        
+        with self._get_connection() as conn:
+            query = """
+                SELECT lender_id, term_months, rate_type, rate, recorded_at
+                FROM rate_history
+                WHERE term_months = ? AND recorded_at > ?
+                AND rate > 0 AND rate < '20'  -- Sanity check
+            """
+            params = [term_months, cutoff_date]
+            
+            if lender_slug:
+                query += " AND lender_id = ?"
+                params.append(lender_slug)
+            
+            query += " ORDER BY recorded_at ASC"
+            
+            cursor = conn.execute(query, params)
+            rows = cursor.fetchall()
+            
+            return [dict(row) for row in rows]
+    
+    def get_rate_trends(self, days: int = 30) -> List[dict]:
+        """Get average rates by day for trend analysis.
+        
+        Returns daily average rates for 5-year fixed and 5-year variable
+        across all lenders.
+        """
+        cutoff_date = (datetime.utcnow() - timedelta(days=days)).isoformat()
+        
+        with self._get_connection() as conn:
+            # Get daily averages for 5-year fixed
+            cursor = conn.execute("""
+                SELECT DATE(recorded_at) as date, AVG(CAST(rate AS REAL)) as avg_rate, 
+                       COUNT(*) as sample_size, rate_type
+                FROM rate_history
+                WHERE term_months = 60 AND recorded_at > ?
+                GROUP BY DATE(recorded_at), rate_type
+                ORDER BY date ASC
+            """, (cutoff_date,))
+            
+            return [dict(row) for row in cursor.fetchall()]
+    
+    def get_latest_rate_change(self, term_months: int = 60, rate_type: str = "fixed") -> dict:
+        """Get the rate change between last two recordings."""
+        with self._get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT DISTINCT DATE(recorded_at) as date, AVG(CAST(rate AS REAL)) as avg_rate
+                FROM rate_history
+                WHERE term_months = ? AND rate_type = ?
+                GROUP BY DATE(recorded_at)
+                ORDER BY date DESC
+                LIMIT 2
+            """, (term_months, rate_type))
+            
+            rows = cursor.fetchall()
+            if len(rows) < 2:
+                return {"change": 0, "percent_change": 0, "direction": "stable", "days_since": 0}
+            
+            latest = rows[0]
+            previous = rows[1]
+            
+            latest_rate = latest['avg_rate']
+            prev_rate = previous['avg_rate']
+            change = round(latest_rate - prev_rate, 3)
+            percent_change = round((change / prev_rate) * 100, 2) if prev_rate > 0 else 0
+            
+            direction = "down" if change < 0 else "up" if change > 0 else "stable"
+            
+            return {
+                "change": change,
+                "percent_change": percent_change,
+                "direction": direction,
+                "latest_rate": round(latest_rate, 3),
+                "previous_rate": round(prev_rate, 3),
+                "days_since": 0
+            }
     
     def get_latest_rates(self, lender_slug: Optional[str] = None) -> List[dict]:
         """Get latest rates (optionally filtered by lender)."""

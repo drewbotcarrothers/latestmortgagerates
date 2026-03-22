@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
 import RateAlertForm from "./components/RateAlertForm";
+import RateTrends from "./components/RateTrends";
 
 interface FilterState {
   term: string;
@@ -286,6 +287,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Rate Trends Section */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <RateTrends rates={ratesData as Rate[]} />
       </div>
 
       {/* Main Content */}
