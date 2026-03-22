@@ -98,6 +98,18 @@ const tools: ToolCardProps[] = [
     ],
   },
   {
+    title: "Mortgage Renewal Calculator",
+    description: "Compare renewing with your current lender vs shopping for a better rate. Calculate potential savings, monthly payment differences, and break-even analysis.",
+    href: "/tools/mortgage-renewal-calculator",
+    icon: "🔄",
+    questions: [
+      "Should I renew with my current lender or shop around?",
+      "How much could I save by switching lenders?",
+      "Is it worth paying switching costs?",
+      "What's my break-even point for changing lenders?",
+    ],
+  },
+  {
     title: "CMHC Insurance Calculator",
     description: "Calculate your CMHC mortgage insurance premium. See how your down payment affects your insurance costs and total mortgage amount.",
     href: "/tools/cmhc-insurance-calculator",
