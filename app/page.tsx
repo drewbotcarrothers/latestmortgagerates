@@ -12,6 +12,7 @@ import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
 import RateAlertForm from "./components/RateAlertForm";
 import RateTrends from "./components/RateTrends";
+import RateTrendsFull from "./components/RateTrendsFull";
 
 interface FilterState {
   term: string;
@@ -289,9 +290,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Rate Trends Section */}
+      {/* Rate Trends Section (Mini) */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <RateTrends rates={ratesData as Rate[]} />
+      </div>
+
+      {/* Rate Trends Chart (Full) */}
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        <RateTrendsFull />
       </div>
 
       {/* Main Content */}
