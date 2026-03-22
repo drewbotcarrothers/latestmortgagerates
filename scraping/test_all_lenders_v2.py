@@ -58,16 +58,28 @@ from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
 from src.scrapers.truenorth_scraper import TrueNorthMortgageScraper
 
+# Import NEW scrapers - National Alternative Lenders (March 2025)
+from src.scrapers.equitable_scraper import EquitableBankScraper
+from src.scrapers.hometrust_scraper import HomeTrustScraper
+from src.scrapers.wealthsimple_scraper import WealthsimpleScraper
+
 
 # Define approved lender slugs (whitelist)
 APPROVED_LENDERS = {
+    # Big 6 Banks
     'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank',
+    # Digital Banks
     'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna',
+    # Credit Unions
     'meridian', 'desjardins', 'vancity', 'coastcapital',
+    # Regional Banks
     'atb', 'cwb',
+    # Monoline Lenders
     'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
     'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 'streetcapital', 'centum',
-    'truenorth'
+    'truenorth',
+    # National Alternative Lenders (Added March 2025)
+    'equitable', 'hometrust', 'wealthsimple',
 }
 
 # Default timeout per scraper (seconds)
@@ -165,6 +177,11 @@ def scrape_all_lenders():
         ("Street Capital", StreetCapitalScraper),
         ("Centum", CentumScraper),
         ("True North", TrueNorthMortgageScraper),
+        
+        # National Alternative Lenders (3) - Added March 2025
+        ("Equitable Bank", EquitableBankScraper),
+        ("Home Trust", HomeTrustScraper),
+        ("Wealthsimple", WealthsimpleScraper),
     ]
     
     all_rates = []
