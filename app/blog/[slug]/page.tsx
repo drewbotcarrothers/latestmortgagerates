@@ -188,13 +188,13 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           <div 
-            className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-a:text-teal-600 prose-strong:text-slate-900"
+            className="prose prose-base max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-h2:text-xl prose-h3:text-lg prose-p:text-slate-600 prose-p:leading-relaxed prose-a:text-teal-600 hover:prose-a:text-teal-700"
             dangerouslySetInnerHTML={{
               __html: post.content
                   .replace(/\*\*/g, '')
-                  .replace(/## /g, '<h2 class="text-2xl font-bold mt-8 mb-4 text-slate-900">')
+                  .replace(/## /g, '<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">')
                   .replace(/\n\n/g, '</p><p class="mb-4 leading-relaxed">')
-                  .replace(/\n\n/, '<p class="mb-4 leading-relaxed">')
+                  .replace(/^/, '<p class="mb-4 leading-relaxed">')
             }}
           />
 
