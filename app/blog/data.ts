@@ -210,120 +210,351 @@ export const blogPosts: BlogPost[] = [
     image: "/blog/best-rates-march.jpg"
   },
   {
-    slug: "first-time-buyer-guide-2025",
-    title: "First-Time Home Buyer Guide 2025: Everything You Need to Know",
-    excerpt: "A comprehensive guide for first-time home buyers in Canada. From down payments to closing costs, this covers everything you need to buy your first home in 2025.",
-    content: `Buying your first home is exciting but can feel overwhelming. This comprehensive guide breaks down everything Canadian first-time home buyers need to know in 2025.
+    slug: "first-time-buyer-guide-2026",
+    title: "First-Time Home Buyer Guide 2026: Everything You Need to Know",
+    excerpt: "A comprehensive guide for first-time home buyers in Canada. From down payments to closing costs, this covers everything you need to buy your first home in 2026.",
+    content: `<p class="mb-4">Buying your first home is exciting but can feel overwhelming. This comprehensive guide breaks down everything Canadian first-time home buyers need to know in 2026.</p>
 
-## Step 1: Determine Your Budget
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 1: Determine Your Budget</h2>
 
-Before you start house hunting, understand what you can actually afford. In Canada, lenders use two key metrics:
+<p class="mb-4">Before you start house hunting, understand what you can actually afford. In Canada, lenders use two key metrics to assess your borrowing power:</p>
 
-**Gross Debt Service (GDS) Ratio:**
-- Should be under 39% of your gross income
-- Includes mortgage payment, property taxes, heating, and 50% of condo fees
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-2xl">📊</span>
+      <h3 class="font-semibold text-emerald-800">GDS Ratio</h3>
+    </div>
+    <p class="text-sm text-slate-600 mb-2"><strong>Gross Debt Service</strong> — Should be under <span class="text-emerald-600 font-bold">39%</span> of gross income</p>
+    <ul class="text-sm text-slate-600 space-y-1">
+      <li>✓ Mortgage payment</li>
+      <li>✓ Property taxes</li>
+      <li>✓ Heating costs</li>
+      <li>✓ 50% of condo fees</li>
+    </ul>
+  </div>
+  <div class="bg-teal-50 rounded-lg p-5 border border-teal-100">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-2xl">📈</span>
+      <h3 class="font-semibold text-teal-800">TDS Ratio</h3>
+    </div>
+    <p class="text-sm text-slate-600 mb-2"><strong>Total Debt Service</strong> — Should be under <span class="text-teal-600 font-bold">44%</span> of gross income</p>
+    <ul class="text-sm text-slate-600 space-y-1">
+      <li>✓ All GDS costs</li>
+      <li>✓ Car loan payments</li>
+      <li>✓ Credit card minimums</li>
+      <li>✓ Student loan payments</li>
+    </ul>
+  </div>
+</div>
 
-**Total Debt Service (TDS) Ratio:**
-- Should be under 44% of your gross income
-- Includes all GDS costs plus other debt payments
+<div class="bg-slate-100 rounded-lg p-4 mb-6 border border-slate-200">
+  <p class="text-sm text-slate-600">💡 <strong>Use our calculator:</strong> <a href="/tools/affordability-calculator" class="text-teal-600 hover:underline font-medium">Affordability Calculator →</a></p>
+</div>
 
-Use our [Affordability Calculator](/tools/affordability-calculator) to find your price range.
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 2: Save Your Down Payment</h2>
 
-## Step 2: Save Your Down Payment
+<div class="bg-amber-50 rounded-lg p-6 mb-6 border border-amber-100">
+  <h3 class="font-semibold text-amber-800 mb-4 flex items-center gap-2">
+    <span>💰</span> Minimum Down Payment Requirements
+  </h3>
+  
+  <div class="space-y-3">
+    <div class="bg-white rounded-md p-3 border border-amber-200 flex justify-between items-center">
+      <span class="text-slate-700 text-sm">Purchase under $500,000</span>
+      <span class="font-bold text-amber-700">5%</span>
+    </div>
+    <div class="bg-white rounded-md p-3 border border-amber-200 flex justify-between items-center">
+      <span class="text-slate-700 text-sm">$500,000 – $999,999</span>
+      <span class="font-bold text-amber-700">5% + 10%</span>
+    </div>
+    <div class="bg-white rounded-md p-3 border border-amber-200 flex justify-between items-center">
+      <span class="text-slate-700 text-sm">$1M or more</span>
+      <span class="font-bold text-amber-700">20%</span>
+    </div>
+  </div>
+</div>
 
-**Minimum Requirements:**
-- Under $500,000: 5% minimum
-- $500,000 - $999,999: 5% on first $500k, 10% on remainder
-- $1M+: 20% minimum
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
+    <h3 class="font-semibold text-emerald-800 mb-3">✓ Home Buyers' Plan</h3>
+    <p class="text-sm text-slate-600">Withdraw up to <strong class="text-emerald-700">$35,000</strong> from your RRSP tax-free for your down payment. Must be repaid over 15 years.</p>
+  </div>
+  
+  <div class="bg-teal-50 rounded-lg p-5 border border-teal-100">
+    <h3 class="font-semibold text-teal-800 mb-3">✓ First Home Savings Account</h3>
+    <p class="text-sm text-slate-600">Save up to <strong class="text-teal-700">$40,000</strong> with tax benefits. Contributions are tax-deductible, withdrawals are tax-free for home purchase.</p>
+  </div>
+</div>
 
-**First-Time Buyer Programs:**
-- **Home Buyers' Plan:** Withdraw up to $35,000 from RRSP tax-free
-- **First Home Savings Account:** Save up to $40,000 with tax benefits
-- **Land Transfer Tax Rebates:** Available in Ontario, BC, and other provinces
+<p class="mb-4">📍 <strong>Land Transfer Tax Rebates:</strong> First-time buyers may receive rebates in Ontario, BC, and other provinces. See our <a href="/tools/land-transfer-tax-calculator" class="text-teal-600 hover:underline">LTT Calculator</a> for details.</p>
 
-## Step 3: Get Pre-Approved
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 3: Get Pre-Approved</h2>
 
-A mortgage pre-approval:
-- Shows sellers you're serious
-- Locks in an interest rate for 90-120 days
-- Gives you a clear maximum purchase price
-- Identifies any credit issues early
+<p class="mb-4">A mortgage pre-approval is essential before you start house hunting:</p>
 
-**What You'll Need:**
-- Proof of income (T4s, pay stubs, NOA)
-- Employment letter
-- Bank statements
-- ID and proof of address
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
+    <p class="font-semibold text-slate-800 mb-3">🎯 Why Get Pre-Approved?</p>
+    <ul class="space-y-2 text-sm text-slate-600">
+      <li>Shows sellers you're serious</li>
+      <li>Locks in rate for 90-120 days</li>
+      <li>Shows clear budget limit</li>
+      <li>Identifies credit issues early</li>
+    </ul>
+  </div>
+  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
+    <p class="font-semibold text-slate-800 mb-3">📋 What You'll Need:</p>
+    <ul class="space-y-1 text-sm text-slate-600">
+      <li>• Proof of income (T4s, pay stubs)</li>
+      <li>• Notice of Assessment (NOA)</li>
+      <li>• Employment letter</li>
+      <li>• Bank statements</li>
+      <li>• ID and proof of address</li>
+    </ul>
+  </div>
+</div>
 
-## Step 4: Understand the Costs
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 4: Understand the Costs</h2>
 
-**Upfront Costs:**
-- Down payment: 5-20%+
-- Closing costs: 1.5-4% of purchase price
-- Home inspection: $400-600
-- Lawyer fees: $800-1,500
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
+    <h3 class="font-semibold text-emerald-800 mb-4">💳 Upfront Costs</h3>
+    <ul class="space-y-2 text-sm">
+      <li class="flex justify-between"><span>Down payment</span><span class="font-medium text-emerald-700">5-20%+</span></li>
+      <li class="flex justify-between"><span>Closing costs</span><span class="font-medium text-emerald-700">1.5-4%</span></li>
+      <li class="flex justify-between"><span>Home inspection</span><span class="font-medium text-emerald-700">$400-600</span></li>
+      <li class="flex justify-between"><span>Lawyer fees</span><span class="font-medium text-emerald-700">$800-1,500</span></li>
+      <li class="flex justify-between"><span>Land transfer tax</span><span class="font-medium text-emerald-700">Varies</span></li>
+    </ul>
+  </div>
 
-**Ongoing Costs:**
-- Mortgage payments
-- Property taxes
-- Home insurance ($1,200-2,000/year)
-- Utilities and maintenance
+  <div class="bg-slate-50 rounded-lg p-5 border border-slate-200">
+    <h3 class="font-semibold text-slate-800 mb-4">📅 Ongoing Costs</h3>
+    <ul class="space-y-2 text-sm">
+      <li class="flex justify-between"><span>Mortgage payment</span><span class="font-medium text-slate-600">Monthly</span></li>
+      <li class="flex justify-between"><span>Property tax</span><span class="font-medium text-slate-600">Annual</span></li>
+      <li class="flex justify-between"><span>Home insurance</span><span class="font-medium text-slate-600">$1,200-2,000/yr</span></li>
+      <li class="flex justify-between"><span>Utilities</span><span class="font-medium text-slate-600">Monthly</span></li>
+      <li class="flex justify-between"><span>Maintenance%</span><span class="font-medium text-slate-600">1-3%/yr</span></li>
+    </ul>
+  </div>
+</div>
 
-## Step 5: Choose Your Mortgage
+<div class="bg-slate-100 rounded-lg p-4 mb-6 border border-slate-200">
+  <p class="text-sm text-slate-600">💡 <strong>Estimate your total:</strong> <a href="/tools/closing-costs-calculator" class="text-teal-600 hover:underline font-medium">Closing Costs Calculator →</a></p>
+</div>
 
-**Fixed vs. Variable:**
-- **Fixed:** Payment stays the same for the term. Good for risk-averse buyers.
-- **Variable:** Rate changes with prime. Historically saves money but has payment uncertainty.
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 5: Choose Your Mortgage</h2>
 
-**Term Length:**
-- 5-year terms are most common
-- Consider shorter terms if rates are expected to fall
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-blue-50 rounded-lg p-5 border border-blue-100">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold text-blue-800">🔒 Fixed Rate</h3>
+      <span class="bg-blue-200 text-blue-700 text-xs px-2 py-1 rounded">Lower Risk</span>
+    </div>
+    <p class="text-sm text-slate-600 mb-2">Payment stays the same for the entire term.</p>
+    <ul class="space-y-1 text-sm text-slate-600">
+      <li class="flex items-center gap-2">
+        <span class="text-emerald-500">✓</span> Payment certainty
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-emerald-500">✓</span> Easier budgeting
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-red-500">✗</span> Higher penalties if rates fall
+      </li>
+    </ul>
+    <p class="text-xs text-slate-500 mt-3">Best for: Risk-averse buyers, first-timers</p>
+  </div>
 
-## Step 6: Make an Offer
+  <div class="bg-teal-50 rounded-lg p-5 border border-teal-100">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold text-teal-800">📊 Variable Rate</h3>
+      <span class="bg-teal-200 text-teal-700 text-xs px-2 py-1 rounded">Historically Saves</span>
+    </div>
+    <p class="text-sm text-slate-600 mb-2">Rate changes with prime. Historically saves money.</p>
+    <ul class="space-y-1 text-sm text-slate-600">
+      <li class="flex items-center gap-2">
+        <span class="text-emerald-500">✓</span> Historically lower cost
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-emerald-500">✓</span> Lower penalties
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="text-amber-500">⚠</span> Payment uncertainty
+      </li>
+    </ul>
+    <p class="text-xs text-slate-500 mt-3">Best for: Risk-tolerant, financially flexible</p>
+  </div>
+</div>
 
-When you find the right home:
-1. Include conditions (financing, inspection)
-2. Submit deposit with offer (typically 5%)
-3. Negotiate if necessary
-4. Remove conditions once satisfied
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 6: Make an Offer</h2>
 
-## Step 7: Close the Deal
+<p class="mb-4">When you find the right home, follow these steps:</p>
 
-**Before Closing:**
-- Final walkthrough
-- Arrange home insurance
-- Transfer utilities
-- Review closing statement
+<div class="flex flex-col gap-3 mb-6">
+  <div class="flex items-start gap-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <span class="w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">1</span>
+    <div>
+      <p class="font-semibold text-slate-800">Include Conditions</p>
+      <p class="text-sm text-slate-600">Protect yourself with financing and inspection conditions.</p>
+    </div>
+  </div>
 
-**On Closing Day:**
-- Lawyer handles document signing
-- Transfer funds
-- Get keys!
+  <div class="flex items-start gap-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <span class="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">2</span>
+    <div>
+      <p class="font-semibold text-slate-800">Submit Deposit</p>
+      <p class="text-sm text-slate-600">Typically ~5% with your offer (held in trust).</p>
+    </div>
+  </div>
 
-## Common First-Time Buyer Mistakes
+  <div class="flex items-start gap-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <span class="w-8 h-8 bg-cyan-500 text-white rounded-full flex items-center justify-center font-bold shrink-0">3</span>
+    <div>
+      <p class="font-semibold text-slate-800">Negotiate</p>
+      <p class="text-sm text-s003c/p>
+      <p class="text-sm text-slate-600">Be prepared for counter-offers and negotiations.</p>
+    </div>
+  </div>
 
-1. **Not getting pre-approved first**
-2. **Forgetting about closing costs**
-3. **Skipping the home inspection**
-4. **Maxing out their budget**
-5. **Not understanding mortgage terms**
+  <div class="flex items-start gap-4 bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <span class="w-8 h-8 bg-slate-400 text-white rounded-full flex items-center justify-center font-bold shrink-0">4</span>
+    <div>
+      <p class="font-semibold text-slate-800">Firm It Up</p>
+      <p class="text-sm text-slate-600">Remove conditions once satisfied (financing, inspection).</p>
+    </div>
+  </div>
+</div>
 
-## Resources
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 7: Close the Deal</h2>
 
-- [Mortgage Payment Calculator](/tools/mortgage-calculator)
-- [Land Transfer Tax Calculator](/tools/land-transfer-tax-calculator)
-- [CMHC Insurance Calculator](/tools/cmhc-insurance-calculator)
-- [Closing Costs Calculator](/tools/closing-costs-calculator)
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
+    <h3 class="font-semibold text-emerald-800 mb-3">📝 Before Closing</h3>
+    <ul class="space-y-1 text-sm text-slate-600">
+      <li>• Complete final walkthrough</li>
+      <li>• Arrange home insurance</li>
+      <li>• Transfer utilities</li>
+      <li>• Review closing statement</li>
+      <li>• Get cashier's cheques ready</li>
+    </ul>
+  </div>
 
-Buying your first home is a major milestone. Take your time, do your research, and don't hesitate to ask questions. Your future self will thank you!`,
+  <div class="bg-teal-50 rounded-lg p-5 border border-teal-100">
+    <h3 class="font-semibold text-teal-800 mb-3">🎉 Closing Day</h3>
+    <ul class="space-y-1 text-sm text-slate-600">
+      <li>• Meet with lawyer</li>
+      <li>• Sign mortgage documents</li>
+      <li>• Transfer funds</li>
+      <li>• Receive keys! 🔑</li>
+      <li>• Take possession</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Common First-Time Buyer Mistakes to Avoid</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+  <div class="bg-red-50 rounded-lg p-4 border border-red-100 flex items-start gap-3">
+    <span class="text-xl">❌</span>
+    <div>
+      <p class="font-semibold text-red-800 text-sm">Not getting pre-approved first</p>
+      <p class="text-xs text-red-600">Know your budget before house hunting.</p>
+    </div>
+  </div>
+
+  <div class="bg-red-50 rounded-lg p-4 border border-red-100 flex items-start gap-3">
+    <span class="text-xl">❌</span>
+    <div>
+      <p class="font-semibold text-red-800 text-sm">Forgetting about closing costs</p>
+      <p class="text-xs text-red-600">Budget 1.5-4% beyond the purchase price.</p>
+    </div>
+  </div>
+
+  <div class="bg-red-50 rounded-lg p-4 border border-red-100 flex items-start gap-3">
+    <span class="text-xl">❌</span>
+    <div>
+      <p class="font-semibold text-red-800 text-sm">Skipping the home inspection</p>
+      <p class="text-xs text-red-600">$400-600 could save thousands later.</p>
+    </div>
+  </div>
+
+  <div class="bg-red-50 rounded-lg p-4 border border-red-100 flex items-start gap-3">
+    <span class="text-xl">❌</span>
+    <div>
+      <p class="font-semibold text-red-800 text-sm">Maxing out their budget</p>
+      <p class="text-xs text-red-600">Leave room for unexpected costs.</p>
+    </div>
+  </div>
+
+  <div class="bg-red-50 rounded-lg p-4 border border-red-100 flex items-start gap-3 md:col-span-2">
+    <span class="text-xl">❌</span>
+    <div>
+      <p class="font-semibold text-red-800 text-sm">Not understanding mortgage terms</p>
+      <p class="text-xs text-red-600">Know your prepayment privileges, penalties, and portability options before signing.</p>
+    </div>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Helpful Calculators &amp; Tools</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <a href="/tools/mortgage-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">Mortgage Payment Calculator</p>
+        <p class="text-sm text-slate-500">See your monthly payments</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="/tools/affordability-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">Affordability Calculator</p>
+        <p class="text-sm text-slate-500">Find your maximum budget</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="/tools/land-transfer-tax-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">Land Transfer Tax Calculator</p>
+        <p class="text-sm text-slate-500">Estimate provincial LTT + rebates</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="/tools/cmhc-insurance-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">CMHC Insurance Calculator</p>
+        <p class="text-sm text-slate-500">Calculate mortgage default premiums</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+</div>
+
+<div class="bg-emerald-50 rounded-lg p-6 border border-emerald-100 mb-6">
+  <p class="font-semibold text-emerald-800 mb-2">✨ You're Ready!</p>
+  <p class="text-slate-700">Buying your first home is a major milestone. Take your time, do your research, and don't hesitate to ask questions along the way. Your future self will thank you for making informed decisions today.</p>
+  <p class="text-slate-600 text-sm mt-3 italic">— The Latest Mortgage Rates Team</p>
+</div>`,
     author: "Sarah Chen",
     authorTitle: "Senior Mortgage Advisor",
-    date: "2025-03-05",
+    date: "2026-03-23",
     category: "guides",
-    tags: ["first time buyer", "home buying", "guide", "down payment", "2025"],
+    tags: ["first time buyer", "home buying", "guide", "down payment", "2026"],
     readTime: 12,
     featured: false,
-    image: "/blog/first-time-buyer.jpg"
+    image: "/blog/first-time-buyer-2026.jpg"
   },
   {
     slug: "bond-yields-mortgage-rates-explained",
