@@ -425,131 +425,192 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
     slug: "spring-2025-housing-market-outlook",
     title: "Spring 2025 Housing Market Outlook: What Buyers and Sellers Should Know",
     excerpt: "Our analysis of the spring 2025 Canadian housing market. Lower rates, changing inventory, and what it means for buyers entering the market this season.",
-    content: `Spring is traditionally the busiest season in Canadian real estate. As we enter spring 2025, here's what buyers and sellers need to know about the current market conditions.
+    content: `<p class="mb-4">Spring is traditionally the busiest season in Canadian real estate. As we enter spring 2025, here's what buyers and sellers need to know about the current market conditions.</p>
 
-## Interest Rate Environment
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Interest Rate Environment</h2>
 
-**The Good News:**
-Mortgage rates have improved significantly from 2024 highs. The average 5-year fixed rate has fallen from ~5.5% to ~4.2%, representing meaningful savings for buyers.
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">The Good News</h3>
+  <p class="mb-3">Mortgage rates have improved significantly from 2024 highs. The average 5-year fixed rate has fallen from <span class="font-semibold">~5.5%</span> to <span class="font-semibold">~4.2%</span>, representing meaningful savings for buyers.</p>
+</div>
 
-**Current Rate Landscape:**
-- Best 5-year fixed: 3.64%
-- Average 5-year fixed: 4.24%
-- Best 5-year variable: 3.40%
-- Prime rate: 4.95%
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
+    <p class="text-sm text-slate-500 mb-1">Best 5-Yr Fixed</p>
+    <p class="text-2xl font-bold text-emerald-600">3.64%</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
+    <p class="text-sm text-slate-500 mb-1">Avg 5-Yr Fixed</p>
+    <p class="text-2xl font-bold text-slate-700">4.24%</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
+    <p class="text-sm text-slate-500 mb-1">Best Variable</p>
+    <p class="text-2xl font-bold text-teal-600">3.40%</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
+    <p class="text-sm text-slate-500 mb-1">Prime Rate</p>
+    <p class="text-2xl font-bold text-slate-700">4.95%</p>
+  </div>
+</div>
 
-These rates make homeownership more accessible than at any point in the past two years.
+<p class="mb-4">These rates make homeownership more accessible than at any point in the past two years.</p>
 
-## Inventory and Competition
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Inventory and Competition</h2>
 
-After tight inventory levels in 2024, spring 2025 is showing increased listings in most major markets:
+<p class="mb-4">After tight inventory levels in 2024, spring 2025 is showing increased listings in most major markets:</p>
 
-**Toronto:**
-- New listings up 15% year-over-year
-- Average days on market: 28 (up from 18)
-- More balanced market conditions
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-2xl">🏙️</span>
+      <h3 class="font-semibold text-slate-900">Toronto</h3>
+    </div>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>New listings up <strong>15%</strong></span></li>
+      <li class="flex items-center gap-2"><span class="text-amber-500">⏱️</span><span>Days on market: <strong>28</strong> (was 18)</span></li>
+      <li class="flex items-center gap-2"><span class="text-blue-500">⚖️</span><span>More balanced conditions</span></li>
+    </ul>
+  </div>
 
-**Vancouver:**
-- Inventory up 12%
-- Price growth moderating
-- Better selection for buyers
+  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-2xl">🌲</span>
+      <h3 class="font-semibold text-slate-900">Vancouver</h3>
+    </div>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>Inventory up <strong>12%</strong></span></li>
+      <li class="flex items-center gap-2"><span class="text-blue-500">📊</span><span>Growth moderating</span></li>
+      <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span><span>Better selection for buyers</span></li>
+    </ul>
+  </div>
 
-**Calgary:**
-- Still tight inventory
-- Prices increasing but at slower pace
-- Strong demand continues
+  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-2xl">🏔️</span>
+      <h3 class="font-semibold text-slate-900">Calgary</h3>
+    </div>
+    <ul class="space-y-2 text-sm">
+      <li class="flex items-center gap-2"><span class="text-amber-500">🔥</span><span>Still tight inventory</span></li>
+      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>Prices rising slower</span></li>
+      <li class="flex items-center gap-2"><span class="text-teal-500">💪</span><span>Strong demand</span></li>
+    </ul>
+  </div>
+</div>
 
-## Buyer Sentiment
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Buyer Sentiment</h2>
 
-Our analysis of search trends and application data shows:
-- **Mortgage pre-approvals up 25%** vs. winter 2024
-- **First-time buyer activity increasing** as rates improve
-- **Move-up buyers returning** to market
-- **Investor activity still subdued** due to rental regulations
+<p class="mb-4">Our analysis of search trends and application data shows:</p>
 
-## Price Expectations
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="flex items-center gap-4 bg-emerald-50 rounded-lg p-4 border border-emerald-100">
+    <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xl">📈</div>
+    <div>
+      <p class="font-semibold text-emerald-800">+25% Pre-approvals</p>
+      <p class="text-sm text-emerald-600">vs. winter 2024</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 bg-teal-50 rounded-lg p-4 border border-teal-100">
+    <div class="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center text-white text-xl">🏠</div>
+    <div>
+      <p class="font-semibold text-teal-800">First-time buyers returning</p>
+      <p class="text-sm text-teal-600">Activity increasing</p>
+    </div>
+  </div>
+</div>
 
-**National Outlook:**
-- 2025 forecast: +2-4% growth
-- More modest gains than 2021-2022
-- Regional variation significant
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Price Expectations</h2>
 
-**Regional Variations:**
-- **Calgary/Edmonton:** Strongest growth (5-7%)
-- **Toronto:** Modest rebound (2-4%)
-- **Vancouver:** Stabilization (1-3%)
-- **Atlantic Canada:** Steady growth (3-5%)
+<div class="bg-slate-50 rounded-lg p-6 mb-6 border border-slate-200">
+  <h3 class="font-semibold text-slate-800 mb-4">National Outlook</h3>
+  <div class="mb-4">
+    <div class="flex justify-between mb-2">
+      <span class="text-slate-600">2025 Forecast</span>
+      <span class="font-semibold text-emerald-600">+2-4% growth</span>
+    </div>
+    <div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-emerald-500 h-3 rounded-full" style="width: 50%"></div></div>
+  </div>
+  <p class="text-sm text-slate-600">More modest gains than 2021-2022. Regional variation significant.</p>
+</div>
 
-## Advice for Spring 2025 Buyers
+<h3 class="text-lg font-semibold text-slate-800 mb-3">Regional Forecasts</h3>
 
-**If you're buying:**
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
+    <p class="text-2xl mb-1">🔥</p>
+    <p class="font-semibold text-slate-900 text-sm">Calgary/Edmonton</p>
+    <p class="text-emerald-600 font-bold">+5-7%</p>
+  </div>
+  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
+    <p class="text-2xl mb-1">🏙️</p>
+    <p class="font-semibold text-slate-900 text-sm">Toronto</p>
+    <p class="text-emerald-600 font-bold">+2-4%</p>
+  </div>
+  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
+    <p class="text-2xl mb-1">🌲</p>
+    <p class="font-semibold text-slate-900 text-sm">Vancouver</p>
+    <p class="text-teal-600 font-bold">+1-3%</p>
+  </div>
+  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
+    <p class="text-2xl mb-1">🌊</p>
+    <p class="font-semibold text-slate-900 text-sm">Atlantic Canada</p>
+    <p class="text-emerald-600 font-bold">+3-5%</p>
+  </div>
+</div>
 
-1. **Get pre-approved early**
-   - Rates can be held for 90-120 days
-   - Know your budget before house hunting
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
+    <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">✓ Advice for Buyers</h3>
+    <ul class="space-y-2 text-sm">
+      <li><strong>Get pre-approved early</strong> — Rates can be held for 90-120 days</li>
+      <li><strong>Shop around for rates</strong> — Big bank rates lag market rates</li>
+      <li><strong>Don't rush</strong> — Inventory improving</li>
+      <li><strong>Budget for all costs</strong> — Closing costs run 1.5-4%</li>
+    </ul>
+  </div>
 
-2. **Shop around for rates**
-   - Big bank posted rates lag market rates
-   - Brokers and digital lenders offer better deals
+  <div class="bg-amber-50 rounded-lg p-5 border border-amber-100">
+    <h3 class="font-semibold text-amber-800 mb-3">⚠️ Advice for Sellers</h3>
+    <ul class="space-y-2 text-sm">
+      <li><strong>Price competitively</strong> — Overpriced listings sit longer</li>
+      <li><strong>Presentation matters</strong> — Staging can increase offers</li>
+      <li><strong>Be flexible on closing</strong> — Accommodate buyer timelines</li>
+      <li><strong>Plan your next purchase</strong> — You'll be a buyer too</li>
+    </ul>
+  </div>
+</div>
 
-3. **Don't rush, but don't wait too long**
-   - Inventory is improving
-   - Rates may have bottomed
-   - Find the right property at a fair price
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Buy Now or Wait?</h2>
 
-4. **Budget for all costs**
-   - Closing costs: 1.5-4% of purchase price
-   - Moving costs
-   - Immediate repairs/improvements
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-white rounded-lg p-5 border-2 border-emerald-200">
+    <h3 class="font-semibold text-emerald-700 mb-3">✓ Buy Now</h3>
+    <ul class="space-y-2 text-sm text-slate-600">
+      <li>Rates favorable vs. recent years</li>
+      <li>More inventory = better selection</li>
+      <li>Prices relatively stable</li>
+      <li>Predictable payments with fixed rates</li>
+    </ul>
+  </div>
 
-## Advice for Spring 2025 Sellers
+  <div class="bg-slate-50 rounded-lg p-5 border border-slate-200">
+    <h3 class="font-semibold text-slate-700 mb-3">⊙ Wait</h3>
+    <ul class="space-y-2 text-sm text-slate-600">
+      <li>Rates may drift lower later in year</li>
+      <li>Inventory improving further</li>
+      <li>Economic uncertainty remains</li>
+      <li>Wait for personal financial readiness</li>
+    </ul>
+  </div>
+</div>
 
-**If you're selling:**
+<div class="bg-blue-50 rounded-lg p-6 border border-blue-100 mb-6">
+  <p class="font-medium text-slate-800 mb-2">The reality:</p>
+  <p class="text-slate-600">Timing the market perfectly is impossible. The best time to buy is when you're financially ready and find a home that meets your needs at a price you can afford.</p>
+</div>
 
-1. **Price competitively from day one**
-   - Overpriced listings are sitting longer
-   - Buyers are more selective
+<p class="mb-4"><span class="font-semibold">Spring 2025</span> offers a notably improved environment for Canadian homebuyers compared to the past two years. Lower rates, better inventory, and moderating prices create opportunities—but success requires preparation, patience, and smart mortgage planning.</p>
 
-2. **Presentation matters**
-   - Staging can increase offers
-   - Professional photos essential
-
-3. **Be flexible on closing**
-   - Accommodating buyer timelines can seal deals
-
-4. **Consider your next purchase**
-   - You'll be a buyer too
-   - Plan your rate strategy
-
-## Should You Buy Now or Wait?
-
-**Reasons to buy now:**
-- Rates are favorable vs. recent years
-- More inventory = better selection
-- Prices relatively stable
-- Predictable payment if you choose fixed
-
-**Reasons to wait:**
-- Rates may drift lower later in year
-- Inventory may improve further
-- Economic uncertainty remains
-- Personal financial readiness
-
-**The reality:** Timing the market perfectly is impossible. The best time to buy is when you're financially ready and find a home that meets your needs at a price you can afford.
-
-## Mortgage Strategy for Spring 2025
-
-**First-time buyers:** Consider fixed rates for payment certainty while you adjust to homeownership costs.
-
-**Renewing homeowners:** Shop around aggressively. Current market rates are significantly below many lenders' renewal offers.
-
-**Move-up buyers:** Consider bridge financing or interim solutions to avoid selling before buying.
-
-## Conclusion
-
-Spring 2025 offers a notably improved environment for Canadian homebuyers compared to the past two years. Lower rates, better inventory, and moderating prices create opportunities - but success requires preparation, patience, and smart mortgage planning.
-
-Happy house hunting!`,
+<p class="text-slate-600 italic">Happy house hunting! 🏠</p>`,
     author: "Latest Mortgage Rates Team",
     authorTitle: "Market Analysts",
     date: "2025-03-08",
