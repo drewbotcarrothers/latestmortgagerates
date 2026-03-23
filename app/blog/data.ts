@@ -422,16 +422,16 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
     image: "/blog/bond-yields.jpg"
   },
   {
-    slug: "spring-2025-housing-market-outlook",
-    title: "Spring 2025 Housing Market Outlook: What Buyers and Sellers Should Know",
-    excerpt: "Our analysis of the spring 2025 Canadian housing market. Lower rates, changing inventory, and what it means for buyers entering the market this season.",
-    content: `<p class="mb-4">Spring is traditionally the busiest season in Canadian real estate. As we enter spring 2025, here's what buyers and sellers need to know about the current market conditions.</p>
+    slug: "spring-2026-housing-market-outlook",
+    title: "Spring 2026 Housing Market Outlook: What Buyers and Sellers Should Know",
+    excerpt: "Our analysis of the spring 2026 Canadian housing market. Lower rates, changing inventory, and what it means for buyers entering the market this season.",
+    content: `<p class="mb-4">Spring is traditionally the busiest season in Canadian real estate. As we enter spring 2026, here's what buyers and sellers need to know about the current market conditions.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Interest Rate Environment</h2>
 
 <div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
   <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">The Good News</h3>
-  <p class="mb-3">Mortgage rates have improved significantly from 2024 highs. The average 5-year fixed rate has fallen from <span class="font-semibold">~5.5%</span> to <span class="font-semibold">~4.2%</span>, representing meaningful savings for buyers.</p>
+  <p class="mb-3">Mortgage rates have improved significantly from 2025 highs. The average 5-year fixed rate has fallen from <span class="font-semibold">~5.5%</span> to <span class="font-semibold">~4.2%</span>, representing meaningful savings for buyers.</p>
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -457,7 +457,7 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Inventory and Competition</h2>
 
-<p class="mb-4">After tight inventory levels in 2024, spring 2025 is showing increased listings in most major markets:</p>
+<p class="mb-4">After tight inventory levels in 2025, spring 2026 is showing increased listings in most major markets:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
   <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
@@ -524,7 +524,7 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
   <h3 class="font-semibold text-slate-800 mb-4">National Outlook</h3>
   <div class="mb-4">
     <div class="flex justify-between mb-2">
-      <span class="text-slate-600">2025 Forecast</span>
+      <span class="text-slate-600">2026 Forecast</span>
       <span class="font-semibold text-emerald-600">+2-4% growth</span>
     </div>
     <div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-emerald-500 h-3 rounded-full" style="width: 50%"></div></div>
@@ -608,17 +608,34 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
   <p class="text-slate-600">Timing the market perfectly is impossible. The best time to buy is when you're financially ready and find a home that meets your needs at a price you can afford.</p>
 </div>
 
-<p class="mb-4"><span class="font-semibold">Spring 2025</span> offers a notably improved environment for Canadian homebuyers compared to the past two years. Lower rates, better inventory, and moderating prices create opportunities—but success requires preparation, patience, and smart mortgage planning.</p>
+<p class="mb-4"><span class="font-semibold">Spring 2026</span> offers a notably improved environment for Canadian homebuyers compared to the past two years. Lower rates, better inventory, and moderating prices create opportunities—but success requires preparation, patience, and smart mortgage planning.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Data Sources &amp; Methodology</h2>
+
+<div class="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-6">
+  <p class="text-sm text-slate-600 mb-4">This analysis is based on the following data sources and methodologies:</p>
+  
+  <ul class="space-y-3 text-sm text-slate-600">
+    <li><strong>Rate Data:</strong> Daily rate monitoring from <a href="/" class="text-teal-600 hover:underline">LatestMortgageRates.ca</a> database covering 34+ direct lenders across Canada.</li>
+    <li><strong>Inventory Data:</strong> Monthly MLS sales and listing statistics from the Canadian Real Estate Association (CREA) and regional real estate boards (TRREB, REBGV, CREB).</li>
+    <li><strong>Price Trends:</strong> Home Price Index data from CREA and local board reports published March 2026.</li>
+    <li><strong>Search Trends:</strong> Aggregated application data from mortgage brokers and digital lending platforms.</li>
+    <li><strong>Bank of Canada:</strong> Policy interest rate announcements and Monetary Policy Reports (bankofcanada.ca).</li>
+    <li><strong>Economic Forecasts:</strong> Consensus estimates from major Canadian banks and economic research firms.</li>
+  </ul>
+  
+  <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-200">Data current as of March 23, 2026. Past performance does not guarantee future results. Local market conditions may vary significantly from national trends.</p>
+</div>
 
 <p class="text-slate-600 italic">Happy house hunting! 🏠</p>`,
     author: "Latest Mortgage Rates Team",
     authorTitle: "Market Analysts",
-    date: "2025-03-08",
+    date: "2026-03-23",
     category: "market",
-    tags: ["spring market", "housing outlook", "2025", "market analysis", "buying", "selling"],
+    tags: ["spring market", "housing outlook", "2026", "market analysis", "buying", "selling"],
     readTime: 10,
     featured: true,
-    image: "/blog/spring-market-2025.jpg"
+    image: "/blog/spring-market-2026.jpg"
   },
 ];
 
