@@ -18,41 +18,74 @@ export const blogPosts: BlogPost[] = [
     slug: "bank-of-canada-holds-rate-march-2025",
     title: "Bank of Canada Holds Rate at 2.75%: What It Means for Mortgage Renewals",
     excerpt: "The Bank of Canada kept its overnight rate unchanged at 2.75% in March 2025. Here's what this decision means for homeowners facing mortgage renewals this year.",
-    content: `The Bank of Canada announced today that it is holding its overnight rate steady at 2.75%, maintaining the status quo for the third consecutive meeting. This decision has significant implications for Canadian homeowners approaching mortgage renewals.
+    content: `<p class="mb-4">The Bank of Canada announced today that it is holding its overnight rate steady at 2.75%, maintaining the status quo for the third consecutive meeting. This decision has significant implications for Canadian homeowners approaching mortgage renewals.</p>
 
-## Why the Bank Held Rates
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Why the Bank Held Rates</h2>
 
-The Bank of Canada cited moderate economic growth, cooling inflation, and a balanced labor market as reasons for keeping rates steady. Governor Tiff Macklem noted that while inflation has moved closer to the 2% target, the central bank wants to see "sustained evidence" before making further adjustments.
+<p class="mb-4">The Bank of Canada cited moderate economic growth, cooling inflation, and a balanced labor market as reasons for keeping rates steady. Governor Tiff Macklem noted that while inflation has moved closer to the 2% target, the central bank wants to see sustained evidence before making further adjustments.</p>
 
-Key factors in the decision:
-- Headline inflation at 2.3%, within the target band
-- Core inflation measures showing stabilization
-- Consumer spending recovering gradually
-- Housing market showing signs of balanced activity
+<p class="mb-3 font-semibold text-slate-800">Key factors in the decision:</p>
 
-## Impact on Mortgage Rates
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>Headline inflation at 2.3%, within the target band</li>
+  <li>Core inflation measures showing stabilization</li>
+  <li>Consumer spending recovering gradually</li>
+  <li>Housing market showing signs of balanced activity</li>
+</ul>
 
-For homeowners facing renewals in 2025, this hold provides some certainty. Variable-rate mortgage holders won't see immediate changes to their payments, while fixed-rate borrowers may benefit from stable bond yields that influence fixed mortgage pricing.
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Impact on Mortgage Rates</h2>
 
-**Current Market Rates (March 2025):**
-- 5-Year Fixed: 3.64% - 4.89%
-- 5-Year Variable: 3.40% - 4.75%
-- Prime Rate: 4.95%
+<p class="mb-4">For homeowners facing renewals in 2025, this hold provides some certainty. Variable-rate mortgage holders won't see immediate changes to their payments, while fixed-rate borrowers may benefit from stable bond yields that influence fixed mortgage pricing.</p>
 
-## What Should Renewers Do?
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3">Current Market Rates (March 2025)</h3>
+  <ul class="space-y-2 text-sm">
+    <li><span class="font-medium">5-Year Fixed:</span> 3.64% - 4.89%</li>
+    <li><span class="font-medium">5-Year Variable:</span> 3.40% - 4.75%</li>
+    <li><span class="font-medium">Prime Rate:</span> 4.95%</li>
+  </ul>
+</div>
 
-If you're renewing in the next 6 months:
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">What Should Renewers Do?</h2>
 
-1. **Start shopping early** - Get quotes from 3-5 lenders
-2. **Consider your risk tolerance** - Fixed rates offer payment certainty
-3. **Negotiate** - Don't accept your lender's first offer
-4. **Compare terms** - Look beyond just the rate
+<p class="mb-4">If you're renewing in the next 6 months:</p>
 
-## Looking Ahead
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+      <strong class="font-semibold text-slate-800">Start shopping early</strong>
+    </div>
+    <p class="text-sm text-slate-600">Get quotes from 3-5 lenders</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-teal-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+      <strong class="font-semibold text-slate-800">Consider your risk tolerance</strong>
+    </div>
+    <p class="text-sm text-slate-600">Fixed rates offer payment certainty</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+      <strong class="font-semibold text-slate-800">Negotiate</strong>
+    </div>
+    <p class="text-sm text-slate-600">Don't accept your lender's first offer</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-slate-400 text-white text-xs font-bold flex items-center justify-center">4</span>
+      <strong class="font-semibold text-slate-800">Compare terms</strong>
+    </div>
+    <p class="text-sm text-slate-600">Look beyond just the rate</p>
+  </div>
+</div>
 
-Most economists now expect rate cuts to resume in late 2025, with the overnight rate potentially falling to 2.25% by year-end. This outlook suggests that variable rates could become more attractive for borrowers comfortable with some rate risk.
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Looking Ahead</h2>
 
-However, uncertainty remains. Trade tensions, government policy changes, and global economic conditions could all influence the Bank's future decisions.`,
+<p class="mb-4">Most economists now expect rate cuts to resume in late 2025, with the overnight rate potentially falling to 2.25% by year-end. This outlook suggests that variable rates could become more attractive for borrowers comfortable with some rate risk.</p>
+
+<p class="mb-4">However, uncertainty remains. Trade tensions, government policy changes, and global economic conditions could all influence the Bank's future decisions.</p>`,
     author: "Latest Mortgage Rates Team",
     authorTitle: "Mortgage Market Analysts",
     date: "2025-03-12",
@@ -66,53 +99,107 @@ However, uncertainty remains. Trade tensions, government policy changes, and glo
     slug: "best-5-year-fixed-rates-week-12-2025",
     title: "Best 5-Year Fixed Mortgage Rates This Week: March 10-16",
     excerpt: "This week's top 5-year fixed rates from 34 Canadian lenders. See who's offering the lowest rates and how much you could save compared to your current mortgage.",
-    content: `Every week, we analyze mortgage rates from Canada's top lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for March 10-16, 2025.
+    content: `<p class="mb-4">Every week, we analyze mortgage rates from Canada's top lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for March 10-16, 2025.</p>
 
-## This Week's Top 5 Rates
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">This Week's Top 5 Rates</h2>
 
-| Rank | Lender | Rate | Type | Notes |
-|------|--------|------|------|-------|
-| 1 | nesto | 3.64% | Uninsured | Online digital lender |
-| 1 | Butler Mortgage | 3.64% | Uninsured | Broker channel |
-| 3 | Meridian | 3.79% | Insured | Ontario credit union |
-| 4 | True North Mortgage | 3.89% | Uninsured | National broker |
-| 5 | Wealthsimple | 3.99% | Uninsured | Digital bank |
+<div class="overflow-x-auto mb-6">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rank</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Lender</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rate</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Type</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white text-xs font-bold rounded-full">1</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium">nesto</td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.64%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Online digital lender</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white text-xs font-bold rounded-full">1</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium">Butler Mortgage</td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.64%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Broker channel</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-500 text-white text-xs font-bold rounded-full">3</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium">Meridian</td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.79%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Ontario credit union</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">4</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium">True North Mortgage</td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.89%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">National broker</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">5</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium">Wealthsimple</td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.99%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Digital bank</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-**Market Average:** 4.24%
-**Posted Rate (Big Banks):** 4.89% - 6.44%
+<div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-200">
+  <p class="text-sm mb-2"><span class="font-semibold">Market Average:</span> 4.24%</p>
+  <p class="text-sm"><span class="font-semibold">Posted Rate (Big Banks):</span> 4.89% - 6.44%</p>
+</div>
 
-## Compared to Last Month
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Compared to Last Month</h2>
 
-The lowest available 5-year fixed rates have fallen approximately 0.15% since February, continuing a gradual downward trend as bond yields have softened. This represents significant savings for new borrowers and those renewing this spring.
+<p class="mb-4">The lowest available 5-year fixed rates have fallen approximately <strong class="font-semibold text-emerald-600">0.15%</strong> since February, continuing a gradual downward trend as bond yields have softened. This represents significant savings for new borrowers and those renewing this spring.</p>
 
-**Example on a $500,000 mortgage:**
-- At 3.64%: $2,520/month
-- At 4.89%: $2,877/month
-- **Monthly savings: $357**
-- **5-year savings: $21,420**
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3">Example on a $500,000 mortgage:</h3>
+  <ul class="space-y-2 text-sm">
+    <li>At 3.64%: <strong>$2,520/month</strong></li>
+    <li>At 4.89%: <strong>$2,877/month</strong></li>
+    <li class="text-emerald-700 font-semibold">Monthly savings: $357</li>
+    <li class="text-emerald-700 font-semibold">5-year savings: $21,420</li>
+  </ul>
+</div>
 
-## Who Qualifies for These Rates?
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Who Qualifies for These Rates?</h2>
 
-The lowest rates typically require:
-- Strong credit score (680+)
-- Stable income and employment
-- Debt-to-income ratios within guidelines
-- Down payment of 20%+ for uninsured rates
+<p class="mb-3">The lowest rates typically require:</p>
 
-Some lenders also offer competitive insured rates (less than 20% down) that are only slightly higher.
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>Strong credit score (680+)</li>
+  <li>Stable income and employment</li>
+  <li>Debt-to-income ratios within guidelines</li>
+  <li>Down payment of 20%+ for uninsured rates</li>
+</ul>
 
-## Should You Lock In Now?
+<p class="mb-4">Some lenders also offer competitive insured rates (less than 20% down) that are only slightly higher.</p>
 
-For borrowers who value payment certainty, current fixed rates remain attractive. While rates may drift lower later in 2025, the risk of significant increases appears limited given economic forecasts.
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-Variable rates remain competitive at 3.40%-4.35%, but come with payment uncertainty if the Bank of Canada adjusts rates.
+<p class="mb-4">For borrowers who value payment certainty, current fixed rates remain attractive. While rates may drift lower later in 2025, the risk of significant increases appears limited given economic forecasts.</p>
 
-## Tips for Rate Shopping
+<p class="mb-4">Variable rates remain competitive at 3.40%-4.35%, but come with payment uncertainty if the Bank of Canada adjusts rates.</p>
 
-1. Get pre-approved to hold a rate for 90-120 days
-2. Compare rates AND terms (prepayment options, penalties)
-3. Consider using a mortgage broker for access to more lenders
-4. Don't forget to negotiate - even published rates often have room`,
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
+
+<ol class="list-decimal list-inside space-y-2 mb-6 ml-4">
+  <li>Get pre-approved to hold a rate for 90-120 days</li>
+  <li>Compare rates AND terms (prepayment options, penalties)</li>
+  <li>Consider using a mortgage broker for access to more lenders</li>
+  <li>Don't forget to negotiate - even published rates often have room</li>
+</ol>`,
     author: "Latest Mortgage Rates Team",
     authorTitle: "Rate Analysts",
     date: "2025-03-10",
