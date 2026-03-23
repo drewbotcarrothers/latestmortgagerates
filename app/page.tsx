@@ -12,7 +12,6 @@ import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
 import RateAlertForm from "./components/RateAlertForm";
 import RateTrends from "./components/RateTrends";
-import RateTrendsFull from "./components/RateTrendsFull";
 
 interface FilterState {
   term: string;
@@ -293,11 +292,19 @@ export default function Home() {
       {/* Rate Trends Section (Mini) */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <RateTrends rates={ratesData as Rate[]} />
-      </div>
-
-      {/* Rate Trends Chart (Full) */}
-      <div className="max-w-7xl mx-auto px-4 pb-8">
-        <RateTrendsFull />
+        
+        { /* Link to full trends page */}
+        <div className="mt-4 text-right">
+          <Link 
+            href="/trends"
+            className="inline-flex items-center gap-2 text-teal-600 font-medium hover:text-teal-700"
+          >
+            View Historical Rate Trends
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
+        </div>
       </div>
 
       {/* Main Content */}
