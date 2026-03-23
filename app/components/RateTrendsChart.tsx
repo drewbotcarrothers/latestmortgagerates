@@ -138,7 +138,8 @@ export default function RateTrendsChart({ data, showInsured = false }: RateTrend
         displayColors: true,
         callbacks: {
           label: (context) => {
-            return `${context.dataset.label}: ${context.parsed.y.toFixed(2)}%`;
+            const value = context.parsed.y ?? 0;
+            return `${context.dataset.label}: ${value.toFixed(2)}%`;
           },
         },
       },
