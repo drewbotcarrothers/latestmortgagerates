@@ -5,6 +5,8 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { blogPosts, categories, getFeaturedPosts, getRecentPosts } from "./data";
 
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: "Mortgage News & Blog | Latest Mortgage Rates Canada",
   description: "Stay informed with the latest mortgage news, rate updates, and home buying guides. Expert analysis of the Canadian mortgage market.",
