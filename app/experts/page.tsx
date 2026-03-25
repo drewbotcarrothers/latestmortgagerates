@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import StructuredData from '@/components/StructuredData';
-import { Person } from 'schema-dts';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import StructuredData from '../components/StructuredData';
 import Link from 'next/link';
 
 export const dynamic = 'force-static';
