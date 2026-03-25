@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import StructuredData from '../components/StructuredData';
 import Link from 'next/link';
 
 export const dynamic = 'force-static';
@@ -122,7 +121,12 @@ export default function ExpertsPage() {
 
   return (
     <>
-      <StructuredData data={structuredData} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
       
       <div className="min-h-screen bg-slate-50">
         <Navigation currentPage="experts" />
