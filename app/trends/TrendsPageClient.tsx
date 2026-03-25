@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import Navigation from "../components/Navigation";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import RateTrendsFull from "../components/RateTrendsFull";
 import RateTrends from "../components/RateTrends";
@@ -20,28 +19,7 @@ interface Rate {
 export default function TrendsPageClient() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Latest Mortgage Rates Canada"
-                  width={70}
-                  height={70}
-                  className="rounded-lg"
-                  priority
-                />
-              </Link>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">Latest Mortgage Rates Canada</h1>
-              </div>
-            </div>
-            <Navigation currentPage="trends" />
-          </div>
-        </div>
-      </header>
+      <Header currentPage="trends" />
 
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white">
         <div className="max-w-7xl mx-auto px-4 py-12">

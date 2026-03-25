@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import Navigation from "../components/Navigation";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
@@ -186,31 +185,7 @@ const tools: ToolCardProps[] = [
 export default function ToolsPage() {
   return (
     <main className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Latest Mortgage Rates Canada"
-                  width={70}
-                  height={70}
-                  className="rounded-lg"
-                  priority
-                />
-              </Link>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">
-                  Latest Mortgage Rates Canada
-                </h1>
-              </div>
-            </div>
-            <Navigation currentPage="tools" />
-          </div>
-        </div>
-      </header>
+      <Header currentPage="tools" />
 
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white">

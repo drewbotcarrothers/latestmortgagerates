@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Navigation from '../components/Navigation';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 
@@ -129,7 +129,7 @@ export default function ExpertsPage() {
       />
       
       <div className="min-h-screen bg-slate-50">
-        <Navigation currentPage="experts" />
+        <Header currentPage="experts" />
         
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-900 text-white py-16 md:py-24">

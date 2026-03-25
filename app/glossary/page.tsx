@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Navigation from "../components/Navigation";
+import Header from "../components/Header";
 
 // Force static generation for static export
 export const dynamic = "force-static";
@@ -282,8 +282,10 @@ const categories = [...new Set(glossaryTerms.map((t) => t.category))].sort();
 export default function GlossaryPage() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <header className="bg-white shadow-sm border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+      <Header currentPage="glossary" />
+
+      <div className="bg-white shadow-sm border-b border-slate-200 py-6">
+        <div className="max-w-7xl mx-auto px-4">
           <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
               <li><Link href="/" className="hover:text-teal-600 transition">Home</Link></li>
@@ -292,15 +294,12 @@ export default function GlossaryPage() {
             </ol>
           </nav>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">Mortgage Glossary</h1>
-              <p className="text-slate-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
-            </div>
-            <Navigation currentPage="glossary" />
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Mortgage Glossary</h1>
+            <p className="text-slate-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
           </div>
         </div>
-      </header>
+      </div>
 
       <script
         type="application/ld+json"
