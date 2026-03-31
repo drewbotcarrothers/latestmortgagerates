@@ -3,21 +3,76 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MortgageCalculator from "../../components/MortgageCalculator";
+import HowToSchema from "../../components/HowToSchema";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Mortgage Payment Calculator Canada | Calculate Monthly Payments",
   description: "Free Canadian mortgage payment calculator. Calculate monthly payments, amortization schedule, total interest, and compare payment frequencies. Updated with current Canadian mortgage rates.",
   keywords: "mortgage payment calculator Canada, mortgage calculator, monthly mortgage payment, amortization schedule, mortgage interest calculator, Canadian mortgage rates",
+  alternates: {
+    canonical: "https://latestmortgagerates.ca/tools/mortgage-calculator",
+  },
   openGraph: {
     title: "Mortgage Payment Calculator Canada | Calculate Monthly Payments",
     description: "Calculate your monthly mortgage payments, amortization schedule, and total interest with our free Canadian mortgage calculator.",
     type: "website",
+    url: "https://latestmortgagerates.ca/tools/mortgage-calculator",
+    siteName: "Latest Mortgage Rates Canada",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mortgage Payment Calculator Canada",
+    description: "Free Canadian mortgage calculator with amortization schedule",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
 };
 
 export default function MortgageCalculatorPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <>
+      <HowToSchema
+        name="How to Calculate Your Mortgage Payment"
+        description="Calculate your monthly mortgage payment using your purchase price, down payment, interest rate, and amortization period."
+        totalTime="PT5M"
+        steps={[
+          {
+            name: "Enter Purchase Price",
+            text: "Input the total purchase price of the home you're considering.",
+          },
+          {
+            name: "Enter Down Payment",
+            text: "Enter your down payment amount. At least 5% for homes under $500,000, or 20% to avoid CMHC insurance.",
+          },
+          {
+            name: "Select Interest Rate",
+            text: "Choose your interest rate from current Canadian rates or enter a custom rate.",
+          },
+          {
+            name: "Choose Amortization Period",
+            text: "Select your amortization period (typically 25 or 30 years in Canada).",
+          },
+          {
+            name: "Review Results",
+            text: "See your monthly payment, total interest paid, and full amortization schedule.",
+          },
+        ]}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Tools", url: "/tools" },
+          { name: "Mortgage Payment Calculator" },
+        ]}
+      />
+      
+      <main className="min-h-screen bg-slate-50">
       <Header currentPage="tools" />
 
       {/* Hero Section */}
@@ -182,5 +237,6 @@ export default function MortgageCalculatorPage() {
 
       <Footer />
     </main>
+    </>
   );
 }

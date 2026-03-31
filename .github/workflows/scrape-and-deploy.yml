@@ -60,7 +60,7 @@ jobs:
             git push origin master
           fi
 
-      # Step 4: Build website
+      # Step 3: Build website
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -68,6 +68,10 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # Generate SEO files (sitemap, robots.txt)
+      - name: Generate sitemap
+        run: python scripts/generate-sitemap.py
 
       - name: Build Next.js app
         run: npm run build
