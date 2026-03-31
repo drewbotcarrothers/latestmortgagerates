@@ -27,6 +27,28 @@ ChartJS.register(
   Filler
 );
 
+export interface HistoricalDataPoint {
+  date: string;
+  fixed_uninsured_best_rate: number;
+  fixed_uninsured_best_lender: string;
+  fixed_uninsured_avg_rate: number;
+  fixed_insured_best_rate: number;
+  fixed_insured_best_lender: string;
+  fixed_insured_avg_rate: number;
+  variable_uninsured_best_rate: number;
+  variable_uninsured_best_lender: string;
+  variable_uninsured_avg_rate: number;
+  variable_uninsured_spread_to_prime: number;
+  variable_insured_best_rate: number;
+  variable_insured_best_lender: string;
+  variable_insured_avg_rate: number;
+  variable_insured_spread_to_prime: number;
+  prime_rate: number;
+  lender_count: number;
+  total_rates: number;
+  created_at: string;
+}
+
 interface ChartData {
   labels: string[];
   datasets: {
@@ -42,63 +64,98 @@ interface ChartData {
 }
 
 interface RateTrendsChartProps {
-  data?: ChartData | null;
-  showInsured?: boolean;
+  historicalData?: HistoricalDataPoint[];
+  selectedRange: number;
+  selectedType: 'fixed' | 'variable' | 'both';
+  showInsured: boolean;
 }
 
-function generateSampleData(): ChartData {
-  // Generate 30 days of sample data
-  const labels: string[] = [];
-  const fixed: number[] = [];
-  const variable: number[] = [];
+export default function RateTrendsChart({ 
+  historicalData = [], 
+  selectedRange, 
+  selectedType, 
+  showInsured 
+}: RateTrendsChartProps) {
   
-  const today = new Date();
-  let baseFixed = 3.72;
-  let baseVariable = 3.45;
-  
-  for (let i = 29; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    labels.push(date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' }));
-    
-    // Simulate downward trend with some volatility
-    const volatility = (Math.random() - 0.5) * 0.15;
-    baseFixed = Math.max(3.5, Math.min(4.2, baseFixed + volatility - 0.01));
-    baseVariable = Math.max(3.2, Math.min(3.8, baseVariable + volatility * 0.8));
-    
-    fixed.push(parseFloat(baseFixed.toFixed(2)));
-    variable.push(parseFloat(baseVariable.toFixed(2)));
-  }
-  
-  return {
-    labels,
-    datasets: [
-      {
-        label: '5-Year Fixed',
-        data: fixed,
-        borderColor: '#10b981', // emerald-500
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-        fill: true,
-        tension: 0.4,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      },
-      {
-        label: '5-Year Variable',
-        data: variable,
-        borderColor: '#0d9488', // teal-600
-        backgroundColor: 'rgba(13, 148, 136, 0.1)',
-        fill: true,
-        tension: 0.4,
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      },
-    ],
-  };
-}
+  const chartData = useMemo<ChartData>(() => {
+    // If no data, return empty chart
+    if (!historicalData || historicalData.length === 0) {
+      return {
+        labels: [],
+        datasets: [],
+      };
+    }
 
-export default function RateTrendsChart({ data, showInsured = false }: RateTrendsChartProps) {
-  const chartData = useMemo(() => data || generateSampleData(), [data]);
+    // Filter to selected range
+    const daysToShow = selectedRange;
+    const filteredData = historicalData.slice(-daysToShow);
+
+    const labels = filteredData.map(d => {
+      const date = new Date(d.date);
+      return date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
+    });
+
+    const datasets = [];
+
+    // Fixed rates
+    if (selectedType === 'fixed' || selectedType === 'both') {
+      if (showInsured) {
+        datasets.push({
+          label: 'Fixed Insured',
+          data: filteredData.map(d => d.fixed_insured_best_rate),
+          borderColor: '#059669', // emerald-600
+          backgroundColor: 'rgba(5, 150, 105, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 2,
+          pointHoverRadius: 5,
+        });
+      } else {
+        datasets.push({
+          label: 'Fixed Uninsured',
+          data: filteredData.map(d => d.fixed_uninsured_best_rate),
+          borderColor: '#10b981', // emerald-500
+          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+        });
+      }
+    }
+
+    // Variable rates
+    if (selectedType === 'variable' || selectedType === 'both') {
+      if (showInsured) {
+        datasets.push({
+          label: 'Variable Insured',
+          data: filteredData.map(d => d.variable_insured_best_rate),
+          borderColor: '#0e7490', // cyan-700
+          backgroundColor: 'rgba(14, 116, 144, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 2,
+          pointHoverRadius: 5,
+        });
+      } else {
+        datasets.push({
+          label: 'Variable Uninsured',
+          data: filteredData.map(d => d.variable_uninsured_best_rate),
+          borderColor: '#0d9488', // teal-600
+          backgroundColor: 'rgba(13, 148, 136, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+        });
+      }
+    }
+
+    return {
+      labels,
+      datasets,
+    };
+  }, [historicalData, selectedRange, selectedType, showInsured]);
   
   const options: ChartOptions<'line'> = {
     responsive: true,
@@ -137,9 +194,26 @@ export default function RateTrendsChart({ data, showInsured = false }: RateTrend
         cornerRadius: 8,
         displayColors: true,
         callbacks: {
-          label: (context) => {
-            const value = context.parsed.y ?? 0;
-            return `${context.dataset.label}: ${value.toFixed(2)}%`;
+          afterLabel: (context) => {
+            const dataIndex = context.dataIndex;
+            const dataPoint = historicalData.slice(-selectedRange)[dataIndex];
+            if (!dataPoint) return '';
+            
+            // Add lender info to tooltip
+            const datasetLabel = context.dataset.label || '';
+            let lender = '';
+            
+            if (datasetLabel.includes('Fixed')) {
+              lender = showInsured 
+                ? dataPoint.fixed_insured_best_lender 
+                : dataPoint.fixed_uninsured_best_lender;
+            } else if (datasetLabel.includes('Variable')) {
+              lender = showInsured 
+                ? dataPoint.variable_insured_best_lender 
+                : dataPoint.variable_uninsured_best_lender;
+            }
+            
+            return lender ? `Best: @${lender}` : '';
           },
         },
       },
@@ -150,34 +224,68 @@ export default function RateTrendsChart({ data, showInsured = false }: RateTrend
           display: false,
         },
         ticks: {
-          maxTicksLimit: 8,
           font: {
             family: "'Inter', sans-serif",
             size: 11,
           },
           color: '#64748b',
+          callback: (_value, index) => {
+            // Show fewer x-axis labels for cleaner look
+            const labelCount = chartData.labels.length;
+            const skip = Math.ceil(labelCount / 8);
+            if (index % skip === 0) {
+              return chartData.labels[index];
+            }
+            return '';
+          },
         },
       },
       y: {
-        min: 3.0,
-        max: 5.0,
+        beginAtZero: false,
         grid: {
           color: 'rgba(148, 163, 184, 0.1)',
         },
         ticks: {
-          callback: (value) => `${value}%`,
           font: {
             family: "'Inter', sans-serif",
             size: 11,
           },
           color: '#64748b',
+          callback: (value) => {
+            if (typeof value === 'number') {
+              return `${value.toFixed(2)}%`;
+            }
+            return `${value}%`;
+          },
+        },
+        title: {
+          display: true,
+          text: 'Interest Rate',
+          color: '#64748b',
+          font: {
+            family: "'Inter', sans-serif",
+            size: 11,
+          },
         },
       },
     },
   };
 
+  // Check if we have data
+  if (!historicalData || historicalData.length === 0) {
+    return (
+      <div className="h-[400px] flex items-center justify-center bg-slate-50 rounded-lg">
+        <div className="text-center">
+          <div className="text-4xl mb-3">📊</div>
+          <p className="text-slate-500">No historical data available</p>
+          <p className="text-sm text-slate-400 mt-1">Data will appear after the first few scrapes</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-full min-h-[300px]">
+    <div className="h-[400px]">
       <Line options={options} data={chartData} />
     </div>
   );

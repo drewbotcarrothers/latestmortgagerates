@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from 'react';
-import RateTrendsChart from './RateTrendsChart';
+import { useState, useMemo } from 'react';
+import RateTrendsChart, { HistoricalDataPoint } from './RateTrendsChart';
 
 interface TimeRange {
   days: number;
@@ -15,10 +15,111 @@ const TIME_RANGES: TimeRange[] = [
   { days: 90, label: '90 Days' },
 ];
 
-export default function RateTrendsFull() {
+interface RateTrendsFullProps {
+  historicalData?: HistoricalDataPoint[];
+}
+
+export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullProps) {
   const [selectedRange, setSelectedRange] = useState<number>(30);
   const [showInsured, setShowInsured] = useState<boolean>(false);
   const [selectedType, setSelectedType] = useState<'fixed' | 'variable' | 'both'>('both');
+
+  // Calculate stats based on selected data
+  const stats = useMemo(() => {
+    if (!historicalData || historicalData.length === 0) {
+      return null;
+    }
+
+    // Get data for selected range
+    const rangeData = historicalData.slice(-selectedRange);
+    if (rangeData.length === 0) return null;
+
+    const firstDay = rangeData[0];
+    const lastDay = rangeData[rangeData.length - 1];
+
+    // Determine which rate field to use based on filters
+    const getRate = (day: HistoricalDataPoint, type: 'fixed' | 'variable') => {
+      if (type === 'fixed') {
+        return showInsured ? day.fixed_insured_best_rate : day.fixed_uninsured_best_rate;
+      }
+      return showInsured ? day.variable_insured_best_rate : day.variable_uninsured_best_rate;
+    };
+
+    const getLender = (day: HistoricalDataPoint, type: 'fixed' | 'variable') => {
+      if (type === 'fixed') {
+        return showInsured ? day.fixed_insured_best_lender : day.fixed_uninsured_best_lender;
+      }
+      return showInsured ? day.variable_insured_best_lender : day.variable_uninsured_best_lender;
+    };
+
+    // Best rates in range
+    let bestRate = Infinity;
+    let bestLender = '';
+    let highRate = -Infinity;
+    let highLender = '';
+
+    rangeData.forEach(day => {
+      ['fixed', 'variable'].forEach((type) => {
+        if (selectedType === 'both' || selectedType === type) {
+          const rate = getRate(day, type as 'fixed' | 'variable');
+          const lender = getLender(day, type as 'fixed' | 'variable');
+          if (rate < bestRate) {
+            bestRate = rate;
+            bestLender = lender;
+          }
+          if (rate > highRate) {
+            highRate = rate;
+            highLender = lender;
+          }
+        }
+      });
+    });
+
+    // Current rate (from last day)
+    let currentRate = 0;
+    if (selectedType === 'fixed') {
+      currentRate = getRate(lastDay, 'fixed');
+    } else if (selectedType === 'variable') {
+      currentRate = getRate(lastDay, 'variable');
+    } else {
+      // For 'both', use fixed as reference
+      currentRate = getRate(lastDay, 'fixed');
+    }
+
+    // Calculate change from first day
+    let firstRate = 0;
+    if (selectedType === 'fixed') {
+      firstRate = getRate(firstDay, 'fixed');
+    } else if (selectedType === 'variable') {
+      firstRate = getRate(firstDay, 'variable');
+    } else {
+      firstRate = getRate(firstDay, 'fixed');
+    }
+
+    const change = currentRate - firstRate;
+    const changePercent = firstRate > 0 ? ((change / firstRate) * 100).toFixed(1) : '0.0';
+
+    // Trend direction (compare last 7 days vs first 7 days if available)
+    const recentDays = rangeData.slice(-7);
+    const earlyDays = rangeData.slice(0, Math.min(7, rangeData.length));
+    const recentAvg = recentDays.reduce((sum, d) => sum + getRate(d, 'fixed'), 0) / recentDays.length;
+    const earlyAvg = earlyDays.reduce((sum, d) => sum + getRate(d, 'fixed'), 0) / earlyDays.length;
+    const trendDirection = recentAvg < earlyAvg ? 'falling' : recentAvg > earlyAvg ? 'rising' : 'stable';
+
+    return {
+      bestRate: bestRate === Infinity ? 0 : bestRate,
+      bestLender,
+      highRate: highRate === -Infinity ? 0 : highRate,
+      highLender,
+      change: change.toFixed(2),
+      changePercent,
+      trendDirection,
+      primeRate: lastDay?.prime_rate || 5.45,
+    };
+  }, [historicalData, selectedRange, selectedType, showInsured]);
+
+  // Check if we have at least two data points for meaningful display
+  const hasEnoughData = historicalData && historicalData.length >= 2;
 
   return (
     <div className="card-default overflow-hidden">
@@ -38,11 +139,12 @@ export default function RateTrendsFull() {
               <button
                 key={range.days}
                 onClick={() => setSelectedRange(range.days)}
+                disabled={range.days > (historicalData?.length || 0) && historicalData.length > 0}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
                   selectedRange === range.days
                     ? 'bg-white text-slate-900 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
-                }`}
+                } ${range.days > (historicalData?.length || 0) && historicalData.length > 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {range.label}
               </button>
@@ -85,67 +187,87 @@ export default function RateTrendsFull() {
       
       {/* Chart Area */}
       <div className="p-6">
-        <div className="h-[400px]">
-          <RateTrendsChart showInsured={showInsured} />
-        </div>
+        {hasEnoughData ? (
+          <div className="h-[400px]">
+            <RateTrendsChart 
+              historicalData={historicalData}
+              selectedRange={selectedRange}
+              selectedType={selectedType}
+              showInsured={showInsured}
+            />
+          </div>
+        ) : (
+          <div className="h-[400px] flex items-center justify-center bg-slate-50 rounded-lg">
+            <div className="text-center px-4">
+              <div className="text-4xl mb-3">📊</div>
+              <p className="text-slate-500">Collecting historical data...</p>
+              <p className="text-sm text-slate-400 mt-1">Trends will appear after a few days of rate collection</p>
+            </div>
+          </div>
+        )}
       </div>
       
       {/* Stats Summary */}
-      <div className="px-6 pb-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-slate-50 rounded-lg p-4">
-            <div className="text-sm text-slate-600 mb-1">30-Day Low</div>
-            <div className="text-2xl font-bold text-emerald-600">3.64%</div>
-            <div className="text-xs text-slate-500 mt-1">
-              @ nesto
+      {stats && (
+        <div className="px-6 pb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-slate-50 rounded-lg p-4">
+              <div className="text-sm text-slate-600 mb-1">{selectedRange}-Day Low</div>
+              <div className="text-2xl font-bold text-emerald-600">{stats.bestRate.toFixed(2)}%</div>
+              <div className="text-xs text-slate-500 mt-1">
+                @ {stats.bestLender}
+              </div>
+            </div>
+            
+            <div className="bg-slate-50 rounded-lg p-4">
+              <div className="text-sm text-slate-600 mb-1">{selectedRange}-Day High</div>
+              <div className="text-2xl font-bold text-slate-700">{stats.highRate.toFixed(2)}%</div>
+              <div className="text-xs text-slate-500 mt-1">
+                @ {stats.highLender}
+              </div>
+            </div>
+            
+            <div className="bg-slate-50 rounded-lg p-4">
+              <div className="text-sm text-slate-600 mb-1">Change ({selectedRange}d)</div>
+              <div className={`text-2xl font-bold flex items-center gap-1 ${
+                parseFloat(stats.change) < 0 ? 'text-emerald-600' : 'text-red-600'
+              }`}>
+                {parseFloat(stats.change) < 0 ? '↓' : '↑'} {Math.abs(parseFloat(stats.change)).toFixed(2)}%
+              </div>
+              <div className="text-xs text-slate-500 mt-1">
+                {stats.changePercent}% from start
+              </div>
+            </div>
+            
+            <div className="bg-slate-50 rounded-lg p-4">
+              <div className="text-sm text-slate-600 mb-1">Trend Direction</div>
+              <div className={`text-2xl font-bold flex items-center gap-2 ${
+                stats.trendDirection === 'falling' ? 'text-emerald-600' :
+                stats.trendDirection === 'rising' ? 'text-red-600' : 'text-slate-600'
+              }`}>
+                {stats.trendDirection === 'falling' ? '↓ Falling' :
+                 stats.trendDirection === 'rising' ? '↑ Rising' : '→ Stable'}
+              </div>
+              <div className="text-xs text-slate-500 mt-1">
+                Recent {selectedRange >= 30 ? '2 weeks' : 'period'}
+              </div>
             </div>
           </div>
           
-          <div className="bg-slate-50 rounded-lg p-4">
-            <div className="text-sm text-slate-600 mb-1">30-Day High</div>
-            <div className="text-2xl font-bold text-slate-700">4.89%</div>
-            <div className="text-xs text-slate-500 mt-1">
-              @ CIBC
+          {/* Data Source */}
+          <div className="mt-4 flex items-center justify-between text-sm text-slate-500">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Data from {historicalData?.length || 0} days of historical rates</span>
             </div>
-          </div>
-          
-          <div className="bg-slate-50 rounded-lg p-4">
-            <div className="text-sm text-slate-600 mb-1">Change (30d)</div>
-            <div className="text-2xl font-bold text-emerald-600 flex items-center gap-1">
-              ↓ 0.12%
-            </div>
-            <div className="text-xs text-emerald-600 mt-1">
-              -3.2% from peak
-            </div>
-          </div>
-          
-          <div className="bg-slate-50 rounded-lg p-4">
-            <div className="text-sm text-slate-600 mb-1">Trend Direction</div>
-            <div className="text-2xl font-bold text-emerald-600 flex items-center gap-2">
-              ↓ Falling
-            </div>
-            <div className="text-xs text-slate-500 mt-1">
-              Past 2 weeks
+            <div className="text-xs text-slate-400">
+              Prime Rate: {stats.primeRate}%
             </div>
           </div>
         </div>
-        
-        {/* Data Source */}
-        <div className="mt-4 flex items-center justify-between text-sm text-slate-500">
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Data sourced from {selectedRange === 90 ? '90' : selectedRange} days of historical rates</span>
-          </div>
-          <button className="text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1">
-            Download CSV
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -6,6 +6,13 @@ import Footer from "../components/Footer";
 import RateTrendsFull from "../components/RateTrendsFull";
 import RateTrends from "../components/RateTrends";
 import ratesData from "../../data/rates.json";
+// Import historical data with error handling
+let historicalData: any[] = [];
+try {
+  historicalData = require("../../data/historical_rates.json").data || [];
+} catch (e) {
+  console.warn("Historical rates data not available");
+}
 
 interface Rate {
   lender_name: string;
@@ -42,7 +49,7 @@ export default function TrendsPageClient() {
           <RateTrends rates={ratesData as Rate[]} />
         </div>
 
-        <RateTrendsFull />
+        <RateTrendsFull historicalData={historicalData} />
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl p-8 border border-slate-200">

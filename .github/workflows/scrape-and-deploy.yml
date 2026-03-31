@@ -38,6 +38,13 @@ jobs:
         working-directory: scraping
         run: python test_all_lenders_v2.py || true
 
+      # Step 3.5: Update historical rates for trend analysis
+      - name: Update historical rates
+        working-directory: scraping/src
+        run: |
+          python historical_rates.py
+          cp ../data/historical_rates.json ../../data/historical_rates.json
+
       # Step 3: Commit data changes
       - name: Commit and push data
         run: |
