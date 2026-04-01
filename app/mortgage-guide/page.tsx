@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   description: "The ultimate Canadian mortgage guide. Learn insider secrets to negotiate better rates, time the market, and save thousands on your mortgage. Instant PDF download.",
   keywords: "mortgage guide Canada, how to get best mortgage rate, mortgage negotiation guide, Canadian mortgage ebook",
   alternates: {
-    canonical: "https://latestmortgagerates.ca/ebook",
+    canonical: "https://latestmortgagerates.ca/mortgage-guide",
   },
   openGraph: {
     title: "Guide to Getting the Best Deal on Your Next Mortgage",
     description: "Insider secrets to save thousands on your Canadian mortgage. Instant PDF download.",
-    url: "https://latestmortgagerates.ca/ebook",
+    url: "https://latestmortgagerates.ca/mortgage-guide",
     siteName: "Latest Mortgage Rates Canada",
     type: "website",
   },

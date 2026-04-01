@@ -69,7 +69,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
     { href: "/", label: "Rates", id: "rates", icon: HomeIcon },
     { href: "/trends", label: "Trends", id: "trends", icon: TrendIcon },
     { href: "/blog", label: "Blog", id: "blog", icon: BookOpenIcon },
-    { href: "/ebook", label: "Ebook", id: "ebook", icon: BookOpenIcon },
+    { href: "/mortgage-guide", label: "Ebook", id: "ebook", icon: BookOpenIcon },
     { href: "/experts", label: "Experts", id: "experts", icon: ExpertsIcon },
     { href: "/glossary", label: "Glossary", id: "glossary", icon: LibraryIcon },
     { href: "/tools", label: "Tools", id: "tools", icon: CalculatorIcon },
