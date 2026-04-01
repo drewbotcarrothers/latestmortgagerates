@@ -140,7 +140,7 @@ export default function EbookLandingPage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
                 <a
-                  href="https://buy.stripe.com/YOUR_PAYMENT_LINK"
+                  href="https://buy.stripe.com/7sY4gz8ZtbAqg2s8nw9oc00"
                   className="inline-flex items-center justify-center px-8 py-4 bg-teal-500 hover:bg-teal-600 text-white font-bold text-lg rounded-lg transition-colors w-full sm:w-auto"
                 >
                   Get Instant Access — $29 CAD
@@ -213,7 +213,7 @@ export default function EbookLandingPage() {
             
             <div className="flex flex-col items-center gap-4">
               <a
-                href="https://buy.stripe.com/YOUR_PAYMENT_LINK"
+                href="https://buy.stripe.com/7sY4gz8ZtbAqg2s8nw9oc00"
                 className="inline-flex items-center justify-center px-10 py-5 bg-teal-500 hover:bg-teal-600 text-white font-bold text-xl rounded-lg"
               >
                 Buy the Guide — $29 CAD
