@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 interface NavigationProps {
-  currentPage?: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts";
+  currentPage?: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts" | "ebook";
 }
 
 // Inline SVG icons
@@ -68,7 +68,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
   const navItems = [
     { href: "/", label: "Rates", id: "rates", icon: HomeIcon },
     { href: "/trends", label: "Trends", id: "trends", icon: TrendIcon },
-    { href: "/blog", label: "Guides", id: "guides", icon: BookOpenIcon },
+    { href: "/blog", label: "Blog", id: "blog", icon: BookOpenIcon },
+    { href: "/ebook", label: "Ebook", id: "ebook", icon: BookOpenIcon },
     { href: "/experts", label: "Experts", id: "experts", icon: ExpertsIcon },
     { href: "/glossary", label: "Glossary", id: "glossary", icon: LibraryIcon },
     { href: "/tools", label: "Tools", id: "tools", icon: CalculatorIcon },
