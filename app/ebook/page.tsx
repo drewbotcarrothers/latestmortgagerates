@@ -58,7 +58,7 @@ const benefits = [
   {
     icon: "📊",
     title: "Real Rate Data",
-    description: "Access historical rate trends and benchmarks so you know what a "good deal" actually looks like.",
+    description: "Access historical rate trends and benchmarks so you know what a 'good deal' actually looks like.",
   },
 ];
 

@@ -32,9 +32,6 @@ export const metadata: Metadata = {
     "max-snippet": -1,
   },
 };
-    description: "Calculate your savings when renewing your mortgage. Compare staying with your current lender vs shopping for a better rate.",
-  },
-};
 
 // FAQ for structured data
 const faqs = [

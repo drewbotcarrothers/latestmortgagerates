@@ -192,7 +192,7 @@ export default function StructuredData({ rates, lastUpdated }: StructuredDataPro
           name: "How much can I save by shopping around for mortgage rates?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: `Shopping around can save thousands over your mortgage term. Rate differences between lenders often range from 0.5% to 1.0%. On a $500,000 mortgage over 5 years, a 0.5% lower rate saves approximately $12,500 in interest. Using LatestMortgageRates.ca to compare ${uniqueLenders.length}+ lenders ensures you find the best available rate for your situation.",
+            text: `Shopping around can save thousands over your mortgage term. Rate differences between lenders often range from 0.5% to 1.0%. On a $500,000 mortgage over 5 years, a 0.5% lower rate saves approximately $12,500 in interest. Using LatestMortgageRates.ca to compare ${uniqueLenders.length}+ lenders ensures you find the best available rate for your situation.`,
           },
         },
         {
