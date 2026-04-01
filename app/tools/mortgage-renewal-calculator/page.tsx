@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import Navigation from "../../components/Navigation";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MortgageRenewalCalculator from "../../components/MortgageRenewalCalculator";
+import HowToSchema from "../../components/HowToSchema";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Mortgage Renewal Calculator | Compare Current vs New Lender Rates",
@@ -15,14 +16,22 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mortgage Renewal Calculator | Compare Current vs New Lender Rates",
     description: "Calculate your savings when renewing your mortgage. Compare staying with your current lender vs shopping for a better rate. Includes break-even analysis.",
-    type: "website",
     url: "https://latestmortgagerates.ca/tools/mortgage-renewal-calculator",
     locale: "en_CA",
     siteName: "Latest Mortgage Rates Canada",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mortgage Renewal Calculator | Compare Current vs New Lender Rates",
+    title: "Mortgage Renewal Calculator",
+    description: "Compare renewal options and calculate savings",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+  },
+};
     description: "Calculate your savings when renewing your mortgage. Compare staying with your current lender vs shopping for a better rate.",
   },
 };
@@ -73,32 +82,44 @@ export default function MortgageRenewalCalculatorPage() {
         }}
       />
 
+      <HowToSchema
+        name="How to Compare Mortgage Renewal Options"
+        description="Calculate savings from renewing with your current lender versus switching to a new lender"
+        totalTime="PT5M"
+        steps={[
+          {
+            name: "Enter Current Mortgage Details",
+            text: "Input your remaining balance, current rate, and renewal term.",
+          },
+          {
+            name: "Get Current Lender Quote",
+            text: "Enter the renewal rate offered by your current lender.",
+          },
+          {
+            name: "Get Market Rate Quote",
+            text: "Enter the best available rate from other lenders.",
+          },
+          {
+            name: "Add Switching Costs",
+            text: "Include appraisal, legal, and discharge fees if switching.",
+          },
+          {
+            name: "Review Comparison",
+            text: "See total savings and break-even point for switching lenders.",
+          },
+        ]}
+      />
+      
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Tools", url: "/tools" },
+          { name: "Mortgage Renewal Calculator" },
+        ]}
+      />
+
       <main className="min-h-screen bg-slate-50">
-        {/* Header */}
-        <header className="bg-white border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Link href="/" className="flex-shrink-0">
-                  <Image
-                    src="/logo.png"
-                    alt="Latest Mortgage Rates Canada"
-                    width={70}
-                    height={70}
-                    className="rounded-lg"
-                    priority
-                  />
-                </Link>
-                <div>
-                  <h1 className="text-2xl font-bold text-slate-900">
-                    Latest Mortgage Rates Canada
-                  </h1>
-                </div>
-              </div>
-              <Navigation currentPage="tools" />
-            </div>
-          </div>
-        </header>
+        <Header currentPage="tools" />
 
         {/* Hero Section */}
         <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white">

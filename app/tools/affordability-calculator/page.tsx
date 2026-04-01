@@ -1,49 +1,79 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import Navigation from "../../components/Navigation";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffordabilityCalculator from "../../components/AffordabilityCalculator";
+import HowToSchema from "../../components/HowToSchema";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Mortgage Affordability Calculator Canada | How Much Can You Afford?",
   description: "Calculate how much mortgage you can afford in Canada. Based on income, debts, and down payment. Includes GDS/TDS ratio calculations and stress test requirements.",
   keywords: "mortgage affordability calculator Canada, how much mortgage can I afford, GDS TDS calculator, mortgage qualification calculator, stress test calculator",
+  alternates: {
+    canonical: "https://latestmortgagerates.ca/tools/affordability-calculator",
+  },
   openGraph: {
     title: "Mortgage Affordability Calculator Canada | How Much Can You Afford?",
     description: "Find out your maximum home price and mortgage amount based on your income, debts, and down payment.",
+    url: "https://latestmortgagerates.ca/tools/affordability-calculator",
+    siteName: "Latest Mortgage Rates Canada",
+    locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mortgage Affordability Calculator Canada",
+    description: "Calculate how much mortgage you can afford",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
 };
 
 export default function AffordabilityCalculatorPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Latest Mortgage Rates Canada"
-                  width={70}
-                  height={70}
-                  className="rounded-lg"
-                  priority
-                />
-              </Link>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">
-                  Latest Mortgage Rates Canada
-                </h1>
-              </div>
-            </div>
-            <Navigation currentPage="tools" />
-          </div>
-        </div>
-      </header>
+    <>
+      <HowToSchema
+        name="How to Calculate Your Mortgage Affordability"
+        description="Calculate your maximum home price and mortgage amount based on your income, debts, and down payment"
+        totalTime="PT5M"
+        steps={[
+          {
+            name: "Enter Annual Income",
+            text: "Input your total annual household income before taxes.",
+          },
+          {
+            name: "Add Monthly Debts",
+            text: "Enter your existing monthly debt payments (car loans, credit cards, student loans).",
+          },
+          {
+            name: "Enter Down Payment",
+            text: "Input your available down payment amount (minimum 5% of purchase price).",
+          },
+          {
+            name: "Select Interest Rate",
+            text: "Choose the current mortgage rate or use the pre-filled best rate.",
+          },
+          {
+            name: "Review Results",
+            text: "See your maximum home price, mortgage amount, and GDS/TDS ratios.",
+          },
+        ]}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Tools", url: "/tools" },
+          { name: "Affordability Calculator" },
+        ]}
+      />
+      
+      <main className="min-h-screen bg-slate-50">
+        <Header currentPage="tools" />
 
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white">
@@ -229,5 +259,6 @@ export default function AffordabilityCalculatorPage() {
 
       <Footer />
     </main>
+    </>
   );
 }

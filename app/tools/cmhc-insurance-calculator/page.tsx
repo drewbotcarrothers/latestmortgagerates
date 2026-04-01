@@ -1,43 +1,75 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import Navigation from "../../components/Navigation";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CMHCCalculator from "../../components/CMHCCalculator";
+import HowToSchema from "../../components/HowToSchema";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",
   description: "Calculate your CMHC mortgage insurance premium. See how your down payment affects insurance costs. Updated with 2024 CMHC premium rates for Canada.",
   keywords: "CMHC calculator, mortgage insurance calculator Canada, CMHC premium rates, mortgage default insurance, high ratio mortgage calculator",
+  alternates: {
+    canonical: "https://latestmortgagerates.ca/tools/cmhc-insurance-calculator",
+  },
   openGraph: {
     title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",
     description: "Calculate your CMHC mortgage insurance premium based on your down payment and home price.",
+    url: "https://latestmortgagerates.ca/tools/cmhc-insurance-calculator",
+    siteName: "Latest Mortgage Rates Canada",
+    locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CMHC Calculator Canada",
+    description: "Calculate mortgage insurance premiums",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
   },
 };
 
 export default function CMHCCalculatorPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Latest Mortgage Rates Canada"
-                  width={70}
-                  height={70}
-                  className="rounded-lg"
-                  priority
-                />
-              </Link>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">
-                  Latest Mortgage Rates Canada
-                </h1>
+    <>
+      <HowToSchema
+        name="How to Calculate CMHC Mortgage Insurance"
+        description="Calculate your CMHC mortgage default insurance premium based on your home price and down payment"
+        totalTime="PT3M"
+        steps={[
+          {
+            name: "Enter Home Price",
+            text: "Input the purchase price of the home you're considering.",
+          },
+          {
+            name: "Enter Down Payment",
+            text: "Enter your down payment amount (must be at least 5% for CMHC insurance).",
+          },
+          {
+            name: "Select Province",
+            text: "Choose your province for applicable sales tax calculation (Ontario 8%, Manitoba 6%, Quebec 9%, Saskatchewan 6%).",
+          },
+          {
+            name: "Review Premium",
+            text: "See your CMHC premium, taxes, and total insurance cost added to your mortgage.",
+          },
+        ]}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Tools", url: "/tools" },
+          { name: "CMHC Insurance Calculator" },
+        ]}
+      />
+      
+      <main className="min-h-screen bg-slate-50">
+        <Header currentPage="tools" />
               </div>
             </div>
             <Navigation currentPage="tools" />
@@ -277,5 +309,6 @@ export default function CMHCCalculatorPage() {
 
       <Footer />
     </main>
+    </>
   );
 }
