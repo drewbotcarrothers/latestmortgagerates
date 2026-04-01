@@ -86,8 +86,8 @@ export const blogPosts: BlogPost[] = [
 <p class="mb-4">Most economists now expect rate cuts to resume in late 2025, with the overnight rate potentially falling to 2.25% by year-end. This outlook suggests that variable rates could become more attractive for borrowers comfortable with some rate risk.</p>
 
 <p class="mb-4">However, uncertainty remains. Trade tensions, government policy changes, and global economic conditions could all influence the Bank's future decisions.</p>`,
-    author: "Latest Mortgage Rates Team",
-    authorTitle: "Mortgage Market Analysts",
+    author: "Andrew",
+    authorTitle: "Mortgage Market Analyst",
     date: "2025-03-12",
     category: "news",
     tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
@@ -200,8 +200,8 @@ export const blogPosts: BlogPost[] = [
   <li>Consider using a mortgage broker for access to more lenders</li>
   <li>Don't forget to negotiate - even published rates often have room</li>
 </ol>`,
-    author: "Latest Mortgage Rates Team",
-    authorTitle: "Rate Analysts",
+    author: "Andrew",
+    authorTitle: "Rate Analyst",
     date: "2025-03-10",
     category: "rates",
     tags: ["best rates", "fixed mortgage", "weekly update", "rate comparison"],
@@ -545,9 +545,9 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-emerald-50 rounded-lg p-6 border border-emerald-100 mb-6">
   <p class="font-semibold text-emerald-800 mb-2">✨ You're Ready!</p>
   <p class="text-slate-700">Buying your first home is a major milestone. Take your time, do your research, and don't hesitate to ask questions along the way. Your future self will thank you for making informed decisions today.</p>
-  <p class="text-slate-600 text-sm mt-3 italic">— The Latest Mortgage Rates Team</p>
+  <p class="text-slate-600 text-sm mt-3 italic">— Andrew</p>
 </div>`,
-    author: "Sarah Chen",
+    author: "Andrew",
     authorTitle: "Senior Mortgage Advisor",
     date: "2026-03-23",
     category: "guides",
@@ -643,7 +643,7 @@ Fixed mortgage rates predict where the economy is heading, based on bond market 
 Historically, variable rates have saved money over 5-year terms about 60% of the time. But fixed rates offer payment certainty that many homeowners value.
 
 **Neither is "better" - it depends on your risk tolerance and financial situation.**`,
-    author: "Michael Torres",
+    author: "Andrew",
     authorTitle: "Senior Financial Analyst",
     date: "2025-03-01",
     category: "guides",
@@ -859,8 +859,8 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
 </div>
 
 <p class="text-slate-600 italic">Happy house hunting! 🏠</p>`,
-    author: "Latest Mortgage Rates Team",
-    authorTitle: "Market Analysts",
+    author: "Andrew",
+    authorTitle: "Market Analyst",
     date: "2026-03-23",
     category: "market",
     tags: ["spring market", "housing outlook", "2026", "market analysis", "buying", "selling"],
