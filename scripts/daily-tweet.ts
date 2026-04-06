@@ -103,9 +103,6 @@ function formatTweet(topRates: Rate[], rateType: string, icon: string): string {
     tweet += `${emoji} ${lenderShort}: ${rate.rate.toFixed(2)}%\n`;
   }
   
-  tweet += `\nCompare all rates at 👇\n`;
-  tweet += `latestmortgagerates.ca`;
-  
   return tweet;
 }
 
