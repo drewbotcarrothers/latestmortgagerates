@@ -2,7 +2,7 @@ name: Post to Social Media
 
 on:
   schedule:
-    # Daily at 9:00 AM EST (14:00 UTC) - after morning scrape
+    # Daily at 9:00 AM EST (14:00 UTC) - smart tweet with breaking news priority
     - cron: '0 14 * * *'
     # Weekly on Sundays at 10:00 AM EST (15:00 UTC)
     - cron: '0 15 * * 0'
@@ -13,12 +13,12 @@ on:
       post_type:
         description: 'Type of post'
         required: true
-        default: 'daily_rates'
+        default: 'smart_tweet'
         type: choice
         options:
+          - smart_tweet
           - daily_rates
           - weekly_summary
-          - best_rates
           - monthly_poll
 
 env:
@@ -40,9 +40,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run daily tweet script
-        if: github.event_name == 'schedule' && github.event.schedule != '0 14 1 * *' && github.event.inputs.post_type != 'monthly_poll'
-        run: npx tsx scripts/daily-tweet.ts
+      - name: Run smart tweet (breaking news prioritized)
+        if: github.event_name == 'schedule' && github.event.schedule != '0 14 1 * *' && github.event.schedule != '0 15 * * 0' && github.event.inputs.post_type == 'smart_tweet' || github.event.inputs.post_type == 'daily_rates'
+        run: npx tsx scripts/smart-tweet.ts
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
