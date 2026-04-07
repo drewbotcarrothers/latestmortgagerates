@@ -62,6 +62,11 @@ const lenderNames: Record<string, string> = {
   intellimortgage: "IntelliMortgage",
   streetcapital: "Street Capital",
   centum: "Centum",
+  
+  // Additional Lenders
+  equitable: "Equitable Bank",
+  hometrust: "Home Trust",
+  truenorth: "True North Mortgage",
 };
 
 // Fallback styles for when image is not available
@@ -105,6 +110,11 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   intellimortgage: { bg: "bg-purple-600", text: "text-white", abbr: "Intelli" },
   streetcapital: { bg: "bg-cyan-700", text: "text-white", abbr: "Street" },
   centum: { bg: "bg-red-700", text: "text-white", abbr: "Centum" },
+  
+  // Additional Lenders
+  equitable: { bg: "bg-slate-700", text: "text-white", abbr: "Equitable" },
+  hometrust: { bg: "bg-amber-600", text: "text-white", abbr: "Home" },
+  truenorth: { bg: "bg-sky-600", text: "text-white", abbr: "TN" },
   
   // Default fallback
   default: { bg: "bg-gray-400", text: "text-white", abbr: "?" },
