@@ -38,6 +38,7 @@ const lenderNames: Record<string, string> = {
   simplii: "Simplii Financial",
   motive: "Motive Financial",
   alterna: "Alterna Bank",
+  wealthsimple: "Wealthsimple",
   
   // Credit Unions
   meridian: "Meridian Credit Union",
@@ -86,6 +87,7 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   simplii: { bg: "bg-red-500", text: "text-white", abbr: "Simplii" },
   motive: { bg: "bg-yellow-600", text: "text-white", abbr: "Motive" },
   alterna: { bg: "bg-cyan-600", text: "text-white", abbr: "Alterna" },
+  wealthsimple: { bg: "bg-purple-600", text: "text-white", abbr: "WS" },
   
   // Credit Unions
   meridian: { bg: "bg-teal-600", text: "text-white", abbr: "M" },
