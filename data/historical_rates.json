@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "last_updated": "2026-04-07T10:36:03.299Z",
+    "last_updated": "2026-03-31T15:51:51.563999",
     "total_days": 91,
     "prime_rate": 5.45
   },
@@ -21,7 +21,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.84,
       "variable_insured_spread_to_prime": -1.55,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 223,
       "created_at": "2026-03-31T15:51:51.562703"
@@ -42,7 +42,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.93,
       "variable_insured_spread_to_prime": -1.62,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 219,
       "created_at": "2026-03-31T15:51:51.562730"
@@ -63,7 +63,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.96,
       "variable_insured_spread_to_prime": -1.58,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 185,
       "created_at": "2026-03-31T15:51:51.562762"
@@ -84,7 +84,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.69,
       "variable_insured_spread_to_prime": -1.68,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 183,
       "created_at": "2026-03-31T15:51:51.562780"
@@ -99,13 +99,13 @@
       "fixed_insured_avg_rate": 5.11,
       "variable_uninsured_best_rate": 4.56,
       "variable_uninsured_best_lender": "RBC",
-      "variable_uninsured_avg_rate": 5,
+      "variable_uninsured_avg_rate": 5.0,
       "variable_uninsured_spread_to_prime": -1.44,
       "variable_insured_best_rate": 4.38,
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.77,
       "variable_insured_spread_to_prime": -1.62,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 32,
       "total_rates": 201,
       "created_at": "2026-03-31T15:51:51.562794"
@@ -126,7 +126,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.82,
       "variable_insured_spread_to_prime": -1.72,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 191,
       "created_at": "2026-03-31T15:51:51.562809"
@@ -147,7 +147,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.74,
       "variable_insured_spread_to_prime": -1.7,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 32,
       "total_rates": 181,
       "created_at": "2026-03-31T15:51:51.562822"
@@ -168,7 +168,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.77,
       "variable_insured_spread_to_prime": -1.71,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 188,
       "created_at": "2026-03-31T15:51:51.562836"
@@ -189,7 +189,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.8,
       "variable_insured_spread_to_prime": -1.67,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 192,
       "created_at": "2026-03-31T15:51:51.562849"
@@ -210,7 +210,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.64,
       "variable_insured_spread_to_prime": -1.68,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 185,
       "created_at": "2026-03-31T15:51:51.562862"
@@ -225,13 +225,13 @@
       "fixed_insured_avg_rate": 4.9,
       "variable_uninsured_best_rate": 4.49,
       "variable_uninsured_best_lender": "CIBC",
-      "variable_uninsured_avg_rate": 5,
+      "variable_uninsured_avg_rate": 5.0,
       "variable_uninsured_spread_to_prime": -1.51,
       "variable_insured_best_rate": 4.32,
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.69,
       "variable_insured_spread_to_prime": -1.68,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 180,
       "created_at": "2026-03-31T15:51:51.562876"
@@ -252,7 +252,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.83,
       "variable_insured_spread_to_prime": -1.7,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 200,
       "created_at": "2026-03-31T15:51:51.562889"
@@ -273,7 +273,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.81,
       "variable_insured_spread_to_prime": -1.75,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 199,
       "created_at": "2026-03-31T15:51:51.562907"
@@ -294,7 +294,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.55,
       "variable_insured_spread_to_prime": -1.79,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 32,
       "total_rates": 185,
       "created_at": "2026-03-31T15:51:51.562921"
@@ -315,7 +315,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.68,
       "variable_insured_spread_to_prime": -1.79,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 185,
       "created_at": "2026-03-31T15:51:51.562936"
@@ -336,7 +336,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.53,
       "variable_insured_spread_to_prime": -1.78,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 217,
       "created_at": "2026-03-31T15:51:51.562950"
@@ -357,7 +357,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.8,
       "variable_insured_spread_to_prime": -1.73,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 205,
       "created_at": "2026-03-31T15:51:51.562963"
@@ -369,7 +369,7 @@
       "fixed_uninsured_avg_rate": 5.83,
       "fixed_insured_best_rate": 4.26,
       "fixed_insured_best_lender": "nesto",
-      "fixed_insured_avg_rate": 5,
+      "fixed_insured_avg_rate": 5.0,
       "variable_uninsured_best_rate": 4.46,
       "variable_uninsured_best_lender": "First National",
       "variable_uninsured_avg_rate": 4.91,
@@ -378,7 +378,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.77,
       "variable_insured_spread_to_prime": -1.79,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 212,
       "created_at": "2026-03-31T15:51:51.562977"
@@ -399,7 +399,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.62,
       "variable_insured_spread_to_prime": -1.78,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 189,
       "created_at": "2026-03-31T15:51:51.562991"
@@ -420,7 +420,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.74,
       "variable_insured_spread_to_prime": -1.85,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 208,
       "created_at": "2026-03-31T15:51:51.563004"
@@ -441,7 +441,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.64,
       "variable_insured_spread_to_prime": -1.85,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 190,
       "created_at": "2026-03-31T15:51:51.563017"
@@ -462,7 +462,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.67,
       "variable_insured_spread_to_prime": -1.9,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 186,
       "created_at": "2026-03-31T15:51:51.563031"
@@ -483,7 +483,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.74,
       "variable_insured_spread_to_prime": -1.83,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 225,
       "created_at": "2026-03-31T15:51:51.563046"
@@ -504,7 +504,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.68,
       "variable_insured_spread_to_prime": -1.9,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 205,
       "created_at": "2026-03-31T15:51:51.563060"
@@ -525,7 +525,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.68,
       "variable_insured_spread_to_prime": -1.91,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 224,
       "created_at": "2026-03-31T15:51:51.563073"
@@ -540,13 +540,13 @@
       "fixed_insured_avg_rate": 4.79,
       "variable_uninsured_best_rate": 4.41,
       "variable_uninsured_best_lender": "nesto",
-      "variable_uninsured_avg_rate": 5,
+      "variable_uninsured_avg_rate": 5.0,
       "variable_uninsured_spread_to_prime": -1.59,
       "variable_insured_best_rate": 4.05,
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.47,
       "variable_insured_spread_to_prime": -1.95,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 220,
       "created_at": "2026-03-31T15:51:51.563087"
@@ -567,7 +567,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.51,
       "variable_insured_spread_to_prime": -1.88,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 188,
       "created_at": "2026-03-31T15:51:51.563103"
@@ -588,7 +588,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.38,
       "variable_insured_spread_to_prime": -1.94,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 184,
       "created_at": "2026-03-31T15:51:51.563117"
@@ -609,7 +609,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.67,
       "variable_insured_spread_to_prime": -1.92,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 189,
       "created_at": "2026-03-31T15:51:51.563134"
@@ -630,7 +630,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.49,
       "variable_insured_spread_to_prime": -1.98,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 183,
       "created_at": "2026-03-31T15:51:51.563148"
@@ -651,7 +651,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.57,
       "variable_insured_spread_to_prime": -1.95,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 33,
       "total_rates": 197,
       "created_at": "2026-03-31T15:51:51.563161"
@@ -672,7 +672,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.49,
       "variable_insured_spread_to_prime": -1.94,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 208,
       "created_at": "2026-03-31T15:51:51.563174"
@@ -687,13 +687,13 @@
       "fixed_insured_avg_rate": 4.51,
       "variable_uninsured_best_rate": 4.3,
       "variable_uninsured_best_lender": "MCAP",
-      "variable_uninsured_avg_rate": 5,
+      "variable_uninsured_avg_rate": 5.0,
       "variable_uninsured_spread_to_prime": -1.7,
       "variable_insured_best_rate": 4.06,
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.51,
       "variable_insured_spread_to_prime": -1.94,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 227,
       "created_at": "2026-03-31T15:51:51.563190"
@@ -714,7 +714,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.55,
       "variable_insured_spread_to_prime": -2.01,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 29,
       "total_rates": 196,
       "created_at": "2026-03-31T15:51:51.563204"
@@ -735,7 +735,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.56,
       "variable_insured_spread_to_prime": -1.97,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 228,
       "created_at": "2026-03-31T15:51:51.563217"
@@ -756,7 +756,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.47,
       "variable_insured_spread_to_prime": -1.97,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 199,
       "created_at": "2026-03-31T15:51:51.563230"
@@ -777,7 +777,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.58,
       "variable_insured_spread_to_prime": -2.01,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 32,
       "total_rates": 227,
       "created_at": "2026-03-31T15:51:51.563244"
@@ -798,7 +798,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.49,
       "variable_insured_spread_to_prime": -1.98,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 203,
       "created_at": "2026-03-31T15:51:51.563259"
@@ -819,7 +819,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.4,
       "variable_insured_spread_to_prime": -2.08,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 197,
       "created_at": "2026-03-31T15:51:51.563272"
@@ -840,7 +840,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.46,
       "variable_insured_spread_to_prime": -2.01,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 186,
       "created_at": "2026-03-31T15:51:51.563286"
@@ -861,7 +861,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.48,
       "variable_insured_spread_to_prime": -2.08,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 225,
       "created_at": "2026-03-31T15:51:51.563299"
@@ -882,7 +882,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.45,
       "variable_insured_spread_to_prime": -2.08,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 31,
       "total_rates": 215,
       "created_at": "2026-03-31T15:51:51.563313"
@@ -903,7 +903,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.31,
       "variable_insured_spread_to_prime": -2.02,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 32,
       "total_rates": 206,
       "created_at": "2026-03-31T15:51:51.563328"
@@ -924,7 +924,7 @@
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.44,
       "variable_insured_spread_to_prime": -2.1,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 180,
       "created_at": "2026-03-31T15:51:51.563342"
@@ -945,7 +945,7 @@
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.14,
       "variable_insured_spread_to_prime": -2.17,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 28,
       "total_rates": 226,
       "created_at": "2026-03-31T15:51:51.563357"
@@ -966,7 +966,7 @@
       "variable_insured_best_lender": "Equitable Bank",
       "variable_insured_avg_rate": 4.39,
       "variable_insured_spread_to_prime": -2.07,
-      "prime_rate": 6,
+      "prime_rate": 6.0,
       "lender_count": 30,
       "total_rates": 221,
       "created_at": "2026-03-31T15:51:51.563371"
@@ -1144,7 +1144,7 @@
       "fixed_uninsured_best_rate": 4.6,
       "fixed_uninsured_best_lender": "TD",
       "fixed_uninsured_avg_rate": 5.55,
-      "fixed_insured_best_rate": 4,
+      "fixed_insured_best_rate": 4.0,
       "fixed_insured_best_lender": "nesto",
       "fixed_insured_avg_rate": 4.47,
       "variable_uninsured_best_rate": 3.97,
@@ -1259,7 +1259,7 @@
       "variable_insured_best_rate": 3.7,
       "variable_insured_best_lender": "nesto",
       "variable_insured_avg_rate": 4.26,
-      "variable_insured_spread_to_prime": -2,
+      "variable_insured_spread_to_prime": -2.0,
       "prime_rate": 5.7,
       "lender_count": 30,
       "total_rates": 190,
@@ -1741,7 +1741,7 @@
       "variable_uninsured_spread_to_prime": -1.79,
       "variable_insured_best_rate": 3.43,
       "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4,
+      "variable_insured_avg_rate": 4.0,
       "variable_insured_spread_to_prime": -2.02,
       "prime_rate": 5.45,
       "lender_count": 28,
@@ -1826,7 +1826,7 @@
       "variable_insured_best_rate": 3.45,
       "variable_insured_best_lender": "True North",
       "variable_insured_avg_rate": 4.03,
-      "variable_insured_spread_to_prime": -2,
+      "variable_insured_spread_to_prime": -2.0,
       "prime_rate": 5.45,
       "lender_count": 28,
       "total_rates": 202,
