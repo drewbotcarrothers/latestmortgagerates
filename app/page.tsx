@@ -346,6 +346,55 @@ export default function Home() {
         <div className="mt-8">
           <MortgageCalculator />
         </div>
+
+        {/* Ebook Promotion */}
+        <div className="mt-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6">
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</span>
+                <h2 className="text-xl font-bold text-slate-900">Get the Best Deal on Your Next Mortgage</h2>
+              </div>
+              <p className="text-slate-600 mb-4">
+                Don't overpay on your mortgage. Our comprehensive guide shows you exactly how to negotiate better rates, 
+                avoid common mistakes, and save thousands over the life of your loan.
+              </p>
+              <ul className="text-sm text-slate-600 space-y-1 mb-4">
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Insider secrets that banks do not want you to know
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Save thousands by negotiating smarter
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Avoid costly penalties first-time buyers miss
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col items-center gap-3 md:w-64">
+              <div className="text-center">
+                <span className="text-3xl font-bold text-amber-600">$29</span>
+                <span className="text-slate-400 line-through ml-2">$49</span>
+              </div>
+              <Link 
+                href="/mortgage-guide/" 
+                className="btn-primary bg-amber-500 hover:bg-amber-600 text-white w-full text-center"
+              >
+                Get the Guide
+              </Link>
+              <p className="text-xs text-slate-500">Instant PDF download</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Rate Alert Subscription */}
