@@ -97,4 +97,6 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./dist/
-          dangerous-clean-slate: true
+          server-dir: ./
+          # Removed dangerous-clean-slate to avoid FTP sync state issues
+          # The action will handle incremental updates automatically
