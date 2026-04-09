@@ -1,0 +1,29 @@
+{
+  "date": "2026-04-09",
+  "best5YearFixed": 3.64,
+  "best5YearVariable": 3.35,
+  "primeRate": 4.95,
+  "bondYield5Year": 2.8,
+  "topLenders": [
+    {
+      "name": "nesto",
+      "rate": 3.64
+    },
+    {
+      "name": "Butler Mortgage",
+      "rate": 3.64
+    },
+    {
+      "name": "Equitable Bank",
+      "rate": 3.89
+    },
+    {
+      "name": "True North Mortgage",
+      "rate": 3.94
+    },
+    {
+      "name": "Wealthsimple",
+      "rate": 3.99
+    }
+  ]
+}
