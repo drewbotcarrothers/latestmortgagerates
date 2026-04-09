@@ -144,6 +144,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 { href: "/glossary", label: "Rate Glossary" },
                 { href: "/tools", label: "Calculators" },
                 { href: "/", label: "Compare Rates" },
+                { href: "/widget", label: "Free Widget" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link 

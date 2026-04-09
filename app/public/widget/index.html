@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Mortgage Rate Widget | LatestMortgageRates.ca</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; background: #f3f4f6; color: #1f2937; }
+    .header { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 40px 20px; text-align: center; }
+    .header h1 { font-size: 28px; margin-bottom: 10px; }
+    .header p { opacity: 0.9; font-size: 16px; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+    .section { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .section h2 { font-size: 20px; margin-bottom: 20px; color: #111827; }
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 768px) { .demo-grid { grid-template-columns: 1fr; } }
+    .options { display: flex; flex-direction: column; gap: 20px; }
+    .option-group { display: flex; flex-direction: column; gap: 8px; }
+    .option-group label { font-weight: 500; font-size: 14px; color: #374151; }
+    select, input[type="number"] { padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+    .code-block { background: #1f2937; color: #e5e7eb; padding: 20px; border-radius: 8px; font-family: 'Monaco', 'Menlo', monospace; font-size: 13px; overflow-x: auto; position: relative; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .copy-btn:hover { background: #2563eb; }
+    .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .benefit { padding: 20px; background: #f9fafb; border-radius: 8px; }
+    .benefit h3 { font-size: 16px; margin-bottom: 8px; color: #1e40af; }
+    .benefit p { font-size: 14px; color: #6b7280; }
+    .cta { text-align: center; margin-top: 40px; }
+    .cta a { display: inline-block; background: #059669; color: white; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .cta a:hover { background: #047857; }
+    .preview-label { font-size: 12px; color: #6b7280; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🇨🇦 Free Mortgage Rate Widget</h1>
+    <p>Display live Canadian mortgage rates on your website. Get a free backlink.</p>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <h2>⚡ Customize Your Widget</h2>
+      <div class="demo-grid">
+        <div class="options">
+          <div class="option-group">
+            <label>Theme</label>
+            <select id="theme">
+              <option value="light">Light (white background)</option>
+              <option value="dark">Dark (dark background)</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Number of rates to show</label>
+            <select id="limit">
+              <option value="3">3 rates</option>
+              <option value="5">5 rates</option>
+              <option value="10">10 rates</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Show logo</label>
+            <select id="showLogo">
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="preview-label">Preview</div>
+          <div id="widget-preview"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📋 Embed Code</h2>
+      <p style="margin-bottom: 15px; color: #6b7280; font-size: 14px;">Copy and paste this code into your website's HTML:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+        <code id="embed-code">&lt;script src="https://latestmortgagerates.ca/widget/widget.js" data-theme="light" data-limit="3" data-show-logo="true"&gt;&lt;/script&gt;</code>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✨ Why Add This Widget?</h2>
+      <div class="benefits">
+        <div class="benefit">
+          <h3>🎯 Help Your Visitors</h3>
+          <p>Give your readers instant access to Canada's best mortgage rates without leaving your site.</p>
+        </div>
+        <div class="benefit">
+          <h3>🔗 Free Backlink</h3>
+          <p>Every widget includes a "via LatestMortgageRates.ca" link — improving your SEO while you help users.</p>
+        </div>
+        <div class="benefit">
+          <h3>📱 Fully Responsive</h3>
+          <p>Works perfectly on desktop, tablet, and mobile devices. No extra work needed.</p>
+        </div>
+        <div class="benefit">
+          <h3>⚡ Auto-Updates</h3>
+          <p>Rates update automatically. No maintenance required on your end.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📍 Perfect For</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div style="padding: 15px; background: #eff6ff; border-radius: 6px; text-align: center;">
+          <strong>Mortgage Brokers</strong><br>
+          <small style="color: #6b7280;">Show competitive rates alongside your offerings</small>
+        </div>
+        <div style="padding: 15px; background: #f0fdf4; border-radius: 6px; text-align: center;">
+          <strong>Real Estate Agents</strong><br>
+          <small style="color: #6b7280;">Help buyers understand financing costs</small>
+        </div>
+        <div style="padding: 15px; background: #fef3c7; border-radius: 6px; text-align: center;">
+          <strong>Financial Blogs</strong><br>
+          <small style="color: #6b7280;">Add value to your mortgage articles</small>
+        </div>
+        <div style="padding: 15px; background: #fce7f3; border-radius: 6px; text-align: center;">
+          <strong>Advisor Websites</strong><br>
+          <small style="color: #6b7280;">Educate clients on current market rates</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="https://latestmortgagerates.ca">← Back to LatestMortgageRates.ca</a>
+    </div>
+  </div>
+
+  <script>
+    function updateCode() {
+      const theme = document.getElementById('theme').value;
+      const limit = document.getElementById('limit').value;
+      const showLogo = document.getElementById('showLogo').value;
+      
+      const code = `&lt;script src="https://latestmortgagerates.ca/widget/widget.js" data-theme="${theme}" data-limit="${limit}" data-show-logo="${showLogo}"&gt;&lt;/script&gt;`;
+      document.getElementById('embed-code').innerHTML = code;
+      
+      // Update preview
+      const previewContainer = document.getElementById('widget-preview');
+      previewContainer.innerHTML = '';
+      const script = document.createElement('script');
+      script.src = 'widget.js';
+      script.setAttribute('data-theme', theme);
+      script.setAttribute('data-limit', limit);
+      script.setAttribute('data-show-logo', showLogo);
+      previewContainer.appendChild(script);
+    }
+
+    function copyCode() {
+      const code = document.getElementById('embed-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+
+    // Initialize
+    document.getElementById('theme').addEventListener('change', updateCode);
+    document.getElementById('limit').addEventListener('change', updateCode);
+    document.getElementById('showLogo').addEventListener('change', updateCode);
+    updateCode();
+  </script>
+</body>
+</html>
