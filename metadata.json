@@ -1,24 +1,18 @@
 {
-  "last_updated": "2026-04-07T11:38:04.308397",
-  "total_rates": 60,
+  "last_updated": "2026-04-12T22:04:35.880609",
+  "total_rates": 100,
   "lenders": [
-    "eqbank",
-    "merix",
-    "lendwise",
-    "scotiabank",
-    "vancity",
-    "merixfinancial",
-    "rbc",
+    "truenorth",
     "butlermortgage",
-    "intellimortgage",
-    "cmlsfinancial",
-    "meridian",
-    "td",
-    "simplii",
-    "centum",
-    "nesto",
-    "alterna",
     "streetcapital",
-    "tangerine"
+    "manulife",
+    "equitable",
+    "rfa",
+    "intellimortgage",
+    "cmls",
+    "centum",
+    "merix",
+    "hometrust",
+    "lendwise"
   ]
 }
