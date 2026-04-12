@@ -45,7 +45,7 @@ export async function GET(request: Request) {
     rates: filteredRates,
     meta: {
       total_rates: rates.length,
-      lenders_count: metadata?.lenders_count || 34,
+      lenders_count: metadata?.total_lenders || 34,
       last_updated: metadata?.last_updated || new Date().toISOString(),
       source: 'https://latestmortgagerates.ca'
     }
