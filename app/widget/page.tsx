@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import CopyButton from './CopyButton';
 
 export const metadata: Metadata = {
   title: 'Free Mortgage Rate Widget | Embed Canadian Rates on Your Site',
@@ -71,16 +72,7 @@ export default function WidgetPage() {
             <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
               <code id="embed-code">&lt;script src=&quot;https://latestmortgagerates.ca/widget/widget.js&quot; data-theme=&quot;light&quot; data-limit=&quot;3&quot;&gt;&lt;/script&gt;</code>
             </pre>
-            <button 
-              onClick={() => {
-                const code = document.getElementById('embed-code')?.textContent || '';
-                navigator.clipboard.writeText(code);
-                alert('Copied to clipboard!');
-              }}
-              className="absolute top-2 right-2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
-            >
-              Copy
-            </button>
+            <CopyButton />
           </div>
         </div>
 
