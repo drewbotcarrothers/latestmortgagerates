@@ -98,5 +98,6 @@ jobs:
           protocol: ftp
           local-dir: ./dist/
           server-dir: ./
-          # Removed dangerous-clean-slate to avoid FTP sync state issues
+          timeout: 120000
+          # Removed dangerous-clean-slate to avoid FTP sync state errors
           # The action will handle incremental updates automatically
