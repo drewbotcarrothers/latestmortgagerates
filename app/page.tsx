@@ -203,13 +203,20 @@ export default function Home() {
                 </h3>
                 <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">Insured</span>
               </div>
-              {marketStats.fixedInsured?.top3[0] ? (
+              {marketStats.fixedInsured?.top3.length ? (
                 <div className="space-y-2">
-                  <Link href={`/lenders/${marketStats.fixedInsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
-                    <span className="text-slate-100 text-sm truncate">{marketStats.fixedInsured.top3[0].lender_name}</span>
-                    <span className="text-xl font-bold text-emerald-300">{marketStats.fixedInsured.top3[0].rate.toFixed(2)}%</span>
-                  </Link>
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  {marketStats.fixedInsured.top3.map((rate, i) => (
+                    <Link key={i} href={`/lenders/${rate.lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                          i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
+                        }`}>{i + 1}</span>
+                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                      </div>
+                      <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                    </Link>
+                  ))}
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.fixedInsured.count} lenders</span>
                     <span>Avg {marketStats.fixedInsured.avg}%</span>
                   </div>
@@ -228,13 +235,20 @@ export default function Home() {
                 </h3>
                 <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
               </div>
-              {marketStats.fixedUninsured?.top3[0] ? (
+              {marketStats.fixedUninsured?.top3.length ? (
                 <div className="space-y-2">
-                  <Link href={`/lenders/${marketStats.fixedUninsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
-                    <span className="text-slate-100 text-sm truncate">{marketStats.fixedUninsured.top3[0].lender_name}</span>
-                    <span className="text-xl font-bold text-emerald-300">{marketStats.fixedUninsured.top3[0].rate.toFixed(2)}%</span>
-                  </Link>
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  {marketStats.fixedUninsured.top3.map((rate, i) => (
+                    <Link key={i} href={`/lenders/${rate.lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                          i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
+                        }`}>{i + 1}</span>
+                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                      </div>
+                      <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                    </Link>
+                  ))}
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.fixedUninsured.count} lenders</span>
                     <span>Avg {marketStats.fixedUninsured.avg}%</span>
                   </div>
@@ -253,13 +267,20 @@ export default function Home() {
                 </h3>
                 <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">Insured</span>
               </div>
-              {marketStats.variableInsured?.top3[0] ? (
+              {marketStats.variableInsured?.top3.length ? (
                 <div className="space-y-2">
-                  <Link href={`/lenders/${marketStats.variableInsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
-                    <span className="text-slate-100 text-sm truncate">{marketStats.variableInsured.top3[0].lender_name}</span>
-                    <span className="text-xl font-bold text-teal-300">{marketStats.variableInsured.top3[0].rate.toFixed(2)}%</span>
-                  </Link>
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  {marketStats.variableInsured.top3.map((rate, i) => (
+                    <Link key={i} href={`/lenders/${rate.lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                          i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
+                        }`}>{i + 1}</span>
+                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                      </div>
+                      <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                    </Link>
+                  ))}
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.variableInsured.count} lenders</span>
                     <span>Avg {marketStats.variableInsured.avg}%</span>
                   </div>
@@ -278,13 +299,20 @@ export default function Home() {
                 </h3>
                 <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
               </div>
-              {marketStats.variableUninsured?.top3[0] ? (
+              {marketStats.variableUninsured?.top3.length ? (
                 <div className="space-y-2">
-                  <Link href={`/lenders/${marketStats.variableUninsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
-                    <span className="text-slate-100 text-sm truncate">{marketStats.variableUninsured.top3[0].lender_name}</span>
-                    <span className="text-xl font-bold text-teal-300">{marketStats.variableUninsured.top3[0].rate.toFixed(2)}%</span>
-                  </Link>
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  {marketStats.variableUninsured.top3.map((rate, i) => (
+                    <Link key={i} href={`/lenders/${rate.lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                          i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
+                        }`}>{i + 1}</span>
+                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                      </div>
+                      <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                    </Link>
+                  ))}
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.variableUninsured.count} lenders</span>
                     <span>Avg {marketStats.variableUninsured.avg}%</span>
                   </div>
