@@ -5,19 +5,18 @@ import metadata from '@/data/metadata.json';
 export const dynamic = 'force-static';
 
 interface Rate {
-  lender: string;
+  lender_name: string;
   lender_slug: string;
-  product: string;
+  term_months: number;
   rate_type: string;
-  term: string;
-  interest_rate: number;
-  annual_percentage_rate?: number;
-  monthly_payment?: number;
-  payment_frequency?: string;
-  is_insurable?: boolean;
-  is_pre_approval?: boolean;
-  location?: string;
-  updated_at: string;
+  mortgage_type: string;
+  rate: number;
+  posted_rate: number;
+  source_url: string;
+  scraped_at: string;
+  apr: number | null;
+  ltv_tier: string | null;
+  spread_to_prime: string | null;
 }
 
 export async function GET(request: Request) {
@@ -29,16 +28,16 @@ export async function GET(request: Request) {
   
   // Filter and sort rates by interest rate (lowest first)
   const filteredRates = rates
-    .filter((r: Rate) => r.rate_type === 'Fixed' && r.term === '5 Year')
-    .sort((a: Rate, b: Rate) => (a.interest_rate || 99) - (b.interest_rate || 99))
+    .filter((r: Rate) => r.rate_type === 'fixed' && r.term_months === 60)
+    .sort((a: Rate, b: Rate) => (a.rate || 99) - (b.rate || 99))
     .slice(0, limit)
     .map((r: Rate) => ({
-      lender: r.lender,
+      lender: r.lender_name,
       lender_slug: r.lender_slug,
-      rate: r.interest_rate,
-      type: `${r.term} ${r.rate_type}`,
+      rate: r.rate,
+      type: `${r.term_months / 12} Year ${r.rate_type === 'fixed' ? 'Fixed' : 'Variable'}`,
       url: `https://latestmortgagerates.ca/lenders/${r.lender_slug}`,
-      updated_at: r.updated_at
+      updated_at: r.scraped_at
     }));
 
   // Add CORS headers for external widget usage
