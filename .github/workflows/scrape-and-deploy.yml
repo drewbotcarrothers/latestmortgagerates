@@ -85,8 +85,27 @@ jobs:
           cp data/metadata.json dist/
           cat dist/build-info.txt
 
-      # Step 5: Deploy to Hostinger via FTP
-      - name: Deploy to Hostinger (FTP)
+      # Step 5: Deploy to Hostinger via FTP (with retry)
+      - name: Deploy to Hostinger (FTP - Attempt 1)
+        id: deploy1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: ./dist/
+          server-dir: ./
+          timeout: 120000
+        continue-on-error: true
+
+      - name: Wait 2 minutes before retry
+        if: steps.deploy1.outcome == 'failure'
+        run: sleep 120
+
+      - name: Deploy to Hostinger (FTP - Attempt 2)
+        if: steps.deploy1.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_HOST }}
