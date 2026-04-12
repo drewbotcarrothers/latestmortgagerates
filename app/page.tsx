@@ -101,15 +101,23 @@ export default function Home() {
 
   // Get market stats for display
   const marketStats = useMemo(() => {
-    const fixed5yr = (ratesData as Rate[])
+    const fixed5yrUninsured = (ratesData as Rate[])
       .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured");
     
-    const variable5yr = (ratesData as Rate[])
+    const fixed5yrInsured = (ratesData as Rate[])
+      .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "insured");
+    
+    const variable5yrUninsured = (ratesData as Rate[])
       .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured");
 
+    const variable5yrInsured = (ratesData as Rate[])
+      .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "insured");
+
     return {
-      fixed: calcMarketStats(fixed5yr),
-      variable: calcMarketStats(variable5yr),
+      fixedUninsured: calcMarketStats(fixed5yrUninsured),
+      fixedInsured: calcMarketStats(fixed5yrInsured),
+      variableUninsured: calcMarketStats(variable5yrUninsured),
+      variableInsured: calcMarketStats(variable5yrInsured),
     };
   }, []);
 
@@ -185,103 +193,104 @@ export default function Home() {
             <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Fixed Rates Card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Fixed Insured Card */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  5-Year Fixed Uninsured
+                  5-Year Fixed
                 </h3>
-                {marketStats.fixed && (
-                  <span className="text-xs text-slate-400">{marketStats.fixed.count} lenders</span>
-                )}
+                <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">Insured</span>
               </div>
-              
-              {/* Top 3 Rankings */}
-              <div className="space-y-3">
-                {marketStats.fixed?.top3.map((rate, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
-                      <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
-                        i === 0 ? 'rank-best' : i === 1 ? 'rank-good bg-teal-500 text-white shadow-teal-500/30' : 'rank-avg'
-                      }`}>
-                        {i + 1}
-                      </div>
-                      <span className="text-slate-100">{rate.lender_name}</span>
-                    </Link>
-                    <div className="text-right">
-                      <span className="text-xl font-bold text-emerald-300">{rate.rate.toFixed(2)}%</span>
-                      {rate.apr && <span className="text-xs text-slate-300 ml-2">APR {rate.apr}%</span>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Market Context */}
-              {marketStats.fixed && (
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-400">Market Average</span>
-                    <span className="text-slate-200 font-medium">{marketStats.fixed.avg}%</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm mt-2">
-                    <span className="text-slate-400">Potential Savings</span>
-                    <span className="text-emerald-300 font-medium">{marketStats.fixed.spread}%</span>
+              {marketStats.fixedInsured?.top3[0] ? (
+                <div className="space-y-2">
+                  <Link href={`/lenders/${marketStats.fixedInsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                    <span className="text-slate-100 text-sm truncate">{marketStats.fixedInsured.top3[0].lender_name}</span>
+                    <span className="text-xl font-bold text-emerald-300">{marketStats.fixedInsured.top3[0].rate.toFixed(2)}%</span>
+                  </Link>
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>{marketStats.fixedInsured.count} lenders</span>
+                    <span>Avg {marketStats.fixedInsured.avg}%</span>
                   </div>
                 </div>
+              ) : (
+                <p className="text-slate-300 text-sm">No rates available</p>
               )}
             </div>
-            
-            {/* Variable Rates Card */}
+
+            {/* Fixed Uninsured Card */}
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                  5-Year Variable Uninsured
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  5-Year Fixed
                 </h3>
-                {marketStats.variable && (
-                  <span className="text-xs text-slate-400">{marketStats.variable.count} lenders</span>
-                )}
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
               </div>
-              
-              {/* Top 3 Rankings */}
-              <div className="space-y-3">
-                {marketStats.variable?.top3.map((rate, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <Link href={`/lenders/${rate.lender_slug}`} className="flex items-center gap-3 hover:opacity-80 transition">
-                      <div className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shadow-lg ${
-                        i === 0 ? 'rank-best' : i === 1 ? 'rank-good bg-teal-500 text-white shadow-teal-500/30' : 'rank-avg'
-                      }`}>
-                        {i + 1}
-                      </div>
-                      <span className="text-slate-100">{rate.lender_name}</span>
-                    </Link>
-                    <div className="text-right">
-                      <span className="text-xl font-bold text-teal-300">{rate.rate.toFixed(2)}%</span>
-                      {rate.spread_to_prime && (
-                        <span className="text-xs text-slate-300 ml-2">{rate.spread_to_prime}</span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {(!marketStats.variable || marketStats.variable.top3.length === 0) && (
-                  <p className="text-slate-300 text-sm">No variable rates currently available</p>
-                )}
-              </div>
-              
-              {/* Market Context */}
-              {marketStats.variable && marketStats.variable.top3.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-slate-400">Market Average</span>
-                    <span className="text-slate-200 font-medium">{marketStats.variable.avg}%</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm mt-2">
-                    <span className="text-slate-400">Potential Savings</span>
-                    <span className="text-teal-300 font-medium">{marketStats.variable.spread}%</span>
+              {marketStats.fixedUninsured?.top3[0] ? (
+                <div className="space-y-2">
+                  <Link href={`/lenders/${marketStats.fixedUninsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                    <span className="text-slate-100 text-sm truncate">{marketStats.fixedUninsured.top3[0].lender_name}</span>
+                    <span className="text-xl font-bold text-emerald-300">{marketStats.fixedUninsured.top3[0].rate.toFixed(2)}%</span>
+                  </Link>
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>{marketStats.fixedUninsured.count} lenders</span>
+                    <span>Avg {marketStats.fixedUninsured.avg}%</span>
                   </div>
                 </div>
+              ) : (
+                <p className="text-slate-300 text-sm">No rates available</p>
+              )}
+            </div>
+
+            {/* Variable Insured Card */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  5-Year Variable
+                </h3>
+                <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">Insured</span>
+              </div>
+              {marketStats.variableInsured?.top3[0] ? (
+                <div className="space-y-2">
+                  <Link href={`/lenders/${marketStats.variableInsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                    <span className="text-slate-100 text-sm truncate">{marketStats.variableInsured.top3[0].lender_name}</span>
+                    <span className="text-xl font-bold text-teal-300">{marketStats.variableInsured.top3[0].rate.toFixed(2)}%</span>
+                  </Link>
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>{marketStats.variableInsured.count} lenders</span>
+                    <span>Avg {marketStats.variableInsured.avg}%</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-slate-300 text-sm">No rates available</p>
+              )}
+            </div>
+
+            {/* Variable Uninsured Card */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  5-Year Variable
+                </h3>
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+              </div>
+              {marketStats.variableUninsured?.top3[0] ? (
+                <div className="space-y-2">
+                  <Link href={`/lenders/${marketStats.variableUninsured.top3[0].lender_slug}`} className="flex items-center justify-between hover:opacity-80 transition">
+                    <span className="text-slate-100 text-sm truncate">{marketStats.variableUninsured.top3[0].lender_name}</span>
+                    <span className="text-xl font-bold text-teal-300">{marketStats.variableUninsured.top3[0].rate.toFixed(2)}%</span>
+                  </Link>
+                  <div className="flex items-center justify-between text-xs text-slate-400">
+                    <span>{marketStats.variableUninsured.count} lenders</span>
+                    <span>Avg {marketStats.variableUninsured.avg}%</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-slate-300 text-sm">No rates available</p>
               )}
             </div>
           </div>
@@ -337,7 +346,7 @@ export default function Home() {
             <SocialShare 
               url="https://latestmortgagerates.ca"
               title="Latest Mortgage Rates Canada"
-              description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${marketStats.fixed?.lowest.rate}% from ${marketStats.fixed?.lowest.lender_name}`}
+              description={`Compare ${ratesData.length} mortgage rates from ${lenders.length} Canadian lenders. Best 5-year fixed: ${marketStats.fixedUninsured?.lowest.rate}% from ${marketStats.fixedUninsured?.lowest.lender_name}`}
             />
           </div>
         </div>
