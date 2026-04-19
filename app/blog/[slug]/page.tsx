@@ -2,7 +2,53 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import RelatedArticles from "../../components/RelatedArticles";
+import RelatedTools from "../../components/RelatedTools";
 import { blogPosts, getPostBySlug, categories, getRecentPosts } from "../data";
+
+// Tool mapping for contextual sidebar links
+const toolMapping: Record<string, { href: string; icon: string; title: string; description: string }[]> = {
+  calculator: [
+    { href: "/tools/mortgage-calculator", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
+    { href: "/tools/land-transfer-tax-calculator", icon: "📋", title: "Land Transfer Tax", description: "Calculate closing costs" },
+  ],
+  rates: [
+    { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
+    { href: "/trends", icon: "📈", title: "Rate Trends", description: "Historical rate analysis" },
+    { href: "/tools/mortgage-renewal-calculator", icon: "🔄", title: "Renewal Calculator", description: "Should you renew or switch?" },
+  ],
+  affordability: [
+    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much house can you afford?" },
+    { href: "/tools/cmhc-insurance-calculator", icon: "🛡️", title: "CMHC Calculator", description: "Calculate insurance premiums" },
+    { href: "/tools/closing-costs-calculator", icon: "💰", title: "Closing Costs", description: "Total costs to buy a home" },
+  ],
+  renewal: [
+    { href: "/tools/mortgage-renewal-calculator", icon: "🔄", title: "Renewal Calculator", description: "Compare renewal options" },
+    { href: "/tools/refinance-calculator", icon: "📉", title: "Refinance Calculator", description: "Should you refinance?" },
+    { href: "/", icon: "📊", title: "Current Rates", description: "Compare today's rates" },
+  ],
+  firsttime: [
+    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "What can you afford?" },
+    { href: "/tools/land-transfer-tax-calculator", icon: "📋", title: "Land Transfer Tax", description: "First-time buyer rebates" },
+    { href: "/tools/cmhc-insurance-calculator", icon: "🛡️", title: "CMHC Calculator", description: "Insurance for <20% down" },
+  ],
+  default: [
+    { href: "/tools/mortgage-calculator", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
+    { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
+  ],
+};
+
+function getRelatedTools(post: typeof blogPosts[0]) {
+  // Check tags for contextual tools
+  if (post.tags.some(tag => tag.toLowerCase().includes('renewal'))) return toolMapping.renewal;
+  if (post.tags.some(tag => tag.toLowerCase().includes('first') || tag.toLowerCase().includes('buyer'))) return toolMapping.firsttime;
+  if (post.tags.some(tag => tag.toLowerCase().includes('afford'))) return toolMapping.affordability;
+  if (post.tags.some(tag => tag.toLowerCase().includes('calculator') || tag.toLowerCase().includes('payment'))) return toolMapping.calculator;
+  if (post.category === 'rates' || post.tags.some(tag => tag.toLowerCase().includes('rate'))) return toolMapping.rates;
+  return toolMapping.default;
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -169,6 +215,19 @@ export default async function BlogPostPage({ params }: PageProps) {
             className="prose prose-base max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-h2:text-xl prose-h3:text-lg prose-p:text-slate-600 prose-p:mb-4 prose-p:leading-relaxed prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-strong:font-semibold prose-strong:text-slate-800 prose-li:text-slate-600 prose-table:border-collapse prose-table:w-full prose-th:bg-slate-100 prose-th:p-3 prose-th:text-left prose-th:text-sm prose-th:font-semibold prose-td:p-3 prose-td:text-sm prose-td:border-t prose-td:border-slate-200 prose-blockquote:border-l-4 prose-blockquote:border-teal-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-slate-600"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          {/* Related Articles */}
+          <RelatedArticles 
+            currentSlug={post.slug}
+            tags={post.tags}
+            category={post.category}
+            maxArticles={3}
+          />
+
+          {/* Related Tools Sidebar */}
+          <div className="mt-12">
+            <RelatedTools tools={getRelatedTools(post)} title="Tools Mentioned in This Article" />
+          </div>
 
           <div className="mt-12 pt-8 border-t border-slate-200">
             <h3 className="text-lg font-semibold text-slate-900 mb-4">Tags</h3>

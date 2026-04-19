@@ -18,6 +18,12 @@ const BookOpenIcon = () => (
   </svg>
 );
 
+const TrendIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>
+);
+
 const LibraryIcon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
@@ -41,10 +47,29 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
   const currentYear = new Date().getFullYear();
   
   const navItems = [
-    { href: "/", label: "Rates", icon: HomeIcon },
-    { href: "/blog", label: "Guides", icon: BookOpenIcon },
+    { href: "/", label: "Current Rates", icon: HomeIcon },
+    { href: "/trends", label: "Rate Trends", icon: TrendIcon },
+    { href: "/blog", label: "Guides & News", icon: BookOpenIcon },
     { href: "/glossary", label: "Glossary", icon: LibraryIcon },
-    { href: "/tools", label: "Tools", icon: CalculatorIcon },
+    { href: "/tools", label: "Calculators", icon: CalculatorIcon },
+  ];
+
+  const popularTools = [
+    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax" },
+    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+    { href: "/tools/closing-costs-calculator", label: "Closing Costs" },
+    { href: "/tools/rent-vs-buy-calculator", label: "Rent vs Buy" },
+  ];
+
+  const popularCities = [
+    { href: "/cities/toronto", label: "Toronto" },
+    { href: "/cities/vancouver", label: "Vancouver" },
+    { href: "/cities/calgary", label: "Calgary" },
+    { href: "/cities/montreal", label: "Montreal" },
+    { href: "/cities/ottawa", label: "Ottawa" },
+    { href: "/cities/edmonton", label: "Edmonton" },
   ];
 
   return (
