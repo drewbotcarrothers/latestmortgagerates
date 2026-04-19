@@ -204,6 +204,7 @@ def get_historical_data(days: int = 90) -> List[Dict]:
 def generate_json_output(output_path: Optional[Path] = None):
     """
     Generate JSON file for frontend consumption.
+    Appends to existing historical data if present.
     
     Args:
         output_path: Where to save the JSON file
@@ -211,22 +212,46 @@ def generate_json_output(output_path: Optional[Path] = None):
     if output_path is None:
         output_path = Path(__file__).parent.parent.parent / "data" / "historical_rates.json"
     
-    # Get 90 days of data
-    data = get_historical_data(90)
+    # Get today's data from database
+    today_data = get_historical_data(1)  # Just today
     
-    if not data:
-        logger.warning("No historical data available")
-        # Create empty structure
-        data = []
+    # Load existing historical data if present
+    existing_data = []
+    existing_dates = set()
+    if output_path.exists():
+        try:
+            with open(output_path, 'r') as f:
+                existing_json = json.load(f)
+                existing_data = existing_json.get("data", [])
+                existing_dates = {entry.get("date") for entry in existing_data}
+                logger.info(f"Loaded {len(existing_data)} existing historical entries")
+        except Exception as e:
+            logger.warning(f"Could not load existing historical data: {e}")
+    
+    # Merge: keep existing data and add new entries
+    merged_data = existing_data.copy()
+    for entry in today_data:
+        if entry.get("date") not in existing_dates:
+            merged_data.append(entry)
+            logger.info(f"Added new entry for {entry.get('date')}")
+        else:
+            logger.info(f"Entry for {entry.get('date')} already exists, skipping")
+    
+    # Sort by date
+    merged_data.sort(key=lambda x: x.get("date", ""))
+    
+    # Keep only last 90 days of data (optional - remove if you want all history)
+    cutoff_date = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
+    merged_data = [entry for entry in merged_data if entry.get("date", "") >= cutoff_date]
     
     # Format for frontend
     output = {
         "metadata": {
             "last_updated": datetime.now().isoformat(),
-            "total_days": len(data),
+            "total_days": len(merged_data),
             "prime_rate": 5.45
         },
-        "data": data
+        "data": merged_data
     }
     
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -234,7 +259,7 @@ def generate_json_output(output_path: Optional[Path] = None):
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=2)
     
-    logger.info(f"Generated historical rates JSON: {output_path} ({len(data)} days)")
+    logger.info(f"Generated historical rates JSON: {output_path} ({len(merged_data)} days)")
     return output_path
 
 
