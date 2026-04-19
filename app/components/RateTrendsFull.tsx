@@ -75,6 +75,19 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
       });
     });
 
+    // Calculate average rate across the range
+    let totalSum = 0;
+    let totalCount = 0;
+    rangeData.forEach(day => {
+      ['fixed', 'variable'].forEach((type) => {
+        if (selectedType === 'both' || selectedType === type) {
+          totalSum += getRate(day, type as 'fixed' | 'variable');
+          totalCount++;
+        }
+      });
+    });
+    const avgRate = totalCount > 0 ? totalSum / totalCount : 0;
+
     // Current rate (from last day)
     let currentRate = 0;
     if (selectedType === 'fixed') {
@@ -111,6 +124,7 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
       bestLender,
       highRate: highRate === -Infinity ? 0 : highRate,
       highLender,
+      avgRate,
       change: change.toFixed(2),
       changePercent,
       trendDirection,
@@ -210,7 +224,7 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
       {/* Stats Summary */}
       {stats && (
         <div className="px-6 pb-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div className="bg-slate-50 rounded-lg p-4">
               <div className="text-sm text-slate-600 mb-1">{selectedRange}-Day Low</div>
               <div className="text-2xl font-bold text-emerald-600">{stats.bestRate.toFixed(2)}%</div>
@@ -224,6 +238,14 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
               <div className="text-2xl font-bold text-slate-700">{stats.highRate.toFixed(2)}%</div>
               <div className="text-xs text-slate-500 mt-1">
                 @ {stats.highLender}
+              </div>
+            </div>
+            
+            <div className="bg-slate-50 rounded-lg p-4">
+              <div className="text-sm text-slate-600 mb-1">{selectedRange}-Day Avg</div>
+              <div className="text-2xl font-bold text-slate-700">{stats.avgRate.toFixed(2)}%</div>
+              <div className="text-xs text-slate-500 mt-1">
+                Overall average
               </div>
             </div>
             

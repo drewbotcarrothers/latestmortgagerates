@@ -151,6 +151,21 @@ export default function RateTrendsChart({
       }
     }
 
+    // Add average line
+    const avgRates = filteredData.map(d => d.fixed_insured_avg_rate);
+    const avgValue = avgRates.reduce((a, b) => a + b, 0) / avgRates.length;
+    datasets.push({
+      label: 'Avg Rate',
+      data: filteredData.map(() => avgValue),
+      borderColor: '#94a3b8', // slate-400
+      backgroundColor: 'transparent',
+      fill: false,
+      tension: 0,
+      pointRadius: 0,
+      pointHoverRadius: 0,
+      borderDash: [5, 5],
+    });
+
     return {
       labels,
       datasets,
