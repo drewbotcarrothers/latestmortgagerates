@@ -1,18 +1,18 @@
 {
-  "last_updated": "2026-04-12T22:04:35.880609",
+  "last_updated": "2026-04-21T22:04:19.036044",
   "total_rates": 100,
   "lenders": [
-    "truenorth",
-    "butlermortgage",
-    "streetcapital",
-    "manulife",
-    "equitable",
-    "rfa",
-    "intellimortgage",
-    "cmls",
     "centum",
-    "merix",
+    "equitable",
+    "manulife",
     "hometrust",
-    "lendwise"
+    "cmls",
+    "truenorth",
+    "intellimortgage",
+    "lendwise",
+    "rfa",
+    "merix",
+    "butlermortgage",
+    "streetcapital"
   ]
 }
