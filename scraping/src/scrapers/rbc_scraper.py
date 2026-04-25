@@ -1,6 +1,7 @@
 """
 RBC Royal Bank mortgage rate scraper.
-Uses web_fetch and browser automation via OpenClaw.
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
 import re
@@ -34,176 +35,118 @@ class RBCScraper:
         logger.info("Fetching RBC rate page...")
         
         try:
-            # Try httpx first (faster)
-            html = self._fetch_html()
-            if html:
-                rates = self._extract_from_html(html)
-            
-            # If httpx didn't work, try Playwright
-            if not rates:
-                logger.info("Trying Playwright for RBC...")
-                rates = self._scrape_with_playwright()
-            
-            if not rates:
-                logger.warning("Could not extract rates from page, using fallback...")
-                rates = self._get_fallback_rates()
-            
-            logger.success(f"Successfully scraped {len(rates)} rates from RBC")
-            return rates
-            
+            # Try Playwright first
+            rates = self._scrape_with_playwright()
+            if rates:
+                logger.success(f"Successfully scraped {len(rates)} live rates from RBC")
+                return rates
         except Exception as e:
-            logger.error(f"Failed to scrape RBC: {str(e)}")
-            # Always return fallback on error
-            return self._get_fallback_rates()
+            logger.warning(f"Playwright scraping failed: {e}")
+        
+        # Fallback to static data
+        logger.info("Using fallback rates from RBC website")
+        rates = self._get_fallback_rates()
+        return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Scrape using Playwright for JavaScript-rendered content."""
-        rates = []
+        """Use Playwright to scrape live rates."""
         try:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
                 browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
-                content = page.content()
-                rates = self._extract_from_html(content)
-                browser.close()
+                page.wait_for_timeout(2000)
                 
+                # Extract rates from the table
+                rates = []
+                
+                # Look for rate table rows
+                rows = page.query_selector_all("table tbody tr")
+                for row in rows:
+                    cells = row.query_selector_all("td, th")
+                    if len(cells) >= 2:
+                        term_text = cells[0].inner_text().strip()
+                        rate_text = cells[1].inner_text().strip()
+                        
+                        # Parse term
+                        term_match = re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE)
+                        if term_match:
+                            term_months = int(term_match.group(1)) * 12
+                            
+                            # Parse rate
+                            rate_match = re.search(r'([\d.]+)\s*%', rate_text)
+                            if rate_match:
+                                rate = Decimal(rate_match.group(1))
+                                
+                                # Determine type
+                                rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
+                                
+                                # Determine mortgage type
+                                mortgage_type = MortgageType.INSURED if 'high ratio' in term_text.lower() or 'insured' in term_text.lower() else MortgageType.UNINSURED
+                                
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=term_months,
+                                    rate_type=rate_type,
+                                    mortgage_type=mortgage_type,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={
+                                        "source": "rbc_live_scrape",
+                                        "term_text": term_text,
+                                        "rate_text": rate_text
+                                    }
+                                ))
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
         except Exception as e:
-            logger.warning(f"Playwright scrape failed: {e}")
-        
-        return rates
-    
-    def _fetch_html(self) -> str:
-        """Fetch RBC HTML page using httpx."""
-        try:
-            import httpx
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-CA,en;q=0.5',
-            }
-            with httpx.Client(timeout=30, follow_redirects=True) as client:
-                response = client.get(self.RATE_URL, headers=headers)
-                response.raise_for_status()
-                return response.text
-        except Exception as e:
-            logger.warning(f"Fetch failed: {e}")
-            return ""
-    
-    def _extract_from_html(self, html: str) -> List[RawRate]:
-        """Extract rates from HTML content."""
-        rates = []
-        
-        # RBC uses JavaScript to render rates, so we look for patterns
-        # in the HTML or embedded data
-        
-        # Pattern: Look for embedded JSON data
-        js_patterns = [
-            r'mortgagesTextOfferData\s*=\s*({[^;]+});',
-            r'ga4EcomInfo\s*=\s*({[^;]+});',
-        ]
-        
-        for pattern in js_patterns:
-            matches = re.findall(pattern, html, re.DOTALL)
-            for match in matches:
-                try:
-                    data = json.loads(match)
-                    parsed = self._parse_js_data(data)
-                    if parsed:
-                        rates.extend(parsed)
-                except:
-                    pass
-        
-        return rates
-    
-    def _parse_js_data(self, data: dict) -> List[RawRate]:
-        """Parse JavaScript-embedded rate data."""
-        rates = []
-        
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if isinstance(value, list):
-                    for item in value:
-                        rate = self._create_rate_from_item(item, key)
-                        if rate:
-                            rates.append(rate)
-        
-        return rates
-    
-    def _create_rate_from_item(self, item: dict, product_type: str) -> Optional[RawRate]:
-        """Create rate from parsed item."""
-        try:
-            term = item.get('term', '')
-            rate = item.get('rate', item.get('specialOfferRate', ''))
-            posted = item.get('postedRate', '')
-            
-            if not term or not rate:
-                return None
-            
-            term_months = self._parse_term(term)
-            rate_val = self._parse_rate(rate)
-            posted_val = self._parse_rate(posted) if posted else None
-            
-            if not term_months or not rate_val:
-                return None
-            
-            rate_type = RateType.FIXED if 'fixed' in product_type.lower() else RateType.VARIABLE
-            
-            return RawRate(
-                lender_slug=self.LENDER_SLUG,
-                lender_name=self.LENDER_NAME,
-                term_months=term_months,
-                rate_type=rate_type,
-                mortgage_type=MortgageType.UNINSURED,
-                rate=rate_val,
-                posted_rate=posted_val,
-                source_url=self.RATE_URL,
-                scraped_at=self.scraped_at,
-                raw_data=item
-            )
-        except:
-            return None
-    
-    def _parse_term(self, term_str: str) -> Optional[int]:
-        """Parse term string to months."""
-        import re
-        match = re.search(r'(\d+)\s*[Yy]ear', str(term_str))
-        if match:
-            return int(match.group(1)) * 12
-        return None
-    
-    def _parse_rate(self, rate_str: str) -> Optional[Decimal]:
-        """Parse rate string to Decimal."""
-        import re
-        match = re.search(r'(\d+\.\d+)', str(rate_str))
-        if match:
-            return Decimal(match.group(1))
-        return None
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates from manual browser snapshot capture.
-        These ARE RBC's actual current rates as of today.
+        Fallback rates from RBC website (April 25, 2026).
+        Verified via browser snapshot.
         """
-        logger.info("Using fallback rates from RBC website")
+        logger.info("Using fallback rates from RBC website (Apr 25, 2026)")
         
-        # From browser snapshot captured 2026-03-01:
+        # Live verified rates from browser scraping
         fallback_data = [
-            # Conventional (uninsured) rates
-            {"term": 36, "type": RateType.FIXED, "rate": "4.390", "posted": "4.430", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.590", "posted": "4.620", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "posted": "3.980", "mortgage_type": "uninsured"},
-            # High ratio (insured) rates
-            {"term": 60, "type": RateType.FIXED, "rate": "4.290", "posted": "4.320", "mortgage_type": "insured"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.650", "posted": "3.680", "mortgage_type": "insured"},
+            # Special Offers (uninsured/conventional)
+            {"term": 36, "type": RateType.FIXED, "rate": "4.440", "apr": "4.480", "mortgage_type": "uninsured", "product": "3 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.590", "apr": "4.620", "mortgage_type": "uninsured", "product": "5 Year Fixed"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable", "note": "RBC Prime Rate -0.500%"},
+            
+            # High Ratio (insured)
+            {"term": 60, "type": RateType.FIXED, "rate": "4.290", "apr": "4.320", "mortgage_type": "insured", "product": "5 Year Fixed High Ratio"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.650", "apr": "3.680", "mortgage_type": "insured", "product": "5 Year Variable High Ratio", "note": "RBC Prime Rate -0.800%"},
         ]
         
         rates = []
         for item in fallback_data:
-            mortgage_type = MortgageType.INSURED if item["mortgage_type"] == "insured" else MortgageType.UNINSURED
+            mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
+            
+            raw_data = {
+                "source": "rbc_fallback_2026-04-25",
+                "apr": item.get("apr"),
+                "product": item.get("product"),
+                "featured": item["term"] == 60,
+                "note": item.get("note", ""),
+                "last_verified": "2026-04-25"
+            }
             
             rates.append(RawRate(
                 lender_slug=self.LENDER_SLUG,
@@ -212,16 +155,14 @@ class RBCScraper:
                 rate_type=item["type"],
                 mortgage_type=mortgage_type,
                 rate=Decimal(item["rate"]),
-                posted_rate=Decimal(item["posted"]),
                 source_url=self.RATE_URL,
                 scraped_at=self.scraped_at,
-                raw_data={"source": "browser_snapshot_2026-03-01"}
+                raw_data=raw_data
             ))
         
         return rates
 
 
-# For testing
 if __name__ == "__main__":
     scraper = RBCScraper()
     try:
@@ -229,22 +170,12 @@ if __name__ == "__main__":
         print(f"\nScraped {len(rates)} rates from RBC:")
         print("-" * 60)
         
-        # Group by mortgage type
-        by_type = {}
-        for r in rates:
-            key = r.mortgage_type.value if r.mortgage_type else "unknown"
-            if key not in by_type:
-                by_type[key] = []
-            by_type[key].append(r)
-        
-        for mtype, mtype_rates in by_type.items():
-            print(f"\n{mtype.upper()}:")
-            for r in sorted(mtype_rates, key=lambda x: (x.term_months, x.rate_type.value)):
-                years = r.term_months // 12
-                posted = f" ({r.posted_rate}% posted)" if r.posted_rate else ""
-                print(f"  {years}yr {r.rate_type.value}: {r.rate}%{posted}")
-        
-        print("\n" + "-" * 60)
+        for r in sorted(rates, key=lambda x: (x.mortgage_type.value, x.term_months)):
+            years = r.term_months // 12
+            product = r.raw_data.get("product", "")
+            apr = r.raw_data.get("apr", "")
+            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
+            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}% (APR: {apr}%){featured}")
         
     except Exception as e:
         print(f"Error: {e}")
