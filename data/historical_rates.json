@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-04-24T23:36:13.212123",
+    "last_updated": "2026-04-25T11:34:24.597203",
     "total_days": 89,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-01-24",
-      "fixed_uninsured_best_rate": 4.78,
-      "fixed_uninsured_best_lender": "nesto",
-      "fixed_uninsured_avg_rate": 5.47,
-      "fixed_insured_best_rate": 4.18,
-      "fixed_insured_best_lender": "True North",
-      "fixed_insured_avg_rate": 4.62,
-      "variable_uninsured_best_rate": 4.42,
-      "variable_uninsured_best_lender": "Scotiabank",
-      "variable_uninsured_avg_rate": 5.06,
-      "variable_uninsured_spread_to_prime": -1.58,
-      "variable_insured_best_rate": 4.09,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.68,
-      "variable_insured_spread_to_prime": -1.91,
-      "prime_rate": 6.0,
-      "lender_count": 30,
-      "total_rates": 224,
-      "created_at": "2026-03-31T15:51:51.563073"
-    },
     {
       "date": "2026-01-25",
       "fixed_uninsured_best_rate": 4.78,
@@ -1873,6 +1852,27 @@
       "lender_count": 33,
       "total_rates": 227,
       "created_at": "2026-04-24T11:54:51.822950"
+    },
+    {
+      "date": "2026-04-25",
+      "fixed_uninsured_best_rate": 3.89,
+      "fixed_uninsured_best_lender": "Equitable Bank",
+      "fixed_uninsured_avg_rate": 4.63,
+      "fixed_insured_best_rate": 3.64,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.2,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.23,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 3.62,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 227,
+      "created_at": "2026-04-25T11:34:24.595090"
     }
   ]
 }
