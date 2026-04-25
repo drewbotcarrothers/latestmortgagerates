@@ -33,12 +33,15 @@
 
 ## What Still Needs Updating
 
-### Priority 1: Big 6 Banks (3 remaining)
+### Priority 1: Big 6 Banks ✅ COMPLETE
 | Lender | Status | Notes |
 |--------|--------|-------|
-| **BMO** | ❌ Needs update | Current data from Mar 1, 2026 |
-| **Scotiabank** | ❌ Needs update | Current data from Mar 1, 2026 |
-| **CIBC** | ❌ Needs update | Current data from Mar 1, 2026 |
+| **RBC** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| **TD** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| **BMO** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| **Scotiabank** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| **CIBC** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| **National Bank** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
 
 ### Priority 2: Major Monolines (13 total)
 | Lender | Status | Notes |
