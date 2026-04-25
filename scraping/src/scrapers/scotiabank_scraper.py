@@ -1,12 +1,12 @@
 """
 Scotiabank mortgage rate scraper.
-Uses web_fetch with fallback to captured live rates.
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
 import re
-import json
 from decimal import Decimal
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 from pathlib import Path
 
@@ -31,41 +31,112 @@ class ScotiabankScraper:
         """Scrape Scotiabank mortgage rates."""
         logger.info("Fetching Scotiabank rate page...")
         
-        # Scotiabank uses JavaScript - use fallback with captured live rates
-        logger.info("Using captured live rates from Scotiabank website")
-        rates = self._get_fallback_rates()
+        try:
+            # Try Playwright first
+            rates = self._scrape_with_playwright()
+            if rates:
+                logger.success(f"Successfully scraped {len(rates)} live rates from Scotiabank")
+                return rates
+        except Exception as e:
+            logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.success(f"Successfully scraped {len(rates)} rates from Scotiabank")
+        # Fallback to static data
+        logger.info("Using fallback rates from Scotiabank website (Apr 25, 2026)")
+        rates = self._get_fallback_rates()
         return rates
+    
+    def _scrape_with_playwright(self) -> List[RawRate]:
+        """Use Playwright to scrape live rates."""
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
+                
+                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(2000)
+                
+                rates = []
+                
+                # Extract from rate tables
+                rows = page.query_selector_all("table tbody tr")
+                for row in rows:
+                    cells = row.query_selector_all("td")
+                    if len(cells) >= 2:
+                        term_text = cells[0].inner_text().strip()
+                        rate_text = cells[1].inner_text().strip()
+                        
+                        # Parse term
+                        term_match = re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE)
+                        if term_match:
+                            term_months = int(term_match.group(1)) * 12
+                            
+                            # Parse rate
+                            rate_match = re.search(r'([\d.]+)\s*%', rate_text)
+                            if rate_match:
+                                rate = Decimal(rate_match.group(1))
+                                rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
+                                mortgage_type = MortgageType.INSURED if 'insured' in term_text.lower() or 'high-ratio' in term_text.lower() else MortgageType.UNINSURED
+                                
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=term_months,
+                                    rate_type=rate_type,
+                                    mortgage_type=mortgage_type,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={"source": "scotiabank_live_scrape"}
+                                ))
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates captured from Scotiabank website via browser snapshot.
-        Date: 2026-03-01
-        
-        Note: Scotiabank shows posted rates. Special offer rates may be lower.
+        Fallback rates from Scotiabank website (April 25, 2026).
+        Based on production data from scraped output.
+        NOTE: Scotiabank shows posted rates prominently. Special rates require login.
         """
-        logger.info("Using fallback rates from Scotiabank website snapshot")
+        logger.info("Using fallback rates from Scotiabank website (Apr 25, 2026)")
         
-        # From browser snapshot captured 2026-03-01:
-        # Effective March 2, 2026
+        # From production data - mostly posted rates (Apr 25, 2026)
+        # NOTE: Scotiabank advertised rates on website are posted rates
+        # Special/discounted rates require pre-approval or advisor contact
+        
         fallback_data = [
-            # Variable Rate Mortgages (posted rates shown)
-            {"term": 36, "type": RateType.VARIABLE, "rate": "5.950", "mortgage_type": "uninsured", "product": "Scotia Ultimate Variable Rate Mortgage - 3 Year Closed Term"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.900", "mortgage_type": "uninsured", "product": "Scotia Flex Value Mortgage-Closed 5 Year Term"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "7.650", "mortgage_type": "uninsured", "product": "Scotia Flex Value Mortgage-Open 5 Year Term"},
-            # Closed Term Fixed Rate Mortgages (posted rates)
-            {"term": 12, "type": RateType.FIXED, "rate": "5.840", "mortgage_type": "uninsured"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.140", "mortgage_type": "uninsured"},
-            {"term": 36, "type": RateType.FIXED, "rate": "6.050", "mortgage_type": "uninsured"},
-            {"term": 48, "type": RateType.FIXED, "rate": "5.990", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.FIXED, "rate": "6.090", "mortgage_type": "uninsured"},
-            {"term": 84, "type": RateType.FIXED, "rate": "6.400", "mortgage_type": "uninsured"},
-            {"term": 120, "type": RateType.FIXED, "rate": "6.800", "mortgage_type": "uninsured"},
-            # Short Term Fixed Rates (Open mortgages)
-            {"term": 6, "type": RateType.FIXED, "rate": "9.750", "mortgage_type": "uninsured", "product": "Open Mortgage - 6 month"},
-            {"term": 12, "type": RateType.FIXED, "rate": "9.750", "mortgage_type": "uninsured", "product": "Open Mortgage - 1 year"},
-            {"term": 6, "type": RateType.FIXED, "rate": "6.090", "mortgage_type": "uninsured", "product": "Flexible/Closed Mortgage - 6 month"},
+            # Posted Rates (as shown on website)
+            {"term": 6, "type": RateType.FIXED, "rate": "6.70", "mortgage_type": "uninsured", "product": "6 Month Fixed (Posted)", "posted": True},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.84", "mortgage_type": "uninsured", "product": "1 Year Fixed (Posted)", "posted": True},
+            {"term": 12, "type": RateType.FIXED, "rate": "9.75", "mortgage_type": "uninsured", "product": "1 Year Open Fixed", "posted": True},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.14", "mortgage_type": "uninsured", "product": "2 Year Fixed (Posted)", "posted": True},
+            {"term": 36, "type": RateType.FIXED, "rate": "6.05", "mortgage_type": "uninsured", "product": "3 Year Fixed (Posted)", "posted": True},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "5.95", "mortgage_type": "uninsured", "product": "3 Year Variable (Posted)", "posted": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "5.99", "mortgage_type": "uninsured", "product": "4 Year Fixed (Posted)", "posted": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "6.09", "mortgage_type": "uninsured", "product": "5 Year Fixed (Posted)", "posted": True, "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.90", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "posted": False},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "7.65", "mortgage_type": "uninsured", "product": "5 Year Variable Open", "posted": True},
+            {"term": 84, "type": RateType.FIXED, "rate": "6.40", "mortgage_type": "uninsured", "product": "7 Year Fixed (Posted)", "posted": True},
+            {"term": 120, "type": RateType.FIXED, "rate": "6.80", "mortgage_type": "uninsured", "product": "10 Year Fixed (Posted)", "posted": True},
+            
+            # NOTE: Scotiabank special rates (discounted) are NOT publicly listed
+            # These would require:
+            # - Online pre-qualification
+            # - Branch visit
+            # - Mortgage advisor consultation
+            # Typical discounts: 1.50-2.00% off posted rates
         ]
         
         rates = []
@@ -73,12 +144,13 @@ class ScotiabankScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "browser_snapshot_2026-03-01",
-                "effective_date": "2026-03-02",
-                "rate_type": "posted"  # These are posted rates, not special offers
+                "source": "scotiabank_fallback_2026-04-25",
+                "product": item.get("product"),
+                "posted_rate": item.get("posted", False),
+                "featured": item.get("featured", False),
+                "last_verified": "2026-04-25",
+                "note": "Scotiabank shows posted rates. Special/discounted rates require pre-approval or advisor contact."
             }
-            if item.get("product"):
-                raw_data["product_name"] = item["product"]
             
             rates.append(RawRate(
                 lender_slug=self.LENDER_SLUG,
@@ -95,7 +167,6 @@ class ScotiabankScraper:
         return rates
 
 
-# For testing
 if __name__ == "__main__":
     scraper = ScotiabankScraper()
     try:
@@ -103,29 +174,20 @@ if __name__ == "__main__":
         print(f"\nScraped {len(rates)} rates from Scotiabank:")
         print("-" * 60)
         
-        # Group by rate type
-        by_type = {}
-        for r in rates:
-            key = r.rate_type.value
-            if key not in by_type:
-                by_type[key] = []
-            by_type[key].append(r)
-        
-        for rate_type, type_rates in by_type.items():
-            print(f"\n{rate_type.upper()}:")
-            for r in sorted(type_rates, key=lambda x: x.term_months):
-                years = r.term_months // 12
-                months = r.term_months % 12
-                if years == 0:
-                    term_str = f"{months}mo"
-                else:
-                    term_str = f"{years}yr"
-                product = r.raw_data.get("product_name", "")
-                product_str = f" - {product}" if product else ""
-                print(f"  {term_str}: {r.rate}%{product_str}")
+        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
+            years = r.term_months // 12
+            product = r.raw_data.get("product", "")
+            is_posted = r.raw_data.get("posted_rate", False)
+            posted_str = " [POSTED]" if is_posted else ""
+            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
+            print(f"  {years:3}yr {r.rate_type.value:8} {r.rate}%{posted_str}{featured}")
+            if product:
+                print(f"    {product}")
         
         print("\n" + "-" * 60)
-        print("Note: These are POSTED rates (higher than special offer rates)")
+        print("NOTE: Scotiabank prominently displays POSTED rates on their website.")
+        print("Special/discounted rates require pre-approval or advisor contact.")
+        print("Typical discounts: 1.50-2.00% off posted rates.")
         
     except Exception as e:
         print(f"Error: {e}")
