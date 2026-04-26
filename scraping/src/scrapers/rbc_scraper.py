@@ -63,26 +63,56 @@ class RBCScraper:
                 page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
                 page.wait_for_timeout(2000)
                 
-                # Extract rates from the table
+                # Extract rates from the SPECIAL OFFERS table only
+                # RBC page has multiple tables; we want the "Special Offers" section
                 rates = []
                 
-                # Look for rate table rows
-                rows = page.query_selector_all("table tbody tr")
+                # Try to find the special offers table by heading
+                special_offers_heading = page.query_selector("text=Special Offers")
+                if special_offers_heading:
+                    # Find the table that follows this heading
+                    parent = special_offers_heading.evaluate_handle("el => el.closest('section, div[class*=\"offer\"], div')")
+                    if parent:
+                        rows = parent.query_selector_all("table tbody tr")
+                    else:
+                        # Fallback: look for tables near the heading
+                        rows = page.query_selector_all("table tbody tr")
+                else:
+                    rows = page.query_selector_all("table tbody tr")
+                
                 for row in rows:
                     cells = row.query_selector_all("td, th")
                     if len(cells) >= 2:
                         term_text = cells[0].inner_text().strip()
                         rate_text = cells[1].inner_text().strip()
                         
-                        # Parse term
+                        # Skip if this looks like a posted rate (usually higher, labeled differently)
+                        if 'posted' in term_text.lower() or 'posted' in rate_text.lower():
+                            continue
+                        
+                        # Skip empty or header rows
+                        if not term_text or term_text.lower() in ['term', 'rate', 'product']:
+                            continue
+                        
+                        # Parse term - only accept standard mortgage terms
                         term_match = re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE)
                         if term_match:
                             term_months = int(term_match.group(1)) * 12
                             
+                            # Validate term is reasonable (6 months to 10 years)
+                            if term_months < 6 or term_months > 120:
+                                continue
+                            
                             # Parse rate
                             rate_match = re.search(r'([\d.]+)\s*%', rate_text)
                             if rate_match:
-                                rate = Decimal(rate_match.group(1))
+                                rate_str = rate_match.group(1)
+                                rate = Decimal(rate_str)
+                                
+                                # Skip clearly unrealistic rates
+                                if rate < Decimal("1.0") or rate > Decimal("15.0"):
+                                    logger.warning(f"Skipping unrealistic RBC rate: {rate}% for {term_months}mo")
+                                    continue
                                 
                                 # Determine type
                                 rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
@@ -107,7 +137,20 @@ class RBCScraper:
                                 ))
                 
                 browser.close()
-                return rates
+                
+                # Deduplicate before returning
+                seen = set()
+                unique_rates = []
+                for r in rates:
+                    key = (r.term_months, r.rate_type.value, r.mortgage_type.value, str(r.rate))
+                    if key not in seen:
+                        seen.add(key)
+                        unique_rates.append(r)
+                
+                if len(unique_rates) < len(rates):
+                    logger.info(f"Removed {len(rates) - len(unique_rates)} duplicate RBC rates")
+                
+                return unique_rates
                 
         except ImportError:
             logger.warning("Playwright not available")
