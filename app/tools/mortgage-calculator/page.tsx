@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import MortgageCalculator from "../../components/MortgageCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
   title: "Mortgage Payment Calculator Canada | Calculate Monthly Payments",
@@ -231,6 +232,8 @@ export default function MortgageCalculatorPage() {
                 </svg>
               </Link>
             </div>
+
+            <GuideCTA variant="compact" />
           </div>
         </div>
       </div>

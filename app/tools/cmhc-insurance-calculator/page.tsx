@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import CMHCCalculator from "../../components/CMHCCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
   title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",
@@ -95,6 +96,9 @@ export default function CMHCCalculatorPage() {
         {/* Calculator Section */}
         <div className="max-w-7xl mx-auto px-4 py-8">
           <CMHCCalculator />
+          <div className="mt-8 max-w-md mx-auto">
+            <GuideCTA variant="compact" />
+          </div>
         </div>
 
         <Footer />

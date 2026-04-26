@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import RelatedArticles from "../../components/RelatedArticles";
 import RelatedTools from "../../components/RelatedTools";
 import GlossaryLink from "../../components/GlossaryLink";
+import GuideCTA from "../../components/GuideCTA";
 import { blogPosts, getPostBySlug, categories, getRecentPosts } from "../data";
 
 // Tool mapping for contextual sidebar links
@@ -262,6 +263,10 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
+          </div>
+
+          <div className="mt-8">
+            <GuideCTA variant="compact" />
           </div>
 
           {recentPosts.length > 0 && (

@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import AffordabilityCalculator from "../../components/AffordabilityCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
   title: "Mortgage Affordability Calculator Canada | How Much Can You Afford?",
@@ -253,6 +254,8 @@ export default function AffordabilityCalculatorPage() {
                 </svg>
               </Link>
             </div>
+
+            <GuideCTA variant="compact" />
           </div>
         </div>
       </div>

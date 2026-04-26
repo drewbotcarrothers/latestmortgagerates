@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import LandTransferCalculator from "../../components/LandTransferCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
   title: "Land Transfer Tax Calculator Canada | Provincial & Municipal Taxes",
@@ -291,6 +292,8 @@ export default function LandTransferTaxCalculatorPage() {
                   </ul>
                 </div>
               </div>
+
+              <GuideCTA variant="compact" />
             </div>
           </div>
         </div>

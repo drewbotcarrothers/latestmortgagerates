@@ -193,6 +193,50 @@ export default function EbookLandingPage() {
             </div>          </div>
         </section>
 
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Free Tools &amp; Resources</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Use these free calculators and guides alongside the book to maximize your savings.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link href="/tools/mortgage-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f9ee;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Payment Calculator</h3>
+                <p className="text-sm text-slate-600">Calculate monthly payments for any mortgage amount and rate.</p>
+              </Link>
+              <Link href="/tools/affordability-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f3e0;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Affordability Calculator</h3>
+                <p className="text-sm text-slate-600">Find out exactly how much mortgage you qualify for.</p>
+              </Link>
+              <Link href="/tools/cmhc-insurance-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f6e1;</span>
+                <h3 className="font-bold text-slate-900 mb-2">CMHC Calculator</h3>
+                <p className="text-sm text-slate-600">See how much mortgage insurance will cost with your down payment.</p>
+              </Link>
+              <Link href="/glossary" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f4da;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Mortgage Glossary</h3>
+                <p className="text-sm text-slate-600">Understand every term before you negotiate. 50+ definitions.</p>
+              </Link>
+              <Link href="/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f4ca;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Compare Rates</h3>
+                <p className="text-sm text-slate-600">See live rates from 31+ Canadian lenders to benchmark your offer.</p>
+              </Link>
+              <Link href="/blog" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f4f0;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Rate News &amp; Analysis</h3>
+                <p className="text-sm text-slate-600">Weekly market updates and rate predictions from our experts.</p>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="py-16 bg-slate-50">
           <div className="max-w-3xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
