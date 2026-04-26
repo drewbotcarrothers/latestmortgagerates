@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic = "force-static";
 
@@ -223,6 +224,7 @@ export default function VictoriaPage() {
                 description="Vancouver Island living! $1.05M average, no speculation tax, mildest climate. 5-year fixed from 4.19%."
               />
             </div>
+          <CityLendersSidebar cityName="Victoria" />
           </aside>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic = "force-static";
 
@@ -220,6 +221,7 @@ export default function HamiltonPage() {
                 description="Toronto alternative! $800K average homes, GO Train access. 5-year fixed from 4.19%."
               />
             </div>
+          <CityLendersSidebar cityName="Hamilton" />
           </aside>
         </div>
       </div>

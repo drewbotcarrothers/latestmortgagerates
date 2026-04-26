@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic = "force-static";
 
@@ -178,6 +179,7 @@ export default function KitchenerPage() {
                 description="Canada's Tech Triangle! High incomes, $750K average homes. 5-year fixed from 4.19%."
               />
             </div>
+          <CityLendersSidebar cityName="Kitchener" />
           </aside>
         </div>
       </div>

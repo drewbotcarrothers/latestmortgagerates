@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic="force-static";
 
@@ -98,6 +99,7 @@ return(
 <div className="bg-blue-50 rounded-lg p-6 mt-6"><h3 className="font-bold text-gray-900 mb-2">Compare Oshawa Rates</h3><p className="text-gray-600 text-sm mb-4">See rates from Durham Region lenders.</p><Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link></div>
 
 <div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-gray-900 mb-2">Share Oshawa Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/oshawa" title="Best Mortgage Rates Oshawa 2025" description="GTA location with non-GTA prices! $720K average with GO Train access. 5-year fixed from 4.19%." /></div>
+<CityLendersSidebar cityName="Oshawa" />
 </aside>
 </div>
 </div>
