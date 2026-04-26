@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-04-26T01:12:37.265Z",
+    "last_updated": "2026-04-26T11:37:52.655336",
     "total_days": 80,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-01-25",
-      "fixed_uninsured_best_rate": 4.78,
-      "fixed_uninsured_best_lender": "RBC",
-      "fixed_uninsured_avg_rate": 5.37,
-      "fixed_insured_best_rate": 4.18,
-      "fixed_insured_best_lender": "Equitable Bank",
-      "fixed_insured_avg_rate": 4.79,
-      "variable_uninsured_best_rate": 4.41,
-      "variable_uninsured_best_lender": "nesto",
-      "variable_uninsured_avg_rate": 5,
-      "variable_uninsured_spread_to_prime": -1.59,
-      "variable_insured_best_rate": 4.05,
-      "variable_insured_best_lender": "Equitable Bank",
-      "variable_insured_avg_rate": 4.47,
-      "variable_insured_spread_to_prime": -1.95,
-      "prime_rate": 6,
-      "lender_count": 31,
-      "total_rates": 220,
-      "created_at": "2026-03-31T15:51:51.563087"
-    },
     {
       "date": "2026-01-26",
       "fixed_uninsured_best_rate": 4.76,
@@ -1684,6 +1663,27 @@
       "lender_count": 34,
       "total_rates": 264,
       "created_at": "2026-04-25T12:00:00.000Z"
+    },
+    {
+      "date": "2026-04-26",
+      "fixed_uninsured_best_rate": 0.5,
+      "fixed_uninsured_best_lender": "Royal Bank of Canada",
+      "fixed_uninsured_avg_rate": 4.62,
+      "fixed_insured_best_rate": 3.89,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.61,
+      "variable_uninsured_best_rate": 0.5,
+      "variable_uninsured_best_lender": "Royal Bank of Canada",
+      "variable_uninsured_avg_rate": 4.15,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 0.8,
+      "variable_insured_best_lender": "Royal Bank of Canada",
+      "variable_insured_avg_rate": 3.92,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 34,
+      "total_rates": 301,
+      "created_at": "2026-04-26T11:37:52.652587"
     }
   ]
 }
