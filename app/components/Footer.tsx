@@ -160,6 +160,31 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             </ul>
           </div>
           
+          {/* Popular Lenders */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Top Lenders</h4>
+            <ul className="space-y-2.5">
+              {[
+                { href: "/lenders/rbc", label: "RBC Royal Bank" },
+                { href: "/lenders/td", label: "TD Bank" },
+                { href: "/lenders/scotiabank", label: "Scotiabank" },
+                { href: "/lenders/bmo", label: "BMO" },
+                { href: "/lenders/cibc", label: "CIBC" },
+                { href: "/lenders/nesto", label: "nesto" },
+                { href: "/lenders/truenorth", label: "True North Mortgage" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
           {/* Resources */}
           <div>
             <h4 className="font-semibold text-white mb-4">Resources</h4>

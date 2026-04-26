@@ -789,6 +789,111 @@ export default async function LenderPage({ params }: PageProps) {
           </div>
         </section>
 
+        {/* Related Content */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Popular Cities */}
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <h3 className="font-bold text-slate-900">Popular Cities</h3>
+            </div>
+            <p className="text-sm text-slate-500 mb-4">See {lenderName} rates in major Canadian markets</p>
+            <div className="space-y-2">
+              {[
+                { href: "/cities/toronto", label: "Toronto", province: "ON" },
+                { href: "/cities/vancouver", label: "Vancouver", province: "BC" },
+                { href: "/cities/calgary", label: "Calgary", province: "AB" },
+                { href: "/cities/montreal", label: "Montreal", province: "QC" },
+                { href: "/cities/ottawa", label: "Ottawa", province: "ON" },
+                { href: "/cities/edmonton", label: "Edmonton", province: "AB" },
+              ].map((city) => (
+                <Link
+                  key={city.href}
+                  href={city.href}
+                  className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
+                >
+                  <span className="text-slate-700 group-hover:text-teal-700 text-sm">{city.label}</span>
+                  <span className="text-xs text-slate-400">{city.province}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Related Tools */}
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+              </svg>
+              <h3 className="font-bold text-slate-900">Useful Tools</h3>
+            </div>
+            <p className="text-sm text-slate-500 mb-4">Calculate payments and affordability</p>
+            <div className="space-y-2">
+              {[
+                { href: "/tools/mortgage-calculator", label: "Payment Calculator", desc: "Monthly payments" },
+                { href: "/tools/affordability-calculator", label: "Affordability", desc: "How much home?" },
+                { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator", desc: "Insurance premiums" },
+                { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax", desc: "Closing costs" },
+                { href: "/tools/stress-test-qualifier", label: "Stress Test", desc: "Qualify?" },
+              ].map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="block p-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
+                >
+                  <span className="text-slate-700 group-hover:text-teal-700 text-sm font-medium">{tool.label}</span>
+                  <span className="text-xs text-slate-400 ml-2">{tool.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Related Lenders */}
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+              <h3 className="font-bold text-slate-900">Compare Lenders</h3>
+            </div>
+            <p className="text-sm text-slate-500 mb-4">See how {lenderName} stacks up</p>
+            <div className="space-y-2">
+              {(() => {
+                const allLenders = [...new Set((ratesData as Rate[]).map((r: Rate) => r.lender_slug))].sort();
+                // Filter out current lender and pick first 6
+                const related = allLenders.filter((l: string) => l !== slug).slice(0, 6);
+                return related.map((lenderSlug: string) => {
+                  const lender = (ratesData as Rate[]).find((r: Rate) => r.lender_slug === lenderSlug);
+                  return lender ? (
+                    <Link
+                      key={lenderSlug}
+                      href={`/lenders/${lenderSlug}`}
+                      className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
+                    >
+                      <span className="text-slate-700 group-hover:text-teal-700 text-sm">{lender.lender_name}</span>
+                      <svg className="w-4 h-4 text-slate-300 group-hover:text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </Link>
+                  ) : null;
+                });
+              })()}
+            </div>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-teal-600 hover:text-teal-700"
+            >
+              View All Lenders
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+              </svg>
+            </Link>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="bg-teal-50 rounded-xl p-6 text-center border border-teal-100">
           <h2 className="text-xl font-bold text-slate-800 mb-2">Compare All Lenders</h2>
