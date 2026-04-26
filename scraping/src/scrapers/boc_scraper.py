@@ -1,8 +1,10 @@
 """
 Bank of Canada Valet API scraper.
-This is the most reliable data source - official government data via JSON API.
+Provides official posted rates and benchmark data via JSON API.
+Updated: April 25, 2026
 """
 
+import re
 from decimal import Decimal
 from datetime import datetime
 from typing import List, Dict, Optional
@@ -17,28 +19,23 @@ from models import RawRate, RateType, MortgageType
 
 
 class BankOfCanadaScraper:
-    """
-    Scraper for Bank of Canada Valet API.
-    Provides posted rates from chartered banks and broker averages.
-    """
+    """Scraper for Bank of Canada Valet API."""
     
     LENDER_SLUG = "boc"
     LENDER_NAME = "Bank of Canada (Benchmark)"
     BASE_URL = "https://www.bankofcanada.ca/valet"
     
-    # Key endpoints
     ENDPOINTS = {
         "posted_chartered": "/observations/group/POSTED_CHARTERED_BANKS/json?recent=4",
         "mortgage_rates": "/observations/group/A4_RATES_MORTGAGES/json?recent=4",
         "broker_5yr": "/observations/BROKER_AVERAGE_5YR_VRM/json?recent=10",
-        "prime_rate": "/observations/V122495/json?recent=4",  # Chartered bank administered rates
+        "prime_rate": "/observations/V122495/json?recent=4",
     }
     
-    # Series name mappings
     SERIES_NAMES = {
         "V122495": "Prime Rate",
         "V122497": "1-year posted",
-        "V122498": "3-year posted", 
+        "V122498": "3-year posted",
         "V122499": "5-year posted",
         "V122500": "7-year posted",
         "V122501": "10-year posted",
@@ -50,6 +47,8 @@ class BankOfCanadaScraper:
     
     def scrape(self) -> List[RawRate]:
         """Scrape BoC benchmark rates."""
+        logger.info("Fetching Bank of Canada benchmark rates...")
+        
         all_rates = []
         
         # Get posted chartered bank rates
@@ -68,7 +67,7 @@ class BankOfCanadaScraper:
         return all_rates
     
     def _get_posted_chartered(self) -> List[RawRate]:
-        """Get posted rates from chartered banks."""
+        """Get posted rates from chartered banks via BoC API."""
         rates = []
         url = f"{self.BASE_URL}{self.ENDPOINTS['posted_chartered']}"
         
@@ -82,13 +81,10 @@ class BankOfCanadaScraper:
             for s in series:
                 series_id = s.get('seriesId', '')
                 name = self.SERIES_NAMES.get(series_id, f"Series {series_id}")
-                
-                # Extract term from name
                 term_months = self._parse_term_from_name(name)
                 
                 observations = s.get('observations', [])
                 if observations:
-                    # Get most recent observation
                     latest = observations[-1]
                     value = latest.get('value')
                     date = latest.get('d')
@@ -106,9 +102,11 @@ class BankOfCanadaScraper:
                                 source_url=url,
                                 scraped_at=self.scraped_at,
                                 raw_data={
+                                    "source": "boc_valet_api",
                                     "series_id": series_id,
                                     "date": date,
-                                    "type": "posted_chartered"
+                                    "type": "posted_chartered",
+                                    "last_verified": "2026-04-25"
                                 }
                             ))
                         except:
@@ -148,15 +146,17 @@ class BankOfCanadaScraper:
                             rates.append(RawRate(
                                 lender_slug="boc_aggregate",
                                 lender_name=f"BoC - {label}",
-                                term_months=60,  # Most are 5-year data
+                                term_months=60,
                                 rate_type=RateType.FIXED,
                                 mortgage_type=self._parse_mortgage_type(label),
                                 rate=rate_val,
                                 source_url=url,
                                 scraped_at=self.scraped_at,
                                 raw_data={
+                                    "source": "boc_valet_api",
                                     "series_id": series_id,
-                                    "label": label
+                                    "label": label,
+                                    "last_verified": "2026-04-25"
                                 }
                             ))
                         except:
@@ -180,7 +180,6 @@ class BankOfCanadaScraper:
             data = resp.json()
             
             observations = data.get('seriesDetail', {}).get('BROKER_AVERAGE_5YR_VRM', {}).get('observations', [])
-            
             if not observations:
                 observations = data.get('seriesObservations', {}).get('observations', [])
             
@@ -200,8 +199,10 @@ class BankOfCanadaScraper:
                         source_url=url,
                         scraped_at=self.scraped_at,
                         raw_data={
+                            "source": "boc_valet_api",
                             "series_id": "BROKER_AVERAGE_5YR_VRM",
-                            "date": latest.get('d')
+                            "date": latest.get('d'),
+                            "last_verified": "2026-04-25"
                         }
                     ))
                     logger.info(f"Found broker average: {rate_val}%")
@@ -242,7 +243,17 @@ class BankOfCanadaScraper:
 
 if __name__ == "__main__":
     scraper = BankOfCanadaScraper()
-    rates = scraper.scrape()
-    print(f"\nFound {len(rates)} rates:")
-    for r in rates:
-        print(f"  {r.lender_name}: {r.rate}% ({r.term_months}mo {r.rate_type.value})")
+    try:
+        rates = scraper.scrape()
+        print(f"\nFound {len(rates)} rates from Bank of Canada:")
+        print("-" * 60)
+        
+        for r in rates:
+            print(f"  {r.lender_name}: {r.rate}% ({r.term_months}mo {r.rate_type.value})")
+            
+        print("-" * 60)
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
