@@ -144,7 +144,7 @@ export default async function LenderPage({ params }: PageProps) {
   const structuredData = generateStructuredData(lenderName, lenderRates, slug);
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -152,28 +152,28 @@ export default async function LenderPage({ params }: PageProps) {
       />
       
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
           {/* Breadcrumb Navigation */}
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
               <li>
-                <Link href="/" className="hover:text-blue-600 transition">
+                <Link href="/" className="hover:text-teal-600 transition">
                   Home
                 </Link>
               </li>
               <li>
-                <span className="text-gray-400">/</span>
+                <span className="text-slate-400">/</span>
               </li>
               <li>
-                <Link href="/#lenders" className="hover:text-blue-600 transition">
+                <Link href="/#lenders" className="hover:text-teal-600 transition">
                   Lenders
                 </Link>
               </li>
               <li>
-                <span className="text-gray-400">/</span>
+                <span className="text-slate-400">/</span>
               </li>
-              <li className="text-gray-900 font-medium">{lenderName}</li>
+              <li className="text-slate-900 font-medium">{lenderName}</li>
             </ol>
           </nav>
           
@@ -181,8 +181,8 @@ export default async function LenderPage({ params }: PageProps) {
             <div className="flex items-center gap-4">
               <LenderLogo lenderSlug={slug} size="lg" />
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">{lenderName} Mortgage Rates</h1>
-                <p className="text-gray-600 mt-1">
+                <h1 className="text-3xl font-bold text-slate-900">{lenderName} Mortgage Rates</h1>
+                <p className="text-slate-600 mt-1">
                   Compare current {lenderName} mortgage rates in Canada
                 </p>
               </div>
@@ -194,74 +194,83 @@ export default async function LenderPage({ params }: PageProps) {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Best Rates Hero */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {bestFixed && (
-            <div className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold mb-2">Best Fixed Rate</h2>
-              <div className="text-4xl font-bold">{bestFixed.rate.toFixed(2)}%</div>
-              <p className="text-green-100 mt-1">
-                {getTermLabel(bestFixed.term_months)} {formatRateType(bestFixed.mortgage_type)}
-              </p>
-              {bestFixed.source_url && (
-                <a
-                  href={bestFixed.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-4 px-6 py-2 bg-white text-green-700 rounded-lg font-medium hover:bg-gray-100 transition"
-                >
-                  View Rate
-                </a>
-              )}
-            </div>
-          )}
-          
-          {bestVariable && (
-            <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg p-6">
-              <h2 className="text-lg font-semibold mb-2">Best Variable Rate</h2>
-              <div className="text-4xl font-bold">{bestVariable.rate.toFixed(2)}%</div>
-              <p className="text-blue-100 mt-1">
-                {getTermLabel(bestVariable.term_months)} {formatRateType(bestVariable.mortgage_type)}
-              </p>
-              {bestVariable.source_url && (
-                <a
-                  href={bestVariable.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-4 px-6 py-2 bg-white text-blue-700 rounded-lg font-medium hover:bg-gray-100 transition"
-                >
-                  View Rate
-                </a>
-              )}
-            </div>
-          )}
+        <div className="hero-gradient rounded-2xl p-8 mb-8">
+          <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase mb-6">Best {lenderName} Rates</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {bestFixed && (
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <h3 className="text-sm font-medium text-teal-100">Best Fixed Rate</h3>
+                </div>
+                <div className="text-4xl font-bold text-white mb-1">{bestFixed.rate.toFixed(2)}%</div>
+                <p className="text-slate-300 text-sm">
+                  {getTermLabel(bestFixed.term_months)} {formatRateType(bestFixed.mortgage_type)}
+                </p>
+                {bestFixed.source_url && (
+                  <a
+                    href={bestFixed.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 px-6 py-2.5 bg-white text-teal-700 rounded-lg font-medium hover:bg-teal-50 transition"
+                  >
+                    View Rate
+                  </a>
+                )}
+              </div>
+            )}
+            
+            {bestVariable && (
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  <h3 className="text-sm font-medium text-teal-100">Best Variable Rate</h3>
+                </div>
+                <div className="text-4xl font-bold text-white mb-1">{bestVariable.rate.toFixed(2)}%</div>
+                <p className="text-slate-300 text-sm">
+                  {getTermLabel(bestVariable.term_months)} {formatRateType(bestVariable.mortgage_type)}
+                </p>
+                {bestVariable.source_url && (
+                  <a
+                    href={bestVariable.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 px-6 py-2.5 bg-white text-teal-700 rounded-lg font-medium hover:bg-teal-50 transition"
+                  >
+                    View Rate
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Fixed Rates Section */}
         {fixedRates.length > 0 && (
-          <section className="bg-white rounded-lg shadow-md mb-8">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-800">Fixed Rate Mortgages</h2>
-              <p className="text-gray-600 text-sm mt-1">Lock in your rate for the term of your mortgage</p>
+          <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div className="p-6 border-b border-slate-200">
+              <h2 className="text-xl font-bold text-slate-800">Fixed Rate Mortgages</h2>
+              <p className="text-slate-600 text-sm mt-1">Lock in your rate for the term of your mortgage</p>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-slate-100">
               {fixedRates.map((rate, index) => (
-                <div key={index} className="p-6 flex items-center justify-between hover:bg-gray-50">
+                <div key={index} className="p-6 flex items-center justify-between hover:bg-slate-50">
                   <div>
-                    <div className="font-semibold text-lg text-gray-900">{getTermLabel(rate.term_months)}</div>
-                    <div className="text-sm text-gray-500">{formatRateType(rate.mortgage_type)}</div>
+                    <div className="font-semibold text-lg text-slate-900">{getTermLabel(rate.term_months)}</div>
+                    <div className="text-sm text-slate-500">{formatRateType(rate.mortgage_type)}</div>
                     {rate.ltv_tier && (
-                      <div className="text-sm text-gray-600 mt-1">LTV: {rate.ltv_tier}</div>
+                      <div className="text-sm text-slate-600 mt-1">LTV: {rate.ltv_tier}</div>
                     )}
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-green-600">{rate.rate.toFixed(2)}%</div>
+                    <div className="text-3xl font-bold text-teal-600">{rate.rate.toFixed(2)}%</div>
                     {rate.posted_rate && (
-                      <div className="text-sm text-gray-500 line-through">
+                      <div className="text-sm text-slate-500 line-through">
                         Posted: {rate.posted_rate.toFixed(2)}%
                       </div>
                     )}
                     {rate.apr && (
-                      <div className="text-sm text-gray-600">APR: {rate.apr}%</div>
+                      <div className="text-sm text-slate-600">APR: {rate.apr}%</div>
                     )}
                   </div>
                 </div>
@@ -272,30 +281,30 @@ export default async function LenderPage({ params }: PageProps) {
 
         {/* Variable Rates Section */}
         {variableRates.length > 0 && (
-          <section className="bg-white rounded-lg shadow-md mb-8">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-800">Variable Rate Mortgages</h2>
-              <p className="text-gray-600 text-sm mt-1">Rates change with the prime rate</p>
+          <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8">
+            <div className="p-6 border-b border-slate-200">
+              <h2 className="text-xl font-bold text-slate-800">Variable Rate Mortgages</h2>
+              <p className="text-slate-600 text-sm mt-1">Rates change with the prime rate</p>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-slate-100">
               {variableRates.map((rate, index) => (
-                <div key={index} className="p-6 flex items-center justify-between hover:bg-gray-50">
+                <div key={index} className="p-6 flex items-center justify-between hover:bg-slate-50">
                   <div>
-                    <div className="font-semibold text-lg text-gray-900">{getTermLabel(rate.term_months)}</div>
-                    <div className="text-sm text-gray-500">{formatRateType(rate.mortgage_type)}</div>
+                    <div className="font-semibold text-lg text-slate-900">{getTermLabel(rate.term_months)}</div>
+                    <div className="text-sm text-slate-500">{formatRateType(rate.mortgage_type)}</div>
                     {rate.spread_to_prime && (
-                      <div className="text-sm text-gray-600 mt-1">Spread: {rate.spread_to_prime}</div>
+                      <div className="text-sm text-slate-600 mt-1">Spread: {rate.spread_to_prime}</div>
                     )}
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-blue-600">{rate.rate.toFixed(2)}%</div>
+                    <div className="text-3xl font-bold text-teal-600">{rate.rate.toFixed(2)}%</div>
                     {rate.posted_rate && (
-                      <div className="text-sm text-gray-500 line-through">
+                      <div className="text-sm text-slate-500 line-through">
                         Posted: {rate.posted_rate.toFixed(2)}%
                       </div>
                     )}
                     {rate.apr && (
-                      <div className="text-sm text-gray-600">APR: {rate.apr}%</div>
+                      <div className="text-sm text-slate-600">APR: {rate.apr}%</div>
                     )}
                   </div>
                 </div>
@@ -305,21 +314,21 @@ export default async function LenderPage({ params }: PageProps) {
         )}
 
         {/* CTA Section */}
-        <section className="bg-blue-50 rounded-lg p-6 text-center">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Compare All Lenders</h2>
-          <p className="text-gray-600 mb-4">
+        <section className="bg-teal-50 rounded-xl p-6 text-center border border-teal-100">
+          <h2 className="text-xl font-bold text-slate-800 mb-2">Compare All Lenders</h2>
+          <p className="text-slate-600 mb-4">
             See how {lenderName} rates compare to other Canadian banks and lenders
           </p>
           <Link
             href="/"
-            className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+            className="inline-block px-6 py-3 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition"
           >
             Compare All Rates
           </Link>
         </section>
 
         {/* Footer */}
-        <footer className="mt-8 text-center text-sm text-gray-500">
+        <footer className="mt-8 text-center text-sm text-slate-500">
           <p>Rates are for comparison purposes only. Visit {lenderName}'s website for actual rates.</p>
           {
             (() => {
@@ -331,7 +340,7 @@ export default async function LenderPage({ params }: PageProps) {
                     href={firstSourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline"
+                    className="text-teal-600 hover:underline"
                   >
                     {lenderName} Official Website
                   </a>
