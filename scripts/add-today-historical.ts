@@ -32,8 +32,8 @@ function calculateMetrics(rates: any[]) {
     return arr.reduce((sum: number, item: any) => sum + item[prop], 0) / arr.length;
   };
   
-  // Prime rate (currently 4.95%)
-  const primeRate = 4.95;
+  // Prime rate (as of April 2026: 5.45%)
+  const primeRate = 5.45;
   
   // Get unique lenders
   const uniqueLenders = [...new Set(rates.map((r: any) => r.lender_slug))];
