@@ -8,7 +8,7 @@ const path = require('path');
 console.log('=== REGENERATING rates.json FROM SCRAPER FALLBACKS ===\n');
 
 const scrapersDir = path.join(__dirname, '..', 'scraping', 'src', 'scrapers');
-const rates = [];
+const rates: any[] = [];
 
 // List of scrapers to run
 const scraperFiles = fs.readdirSync(scrapersDir)
@@ -84,7 +84,7 @@ fs.writeFileSync(ratesPath, JSON.stringify(rates, null, 2));
 console.log(`💾 Saved ${rates.length} rates to data/rates.json`);
 
 // Show summary
-const byLender = {};
+const byLender: Record<string, any[]> = {};
 for (const r of rates) {
   if (!byLender[r.lender_slug]) byLender[r.lender_slug] = [];
   byLender[r.lender_slug].push(r);
