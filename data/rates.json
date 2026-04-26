@@ -4,3653 +4,4436 @@
     "lender_slug": "rbc",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.44,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Royal Bank of Canada",
-    "lender_slug": "rbc",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 3.3,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "rate": 3.3,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Royal Bank of Canada",
+    "lender_slug": "rbc",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.29,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.54,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.0,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.8,
-    "posted_rate": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:04:29.478830",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:30:59.470830",
+    "raw_data": {
+      "source": "rbc_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.49,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.05,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.09,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 72,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.29,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.4,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.8,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.6,
-    "posted_rate": null,
-    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-04-26T22:04:36.072960",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:06.249385",
+    "raw_data": {
+      "source": "td_live_scrape"
+    }
   },
   {
     "lender_name": "Bank of Montreal",
     "lender_slug": "bmo",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:04:46.255559",
-    "apr": "4.42",
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Bank of Montreal",
-    "lender_slug": "bmo",
-    "term_months": 60,
-    "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:04:46.255559",
-    "apr": "4.51",
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Bank of Montreal",
-    "lender_slug": "bmo",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.64,
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:04:46.255559",
-    "apr": "4.66",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:14.009584",
+    "raw_data": {
+      "source": "bmo_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Bank of Montreal",
+    "lender_slug": "bmo",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.49,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:14.009584",
+    "raw_data": {
+      "source": "bmo_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Bank of Montreal",
+    "lender_slug": "bmo",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.64,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:14.009584",
+    "raw_data": {
+      "source": "bmo_live_scrape"
+    }
   },
   {
     "lender_name": "Bank of Montreal",
     "lender_slug": "bmo",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.15,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:04:46.255559",
-    "apr": "4.17",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.bmo.com/main/personal/mortgages/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:14.009584",
+    "raw_data": {
+      "source": "bmo_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 6,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.7,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.84,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.05,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 36,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 5.95,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.09,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.9,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.4,
-    "posted_rate": null,
-    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Scotiabank",
     "lender_slug": "scotiabank",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.8,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-04-26T22:04:47.179943",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:31:14.665165",
+    "raw_data": {
+      "source": "scotiabank_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.41",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 36,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.15,
-    "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.17",
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Canadian Imperial Bank of Commerce",
-    "lender_slug": "cibc",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.54,
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.56",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.19,
+    "rate": 4.54,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.21",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Canadian Imperial Bank of Commerce",
+    "lender_slug": "cibc",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.19,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.74,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "5.76",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.99,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "5.01",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.84,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.86",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.15,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
-    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:05:17.961346",
-    "apr": "4.17",
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:31:45.201869",
+    "raw_data": {
+      "source": "cibc_live_scrape"
+    }
   },
   {
     "lender_name": "National Bank of Canada",
     "lender_slug": "nationalbank",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.54,
-    "posted_rate": null,
-    "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-04-26T22:05:18.873713",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.nbc.ca/personal/mortgages.html",
+    "scraped_at": "2026-04-26T23:31:45.736458",
+    "raw_data": {
+      "source": "nationalbank_live_scrape"
+    }
   },
   {
     "lender_name": "National Bank of Canada",
     "lender_slug": "nationalbank",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.64,
-    "posted_rate": null,
-    "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-04-26T22:05:18.873713",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.nbc.ca/personal/mortgages.html",
+    "scraped_at": "2026-04-26T23:31:45.736458",
+    "raw_data": {
+      "source": "nationalbank_live_scrape"
+    }
   },
   {
     "lender_name": "National Bank of Canada",
     "lender_slug": "nationalbank",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.45,
-    "posted_rate": null,
-    "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-04-26T22:05:18.873713",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.nbc.ca/personal/mortgages.html",
+    "scraped_at": "2026-04-26T23:31:45.736458",
+    "raw_data": {
+      "source": "nationalbank_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 6.16,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.1,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 36,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 3.85,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.72,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 3.89,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 3.65,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": "Prime - 1.05%"
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 6.09,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 7.64,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "insured",
     "apr": null,
-    "ltv_tier": "0-65%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.54,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "uninsured",
     "apr": null,
-    "ltv_tier": "65-80%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.44,
-    "posted_rate": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
+    "mortgage_type": "uninsured",
     "apr": null,
-    "ltv_tier": "65-80%",
-    "spread_to_prime": null
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "nesto",
     "lender_slug": "nesto",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.1,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-04-26T22:05:24.367323",
-    "apr": null,
-    "ltv_tier": "65-80%",
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:31:50.606534",
+    "raw_data": {
+      "source": "nesto_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.24,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.69,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.25,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.45%"
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.75,
-    "posted_rate": null,
-    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.15,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:05:28.913292",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:31:54.861870",
+    "raw_data": {
+      "source": "tangerine_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.54,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.24,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "EQ Bank",
-    "lender_slug": "eqbank",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.34,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.19,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
+    "rate": 4.34,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
+  },
+  {
+    "lender_name": "EQ Bank",
+    "lender_slug": "eqbank",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.19,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.2,
-    "posted_rate": null,
-    "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca",
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "EQ Bank",
     "lender_slug": "eqbank",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.0,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca",
-    "scraped_at": "2026-04-26T22:05:59.601166",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:32:25.341536",
+    "raw_data": {
+      "source": "eqbank_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.04,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.74,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.04,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Simplii Financial",
     "lender_slug": "simplii",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Simplii Financial",
-    "lender_slug": "simplii",
-    "term_months": 60,
-    "rate_type": "variable",
-    "mortgage_type": "uninsured",
-    "rate": 4.75,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Simplii Financial",
-    "lender_slug": "simplii",
-    "term_months": 60,
-    "rate_type": "variable",
     "mortgage_type": "insured",
-    "rate": 4.55,
-    "posted_rate": null,
-    "source_url": "https://www.simplii.ca",
-    "scraped_at": "2026-04-26T22:06:07.415268",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Simplii Financial",
+    "lender_slug": "simplii",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 4.75,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Simplii Financial",
+    "lender_slug": "simplii",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 4.55,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.simplii.ca",
+    "scraped_at": "2026-04-26T23:32:31.432770",
+    "raw_data": {
+      "source": "simplii_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.09,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.79,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.04,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.75,
-    "posted_rate": null,
-    "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.motivefinancial.com",
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Motive Financial",
     "lender_slug": "motive",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.55,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.motivefinancial.com",
-    "scraped_at": "2026-04-26T22:06:38.140022",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:33:01.892731",
+    "raw_data": {
+      "source": "motive_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.69,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Alterna Bank",
-    "lender_slug": "alterna",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
+    "rate": 4.99,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Alterna Bank",
+    "lender_slug": "alterna",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.84,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.45,
-    "posted_rate": null,
-    "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.alternabank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Alterna Bank",
     "lender_slug": "alterna",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.25,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:43.721611",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:33:06.734738",
+    "raw_data": {
+      "source": "alterna_live_scrape"
+    }
   },
   {
     "lender_name": "Wealthsimple",
     "lender_slug": "wealthsimple",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.wealthsimple.com/mortgage",
-    "scraped_at": "2026-04-26T22:06:48.261385",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.wealthsimple.com/mortgage",
+    "scraped_at": "2026-04-26T23:33:11.261102",
+    "raw_data": {
+      "source": "wealthsimple_live_scrape"
+    }
   },
   {
     "lender_name": "Wealthsimple",
     "lender_slug": "wealthsimple",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.24,
-    "posted_rate": null,
-    "source_url": "https://www.wealthsimple.com/mortgage",
-    "scraped_at": "2026-04-26T22:06:48.261385",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.wealthsimple.com/mortgage",
+    "scraped_at": "2026-04-26T23:33:11.261102",
+    "raw_data": {
+      "source": "wealthsimple_live_scrape"
+    }
   },
   {
     "lender_name": "Wealthsimple",
     "lender_slug": "wealthsimple",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.74,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.wealthsimple.com/mortgage",
-    "scraped_at": "2026-04-26T22:06:48.261385",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.71%"
+    "scraped_at": "2026-04-26T23:33:11.261102",
+    "raw_data": {
+      "source": "wealthsimple_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Meridian Credit Union",
     "lender_slug": "meridian",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Meridian Credit Union",
-    "lender_slug": "meridian",
-    "term_months": 60,
-    "rate_type": "variable",
-    "mortgage_type": "uninsured",
-    "rate": 4.6,
-    "posted_rate": null,
-    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Meridian Credit Union",
-    "lender_slug": "meridian",
-    "term_months": 60,
-    "rate_type": "variable",
     "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Meridian Credit Union",
+    "lender_slug": "meridian",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 4.6,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Meridian Credit Union",
+    "lender_slug": "meridian",
+    "term_months": 60,
+    "rate_type": "variable",
     "rate": 4.4,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:06:56.786156",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:33:20.515276",
+    "raw_data": {
+      "source": "meridian_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.14,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.79,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.29,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.19,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Desjardins",
     "lender_slug": "desjardins",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.65,
-    "posted_rate": null,
-    "source_url": "https://www.desjardins.com/en/mortgages.html",
-    "scraped_at": "2026-04-26T22:07:27.462664",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.desjardins.com/en/mortgages.html",
+    "scraped_at": "2026-04-26T23:33:51.001012",
+    "raw_data": {
+      "source": "desjardins_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.64,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.34,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.44,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.8,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.65%"
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Vancity",
     "lender_slug": "vancity",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
-    "scraped_at": "2026-04-26T22:07:32.346799",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.vancity.com/personal/rates/#mortgage",
+    "scraped_at": "2026-04-26T23:33:55.951424",
+    "raw_data": {
+      "source": "vancity_live_scrape"
+    }
   },
   {
     "lender_name": "Coast Capital Savings",
     "lender_slug": "coastcapital",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.79,
-    "posted_rate": null,
-    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:07:37.805716",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:59.213532",
+    "raw_data": {
+      "source": "coastcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Coast Capital Savings",
     "lender_slug": "coastcapital",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.49,
-    "posted_rate": null,
-    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:07:37.805716",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:59.213532",
+    "raw_data": {
+      "source": "coastcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Coast Capital Savings",
     "lender_slug": "coastcapital",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:07:37.805716",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:59.213532",
+    "raw_data": {
+      "source": "coastcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Coast Capital Savings",
     "lender_slug": "coastcapital",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:07:37.805716",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:59.213532",
+    "raw_data": {
+      "source": "coastcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Coast Capital Savings",
     "lender_slug": "coastcapital",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.8,
-    "posted_rate": null,
-    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
-    "scraped_at": "2026-04-26T22:07:37.805716",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.65%"
+    "spread_to_prime": null,
+    "source_url": "https://www.coastcapitalsavings.com/rates/mortgage-rates",
+    "scraped_at": "2026-04-26T23:33:59.213532",
+    "raw_data": {
+      "source": "coastcapital_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.79,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.49,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.85,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.60%"
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "ATB Financial",
     "lender_slug": "atb",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
-    "scraped_at": "2026-04-26T22:07:44.881911",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.atb.com/en/personal/borrow/mortgage-rates.html",
+    "scraped_at": "2026-04-26T23:34:05.699326",
+    "raw_data": {
+      "source": "atb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.74,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.44,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.85,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.60%"
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "Canadian Western Bank",
     "lender_slug": "cwb",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.cwb.com/personal/rates",
-    "scraped_at": "2026-04-26T22:07:50.676313",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cwb.com/personal/rates",
+    "scraped_at": "2026-04-26T23:34:11.354607",
+    "raw_data": {
+      "source": "cwb_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.69,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.44,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "First National",
-    "lender_slug": "firstnational",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.89,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
+    "rate": 4.89,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
+  },
+  {
+    "lender_name": "First National",
+    "lender_slug": "firstnational",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.74,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 36,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.35,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "First National",
-    "lender_slug": "firstnational",
-    "term_months": 60,
-    "rate_type": "variable",
     "mortgage_type": "uninsured",
-    "rate": 4.15,
-    "posted_rate": null,
-    "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "First National",
     "lender_slug": "firstnational",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
+    "rate": 4.15,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.firstnational.ca",
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
+  },
+  {
+    "lender_name": "First National",
+    "lender_slug": "firstnational",
+    "term_months": 60,
+    "rate_type": "variable",
     "rate": 3.95,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca",
-    "scraped_at": "2026-04-26T22:07:57.105548",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:34:16.851324",
+    "raw_data": {
+      "source": "firstnational_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.79,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.34,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.94,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.04,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "MCAP",
-    "lender_slug": "mcap",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.94,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
+    "rate": 4.94,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
+  },
+  {
+    "lender_name": "MCAP",
+    "lender_slug": "mcap",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.79,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.25,
-    "posted_rate": null,
-    "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.mcap.com",
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "MCAP",
     "lender_slug": "mcap",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.05,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.mcap.com",
-    "scraped_at": "2026-04-26T22:08:01.148809",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:34:21.708151",
+    "raw_data": {
+      "source": "mcap_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.69,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 5.24,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.85,
-    "posted_rate": null,
-    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.laurentianbank.ca/personal/mortgages",
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Laurentian Bank",
     "lender_slug": "laurentian",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.65,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/personal/mortgages",
-    "scraped_at": "2026-04-26T22:08:04.856117",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:34:25.902953",
+    "raw_data": {
+      "source": "laurentian_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 6.14,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.84,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.19,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.19,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 5.04,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.8,
-    "posted_rate": null,
-    "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.manulifebank.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "Manulife Bank",
     "lender_slug": "manulife",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.6,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:09.742745",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:34:32.051328",
+    "raw_data": {
+      "source": "manulife_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.99,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.59,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "RFA Bank",
-    "lender_slug": "rfa",
-    "term_months": 60,
-    "rate_type": "fixed",
     "mortgage_type": "uninsured",
-    "rate": 4.99,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
-    "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
+    "rate": 4.99,
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
+  },
+  {
+    "lender_name": "RFA Bank",
+    "lender_slug": "rfa",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "rate": 4.84,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.35,
-    "posted_rate": null,
-    "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.rfabank.com",
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "RFA Bank",
     "lender_slug": "rfa",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 4.15,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.rfabank.com",
-    "scraped_at": "2026-04-26T22:08:13.146144",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:34:37.125172",
+    "raw_data": {
+      "source": "rfa_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.49,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.19,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.64,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.34,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.75,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.70%"
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "CMLS Financial",
     "lender_slug": "cmls",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.69,
-    "posted_rate": null,
-    "source_url": "https://www.cmls.ca/rates",
-    "scraped_at": "2026-04-26T22:08:35.817279",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.cmls.ca/rates",
+    "scraped_at": "2026-04-26T23:34:59.772920",
+    "raw_data": {
+      "source": "cmls_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.54,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.24,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.84,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.69,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.75,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.70%"
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.64,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Merix Financial",
     "lender_slug": "merix",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.merix.com/rates",
-    "scraped_at": "2026-04-26T22:08:39.990566",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.merix.com/rates",
+    "scraped_at": "2026-04-26T23:35:03.590512",
+    "raw_data": {
+      "source": "merix_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.7,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.75%"
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.64,
-    "posted_rate": null,
-    "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.lendwise.com/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Lendwise",
     "lender_slug": "lendwise",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.lendwise.com/mortgage-rates",
-    "scraped_at": "2026-04-26T22:08:43.960607",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:35:07.675627",
+    "raw_data": {
+      "source": "lendwise_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 6,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 3.89,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.04,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 3.99,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.29,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 6,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.89,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 24,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 36,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.04,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 48,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.99,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 84,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 5.29,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Butler Mortgage",
     "lender_slug": "butlermortgage",
     "term_months": 120,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-04-26T22:08:52.987351+00:00",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
+    "scraped_at": "2026-04-26T23:35:15.950803+00:00",
+    "raw_data": {
+      "source": "butlermortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.7,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.75%"
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "IntelliMortgage",
     "lender_slug": "intellimortgage",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.intellimortgage.com/rates",
-    "scraped_at": "2026-04-26T22:08:58.341590",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.intellimortgage.com/rates",
+    "scraped_at": "2026-04-26T23:35:21.737932",
+    "raw_data": {
+      "source": "intellimortgage_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.34,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.04,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.69,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.75,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.70%"
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 84,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.streetcapital.ca/mortgage-rates",
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Street Capital",
     "lender_slug": "streetcapital",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.64,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.streetcapital.ca/mortgage-rates",
-    "scraped_at": "2026-04-26T22:09:29.061614",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:35:52.215771",
+    "raw_data": {
+      "source": "streetcapital_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.44,
-    "posted_rate": null,
-    "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.centum.ca/our-rates",
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.14,
-    "posted_rate": null,
-    "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.centum.ca/our-rates",
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.centum.ca/our-rates",
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.34,
-    "posted_rate": null,
-    "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.centum.ca/our-rates",
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.75,
-    "posted_rate": null,
-    "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": "Prime - 0.70%"
+    "spread_to_prime": null,
+    "source_url": "https://www.centum.ca/our-rates",
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "Centum",
     "lender_slug": "centum",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
+    "mortgage_type": "uninsured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.centum.ca/our-rates",
-    "scraped_at": "2026-04-26T22:09:32.494314",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:35:55.414904",
+    "raw_data": {
+      "source": "centum_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.94,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.74,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "True North Mortgage",
-    "lender_slug": "truenorth",
-    "term_months": 24,
-    "rate_type": "fixed",
-    "mortgage_type": "uninsured",
-    "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "True North Mortgage",
-    "lender_slug": "truenorth",
-    "term_months": 24,
-    "rate_type": "fixed",
     "mortgage_type": "insured",
-    "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
+  },
+  {
+    "lender_name": "True North Mortgage",
+    "lender_slug": "truenorth",
+    "term_months": 24,
+    "rate_type": "fixed",
+    "rate": 4.49,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
+  },
+  {
+    "lender_name": "True North Mortgage",
+    "lender_slug": "truenorth",
+    "term_months": 24,
+    "rate_type": "fixed",
+    "rate": 4.29,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.39,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.19,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 48,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 60,
     "rate_type": "fixed",
+    "rate": 4.34,
     "mortgage_type": "uninsured",
-    "rate": 4.29,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 60,
     "rate_type": "fixed",
+    "rate": 4.14,
     "mortgage_type": "insured",
-    "rate": 4.09,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.69,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "insured",
     "rate": 3.49,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "insured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 6,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 2.69,
-    "posted_rate": null,
-    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "True North Mortgage",
     "lender_slug": "truenorth",
     "term_months": 6,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 2.49,
+    "mortgage_type": "insured",
+    "apr": null,
     "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-04-26T22:09:38.055060",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
+    "scraped_at": "2026-04-26T23:36:00.903990",
+    "raw_data": {
+      "source": "truenorth_live_scrape"
+    }
   },
   {
     "lender_name": "Equitable Bank",
     "lender_slug": "equitable",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.39,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
   },
   {
     "lender_name": "Equitable Bank",
     "lender_slug": "equitable",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.09,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
   },
   {
     "lender_name": "Equitable Bank",
     "lender_slug": "equitable",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.49,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
   },
   {
     "lender_name": "Equitable Bank",
     "lender_slug": "equitable",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.24,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
   },
   {
     "lender_name": "Equitable Bank",
     "lender_slug": "equitable",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "insured",
     "rate": 4.09,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Equitable Bank",
-    "lender_slug": "equitable",
-    "term_months": 60,
-    "rate_type": "variable",
-    "mortgage_type": "uninsured",
-    "rate": 3.65,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
-    "apr": null,
-    "ltv_tier": null,
-    "spread_to_prime": null
-  },
-  {
-    "lender_name": "Equitable Bank",
-    "lender_slug": "equitable",
-    "term_months": 60,
-    "rate_type": "variable",
     "mortgage_type": "insured",
-    "rate": 3.45,
-    "posted_rate": null,
-    "source_url": "https://www.equitablebank.com",
-    "scraped_at": "2026-04-26T22:09:48.223353",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Equitable Bank",
+    "lender_slug": "equitable",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 3.65,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Equitable Bank",
+    "lender_slug": "equitable",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 3.45,
+    "mortgage_type": "insured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.equitablebank.com",
+    "scraped_at": "2026-04-26T23:36:11.639426",
+    "raw_data": {
+      "source": "equitable_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 12,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.59,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 24,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 5.29,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 36,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.69,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 60,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.59,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 60,
     "rate_type": "variable",
-    "mortgage_type": "uninsured",
     "rate": 3.85,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 120,
     "rate_type": "fixed",
-    "mortgage_type": "uninsured",
     "rate": 4.79,
-    "posted_rate": null,
-    "source_url": "https://www.hometrust.ca/mortgages",
-    "scraped_at": "2026-04-26T22:09:54.058570",
+    "mortgage_type": "uninsured",
     "apr": null,
+    "posted_rate": null,
     "ltv_tier": null,
-    "spread_to_prime": null
+    "spread_to_prime": null,
+    "source_url": "https://www.hometrust.ca/mortgages",
+    "scraped_at": "2026-04-26T23:36:17.555156",
+    "raw_data": {
+      "source": "hometrust_live_scrape"
+    }
   }
 ]
