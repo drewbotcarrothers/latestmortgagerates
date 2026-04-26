@@ -69,7 +69,8 @@ print(json.dumps(output))
     
   } catch (e) {
     failCount++;
-    console.log(`❌ ${slug}: ${e.message?.substring(0, 80) || 'Failed'}`);
+    const errorMsg = e instanceof Error ? e.message : 'Failed';
+    console.log(`❌ ${slug}: ${errorMsg.substring(0, 80)}`);
   }
 }
 
