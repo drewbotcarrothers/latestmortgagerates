@@ -141,6 +141,12 @@ export default async function LenderPage({ params }: PageProps) {
   const bestFixed = fixedRates[0];
   const bestVariable = variableRates[0];
   
+  // Best 5-year rates by mortgage type (for hero cards)
+  const bestFixed5YInsured = fixedRates.find((r) => r.term_months === 60 && r.mortgage_type === "insured");
+  const bestFixed5YUninsured = fixedRates.find((r) => r.term_months === 60 && r.mortgage_type === "uninsured");
+  const bestVariable5YInsured = variableRates.find((r) => r.term_months === 60 && r.mortgage_type === "insured");
+  const bestVariable5YUninsured = variableRates.find((r) => r.term_months === 60 && r.mortgage_type === "uninsured");
+  
   // Helper to group rates by term
   function groupByTerm(rates: Rate[]) {
     const groups: Record<number, Rate[]> = {};
@@ -279,55 +285,141 @@ export default async function LenderPage({ params }: PageProps) {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Best Rates Hero */}
+        {/* Best Rates Hero — 4-card layout matching homepage */}
         <div className="hero-gradient rounded-2xl p-8 mb-8">
-          <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase mb-6">Best {lenderName} Rates</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {bestFixed && (
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                <div className="flex items-center gap-2 mb-3">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Best {lenderName} Rates</h2>
+            <p className="text-sm text-slate-400 mt-1 md:mt-0">Lowest rates by product type</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Fixed Insured */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <h3 className="text-sm font-medium text-teal-100">Best Fixed Rate</h3>
-                </div>
-                <div className="text-4xl font-bold text-white mb-1">{bestFixed.rate.toFixed(2)}%</div>
-                <p className="text-slate-300 text-sm">
-                  {getTermLabel(bestFixed.term_months)} {formatRateType(bestFixed.mortgage_type)}
-                </p>
-                {bestFixed.source_url && (
-                  <a
-                    href={bestFixed.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-4 px-6 py-2.5 bg-white text-teal-700 rounded-lg font-medium hover:bg-teal-50 transition"
-                  >
-                    View Rate
-                  </a>
-                )}
+                  5-Year Fixed
+                </h3>
+                <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">Insured</span>
               </div>
-            )}
+              {bestFixed5YInsured ? (
+                <>
+                  <div className="text-3xl font-bold text-emerald-300 mb-1">{bestFixed5YInsured.rate.toFixed(2)}%</div>
+                  <p className="text-slate-300 text-sm">{formatRateType(bestFixed5YInsured.mortgage_type)}</p>
+                  {bestFixed5YInsured.posted_rate && (
+                    <p className="text-xs text-slate-400 line-through mt-1">Posted: {bestFixed5YInsured.posted_rate.toFixed(2)}%</p>
+                  )}
+                  {bestFixed5YInsured.source_url && (
+                    <a
+                      href={bestFixed5YInsured.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm rounded-lg font-medium hover:bg-white/30 transition"
+                    >
+                      View Rate
+                    </a>
+                  )}
+                </>
+              ) : (
+                <p className="text-slate-400 text-sm">No rate available</p>
+              )}
+            </div>
             
-            {bestVariable && (
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                  <h3 className="text-sm font-medium text-teal-100">Best Variable Rate</h3>
-                </div>
-                <div className="text-4xl font-bold text-white mb-1">{bestVariable.rate.toFixed(2)}%</div>
-                <p className="text-slate-300 text-sm">
-                  {getTermLabel(bestVariable.term_months)} {formatRateType(bestVariable.mortgage_type)}
-                </p>
-                {bestVariable.source_url && (
-                  <a
-                    href={bestVariable.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-4 px-6 py-2.5 bg-white text-teal-700 rounded-lg font-medium hover:bg-teal-50 transition"
-                  >
-                    View Rate
-                  </a>
-                )}
+            {/* Fixed Uninsured */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  5-Year Fixed
+                </h3>
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
               </div>
-            )}
+              {bestFixed5YUninsured ? (
+                <>
+                  <div className="text-3xl font-bold text-slate-200 mb-1">{bestFixed5YUninsured.rate.toFixed(2)}%</div>
+                  <p className="text-slate-300 text-sm">{formatRateType(bestFixed5YUninsured.mortgage_type)}</p>
+                  {bestFixed5YUninsured.posted_rate && (
+                    <p className="text-xs text-slate-400 line-through mt-1">Posted: {bestFixed5YUninsured.posted_rate.toFixed(2)}%</p>
+                  )}
+                  {bestFixed5YUninsured.source_url && (
+                    <a
+                      href={bestFixed5YUninsured.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm rounded-lg font-medium hover:bg-white/30 transition"
+                    >
+                      View Rate
+                    </a>
+                  )}
+                </>
+              ) : (
+                <p className="text-slate-400 text-sm">No rate available</p>
+              )}
+            </div>
+            
+            {/* Variable Insured */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  5-Year Variable
+                </h3>
+                <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">Insured</span>
+              </div>
+              {bestVariable5YInsured ? (
+                <>
+                  <div className="text-3xl font-bold text-teal-300 mb-1">{bestVariable5YInsured.rate.toFixed(2)}%</div>
+                  <p className="text-slate-300 text-sm">{formatRateType(bestVariable5YInsured.mortgage_type)}</p>
+                  {bestVariable5YInsured.spread_to_prime && (
+                    <p className="text-xs text-teal-300 mt-1">Spread: {bestVariable5YInsured.spread_to_prime}</p>
+                  )}
+                  {bestVariable5YInsured.source_url && (
+                    <a
+                      href={bestVariable5YInsured.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm rounded-lg font-medium hover:bg-white/30 transition"
+                    >
+                      View Rate
+                    </a>
+                  )}
+                </>
+              ) : (
+                <p className="text-slate-400 text-sm">No rate available</p>
+              )}
+            </div>
+            
+            {/* Variable Uninsured */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-teal-400"></span>
+                  5-Year Variable
+                </h3>
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+              </div>
+              {bestVariable5YUninsured ? (
+                <>
+                  <div className="text-3xl font-bold text-slate-200 mb-1">{bestVariable5YUninsured.rate.toFixed(2)}%</div>
+                  <p className="text-slate-300 text-sm">{formatRateType(bestVariable5YUninsured.mortgage_type)}</p>
+                  {bestVariable5YUninsured.spread_to_prime && (
+                    <p className="text-xs text-teal-300 mt-1">Spread: {bestVariable5YUninsured.spread_to_prime}</p>
+                  )}
+                  {bestVariable5YUninsured.source_url && (
+                    <a
+                      href={bestVariable5YUninsured.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm rounded-lg font-medium hover:bg-white/30 transition"
+                    >
+                      View Rate
+                    </a>
+                  )}
+                </>
+              ) : (
+                <p className="text-slate-400 text-sm">No rate available</p>
+              )}
+            </div>
           </div>
         </div>
 
