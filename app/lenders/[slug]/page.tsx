@@ -10,6 +10,25 @@ export const dynamic = "force-static";
 // Import rates data
 import ratesData from "../../../data/rates.json";
 
+// Import lender content data
+import lenderContentData from "../../data/lenderContent.json";
+
+// Type for lender content
+interface LenderContent {
+  name: string;
+  tagline: string;
+  overview: string;
+  specialties: string[];
+  uniqueFeatures: string[];
+  seoKeywords: string[];
+}
+
+// Get lender content by slug
+function getLenderContent(slug: string): LenderContent | null {
+  const content = (lenderContentData as Record<string, LenderContent>)[slug];
+  return content || null;
+}
+
 interface Rate {
   lender_name: string;
   lender_slug: string;
@@ -45,13 +64,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const lenderName = lenderRates[0].lender_name;
   const lowestRate = Math.min(...lenderRates.map((r) => r.rate));
   
+  const content = getLenderContent(slug);
+  const seoKeywords = content?.seoKeywords || [];
+  
   const title = `${lenderName} Mortgage Rates | Latest Mortgage Rates Canada`;
-  const description = `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
+  const description = content?.overview 
+    ? `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. ${content.tagline} Updated daily.`
+    : `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
   
   return {
     title,
     description,
-    keywords: [`${lenderName} mortgage rates`, `${lenderName} rates`, "Canadian mortgage rates", "fixed mortgage", "variable mortgage", `${lenderName} Canada`],
+    keywords: [
+      `${lenderName} mortgage rates`,
+      `${lenderName} rates`,
+      "Canadian mortgage rates",
+      "fixed mortgage",
+      "variable mortgage",
+      `${lenderName} Canada`,
+      ...seoKeywords,
+    ],
     alternates: {
       canonical: `https://latestmortgagerates.ca/lenders/${slug}`,
     },
@@ -296,6 +328,12 @@ export default async function LenderPage({ params }: PageProps) {
                 <p className="text-slate-600 mt-1">
                   Compare current {lenderName} mortgage rates in Canada
                 </p>
+                {(() => {
+                  const content = getLenderContent(slug);
+                  return content?.tagline ? (
+                    <p className="text-teal-700 font-medium mt-1 text-sm">{content.tagline}</p>
+                  ) : null;
+                })()}
               </div>
             </div>
             <Navigation currentPage="rates" />
@@ -674,6 +712,82 @@ export default async function LenderPage({ params }: PageProps) {
             </div>
           </section>
         )}
+
+        {/* Lender Overview */}
+        <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8 overflow-hidden">
+          <div className="p-6 md:p-8">
+            <div className="flex flex-col md:flex-row md:items-start gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-teal-700">{lenderName.charAt(0)}</span>
+                </div>
+              </div>
+              
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">About {lenderName}</h2>
+                
+                <div className="prose prose-slate max-w-none">
+                  <div className="text-slate-600 leading-relaxed">
+                    {(() => {
+                      const content = getLenderContent(slug);
+                      if (content) {
+                        return <div dangerouslySetInnerHTML={{ __html: content.overview }} />;
+                      }
+                      return (
+                        <div>
+                          <p>{lenderName} is a Canadian mortgage lender offering competitive rates and flexible mortgage products. 
+                          Their mortgage solutions cater to first-time homebuyers, renewals, refinances, and investment properties.</p>
+                          <p>Compare {lenderName} mortgage rates above to find the best option for your home financing needs. 
+                          Their product lineup includes fixed-rate and variable-rate mortgages with various term lengths.</p>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                  
+                  {(() => {
+                    const content = getLenderContent(slug);
+                    if (!content) return null;
+                    return (
+                      <>
+                        {content.specialties?.length > 0 && (
+                          <div className="mt-6">
+                            <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Mortgage Specialties</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {content.specialties.map((specialty: string) => (
+                                <span
+                                  key={specialty}
+                                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-teal-50 text-teal-700 border border-teal-100"
+                                >
+                                  {specialty}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {content.uniqueFeatures?.length > 0 && (
+                          <div className="mt-6">
+                            <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-3">Unique Features</h3>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                              {content.uniqueFeatures.map((feature: string) => (
+                                <li key={feature} className="flex items-start gap-2 text-slate-600">
+                                  <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
+                                  </svg>
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="bg-teal-50 rounded-xl p-6 text-center border border-teal-100">
