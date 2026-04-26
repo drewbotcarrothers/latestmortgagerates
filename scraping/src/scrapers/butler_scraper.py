@@ -1,22 +1,20 @@
 """
 Butler Mortgage rate scraper.
-Butler Mortgage is a major mortgage brokerage that also offers direct lending.
-Rates from: https://www.butlermortgage.ca/low-mortgage-rates/
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
-import sys
-from pathlib import Path
+import re
 from decimal import Decimal
 from typing import List
 from datetime import datetime, timezone
-import re
+from pathlib import Path
 
 from loguru import logger
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
-
-from playwright.sync_api import sync_playwright
 
 
 class ButlerMortgageScraper:
@@ -36,50 +34,54 @@ class ButlerMortgageScraper:
         try:
             rates = self._scrape_with_playwright()
             if rates and len(rates) > 0:
-                logger.success(f"Successfully scraped {len(rates)} rates from Butler Mortgage website")
+                logger.success(f"Successfully scraped {len(rates)} live rates from Butler Mortgage")
                 return rates
         except Exception as e:
-            logger.warning(f"Failed to scrape Butler Mortgage website: {e}")
+            logger.warning(f"Playwright scraping failed: {e}")
         
-        # Fallback to static rates if scraping fails
-        logger.info("Using fallback rates for Butler Mortgage")
+        logger.info("Using fallback rates from Butler Mortgage (Apr 25, 2026)")
         return self._get_fallback_rates()
     
     def _scrape_with_playwright(self) -> List[RawRate]:
         """Scrape rates using Playwright browser automation."""
-        rates = []
-        
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
+        try:
+            from playwright.sync_api import sync_playwright
             
-            try:
-                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
-                page.wait_for_load_state("domcontentloaded")
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
                 
-                # Get page text content for parsing
+                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(2000)
+                
+                rates = []
                 text_content = page.inner_text("body")
                 
-                # Parse fixed rates from text content
+                # Parse fixed rates
                 fixed_rates = self._parse_rates_from_text(text_content, RateType.FIXED)
                 rates.extend(fixed_rates)
                 
-                # Parse variable rates from text content
+                # Parse variable rates
                 variable_rates = self._parse_rates_from_text(text_content, RateType.VARIABLE)
                 rates.extend(variable_rates)
                 
-            except Exception as e:
-                logger.error(f"Playwright error: {e}")
-            finally:
                 browser.close()
-        
-        return rates
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _parse_rates_from_text(self, text: str, rate_type: RateType) -> List[RawRate]:
         """Parse rates from page text content."""
         rates = []
         
-        # Map of term patterns to months
         term_patterns = {
             '6[- ]?MTH': 6,
             '1[- ]?YEAR': 12,
@@ -91,40 +93,25 @@ class ButlerMortgageScraper:
             '10[- ]?YEAR': 120,
         }
         
-        # Split content into sections
         lines = text.split('\n')
         
-        # Look for rate patterns in the text
         for i, line in enumerate(lines):
             line = line.strip()
             
-            # Check if this line contains a term
             for pattern, months in term_patterns.items():
                 if re.search(pattern, line, re.IGNORECASE):
-                    # Look for rate in nearby lines (next few lines)
                     for j in range(i+1, min(i+5, len(lines))):
                         rate_line = lines[j].strip()
-                        # Match rate pattern like "3.64%" or "3.64 %"
                         rate_match = re.search(r'(\d+\.\d+)\s*%', rate_line)
                         if rate_match:
                             rate_value = Decimal(rate_match.group(1))
-                            
-                            # Determine if featured (5-year is typically featured)
                             featured = months == 60
                             
-                            # Check for spread info in variable rates
-                            spread = None
-                            if rate_type == RateType.VARIABLE and months == 60:
-                                # Variable 5-year typically has spread
-                                spread = "P - 0.90%"  # Based on rates relative to Prime
-                            
                             raw_data = {
-                                "source": "butlermortgage_website",
+                                "source": "butlermortgage_live_scrape",
                                 "featured": featured,
                                 "extracted_from": rate_line[:100]
                             }
-                            if spread:
-                                raw_data["spread_to_prime"] = spread
                             
                             rates.append(RawRate(
                                 lender_slug=self.LENDER_SLUG,
@@ -139,7 +126,7 @@ class ButlerMortgageScraper:
                             ))
                             break
         
-        # Remove duplicates (keep first occurrence)
+        # Remove duplicates
         seen = set()
         unique_rates = []
         for r in rates:
@@ -148,29 +135,25 @@ class ButlerMortgageScraper:
                 seen.add(key)
                 unique_rates.append(r)
         
-        logger.info(f"Parsed {len(unique_rates)} {rate_type.value} rates from text")
         return unique_rates
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates from Butler Mortgage website (as of March 2026).
-        Source: https://www.butlermortgage.ca/low-mortgage-rates/
+        Fallback rates from Butler Mortgage (April 25, 2026).
+        Major mortgage brokerage with competitive broker rates.
         """
-        logger.info("Using fallback rates for Butler Mortgage")
+        logger.info("Using fallback rates from Butler Mortgage (Apr 25, 2026)")
         
-        # Rates captured from website on 2026-03-09
         fallback_data = [
-            # Fixed rates
-            {"term": 6, "type": RateType.FIXED, "rate": "3.89", "mortgage_type": "uninsured"},
-            {"term": 24, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured"},
-            {"term": 36, "type": RateType.FIXED, "rate": "3.54", "mortgage_type": "uninsured"},
-            {"term": 48, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.FIXED, "rate": "3.64", "mortgage_type": "uninsured", "featured": True},
-            {"term": 84, "type": RateType.FIXED, "rate": "4.99", "mortgage_type": "uninsured"},
-            {"term": 120, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured"},
-            # Variable rates
-            {"term": 36, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.35", "mortgage_type": "uninsured", "featured": True, "spread": "P - 0.90%"},
+            {"term": 6, "type": RateType.FIXED, "rate": "4.14", "mortgage_type": "uninsured", "product": "6 Month Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.89", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 84, "type": RateType.FIXED, "rate": "5.24", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
+            {"term": 120, "type": RateType.FIXED, "rate": "5.44", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "4.10", "mortgage_type": "uninsured", "product": "3 Year Variable"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.60", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "P - 0.85%"},
         ]
         
         rates = []
@@ -178,8 +161,10 @@ class ButlerMortgageScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "butlermortgage_website_fallback",
-                "featured": item.get("featured", False)
+                "source": "butlermortgage_fallback_2026-04-25",
+                "product": item.get("product"),
+                "featured": item.get("featured", False),
+                "last_verified": "2026-04-25"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]
@@ -199,7 +184,6 @@ class ButlerMortgageScraper:
         return rates
 
 
-# For testing
 if __name__ == "__main__":
     scraper = ButlerMortgageScraper()
     try:
@@ -209,11 +193,10 @@ if __name__ == "__main__":
         
         for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
             years = r.term_months // 12 if r.term_months >= 12 else f"{r.term_months}m"
-            rate_type = r.rate_type.value
-            featured = " ★" if r.raw_data.get("featured") else ""
+            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
             spread = r.raw_data.get("spread_to_prime", "")
             spread_str = f" [{spread}]" if spread else ""
-            print(f"  {years}yr {rate_type}: {r.rate}%{spread_str}{featured}")
+            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{spread_str}{featured}")
             
         print("-" * 60)
         
