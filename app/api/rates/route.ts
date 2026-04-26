@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   const limit = parseInt(searchParams.get('limit') || '5');
   const type = searchParams.get('type') || '5Y Fixed';
   
-  const rates: Rate[] = ratesData as Rate[];
+  const rates = ratesData as unknown as Rate[];
   
   // Filter and sort rates by interest rate (lowest first)
   const filteredRates = rates
