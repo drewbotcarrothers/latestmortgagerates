@@ -5,6 +5,9 @@ import * as fs from 'fs';
 const ratesData = JSON.parse(fs.readFileSync('data/rates.json', 'utf8'));
 const historicalJson = JSON.parse(fs.readFileSync('data/historical_rates.json', 'utf8'));
 
+// Fix any incorrect spread calculations in existing data first
+fixSpreadCalculations(historicalJson);
+
 // Calculate metrics from current rates
 function calculateMetrics(rates: any[]) {
   // Fixed uninsured 5-year
@@ -63,6 +66,37 @@ function calculateMetrics(rates: any[]) {
     lender_count: uniqueLenders.length,
     total_rates: rates.length
   };
+}
+
+// Function to fix spread calculations in existing historical data
+function fixSpreadCalculations(historicalJson: any) {
+  console.log('Fixing spread calculations...');
+  let fixed = 0;
+  
+  for (const entry of historicalJson.data) {
+    const primeRate = entry.prime_rate || 5.45;
+    
+    // Fix uninsured variable spread
+    if (entry.variable_uninsured_best_rate && entry.variable_uninsured_best_rate > 0) {
+      const correctSpread = parseFloat((entry.variable_uninsured_best_rate - primeRate).toFixed(2));
+      if (entry.variable_uninsured_spread_to_prime !== correctSpread) {
+        entry.variable_uninsured_spread_to_prime = correctSpread;
+        fixed++;
+      }
+    }
+    
+    // Fix insured variable spread
+    if (entry.variable_insured_best_rate && entry.variable_insured_best_rate > 0) {
+      const correctSpread = parseFloat((entry.variable_insured_best_rate - primeRate).toFixed(2));
+      if (entry.variable_insured_spread_to_prime !== correctSpread) {
+        entry.variable_insured_spread_to_prime = correctSpread;
+        fixed++;
+      }
+    }
+  }
+  
+  console.log(`Fixed ${fixed} spread calculations`);
+  return historicalJson;
 }
 
 // Calculate today's metrics
