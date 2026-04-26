@@ -32,7 +32,82 @@ interface GlossaryTerm {
   slug: string;
   definition: string;
   category: string;
+  relatedTools?: { href: string; label: string }[];
 }
+
+// Related tools mapping for glossary terms
+const relatedToolsMap: Record<string, { href: string; label: string }[]> = {
+  "amortization-period": [
+    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "apr": [
+    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+  ],
+  "cmhc-insurance": [
+    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "down-payment": [
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+  ],
+  "fhsa": [
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "fixed-rate-mortgage": [
+    { href: "/", label: "Compare Fixed Rates" },
+    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+  ],
+  "variable-rate-mortgage": [
+    { href: "/", label: "Compare Variable Rates" },
+    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+  ],
+  "heloc": [
+    { href: "/tools/refinance-calculator", label: "Refinance Calculator" },
+  ],
+  "high-ratio-mortgage": [
+    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+  ],
+  "land-transfer-tax": [
+    { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax Calculator" },
+  ],
+  "mortgage-broker": [
+    { href: "/", label: "Compare Lenders" },
+  ],
+  "mortgage-default-insurance": [
+    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+  ],
+  "mortgage-pre-approval": [
+    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "mortgage-renewal": [
+    { href: "/tools/mortgage-renewal-calculator", label: "Renewal Calculator" },
+  ],
+  "mortgage-stress-test": [
+    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "open-mortgage": [
+    { href: "/tools/mortgage-penalty-calculator", label: "Penalty Calculator" },
+  ],
+  "refinancing": [
+    { href: "/tools/refinance-calculator", label: "Refinance Calculator" },
+  ],
+  "stress-test": [
+    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
+  ],
+  "gds-ratio": [
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "tds-ratio": [
+    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+  ],
+  "closing-costs": [
+    { href: "/tools/closing-costs-calculator", label: "Closing Costs Calculator" },
+  ],
+};
 
 const glossaryTerms: GlossaryTerm[] = [
   {
@@ -356,9 +431,26 @@ export default function GlossaryPage() {
                     <h3 className="text-xl font-semibold text-slate-900 mb-3">
                       {term.term}
                     </h3>
-                    <p className="text-slate-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed mb-4">
                       {term.definition}
                     </p>
+                    {relatedToolsMap[term.slug] && (
+                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                        <span className="text-xs text-slate-500 mr-1">Related:</span>
+                        {relatedToolsMap[term.slug].map((tool) => (
+                          <Link
+                            key={tool.href}
+                            href={tool.href}
+                            className="text-xs inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-100 hover:bg-teal-100 transition-colors"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+                            </svg>
+                            {tool.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </article>
                 ))}
               </div>

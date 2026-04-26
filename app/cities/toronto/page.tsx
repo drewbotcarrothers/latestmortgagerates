@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic = "force-static";
 
@@ -274,6 +275,8 @@ export default function TorontoPage() {
                 Get Started
               </Link>
             </div>
+
+            <CityLendersSidebar cityName="Toronto" />
           </aside>
         </div>
       </div>
