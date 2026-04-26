@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function KitchenerPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org", "@type": "LocalBusiness",
@@ -57,11 +57,11 @@ export default function KitchenerPage() {
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Kitchener-Waterloo</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Kitchener-Waterloo</li>
             </ol>
           </nav>
           
@@ -70,8 +70,8 @@ export default function KitchenerPage() {
               <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
                 <span>💻 Canada's Tech Hub</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Kitchener-Waterloo 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">High-tech salaries, reasonable housing. The Silicon Valley of the North. Find your rate.</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Best Mortgage Rates in Kitchener-Waterloo 2025</h1>
+              <p className="text-slate-600 mt-2 text-lg">High-tech salaries, reasonable housing. The Silicon Valley of the North. Find your rate.</p>
             </div>
           </div>
         </div>
@@ -81,24 +81,24 @@ export default function KitchenerPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Kitchener-Waterloo Mortgage Rates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Current Kitchener-Waterloo Mortgage Rates</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Best available rate</p>
+                <div className="bg-teal-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Fixed</p>
+                  <p className="text-3xl font-bold text-teal-600">4.19%</p>
+                  <p className="text-sm text-slate-500">Best available rate</p>
                 </div>
                 
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Prime -0.60%</p>
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Variable</p>
+                  <p className="text-3xl font-bold text-emerald-600">3.85%</p>
+                  <p className="text-sm text-slate-500">Prime -0.60%</p>
                 </div>
               </div>
               
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-700">
+              <div className="bg-slate-50 rounded-lg p-4">
+                <p className="text-sm text-slate-700">
                   <strong>Tech Hub Advantage:</strong> ~$750K average with high-tech salaries. 
                   GO Train expansion connecting to Toronto coming soon.
                 </p>
@@ -106,37 +106,37 @@ export default function KitchenerPage() {
             </section>
 
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Programs</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">First-Time Buyer Programs</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Ontario LTT Rebate</h3>
-                  <p className="text-gray-700">Up to $4,000 rebate. Covers full tax on homes up to $368K.</p>
+                  <h3 className="font-semibold text-slate-900">Ontario LTT Rebate</h3>
+                  <p className="text-slate-700">Up to $4,000 rebate. Covers full tax on homes up to $368K.</p>
                 </div>                
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Tech Worker Salaries</h3>
-                  <p className="text-gray-700">High incomes relative to housing costs. Many first-time buyers qualify with tech/startup salaries.</p>
+                  <h3 className="font-semibold text-slate-900">Tech Worker Salaries</h3>
+                  <p className="text-slate-700">High incomes relative to housing costs. Many first-time buyers qualify with tech/startup salaries.</p>
                 </div>
               </div>
             </section>
 
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Kitchener-Waterloo Market Factors</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Kitchener-Waterloo Market Factors</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Google, Shopify, Startups</h3>
-                  <p className="text-gray-700">Major tech employers + 1,700+ startups. Highest startup density in Canada.</p>
+                  <h3 className="font-semibold text-slate-900">Google, Shopify, Startups</h3>
+                  <p className="text-slate-700">Major tech employers + 1,700+ startups. Highest startup density in Canada.</p>
                 </div>
                 
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">University of Waterloo</h3>
-                  <p className="text-gray-700">World-renowned engineering program feeds talent pipeline directly to local tech companies.</p>
+                  <h3 className="font-semibold text-slate-900">University of Waterloo</h3>
+                  <p className="text-slate-700">World-renowned engineering program feeds talent pipeline directly to local tech companies.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Coming GO Train Expansion</h3>
-                  <p className="text-gray-700">Two-way all-day GO service will connect Kitchener to Toronto, expected to boost home values.</p>
+                  <h3 className="font-semibold text-slate-900">Coming GO Train Expansion</h3>
+                  <p className="text-slate-700">Two-way all-day GO service will connect Kitchener to Toronto, expected to boost home values.</p>
                 </div>
               </div>
             </section>
@@ -144,36 +144,36 @@ export default function KitchenerPage() {
 
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Why Kitchener-Waterloo?</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Why Kitchener-Waterloo?</h3>
               
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Highest startup density</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">High tech salaries</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Affordable vs Toronto</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Top universities</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Highest startup density</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">High tech salaries</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Affordable vs Toronto</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Top universities</span></li>
               </ul>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
-                <li><Link href="/cities/hamilton" className="text-blue-600 hover:underline">Hamilton Rates</Link></li>
-                <li><Link href="/cities/london" className="text-blue-600 hover:underline">London Rates</Link></li>
+                <li><Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</Link></li>
+                <li><Link href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton Rates</Link></li>
+                <li><Link href="/cities/london" className="text-teal-600 hover:underline">London Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Compare KW Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">See rates from local mortgage brokers.</p>
-              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            <div className="bg-teal-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-slate-900 mb-2">Compare KW Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">See rates from local mortgage brokers.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
                 View Rates
               </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Share KW Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">Know a tech worker buying?</p>
+              <h3 className="font-bold text-slate-900 mb-2">Share KW Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">Know a tech worker buying?</p>
               <SocialShare url="https://latestmortgagerates.ca/cities/kitchener"
                 title="Best Mortgage Rates Kitchener-Waterloo 2025"
                 description="Canada's Tech Triangle! High incomes, $750K average homes. 5-year fixed from 4.19%."

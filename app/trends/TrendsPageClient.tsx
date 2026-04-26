@@ -111,7 +111,7 @@ export default function TrendsPageClient() {
           </div>
         </div>
 
-        <div className="mt-12 bg-blue-50 rounded-xl p-8 border border-blue-100">
+        <div className="mt-12 bg-teal-50 rounded-xl p-8 border border-blue-100">
           <h3 className="text-2xl font-bold text-slate-900 mb-4">Compare Today's Best Rates</h3>
           <p className="text-slate-600 mb-6">
             After reviewing trends, see the current best rates from Canada's top lenders.

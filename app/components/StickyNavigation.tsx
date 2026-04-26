@@ -21,7 +21,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
   return (
     <>
       {/* Sticky Header Navigation */}
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-gray-700 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -34,7 +34,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
               </div>
-              <span className="font-bold text-lg text-gray-900 dark:text-white hidden sm:block">
+              <span className="font-bold text-lg text-slate-900 dark:text-white hidden sm:block">
                 LatestMortgageRates
               </span>
             </Link>
@@ -47,14 +47,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   href={item.href}
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     currentPage === item.id
-                      ? "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
-                      : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                      ? "bg-teal-100 dark:bg-blue-900/50 text-blue-700 dark:text-teal-300"
+                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-teal-600 dark:hover:text-teal-400"
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className="ml-2 pl-2 border-l border-gray-200 dark:border-gray-700">
+              <div className="ml-2 pl-2 border-l border-slate-200 dark:border-gray-700">
                 <ThemeToggle />
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               <ThemeToggle />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-gray-200 hover:bg-slate-200 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 aria-label="Toggle menu"
                 aria-expanded={isMenuOpen}
               >
@@ -100,7 +100,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               isMenuOpen ? "max-h-96 opacity-100 mt-3" : "max-h-0 opacity-0"
             }`}
           >
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-2 space-y-1">
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-2 space-y-1">
               {navItems.map((item, index) => (
                 <Link
                   key={item.id}
@@ -108,8 +108,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
                   onClick={() => setIsMenuOpen(false)}
                   className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 transform ${
                     currentPage === item.id
-                      ? "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 translate-x-2"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 hover:translate-x-2"
+                      ? "bg-teal-100 dark:bg-blue-900/50 text-blue-700 dark:text-teal-300 translate-x-2"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-gray-700 hover:translate-x-2"
                   }`}
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >

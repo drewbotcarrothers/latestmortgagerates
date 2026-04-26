@@ -155,11 +155,11 @@ export default function LandTransferTaxCalculator() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Land Transfer Tax Calculator</h2>
+      <h2 className="text-xl font-bold text-slate-900 mb-4">Land Transfer Tax Calculator</h2>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Province
           </label>
           <select
@@ -168,7 +168,7 @@ export default function LandTransferTaxCalculator() {
               setProvince(e.target.value);
               if (e.target.value !== "ontario") setIsToronto(false);
             }}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
           >
             {Object.entries(provinces).map(([key, prov]) => (
               <option key={key} value={key}>{prov.name}</option>
@@ -183,25 +183,25 @@ export default function LandTransferTaxCalculator() {
               id="toronto"
               checked={isToronto}
               onChange={(e) => setIsToronto(e.target.checked)}
-              className="w-4 h-4 text-blue-600 rounded border-gray-300"
+              className="w-4 h-4 text-teal-600 rounded border-slate-300"
             />
-            <label htmlFor="toronto" className="text-sm text-gray-700">
+            <label htmlFor="toronto" className="text-sm text-slate-700">
               Purchasing in Toronto (includes Municipal LTT)
             </label>
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Home Purchase Price
           </label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
             <input
               type="number"
               value={homePrice}
               onChange={(e) => setHomePrice(Number(e.target.value))}
-              className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
         </div>
@@ -212,45 +212,45 @@ export default function LandTransferTaxCalculator() {
             id="firsttime"
             checked={isFirstTimeBuyer}
             onChange={(e) => setIsFirstTimeBuyer(e.target.checked)}
-            className="w-4 h-4 text-blue-600 rounded border-gray-300"
+            className="w-4 h-4 text-teal-600 rounded border-slate-300"
           />
-          <label htmlFor="firsttime" className="text-sm text-gray-700">
+          <label htmlFor="firsttime" className="text-sm text-slate-700">
             First-Time Home Buyer (eligible for rebate)
           </label>
         </div>
       </div>
 
       {/* Results */}
-      <div className="mt-6 bg-blue-50 rounded-lg p-4">
+      <div className="mt-6 bg-teal-50 rounded-lg p-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-gray-600">Provincial Tax</p>
-            <p className="font-semibold text-gray-900">${results.provincial.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
+            <p className="text-xs text-slate-600">Provincial Tax</p>
+            <p className="font-semibold text-slate-900">${results.provincial.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
           </div>
           {results.municipal > 0 && (
             <div>
-              <p className="text-xs text-gray-600">Municipal Tax</p>
-              <p className="font-semibold text-gray-900">${results.municipal.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
+              <p className="text-xs text-slate-600">Municipal Tax</p>
+              <p className="font-semibold text-slate-900">${results.municipal.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
             </div>
           )}
           <div>
-            <p className="text-xs text-gray-600">Total Tax Before Rebate</p>
-            <p className="font-semibold text-gray-900">${results.total.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
+            <p className="text-xs text-slate-600">Total Tax Before Rebate</p>
+            <p className="font-semibold text-slate-900">${results.total.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
           </div>
           <div>
-            <p className="text-xs text-gray-600">Rebate</p>
+            <p className="text-xs text-slate-600">Rebate</p>
             <p className="font-semibold text-green-700">-${results.rebate.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
           </div>
         </div>
 
-        <div className="mt-4 pt-4 border-t border-blue-200 text-center">
-          <p className="text-sm text-gray-600">Total Land Transfer Tax Due</p>
+        <div className="mt-4 pt-4 border-t border-teal-200 text-center">
+          <p className="text-sm text-slate-600">Total Land Transfer Tax Due</p>
           <p className="text-3xl font-bold text-blue-700">
             ${results.finalAmount.toLocaleString(undefined, {maximumFractionDigits: 0})}
           </p>
         </div>      </div>
 
-      <div className="mt-4 text-xs text-gray-500">
+      <div className="mt-4 text-xs text-slate-500">
         <p><strong>Rate Structure:</strong> {results.explanation}</p>
         
         {province === "ontario" && isToronto && (

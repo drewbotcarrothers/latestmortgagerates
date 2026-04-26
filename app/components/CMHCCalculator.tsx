@@ -62,30 +62,30 @@ export default function CMHCCalculator() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">CMHC Mortgage Insurance Calculator</h2>
+      <h2 className="text-xl font-bold text-slate-900 mb-4">CMHC Mortgage Insurance Calculator</h2>
       
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Home Purchase Price
           </label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
             <input
               type="number"
               value={homePrice}
               onChange={(e) => setHomePrice(Number(e.target.value))}
-              className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
             Down Payment
           </label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
             <input
               type="number"
               value={downPayment}
@@ -94,7 +94,7 @@ export default function CMHCCalculator() {
                 if (val <= homePrice) setDownPayment(val);
               }}
               max={homePrice}
-              className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
           {minDownPayment < homePrice * 0.2 && (
@@ -106,7 +106,7 @@ export default function CMHCCalculator() {
 
         {/* Visual Down Payment Slider */}
         <div>
-          <div className="flex justify-between text-sm text-gray-600 mb-1">
+          <div className="flex justify-between text-sm text-slate-600 mb-1">
             <span>5%</span>
             <span>10%</span>
             <span>15%</span>
@@ -120,7 +120,7 @@ export default function CMHCCalculator() {
             onChange={(e) => setDownPayment(Number(e.target.value))}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
           />
-          <div className="mt-1 text-center text-sm text-gray-600">
+          <div className="mt-1 text-center text-sm text-slate-600">
             {results.downPaymentPercent.toFixed(1)}% down payment
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function CMHCCalculator() {
       {/* Results */}
       <div className="mt-6 space-y-4">
         {!results.isRequired ? (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
             <div className="flex items-center gap-3">
               <span className="text-2xl">✅</span>
               <div>
@@ -146,41 +146,41 @@ export default function CMHCCalculator() {
             
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <p className="text-xs text-gray-600">Mortgage Amount</p>
-                <p className="font-semibold text-gray-900">${results.mortgageAmount.toLocaleString()}</p>
+                <p className="text-xs text-slate-600">Mortgage Amount</p>
+                <p className="font-semibold text-slate-900">${results.mortgageAmount.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-600">Loan-to-Value (LTV)</p>
-                <p className="font-semibold text-gray-900">{results.ltv.toFixed(1)}%</p>
+                <p className="text-xs text-slate-600">Loan-to-Value (LTV)</p>
+                <p className="font-semibold text-slate-900">{results.ltv.toFixed(1)}%</p>
               </div>
             </div>
             
             <div className="bg-white rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600">Premium Rate</span>
-                <span className="font-semibold text-gray-900">{results.premiumRate}%</span>
+                <span className="text-slate-600">Premium Rate</span>
+                <span className="font-semibold text-slate-900">{results.premiumRate}%</span>
               </div>
-              <div className="flex justify-between items-center mt-2 pt-2 border-t border-gray-200">
-                <span className="text-gray-900 font-medium">Premium Amount</span>
+              <div className="flex justify-between items-center mt-2 pt-2 border-t border-slate-200">
+                <span className="text-slate-900 font-medium">Premium Amount</span>
                 <span className="text-xl font-bold text-amber-700">${results.premiumAmount.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-gray-600">Total Mortgage</p>
-                <p className="font-bold text-gray-900">${results.totalMortgage.toLocaleString()}</p>
+                <p className="text-xs text-slate-600">Total Mortgage</p>
+                <p className="font-bold text-slate-900">${results.totalMortgage.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-600">New LTV with Premium</p>
-                <p className="font-bold text-gray-900">{results.newLTV.toFixed(1)}%</p>
+                <p className="text-xs text-slate-600">New LTV with Premium</p>
+                <p className="font-bold text-slate-900">{results.newLTV.toFixed(1)}%</p>
               </div>
             </div>
           </div>
         )}
       </div>
 
-      <div className="mt-4 text-xs text-gray-500">
+      <div className="mt-4 text-xs text-slate-500">
         <p><strong>CMHC Premium Rates (2025):</strong></p>
         <ul className="mt-1 space-y-1">
           <li>65% - 80% LTV: 2.25%</li>

@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 
 export default function EdmontonPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
@@ -89,21 +89,21 @@ export default function EdmontonPage() {
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Edmonton</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Edmonton</li>
             </ol>
           </nav>
           
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
+              <div className="inline-flex items-center gap-2 bg-emerald-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
                 <span>No Land Transfer Tax + Lowest Prices!</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Edmonton 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Alberta's capital: no land transfer tax and Canada's most affordable major city. Find the lowest rates.</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Best Mortgage Rates in Edmonton 2025</h1>
+              <p className="text-slate-600 mt-2 text-lg">Alberta's capital: no land transfer tax and Canada's most affordable major city. Find the lowest rates.</p>
             </div>
           </div>
         </div>
@@ -115,24 +115,24 @@ export default function EdmontonPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Current Rates Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Edmonton Mortgage Rates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Current Edmonton Mortgage Rates</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Best available rate</p>
+                <div className="bg-teal-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Fixed</p>
+                  <p className="text-3xl font-bold text-teal-600">4.19%</p>
+                  <p className="text-sm text-slate-500">Best available rate</p>
                 </div>
                 
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Prime -0.60%</p>
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Variable</p>
+                  <p className="text-3xl font-bold text-emerald-600">3.85%</p>
+                  <p className="text-sm text-slate-500">Prime -0.60%</p>
                 </div>
               </div>
               
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-700">
+              <div className="bg-slate-50 rounded-lg p-4">
+                <p className="text-sm text-slate-700">
                   <strong>Edmonton Advantage:</strong> Average home price $390K, no land transfer tax, 
                   affordable property taxes. You can buy a detached home here for the price of a Toronto condo.
                 </p>
@@ -141,50 +141,50 @@ export default function EdmontonPage() {
 
             {/* First-time Buyer Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Advantage</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">First-Time Buyer Advantage</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Alberta: No Land Transfer Tax</h3>
-                  <p className="text-gray-700">Unlike Ontario and BC, Alberta has no land transfer tax. 
+                  <h3 className="font-semibold text-slate-900">Alberta: No Land Transfer Tax</h3>
+                  <p className="text-slate-700">Unlike Ontario and BC, Alberta has no land transfer tax. 
                   You save $5,000-$15,000+ in closing costs. Only a small registration fee (~$300-500) applies.</p>
                 </div>                
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">First Home Savings Account (FHSA)</h3>
-                  <p className="text-gray-700">Save up to $40,000 tax-free for your first home. Contributions are tax-deductible, 
+                  <h3 className="font-semibold text-slate-900">First Home Savings Account (FHSA)</h3>
+                  <p className="text-slate-700">Save up to $40,000 tax-free for your first home. Contributions are tax-deductible, 
                   and withdrawals for home purchase are tax-free.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Home Buyers' Plan (HBP)</h3>
-                  <p className="text-gray-700">Withdraw up to $35,000 from your RRSP ($70K for couples) for your down payment.</p>
+                  <h3 className="font-semibold text-slate-900">Home Buyers' Plan (HBP)</h3>
+                  <p className="text-slate-700">Withdraw up to $35,000 from your RRSP ($70K for couples) for your down payment.</p>
                 </div>
               </div>
             </section>
 
             {/* Edmonton Market Factors */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Edmonton Market Factors</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Edmonton Market Factors</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Most Affordable Major City</h3>
-                  <p className="text-gray-700">Average home price ~$390K. Detached homes under $500K are common. First-time buyers can afford detached homes.</p>
+                  <h3 className="font-semibold text-slate-900">Most Affordable Major City</h3>
+                  <p className="text-slate-700">Average home price ~$390K. Detached homes under $500K are common. First-time buyers can afford detached homes.</p>
                 </div>
                 
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Diversified Economy</h3>
-                  <p className="text-gray-700">Healthcare, education, government, and tech sectors provide stability beyond oil and gas.</p>
+                  <h3 className="font-semibold text-slate-900">Diversified Economy</h3>
+                  <p className="text-slate-700">Healthcare, education, government, and tech sectors provide stability beyond oil and gas.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">World-Class Infrastructure</h3>
-                  <p className="text-gray-700">Anthony Henday Drive ring road, LRT expansion, and excellent healthcare facilities.</p>
+                  <h3 className="font-semibold text-slate-900">World-Class Infrastructure</h3>
+                  <p className="text-slate-700">Anthony Henday Drive ring road, LRT expansion, and excellent healthcare facilities.</p>
                 </div>
                 
                 <div className="border-l-4 border-orange-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">River Valley Parks</h3>
-                  <p className="text-gray-700">North America's largest urban park system - 22x the size of New York's Central Park.</p>
+                  <h3 className="font-semibold text-slate-900">River Valley Parks</h3>
+                  <p className="text-slate-700">North America's largest urban park system - 22x the size of New York's Central Park.</p>
                 </div>
               </div>
             </section>
@@ -193,45 +193,45 @@ export default function EdmontonPage() {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Why Edmonton?</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Why Edmonton?</h3>
               
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">NO land transfer tax</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">NO land transfer tax</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Most affordable major city</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Most affordable major city</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Detached homes under $500K</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Detached homes under $500K</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Low property taxes</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Low property taxes</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Diversified economy</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Diversified economy</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary Rates</Link></li>
-                <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
-                <li><Link href="/cities/vancouver" className="text-blue-600 hover:underline">Vancouver Rates</Link></li>
+                <li><Link href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</Link></li>
+                <li><Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</Link></li>
+                <li><Link href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Compare Edmonton Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">See rates from Edmonton mortgage brokers.</p>
-              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            <div className="bg-teal-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-slate-900 mb-2">Compare Edmonton Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">See rates from Edmonton mortgage brokers.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
                 View Rates
               </Link>
             </div>
@@ -241,8 +241,8 @@ export default function EdmontonPage() {
 
         {/* Social Sharing Section */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="font-bold text-gray-900 mb-2">Share Edmonton Mortgage Rates</h3>
-          <p className="text-gray-600 text-sm mb-4">
+          <h3 className="font-bold text-slate-900 mb-2">Share Edmonton Mortgage Rates</h3>
+          <p className="text-slate-600 text-sm mb-4">
             Know someone buying in Edmonton? Share these rates!
           </p>
           <SocialShare 

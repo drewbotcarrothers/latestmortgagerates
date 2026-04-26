@@ -7,7 +7,7 @@ interface PageWrapperProps {
 
 export default function PageWrapper({ children, currentPage }: PageWrapperProps) {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       <StickyNavigation currentPage={currentPage} />
       <main className="pt-0">
         {children}

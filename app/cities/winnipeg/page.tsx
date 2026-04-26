@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 
 export default function WinnipegPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       {/* LocalBusiness Structured Data */}
       <script
         type="application/ld+json"
@@ -89,21 +89,21 @@ export default function WinnipegPage() {
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Winnipeg</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Winnipeg</li>
             </ol>
           </nav>
           
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
+              <div className="inline-flex items-center gap-2 bg-emerald-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
                 <span>Canada's Most Affordable City!</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Winnipeg 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Get incredible value in Manitoba's capital. Average home price just $360K! Find the lowest rates.</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Best Mortgage Rates in Winnipeg 2025</h1>
+              <p className="text-slate-600 mt-2 text-lg">Get incredible value in Manitoba's capital. Average home price just $360K! Find the lowest rates.</p>
             </div>
           </div>
         </div>
@@ -115,24 +115,24 @@ export default function WinnipegPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Current Rates Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Winnipeg Mortgage Rates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Current Winnipeg Mortgage Rates</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Best available rate</p>
+                <div className="bg-teal-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Fixed</p>
+                  <p className="text-3xl font-bold text-teal-600">4.19%</p>
+                  <p className="text-sm text-slate-500">Best available rate</p>
                 </div>
                 
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Prime -0.60%</p>
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Variable</p>
+                  <p className="text-3xl font-bold text-emerald-600">3.85%</p>
+                  <p className="text-sm text-slate-500">Prime -0.60%</p>
                 </div>
               </div>
               
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-700">
+              <div className="bg-slate-50 rounded-lg p-4">
+                <p className="text-sm text-slate-700">
                   <strong>Winnipeg Value Proposition:</strong> Average home price ~$360K - you can buy 
                   a beautiful home here for 1/3 the price of Toronto. Great for first-time buyers!
                 </p>
@@ -141,51 +141,51 @@ export default function WinnipegPage() {
 
             {/* First-time Buyer Section */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Advantage</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">First-Time Buyer Advantage</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Incredible Affordability</h3>
-                  <p className="text-gray-700">$360K average means detached homes under $400K. 
+                  <h3 className="font-semibold text-slate-900">Incredible Affordability</h3>
+                  <p className="text-slate-700">$360K average means detached homes under $400K. 
                   You can own a house with significantly lower income than required in Toronto or Vancouver.</p>
                 </div>                
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Manitoba First-Time Home Buyers' Tax Credit</h3>
-                  <p className="text-gray-700">$10,000 provincial tax credit for qualifying first-time buyers. 
+                  <h3 className="font-semibold text-slate-900">Manitoba First-Time Home Buyers' Tax Credit</h3>
+                  <p className="text-slate-700">$10,000 provincial tax credit for qualifying first-time buyers. 
                   Combined with federal programs, first-time buyers get significant support.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">First Home Savings Account (FHSA)</h3>
-                  <p className="text-gray-700">Save up to $40,000 tax-free. In Winnipeg, that could be your entire down payment!</p>
+                  <h3 className="font-semibold text-slate-900">First Home Savings Account (FHSA)</h3>
+                  <p className="text-slate-700">Save up to $40,000 tax-free. In Winnipeg, that could be your entire down payment!</p>
                 </div>
               </div>
             </section>
 
             {/* Winnipeg Market Factors */}
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Winnipeg Market Factors</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Winnipeg Market Factors</h2>
               
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">CentrePort Canada</h3>
-                  <p className="text-gray-700">North America's largest trimodal inland port (air, rail, truck) 
+                  <h3 className="font-semibold text-slate-900">CentrePort Canada</h3>
+                  <p className="text-slate-700">North America's largest trimodal inland port (air, rail, truck) 
                   driving logistics and trade jobs.</p>
                 </div>
                 
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Affordable Property Taxes</h3>
-                  <p className="text-gray-700">Winnipeg has reasonable property taxes compared to other Canadian cities. Lower carrying costs.</p>
+                  <h3 className="font-semibold text-slate-900">Affordable Property Taxes</h3>
+                  <p className="text-slate-700">Winnipeg has reasonable property taxes compared to other Canadian cities. Lower carrying costs.</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Cultural Scene</h3>
-                  <p className="text-gray-700">The Exchange District, Folklorama, and thriving arts scene make Winnipeg culturally rich despite its size.</p>
+                  <h3 className="font-semibold text-slate-900">Cultural Scene</h3>
+                  <p className="text-slate-700">The Exchange District, Folklorama, and thriving arts scene make Winnipeg culturally rich despite its size.</p>
                 </div>
                 
                 <div className="border-l-4 border-orange-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Four Seasons Living</h3>
-                  <p className="text-gray-700">Experience true seasons. Winter activities (Festival du Voyageur) and beautiful summers by the lakes.</p>
+                  <h3 className="font-semibold text-slate-900">Four Seasons Living</h3>
+                  <p className="text-slate-700">Experience true seasons. Winter activities (Festival du Voyageur) and beautiful summers by the lakes.</p>
                 </div>
               </div>
             </section>
@@ -194,45 +194,45 @@ export default function WinnipegPage() {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Why Winnipeg?</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Why Winnipeg?</h3>
               
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Most affordable in Canada</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Most affordable in Canada</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Detached homes from $300K</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Detached homes from $300K</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">$10K first-time buyer credit</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">$10K first-time buyer credit</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Diversified economy</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">Diversified economy</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">No land transfer tax</span>
+                  <span className="text-emerald-500">✓</span>
+                  <span className="text-slate-700">No land transfer tax</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/cities/edmonton" className="text-blue-600 hover:underline">Edmonton Rates</Link></li>
-                <li><Link href="/cities/calgary" className="text-blue-600 hover:underline">Calgary Rates</Link></li>
-                <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
+                <li><Link href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton Rates</Link></li>
+                <li><Link href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</Link></li>
+                <li><Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Compare Winnipeg Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">See rates from Manitoba mortgage brokers.</p>
-              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            <div className="bg-teal-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-slate-900 mb-2">Compare Winnipeg Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">See rates from Manitoba mortgage brokers.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
                 View Rates
               </Link>
             </div>
@@ -242,8 +242,8 @@ export default function WinnipegPage() {
 
         {/* Social Sharing Section */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="font-bold text-gray-900 mb-2">Share Winnipeg Mortgage Rates</h3>
-          <p className="text-gray-600 text-sm mb-4">
+          <h3 className="font-bold text-slate-900 mb-2">Share Winnipeg Mortgage Rates</h3>
+          <p className="text-slate-600 text-sm mb-4">
             Know someone buying in Winnipeg? Share Canada's most affordable rates!
           </p>
           <SocialShare 

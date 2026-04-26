@@ -109,7 +109,7 @@ export default function MortgagePenaltyCalculator() {
         <div className="space-y-6">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-sm">🏠</span>
+              <span className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 text-sm">🏠</span>
               Mortgage Details
             </h3>
             
@@ -324,7 +324,7 @@ export default function MortgagePenaltyCalculator() {
           </div>
         </div>
         
-        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <div className="mt-4 bg-teal-50 border border-teal-200 rounded-xl p-4">
           <h4 className="font-semibold text-blue-900 mb-2">⚠️ Important Notes</h4>
           <ul className="space-y-1 text-sm text-blue-800">
             <li>• This is an estimate. Contact your lender for exact penalty amount.</li>

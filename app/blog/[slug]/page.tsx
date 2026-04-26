@@ -249,7 +249,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </div>
 
-          <div className="mt-12 bg-blue-50 rounded-xl p-6 border border-blue-100">
+          <div className="mt-12 bg-teal-50 rounded-xl p-6 border border-blue-100">
             <h3 className="text-lg font-semibold text-slate-900 mb-2">Compare Today's Best Rates</h3>
             <p className="text-slate-600 mb-4">
               See how rates from Canada's top lenders compare before your renewal or purchase.

@@ -74,7 +74,7 @@ const lenderNames: Record<string, string> = {
 const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }> = {
   // Big 6 Banks
   rbc: { bg: "bg-blue-700", text: "text-white", abbr: "RBC" },
-  td: { bg: "bg-green-600", text: "text-white", abbr: "TD" },
+  td: { bg: "bg-emerald-600", text: "text-white", abbr: "TD" },
   scotiabank: { bg: "bg-red-600", text: "text-white", abbr: "Scotia" },
   bmo: { bg: "bg-red-700", text: "text-white", abbr: "BMO" },
   cibc: { bg: "bg-red-600", text: "text-white", abbr: "CIBC" },
@@ -91,18 +91,18 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   
   // Credit Unions
   meridian: { bg: "bg-teal-600", text: "text-white", abbr: "M" },
-  desjardins: { bg: "bg-green-500", text: "text-white", abbr: "Desj" },
+  desjardins: { bg: "bg-emerald-500", text: "text-white", abbr: "Desj" },
   vancity: { bg: "bg-red-500", text: "text-white", abbr: "Vancity" },
-  coastcapital: { bg: "bg-blue-500", text: "text-white", abbr: "Coast" },
+  coastcapital: { bg: "bg-teal-500", text: "text-white", abbr: "Coast" },
   
   // Regional Banks
-  atb: { bg: "bg-blue-600", text: "text-white", abbr: "ATB" },
+  atb: { bg: "bg-teal-600", text: "text-white", abbr: "ATB" },
   cwb: { bg: "bg-green-700", text: "text-white", abbr: "CWB" },
   
   // Monoline Lenders
-  firstnational: { bg: "bg-blue-500", text: "text-white", abbr: "FNF" },
+  firstnational: { bg: "bg-teal-500", text: "text-white", abbr: "FNF" },
   mcap: { bg: "bg-gray-700", text: "text-white", abbr: "MCAP" },
-  laurentian: { bg: "bg-blue-600", text: "text-white", abbr: "Laurent" },
+  laurentian: { bg: "bg-teal-600", text: "text-white", abbr: "Laurent" },
   manulife: { bg: "bg-green-700", text: "text-white", abbr: "Manu" },
   rfa: { bg: "bg-slate-600", text: "text-white", abbr: "RFA" },
   cmls: { bg: "bg-blue-800", text: "text-white", abbr: "CMLS" },
@@ -138,7 +138,7 @@ export default function LenderLogo({ lenderSlug, size = "md", showText = true }:
           <span className={`${fallback.text} text-xs`}>{fallback.abbr}</span>
         </div>
         {showText && (
-          <span className="font-medium text-gray-900 dark:text-gray-100">{lenderName}</span>
+          <span className="font-medium text-slate-900 dark:text-gray-100">{lenderName}</span>
         )}
       </div>
     );
@@ -158,7 +158,7 @@ export default function LenderLogo({ lenderSlug, size = "md", showText = true }:
         />
       </div>
       {showText && (
-        <span className="font-medium text-gray-900 dark:text-gray-100">{lenderName}</span>
+        <span className="font-medium text-slate-900 dark:text-gray-100">{lenderName}</span>
       )}
     </div>
   );

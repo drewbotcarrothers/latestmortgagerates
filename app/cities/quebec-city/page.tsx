@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function QuebecCityPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: "Latest Mortgage Rates Canada - Quebec City", description: "Best mortgage rates in Quebec City", areaServed: { "@type": "City", name: "Quebec City", containedIn: "Quebec" }, url: "https://latestmortgagerates.ca/cities/quebec-city" }),
       }} />
@@ -49,11 +49,11 @@ export default function QuebecCityPage() {
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Quebec City</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Quebec City</li>
             </ol>
           </nav>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -61,8 +61,8 @@ export default function QuebecCityPage() {
               <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium mb-3">
                 <span>🏛️ UNESCO World Heritage Site</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Quebec City 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Historic charm meets modern affordability. Average home just $360K. Find your rate.</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Best Mortgage Rates in Quebec City 2025</h1>
+              <p className="text-slate-600 mt-2 text-lg">Historic charm meets modern affordability. Average home just $360K. Find your rate.</p>
             </div>
           </div>
         </div>
@@ -72,52 +72,52 @@ export default function QuebecCityPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Quebec City Mortgage Rates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Current Quebec City Mortgage Rates</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Fixed</p>
-                  <p className="text-3xl font-bold text-blue-600">4.19%</p>
-                  <p className="text-sm text-gray-500">Best available rate</p>
+                <div className="bg-teal-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Fixed</p>
+                  <p className="text-3xl font-bold text-teal-600">4.19%</p>
+                  <p className="text-sm text-slate-500">Best available rate</p>
                 </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-600">5-Year Variable</p>
-                  <p className="text-3xl font-bold text-green-600">3.85%</p>
-                  <p className="text-sm text-gray-500">Prime -0.60%</p>
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">5-Year Variable</p>
+                  <p className="text-3xl font-bold text-emerald-600">3.85%</p>
+                  <p className="text-sm text-slate-500">Prime -0.60%</p>
                 </div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-700"><strong>Historic Value:</strong> ~$360K average. Buy in a UNESCO World Heritage site for less than a Toronto condo.</p>
-              </div>
-            </section>
-
-            <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Quebec First-Time Buyer Programs</h2>
-              <div className="space-y-4">
-                <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">RQAP (Régime d'accès à la propriété)</h3>
-                  <p className="text-gray-700">Quebec's homeownership program helps buyers with down payments. Specific eligibility rules apply.</p>
-                </div>
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Welcome Tax Exemptions</h3>
-                  <p className="text-gray-700">First-time buyers may qualify for municipal welcome tax exemptions or rebates depending on the municipality.</p>
-                </div>
+              <div className="bg-slate-50 rounded-lg p-4">
+                <p className="text-sm text-slate-700"><strong>Historic Value:</strong> ~$360K average. Buy in a UNESCO World Heritage site for less than a Toronto condo.</p>
               </div>
             </section>
 
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Quebec City Market Factors</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Quebec First-Time Buyer Programs</h2>
               <div className="space-y-4">
                 <div className="border-l-4 border-green-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Incredible Affordability</h3>
-                  <p className="text-gray-700">$360K average in a major Canadian city. Detached homes under $400K common. First-time buyers can afford houses here.</p>
+                  <h3 className="font-semibold text-slate-900">RQAP (Régime d'accès à la propriété)</h3>
+                  <p className="text-slate-700">Quebec's homeownership program helps buyers with down payments. Specific eligibility rules apply.</p>
                 </div>
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Tourism Economy</h3>
-                  <p className="text-gray-700">Historic Old Quebec, Winter Carnival, and cruise ship port drive tourism jobs and short-term rental demand.</p>
+                  <h3 className="font-semibold text-slate-900">Welcome Tax Exemptions</h3>
+                  <p className="text-slate-700">First-time buyers may qualify for municipal welcome tax exemptions or rebates depending on the municipality.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Quebec City Market Factors</h2>
+              <div className="space-y-4">
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h3 className="font-semibold text-slate-900">Incredible Affordability</h3>
+                  <p className="text-slate-700">$360K average in a major Canadian city. Detached homes under $400K common. First-time buyers can afford houses here.</p>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-slate-900">Tourism Economy</h3>
+                  <p className="text-slate-700">Historic Old Quebec, Winter Carnival, and cruise ship port drive tourism jobs and short-term rental demand.</p>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">Provincial Capital</h3>
-                  <p className="text-gray-700">Stable government employment anchors the economy. Unlike resource towns, job market stays consistent year-round.</p>
+                  <h3 className="font-semibold text-slate-900">Provincial Capital</h3>
+                  <p className="text-slate-700">Stable government employment anchors the economy. Unlike resource towns, job market stays consistent year-round.</p>
                 </div>
               </div>
             </section>
@@ -125,33 +125,33 @@ export default function QuebecCityPage() {
 
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Why Quebec City?</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Why Quebec City?</h3>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">UNESCO World Heritage</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">$360K average homes</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Historic European charm</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Lowest unemployment in Canada</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">UNESCO World Heritage</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">$360K average homes</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Historic European charm</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Lowest unemployment in Canada</span></li>
               </ul>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/cities/montreal" className="text-blue-600 hover:underline">Montreal Rates</Link></li>
-                <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
-                <li><Link href="/cities/halifax" className="text-blue-600 hover:underline">Halifax Rates</Link></li>
+                <li><Link href="/cities/montreal" className="text-teal-600 hover:underline">Montreal Rates</Link></li>
+                <li><Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</Link></li>
+                <li><Link href="/cities/halifax" className="text-teal-600 hover:underline">Halifax Rates</Link></li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Compare Quebec City Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">See rates from Quebec lenders.</p>
-              <Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link>
+            <div className="bg-teal-50 rounded-lg p-6 mt-6">
+              <h3 className="font-bold text-slate-900 mb-2">Compare Quebec City Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">See rates from Quebec lenders.</p>
+              <Link href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-2">Share Quebec City Rates</h3>
-              <p className="text-gray-600 text-sm mb-4">Know someone buying?</p>
+              <h3 className="font-bold text-slate-900 mb-2">Share Quebec City Rates</h3>
+              <p className="text-slate-600 text-sm mb-4">Know someone buying?</p>
               <SocialShare url="https://latestmortgagerates.ca/cities/quebec-city"
                 title="Best Mortgage Rates Quebec City 2025"
                 description="UNESCO World Heritage site, $360K average homes! 5-year fixed from 4.19%."

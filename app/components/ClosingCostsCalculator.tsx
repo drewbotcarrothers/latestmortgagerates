@@ -185,7 +185,7 @@ export default function ClosingCostsCalculator() {
         <div className="space-y-6">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-sm">🏠</span>
+              <span className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 text-sm">🏠</span>
               Home Details
             </h3>
             

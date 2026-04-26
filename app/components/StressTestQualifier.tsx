@@ -123,7 +123,7 @@ export default function StressTestQualifier() {
         <div className="space-y-6">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-sm">💰</span>
+              <span className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-sm">💰</span>
               Income
             </h3>
             
@@ -194,7 +194,7 @@ export default function StressTestQualifier() {
         <div className="space-y-6">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-sm">🏠</span>
+              <span className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 text-sm">🏠</span>
               Property Costs
             </h3>
             
@@ -386,7 +386,7 @@ export default function StressTestQualifier() {
           )}
         </div>
         
-        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <div className="mt-4 bg-teal-50 border border-teal-200 rounded-xl p-4">
           <h4 className="font-semibold text-blue-900 mb-2">ℹ️ About the Stress Test</h4>
           <ul className="space-y-1 text-sm text-blue-800">
             <li>• You must qualify at the higher of: 5.25% OR your contract rate + 2%</li>

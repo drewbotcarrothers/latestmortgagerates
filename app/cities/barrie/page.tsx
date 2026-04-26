@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function BarriePage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-slate-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({ "@context": "https://schema.org", "@type": "LocalBusiness", name: "Latest Mortgage Rates Canada - Barrie", description: "Best mortgage rates in Barrie", areaServed: { "@type": "City", name: "Barrie", containedIn: "Ontario" }, url: "https://latestmortgagerates.ca/cities/barrie" }),
       }} />
@@ -34,18 +34,18 @@ export default function BarriePage() {
 
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><Link href="/" className="hover:text-blue-600">Home</Link></li>
-              <li><span className="text-gray-400">/</span></li>
-              <li className="text-gray-900 font-medium">Barrie</li>
+              <li><Link href="/" className="hover:text-teal-600">Home</Link></li>
+              <li><span className="text-slate-400">/</span></li>
+              <li className="text-slate-900 font-medium">Barrie</li>
             </ol>
           </nav>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-3"><span>🏖️ Lake Simcoe Waterfront</span></div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Best Mortgage Rates in Barrie 2025</h1>
-              <p className="text-gray-600 mt-2 text-lg">Lakefront living with Toronto access. GO Train commuter hub. Find your rate.</p>
+              <div className="inline-flex items-center gap-2 bg-teal-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mb-3"><span>🏖️ Lake Simcoe Waterfront</span></div>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Best Mortgage Rates in Barrie 2025</h1>
+              <p className="text-slate-600 mt-2 text-lg">Lakefront living with Toronto access. GO Train commuter hub. Find your rate.</p>
             </div>
           </div>
         </div>
@@ -55,55 +55,55 @@ export default function BarriePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Current Barrie Mortgage Rates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Current Barrie Mortgage Rates</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Fixed</p><p className="text-3xl font-bold text-blue-600">4.19%</p><p className="text-sm text-gray-500">Best available rate</p></div>
-                <div className="bg-green-50 rounded-lg p-4"><p className="text-sm text-gray-600">5-Year Variable</p><p className="text-3xl font-bold text-green-600">3.85%</p><p className="text-sm text-gray-500">Prime -0.60%</p></div>
+                <div className="bg-teal-50 rounded-lg p-4"><p className="text-sm text-slate-600">5-Year Fixed</p><p className="text-3xl font-bold text-teal-600">4.19%</p><p className="text-sm text-slate-500">Best available rate</p></div>
+                <div className="bg-emerald-50 rounded-lg p-4"><p className="text-sm text-slate-600">5-Year Variable</p><p className="text-3xl font-bold text-emerald-600">3.85%</p><p className="text-sm text-slate-500">Prime -0.60%</p></div>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4"><p className="text-sm text-gray-700"><strong>Lakefront Value:</strong> ~$750K average. Save $450K vs Toronto with lake access!</p></div>
+              <div className="bg-slate-50 rounded-lg p-4"><p className="text-sm text-slate-700"><strong>Lakefront Value:</strong> ~$750K average. Save $450K vs Toronto with lake access!</p></div>
             </section>
 
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">First-Time Buyer Programs</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">First-Time Buyer Programs</h2>
               <div className="space-y-4">
-                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">Ontario LTT Rebate</h3><p className="text-gray-700">Up to $4,000 rebate.</p></div>
-                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">GO Train Commuter</h3><p className="text-gray-700">Barrie Line connects to Toronto Union. Many residents commute.</p></div>
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-slate-900">Ontario LTT Rebate</h3><p className="text-slate-700">Up to $4,000 rebate.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-slate-900">GO Train Commuter</h3><p className="text-slate-700">Barrie Line connects to Toronto Union. Many residents commute.</p></div>
               </div>
             </section>
 
             <section className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Barrie Market Factors</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Barrie Market Factors</h2>
               <div className="space-y-4">
-                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-gray-900">Kempenfelt Bay</h3><p className="text-gray-700">Lake Simcoe waterfront with beaches, marina, and waterfront trail.</p></div>
-                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-gray-900">Toronto Commuter Town</h3><p className="text-gray-700">GO Train expansion made Barrie accessible. 90km to Toronto.</p></div>
-                <div className="border-l-4 border-purple-500 pl-4"><h3 className="font-semibold text-gray-900">Growing Tech Hub</h3><p className="text-gray-700">Tech companies choosing Barrie for lower costs while keeping Toronto access.</p></div>
+                <div className="border-l-4 border-green-500 pl-4"><h3 className="font-semibold text-slate-900">Kempenfelt Bay</h3><p className="text-slate-700">Lake Simcoe waterfront with beaches, marina, and waterfront trail.</p></div>
+                <div className="border-l-4 border-blue-500 pl-4"><h3 className="font-semibold text-slate-900">Toronto Commuter Town</h3><p className="text-slate-700">GO Train expansion made Barrie accessible. 90km to Toronto.</p></div>
+                <div className="border-l-4 border-purple-500 pl-4"><h3 className="font-semibold text-slate-900">Growing Tech Hub</h3><p className="text-slate-700">Tech companies choosing Barrie for lower costs while keeping Toronto access.</p></div>
               </div>
             </section>
           </div>
 
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h3 className="font-bold text-gray-900 mb-4">Why Barrie?</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Why Barrie?</h3>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Lake Simcoe waterfront</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">GO Train to Toronto</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">$750K vs $1.2M Toronto</span></li>
-                <li className="flex items-start gap-2"><span className="text-green-500">✓</span><span className="text-gray-700">Family-friendly</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Lake Simcoe waterfront</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">GO Train to Toronto</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">$750K vs $1.2M Toronto</span></li>
+                <li className="flex items-start gap-2"><span className="text-emerald-500">✓</span><span className="text-slate-700">Family-friendly</span></li>
               </ul>
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-              <h3 className="font-bold text-gray-900 mb-4">Compare Cities</h3>
+              <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/cities/toronto" className="text-blue-600 hover:underline">Toronto Rates</Link></li>
-                <li><Link href="/cities/oshawa" className="text-blue-600 hover:underline">Oshawa Rates</Link></li>
-                <li><Link href="/cities/hamilton" className="text-blue-600 hover:underline">Hamilton Rates</Link></li>
+                <li><Link href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</Link></li>
+                <li><Link href="/cities/oshawa" className="text-teal-600 hover:underline">Oshawa Rates</Link></li>
+                <li><Link href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton Rates</Link></li>
               </ul>
             </div>
             
-            <div className="bg-blue-50 rounded-lg p-6 mt-6"><h3 className="font-bold text-gray-900 mb-2">Compare Barrie Rates</h3><p className="text-gray-600 text-sm mb-4">See rates from Simcoe County lenders.</p><Link href="/" className="block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link></div>
+            <div className="bg-teal-50 rounded-lg p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Compare Barrie Rates</h3><p className="text-slate-600 text-sm mb-4">See rates from Simcoe County lenders.</p><Link href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</Link></div>
             
-            <div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-gray-900 mb-2">Share Barrie Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/barrie"
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Share Barrie Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/barrie"
                 title="Best Mortgage Rates Barrie 2025"
                 description="Lake Simcoe living with Toronto GO Train access! $750K average. 5-year fixed from 4.19%."
               /></div>

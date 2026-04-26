@@ -143,7 +143,7 @@ export default function RentVsBuyCalculator() {
         <div className="space-y-6">
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-sm">🏠</span>
+              <span className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 text-sm">🏠</span>
               Home Purchase
             </h3>
             
@@ -284,7 +284,7 @@ export default function RentVsBuyCalculator() {
           
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-              <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-sm">📈</span>
+              <span className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-sm">📈</span>
               Assumptions
             </h3>
             
@@ -341,7 +341,7 @@ export default function RentVsBuyCalculator() {
       <div className="mt-8">
         <div className={`rounded-2xl p-6 ${
           results.winner === 'buy' ? 'bg-emerald-50 border-2 border-emerald-200' :
-          results.winner === 'rent' ? 'bg-blue-50 border-2 border-blue-200' :
+          results.winner === 'rent' ? 'bg-teal-50 border-2 border-teal-200' :
           'bg-slate-50 border-2 border-slate-200'
         }`}>
           <div className="text-center mb-6">
@@ -397,11 +397,11 @@ export default function RentVsBuyCalculator() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Investment Growth</span>
-                  <span className="font-medium text-blue-600">{formatCurrency(results.netWorthRent)}</span>
+                  <span className="font-medium text-teal-600">{formatCurrency(results.netWorthRent)}</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-slate-100">
                   <span className="text-slate-900 font-medium">Net Worth</span>
-                  <span className="font-bold text-blue-600">{formatCurrency(results.netWorthRent)}</span>
+                  <span className="font-bold text-teal-600">{formatCurrency(results.netWorthRent)}</span>
                 </div>
               </div>
             </div>
