@@ -31,6 +31,22 @@ def load_rates_from_json(filepath: str) -> List[RawRate]:
     rates = []
     for item in data:
         try:
+            # Set raw_data.source for tracking
+            raw_data = item.get("raw_data", {})
+            if not raw_data.get("source") and item.get("source_url"):
+                # Derive source from URL domain
+                url = item.get("source_url", "")
+                if "ratehub" in url:
+                    raw_data["source"] = "ratehub"
+                elif "rates.ca" in url:
+                    raw_data["source"] = "ratesca"
+                elif "lowestrates" in url:
+                    raw_data["source"] = "lowestrates"
+                elif "wowa" in url:
+                    raw_data["source"] = "wowa"
+                else:
+                    raw_data["source"] = f"{item.get('lender_slug', 'unknown')}_live_scrape"
+            
             rate = RawRate(
                 lender_slug=item.get("lender_slug", ""),
                 lender_name=item.get("lender_name"),
@@ -41,7 +57,7 @@ def load_rates_from_json(filepath: str) -> List[RawRate]:
                 posted_rate=Decimal(str(item["posted_rate"])) if item.get("posted_rate") else None,
                 source_url=item.get("source_url", ""),
                 scraped_at=datetime.fromisoformat(item["scraped_at"]) if item.get("scraped_at") else datetime.utcnow(),
-                raw_data=item.get("raw_data", {})
+                raw_data=raw_data
             )
             rates.append(rate)
         except Exception as e:
@@ -72,8 +88,7 @@ def save_rates_to_json(rates: List[RawRate], filepath: str, stats: Dict = None):
         }
         output.append(item)
     
-    # Add metadata as comments in a separate file
-    metadata_file = Path(filepath).parent / "metadata.json"
+    # Add metadata as a separate cleaning report
     metadata = {
         "generated_at": datetime.utcnow().isoformat(),
         "total_rates": len(output),
@@ -81,6 +96,8 @@ def save_rates_to_json(rates: List[RawRate], filepath: str, stats: Dict = None):
         "data_quality": "deduplicated_and_validated"
     }
     
+    # Save metadata to a separate file (don't overwrite data/metadata.json)
+    metadata_file = Path(filepath).parent / "cleaning_metadata.json"
     with open(metadata_file, 'w') as f:
         json.dump(metadata, f, indent=2, default=str)
     
@@ -89,7 +106,7 @@ def save_rates_to_json(rates: List[RawRate], filepath: str, stats: Dict = None):
         json.dump(output, f, indent=2, default=str)
     
     logger.success(f"Saved {len(output)} cleaned rates to {filepath}")
-    logger.success(f"Saved metadata to {metadata_file}")
+    logger.success(f"Saved cleaning metadata to {metadata_file}")
 
 
 def main():
@@ -113,11 +130,17 @@ def main():
     logger.info(f"\nCleaning Results:")
     logger.info(f"  Input:    {stats['input_count']}")
     logger.info(f"  Output:   {stats['output_count']}")
-    logger.info(f"  Removed:  {stats['removed_duplicates']} duplicates")
+    logger.info(f"  Removed:  {stats['removed_aggregator']} aggregator")
+    logger.info(f"             {stats['removed_duplicates']} duplicates")
     logger.info(f"             {stats['removed_unrealistic']} unrealistic")
     logger.info(f"             {stats['removed_no_metadata']} no-metadata")
     logger.info(f"             {stats['removed_inferior']} inferior")
     logger.info(f"  Flagged:  {stats['flagged_suspicious']} suspicious")
+    
+    if stats["sources_used"]:
+        logger.info(f"\nSources used:")
+        for source, count in sorted(stats["sources_used"].items(), key=lambda x: -x[1]):
+            logger.info(f"  {source}: {count}")
     
     if stats["by_lender"]:
         logger.info(f"\nRates per lender:")

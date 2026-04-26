@@ -65,6 +65,15 @@ class RateDeduplicator:
         "wealthsimple_live_scrape": 1,
     }
     
+    # Aggregator domains — rates from these sources will be excluded entirely
+    AGGREGATOR_DOMAINS = {
+        "ratehub.ca",
+        "rates.ca",
+        "lowestrates.ca",
+        "wowa.ca",
+        " WOWA",
+    }
+    
     AGGREGATOR_SOURCES = {
         "ratehub": 10,
         "ratesca": 10,
@@ -93,6 +102,22 @@ class RateDeduplicator:
         
         return 99  # Unknown source
     
+    def _is_aggregator_source(self, rate: RawRate) -> bool:
+        """Check if rate comes from an aggregator (not direct lender site)."""
+        source_url = (rate.source_url or "").lower()
+        raw_source = str(rate.raw_data.get("source", "")).lower() if rate.raw_data else ""
+        
+        for domain in self.AGGREGATOR_DOMAINS:
+            if domain.lower() in source_url or domain.lower() in raw_source:
+                return True
+        
+        # Also check raw_data.source for aggregator names
+        for key in self.AGGREGATOR_SOURCES:
+            if key in raw_source:
+                return True
+        
+        return False
+    
     def deduplicate(self, raw_rates: List[RawRate]) -> Tuple[List[RawRate], Dict]:
         """
         Deduplicate and validate rates.
@@ -102,6 +127,7 @@ class RateDeduplicator:
         """
         stats = {
             "input_count": len(raw_rates),
+            "removed_aggregator": 0,
             "removed_duplicates": 0,
             "removed_unrealistic": 0,
             "removed_no_metadata": 0,
@@ -112,9 +138,24 @@ class RateDeduplicator:
             "sources_used": {}
         }
         
+        # Step 0: Remove aggregator-sourced rates (only direct lender scrapers)
+        non_aggregator = []
+        for rate in raw_rates:
+            if self._is_aggregator_source(rate):
+                stats["removed_aggregator"] += 1
+                logger.debug(
+                    f"Removing aggregator rate: {rate.lender_name} "
+                    f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}% "
+                    f"(source: {rate.source_url})"
+                )
+                continue
+            non_aggregator.append(rate)
+        
+        logger.info(f"Removed {stats['removed_aggregator']} aggregator-sourced rates")
+        
         # Step 1: Remove rates with no source or missing critical fields
         valid_meta = []
-        for rate in raw_rates:
+        for rate in non_aggregator:
             if not rate.source_url or not rate.lender_slug:
                 stats["removed_no_metadata"] += 1
                 continue
@@ -172,25 +213,10 @@ class RateDeduplicator:
         for key, rates in grouped.items():
             if len(rates) > 1:
                 # Multiple rates for same product
-                # Sort by: source priority (lower = better), then rate (lower = better)
+                # Since aggregators are filtered at Step 0, all remaining sources are direct
+                # Sort by: rate (lower = better) since all are direct sources
                 rates_sorted = sorted(rates, key=lambda r: (self._get_source_priority(r), r.rate))
-                
-                # Check if best direct source is available
                 best = rates_sorted[0]
-                best_priority = self._get_source_priority(best)
-                
-                # If best is from aggregator and there's a close direct source, prefer direct
-                if best_priority >= 10:  # Aggregator source
-                    direct_rates = [r for r in rates_sorted if self._get_source_priority(r) < 10]
-                    if direct_rates:
-                        # Use direct source if within 0.5% of aggregator
-                        direct_best = direct_rates[0]
-                        if direct_best.rate <= best.rate + Decimal("0.50"):
-                            best = direct_best
-                            logger.info(
-                                f"Preferring direct source for {key[0]} {key[1]}mo: "
-                                f"{direct_best.rate}% (direct) vs {rates_sorted[0].rate}% (aggregator)"
-                            )
                 
                 stats["removed_inferior"] += len(rates) - 1
                 
@@ -225,7 +251,8 @@ class RateDeduplicator:
         logger.info(
             f"Deduplication complete: {stats['input_count']} in → "
             f"{stats['output_count']} out "
-            f"(removed: {stats['removed_duplicates']} dupes, "
+            f"(removed: {stats['removed_aggregator']} aggregator, "
+            f"{stats['removed_duplicates']} dupes, "
             f"{stats['removed_unrealistic']} unrealistic, "
             f"{stats['removed_no_metadata']} no-meta, "
             f"{stats['removed_inferior']} inferior, "
