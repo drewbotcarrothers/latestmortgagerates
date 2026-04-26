@@ -12,8 +12,8 @@ const rates = [];
 
 // List of scrapers to run
 const scraperFiles = fs.readdirSync(scrapersDir)
-  .filter(f => f.endsWith('_scraper.py'))
-  .filter(f => !f.includes('ratehub') && !f.includes('ratesca') && !f.includes('lowestrates') && !f.includes('wowa') && !f.includes('boc'));
+  .filter((f: string) => f.endsWith('_scraper.py'))
+  .filter((f: string) => !f.includes('ratehub') && !f.includes('ratesca') && !f.includes('lowestrates') && !f.includes('wowa') && !f.includes('boc'));
 
 console.log(`Found ${scraperFiles.length} lender scrapers to run\n`);
 
