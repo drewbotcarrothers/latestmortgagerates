@@ -1,6 +1,7 @@
-"""Home Trust mortgage rate scraper.
-
-Canada's largest alternative mortgage lender.
+"""
+Home Trust mortgage rate scraper.
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
 import re
@@ -28,134 +29,111 @@ class HomeTrustScraper:
     
     def scrape(self) -> List[RawRate]:
         """Scrape Home Trust mortgage rates."""
-        rates = []
-        
-        logger.info(f"Starting scrape for {self.LENDER_NAME}")
+        logger.info("Fetching Home Trust rate page...")
         
         try:
-            import httpx
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            }
-            
-            with httpx.Client(timeout=30, follow_redirects=True) as client:
-                response = client.get(self.RATE_URL, headers=headers)
-                content = response.text
-                
-                # Home Trust uses different page structure
-                patterns = [
-                    r'(?i)(\d+)[\s-](?:year|yr)[^\d<]{0,100}(\d+\.\d+)[%\s]',
-                    r'(?i)posted.*?rate.*?[^\d<]*(\d+\.\d+)[%\s]',
-                    r'(?i)special.*?rate.*?[^\d<]*(\d+\.\d+)[%\s]',
-                ]
-                
-                for pattern in patterns:
-                    matches = re.finditer(pattern, content, re.DOTALL)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1)) if match.group(1) else 5
-                            rate = Decimal(match.group(2))
-                            
-                            if 1 <= years <= 10 and 2 <= rate <= 15:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=RateType.FIXED,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"years": years, "rate": str(rate)}
-                                ))
-                        except:
-                            continue
-            
-            if not rates:
-                rates = self._scrape_with_playwright()
-                
-        except Exception as e:
-            logger.warning(f"HTTP scrape failed: {e}")
             rates = self._scrape_with_playwright()
+            if rates:
+                logger.success(f"Successfully scraped {len(rates)} live rates from Home Trust")
+                return rates
+        except Exception as e:
+            logger.warning(f"Playwright scraping failed: {e}")
         
-        if not rates:
-            rates = self._get_fallback_rates()
-        
-        logger.info(f"Scraped {len(rates)} rates from {self.LENDER_NAME}")
+        logger.info("Using fallback rates from Home Trust (Apr 25, 2026)")
+        rates = self._get_fallback_rates()
         return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Fallback Playwright scraper."""
-        rates = []
+        """Use Playwright to scrape live rates."""
         try:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
                 browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
-                content = page.content()
-                browser.close()
+                page.wait_for_timeout(2000)
                 
-                # Look for rate cards or tables
+                rates = []
+                content = page.content()
+                
                 patterns = [
-                    r'(?i)(\d+)[\s-]?(?:year|yr)[^\d<]{0,100}(\d+\.\d+)',
-                    r'(?i)(?:fixed|variable)[^\d<]{0,50}(\d+\.\d+)',
+                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
                 ]
                 
-                for pattern in patterns:
-                    matches = re.finditer(pattern, content)
+                for pattern, rate_type in patterns:
+                    matches = re.finditer(pattern, content, re.IGNORECASE)
                     for match in matches:
                         try:
-                            years = int(match.group(1)) if match.group(1) else 5
+                            years = int(match.group(1))
                             rate = Decimal(match.group(2))
-                            if 2 <= rate <= 15:
+                            if 1 <= years <= 10 and 2 <= rate <= 10:
                                 rates.append(RawRate(
                                     lender_slug=self.LENDER_SLUG,
                                     lender_name=self.LENDER_NAME,
                                     term_months=years * 12,
-                                    rate_type=RateType.FIXED,
+                                    rate_type=rate_type,
                                     mortgage_type=MortgageType.UNINSURED,
                                     rate=rate,
                                     source_url=self.RATE_URL,
                                     scraped_at=self.scraped_at,
-                                    raw_data={}
+                                    raw_data={"source": "hometrust_live_scrape", "years": years}
                                 ))
                         except:
-                            continue
-                            
+                            pass
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
         except Exception as e:
-            logger.error(f"Playwright scrape failed: {e}")
-        
-        return rates
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _get_fallback_rates(self) -> List[RawRate]:
-        """Fallback rates."""
-        logger.info(f"Using fallback rates for {self.LENDER_NAME}")
+        """
+        Fallback rates from Home Trust (April 25, 2026).
+        Alternative mortgage lender, part of Home Capital Group.
+        """
+        logger.info("Using fallback rates from Home Trust (Apr 25, 2026)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "4.59"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.34"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.29"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.39"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.59"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.95"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.59", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 120, "type": RateType.FIXED, "rate": "4.79", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
         ]
         
         rates = []
         for item in fallback_data:
+            mortgage_type = MortgageType.UNINSURED
+            
+            raw_data = {
+                "source": "hometrust_fallback_2026-04-25",
+                "product": item.get("product"),
+                "featured": item.get("featured", False),
+                "last_verified": "2026-04-25"
+            }
+            
             rates.append(RawRate(
                 lender_slug=self.LENDER_SLUG,
                 lender_name=self.LENDER_NAME,
                 term_months=item["term"],
                 rate_type=item["type"],
-                mortgage_type=MortgageType.UNINSURED,
+                mortgage_type=mortgage_type,
                 rate=Decimal(item["rate"]),
                 source_url=self.RATE_URL,
                 scraped_at=self.scraped_at,
-                raw_data={"term": item["term"]//12, "rate": item["rate"], "source": "fallback"}
+                raw_data=raw_data
             ))
         
         return rates
@@ -163,6 +141,19 @@ class HomeTrustScraper:
 
 if __name__ == "__main__":
     scraper = HomeTrustScraper()
-    rates = scraper.scrape()
-    for rate in rates:
-        print(f"{rate.lender_name}: {rate.term_months // 12}yr {rate.rate_type.value}: {rate.rate}%")
+    try:
+        rates = scraper.scrape()
+        print(f"\nScraped {len(rates)} rates from Home Trust:")
+        print("-" * 60)
+        
+        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
+            years = r.term_months // 12
+            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
+            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{featured}")
+            
+        print("-" * 60)
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
