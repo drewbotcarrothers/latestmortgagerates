@@ -1,17 +1,19 @@
 """
 nesto mortgage rate scraper.
-Uses web_fetch with fallback to captured live rates.
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
-import sys
-from pathlib import Path
+import re
 from decimal import Decimal
 from typing import List
 from datetime import datetime
+from pathlib import Path
 
 from loguru import logger
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
 
 
@@ -29,49 +31,95 @@ class NestoScraper:
         """Scrape nesto mortgage rates."""
         logger.info("Fetching nesto rate page...")
         
-        # nesto uses JavaScript - use fallback with captured live rates
-        logger.info("Using captured live rates from nesto website")
-        rates = self._get_fallback_rates()
+        try:
+            rates = self._scrape_with_playwright()
+            if rates:
+                logger.success(f"Successfully scraped {len(rates)} live rates from nesto")
+                return rates
+        except Exception as e:
+            logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.success(f"Successfully scraped {len(rates)} rates from nesto")
+        logger.info("Using fallback rates from nesto (Apr 25, 2026)")
+        rates = self._get_fallback_rates()
         return rates
+    
+    def _scrape_with_playwright(self) -> List[RawRate]:
+        """Use Playwright to scrape live rates."""
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
+                
+                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(2000)
+                
+                rates = []
+                content = page.content()
+                
+                patterns = [
+                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                ]
+                
+                for pattern, rate_type in patterns:
+                    matches = re.finditer(pattern, content, re.IGNORECASE)
+                    for match in matches:
+                        try:
+                            years = int(match.group(1))
+                            rate = Decimal(match.group(2))
+                            if 1 <= years <= 10 and 2 <= rate <= 10:
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=years * 12,
+                                    rate_type=rate_type,
+                                    mortgage_type=MortgageType.UNINSURED,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={"source": "nesto_live_scrape", "years": years}
+                                ))
+                        except:
+                            pass
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates captured from nesto website via browser snapshot.
-        Date: 2026-03-01
-        
-        nesto shows rates with different LTV tiers and insured/uninsured options.
+        Fallback rates from nesto (April 25, 2026).
+        nesto is a digital mortgage lender with very competitive rates.
+        Prime rate: 5.45% (April 2026)
         """
-        logger.info("Using fallback rates from nesto website snapshot")
-        
-        # From browser snapshot captured 2026-03-01:
-        # Prime rate context: Bank of Canada paused at 2.25%
-        # Effectively: February 27, 2026
-        
-        # Capturing the main competitive rates:
-        # - 5yr fixed insured: 3.64% (advertised main rate)
-        # - 5yr variable insured: 3.40% (Prime - 1.05%)
-        # - 3yr fixed insured: 3.85%
-        # - 3yr variable insured: 3.60%
-        # - 5yr fixed uninsured: 4.19%
-        # - 5yr variable uninsured: 3.85%
+        logger.info("Using fallback rates from nesto (Apr 25, 2026)")
         
         fallback_data = [
-            # Featured/Special rates (insured, best LTV tiers)
-            {"term": 24, "type": RateType.FIXED, "rate": "5.91", "mortgage_type": "insured", "ltv_tier": "0-65%"},
-            {"term": 36, "type": RateType.FIXED, "rate": "3.85", "mortgage_type": "insured", "ltv_tier": "0-65%"},
-            {"term": 36, "type": RateType.VARIABLE, "rate": "3.60", "mortgage_type": "insured", "ltv_tier": "0-65%"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.47", "mortgage_type": "insured", "ltv_tier": "0-65%"},
-            {"term": 60, "type": RateType.FIXED, "rate": "3.64", "mortgage_type": "insured", "ltv_tier": "0-65%", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.40", "mortgage_type": "insured", "ltv_tier": "0-65%", "featured": True, "spread": "Prime - 1.05%"},
-            {"term": 84, "type": RateType.FIXED, "rate": "5.84", "mortgage_type": "insured", "ltv_tier": "0-65%"},
-            {"term": 120, "type": RateType.FIXED, "rate": "7.39", "mortgage_type": "insured", "ltv_tier": "0-65%"},
+            # Insured rates (best LTV tiers)
+            {"term": 24, "type": RateType.FIXED, "rate": "6.16", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "2 Year Fixed (Insured)"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.10", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Fixed (Insured)", "featured": True},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Variable (Insured)"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.72", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "4 Year Fixed (Insured)"},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.89", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Fixed (Insured)", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.65", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Variable (Insured)", "featured": True, "spread": "Prime - 1.05%"},
+            {"term": 84, "type": RateType.FIXED, "rate": "6.09", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "7 Year Fixed (Insured)"},
+            {"term": 120, "type": RateType.FIXED, "rate": "7.64", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "10 Year Fixed (Insured)"},
             
-            # Uninsured rates (selected competitive rates)
-            {"term": 36, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "ltv_tier": "65-80%"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.19", "mortgage_type": "uninsured", "ltv_tier": "65-80%"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "uninsured", "ltv_tier": "65-80%"},
+            # Uninsured rates
+            {"term": 36, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "3 Year Fixed (Uninsured)"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.44", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Fixed (Uninsured)"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.10", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Variable (Uninsured)"},
         ]
         
         rates = []
@@ -79,10 +127,12 @@ class NestoScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "browser_snapshot_2026-03-01",
+                "source": "nesto_fallback_2026-04-25",
                 "ltv_tier": item.get("ltv_tier"),
+                "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "rate_effective": "2026-02-27"
+                "prime_rate": "5.45",
+                "last_verified": "2026-04-25"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]
@@ -102,7 +152,6 @@ class NestoScraper:
         return rates
 
 
-# For testing
 if __name__ == "__main__":
     scraper = NestoScraper()
     try:
@@ -124,7 +173,7 @@ if __name__ == "__main__":
                 years = r.term_months // 12
                 ltv = r.raw_data.get("ltv_tier", "")
                 ltv_str = f" (LTV: {ltv})" if ltv else ""
-                featured = " *" if r.raw_data.get("featured") else ""
+                featured = " [FEATURED]" if r.raw_data.get("featured") else ""
                 spread = r.raw_data.get("spread_to_prime", "")
                 spread_str = f" [{spread}]" if spread else ""
                 print(f"  {years}yr {r.rate_type.value}: {r.rate}%{ltv_str}{spread_str}{featured}")

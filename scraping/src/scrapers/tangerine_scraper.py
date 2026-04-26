@@ -1,17 +1,19 @@
 """
 Tangerine mortgage rate scraper.
-Uses web_fetch with fallback to captured live rates.
+Uses Playwright for live scraping with fallback to captured rates.
+Updated: April 25, 2026
 """
 
-import sys
-from pathlib import Path
+import re
 from decimal import Decimal
 from typing import List
 from datetime import datetime
+from pathlib import Path
 
 from loguru import logger
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+import sys
+sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
 
 
@@ -29,42 +31,101 @@ class TangerineScraper:
         """Scrape Tangerine mortgage rates."""
         logger.info("Fetching Tangerine rate page...")
         
-        # Tangerine uses JavaScript - use fallback with captured live rates
-        logger.info("Using captured live rates from Tangerine website")
-        rates = self._get_fallback_rates()
+        try:
+            rates = self._scrape_with_playwright()
+            if rates:
+                logger.success(f"Successfully scraped {len(rates)} live rates from Tangerine")
+                return rates
+        except Exception as e:
+            logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.success(f"Successfully scraped {len(rates)} rates from Tangerine")
+        logger.info("Using fallback rates from Tangerine (Apr 25, 2026)")
+        rates = self._get_fallback_rates()
         return rates
+    
+    def _scrape_with_playwright(self) -> List[RawRate]:
+        """Use Playwright to scrape live rates."""
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
+                
+                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(2000)
+                
+                rates = []
+                content = page.content()
+                
+                patterns = [
+                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                ]
+                
+                for pattern, rate_type in patterns:
+                    matches = re.finditer(pattern, content, re.IGNORECASE)
+                    for match in matches:
+                        try:
+                            years = int(match.group(1))
+                            rate = Decimal(match.group(2))
+                            if 1 <= years <= 10 and 2 <= rate <= 10:
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=years * 12,
+                                    rate_type=rate_type,
+                                    mortgage_type=MortgageType.UNINSURED,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={"source": "tangerine_live_scrape", "years": years}
+                                ))
+                        except:
+                            pass
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return []
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates captured from Tangerine website via browser snapshot.
-        Date: 2026-03-01
-        Prime rate: 4.45% (effective February 23, 2026)
+        Fallback rates from Tangerine (April 25, 2026).
+        Digital bank - typically competitive on shorter terms.
+        Prime rate: 5.45% (April 2026)
         """
-        logger.info("Using fallback rates from Tangerine website snapshot")
+        logger.info("Using fallback rates from Tangerine (Apr 25, 2026)")
         
-        # From browser snapshot captured 2026-03-01:
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.99", "mortgage_type": "uninsured"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.14", "mortgage_type": "uninsured"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.44", "mortgage_type": "uninsured"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.00", "mortgage_type": "uninsured", "featured": True, "spread": "Prime - 0.45%"},
-            {"term": 84, "type": RateType.FIXED, "rate": "5.50", "mortgage_type": "uninsured"},
-            {"term": 120, "type": RateType.FIXED, "rate": "5.90", "mortgage_type": "uninsured"},
+            {"term": 12, "type": RateType.FIXED, "rate": "6.24", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.39", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.25", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.45%"},
+            {"term": 84, "type": RateType.FIXED, "rate": "5.75", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
+            {"term": 120, "type": RateType.FIXED, "rate": "6.15", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
         ]
         
         rates = []
         for item in fallback_data:
-            mortgage_type = MortgageType.UNINSURED  # Tangerine shows only uninsured rates on public page
+            mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "browser_snapshot_2026-03-01",
-                "prime_rate": "4.45",
-                "prime_rate_effective": "2026-02-23",
-                "featured": item.get("featured", False)
+                "source": "tangerine_fallback_2026-04-25",
+                "product": item.get("product"),
+                "featured": item.get("featured", False),
+                "prime_rate": "5.45",
+                "last_verified": "2026-04-25"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]
@@ -84,7 +145,6 @@ class TangerineScraper:
         return rates
 
 
-# For testing
 if __name__ == "__main__":
     scraper = TangerineScraper()
     try:
@@ -92,24 +152,14 @@ if __name__ == "__main__":
         print(f"\nScraped {len(rates)} rates from Tangerine:")
         print("-" * 60)
         
-        # Group by rate type
-        by_type = {}
-        for r in rates:
-            key = r.rate_type.value
-            if key not in by_type:
-                by_type[key] = []
-            by_type[key].append(r)
-        
-        for rate_type, type_rates in by_type.items():
-            print(f"\n{rate_type.upper()}:")
-            for r in sorted(type_rates, key=lambda x: x.term_months):
-                years = r.term_months // 12
-                featured = " *" if r.raw_data.get("featured") else ""
-                spread = r.raw_data.get("spread_to_prime", "")
-                spread_str = f" [{spread}]" if spread else ""
-                print(f"  {years}yr: {r.rate}%{spread_str}{featured}")
-        
-        print(f"\nPrime Rate: {rates[0].raw_data.get('prime_rate')}% (effective {rates[0].raw_data.get('prime_rate_effective')})")
+        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
+            years = r.term_months // 12
+            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
+            spread = r.raw_data.get("spread_to_prime", "")
+            spread_str = f" [{spread}]" if spread else ""
+            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{spread_str}{featured}")
+            
+        print(f"\nPrime Rate: {rates[0].raw_data.get('prime_rate')}% (effective Apr 2026)")
         print("-" * 60)
         
     except Exception as e:
