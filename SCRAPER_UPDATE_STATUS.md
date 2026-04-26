@@ -43,21 +43,21 @@
 | **CIBC** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
 | **National Bank** | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
 
-### Priority 2: Major Monolines (13 total)
+### Priority 2: Major Monolines (13 total) ✅ COMPLETE
 | Lender | Status | Notes |
 |--------|--------|-------|
-| First National | ❌ Needs update | Current data from Mar 1, 2026 |
-| MCAP | ❌ Needs update | Current data from Mar 1, 2026 |
-| Manulife | ❌ Needs update | Current data from Mar 1, 2026 |
-| Laurentian | ❌ Needs update | Current data from Mar 1, 2026 |
-| RFA | ❌ Needs update | Current data from Mar 1, 2026 |
-| CMLS | ❌ Needs update | Current data from Mar 1, 2026 |
-| Merix | ❌ Needs update | Current data from Mar 1, 2026 |
-| Lendwise | ❌ Needs update | Current data from Mar 1, 2026 |
-| Butler Mortgage | ❌ Needs update | Current data from Mar 1, 2026 |
-| IntelliMortgage | ❌ Needs update | Current data from Mar 1, 2026 |
-| Street Capital | ❌ Needs update | Current data from Mar 1, 2026 |
-| Centum | ❌ Needs update | Current data from Mar 1, 2026 |
+| First National | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| MCAP | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Manulife | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Laurentian | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| RFA | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| CMLS | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Merix | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Lendwise | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Butler Mortgage | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| IntelliMortgage | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Street Capital | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
+| Centum | ✅ Updated | Playwright + fallback (Apr 25, 2026) |
 
 ### Priority 3: Digital Banks (6 total)
 | Lender | Status | Notes |
