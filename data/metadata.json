@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-04-26T18:10:25.068789",
-  "total_rates": 299,
+  "last_updated": "2026-04-26T19:51:47.425903",
+  "total_rates": 261,
   "total_lenders": 34,
   "scrapers_run": 34,
-  "scrapers_successful": 34,
-  "scrapers_failed": 0,
+  "scrapers_successful": 28,
+  "scrapers_failed": 6,
   "lenders": [
     "alterna",
     "atb",
@@ -280,5 +280,8 @@
       "duration": 30.745551347732544,
       "error": null
     }
-  ]
+  ],
+  "data_source": "direct_lender_scrapers_only",
+  "cleaning_applied": "deduplicated_and_validated",
+  "aggregator_excluded": true
 }
