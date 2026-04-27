@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
 import RateAlertForm from "./components/RateAlertForm";
+import RateDropBanner from "./components/RateDropBanner";
 
 interface FilterState {
   term: string;
@@ -139,6 +140,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50">
+      {/* Rate Drop Banner */}
+      <RateDropBanner />
+
       {/* JSON-LD Structured Data */}
       <StructuredData rates={ratesData as Rate[]} lastUpdated={lastUpdatedDate} />
       
@@ -435,7 +439,9 @@ export default function Home() {
       </div>
 
       {/* Rate Alert Subscription */}
-      <RateAlertForm />
+      <div id="rate-alert-section" className="max-w-7xl mx-auto px-4 py-12 pb-16">
+        <RateAlertForm />
+      </div>
 
       <Footer />
     </main>
