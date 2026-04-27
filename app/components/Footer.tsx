@@ -125,6 +125,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 alt="Latest Mortgage Rates Canada"
                 width={50}
                 height={50}
+                loading="lazy"
                 className="rounded-lg"
               />
               <div>

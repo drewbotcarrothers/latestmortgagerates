@@ -106,6 +106,11 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Preconnect to Google domains for faster loading */}
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Google AdSense */}
         <script
           async
