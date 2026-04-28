@@ -58,15 +58,37 @@ jobs:
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
+
+          # Stage changes but don't commit yet — handle remote races properly
           git add data/
           if git diff --cached --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
-            # Pull and rebase to handle any remote changes that occurred during scraping
-            git pull --rebase origin master || (git stash && git pull --rebase origin master && git stash pop)
-            git push origin master
+            exit 0
           fi
+
+          COMMIT_MSG="🤖 Auto-update rates: $(date +'%Y-%m-%d %H:%M UTC')"
+
+          # Commit locally, then try to push with automatic retry on race
+          git commit -m "$COMMIT_MSG"
+
+          for i in 1 2 3; do
+            if git push origin master; then
+              echo "✅ Push succeeded on attempt $i"
+              exit 0
+            fi
+
+            echo "⚠️ Push failed (attempt $i), pulling and rebasing..."
+            if git pull --rebase origin master; then
+              echo "Rebased, retrying push..."
+            else
+              echo "❌ Rebase failed, aborting"
+              git rebase --abort 2>/dev/null || true
+              exit 1
+            fi
+          done
+
+          echo "❌ Failed to push after 3 attempts"
+          exit 1
 
       # Step 3: Build website
       - name: Setup Node.js
