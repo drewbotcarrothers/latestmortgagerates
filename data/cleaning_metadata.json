@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-04-29T12:10:30.779644",
+  "generated_at": "2026-04-29T23:44:41.214112",
   "total_rates": 253,
   "cleaning_stats": {
-    "input_count": 261,
+    "input_count": 253,
     "removed_aggregator": 0,
     "removed_duplicates": 0,
     "removed_unrealistic": 0,
     "removed_no_metadata": 0,
-    "removed_inferior": 8,
-    "flagged_suspicious": 4,
+    "removed_inferior": 0,
+    "flagged_suspicious": 0,
     "output_count": 253,
     "by_lender": {
       "td": 9,
