@@ -49,7 +49,7 @@ class RBCScraper:
         return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
+        """Use Playwright to scrape live rates from all sections including Other Rates."""
         try:
             from playwright.sync_api import sync_playwright
             
@@ -61,88 +61,136 @@ class RBCScraper:
                 page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(3000)  # Allow dynamic rate values to populate
                 
-                # Extract rates from the SPECIAL OFFERS table only
-                # RBC page has multiple tables; we want the "Special Offers" section
                 rates = []
                 
-                # Try to find the special offers table by heading
-                special_offers_heading = page.query_selector("text=Special Offers")
-                if special_offers_heading:
-                    # Find the table that follows this heading
-                    parent = special_offers_heading.evaluate_handle("el => el.closest('section, div[class*=\"offer\"], div')")
-                    if parent:
-                        rows = parent.query_selector_all("table tbody tr")
-                    else:
-                        # Fallback: look for tables near the heading
-                        rows = page.query_selector_all("table tbody tr")
-                else:
-                    rows = page.query_selector_all("table tbody tr")
+                # Click tab buttons (Special Rates, Posted Rates) quickly
+                for btn in page.query_selector_all("button[role='tab']"):
+                    try:
+                        txt = btn.inner_text().strip()
+                        if txt in ["Special Rates", "Posted Rates"]:
+                            btn.click()
+                    except Exception:
+                        pass
+                page.wait_for_timeout(800)
                 
-                for row in rows:
-                    cells = row.query_selector_all("td, th")
-                    if len(cells) >= 2:
+                # Click accordion buttons (Fixed/Variable Mortgage Rates) - but only if not expanded
+                for btn in page.query_selector_all("button[aria-expanded='false']"):
+                    try:
+                        txt = btn.inner_text().strip().lower()
+                        if "fixed mortgage" in txt or "variable mortgage" in txt:
+                            btn.click()
+                    except Exception:
+                        pass
+                page.wait_for_timeout(500)
+                
+                # Pre-compute button positions for rate category detection
+                all_buttons = page.query_selector_all("button")
+                button_positions = []
+                for btn in all_buttons:
+                    try:
+                        txt = btn.inner_text().strip().lower()
+                        bbox = btn.bounding_box()
+                        if bbox and ("fixed mortgage" in txt or "variable mortgage" in txt):
+                            button_positions.append((bbox['y'], "fixed" if "fixed" in txt else "variable"))
+                    except Exception:
+                        pass
+                button_positions.sort(key=lambda x: x[0])
+                
+                tables = page.query_selector_all("table")
+                    
+                    rows = table.query_selector_all("tbody tr, tr")
+                    
+                    for row in rows:
+                        cells = row.query_selector_all("td, th")
+                        if len(cells) < 2:
+                            continue
+                        
                         term_text = cells[0].inner_text().strip()
                         rate_text = cells[1].inner_text().strip()
                         
-                        # Skip if this looks like a posted rate (usually higher, labeled differently)
-                        if 'posted' in term_text.lower() or 'posted' in rate_text.lower():
+                        # Skip empty/header rows
+                        if not term_text or term_text.lower() in ['term', 'rate', 'product', '']:
                             continue
                         
-                        # Skip empty or header rows
-                        if not term_text or term_text.lower() in ['term', 'rate', 'product']:
+                        # Extract rate - prefer rate in parentheses (actual rate) over spread notation
+                        rate = None
+                        full_text = ' '.join([c.inner_text().strip() for c in cells])
+                        
+                        # Look for rate in parentheses first: "(3.950%)" - this is the actual rate
+                        paren_match = re.search(r'\((\d+\.\d+)%\)', full_text)
+                        if paren_match:
+                            rate = Decimal(paren_match.group(1))
+                        else:
+                            # Fall back to first percentage in cells[1] or cells[2]
+                            for cell_idx in [1, 2]:
+                                if cell_idx < len(cells):
+                                    cell_text = cells[cell_idx].inner_text().strip()
+                                    # Look for standalone rate like "4.590%" or "4.59%"
+                                    rate_match = re.search(r'(?<!\d)(\d+\.\d+)%', cell_text)
+                                    if rate_match:
+                                        rate = Decimal(rate_match.group(1))
+                                        break
+                        
+                        if rate is None:
                             continue
                         
-                        # Parse term - only accept standard mortgage terms
-                        term_match = re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE)
-                        if term_match:
-                            term_months = int(term_match.group(1)) * 12
-                            
-                            # Validate term is reasonable (6 months to 10 years)
-                            if term_months < 6 or term_months > 120:
-                                continue
-                            
-                            # Parse rate
-                            rate_match = re.search(r'([\d.]+)\s*%', rate_text)
-                            if rate_match:
-                                rate_str = rate_match.group(1)
-                                rate = Decimal(rate_str)
-                                
-                                # Skip clearly unrealistic rates
-                                if rate < Decimal("1.0") or rate > Decimal("15.0"):
-                                    logger.warning(f"Skipping unrealistic RBC rate: {rate}% for {term_months}mo")
-                                    continue
-                                
-                                # Determine type
-                                rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
-                                
-                                # Determine mortgage type
-                                mortgage_type = MortgageType.INSURED if 'high ratio' in term_text.lower() or 'insured' in term_text.lower() else MortgageType.UNINSURED
-                                
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=term_months,
-                                    rate_type=rate_type,
-                                    mortgage_type=mortgage_type,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={
-                                        "source": "rbc_live_scrape",
-                                        "term_text": term_text,
-                                        "rate_text": rate_text
-                                    }
-                                ))
+                        # Skip clearly unrealistic rates (spreads like -0.500%, empty 0.000%)
+                        if rate < Decimal("1.5") or rate > Decimal("15.0"):
+                            logger.warning(f"Skipping unrealistic RBC rate: {rate}% for {term_text}")
+                            continue
+                        
+                        # Parse term
+                        term_months = None
+                        if re.search(r'6\s*Month', term_text, re.IGNORECASE):
+                            term_months = 6
+                        elif re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE):
+                            years = int(re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE).group(1))
+                            term_months = years * 12
+                        
+                        if not term_months:
+                            continue
+                        
+                        # Determine rate type from ALL cells AND the accordion category
+                        all_text = ' '.join([c.inner_text().strip().lower() for c in cells])
+                        is_variable = rate_category == "variable" or 'variable' in all_text or 'prime rate' in all_text
+                        rate_type = RateType.VARIABLE if is_variable else RateType.FIXED
+                        
+                        # Determine mortgage type
+                        mortgage_type = MortgageType.INSURED if 'high ratio' in all_text else MortgageType.UNINSURED
+                        is_open = 'open' in all_text
+                        
+                        # Posted rates are typically uninsured conventional rates
+                        if section_type == "posted" and mortgage_type == MortgageType.INSURED:
+                            mortgage_type = MortgageType.UNINSURED
+                        
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=term_months,
+                            rate_type=rate_type,
+                            mortgage_type=mortgage_type,
+                            rate=rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "rbc_live_scrape",
+                                "section": section_type,
+                                "term_text": term_text,
+                                "rate_text": rate_text,
+                                "is_open": is_open,
+                                "featured": section_type == "popular" and term_months in [36, 60]
+                            }
+                        ))
                 
                 browser.close()
                 
-                # Deduplicate before returning
+                # Deduplicate (keep separate entries for special vs posted)
                 seen = set()
                 unique_rates = []
                 for r in rates:
-                    key = (r.term_months, r.rate_type.value, r.mortgage_type.value, str(r.rate))
+                    key = (r.term_months, r.rate_type.value, r.mortgage_type.value, str(r.rate), r.raw_data.get("section", ""), r.raw_data.get("is_open", False))
                     if key not in seen:
                         seen.add(key)
                         unique_rates.append(r)
@@ -168,14 +216,47 @@ class RBCScraper:
         
         # Live verified rates from browser scraping
         fallback_data = [
-            # Special Offers (uninsured/conventional)
-            {"term": 36, "type": RateType.FIXED, "rate": "4.440", "apr": "4.480", "mortgage_type": "uninsured", "product": "3 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.590", "apr": "4.620", "mortgage_type": "uninsured", "product": "5 Year Fixed"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable", "note": "RBC Prime Rate -0.500%"},
+            # Featured / Popular (Special Offers)
+            {"term": 36, "type": RateType.FIXED, "rate": "4.440", "apr": "4.480", "mortgage_type": "uninsured", "product": "3 Year Fixed", "section": "popular"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.590", "apr": "4.620", "mortgage_type": "uninsured", "product": "5 Year Fixed", "section": "popular"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable", "note": "RBC Prime Rate -0.500%", "section": "popular"},
             
-            # High Ratio (insured)
-            {"term": 60, "type": RateType.FIXED, "rate": "4.290", "apr": "4.320", "mortgage_type": "insured", "product": "5 Year Fixed High Ratio"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.650", "apr": "3.680", "mortgage_type": "insured", "product": "5 Year Variable High Ratio", "note": "RBC Prime Rate -0.800%"},
+            # High Ratio (Insured)
+            {"term": 60, "type": RateType.FIXED, "rate": "4.290", "apr": "4.320", "mortgage_type": "insured", "product": "5 Year Fixed High Ratio", "section": "high_ratio"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.650", "apr": "3.680", "mortgage_type": "insured", "product": "5 Year Variable High Ratio", "note": "RBC Prime Rate -0.800%", "section": "high_ratio"},
+            
+            # Other Rates - Special Rates (25yr amortization or less)
+            {"term": 12, "type": RateType.FIXED, "rate": "5.590", "apr": "5.620", "mortgage_type": "uninsured", "product": "1 Year Closed", "section": "special"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.140", "apr": "5.170", "mortgage_type": "uninsured", "product": "2 Year Closed", "section": "special"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.640", "apr": "4.670", "mortgage_type": "uninsured", "product": "3 Year Closed", "section": "special"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.690", "apr": "4.720", "mortgage_type": "uninsured", "product": "4 Year Closed", "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.690", "apr": "4.720", "mortgage_type": "uninsured", "product": "5 Year Closed", "section": "special"},
+            {"term": 84, "type": RateType.FIXED, "rate": "5.190", "apr": "5.220", "mortgage_type": "uninsured", "product": "7 Year Closed", "section": "special"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "note": "RBC Prime Rate -0.500%", "section": "special"},
+            
+            # Other Rates - Special Rates (>25yr amortization)
+            {"term": 12, "type": RateType.FIXED, "rate": "5.690", "apr": "5.720", "mortgage_type": "uninsured", "product": "1 Year Closed (>>25yr)", "section": "special"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.240", "apr": "5.270", "mortgage_type": "uninsured", "product": "2 Year Closed (>>25yr)", "section": "special"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.740", "apr": "4.770", "mortgage_type": "uninsured", "product": "3 Year Closed (>>25yr)", "section": "special"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.790", "apr": "4.820", "mortgage_type": "uninsured", "product": "4 Year Closed (>>25yr)", "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.790", "apr": "4.820", "mortgage_type": "uninsured", "product": "5 Year Closed (>>25yr)", "section": "special"},
+            {"term": 84, "type": RateType.FIXED, "rate": "5.290", "apr": "5.320", "mortgage_type": "uninsured", "product": "7 Year Closed (>>25yr)", "section": "special"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.050", "apr": "4.080", "mortgage_type": "uninsured", "product": "5 Year Variable Closed (>>25yr)", "note": "RBC Prime Rate -0.400%", "section": "special"},
+            
+            # Posted Rates (25yr amortization or less)
+            {"term": 6, "type": RateType.FIXED, "rate": "6.300", "apr": "6.330", "mortgage_type": "uninsured", "product": "6 Month Convertible", "section": "posted"},
+            {"term": 12, "type": RateType.FIXED, "rate": "6.490", "apr": "6.520", "mortgage_type": "uninsured", "product": "1 Year Closed Posted", "section": "posted"},
+            {"term": 24, "type": RateType.FIXED, "rate": "6.190", "apr": "6.220", "mortgage_type": "uninsured", "product": "2 Year Closed Posted", "section": "posted"},
+            {"term": 36, "type": RateType.FIXED, "rate": "6.140", "apr": "6.170", "mortgage_type": "uninsured", "product": "3 Year Closed Posted", "section": "posted"},
+            {"term": 48, "type": RateType.FIXED, "rate": "6.090", "apr": "6.120", "mortgage_type": "uninsured", "product": "4 Year Closed Posted", "section": "posted"},
+            {"term": 60, "type": RateType.FIXED, "rate": "6.340", "apr": "6.370", "mortgage_type": "uninsured", "product": "5 Year Closed Posted", "section": "posted"},
+            {"term": 84, "type": RateType.FIXED, "rate": "6.540", "apr": "6.570", "mortgage_type": "uninsured", "product": "7 Year Closed Posted", "section": "posted"},
+            {"term": 120, "type": RateType.FIXED, "rate": "6.700", "apr": "6.730", "mortgage_type": "uninsured", "product": "10 Year Closed Posted", "section": "posted"},
+            {"term": 300, "type": RateType.FIXED, "rate": "6.800", "apr": "6.830", "mortgage_type": "uninsured", "product": "25 Year Closed Posted", "section": "posted"},
+            {"term": 6, "type": RateType.FIXED, "rate": "7.200", "apr": "7.230", "mortgage_type": "uninsured", "product": "6 Months Open Posted", "section": "posted", "is_open": True},
+            {"term": 12, "type": RateType.FIXED, "rate": "7.200", "apr": "7.230", "mortgage_type": "uninsured", "product": "1 Year Open Posted", "section": "posted", "is_open": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "6.200", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Closed Posted", "note": "RBC Prime Rate +2.250%", "section": "posted"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "6.200", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Open Posted", "note": "RBC Prime Rate +2.250%", "section": "posted", "is_open": True},
         ]
         
         rates = []
@@ -186,8 +267,10 @@ class RBCScraper:
                 "source": "rbc_fallback_2026-04-25",
                 "apr": item.get("apr"),
                 "product": item.get("product"),
-                "featured": item["term"] == 60,
+                "featured": item.get("section") == "popular" and item["term"] in [36, 60],
                 "note": item.get("note", ""),
+                "section": item.get("section", "special"),
+                "is_open": item.get("is_open", False),
                 "last_verified": "2026-04-25"
             }
             
