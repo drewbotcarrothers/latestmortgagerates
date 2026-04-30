@@ -65,16 +65,7 @@ class RBCScraper:
                 
                 rates = []
                 
-                # Try to expand accordions if present
-                for btn in page.query_selector_all("button[aria-expanded='false']"):
-                    try:
-                        txt = btn.inner_text().strip().lower()
-                        if "fixed mortgage" in txt or "variable mortgage" in txt:
-                            btn.click()
-                    except Exception:
-                        pass
-                page.wait_for_timeout(500)
-                
+                # Tables are already visible, parse directly
                 tables = page.query_selector_all("table")
                 
                 for table in tables:
