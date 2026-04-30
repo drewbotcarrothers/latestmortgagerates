@@ -49,19 +49,30 @@ class RBCScraper:
         return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates from all sections including Other Rates."""
+        """Use Playwright to scrape live rates from all sections including Other Rates.
+        
+        Note: RBC has been blocking headless browsers (April 29-30, 2026), so this
+        usually fails fast and falls back to verified static data.
+        """
         try:
             from playwright.sync_api import sync_playwright
-            
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        
+        browser = None
+        try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                # Aggressive timeouts — RBC blocks headless, fail fast
+                browser = p.chromium.launch(headless=True, timeout=8000)
                 context = browser.new_context(
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
                 )
                 page = context.new_page()
                 
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=15000)
-                page.wait_for_timeout(1500)  # Allow dynamic rate values to populate
+                # 8s page load — if blocked, fallback kicks in quickly
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=8000)
+                page.wait_for_timeout(1000)
                 
                 rates = []
                 
@@ -156,8 +167,6 @@ class RBCScraper:
                             }
                         ))
                 
-                browser.close()
-                
                 # Deduplicate (keep separate entries for special vs posted)
                 seen = set()
                 unique_rates = []
@@ -172,12 +181,15 @@ class RBCScraper:
                 
                 return unique_rates
                 
-        except ImportError:
-            logger.warning("Playwright not available")
-            return []
         except Exception as e:
             logger.error(f"Playwright error: {e}")
             return []
+        finally:
+            if browser:
+                try:
+                    browser.close()
+                except Exception:
+                    pass
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
