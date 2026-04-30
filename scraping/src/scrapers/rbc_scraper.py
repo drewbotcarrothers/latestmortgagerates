@@ -60,22 +60,12 @@ class RBCScraper:
                 )
                 page = context.new_page()
                 
-                page.goto(self.RATE_URL, wait_until="networkidle", timeout=30000)
-                page.wait_for_timeout(3000)  # Allow dynamic rate values to populate
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=15000)
+                page.wait_for_timeout(1500)  # Allow dynamic rate values to populate
                 
                 rates = []
                 
-                # Click tab buttons (Special Rates, Posted Rates) quickly
-                for btn in page.query_selector_all("button[role='tab']"):
-                    try:
-                        txt = btn.inner_text().strip()
-                        if txt in ["Special Rates", "Posted Rates"]:
-                            btn.click()
-                    except Exception:
-                        pass
-                page.wait_for_timeout(800)
-                
-                # Click accordion buttons (Fixed/Variable Mortgage Rates) - but only if not expanded
+                # Try to expand accordions if present
                 for btn in page.query_selector_all("button[aria-expanded='false']"):
                     try:
                         txt = btn.inner_text().strip().lower()
@@ -85,21 +75,9 @@ class RBCScraper:
                         pass
                 page.wait_for_timeout(500)
                 
-                # Pre-compute button positions for rate category detection
-                all_buttons = page.query_selector_all("button")
-                button_positions = []
-                for btn in all_buttons:
-                    try:
-                        txt = btn.inner_text().strip().lower()
-                        bbox = btn.bounding_box()
-                        if bbox and ("fixed mortgage" in txt or "variable mortgage" in txt):
-                            button_positions.append((bbox['y'], "fixed" if "fixed" in txt else "variable"))
-                    except Exception:
-                        pass
-                button_positions.sort(key=lambda x: x[0])
-                
                 tables = page.query_selector_all("table")
-                    
+                
+                for table in tables:
                     rows = table.query_selector_all("tbody tr, tr")
                     
                     for row in rows:
@@ -152,14 +130,17 @@ class RBCScraper:
                         if not term_months:
                             continue
                         
-                        # Determine rate type from ALL cells AND the accordion category
+                        # Determine rate type from cell text
                         all_text = ' '.join([c.inner_text().strip().lower() for c in cells])
-                        is_variable = rate_category == "variable" or 'variable' in all_text or 'prime rate' in all_text
+                        is_variable = 'variable' in all_text or 'prime rate' in all_text
                         rate_type = RateType.VARIABLE if is_variable else RateType.FIXED
                         
                         # Determine mortgage type
                         mortgage_type = MortgageType.INSURED if 'high ratio' in all_text else MortgageType.UNINSURED
                         is_open = 'open' in all_text
+                        
+                        # Detect section type from text content
+                        section_type = "posted" if "posted" in all_text else "special"
                         
                         # Posted rates are typically uninsured conventional rates
                         if section_type == "posted" and mortgage_type == MortgageType.INSURED:

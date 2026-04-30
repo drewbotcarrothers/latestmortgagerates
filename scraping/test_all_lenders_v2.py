@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from loguru import logger
+import json
 import time
 import signal
 import threading
@@ -317,6 +318,72 @@ def scrape_all_lenders():
     lender_counts = {}
     for rate in valid_rates:
         lender_counts[rate.lender_slug] = lender_counts.get(rate.lender_slug, 0) + 1
+    
+    # ---- BACKFILL: Merge previous rates for any failed scrapers ----
+    failed_slugs = {r.lender_slug for r in failed}
+    if failed_slugs:
+        print("\n" + "="*80)
+        print("BACKFILLING FAILED SCRAPERS FROM PREVIOUS DATA")
+        print("="*80)
+        
+        prev_path = Path(__file__).parent.parent / "data" / "rates.json"
+        backfilled = 0
+        if prev_path.exists():
+            try:
+                with open(prev_path, 'r') as f:
+                    prev_data = json.load(f)
+                
+                # Get previous rates for failed lenders
+                prev_rates_for_failed = []
+                for item in prev_data:
+                    if isinstance(item, dict) and item.get("lender_slug") in failed_slugs:
+                        prev_rates_for_failed.append(item)
+                        backfilled += 1
+                
+                # Convert previous JSON rates back to RawRate objects and merge
+                if prev_rates_for_failed:
+                    from src.models import RateType, MortgageType
+                    from decimal import Decimal
+                    from datetime import datetime
+                    
+                    for item in prev_rates_for_failed:
+                        try:
+                            # Skip if this lender already has rates in valid_rates
+                            if item["lender_slug"] in lender_counts:
+                                continue
+                                
+                            stale_rate = RawRate(
+                                lender_slug=item["lender_slug"],
+                                lender_name=item.get("lender_name", item["lender_slug"]),
+                                term_months=item["term_months"],
+                                rate_type=RateType(item["rate_type"]),
+                                mortgage_type=MortgageType(item.get("mortgage_type", "uninsured")),
+                                rate=Decimal(str(item["rate"])),
+                                posted_rate=Decimal(str(item["posted_rate"])) if item.get("posted_rate") else None,
+                                source_url=item.get("source_url", ""),
+                                scraped_at=datetime.fromisoformat(item["scraped_at"]) if item.get("scraped_at") else datetime.utcnow(),
+                                raw_data={
+                                    "source": f"{item['lender_slug']}_stale_fallback",
+                                    "apr": item.get("apr"),
+                                    "ltv_tier": item.get("ltv_tier"),
+                                    "spread_to_prime": item.get("spread_to_prime"),
+                                    "stale": True,
+                                    "note": "Rate carried forward from previous scrape"
+                                }
+                            )
+                            valid_rates.append(stale_rate)
+                            lender_counts[item["lender_slug"]] = lender_counts.get(item["lender_slug"], 0) + 1
+                        except Exception as e:
+                            logger.warning(f"Failed to convert previous rate for {item.get('lender_slug')}: {e}")
+                    
+                    print(f"Backfilled {backfilled} rates for {len(failed_slugs)} failed scraper(s): {sorted(failed_slugs)}")
+                else:
+                    print(f"No previous rates found for failed scrapers: {sorted(failed_slugs)}")
+            except Exception as e:
+                logger.warning(f"Failed to backfill from previous rates: {e}")
+                print(f"Could not backfill: {e}")
+        else:
+            print(f"No previous rates.json found; cannot backfill {sorted(failed_slugs)}")
     
     print(f"\nRates by lender ({len(lender_counts)} lenders):")
     for lender, count in sorted(lender_counts.items(), key=lambda x: -x[1]):
