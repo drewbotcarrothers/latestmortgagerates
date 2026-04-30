@@ -200,10 +200,11 @@ class RateDeduplicator:
                 continue
             realistic.append(rate)
         
-        # Step 4: Group by (lender, term, type) and keep lowest rate across insured/uninsured
+        # Step 4: Group by (lender, term, type, mortgage_type) and keep best
         grouped: Dict = {}
         for rate in realistic:
-            key = (rate.lender_slug, rate.term_months, rate.rate_type.value)
+            key = (rate.lender_slug, rate.term_months, rate.rate_type.value,
+                   rate.mortgage_type.value if rate.mortgage_type else "uninsured")
             if key not in grouped:
                 grouped[key] = []
             grouped[key].append(rate)
@@ -211,8 +212,9 @@ class RateDeduplicator:
         clean_rates = []
         for key, rates in grouped.items():
             if len(rates) > 1:
-                # Multiple rates for same product (insured vs uninsured etc)
-                # Sort by rate (lower = better)
+                # Multiple rates for same product
+                # Since aggregators are filtered at Step 0, all remaining sources are direct
+                # Sort by: rate (lower = better) since all are direct sources
                 rates_sorted = sorted(rates, key=lambda r: (self._get_source_priority(r), r.rate))
                 best = rates_sorted[0]
                 
@@ -224,7 +226,7 @@ class RateDeduplicator:
                 if spread > self.MAX_SPREAD_SAME_TERM:
                     stats["flagged_suspicious"] += 1
                     logger.warning(
-                        f"Suspicious spread for {key[0]} {key[1]}mo {key[2]}: "
+                        f"Suspicious spread for {key[0]} {key[1]}mo: "
                         f"{all_rates_sorted[0].rate}% to {all_rates_sorted[-1].rate}% "
                         f"(spread: {spread:.2f}%)"
                     )
