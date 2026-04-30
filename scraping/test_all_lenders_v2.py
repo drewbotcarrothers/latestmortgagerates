@@ -86,7 +86,7 @@ APPROVED_LENDERS = {
 }
 
 # Default timeout per scraper (seconds)
-SCRAPER_TIMEOUT = 60  # 1 minute per scraper
+SCRAPER_TIMEOUT = 300  # 5 minutes per scraper
 
 
 class ScraperTimeout(Exception):
