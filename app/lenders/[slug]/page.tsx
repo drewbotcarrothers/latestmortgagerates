@@ -529,19 +529,6 @@ export default async function LenderPage({ params }: PageProps) {
                           {fixedInsured.posted_rate && (
                             <span className="block text-xs text-slate-400 line-through">{fixedInsured.posted_rate.toFixed(2)}%</span>
                           )}
-                          {fixedInsured.source_url && (
-                            <a
-                              href={fixedInsured.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
-                            >
-                              Apply
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                              </svg>
-                            </a>
-                          )}
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>
@@ -558,19 +545,6 @@ export default async function LenderPage({ params }: PageProps) {
                           </span>
                           {fixedUninsured.posted_rate && (
                             <span className="block text-xs text-slate-400 line-through">{fixedUninsured.posted_rate.toFixed(2)}%</span>
-                          )}
-                          {fixedUninsured.source_url && (
-                            <a
-                              href={fixedUninsured.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
-                            >
-                              Apply
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                              </svg>
-                            </a>
                           )}
                         </div>
                       ) : (
@@ -589,19 +563,6 @@ export default async function LenderPage({ params }: PageProps) {
                           {varInsured.spread_to_prime && (
                             <span className="block text-xs text-teal-600">{varInsured.spread_to_prime}</span>
                           )}
-                          {varInsured.source_url && (
-                            <a
-                              href={varInsured.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
-                            >
-                              Apply
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                              </svg>
-                            </a>
-                          )}
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>
@@ -618,19 +579,6 @@ export default async function LenderPage({ params }: PageProps) {
                           </span>
                           {varUninsured.spread_to_prime && (
                             <span className="block text-xs text-teal-600">{varUninsured.spread_to_prime}</span>
-                          )}
-                          {varUninsured.source_url && (
-                            <a
-                              href={varUninsured.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
-                            >
-                              Apply
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                              </svg>
-                            </a>
                           )}
                         </div>
                       ) : (
