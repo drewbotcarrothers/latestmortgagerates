@@ -37,23 +37,6 @@
     "lender_name": "Royal Bank of Canada",
     "lender_slug": "rbc",
     "term_months": 60,
-    "rate_type": "variable",
-    "rate": 3.3,
-    "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-04-30T23:42:56.789809",
-    "raw_data": {
-      "source": "rbc_live_scrape"
-    }
-  },
-  {
-    "lender_name": "Royal Bank of Canada",
-    "lender_slug": "rbc",
-    "term_months": 60,
     "rate_type": "fixed",
     "rate": 4.29,
     "mortgage_type": "insured",
@@ -140,7 +123,7 @@
     "lender_slug": "rbc",
     "term_months": 84,
     "rate_type": "fixed",
-    "rate": 5.0,
+    "rate": 5,
     "mortgage_type": "uninsured",
     "apr": null,
     "posted_rate": null,
@@ -1211,7 +1194,7 @@
     "lender_slug": "eqbank",
     "term_months": 60,
     "rate_type": "variable",
-    "rate": 4.0,
+    "rate": 4,
     "mortgage_type": "insured",
     "apr": null,
     "posted_rate": null,
@@ -4485,6 +4468,27 @@
     "scraped_at": "2026-04-30T23:48:17.125523",
     "raw_data": {
       "source": "hometrust_live_scrape"
+    }
+  },
+  {
+    "lender_name": "Royal Bank of Canada",
+    "lender_slug": "rbc",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 3.95,
+    "mortgage_type": "uninsured",
+    "apr": "3.980",
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": "Prime - 0.50%",
+    "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+    "scraped_at": "2026-05-01T09:00:00.000000",
+    "raw_data": {
+      "source": "rbc_live_scrape",
+      "product": "5 Year Variable Closed",
+      "section": "special",
+      "note": "RBC Prime Rate -0.500%",
+      "last_verified": "2026-05-01"
     }
   }
 ]

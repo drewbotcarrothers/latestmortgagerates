@@ -214,8 +214,12 @@ class RateDeduplicator:
             if len(rates) > 1:
                 # Multiple rates for same product
                 # Since aggregators are filtered at Step 0, all remaining sources are direct
-                # Sort by: rate (lower = better) since all are direct sources
-                rates_sorted = sorted(rates, key=lambda r: (self._get_source_priority(r), r.rate))
+                # Sort by: freshness first (non-stale > stale), then source priority, then rate
+                rates_sorted = sorted(rates, key=lambda r: (
+                    1 if (r.raw_data and r.raw_data.get("stale")) else 0,  # 0 = fresh, 1 = stale
+                    self._get_source_priority(r),  # lower = better
+                    r.rate  # lower = better
+                ))
                 best = rates_sorted[0]
                 
                 stats["removed_inferior"] += len(rates) - 1
