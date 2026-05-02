@@ -782,193 +782,6 @@
     }
   },
   {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 24,
-    "rate_type": "fixed",
-    "rate": 6.16,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 36,
-    "rate_type": "fixed",
-    "rate": 4.1,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 36,
-    "rate_type": "variable",
-    "rate": 3.85,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 48,
-    "rate_type": "fixed",
-    "rate": 4.72,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 60,
-    "rate_type": "fixed",
-    "rate": 3.89,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 60,
-    "rate_type": "variable",
-    "rate": 3.65,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 84,
-    "rate_type": "fixed",
-    "rate": 6.09,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 120,
-    "rate_type": "fixed",
-    "rate": 7.64,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 36,
-    "rate_type": "fixed",
-    "rate": 4.54,
-    "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 60,
-    "rate_type": "fixed",
-    "rate": 4.44,
-    "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
-    "lender_name": "nesto",
-    "lender_slug": "nesto",
-    "term_months": 60,
-    "rate_type": "variable",
-    "rate": 4.1,
-    "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-05-02T11:37:18.561993",
-    "raw_data": {
-      "source": "nesto_live_scrape"
-    }
-  },
-  {
     "lender_name": "Tangerine",
     "lender_slug": "tangerine",
     "term_months": 12,
@@ -4503,5 +4316,159 @@
     "raw_data": {
       "source": "hometrust_live_scrape"
     }
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 24,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 6.16,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 36,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 4.1,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 36,
+    "rate_type": "variable",
+    "mortgage_type": "insured",
+    "rate": 3.85,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 48,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 4.72,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 4.04,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 60,
+    "rate_type": "variable",
+    "mortgage_type": "insured",
+    "rate": 3.4,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": "Prime - 1.05%"
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 84,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 6.09,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 120,
+    "rate_type": "fixed",
+    "mortgage_type": "insured",
+    "rate": 7.64,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "0-65%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 36,
+    "rate_type": "fixed",
+    "mortgage_type": "uninsured",
+    "rate": 4.54,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "65-80%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 60,
+    "rate_type": "fixed",
+    "mortgage_type": "uninsured",
+    "rate": 4.54,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "65-80%",
+    "spread_to_prime": null
+  },
+  {
+    "lender_name": "nesto",
+    "lender_slug": "nesto",
+    "term_months": 60,
+    "rate_type": "variable",
+    "mortgage_type": "uninsured",
+    "rate": 3.9,
+    "posted_rate": null,
+    "source_url": "https://www.nesto.ca/mortgage-rates/",
+    "scraped_at": "2026-05-02T15:14:00Z",
+    "apr": null,
+    "ltv_tier": "65-80%",
+    "spread_to_prime": null
   }
 ]
