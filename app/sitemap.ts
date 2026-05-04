@@ -183,6 +183,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
+    // Dedicated rate pages
+    ...[
+      "5-year-fixed",
+      "variable",
+      "insured",
+      "uninsured",
+    ].map((rate) => ({
+      url: `https://latestmortgagerates.ca/rates/${rate}`,
+      lastModified: new Date(),
+      changeFrequency: "daily" as const,
+      priority: 0.9,
+    })),
     // Glossary term pages
     ...glossaryTermsWithTools.map((term) => ({
       url: `https://latestmortgagerates.ca/glossary/${term.slug}`,
