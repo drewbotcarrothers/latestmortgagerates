@@ -104,12 +104,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Individual tool pages
     ...[
-      "payment-calculator",
+      "mortgage-calculator",
       "affordability-calculator",
       "closing-costs-calculator",
       "cmhc-insurance-calculator",
       "land-transfer-tax-calculator",
-      "mortgage-calculator",
       "mortgage-penalty-calculator",
       "mortgage-renewal-calculator",
       "refinance-calculator",
