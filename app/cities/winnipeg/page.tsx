@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
+import CityTools from "../../components/CityTools";
 import CityLendersSidebar from "../../components/CityLendersSidebar";
 
 export const dynamic = "force-static";
@@ -253,6 +254,10 @@ export default function WinnipegPage() {
           />
         </div>
       </div>
+    
+
+    <CityTools cityName="" province="Manitoba" />
+
     </main>
   );
 }

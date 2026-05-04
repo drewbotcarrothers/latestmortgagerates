@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SocialShare from "../../components/SocialShare";
 import CityLendersSidebar from "../../components/CityLendersSidebar";
+import CityTools from "../../components/CityTools";
 
 export const dynamic = "force-static";
 
@@ -295,6 +296,8 @@ export default function TorontoPage() {
           />
         </div>
       </div>
+
+      <CityTools cityName="Toronto" province="Ontario" />
     </main>
   );
 }
