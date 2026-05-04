@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import ratesData from "../data/rates.json";
+import { glossaryTermsWithTools } from "./glossary/terms";
 
 interface Rate {
   lender_slug: string;
@@ -146,6 +147,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    // Glossary term pages
+    ...glossaryTermsWithTools.map((term) => ({
+      url: `https://latestmortgagerates.ca/glossary/${term.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }
