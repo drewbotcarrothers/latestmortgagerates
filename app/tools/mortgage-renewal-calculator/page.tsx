@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import MortgageRenewalCalculator from "../../components/MortgageRenewalCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 
 export const metadata: Metadata = {
   title: "Mortgage Renewal Calculator | Compare Current vs New Lender Rates",
@@ -210,6 +211,9 @@ export default function MortgageRenewalCalculatorPage() {
             </Link>
           </div>
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/mortgage-renewal-calculator" />
+
 
         <Footer />
       </main>

@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import CMHCCalculator from "../../components/CMHCCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
@@ -100,6 +101,8 @@ export default function CMHCCalculatorPage() {
             <GuideCTA variant="compact" />
           </div>
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/cmhc-insurance-calculator" />
 
         <Footer />
       </main>

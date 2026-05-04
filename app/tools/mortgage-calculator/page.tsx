@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import MortgageCalculator from "../../components/MortgageCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
@@ -237,6 +238,8 @@ export default function MortgageCalculatorPage() {
           </div>
         </div>
       </div>
+
+      <CalculatorRelatedTools currentTool="/tools/mortgage-calculator" />
 
       <Footer />
     </main>

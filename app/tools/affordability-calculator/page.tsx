@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import AffordabilityCalculator from "../../components/AffordabilityCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
@@ -259,6 +260,8 @@ export default function AffordabilityCalculatorPage() {
           </div>
         </div>
       </div>
+
+      <CalculatorRelatedTools currentTool="/tools/affordability-calculator" />
 
       <Footer />
     </main>

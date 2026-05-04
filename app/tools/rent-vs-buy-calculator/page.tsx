@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import RentVsBuyCalculator from "../../components/RentVsBuyCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 
 export const metadata: Metadata = {
   title: "Rent vs Buy Calculator Canada | Should You Buy or Rent?",
@@ -89,6 +90,9 @@ export default function RentVsBuyPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <RentVsBuyCalculator />
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/rent-vs-buy-calculator" />
+
 
         <Footer />
       </main>

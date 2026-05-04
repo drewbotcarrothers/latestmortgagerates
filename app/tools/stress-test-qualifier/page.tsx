@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import StressTestQualifier from "../../components/StressTestQualifier";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 
 export const metadata: Metadata = {
   title: "Mortgage Stress Test Qualifier Canada | 2026 Rules",
@@ -93,6 +94,9 @@ export default function StressTestPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <StressTestQualifier />
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/stress-test-qualifier" />
+
 
         <Footer />
       </main>

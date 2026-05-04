@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import MortgagePenaltyCalculator from "../../components/MortgagePenaltyCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 
 export const metadata: Metadata = {
   title: "Mortgage Penalty Calculator Canada | Break Fee Estimator",
@@ -89,6 +90,9 @@ export default function MortgagePenaltyPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <MortgagePenaltyCalculator />
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/mortgage-penalty-calculator" />
+
 
         <Footer />
       </main>

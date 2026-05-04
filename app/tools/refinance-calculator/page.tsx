@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import RefinanceCalculator from "../../components/RefinanceCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
+import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
 
 export const metadata: Metadata = {
   title: "Mortgage Refinance Calculator Canada | Break-Even Analysis",
@@ -97,6 +98,9 @@ export default function RefinancePage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <RefinanceCalculator />
         </div>
+
+        <CalculatorRelatedTools currentTool="/tools/refinance-calculator" />
+
 
         <Footer />
       </main>
