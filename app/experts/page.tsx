@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     locale: 'en_CA',
     siteName: 'Latest Mortgage Rates',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Canadian Mortgage Experts to Follow',
+    description: 'Top mortgage brokers and housing analysts sharing insights',
+    images: ['https://latestmortgagerates.ca/logo.png'],
+  },
 };
 
 interface Expert {

@@ -8,14 +8,14 @@ import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
-  title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",
-  description: "Calculate your CMHC mortgage insurance premium. See how your down payment affects insurance costs. Updated with 2024 CMHC premium rates for Canada.",
+  title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2026",
+  description: "Calculate your CMHC mortgage insurance premium. See how your down payment affects insurance costs. Updated with 2026 CMHC premium rates for Canada.",
   keywords: "CMHC calculator, mortgage insurance calculator Canada, CMHC premium rates, mortgage default insurance, high ratio mortgage calculator",
   alternates: {
     canonical: "https://latestmortgagerates.ca/tools/cmhc-insurance-calculator",
   },
   openGraph: {
-    title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2024",
+    title: "CMHC Mortgage Insurance Calculator Canada | Premium Rates 2026",
     description: "Calculate your CMHC mortgage insurance premium based on your down payment and home price.",
     url: "https://latestmortgagerates.ca/tools/cmhc-insurance-calculator",
     siteName: "Latest Mortgage Rates Canada",
