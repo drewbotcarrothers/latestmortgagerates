@@ -12,6 +12,7 @@ import StructuredData from "./components/StructuredData";
 import SocialShare from "./components/SocialShare";
 import RateAlertForm from "./components/RateAlertForm";
 import RateDropBanner from "./components/RateDropBanner";
+import RateTableSchema from "./components/RateTableSchema";
 
 interface FilterState {
   term: string;
@@ -343,6 +344,14 @@ export default function Home() {
         <div className="card-default overflow-hidden">
           <RateComparisonTable rates={filteredRates} />
         </div>
+
+        <RateTableSchema
+          rates={filteredRates}
+          lastUpdated={metadata.last_updated}
+          termLabel={filters.term === "all" ? "All Terms" : `${parseInt(filters.term) / 12}-Year`}
+          rateTypeLabel={filters.rateType === "all" ? "Fixed & Variable" : filters.rateType === "fixed" ? "Fixed" : "Variable"}
+          mortgageTypeLabel={filters.mortgageType === "all" ? "Insured & Uninsured" : filters.mortgageType === "insured" ? "Insured" : "Uninsured"}
+        />
 
         {/* Download CSV Section */}
         <div className="mt-8 card-default p-6">
