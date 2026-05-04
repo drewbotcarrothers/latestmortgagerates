@@ -388,6 +388,56 @@ export default function Home() {
           <MortgageCalculator />
         </div>
 
+        {/* More Calculators */}
+        <div className="mt-8 card-default p-6">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">More Mortgage Calculators</h2>
+          <p className="text-slate-600 mb-6">Explore our full suite of free Canadian mortgage tools to plan every aspect of your home purchase.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/tools/affordability-calculator" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">🏠</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Affordability Calculator</p>
+                <p className="text-sm text-slate-500">How much home can you afford?</p>
+              </div>
+            </Link>
+            <Link href="/tools/land-transfer-tax-calculator" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">📋</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Land Transfer Tax</p>
+                <p className="text-sm text-slate-500">Calculate provincial &amp; municipal taxes</p>
+              </div>
+            </Link>
+            <Link href="/tools/cmhc-insurance-calculator" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">🛡️</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">CMHC Calculator</p>
+                <p className="text-sm text-slate-500">Mortgage default insurance premiums</p>
+              </div>
+            </Link>
+            <Link href="/tools/closing-costs-calculator" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">💰</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Closing Costs</p>
+                <p className="text-sm text-slate-500">Total fees to close your purchase</p>
+              </div>
+            </Link>
+            <Link href="/tools/rent-vs-buy-calculator" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">⚖️</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Rent vs Buy</p>
+                <p className="text-sm text-slate-500">Which saves more long-term?</p>
+              </div>
+            </Link>
+            <Link href="/tools/stress-test-qualifier" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">✅</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Stress Test Qualifier</p>
+                <p className="text-sm text-slate-500">Check if you qualify at stress rate</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
         {/* Ebook Promotion */}
         <div className="mt-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6">
           <div className="flex flex-col md:flex-row md:items-center gap-6">
