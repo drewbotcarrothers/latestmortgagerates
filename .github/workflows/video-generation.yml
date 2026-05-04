@@ -1,0 +1,164 @@
+name: Generate & Upload YouTube Videos
+
+on:
+  # Daily at 7:30 AM and 7:30 PM EST (after rate scrape at 6 AM/PM)
+  schedule:
+    - cron: '30 11 * * *'   # 7:30 AM EDT / 11:30 UTC
+    - cron: '30 23 * * *'   # 7:30 PM EDT / 23:30 UTC
+
+  # Manual trigger with options
+  workflow_dispatch:
+    inputs:
+      video_type:
+        description: 'Video type to generate'
+        required: true
+        default: 'short'
+        type: choice
+        options:
+          - short
+          - long
+          - both
+      skip_upload:
+        description: 'Skip YouTube upload (dry run)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  # Job 1: Generate HTML composition from rate data
+  generate:
+    runs-on: ubuntu-latest
+    outputs:
+      output_dir: ${{ steps.generate.outputs.output_dir }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          cd video-pipeline
+          npm install
+
+      - name: Generate video composition
+        id: generate
+        run: |
+          cd video-pipeline
+          if [ "${{ github.event.inputs.video_type || 'short' }}" == "long" ]; then
+            node scripts/generate-weekly-update.js
+          else
+            node scripts/generate-daily-rate-short.js
+          fi
+          # Get the latest output directory
+          LATEST_DIR=$(ls -td output/*/ | head -1)
+          echo "output_dir=${LATEST_DIR}" >> $GITHUB_OUTPUT
+          echo "Generated: ${LATEST_DIR}"
+
+      - name: Upload composition artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-composition
+          path: video-pipeline/output/*/
+
+  # Job 2: Render HTML to MP4 using HyperFrames
+  render:
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install HyperFrames CLI
+        run: npm install -g hyperframes
+
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Download composition
+        uses: actions/download-artifact@v4
+        with:
+          name: video-composition
+          path: video-pipeline/output/
+
+      - name: Find composition directory
+        id: find
+        run: |
+          cd video-pipeline/output
+          COMP_DIR=$(ls -d */ | head -1)
+          echo "comp_dir=${COMP_DIR}" >> $GITHUB_OUTPUT
+
+      - name: Render to MP4
+        run: |
+          cd "video-pipeline/output/${{ steps.find.outputs.comp_dir }}"
+          npx hyperframes render --quality high --output video.mp4
+
+      - name: Upload rendered video
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-video
+          path: video-pipeline/output/*/video.mp4
+
+  # Job 3: Upload to YouTube (only for scheduled runs or explicit upload)
+  upload:
+    runs-on: ubuntu-latest
+    needs: render
+    if: ${{ !github.event.inputs.skip_upload }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          cd video-pipeline
+          npm install
+
+      - name: Download rendered video
+        uses: actions/download-artifact@v4
+        with:
+          name: rendered-video
+          path: video-pipeline/output/
+
+      - name: Find video file
+        id: find
+        run: |
+          cd video-pipeline/output
+          VIDEO=$(find . -name "video.mp4" | head -1)
+          echo "video_path=${VIDEO}" >> $GITHUB_OUTPUT
+
+      - name: Upload to YouTube
+        env:
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          # Create client_secret.json from secret
+          mkdir -p video-pipeline/config
+          echo "$YOUTUBE_CLIENT_SECRET" > video-pipeline/config/client_secret.json
+          
+          # Create tokens.json from refresh token
+          echo '{"refresh_token":"'"$YOUTUBE_REFRESH_TOKEN"'"}' > video-pipeline/config/tokens.json
+          
+          # Run upload
+          cd video-pipeline
+          VIDEO=$(find ../output -name "video.mp4" | head -1)
+          node scripts/upload-youtube.js --video "$VIDEO" --type "${{ github.event.inputs.video_type || 'short' }}"
+
+      - name: Clean up secrets
+        if: always()
+        run: |
+          rm -rf video-pipeline/config/

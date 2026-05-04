@@ -1,0 +1,24 @@
+{
+  "name": "video-pipeline",
+  "version": "1.0.0",
+  "description": "Automated YouTube video generation and upload for latestmortgagerates.ca",
+  "private": true,
+  "scripts": {
+    "auth": "node scripts/auth-youtube.js",
+    "generate:short": "node scripts/generate-daily-rate-short.js",
+    "generate:long": "node scripts/generate-weekly-update.js",
+    "generate:legacy": "node scripts/generate-rate-of-day.js",
+    "upload": "node scripts/upload-youtube.js",
+    "render": "cd output/$(ls -t output/ | head -1) && npx hyperframes render --quality high --output video.mp4",
+    "preview": "cd output/$(ls -t output/ | head -1) && npx hyperframes preview"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "open": "^10.1.0",
+    "server-destroy": "^1.0.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
