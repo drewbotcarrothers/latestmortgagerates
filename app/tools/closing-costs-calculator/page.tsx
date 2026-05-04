@@ -6,6 +6,8 @@ import ClosingCostsCalculator from "../../components/ClosingCostsCalculator";
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
+import FAQSection from "../../components/FAQSection";
+import GuideCTA from "../../components/GuideCTA";
 
 export const metadata: Metadata = {
   title: "Closing Costs Calculator Canada | Home Buying Fees",
@@ -101,6 +103,33 @@ export default function ClosingCostsPage() {
         {/* Calculator Section */}
         <div className="max-w-7xl mx-auto px-4 py-8">
           <ClosingCostsCalculator />
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <FAQSection
+            faqs={[
+              {
+                question: "What are closing costs when buying a home in Canada?",
+                answer: "Closing costs are the fees and expenses you pay when finalizing a home purchase. They typically include land transfer tax (1-3% of purchase price), legal fees ($800-1,500), title insurance ($200-500), home inspection ($400-600), and appraisal fees ($300-500). Total closing costs usually range from 1.5% to 4% of the purchase price.",
+              },
+              {
+                question: "How much should I budget for closing costs?",
+                answer: "Budget 1.5% to 4% of your purchase price for closing costs. On a $500,000 home, expect $7,500 to $20,000. First-time buyers may qualify for rebates on land transfer tax in most provinces. Use our calculator to get a precise estimate based on your province and purchase price.",
+              },
+              {
+                question: "Do first-time buyers get closing cost rebates?",
+                answer: "Yes, first-time homebuyers are eligible for land transfer tax rebates in most provinces. Ontario offers up to $4,000, British Columbia up to $8,000, and Toronto buyers can get an additional $4,475 municipal rebate. Our calculator automatically applies these rebates when you indicate you're a first-time buyer.",
+              },
+              {
+                question: "Are closing costs different in each province?",
+                answer: "Yes, land transfer tax rates vary significantly by province. Ontario, British Columbia, and Quebec have the highest rates, while Alberta and Saskatchewan have much lower fees. Some provinces like Manitoba and Nova Scotia also have provincial-specific transfer taxes. Use our calculator to see exact costs for your province.",
+              },
+              {
+                question: "Can closing costs be added to my mortgage?",
+                answer: "Generally no — closing costs must be paid upfront in cash. However, some lenders offer 'cash back' mortgages where you receive a lump sum at closing that can offset these costs. CMHC insurance cannot cover closing costs. It's important to budget for these expenses separately from your down payment.",
+              },
+            ]}
+          />
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/closing-costs-calculator" />

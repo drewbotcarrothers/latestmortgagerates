@@ -6,6 +6,7 @@ import MortgagePenaltyCalculator from "../../components/MortgagePenaltyCalculato
 import HowToSchema from "../../components/HowToSchema";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import CalculatorRelatedTools from "../../components/CalculatorRelatedTools";
+import FAQSection from "../../components/FAQSection";
 
 export const metadata: Metadata = {
   title: "Mortgage Penalty Calculator Canada | Break Fee Estimator",
@@ -93,6 +94,32 @@ export default function MortgagePenaltyPage() {
 
         <CalculatorRelatedTools currentTool="/tools/mortgage-penalty-calculator" />
 
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <FAQSection
+            faqs={[
+              {
+                question: "How is mortgage penalty calculated in Canada?",
+                answer: "Canadian lenders calculate penalties using one of two methods: 3 months' interest or the Interest Rate Differential (IRD). You pay whichever is HIGHER. The IRD is the difference between your current rate and the rate the lender could charge today for the remaining term, multiplied by your balance and remaining term. Fixed-rate mortgages typically use IRD; variable-rate usually uses 3 months' interest.",
+              },
+              {
+                question: "What's the difference between 3 months interest and IRD?",
+                answer: "3 months' interest is simply your monthly interest payment × 3. IRD (Interest Rate Differential) is more complex: it's the difference between your mortgage rate and the lender's current posted rate for a term similar to your remaining term, multiplied by your mortgage balance and remaining time. IRD penalties are almost always much higher than 3 months' interest and can reach tens of thousands of dollars.",
+              },
+              {
+                question: "Can I avoid paying a mortgage penalty?",
+                answer: "Yes, in some situations: port your mortgage to a new property (same lender), blend and extend your rate, wait until your renewal date, or use prepayment privileges to reduce your balance before calculating the penalty. Some lenders also offer 'portable' mortgages that move with you. Always ask your lender about penalty-reduction options.",
+              },
+              {
+                question: "Is it worth breaking my mortgage early?",
+                answer: "It depends on your savings versus the penalty. Generally, if you can save more in interest over the remaining term than the penalty costs, it's worth it. For example, if your penalty is $5,000 but you'll save $8,000 in interest by switching to a lower rate, you come out ahead. Use our calculator to compare your exact numbers.",
+              },
+              {
+                question: "Do all lenders charge the same penalties?",
+                answer: "No, penalty calculations vary significantly between lenders. Some credit unions and monoline lenders use more favorable IRD formulas than big banks. Big banks often use 'posted rate' IRD calculations that result in much higher penalties. Always ask your lender for the exact penalty formula before signing. This can save you thousands if you need to break early.",
+              },
+            ]}
+          />
+        </div>
 
         <Footer />
       </main>
