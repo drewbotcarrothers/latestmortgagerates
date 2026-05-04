@@ -79,6 +79,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: "https://latestmortgagerates.ca/trends",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: "https://latestmortgagerates.ca/experts",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: "https://latestmortgagerates.ca/privacy",
       lastModified: new Date("2026-03-04"),
       changeFrequency: "yearly",
@@ -90,6 +102,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    // Individual tool pages
+    ...[
+      "payment-calculator",
+      "affordability-calculator",
+      "closing-costs-calculator",
+      "cmhc-insurance-calculator",
+      "land-transfer-tax-calculator",
+      "mortgage-calculator",
+      "mortgage-penalty-calculator",
+      "mortgage-renewal-calculator",
+      "refinance-calculator",
+      "rent-vs-buy-calculator",
+      "stress-test-qualifier",
+    ].map((tool) => ({
+      url: `https://latestmortgagerates.ca/tools/${tool}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     // City pages
     ...cityPages.map((city) => ({
       url: `https://latestmortgagerates.ca/cities/${city}`,
