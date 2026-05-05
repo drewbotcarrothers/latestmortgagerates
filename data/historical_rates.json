@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-05-04T23:50:19.895077",
+    "last_updated": "2026-05-05T12:00:05.314331",
     "total_days": 79,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-02-03",
-      "fixed_uninsured_best_rate": 4.74,
-      "fixed_uninsured_best_lender": "Scotiabank",
-      "fixed_uninsured_avg_rate": 5.61,
-      "fixed_insured_best_rate": 4.14,
-      "fixed_insured_best_lender": "First National",
-      "fixed_insured_avg_rate": 4.7,
-      "variable_uninsured_best_rate": 4.22,
-      "variable_uninsured_best_lender": "TD",
-      "variable_uninsured_avg_rate": 5.01,
-      "variable_uninsured_spread_to_prime": -1.78,
-      "variable_insured_best_rate": 4.03,
-      "variable_insured_best_lender": "True North",
-      "variable_insured_avg_rate": 4.56,
-      "variable_insured_spread_to_prime": -1.97,
-      "prime_rate": 6,
-      "lender_count": 30,
-      "total_rates": 228,
-      "created_at": "2026-03-31T15:51:51.563217"
-    },
     {
       "date": "2026-02-04",
       "fixed_uninsured_best_rate": 4.76,
@@ -1663,6 +1642,27 @@
       "lender_count": 34,
       "total_rates": 259,
       "created_at": "2026-05-04T23:50:19.892684"
+    },
+    {
+      "date": "2026-05-05",
+      "fixed_uninsured_best_rate": 3.99,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.67,
+      "fixed_insured_best_rate": 4.04,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.6,
+      "variable_uninsured_best_rate": 3.3,
+      "variable_uninsured_best_lender": "Royal Bank of Canada",
+      "variable_uninsured_avg_rate": 4.1,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 34,
+      "total_rates": 259,
+      "created_at": "2026-05-05T12:00:05.311954"
     }
   ]
 }
