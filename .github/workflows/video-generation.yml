@@ -159,7 +159,7 @@ jobs:
           cd video-pipeline
           VIDEO=$(find output -name "video.mp4" | head -1)
           VIDEO_TYPE="${{ github.event.inputs.video_type || 'weekly' }}"
-          node scripts/upload-youtube.js --video "$VIDEO" --type "$VIDEO_TYPE"
+          node scripts/upload-youtube.js --video "$VIDEO" --type "$VIDEO_TYPE" --draft
 
       - name: Clean up secrets
         if: always()

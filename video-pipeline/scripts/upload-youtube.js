@@ -19,12 +19,13 @@ const getArg = (flag) => {
 };
 
 const VIDEO_PATH = getArg('--video') || getArg('-v');
-const VIDEO_TYPE = (getArg('--type') || getArg('-t') || 'short').toLowerCase();
+const VIDEO_TYPE = (getArg('--type') || getArg('-t') || 'weekly').toLowerCase();
+const DRAFT = args.includes('--draft');
 const TITLE_OVERRIDE = getArg('--title');
 const DRY_RUN = args.includes('--dry-run');
 
 if (!VIDEO_PATH) {
-  console.error('Usage: node upload-youtube.js --video path/to/video.mp4 --type short|long [--title "Custom Title"] [--dry-run]');
+  console.error('Usage: node upload-youtube.js --video path/to/video.mp4 --type short|long|weekly [--title "Custom Title"] [--draft] [--dry-run]');
   process.exit(1);
 }
 
@@ -62,6 +63,13 @@ function generateTitle(type, rates) {
       `Mortgage Rates ${date} — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | Don't Miss Out`,
       `🔥 ${fixed5y?.rate.toFixed(2) || '3.89'}% — Lowest 5-Year Fixed in Canada Today`,
     ],
+    weekly: [
+      `This Week's Best Mortgage Rates | ${date} | Canada-Wide Comparison`,
+      `Weekly Rate Roundup — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | ${date}`,
+      `Canada Mortgage Rates This Week | Fixed vs Variable | ${date}`,
+      `🏆 Top Lenders This Week — ${fixed5y?.rate.toFixed(2) || '3.89'}% | ${date}`,
+      `Mortgage Rate Summary ${date} — Best Fixed & Variable in Canada`,
+    ],
     long: [
       `Weekly Mortgage Rate Update | ${date} | Best Fixed & Variable Rates Canada`,
       `Canada Mortgage Rates This Week — Full Breakdown + Best Lenders | ${date}`,
@@ -70,7 +78,7 @@ function generateTitle(type, rates) {
     ],
   };
 
-  const pool = titles[type] || titles.short;
+  const pool = titles[type] || titles.weekly;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -93,6 +101,45 @@ Compare ${totalRates || '200+'} rates from top Canadian lenders instantly — 10
 #mortgagerates #canadamortgage #realestate #firsttimehomebuyer #mortgagetips #homeloans #canadianrealestate
 
 Subscribe for daily rate updates!`;
+  }
+
+  if (type === 'weekly') {
+    return `📊 This week's best mortgage rates in Canada — ${date}
+
+🏆 HEADLINE RATES:
+${fixed5y ? `• Best 5-Year Fixed: ${fixed5y.rate.toFixed(2)}% — ${fixed5y.lender_name}` : ''}
+${variable5y ? `• Best 5-Year Variable: ${variable5y.rate.toFixed(2)}% — ${variable5y.lender_name}` : ''}
+
+📋 IN THIS VIDEO:
+0:00 Title card
+0:03 Best rates overview (insured vs uninsured)
+0:07 Fixed rates by term (6M to 10Y)
+0:12 Variable rates by term
+0:16 CTA — compare at LatestMortgageRates.ca
+
+📈 RATES TRACKED: ${totalRates || '200+'} from ${totalRates ? Math.round(totalRates / 6) : '34'}+ lenders
+🔄 UPDATED: Daily at 6 AM & 6 PM EST
+
+🔗 COMPARE ALL RATES: ${url}
+• Tools: ${url}/tools
+• City guides: ${url}/cities
+• Lender reviews: ${url}/lenders
+
+🎯 FIRST-TIME BUYER? START HERE:
+• Affordability calculator: ${url}/tools/affordability-calculator
+• Closing costs: ${url}/tools/closing-costs-calculator
+• CMHC calculator: ${url}/tools/cmhc-insurance-calculator
+
+📱 FOLLOW US:
+• Website: ${url}
+• X/Twitter: @Mortgage_RateCA
+
+#MortgageRates #CanadianRealEstate #HomeBuying #MortgageBroker #InterestRates #FirstTimeHomeBuyer #MortgageTips #RealEstateCanada #HomeLoans #FinancialFreedom
+
+—
+🎬 Weekly rate summaries every Monday
+🔔 Subscribe for instant rate alerts
+💬 Drop your city in the comments for local rates`;
   }
 
   return `📊 Complete mortgage rate breakdown for ${date}
@@ -157,6 +204,19 @@ function generateTags(type) {
     'interest rates',
   ];
 
+  const weeklyTags = [
+    'mortgage rate update',
+    'weekly mortgage rates',
+    'rate comparison',
+    'lender comparison',
+    'fixed vs variable',
+    'canada',
+    'toronto real estate',
+    'vancouver real estate',
+    'mortgage tips',
+    'save money',
+  ];
+
   const shortTags = [
     'mortgage tips',
     'save money',
@@ -181,9 +241,9 @@ function generateTags(type) {
     'home ownership',
   ];
 
-  return type === 'short'
-    ? [...baseTags, ...shortTags]
-    : [...baseTags, ...longTags];
+  if (type === 'weekly') return [...baseTags, ...weeklyTags];
+  if (type === 'short') return [...baseTags, ...shortTags];
+  return [...baseTags, ...longTags];
 }
 
 // Upload video
@@ -199,7 +259,7 @@ async function uploadVideo(auth) {
   console.log('  Type:', VIDEO_TYPE);
   console.log('  Title:', title);
   console.log('  Tags:', tags.slice(0, 5).join(', ') + '...');
-  console.log('  File:', VIDEO_PATH);
+  console.log('  Draft mode:', DRAFT ? 'YES (private)' : 'NO (public)');
   console.log('  Size:', (fs.statSync(VIDEO_PATH).size / 1024 / 1024).toFixed(2) + ' MB');
 
   if (DRY_RUN) {
@@ -223,8 +283,9 @@ async function uploadVideo(auth) {
           defaultAudioLanguage: 'en',
         },
         status: {
-          privacyStatus: 'public',
+          privacyStatus: DRAFT ? 'private' : 'public',
           selfDeclaredMadeForKids: false,
+          publishAt: DRAFT ? undefined : undefined,
           // For Shorts: must be under 60 seconds, have #Shorts in title or description
           // (We already include relevant terms)
         },
@@ -243,6 +304,7 @@ async function uploadVideo(auth) {
     console.log('\n✅ Upload complete!');
     console.log('  Video ID:', response.data.id);
     console.log('  URL:', `https://youtube.com/watch?v=${response.data.id}`);
+    console.log('  Visibility:', DRAFT ? 'PRIVATE (draft — review in YouTube Studio)' : 'PUBLIC');
 
     // Set thumbnail if available
     const thumbPath = VIDEO_PATH.replace('.mp4', '.png').replace('.mov', '.png');
