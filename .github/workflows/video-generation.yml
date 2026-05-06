@@ -155,7 +155,7 @@ jobs:
           
           # Run upload
           cd video-pipeline
-          VIDEO=$(find ../output -name "video.mp4" | head -1)
+          VIDEO=$(find output -name "video.mp4" | head -1)
           node scripts/upload-youtube.js --video "$VIDEO" --type "${{ github.event.inputs.video_type || 'short' }}"
 
       - name: Clean up secrets
