@@ -148,12 +148,36 @@ jobs:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
         run: |
-          # Create client_secret.json from secret
+          # Create config directory
           mkdir -p video-pipeline/config
-          echo "$YOUTUBE_CLIENT_SECRET" > video-pipeline/config/client_secret.json
           
-          # Create tokens.json from refresh token
-          echo '{"refresh_token":"'"$YOUTUBE_REFRESH_TOKEN"'"}' > video-pipeline/config/tokens.json
+          # Validate secrets exist
+          if [ -z "$YOUTUBE_CLIENT_SECRET" ]; then
+            echo "❌ YOUTUBE_CLIENT_SECRET is empty or not set"
+            exit 1
+          fi
+          if [ -z "$YOUTUBE_REFRESH_TOKEN" ]; then
+            echo "❌ YOUTUBE_REFRESH_TOKEN is empty or not set"
+            exit 1
+          fi
+          
+          # Write client_secret.json safely (avoid shell interpretation)
+          printf '%s\n' "$YOUTUBE_CLIENT_SECRET" > video-pipeline/config/client_secret.json
+          
+          # Validate JSON syntax
+          if ! python3 -c "import json; json.load(open('video-pipeline/config/client_secret.json'))" 2>/dev/null; then
+            echo "❌ client_secret.json is not valid JSON"
+            echo "   Length: $(wc -c < video-pipeline/config/client_secret.json) bytes"
+            echo "   First 100 chars:"
+            head -c 100 video-pipeline/config/client_secret.json
+            echo ""
+            exit 1
+          fi
+          echo "✅ client_secret.json validated ($(wc -c < video-pipeline/config/client_secret.json) bytes)"
+          
+          # Write tokens.json
+          printf '{"refresh_token":"%s"}\n' "$YOUTUBE_REFRESH_TOKEN" > video-pipeline/config/tokens.json
+          echo "✅ tokens.json created"
           
           # Run upload
           cd video-pipeline
