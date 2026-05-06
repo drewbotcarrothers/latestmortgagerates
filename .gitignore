@@ -33,5 +33,9 @@ __pycache__/
 # Data (kept in repo for deployment)
 # data/
 
+# Video pipeline secrets & output
+video-pipeline/config/
+video-pipeline/output/
+
 # TypeScript
 *.tsbuildinfo

@@ -1,10 +1,9 @@
 name: Generate & Upload YouTube Videos
 
 on:
-  # Daily at 7:30 AM and 7:30 PM EST (after rate scrape at 6 AM/PM)
+  # Weekly on Mondays at 7:30 AM EST (weekly summary)
   schedule:
-    - cron: '30 11 * * *'   # 7:30 AM EDT / 11:30 UTC
-    - cron: '30 23 * * *'   # 7:30 PM EDT / 23:30 UTC
+    - cron: '30 11 * * 1'   # 7:30 AM EDT Monday / 11:30 UTC
 
   # Manual trigger with options
   workflow_dispatch:
@@ -12,12 +11,12 @@ on:
       video_type:
         description: 'Video type to generate'
         required: true
-        default: 'short'
+        default: 'weekly'
         type: choice
         options:
+          - weekly
           - short
           - long
-          - both
       skip_upload:
         description: 'Skip YouTube upload (dry run)'
         required: false
@@ -48,10 +47,13 @@ jobs:
         id: generate
         run: |
           cd video-pipeline
-          if [ "${{ github.event.inputs.video_type || 'short' }}" == "long" ]; then
+          VIDEO_TYPE="${{ github.event.inputs.video_type || 'weekly' }}"
+          if [ "$VIDEO_TYPE" == "long" ]; then
             node scripts/generate-weekly-update.js
-          else
+          elif [ "$VIDEO_TYPE" == "short" ]; then
             node scripts/generate-daily-rate-short.js
+          else
+            node scripts/generate-weekly-summary.js
           fi
           # Get the latest output directory
           LATEST_DIR=$(ls -td output/*/ | head -1)
@@ -156,7 +158,8 @@ jobs:
           # Run upload
           cd video-pipeline
           VIDEO=$(find output -name "video.mp4" | head -1)
-          node scripts/upload-youtube.js --video "$VIDEO" --type "${{ github.event.inputs.video_type || 'short' }}"
+          VIDEO_TYPE="${{ github.event.inputs.video_type || 'weekly' }}"
+          node scripts/upload-youtube.js --video "$VIDEO" --type "$VIDEO_TYPE"
 
       - name: Clean up secrets
         if: always()
