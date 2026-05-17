@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-05-16T23:48:12.555439",
+    "last_updated": "2026-05-17T11:59:55.999723",
     "total_days": 78,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-02-15",
-      "fixed_uninsured_best_rate": 4.66,
-      "fixed_uninsured_best_lender": "First National",
-      "fixed_uninsured_avg_rate": 5.5,
-      "fixed_insured_best_rate": 4.06,
-      "fixed_insured_best_lender": "First National",
-      "fixed_insured_avg_rate": 4.63,
-      "variable_uninsured_best_rate": 4.12,
-      "variable_uninsured_best_lender": "True North",
-      "variable_uninsured_avg_rate": 4.73,
-      "variable_uninsured_spread_to_prime": -1.58,
-      "variable_insured_best_rate": 3.85,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.29,
-      "variable_insured_spread_to_prime": -1.85,
-      "prime_rate": 5.7,
-      "lender_count": 30,
-      "total_rates": 186,
-      "created_at": "2026-03-31T15:51:51.563384"
-    },
     {
       "date": "2026-02-16",
       "fixed_uninsured_best_rate": 4.62,
@@ -1642,6 +1621,27 @@
       "lender_count": 34,
       "total_rates": 259,
       "created_at": "2026-05-16T11:47:48.558135"
+    },
+    {
+      "date": "2026-05-17",
+      "fixed_uninsured_best_rate": 3.94,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.67,
+      "fixed_insured_best_rate": 4.04,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.3,
+      "variable_uninsured_best_lender": "Royal Bank of Canada",
+      "variable_uninsured_avg_rate": 4.1,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 34,
+      "total_rates": 259,
+      "created_at": "2026-05-17T11:59:55.997206"
     }
   ]
 }
