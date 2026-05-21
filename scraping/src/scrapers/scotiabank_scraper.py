@@ -146,7 +146,8 @@ class ScotiabankScraper:
             raw_data = {
                 "source": "scotiabank_fallback_2026-04-25",
                 "product": item.get("product"),
-                "posted_rate": item.get("posted", False),
+                "section": "posted" if item.get("posted") else "special",
+                "posted": item.get("posted", False),
                 "featured": item.get("featured", False),
                 "last_verified": "2026-04-25",
                 "note": "Scotiabank shows posted rates. Special/discounted rates require pre-approval or advisor contact."

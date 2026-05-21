@@ -43,9 +43,8 @@ function getBestRates(rates) {
   return { fixed5y, variable5y, fixed3y };
 }
 
-function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
+function generateHTML({ fixed5y, variable5y, fixed3y }, rates, historical) {
   const today = new Date().toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
-  const totalRates = fixed5y && variable5y ? 2 : 0;
 
   // Get yesterday's rates for trend
   let prevFixed5y, prevVariable5y;
@@ -59,6 +58,21 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
   const varTrend = getTrendText(variable5y?.rate, prevVariable5y);
   const fixedIcon = getTrendIcon(fixed5y?.rate, prevFixed5y);
   const varIcon = getTrendIcon(variable5y?.rate, prevVariable5y);
+
+  // Helper to get best rate for any term/type
+  const getRate = (termMonths, rateType, mortgageType = 'uninsured') => {
+    const match = rates.filter(r => 
+      r.term_months === termMonths && 
+      r.rate_type === rateType && 
+      r.mortgage_type === mortgageType
+    ).sort((a, b) => a.rate - b.rate)[0];
+    return match;
+  };
+
+  const r2yFixed = getRate(24, 'fixed');
+  const r10yFixed = getRate(120, 'fixed');
+  const r1yFixed = getRate(12, 'fixed');
+  const r6mFixed = getRate(6, 'fixed');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -125,17 +139,17 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
     .rates-section {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       display: flex; flex-direction: column; align-items: center;
-      padding-top: 200px;
+      padding-top: 140px;
     }
     .section-label {
       font-size: 40px; font-weight: 700; color: #94a3b8;
       text-transform: uppercase; letter-spacing: 6px;
     }
     .rate-card {
-      width: 920px; margin-top: 60px;
+      width: 920px; margin-top: 40px;
       background: rgba(255,255,255,0.06);
       border: 2px solid rgba(255,255,255,0.12);
-      border-radius: 40px; padding: 60px 50px;
+      border-radius: 40px; padding: 50px 50px;
       backdrop-filter: blur(20px);
       position: relative; overflow: hidden;
     }
@@ -145,7 +159,7 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
     }
     .rate-row {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     .rate-row:last-child { margin-bottom: 0; }
     .rate-type {
@@ -167,7 +181,29 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
     .rate-trend.up { color: #f87171; background: rgba(248,113,113,0.15); }
     .rate-trend.flat { color: #94a3b8; background: rgba(148,163,184,0.15); }
     .rate-lender {
-      font-size: 36px; color: #94a3b8; margin-top: 8px;
+      font-size: 32px; color: #94a3b8; margin-top: 6px;
+    }
+
+    /* More rates grid */
+    .rates-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+      width: 920px; margin-top: 30px;
+    }
+    .rate-mini {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 20px 16px;
+      text-align: center;
+    }
+    .rate-mini .rate-type {
+      font-size: 24px; font-weight: 600; color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .rate-mini .rate-value {
+      font-size: 44px; font-weight: 900; color: #fff;
+    }
+    .rate-mini .rate-lender {
+      font-size: 20px; color: #64748b; margin-top: 4px;
     }
 
     /* CTA section */
@@ -190,19 +226,11 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
       border-radius: 100px; font-size: 44px; font-weight: 800;
       color: #fff; box-shadow: 0 8px 40px rgba(37,99,235,0.4);
     }
-
-    /* Floating elements */
-    .float-icon {
-      position: absolute; font-size: 120px; opacity: 0.08;
-    }
-    .float-1 { top: 300px; right: 60px; }
-    .float-2 { bottom: 500px; left: 60px; }
-    .float-3 { top: 700px; left: 80px; }
   </style>
 </head>
 <body>
   <div id="root" data-composition-id="daily-rate-short" data-width="1080" data-height="1920">
-    <!-- Background -->
+    <!-- Background glow effects only -->
     <div class="bg-glow bg-glow-1 clip" data-start="0" data-duration="15" data-track-index="0"></div>
     <div class="bg-glow bg-glow-2 clip" data-start="0" data-duration="15" data-track-index="0"></div>
 
@@ -210,11 +238,6 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
     <div class="progress-container clip" data-start="0" data-duration="15" data-track-index="100">
       <div class="progress-bar" id="progress"></div>
     </div>
-
-    <!-- Floating icons -->
-    <div class="float-icon float-1 clip" data-start="0" data-duration="15" data-track-index="1">💰</div>
-    <div class="float-icon float-2 clip" data-start="0" data-duration="15" data-track-index="1">🏠</div>
-    <div class="float-icon float-3 clip" data-start="0" data-duration="15" data-track-index="1">📊</div>
 
     <!-- HOOK: 0-3 seconds -->
     <div class="hook-section clip" id="hook" data-start="0" data-duration="3" data-track-index="10">
@@ -255,12 +278,45 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
           </div>
         </div>
       </div>
+
+      <div class="rates-grid" id="rates-grid">
+        <div class="rate-mini" id="mini-3y-fixed">
+          <div class="rate-type">3Y Fixed</div>
+          <div class="rate-value">${fixed3y?.rate.toFixed(2) || '4.00'}%</div>
+          <div class="rate-lender">${fixed3y?.lender_name || 'Various'}</div>
+        </div>
+        <div class="rate-mini" id="mini-2y-fixed">
+          <div class="rate-type">2Y Fixed</div>
+          <div class="rate-value">${r2yFixed?.rate.toFixed(2) || '4.50'}%</div>
+          <div class="rate-lender">${r2yFixed?.lender_name || 'Various'}</div>
+        </div>
+        <div class="rate-mini" id="mini-10y-fixed">
+          <div class="rate-type">10Y Fixed</div>
+          <div class="rate-value">${r10yFixed?.rate.toFixed(2) || '5.00'}%</div>
+          <div class="rate-lender">${r10yFixed?.lender_name || 'Various'}</div>
+        </div>
+        <div class="rate-mini" id="mini-1y-fixed">
+          <div class="rate-type">1Y Fixed</div>
+          <div class="rate-value">${r1yFixed?.rate.toFixed(2) || '5.00'}%</div>
+          <div class="rate-lender">${r1yFixed?.lender_name || 'Various'}</div>
+        </div>
+        <div class="rate-mini" id="mini-6m-fixed">
+          <div class="rate-type">6M Fixed</div>
+          <div class="rate-value">${r6mFixed?.rate.toFixed(2) || '5.00'}%</div>
+          <div class="rate-lender">${r6mFixed?.lender_name || 'Various'}</div>
+        </div>
+        <div class="rate-mini" id="mini-1y-variable">
+          <div class="rate-type">1Y Variable</div>
+          <div class="rate-value">${getRate(12, 'variable')?.rate.toFixed(2) || '5.00'}%</div>
+          <div class="rate-lender">${getRate(12, 'variable')?.lender_name || 'Various'}</div>
+        </div>
+      </div>
     </div>
 
     <!-- CTA: 12-15 seconds -->
     <div class="cta-section clip" id="cta" data-start="12" data-duration="3" data-track-index="20">
       <div class="cta-url" id="cta-url">latestmortgagerates.ca</div>
-      <div class="cta-sub" id="cta-sub">Compare ${fixed5y ? '34+' : '30+'} Lenders Instantly</div>
+      <div class="cta-sub" id="cta-sub">Compare 34+ Lenders Instantly</div>
       <div class="cta-button" id="cta-btn">Compare Now →</div>
     </div>
 
@@ -270,105 +326,112 @@ function generateHTML({ fixed5y, variable5y, fixed3y }, historical) {
       const tl = gsap.timeline({ paused: true });
 
       // === HOOK PHASE (0-3s) ===
-      // Badge pops in with elastic bounce
       tl.from('#hook-badge', {
         scale: 0, opacity: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)'
       }, 0);
 
-      // Headline slides up from below with dramatic ease
       tl.from('#hook-headline', {
         y: 100, opacity: 0, duration: 0.6, ease: 'power4.out'
       }, 0.2);
 
-      // Sub fades in
       tl.from('#hook-sub', {
         y: 40, opacity: 0, duration: 0.4, ease: 'power2.out'
       }, 0.5);
 
-      // Arrow bounces in
       tl.from('#hook-arrow', {
         y: -30, opacity: 0, duration: 0.4, ease: 'back.out(2)'
       }, 0.7);
 
-      // Hook zooms out and fades as rates come in
       tl.to('#hook', {
         scale: 0.9, opacity: 0, duration: 0.4, ease: 'power2.in'
       }, 2.6);
 
       // === RATES PHASE (3-12s) ===
-      // Section label slides in
       tl.from('#rates-label', {
         x: -60, opacity: 0, duration: 0.5, ease: 'power4.out'
       }, 3);
 
-      // Rate card scales up with back.out overshoot
       tl.from('#rate-card', {
         scale: 0.8, opacity: 0, y: 60, duration: 0.7, ease: 'back.out(1.2)'
       }, 3.2);
 
-      // Fixed rate row slides in from left
       tl.from('#row-fixed', {
         x: -80, opacity: 0, duration: 0.5, ease: 'power4.out'
       }, 3.5);
 
-      // Fixed rate number counts up with elastic pop
       tl.from('#fixed-rate', {
         scale: 0.3, opacity: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)'
       }, 3.8);
 
-      // Fixed trend badge pops
       tl.from('#fixed-trend', {
         scale: 0, opacity: 0, duration: 0.4, ease: 'back.out(2)'
       }, 4.1);
 
-      // Variable rate row slides in
       tl.from('#row-variable', {
         x: -80, opacity: 0, duration: 0.5, ease: 'power4.out'
       }, 4.5);
 
-      // Variable rate number pops
       tl.from('#var-rate', {
         scale: 0.3, opacity: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)'
       }, 4.8);
 
-      // Variable trend badge pops
       tl.from('#var-trend', {
         scale: 0, opacity: 0, duration: 0.4, ease: 'back.out(2)'
       }, 5.1);
 
-      // Brief hold on rates, then subtle pulse to keep attention
-      tl.to('#rate-card', {
-        scale: 1.02, duration: 0.3, yoyo: true, repeat: 1, ease: 'power1.inOut'
-      }, 8);
+      // Mini grid staggered entrance
+      tl.from('#rates-grid', {
+        y: 40, opacity: 0, duration: 0.5, ease: 'power2.out'
+      }, 5.5);
 
-      // Rates fade out for CTA
+      tl.from('#mini-3y-fixed', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 5.7);
+
+      tl.from('#mini-2y-fixed', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 5.85);
+
+      tl.from('#mini-10y-fixed', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 6.0);
+
+      tl.from('#mini-1y-fixed', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 6.15);
+
+      tl.from('#mini-6m-fixed', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 6.3);
+
+      tl.from('#mini-1y-variable', {
+        scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)'
+      }, 6.45);
+
+      // Rates section exits for CTA
       tl.to('#rates', {
         y: -40, opacity: 0, duration: 0.4, ease: 'power2.in'
       }, 11.6);
 
       // === CTA PHASE (12-15s) ===
-      // URL slides up
       tl.from('#cta-url', {
         y: 60, opacity: 0, duration: 0.5, ease: 'power4.out'
       }, 12);
 
-      // Subtext fades in
       tl.from('#cta-sub', {
         y: 30, opacity: 0, duration: 0.4, ease: 'power2.out'
       }, 12.3);
 
-      // Button bounces in with glow pulse
       tl.from('#cta-btn', {
         scale: 0, opacity: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)'
       }, 12.5);
 
-      // Button glow pulse to drive clicks
       tl.to('#cta-btn', {
         boxShadow: '0 8px 60px rgba(37,99,235,0.8)',
         scale: 1.05, duration: 0.4, yoyo: true, repeat: 3, ease: 'power1.inOut'
       }, 13);
 
-      // Progress bar animation
+      // Progress bar
       tl.to('#progress', { width: '100%', duration: 15, ease: 'none' }, 0);
 
       // Register timeline
@@ -392,8 +455,9 @@ function main() {
 
   console.log('📊 Best 5Y Fixed:', best.fixed5y?.rate.toFixed(2) + '%', '@', best.fixed5y?.lender_name);
   console.log('📊 Best 5Y Variable:', best.variable5y?.rate.toFixed(2) + '%', '@', best.variable5y?.lender_name);
+  console.log('📊 Best 3Y Fixed:', best.fixed3y?.rate.toFixed(2) + '%', '@', best.fixed3y?.lender_name);
 
-  const html = generateHTML(best, historical);
+  const html = generateHTML(best, rates, historical);
 
   const outDir = path.join(OUTPUT_DIR, `daily-rate-${new Date().toISOString().split('T')[0]}`);
   fs.mkdirSync(outDir, { recursive: true });

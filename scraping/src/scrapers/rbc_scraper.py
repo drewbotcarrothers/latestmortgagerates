@@ -98,20 +98,28 @@ class RBCScraper:
                         rate = None
                         full_text = ' '.join([c.inner_text().strip() for c in cells])
                         
-                        # Look for rate in parentheses first: "(3.950%)" - this is the actual rate
+                        # Look for rate in parentheses first: "(3.950%)" - this is the actual calculated rate
+                        # RBC shows "RBC Prime Rate -0.500% (3.950%)" where 3.950% is the real rate
                         paren_match = re.search(r'\((\d+\.\d+)%\)', full_text)
                         if paren_match:
                             rate = Decimal(paren_match.group(1))
                         else:
-                            # Fall back to first percentage in cells[1] or cells[2]
-                            for cell_idx in [1, 2]:
-                                if cell_idx < len(cells):
-                                    cell_text = cells[cell_idx].inner_text().strip()
-                                    # Look for standalone rate like "4.590%" or "4.59%"
-                                    rate_match = re.search(r'(?<!\d)(\d+\.\d+)%', cell_text)
-                                    if rate_match:
-                                        rate = Decimal(rate_match.group(1))
-                                        break
+                            # For posted rates like "RBC Prime Rate + 0.000% | 4.480%",
+                            # the APR in cells[2] is the actual rate, NOT the spread in cells[1]
+                            # Check if cells[1] contains "Prime Rate" — if so, use cells[2]
+                            cell1_text = cells[1].inner_text().strip().lower() if len(cells) > 1 else ''
+                            cell2_text = cells[2].inner_text().strip() if len(cells) > 2 else ''
+                            
+                            if 'prime rate' in cell1_text and cell2_text:
+                                # Use APR column (cells[2]) for posted variable rates
+                                rate_match = re.search(r'(?<!\d)(\d+\.\d+)%', cell2_text)
+                                if rate_match:
+                                    rate = Decimal(rate_match.group(1))
+                            else:
+                                # Normal case: rate is in cells[1]
+                                rate_match = re.search(r'(?<!\d)(\d+\.\d+)%', cell1_text)
+                                if rate_match:
+                                    rate = Decimal(rate_match.group(1))
                         
                         if rate is None:
                             continue

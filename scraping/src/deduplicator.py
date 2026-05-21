@@ -21,11 +21,21 @@ class RateDeduplicator:
     4. Flag suspicious data (multiple rates same term with big spread)
     5. Prefer scraper-direct over aggregator-sourced
     6. Require minimum metadata (must have source_url)
+    7. Prefer special/discounted rates over posted rates
     """
     
     MIN_RATE = Decimal("2.0")
     MAX_RATE = Decimal("10.0")
     MAX_SPREAD_SAME_TERM = Decimal("2.0")
+    
+    # Heuristic: if a rate is >1.5% above the median for same term/type/mortgage_type,
+    # it's likely a posted rate and should be removed
+    POSTED_RATE_THRESHOLD = Decimal("1.5")
+    
+    # Known posted rate patterns (regex)
+    POSTED_RATE_PATTERNS = [
+        r"^\d+\.\d+$",  # Just a number
+    ]
     
     # Source priority: direct scrapers preferred over aggregators
     SOURCE_PRIORITY = {
@@ -164,7 +174,7 @@ class RateDeduplicator:
                 continue
             valid_meta.append(rate)
         
-        # Step 2: Remove exact duplicates
+        # Step 2: Remove exact duplicates (same lender, term, type, mortgage_type, rate)
         seen = {}
         deduped = []
         for rate in valid_meta:
@@ -179,9 +189,115 @@ class RateDeduplicator:
         
         logger.info(f"Removed {stats['removed_duplicates']} exact duplicates")
         
-        # Step 3: Filter unrealistic rates
-        realistic = []
+        # Step 3: Group by (lender, term, type, mortgage_type) and keep best rate
+        grouped: Dict = {}
         for rate in deduped:
+            key = (rate.lender_slug, rate.term_months, rate.rate_type.value,
+                   rate.mortgage_type.value if rate.mortgage_type else "uninsured")
+            if key not in grouped:
+                grouped[key] = []
+            grouped[key].append(rate)
+        
+        clean_rates = []
+        for key, rates in grouped.items():
+            if len(rates) > 1:
+                # Multiple rates for same product — keep the best (lowest)
+                # Since aggregators are filtered at Step 0, all remaining are direct
+                # Sort by: freshness first, then prefer special over posted, then source priority, then rate
+                def sort_key(r):
+                    is_stale = 1 if (r.raw_data and r.raw_data.get("stale")) else 0
+                    is_posted = 1 if (r.raw_data and r.raw_data.get("section") == "posted") else 0
+                    source_priority = self._get_source_priority(r)
+                    return (is_stale, is_posted, source_priority, r.rate)
+                
+                rates_sorted = sorted(rates, key=sort_key)
+                best = rates_sorted[0]
+                
+                # Count how many were posted rates that got removed
+                removed_posted = sum(1 for r in rates if r.raw_data and r.raw_data.get("section") == "posted")
+                stats["removed_inferior"] += len(rates) - 1
+                
+                # Check spread between all rates for this product
+                all_rates_sorted = sorted(rates, key=lambda r: r.rate)
+                spread = all_rates_sorted[-1].rate - all_rates_sorted[0].rate
+                if spread > self.MAX_SPREAD_SAME_TERM:
+                    stats["flagged_suspicious"] += 1
+                    logger.warning(
+                        f"Suspicious spread for {key[0]} {key[1]}mo: "
+                        f"{all_rates_sorted[0].rate}% to {all_rates_sorted[-1].rate}% "
+                        f"(spread: {spread:.2f}%)"
+                    )
+                
+                clean_rates.append(best)
+            else:
+                clean_rates.append(rates[0])
+        
+        # Step 3b: Remove likely posted rates (heuristic + explicit)
+        non_posted = []
+        for rate in clean_rates:
+            # Check if explicitly marked as posted
+            is_explicitly_posted = (rate.raw_data and 
+                (rate.raw_data.get("section") == "posted" or 
+                 rate.raw_data.get("posted") == True))
+            
+            # Check if lender is a Big 6 bank (they commonly post posted rates)
+            big6 = {'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank'}
+            is_big6 = rate.lender_slug in big6
+            
+            # If explicitly posted, remove it
+            if is_explicitly_posted:
+                stats["removed_inferior"] += 1
+                logger.warning(
+                    f"Posted rate removed (explicit): {rate.lender_name} "
+                    f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}%"
+                )
+                continue
+            
+            # Heuristic: if Big 6 and rate is >1.5% above median for same product
+            if is_big6:
+                same_product = [r for r in clean_rates 
+                               if r.term_months == rate.term_months 
+                               and r.rate_type == rate.rate_type
+                               and r.mortgage_type == rate.mortgage_type]
+                if len(same_product) >= 3:
+                    sorted_rates = sorted([r.rate for r in same_product])
+                    median = sorted_rates[len(sorted_rates) // 2]
+                    if rate.rate > median + self.POSTED_RATE_THRESHOLD:
+                        stats["removed_inferior"] += 1
+                        logger.warning(
+                            f"Likely posted rate removed (Big 6 heuristic): {rate.lender_name} "
+                            f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}% "
+                            f"(median: {median}%, spread: {rate.rate - median:.2f}%)"
+                        )
+                        continue
+            
+            # Special case: Scotiabank only publishes posted rates
+            # If no special rate exists for this term, remove the posted rate
+            if rate.lender_slug == 'scotiabank':
+                # Check if there's a special rate for same term
+                has_special = any(
+                    r.lender_slug == 'scotiabank' 
+                    and r.term_months == rate.term_months
+                    and r.rate_type == rate.rate_type
+                    and r.mortgage_type == rate.mortgage_type
+                    and r.rate < rate.rate - Decimal("1.0")
+                    for r in clean_rates
+                )
+                if not has_special and rate.rate > Decimal("5.5"):
+                    stats["removed_inferior"] += 1
+                    logger.warning(
+                        f"Scotiabank posted rate removed (no special rate found): "
+                        f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}%"
+                    )
+                    continue
+            
+            non_posted.append(rate)
+        
+        clean_rates = non_posted
+        
+        # Step 4: Filter unrealistic rates
+        realistic = []
+        for rate in clean_rates:
             if rate.rate < self.MIN_RATE:
                 stats["removed_unrealistic"] += 1
                 logger.warning(
@@ -199,45 +315,6 @@ class RateDeduplicator:
                 )
                 continue
             realistic.append(rate)
-        
-        # Step 4: Group by (lender, term, type, mortgage_type) and keep best
-        grouped: Dict = {}
-        for rate in realistic:
-            key = (rate.lender_slug, rate.term_months, rate.rate_type.value,
-                   rate.mortgage_type.value if rate.mortgage_type else "uninsured")
-            if key not in grouped:
-                grouped[key] = []
-            grouped[key].append(rate)
-        
-        clean_rates = []
-        for key, rates in grouped.items():
-            if len(rates) > 1:
-                # Multiple rates for same product
-                # Since aggregators are filtered at Step 0, all remaining sources are direct
-                # Sort by: freshness first (non-stale > stale), then source priority, then rate
-                rates_sorted = sorted(rates, key=lambda r: (
-                    1 if (r.raw_data and r.raw_data.get("stale")) else 0,  # 0 = fresh, 1 = stale
-                    self._get_source_priority(r),  # lower = better
-                    r.rate  # lower = better
-                ))
-                best = rates_sorted[0]
-                
-                stats["removed_inferior"] += len(rates) - 1
-                
-                # Check spread between all rates for this product
-                all_rates_sorted = sorted(rates, key=lambda r: r.rate)
-                spread = all_rates_sorted[-1].rate - all_rates_sorted[0].rate
-                if spread > self.MAX_SPREAD_SAME_TERM:
-                    stats["flagged_suspicious"] += 1
-                    logger.warning(
-                        f"Suspicious spread for {key[0]} {key[1]}mo: "
-                        f"{all_rates_sorted[0].rate}% to {all_rates_sorted[-1].rate}% "
-                        f"(spread: {spread:.2f}%)"
-                    )
-                
-                clean_rates.append(best)
-            else:
-                clean_rates.append(rates[0])
         
         # Update stats
         stats["output_count"] = len(clean_rates)

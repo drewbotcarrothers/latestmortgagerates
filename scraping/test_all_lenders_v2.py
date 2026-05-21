@@ -429,9 +429,7 @@ def scrape_all_lenders():
                 "posted_rate": float(rate.posted_rate) if rate.posted_rate else None,
                 "source_url": rate.source_url,
                 "scraped_at": rate.scraped_at.isoformat() if hasattr(rate.scraped_at, 'isoformat') else str(rate.scraped_at),
-                "apr": rate.raw_data.get("apr") if rate.raw_data else None,
-                "ltv_tier": rate.raw_data.get("ltv_tier") if rate.raw_data else None,
-                "spread_to_prime": rate.raw_data.get("spread_to_prime") if rate.raw_data else None,
+                "raw_data": rate.raw_data or {},
             })
         
         # Save to rates.json
