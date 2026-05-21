@@ -8,6 +8,7 @@
     "generate:short": "node scripts/generate-daily-rate-short.js",
     "generate:long": "node scripts/generate-weekly-update.js",
     "generate:cards": "node scripts/generate-weekly-5yr-cards.js",
+    "generate:monthly": "node scripts/generate-monthly-deepdive.js",
     "generate:legacy": "node scripts/generate-rate-of-day.js",
     "upload": "node scripts/upload-youtube.js",
     "render": "cd output/$(ls -t output/ | head -1) && npx hyperframes render --quality high --output video.mp4",

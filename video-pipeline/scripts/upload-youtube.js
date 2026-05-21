@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // upload-youtube.js
 // Upload videos to YouTube with SEO-optimized metadata
-// Usage: node upload-youtube.js --video output/video.mp4 --type short|long
+// Usage: node upload-youtube.js --video path/to/video.mp4 --type short|weekly|cards|long|monthly
 
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +9,6 @@ const { google } = require('googleapis');
 const { authenticate } = require('./auth-youtube');
 
 const RATES_PATH = path.join(__dirname, '..', '..', 'data', 'rates.json');
-const CONFIG_PATH = path.join(__dirname, '..', 'config', 'upload-config.json');
 
 // CLI args
 const args = process.argv.slice(2);
@@ -19,13 +18,13 @@ const getArg = (flag) => {
 };
 
 const VIDEO_PATH = getArg('--video') || getArg('-v');
-const VIDEO_TYPE = (getArg('--type') || getArg('-t') || 'weekly').toLowerCase();
+const VIDEO_TYPE = (getArg('--type') || getArg('-t') || 'cards').toLowerCase();
 const DRAFT = args.includes('--draft');
 const TITLE_OVERRIDE = getArg('--title');
 const DRY_RUN = args.includes('--dry-run');
 
 if (!VIDEO_PATH) {
-  console.error('Usage: node upload-youtube.js --video path/to/video.mp4 --type short|long|weekly [--title "Custom Title"] [--draft] [--dry-run]');
+  console.error('Usage: node upload-youtube.js --video path/to/video.mp4 --type short|cards|weekly|long|monthly [--title "Custom Title"] [--draft] [--dry-run]');
   process.exit(1);
 }
 
@@ -42,9 +41,21 @@ function loadRateData() {
       .sort((a, b) => a.rate - b.rate)[0];
     const variable5y = data.filter(r => r.term_months === 60 && r.rate_type === 'variable')
       .sort((a, b) => a.rate - b.rate)[0];
-    return { fixed5y, variable5y, totalRates: data.length };
+    const fixed5yInsured = data.filter(r => r.term_months === 60 && r.rate_type === 'fixed' && r.mortgage_type === 'insured')
+      .sort((a, b) => a.rate - b.rate)[0];
+    const fixed5yUninsured = data.filter(r => r.term_months === 60 && r.rate_type === 'fixed' && r.mortgage_type === 'uninsured')
+      .sort((a, b) => a.rate - b.rate)[0];
+    const variable5yInsured = data.filter(r => r.term_months === 60 && r.rate_type === 'variable' && r.mortgage_type === 'insured')
+      .sort((a, b) => a.rate - b.rate)[0];
+    const variable5yUninsured = data.filter(r => r.term_months === 60 && r.rate_type === 'variable' && r.mortgage_type === 'uninsured')
+      .sort((a, b) => a.rate - b.rate)[0];
+    return {
+      fixed5y, variable5y, fixed5yInsured, fixed5yUninsured,
+      variable5yInsured, variable5yUninsured,
+      totalRates: data.length
+    };
   } catch (e) {
-    return { fixed5y: null, variable5y: null, totalRates: 0 };
+    return { totalRates: 0 };
   }
 }
 
@@ -53,7 +64,8 @@ function generateTitle(type, rates) {
   if (TITLE_OVERRIDE) return TITLE_OVERRIDE;
 
   const date = new Date().toLocaleDateString('en-CA', { month: 'long', day: 'numeric' });
-  const { fixed5y, variable5y } = rates;
+  const month = new Date().toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
+  const { fixed5y, variable5y, fixed5yInsured, fixed5yUninsured, variable5yInsured, variable5yUninsured } = rates;
 
   const titles = {
     short: [
@@ -62,6 +74,13 @@ function generateTitle(type, rates) {
       `${fixed5y?.rate.toFixed(2) || '3.89'}% vs ${variable5y?.rate.toFixed(2) || '4.50'}% — Which Saves You More?`,
       `Mortgage Rates ${date} — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | Don't Miss Out`,
       `🔥 ${fixed5y?.rate.toFixed(2) || '3.89'}% — Lowest 5-Year Fixed in Canada Today`,
+    ],
+    cards: [
+      `Best 5-Year Mortgage Rates This Week | ${date} | Canada`,
+      `Top Mortgage Rates ${date} — Fixed & Variable | LatestMortgageRates.ca`,
+      `🏆 This Week's Best 5Y Rates — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | ${date}`,
+      `Canada Mortgage Rate Roundup | ${date} | Compare Top Lenders`,
+      `Weekly Rate Cards — ${fixed5yInsured?.rate.toFixed(2) || '3.89'}% Insured / ${fixed5yUninsured?.rate.toFixed(2) || '3.94'}% Uninsured | ${date}`,
     ],
     weekly: [
       `This Week's Best Mortgage Rates | ${date} | Canada-Wide Comparison`,
@@ -76,16 +95,24 @@ function generateTitle(type, rates) {
       `Mortgage Rate Forecast ${date} — Should You Lock In Now?`,
       `Complete Canadian Mortgage Rate Guide | ${date} | Save Thousands`,
     ],
+    monthly: [
+      `${month} Mortgage Rate Analysis | Market Report & Predictions`,
+      `Mortgage Rate Market Report — ${month} | What's Next for Rates?`,
+      `🏦 ${month} Rate Breakdown — Should You Fix or Float?`,
+      `Canada Mortgage Market ${month} — Analysis + Rate Predictions`,
+      `Monthly Rate Deep Dive — ${month} | Fixed vs Variable Outlook`,
+    ],
   };
 
-  const pool = titles[type] || titles.weekly;
+  const pool = titles[type] || titles.cards;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
 // Generate SEO-optimized description
 function generateDescription(type, rates) {
-  const { fixed5y, variable5y, totalRates } = rates;
+  const { fixed5y, variable5y, fixed5yInsured, fixed5yUninsured, variable5yInsured, variable5yUninsured, totalRates } = rates;
   const date = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+  const month = new Date().toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
   const url = 'https://latestmortgagerates.ca';
 
   if (type === 'short') {
@@ -103,19 +130,19 @@ Compare ${totalRates || '200+'} rates from top Canadian lenders instantly — 10
 Subscribe for daily rate updates!`;
   }
 
-  if (type === 'weekly') {
-    return `📊 This week's best mortgage rates in Canada — ${date}
+  if (type === 'cards') {
+    return `📊 This week's best 5-year mortgage rates in Canada — ${date}
 
 🏆 HEADLINE RATES:
-${fixed5y ? `• Best 5-Year Fixed: ${fixed5y.rate.toFixed(2)}% — ${fixed5y.lender_name}` : ''}
-${variable5y ? `• Best 5-Year Variable: ${variable5y.rate.toFixed(2)}% — ${variable5y.lender_name}` : ''}
+${fixed5yInsured ? `• Best 5Y Fixed (Insured): ${fixed5yInsured.rate.toFixed(2)}% — ${fixed5yInsured.lender_name}` : ''}
+${fixed5yUninsured ? `• Best 5Y Fixed (Uninsured): ${fixed5yUninsured.rate.toFixed(2)}% — ${fixed5yUninsured.lender_name}` : ''}
+${variable5yInsured ? `• Best 5Y Variable (Insured): ${variable5yInsured.rate.toFixed(2)}% — ${variable5yInsured.lender_name}` : ''}
+${variable5yUninsured ? `• Best 5Y Variable (Uninsured): ${variable5yUninsured.rate.toFixed(2)}% — ${variable5yUninsured.lender_name}` : ''}
 
 📋 IN THIS VIDEO:
 0:00 Title card
-0:03 Best rates overview (insured vs uninsured)
-0:07 Fixed rates by term (6M to 10Y)
-0:12 Variable rates by term
-0:16 CTA — compare at LatestMortgageRates.ca
+0:03 Today's best 5-year rates (all 4 categories)
+0:22 CTA — compare at LatestMortgageRates.ca
 
 📈 RATES TRACKED: ${totalRates || '200+'} from ${totalRates ? Math.round(totalRates / 6) : '34'}+ lenders
 🔄 UPDATED: Daily at 6 AM & 6 PM EST
@@ -142,6 +169,53 @@ ${variable5y ? `• Best 5-Year Variable: ${variable5y.rate.toFixed(2)}% — ${v
 💬 Drop your city in the comments for local rates`;
   }
 
+  if (type === 'monthly') {
+    return `📊 ${month} Mortgage Rate Market Report
+
+🏆 THIS MONTH'S TOP RATES:
+${fixed5y ? `• Best 5-Year Fixed: ${fixed5y.rate.toFixed(2)}% — ${fixed5y.lender_name}` : ''}
+${variable5y ? `• Best 5-Year Variable: ${variable5y.rate.toFixed(2)}% — ${variable5y.lender_name}` : ''}
+
+📋 VIDEO BREAKDOWN:
+0:00 Monthly market overview
+0:05 Rate snapshot (best, average, variable)
+0:20 What drove rates this month
+0:40 Looking ahead — predictions
+1:00 Compare all rates at LatestMortgageRates.ca
+
+📈 DATA SOURCES:
+Rates scraped daily from major Canadian lenders including RBC, TD, Scotiabank, BMO, CIBC, National Bank, nesto, EQ Bank, Simplii, Tangerine, Wealthsimple, and more.
+
+🔄 UPDATED: Daily at 6 AM & 6 PM EST
+📊 RATES TRACKED: ${totalRates || '200+'} from ${totalRates ? Math.round(totalRates / 6) : '34'}+ lenders
+
+🔗 RESOURCES:
+• Compare all rates: ${url}
+• Mortgage calculator: ${url}/tools/mortgage-calculator
+• Rate alerts: ${url}/rate-alerts
+• City guides: ${url}/cities
+• Lender reviews: ${url}/lenders
+
+🎯 WHO WE HELP:
+• First-time home buyers
+• Mortgage renewals
+• Refinancing
+• Investment properties
+
+📱 FOLLOW US:
+• Website: ${url}
+• YouTube: @LatestMortgageRates
+• X/Twitter: @Mortgage_RateCA
+
+#MortgageRates #CanadianRealEstate #HomeBuying #MortgageBroker #InterestRates #FirstTimeHomeBuyer #MortgageTips #RealEstateCanada #HomeLoans #FinancialFreedom #BoC #BankOfCanada
+
+—
+🎬 Monthly market reports + weekly summaries + daily Shorts
+🔔 Subscribe for rate alerts
+💬 Questions? Drop them in the comments`;
+  }
+
+  // Default weekly/long description
   return `📊 Complete mortgage rate breakdown for ${date}
 
 TIMESTAMPS:
@@ -204,46 +278,42 @@ function generateTags(type) {
     'interest rates',
   ];
 
-  const weeklyTags = [
-    'mortgage rate update',
-    'weekly mortgage rates',
-    'rate comparison',
-    'lender comparison',
-    'fixed vs variable',
-    'canada',
-    'toronto real estate',
-    'vancouver real estate',
-    'mortgage tips',
-    'save money',
-  ];
+  const typeTags = {
+    short: [
+      'mortgage tips', 'save money', 'financial tips',
+      'money saving', 'personal finance', 'canada',
+      'toronto real estate', 'vancouver real estate',
+      'shorts', 'quick tips'
+    ],
+    cards: [
+      'rate comparison', 'lender comparison',
+      'fixed vs variable', 'canada', 'toronto real estate',
+      'vancouver real estate', 'mortgage tips', 'save money',
+      'weekly update', 'rate tracker'
+    ],
+    weekly: [
+      'mortgage rate update', 'weekly mortgage rates',
+      'rate comparison', 'lender comparison',
+      'fixed vs variable', 'canada', 'toronto real estate',
+      'vancouver real estate', 'mortgage tips', 'save money'
+    ],
+    long: [
+      'mortgage renewal', 'refinance mortgage',
+      'fixed vs variable', 'cmhc insurance',
+      'stress test', 'bank of canada',
+      'bond yields', 'housing market',
+      'mortgage advice', 'home ownership'
+    ],
+    monthly: [
+      'mortgage forecast', 'rate predictions',
+      'bank of canada', 'bond yields',
+      'housing market', 'economic outlook',
+      'interest rate forecast', 'mortgage advice',
+      'financial planning', 'market analysis'
+    ]
+  };
 
-  const shortTags = [
-    'mortgage tips',
-    'save money',
-    'financial tips',
-    'money saving',
-    'personal finance',
-    'canada',
-    'toronto real estate',
-    'vancouver real estate',
-  ];
-
-  const longTags = [
-    'mortgage renewal',
-    'refinance mortgage',
-    'fixed vs variable',
-    'cmhc insurance',
-    'stress test',
-    'bank of canada',
-    'bond yields',
-    'housing market',
-    'mortgage advice',
-    'home ownership',
-  ];
-
-  if (type === 'weekly') return [...baseTags, ...weeklyTags];
-  if (type === 'short') return [...baseTags, ...shortTags];
-  return [...baseTags, ...longTags];
+  return [...baseTags, ...(typeTags[type] || typeTags.weekly)];
 }
 
 // Upload video
@@ -255,10 +325,14 @@ async function uploadVideo(auth) {
   const description = generateDescription(VIDEO_TYPE, rates);
   const tags = generateTags(VIDEO_TYPE);
 
+  // Determine if this is a Short (vertical, under 60s)
+  const isShort = VIDEO_TYPE === 'short';
+
   console.log('\n📤 Upload Configuration:');
   console.log('  Type:', VIDEO_TYPE);
   console.log('  Title:', title);
   console.log('  Tags:', tags.slice(0, 5).join(', ') + '...');
+  console.log('  Is Short:', isShort ? 'YES' : 'NO');
   console.log('  Draft mode:', DRAFT ? 'YES (private)' : 'NO (public)');
   console.log('  Size:', (fs.statSync(VIDEO_PATH).size / 1024 / 1024).toFixed(2) + ' MB');
 
@@ -278,23 +352,19 @@ async function uploadVideo(auth) {
           title,
           description,
           tags,
-          categoryId: '25', // News & Politics (good for financial content)
+          categoryId: '25', // News & Politics
           defaultLanguage: 'en',
           defaultAudioLanguage: 'en',
         },
         status: {
           privacyStatus: DRAFT ? 'private' : 'public',
           selfDeclaredMadeForKids: false,
-          publishAt: DRAFT ? undefined : undefined,
-          // For Shorts: must be under 60 seconds, have #Shorts in title or description
-          // (We already include relevant terms)
         },
       },
       media: {
         body: fs.createReadStream(VIDEO_PATH),
       },
     }, {
-      // Upload progress
       onUploadProgress: (evt) => {
         const progress = (evt.bytesRead / fileSize * 100).toFixed(1);
         process.stdout.write(`\r  Upload: ${progress}%`);
@@ -304,7 +374,10 @@ async function uploadVideo(auth) {
     console.log('\n✅ Upload complete!');
     console.log('  Video ID:', response.data.id);
     console.log('  URL:', `https://youtube.com/watch?v=${response.data.id}`);
-    console.log('  Visibility:', DRAFT ? 'PRIVATE (draft — review in YouTube Studio)' : 'PUBLIC');
+    if (isShort) {
+      console.log('  Short URL:', `https://youtube.com/shorts/${response.data.id}`);
+    }
+    console.log('  Visibility:', DRAFT ? 'PRIVATE (draft)' : 'PUBLIC');
 
     // Set thumbnail if available
     const thumbPath = VIDEO_PATH.replace('.mp4', '.png').replace('.mov', '.png');
