@@ -69,11 +69,11 @@ function generateTitle(type, rates) {
 
   const titles = {
     short: [
-      `${fixed5y?.rate.toFixed(2) || '3.89'}% Mortgage Rate — Best Deal Today | Canada ${date}`,
-      `Stop Overpaying — ${fixed5y?.lender_name || 'Top Lender'} at ${fixed5y?.rate.toFixed(2) || '3.89'}% | ${date}`,
-      `${fixed5y?.rate.toFixed(2) || '3.89'}% vs ${variable5y?.rate.toFixed(2) || '4.50'}% — Which Saves You More?`,
-      `Mortgage Rates ${date} — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | Don't Miss Out`,
-      `🔥 ${fixed5y?.rate.toFixed(2) || '3.89'}% — Lowest 5-Year Fixed in Canada Today`,
+      `${fixed5y?.rate.toFixed(2) || '3.89'}% Mortgage Rate — Best Deal Today | Canada ${date} #Shorts`,
+      `Stop Overpaying — ${fixed5y?.lender_name || 'Top Lender'} at ${fixed5y?.rate.toFixed(2) || '3.89'}% | ${date} #Shorts`,
+      `${fixed5y?.rate.toFixed(2) || '3.89'}% vs ${variable5y?.rate.toFixed(2) || '4.50'}% — Which Saves You More? #Shorts`,
+      `Mortgage Rates ${date} — ${fixed5y?.rate.toFixed(2) || '3.89'}% Fixed | Don't Miss Out #Shorts`,
+      `🔥 ${fixed5y?.rate.toFixed(2) || '3.89'}% — Lowest 5-Year Fixed in Canada Today #Shorts`,
     ],
     cards: [
       `Best 5-Year Mortgage Rates This Week | ${date} | Canada`,
@@ -283,7 +283,7 @@ function generateTags(type) {
       'mortgage tips', 'save money', 'financial tips',
       'money saving', 'personal finance', 'canada',
       'toronto real estate', 'vancouver real estate',
-      'shorts', 'quick tips'
+      'shorts', '#Shorts', 'quick tips'
     ],
     cards: [
       'rate comparison', 'lender comparison',
@@ -325,20 +325,20 @@ async function uploadVideo(auth) {
   const description = generateDescription(VIDEO_TYPE, rates);
   const tags = generateTags(VIDEO_TYPE);
 
-  // Determine if this is a Short (vertical, under 60s)
   const isShort = VIDEO_TYPE === 'short';
+  const finalDescription = isShort ? `${description}\n\n#Shorts` : description;
 
   console.log('\n📤 Upload Configuration:');
   console.log('  Type:', VIDEO_TYPE);
   console.log('  Title:', title);
   console.log('  Tags:', tags.slice(0, 5).join(', ') + '...');
-  console.log('  Is Short:', isShort ? 'YES' : 'NO');
+  console.log('  Is Short:', isShort ? 'YES (vertical <60s)' : 'NO');
   console.log('  Draft mode:', DRAFT ? 'YES (private)' : 'NO (public)');
   console.log('  Size:', (fs.statSync(VIDEO_PATH).size / 1024 / 1024).toFixed(2) + ' MB');
 
   if (DRY_RUN) {
     console.log('\n🧪 DRY RUN — Would upload with above metadata');
-    console.log('\nFull description:\n', description);
+    console.log('\nFull description:\n', finalDescription);
     return;
   }
 
@@ -350,7 +350,7 @@ async function uploadVideo(auth) {
       requestBody: {
         snippet: {
           title,
-          description,
+          description: finalDescription,
           tags,
           categoryId: '25', // News & Politics
           defaultLanguage: 'en',
