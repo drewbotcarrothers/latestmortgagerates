@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-05-25T14:00:44.551610",
+    "last_updated": "2026-05-26T00:02:58.980491",
     "total_days": 78,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-02-24",
-      "fixed_uninsured_best_rate": 4.61,
-      "fixed_uninsured_best_lender": "True North",
-      "fixed_uninsured_avg_rate": 5.4,
-      "fixed_insured_best_rate": 4.01,
-      "fixed_insured_best_lender": "First National",
-      "fixed_insured_avg_rate": 4.68,
-      "variable_uninsured_best_rate": 4.01,
-      "variable_uninsured_best_lender": "True North",
-      "variable_uninsured_avg_rate": 4.65,
-      "variable_uninsured_spread_to_prime": -1.69,
-      "variable_insured_best_rate": 3.73,
-      "variable_insured_best_lender": "True North",
-      "variable_insured_avg_rate": 4.13,
-      "variable_insured_spread_to_prime": -1.97,
-      "prime_rate": 5.7,
-      "lender_count": 32,
-      "total_rates": 221,
-      "created_at": "2026-03-31T15:51:51.563509"
-    },
     {
       "date": "2026-02-25",
       "fixed_uninsured_best_rate": 4.58,
@@ -1642,6 +1621,27 @@
       "lender_count": 33,
       "total_rates": 238,
       "created_at": "2026-05-25T14:00:44.549279"
+    },
+    {
+      "date": "2026-05-26",
+      "fixed_uninsured_best_rate": 4.04,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.65,
+      "fixed_insured_best_rate": 4.09,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.12,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 238,
+      "created_at": "2026-05-26T00:02:58.977846"
     }
   ]
 }
