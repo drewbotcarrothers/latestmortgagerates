@@ -215,7 +215,7 @@ jobs:
       - name: Upload to YouTube
         env:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
-          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_TOKENS }}
         run: |
           mkdir -p video-pipeline/config
           
@@ -224,7 +224,7 @@ jobs:
             exit 1
           fi
           if [ -z "$YOUTUBE_REFRESH_TOKEN" ]; then
-            echo "❌ YOUTUBE_REFRESH_TOKEN not set"
+            echo "❌ YOUTUBE_TOKENS not set"
             exit 1
           fi
           
