@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-05-27T14:27:14.535879",
+    "last_updated": "2026-05-28T00:00:06.235091",
     "total_days": 78,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-02-26",
-      "fixed_uninsured_best_rate": 4.59,
-      "fixed_uninsured_best_lender": "BMO",
-      "fixed_uninsured_avg_rate": 5.26,
-      "fixed_insured_best_rate": 3.99,
-      "fixed_insured_best_lender": "nesto",
-      "fixed_insured_avg_rate": 4.76,
-      "variable_uninsured_best_rate": 4.04,
-      "variable_uninsured_best_lender": "RBC",
-      "variable_uninsured_avg_rate": 4.83,
-      "variable_uninsured_spread_to_prime": -1.66,
-      "variable_insured_best_rate": 3.74,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.32,
-      "variable_insured_spread_to_prime": -1.96,
-      "prime_rate": 5.7,
-      "lender_count": 33,
-      "total_rates": 218,
-      "created_at": "2026-03-31T15:51:51.563536"
-    },
     {
       "date": "2026-02-27",
       "fixed_uninsured_best_rate": 4.56,
@@ -1642,6 +1621,27 @@
       "lender_count": 34,
       "total_rates": 242,
       "created_at": "2026-05-27T00:05:15.265313"
+    },
+    {
+      "date": "2026-05-28",
+      "fixed_uninsured_best_rate": 4.04,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.64,
+      "fixed_insured_best_rate": 4.09,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.12,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 238,
+      "created_at": "2026-05-28T00:00:06.232226"
     }
   ]
 }
