@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-06-03T15:30:16.077710",
+    "last_updated": "2026-06-04T00:30:46.209258",
     "total_days": 78,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-03-05",
-      "fixed_uninsured_best_rate": 4.55,
-      "fixed_uninsured_best_lender": "RBC",
-      "fixed_uninsured_avg_rate": 5.4,
-      "fixed_insured_best_rate": 3.95,
-      "fixed_insured_best_lender": "nesto",
-      "fixed_insured_avg_rate": 4.55,
-      "variable_uninsured_best_rate": 3.91,
-      "variable_uninsured_best_lender": "Scotiabank",
-      "variable_uninsured_avg_rate": 4.61,
-      "variable_uninsured_spread_to_prime": -1.79,
-      "variable_insured_best_rate": 3.62,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.12,
-      "variable_insured_spread_to_prime": -2.08,
-      "prime_rate": 5.7,
-      "lender_count": 30,
-      "total_rates": 188,
-      "created_at": "2026-03-31T15:51:51.563635"
-    },
     {
       "date": "2026-03-06",
       "fixed_uninsured_best_rate": 4.53,
@@ -1642,6 +1621,27 @@
       "lender_count": 33,
       "total_rates": 238,
       "created_at": "2026-06-03T00:29:12.583628"
+    },
+    {
+      "date": "2026-06-04",
+      "fixed_uninsured_best_rate": 4.04,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.65,
+      "fixed_insured_best_rate": 4.09,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.12,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 238,
+      "created_at": "2026-06-04T00:30:46.206013"
     }
   ]
 }
