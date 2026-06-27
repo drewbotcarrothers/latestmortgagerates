@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-06-26T13:08:11.009082",
+    "last_updated": "2026-06-27T00:02:21.618281",
     "total_days": 78,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-03-28",
-      "fixed_uninsured_best_rate": 4.37,
-      "fixed_uninsured_best_lender": "BMO",
-      "fixed_uninsured_avg_rate": 4.91,
-      "fixed_insured_best_rate": 3.77,
-      "fixed_insured_best_lender": "True North",
-      "fixed_insured_avg_rate": 4.5,
-      "variable_uninsured_best_rate": 3.68,
-      "variable_uninsured_best_lender": "Equitable Bank",
-      "variable_uninsured_avg_rate": 4.16,
-      "variable_uninsured_spread_to_prime": -1.77,
-      "variable_insured_best_rate": 3.36,
-      "variable_insured_best_lender": "True North",
-      "variable_insured_avg_rate": 3.76,
-      "variable_insured_spread_to_prime": -2.09,
-      "prime_rate": 5.45,
-      "lender_count": 28,
-      "total_rates": 182,
-      "created_at": "2026-03-31T15:51:51.563956"
-    },
     {
       "date": "2026-03-29",
       "fixed_uninsured_best_rate": 4.4,
@@ -1642,6 +1621,27 @@
       "lender_count": 33,
       "total_rates": 238,
       "created_at": "2026-06-26T00:10:41.779105"
+    },
+    {
+      "date": "2026-06-27",
+      "fixed_uninsured_best_rate": 3.94,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.65,
+      "fixed_insured_best_rate": 4.04,
+      "fixed_insured_best_lender": "True North Mortgage",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.11,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 238,
+      "created_at": "2026-06-27T00:02:21.615650"
     }
   ]
 }
