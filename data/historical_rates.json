@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "last_updated": "2026-07-17T23:49:41.374723",
-    "total_days": 85,
+    "last_updated": "2026-07-18T11:49:25.686435",
+    "total_days": 86,
     "prime_rate": 5.45
   },
   "data": [
@@ -1789,6 +1789,27 @@
       "lender_count": 33,
       "total_rates": 238,
       "created_at": "2026-07-17T12:07:26.810597"
+    },
+    {
+      "date": "2026-07-18",
+      "fixed_uninsured_best_rate": 3.94,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.65,
+      "fixed_insured_best_rate": 4.09,
+      "fixed_insured_best_lender": "nesto",
+      "fixed_insured_avg_rate": 4.62,
+      "variable_uninsured_best_rate": 3.65,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 4.11,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.4,
+      "variable_insured_best_lender": "nesto",
+      "variable_insured_avg_rate": 4.08,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 238,
+      "created_at": "2026-07-18T11:49:25.683915"
     }
   ]
 }
