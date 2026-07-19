@@ -422,7 +422,7 @@ class TDScraper:
         # TD Mortgage Prime Rate: 4.60%
         
         fallback_data = [
-            # Special Offers (best rates) - verified May 1, 2026
+            # Special Offers (best rates) - verified July 19, 2026
             {"term": 36, "type": RateType.FIXED, "rate": "4.29", "posted": "6.05", "apr": "4.825", "mortgage_type": "uninsured", "product": "3 Year Fixed Closed", "section": "special"},
             {"term": 60, "type": RateType.FIXED, "rate": "4.44", "posted": "6.09", "apr": "4.961", "mortgage_type": "uninsured", "product": "5 Year Fixed Closed", "featured": True, "section": "special"},
             {"term": 60, "type": RateType.FIXED, "rate": "4.44", "posted": "6.09", "apr": "4.961", "mortgage_type": "insured", "product": "5 Year Fixed Closed High-Ratio", "section": "special"},
@@ -446,7 +446,7 @@ class TDScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "td_fallback_2026-05-01",
+                "source": "td_fallback_2026-07-19",
                 "apr": item.get("apr"),
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
@@ -454,7 +454,7 @@ class TDScraper:
                 "section": item.get("section", "posted"),
                 "is_open": item.get("is_open", False),
                 "prime_rate": "4.60",
-                "last_verified": "2026-05-01"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

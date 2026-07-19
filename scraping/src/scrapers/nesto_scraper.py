@@ -126,11 +126,11 @@ class NestoScraper:
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates from nesto (May 2, 2026).
+        Fallback rates from nesto (July 19, 2026).
         nesto is a digital mortgage lender with very competitive rates.
         Prime rate: 5.45% (April 2026)
         """
-        logger.info("Using fallback rates from nesto (May 2, 2026)")
+        logger.info("Using fallback rates from nesto (Jul 19, 2026)")
         
         fallback_data = [
             # Insured rates (best LTV tiers)
@@ -154,12 +154,12 @@ class NestoScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "nesto_fallback_2026-05-02",
+                "source": "nesto_fallback_2026-07-19",
                 "ltv_tier": item.get("ltv_tier"),
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
                 "prime_rate": "5.45",
-                "last_verified": "2026-05-02"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]
