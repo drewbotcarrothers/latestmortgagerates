@@ -16,10 +16,6 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
 
-# Import stealth helper
-sys.path.append(str(Path(__file__).parent))
-from stealth import scrape_with_stealth, simple_table_extractor
-
 
 class BMOScraper:
     """Scraper for BMO mortgage rates."""
@@ -36,48 +32,82 @@ class BMOScraper:
         logger.info("Fetching BMO rate page...")
         
         try:
-            # Try stealth scraping first
-            rates = self._scrape_with_stealth()
+            rates = self._scrape_with_playwright()
             if rates:
                 logger.success(f"Successfully scraped {len(rates)} live rates from BMO")
                 return rates
         except Exception as e:
-            logger.warning(f"Stealth scraping failed: {e}")
+            logger.warning(f"Playwright scraping failed: {e}")
         
         # Fallback to static data
         logger.info("Using fallback rates from BMO website (Jul 19, 2026)")
         rates = self._get_fallback_rates()
         return rates
     
-    def _scrape_with_stealth(self) -> List[RawRate]:
-        """Use stealth Playwright to scrape live rates."""
-        def extract_rates(page):
-            results = simple_table_extractor(page)
-            rates = []
-            for r in results:
-                term_text = r["term_text"]
-                rate = Decimal(r["rate"])
-                term_months = r["term_months"]
+    def _scrape_with_playwright(self) -> List[RawRate]:
+        """Use Playwright to scrape live rates."""
+        try:
+            from playwright.sync_api import sync_playwright
+            
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
                 
-                rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
-                mortgage_type = MortgageType.INSURED if 'smart' in term_text.lower() or 'insured' in term_text.lower() else MortgageType.UNINSURED
+                # Navigate to BMO mortgage rates page
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=25000)
                 
-                rates.append(RawRate(
-                    lender_slug=self.LENDER_SLUG,
-                    lender_name=self.LENDER_NAME,
-                    term_months=term_months,
-                    rate_type=rate_type,
-                    mortgage_type=mortgage_type,
-                    rate=rate,
-                    source_url=self.RATE_URL,
-                    scraped_at=self.scraped_at,
-                    raw_data={"source": "bmo_live_scrape", "scraped_with": "stealth"}
-                ))
-            return rates
-        
-        result = scrape_with_stealth(self.RATE_URL, extract_rates, wait_for="domcontentloaded", timeout=25000)
-        return result or []
-    
+                # Wait a bit for JS to execute
+                page.wait_for_timeout(2000)
+                
+                rates = []
+                
+                # Look for rate tables
+                rows = page.query_selector_all("table tbody tr")
+                for row in rows:
+                    cells = row.query_selector_all("td")
+                    if len(cells) >= 2:
+                        term_text = cells[0].inner_text().strip()
+                        rate_text = cells[1].inner_text().strip()
+                        
+                        # Parse term (e.g., "3 Year" -> 36 months)
+                        term_match = re.search(r'(\d+)\s*(?:Year|Yr)', term_text, re.IGNORECASE)
+                        if term_match:
+                            term_months = int(term_match.group(1)) * 12
+                        else:
+                            continue
+                        
+                        # Parse rate
+                        rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
+                        if rate_match:
+                            rate = Decimal(rate_match.group(1))
+                        else:
+                            continue
+                        
+                        rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
+                        mortgage_type = MortgageType.INSURED if 'smart' in term_text.lower() or 'insured' in term_text.lower() else MortgageType.UNINSURED
+                        
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=term_months,
+                            rate_type=rate_type,
+                            mortgage_type=mortgage_type,
+                            rate=rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={"source": "bmo_live_scrape", "term_text": term_text, "rate_text": rate_text}
+                        ))
+                
+                browser.close()
+                return rates
+                
+        except ImportError:
+            logger.warning("Playwright not available")
+            return []
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return []
+
     def _get_fallback_rates(self) -> List[RawRate]:
         """
         Fallback rates from BMO website (July 19, 2026).
