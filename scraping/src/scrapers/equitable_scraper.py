@@ -1,7 +1,7 @@
 """
 Equitable Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class EquitableBankScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Equitable Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from Equitable Bank (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,16 +102,16 @@ class EquitableBankScraper:
         Fallback rates from Equitable Bank (April 25, 2026).
         Challenger bank with competitive rates.
         """
-        logger.info("Using fallback rates from Equitable Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from Equitable Bank (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.39", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.09", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.09", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.65", "mortgage_type": "uninsured", "product": "5 Year Variable"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.45", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
+            {"term": 12, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.59", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.15", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "2.95", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
         ]
         
         rates = []
@@ -119,10 +119,10 @@ class EquitableBankScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "equitable_fallback_2026-04-25",
+                "source": "equitable_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

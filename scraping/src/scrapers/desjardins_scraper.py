@@ -1,7 +1,7 @@
 """
 Desjardins mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class DesjardinsScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Desjardins (Apr 25, 2026)")
+        logger.info("Using fallback rates from Desjardins (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,15 +102,15 @@ class DesjardinsScraper:
         Fallback rates from Desjardins (April 25, 2026).
         Quebec's largest financial cooperative.
         """
-        logger.info("Using fallback rates from Desjardins (Apr 25, 2026)")
+        logger.info("Using fallback rates from Desjardins (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "6.14", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.79", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "5.14", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.65", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.74", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.64", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.79", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.15", "mortgage_type": "uninsured", "product": "5 Year Variable"},
         ]
         
         rates = []
@@ -118,10 +118,10 @@ class DesjardinsScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "desjardins_fallback_2026-04-25",
+                "source": "desjardins_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

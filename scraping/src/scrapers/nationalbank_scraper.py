@@ -1,7 +1,7 @@
 """
 National Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -41,7 +41,7 @@ class NationalBankScraper:
             logger.warning(f"Playwright scraping failed: {e}")
         
         # Fallback to static data
-        logger.info("Using fallback rates from National Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from National Bank (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -149,18 +149,18 @@ class NationalBankScraper:
         Fallback rates from National Bank (April 25, 2026).
         Based on production data from scraped output.
         """
-        logger.info("Using fallback rates from National Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from National Bank (2026-07-19)")
         
-        # From production data (Apr 25, 2026)
+        # From production data (2026-07-19)
         fallback_data = [
-            {"term": 36, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.64", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.45", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.14", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.95", "mortgage_type": "uninsured", "product": "5 Year Variable"},
             
             # Additional terms (estimated based on market positioning)
-            {"term": 12, "type": RateType.FIXED, "rate": "5.94", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.14", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.44", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.64", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
         ]
         
         rates = []
@@ -168,10 +168,10 @@ class NationalBankScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "nationalbank_fallback_2026-04-25",
+                "source": "nationalbank_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

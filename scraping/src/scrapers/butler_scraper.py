@@ -1,7 +1,7 @@
 """
 Butler Mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class ButlerMortgageScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Butler Mortgage (Apr 25, 2026)")
+        logger.info("Using fallback rates from Butler Mortgage (2026-07-19)")
         return self._get_fallback_rates()
     
     def _scrape_with_playwright(self) -> List[RawRate]:
@@ -142,18 +142,18 @@ class ButlerMortgageScraper:
         Fallback rates from Butler Mortgage (April 25, 2026).
         Major mortgage brokerage with competitive broker rates.
         """
-        logger.info("Using fallback rates from Butler Mortgage (Apr 25, 2026)")
+        logger.info("Using fallback rates from Butler Mortgage (2026-07-19)")
         
         fallback_data = [
-            {"term": 6, "type": RateType.FIXED, "rate": "4.14", "mortgage_type": "uninsured", "product": "6 Month Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "3.89", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 84, "type": RateType.FIXED, "rate": "5.24", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
-            {"term": 120, "type": RateType.FIXED, "rate": "5.44", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
-            {"term": 36, "type": RateType.VARIABLE, "rate": "4.10", "mortgage_type": "uninsured", "product": "3 Year Variable"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.60", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "P - 0.85%"},
+            {"term": 6, "type": RateType.FIXED, "rate": "3.64", "mortgage_type": "uninsured", "product": "6 Month Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.29", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.39", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 84, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
+            {"term": 120, "type": RateType.FIXED, "rate": "4.94", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "3.60", "mortgage_type": "uninsured", "product": "3 Year Variable"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.10", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "P - 0.85%"},
         ]
         
         rates = []
@@ -161,10 +161,10 @@ class ButlerMortgageScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "butlermortgage_fallback_2026-04-25",
+                "source": "butlermortgage_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

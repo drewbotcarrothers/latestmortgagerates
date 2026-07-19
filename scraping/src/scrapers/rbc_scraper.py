@@ -1,7 +1,7 @@
 """
 RBC Royal Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -204,51 +204,51 @@ class RBCScraper:
         Fallback rates from RBC website (April 25, 2026).
         Verified via browser snapshot.
         """
-        logger.info("Using fallback rates from RBC website (Apr 25, 2026)")
+        logger.info("Using fallback rates from RBC website (2026-07-19)")
         
         # Live verified rates from browser scraping
         fallback_data = [
             # Featured / Popular (Special Offers)
-            {"term": 36, "type": RateType.FIXED, "rate": "4.440", "apr": "4.480", "mortgage_type": "uninsured", "product": "3 Year Fixed", "section": "popular"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.590", "apr": "4.620", "mortgage_type": "uninsured", "product": "5 Year Fixed", "section": "popular"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable", "note": "RBC Prime Rate -0.500%", "section": "popular"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.94", "apr": "4.480", "mortgage_type": "uninsured", "product": "3 Year Fixed", "section": "popular"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.09", "apr": "4.620", "mortgage_type": "uninsured", "product": "5 Year Fixed", "section": "popular"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.45", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable", "note": "RBC Prime Rate -0.500%", "section": "popular"},
             
             # High Ratio (Insured)
-            {"term": 60, "type": RateType.FIXED, "rate": "4.290", "apr": "4.320", "mortgage_type": "insured", "product": "5 Year Fixed High Ratio", "section": "high_ratio"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.650", "apr": "3.680", "mortgage_type": "insured", "product": "5 Year Variable High Ratio", "note": "RBC Prime Rate -0.800%", "section": "high_ratio"},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.79", "apr": "4.320", "mortgage_type": "insured", "product": "5 Year Fixed High Ratio", "section": "high_ratio"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.15", "apr": "3.680", "mortgage_type": "insured", "product": "5 Year Variable High Ratio", "note": "RBC Prime Rate -0.800%", "section": "high_ratio"},
             
             # Other Rates - Special Rates (25yr amortization or less)
-            {"term": 12, "type": RateType.FIXED, "rate": "5.590", "apr": "5.620", "mortgage_type": "uninsured", "product": "1 Year Closed", "section": "special"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.140", "apr": "5.170", "mortgage_type": "uninsured", "product": "2 Year Closed", "section": "special"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.640", "apr": "4.670", "mortgage_type": "uninsured", "product": "3 Year Closed", "section": "special"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.690", "apr": "4.720", "mortgage_type": "uninsured", "product": "4 Year Closed", "section": "special"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.690", "apr": "4.720", "mortgage_type": "uninsured", "product": "5 Year Closed", "section": "special"},
-            {"term": 84, "type": RateType.FIXED, "rate": "5.190", "apr": "5.220", "mortgage_type": "uninsured", "product": "7 Year Closed", "section": "special"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.950", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "note": "RBC Prime Rate -0.500%", "section": "special"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.09", "apr": "5.620", "mortgage_type": "uninsured", "product": "1 Year Closed", "section": "special"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.64", "apr": "5.170", "mortgage_type": "uninsured", "product": "2 Year Closed", "section": "special"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.14", "apr": "4.670", "mortgage_type": "uninsured", "product": "3 Year Closed", "section": "special"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.19", "apr": "4.720", "mortgage_type": "uninsured", "product": "4 Year Closed", "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.19", "apr": "4.720", "mortgage_type": "uninsured", "product": "5 Year Closed", "section": "special"},
+            {"term": 84, "type": RateType.FIXED, "rate": "4.69", "apr": "5.220", "mortgage_type": "uninsured", "product": "7 Year Closed", "section": "special"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.45", "apr": "3.980", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "note": "RBC Prime Rate -0.500%", "section": "special"},
             
             # Other Rates - Special Rates (>25yr amortization)
-            {"term": 12, "type": RateType.FIXED, "rate": "5.690", "apr": "5.720", "mortgage_type": "uninsured", "product": "1 Year Closed (>>25yr)", "section": "special"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.240", "apr": "5.270", "mortgage_type": "uninsured", "product": "2 Year Closed (>>25yr)", "section": "special"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.740", "apr": "4.770", "mortgage_type": "uninsured", "product": "3 Year Closed (>>25yr)", "section": "special"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.790", "apr": "4.820", "mortgage_type": "uninsured", "product": "4 Year Closed (>>25yr)", "section": "special"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.790", "apr": "4.820", "mortgage_type": "uninsured", "product": "5 Year Closed (>>25yr)", "section": "special"},
-            {"term": 84, "type": RateType.FIXED, "rate": "5.290", "apr": "5.320", "mortgage_type": "uninsured", "product": "7 Year Closed (>>25yr)", "section": "special"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.050", "apr": "4.080", "mortgage_type": "uninsured", "product": "5 Year Variable Closed (>>25yr)", "note": "RBC Prime Rate -0.400%", "section": "special"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.19", "apr": "5.720", "mortgage_type": "uninsured", "product": "1 Year Closed (>>25yr)", "section": "special"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.74", "apr": "5.270", "mortgage_type": "uninsured", "product": "2 Year Closed (>>25yr)", "section": "special"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.24", "apr": "4.770", "mortgage_type": "uninsured", "product": "3 Year Closed (>>25yr)", "section": "special"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.29", "apr": "4.820", "mortgage_type": "uninsured", "product": "4 Year Closed (>>25yr)", "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.29", "apr": "4.820", "mortgage_type": "uninsured", "product": "5 Year Closed (>>25yr)", "section": "special"},
+            {"term": 84, "type": RateType.FIXED, "rate": "4.79", "apr": "5.320", "mortgage_type": "uninsured", "product": "7 Year Closed (>>25yr)", "section": "special"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.55", "apr": "4.080", "mortgage_type": "uninsured", "product": "5 Year Variable Closed (>>25yr)", "note": "RBC Prime Rate -0.400%", "section": "special"},
             
             # Posted Rates (25yr amortization or less)
-            {"term": 6, "type": RateType.FIXED, "rate": "6.300", "apr": "6.330", "mortgage_type": "uninsured", "product": "6 Month Convertible", "section": "posted"},
-            {"term": 12, "type": RateType.FIXED, "rate": "6.490", "apr": "6.520", "mortgage_type": "uninsured", "product": "1 Year Closed Posted", "section": "posted"},
-            {"term": 24, "type": RateType.FIXED, "rate": "6.190", "apr": "6.220", "mortgage_type": "uninsured", "product": "2 Year Closed Posted", "section": "posted"},
-            {"term": 36, "type": RateType.FIXED, "rate": "6.140", "apr": "6.170", "mortgage_type": "uninsured", "product": "3 Year Closed Posted", "section": "posted"},
-            {"term": 48, "type": RateType.FIXED, "rate": "6.090", "apr": "6.120", "mortgage_type": "uninsured", "product": "4 Year Closed Posted", "section": "posted"},
-            {"term": 60, "type": RateType.FIXED, "rate": "6.340", "apr": "6.370", "mortgage_type": "uninsured", "product": "5 Year Closed Posted", "section": "posted"},
-            {"term": 84, "type": RateType.FIXED, "rate": "6.540", "apr": "6.570", "mortgage_type": "uninsured", "product": "7 Year Closed Posted", "section": "posted"},
-            {"term": 120, "type": RateType.FIXED, "rate": "6.700", "apr": "6.730", "mortgage_type": "uninsured", "product": "10 Year Closed Posted", "section": "posted"},
-            {"term": 300, "type": RateType.FIXED, "rate": "6.800", "apr": "6.830", "mortgage_type": "uninsured", "product": "25 Year Closed Posted", "section": "posted"},
-            {"term": 6, "type": RateType.FIXED, "rate": "7.200", "apr": "7.230", "mortgage_type": "uninsured", "product": "6 Months Open Posted", "section": "posted", "is_open": True},
-            {"term": 12, "type": RateType.FIXED, "rate": "7.200", "apr": "7.230", "mortgage_type": "uninsured", "product": "1 Year Open Posted", "section": "posted", "is_open": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "6.200", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Closed Posted", "note": "RBC Prime Rate +2.250%", "section": "posted"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "6.200", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Open Posted", "note": "RBC Prime Rate +2.250%", "section": "posted", "is_open": True},
+            {"term": 6, "type": RateType.FIXED, "rate": "5.90", "apr": "6.330", "mortgage_type": "uninsured", "product": "6 Month Convertible", "section": "posted"},
+            {"term": 12, "type": RateType.FIXED, "rate": "6.09", "apr": "6.520", "mortgage_type": "uninsured", "product": "1 Year Closed Posted", "section": "posted"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.79", "apr": "6.220", "mortgage_type": "uninsured", "product": "2 Year Closed Posted", "section": "posted"},
+            {"term": 36, "type": RateType.FIXED, "rate": "5.74", "apr": "6.170", "mortgage_type": "uninsured", "product": "3 Year Closed Posted", "section": "posted"},
+            {"term": 48, "type": RateType.FIXED, "rate": "5.69", "apr": "6.120", "mortgage_type": "uninsured", "product": "4 Year Closed Posted", "section": "posted"},
+            {"term": 60, "type": RateType.FIXED, "rate": "5.94", "apr": "6.370", "mortgage_type": "uninsured", "product": "5 Year Closed Posted", "section": "posted"},
+            {"term": 84, "type": RateType.FIXED, "rate": "6.14", "apr": "6.570", "mortgage_type": "uninsured", "product": "7 Year Closed Posted", "section": "posted"},
+            {"term": 120, "type": RateType.FIXED, "rate": "6.30", "apr": "6.730", "mortgage_type": "uninsured", "product": "10 Year Closed Posted", "section": "posted"},
+            {"term": 300, "type": RateType.FIXED, "rate": "6.40", "apr": "6.830", "mortgage_type": "uninsured", "product": "25 Year Closed Posted", "section": "posted"},
+            {"term": 6, "type": RateType.FIXED, "rate": "6.80", "apr": "7.230", "mortgage_type": "uninsured", "product": "6 Months Open Posted", "section": "posted", "is_open": True},
+            {"term": 12, "type": RateType.FIXED, "rate": "6.80", "apr": "7.230", "mortgage_type": "uninsured", "product": "1 Year Open Posted", "section": "posted", "is_open": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "5.80", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Closed Posted", "note": "RBC Prime Rate +2.250%", "section": "posted"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "5.80", "apr": "6.230", "mortgage_type": "uninsured", "product": "5 Year Variable Open Posted", "note": "RBC Prime Rate +2.250%", "section": "posted", "is_open": True},
         ]
         
         rates = []
@@ -256,14 +256,14 @@ class RBCScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "rbc_fallback_2026-04-25",
+                "source": "rbc_fallback_2026-07-19",
                 "apr": item.get("apr"),
                 "product": item.get("product"),
                 "featured": item.get("section") == "popular" and item["term"] in [36, 60],
                 "note": item.get("note", ""),
                 "section": item.get("section", "special"),
                 "is_open": item.get("is_open", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

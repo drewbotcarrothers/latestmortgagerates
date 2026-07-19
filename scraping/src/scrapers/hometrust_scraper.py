@@ -1,7 +1,7 @@
 """
 Home Trust mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class HomeTrustScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Home Trust (Apr 25, 2026)")
+        logger.info("Using fallback rates from Home Trust (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,15 +102,15 @@ class HomeTrustScraper:
         Fallback rates from Home Trust (April 25, 2026).
         Alternative mortgage lender, part of Home Capital Group.
         """
-        logger.info("Using fallback rates from Home Trust (Apr 25, 2026)")
+        logger.info("Using fallback rates from Home Trust (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.59", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "uninsured", "product": "5 Year Variable"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.79", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.09", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.79", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.19", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.09", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.35", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 120, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
         ]
         
         rates = []
@@ -118,10 +118,10 @@ class HomeTrustScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "hometrust_fallback_2026-04-25",
+                "source": "hometrust_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

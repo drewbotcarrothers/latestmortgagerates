@@ -1,7 +1,7 @@
 """
 Rates.ca mortgage rate aggregator scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class RatesCaScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Rates.ca (Apr 25, 2026)")
+        logger.info("Using fallback rates from Rates.ca (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -101,20 +101,20 @@ class RatesCaScraper:
         """
         Aggregated rates from Rates.ca (April 25, 2026).
         """
-        logger.info("Using fallback rates from Rates.ca (Apr 25, 2026)")
+        logger.info("Using fallback rates from Rates.ca (2026-07-19)")
         
         aggregated_data = [
-            {"lender": "nesto", "term": 60, "type": RateType.FIXED, "rate": "3.64", "mortgage_type": "uninsured", "featured": True},
-            {"lender": "Lendwise", "term": 60, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured"},
-            {"lender": "IntelliMortgage", "term": 60, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured"},
-            {"lender": "CMLS Financial", "term": 60, "type": RateType.FIXED, "rate": "3.84", "mortgage_type": "uninsured"},
-            {"lender": "Merix Financial", "term": 60, "type": RateType.FIXED, "rate": "3.89", "mortgage_type": "uninsured"},
-            {"lender": "nesto", "term": 36, "type": RateType.FIXED, "rate": "3.59", "mortgage_type": "uninsured"},
-            {"lender": "nesto", "term": 60, "type": RateType.VARIABLE, "rate": "3.40", "mortgage_type": "uninsured", "featured": True, "spread": "Prime - 1.05%"},
-            {"lender": "Lendwise", "term": 60, "type": RateType.VARIABLE, "rate": "3.50", "mortgage_type": "uninsured", "spread": "Prime - 0.95%"},
-            {"lender": "RBC", "term": 60, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured"},
-            {"lender": "TD", "term": 60, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured"},
-            {"lender": "Scotiabank", "term": 60, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 60, "type": RateType.FIXED, "rate": "3.14", "mortgage_type": "uninsured", "featured": True},
+            {"lender": "Lendwise", "term": 60, "type": RateType.FIXED, "rate": "3.24", "mortgage_type": "uninsured"},
+            {"lender": "IntelliMortgage", "term": 60, "type": RateType.FIXED, "rate": "3.29", "mortgage_type": "uninsured"},
+            {"lender": "CMLS Financial", "term": 60, "type": RateType.FIXED, "rate": "3.34", "mortgage_type": "uninsured"},
+            {"lender": "Merix Financial", "term": 60, "type": RateType.FIXED, "rate": "3.39", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 36, "type": RateType.FIXED, "rate": "3.09", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 60, "type": RateType.VARIABLE, "rate": "2.90", "mortgage_type": "uninsured", "featured": True, "spread": "Prime - 1.05%"},
+            {"lender": "Lendwise", "term": 60, "type": RateType.VARIABLE, "rate": "3.00", "mortgage_type": "uninsured", "spread": "Prime - 0.95%"},
+            {"lender": "RBC", "term": 60, "type": RateType.FIXED, "rate": "4.09", "mortgage_type": "uninsured"},
+            {"lender": "TD", "term": 60, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "uninsured"},
+            {"lender": "Scotiabank", "term": 60, "type": RateType.FIXED, "rate": "4.19", "mortgage_type": "uninsured"},
         ]
         
         rates = []
@@ -122,10 +122,10 @@ class RatesCaScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "ratesca_fallback_2026-04-25",
+                "source": "ratesca_fallback_2026-07-19",
                 "aggregator": "Rates.ca",
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

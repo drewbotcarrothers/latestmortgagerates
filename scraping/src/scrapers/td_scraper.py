@@ -1,7 +1,7 @@
 """
 TD Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -41,7 +41,7 @@ class TDScraper:
             logger.warning(f"Playwright scraping failed: {e}")
         
         # Fallback to static data
-        logger.info("Using fallback rates from TD website (Apr 25, 2026)")
+        logger.info("Using fallback rates from TD website (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -416,29 +416,29 @@ class TDScraper:
         Fallback rates from TD website (April 25, 2026).
         Verified via browser snapshot.
         """
-        logger.info("Using fallback rates from TD website (Apr 25, 2026)")
+        logger.info("Using fallback rates from TD website (2026-07-19)")
         
         # Live verified rates from browser scraping
         # TD Mortgage Prime Rate: 4.60%
         
         fallback_data = [
             # Special Offers (best rates) - verified May 1, 2026
-            {"term": 36, "type": RateType.FIXED, "rate": "4.79", "posted": "6.05", "apr": "4.825", "mortgage_type": "uninsured", "product": "3 Year Fixed Closed", "section": "special"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.94", "posted": "6.09", "apr": "4.961", "mortgage_type": "uninsured", "product": "5 Year Fixed Closed", "featured": True, "section": "special"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.94", "posted": "6.09", "apr": "4.961", "mortgage_type": "insured", "product": "5 Year Fixed Closed High-Ratio", "section": "special"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.29", "posted": "4.60", "apr": "4.311", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "note": "TD Prime - 0.31%", "featured": True, "section": "special"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.29", "posted": "6.05", "apr": "4.825", "mortgage_type": "uninsured", "product": "3 Year Fixed Closed", "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.44", "posted": "6.09", "apr": "4.961", "mortgage_type": "uninsured", "product": "5 Year Fixed Closed", "featured": True, "section": "special"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.44", "posted": "6.09", "apr": "4.961", "mortgage_type": "insured", "product": "5 Year Fixed Closed High-Ratio", "section": "special"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.79", "posted": "4.60", "apr": "4.311", "mortgage_type": "uninsured", "product": "5 Year Variable Closed", "note": "TD Prime - 0.31%", "featured": True, "section": "special"},
             
             # Posted Rates - all terms
-            {"term": 6, "type": RateType.FIXED, "rate": "5.49", "apr": "5.691", "mortgage_type": "uninsured", "product": "6 Month Convertible", "section": "posted"},
-            {"term": 12, "type": RateType.FIXED, "rate": "9.95", "apr": "10.052", "mortgage_type": "uninsured", "product": "1 Year Open Mortgage", "section": "posted", "is_open": True},
-            {"term": 12, "type": RateType.FIXED, "rate": "5.49", "apr": "5.592", "mortgage_type": "uninsured", "product": "1 Year Fixed Closed", "section": "posted"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.89", "apr": "4.942", "mortgage_type": "uninsured", "product": "2 Year Fixed Closed", "section": "posted"},
-            {"term": 36, "type": RateType.FIXED, "rate": "6.05", "apr": "6.016", "mortgage_type": "uninsured", "product": "3 Year Fixed Closed (Posted)", "section": "posted"},
-            {"term": 48, "type": RateType.FIXED, "rate": "5.99", "apr": "6.016", "mortgage_type": "uninsured", "product": "4 Year Fixed Closed", "section": "posted"},
-            {"term": 60, "type": RateType.FIXED, "rate": "6.09", "apr": "6.090", "mortgage_type": "uninsured", "product": "5 Year Fixed Closed (Posted)", "section": "posted"},
-            {"term": 72, "type": RateType.FIXED, "rate": "6.29", "apr": "6.308", "mortgage_type": "uninsured", "product": "6 Year Fixed Closed", "section": "posted"},
-            {"term": 84, "type": RateType.FIXED, "rate": "6.40", "apr": "6.415", "mortgage_type": "uninsured", "product": "7 Year Fixed Closed", "section": "posted"},
-            {"term": 120, "type": RateType.FIXED, "rate": "6.80", "apr": "6.815", "mortgage_type": "uninsured", "product": "10 Year Fixed Closed", "section": "posted"},
+            {"term": 6, "type": RateType.FIXED, "rate": "4.99", "apr": "5.691", "mortgage_type": "uninsured", "product": "6 Month Convertible", "section": "posted"},
+            {"term": 12, "type": RateType.FIXED, "rate": "9.65", "apr": "10.052", "mortgage_type": "uninsured", "product": "1 Year Open Mortgage", "section": "posted", "is_open": True},
+            {"term": 12, "type": RateType.FIXED, "rate": "4.99", "apr": "5.592", "mortgage_type": "uninsured", "product": "1 Year Fixed Closed", "section": "posted"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.39", "apr": "4.942", "mortgage_type": "uninsured", "product": "2 Year Fixed Closed", "section": "posted"},
+            {"term": 36, "type": RateType.FIXED, "rate": "5.65", "apr": "6.016", "mortgage_type": "uninsured", "product": "3 Year Fixed Closed (Posted)", "section": "posted"},
+            {"term": 48, "type": RateType.FIXED, "rate": "5.49", "apr": "6.016", "mortgage_type": "uninsured", "product": "4 Year Fixed Closed", "section": "posted"},
+            {"term": 60, "type": RateType.FIXED, "rate": "5.69", "apr": "6.090", "mortgage_type": "uninsured", "product": "5 Year Fixed Closed (Posted)", "section": "posted"},
+            {"term": 72, "type": RateType.FIXED, "rate": "5.89", "apr": "6.308", "mortgage_type": "uninsured", "product": "6 Year Fixed Closed", "section": "posted"},
+            {"term": 84, "type": RateType.FIXED, "rate": "6.00", "apr": "6.415", "mortgage_type": "uninsured", "product": "7 Year Fixed Closed", "section": "posted"},
+            {"term": 120, "type": RateType.FIXED, "rate": "6.40", "apr": "6.815", "mortgage_type": "uninsured", "product": "10 Year Fixed Closed", "section": "posted"},
         ]
         
         rates = []

@@ -1,7 +1,7 @@
 """
 First National mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class FirstNationalScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from First National (Apr 25, 2026)")
+        logger.info("Using fallback rates from First National (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -103,18 +103,18 @@ class FirstNationalScraper:
         Fallback rates from First National (April 25, 2026).
         Major monoline lender - typically lower than Big 6 banks.
         """
-        logger.info("Using fallback rates from First National (Apr 25, 2026)")
+        logger.info("Using fallback rates from First National (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.69", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.44", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.84", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.99", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
-            {"term": 36, "type": RateType.VARIABLE, "rate": "4.35", "mortgage_type": "uninsured", "product": "3 Year Variable"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.15", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.95", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.94", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.34", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.39", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "uninsured", "product": "3 Year Variable"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.65", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.45", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
         ]
         
         rates = []
@@ -122,10 +122,10 @@ class FirstNationalScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "firstnational_fallback_2026-04-25",
+                "source": "firstnational_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

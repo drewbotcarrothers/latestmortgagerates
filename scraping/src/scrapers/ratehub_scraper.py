@@ -1,7 +1,7 @@
 """
 Ratehub mortgage rate aggregator scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -55,7 +55,7 @@ class RatehubScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Ratehub (Apr 25, 2026)")
+        logger.info("Using fallback rates from Ratehub (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -175,7 +175,7 @@ class RatehubScraper:
         """
         Aggregated rates from Ratehub.ca (April 25, 2026).
         """
-        logger.info("Using fallback rates from Ratehub (Apr 25, 2026)")
+        logger.info("Using fallback rates from Ratehub (2026-07-19)")
         
         fallback_data = [
             ("RBC", 60, RateType.FIXED, Decimal("4.59")),
@@ -207,7 +207,7 @@ class RatehubScraper:
                 rate=rate,
                 source_url=self.RATE_URLS[0],
                 scraped_at=self.scraped_at,
-                raw_data={"source": "ratehub_fallback_2026-04-25", "aggregator": "Ratehub.ca", "last_verified": "2026-04-25"}
+                raw_data={"source": "ratehub_fallback_2026-07-19", "aggregator": "Ratehub.ca", "last_verified": "2026-07-19"}
             ))
         
         return rates

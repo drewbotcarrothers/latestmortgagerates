@@ -219,7 +219,7 @@ class TrueNorthMortgageScraper:
         Fallback rates based on True North website data (April 25, 2026).
         Updated with verified live rates from browser scraping.
         """
-        logger.info("Using fallback rates from True North website (Apr 25, 2026)")
+        logger.info("Using fallback rates from True North website (2026-07-19)")
         
         # Live verified rates from browser scraping
         # These are the advertised "from" rates (best case)
@@ -249,7 +249,7 @@ class TrueNorthMortgageScraper:
                 source_url=self.PROVINCE_URLS["default"],
                 scraped_at=self.scraped_at,
                 raw_data={
-                    "source": "truenorth_fallback_2026-04-25",
+                    "source": "truenorth_fallback_2026-07-19",
                     "advertised_rate": str(insured_rate),
                     "rate_type": "from_rate",
                     "featured": term_months == 60,
@@ -269,7 +269,7 @@ class TrueNorthMortgageScraper:
                 source_url=self.PROVINCE_URLS["default"],
                 scraped_at=self.scraped_at,
                 raw_data={
-                    "source": "truenorth_fallback_2026-04-25",
+                    "source": "truenorth_fallback_2026-07-19",
                     "advertised_rate": str(insured_rate),
                     "rate_type": "estimated_uninsured",
                     "featured": term_months == 60,

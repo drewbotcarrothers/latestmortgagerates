@@ -1,7 +1,7 @@
 """
 Coast Capital Savings mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class CoastCapitalScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Coast Capital Savings (Apr 25, 2026)")
+        logger.info("Using fallback rates from Coast Capital Savings (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,14 +102,14 @@ class CoastCapitalScraper:
         Fallback rates from Coast Capital Savings (April 25, 2026).
         One of Canada's largest credit unions, based in BC.
         """
-        logger.info("Using fallback rates from Coast Capital Savings (Apr 25, 2026)")
+        logger.info("Using fallback rates from Coast Capital Savings (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.79", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.49", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "5.09", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.80", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.65%"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.99", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.30", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.65%"},
         ]
         
         rates = []
@@ -117,10 +117,10 @@ class CoastCapitalScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "coastcapital_fallback_2026-04-25",
+                "source": "coastcapital_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

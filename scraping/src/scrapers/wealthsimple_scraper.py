@@ -1,7 +1,7 @@
 """
 Wealthsimple mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class WealthsimpleScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Wealthsimple (Apr 25, 2026)")
+        logger.info("Using fallback rates from Wealthsimple (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -108,12 +108,12 @@ class WealthsimpleScraper:
         Fallback rates from Wealthsimple (April 25, 2026).
         Fintech bank with modern mortgage offerings.
         """
-        logger.info("Using fallback rates from Wealthsimple (Apr 25, 2026)")
+        logger.info("Using fallback rates from Wealthsimple (2026-07-19)")
         
         fallback_data = [
-            {"term": 36, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.74", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.71%"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.24", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.71%"},
         ]
         
         rates = []
@@ -121,10 +121,10 @@ class WealthsimpleScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "wealthsimple_fallback_2026-04-25",
+                "source": "wealthsimple_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

@@ -1,7 +1,7 @@
 """
 Manulife Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class ManulifeBankScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Manulife Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from Manulife Bank (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -103,17 +103,17 @@ class ManulifeBankScraper:
         Fallback rates from Manulife Bank (April 25, 2026).
         Manulife tends to have higher rates than other monolines.
         """
-        logger.info("Using fallback rates from Manulife Bank (Apr 25, 2026)")
+        logger.info("Using fallback rates from Manulife Bank (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "6.14", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.84", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "5.09", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "5.04", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.80", "mortgage_type": "uninsured", "product": "5 Year Variable"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.60", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.74", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.34", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.69", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.30", "mortgage_type": "uninsured", "product": "5 Year Variable"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.10", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
         ]
         
         rates = []
@@ -121,10 +121,10 @@ class ManulifeBankScraper:
             mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
             
             raw_data = {
-                "source": "manulife_fallback_2026-04-25",
+                "source": "manulife_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             
             rates.append(RawRate(

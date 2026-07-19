@@ -1,7 +1,7 @@
 """
 WOWA.ca mortgage rate aggregator scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class WOWAScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from WOWA.ca (Apr 25, 2026)")
+        logger.info("Using fallback rates from WOWA.ca (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,37 +102,37 @@ class WOWAScraper:
         Aggregated rates from WOWA.ca (April 25, 2026).
         Best available rates from WOWA's platform.
         """
-        logger.info("Using aggregated rates from WOWA.ca (Apr 25, 2026)")
+        logger.info("Using aggregated rates from WOWA.ca (2026-07-19)")
         
         aggregated_data = [
             # 5-Year Fixed - best rates
-            {"lender": "nesto", "term": 60, "type": RateType.FIXED, "rate": "3.59", "mortgage_type": "uninsured", "featured": True},
-            {"lender": "Lendwise", "term": 60, "type": RateType.FIXED, "rate": "3.69", "mortgage_type": "uninsured"},
-            {"lender": "CMLS Financial", "term": 60, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured"},
-            {"lender": "Merix Financial", "term": 60, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured"},
-            {"lender": "Street Capital", "term": 60, "type": RateType.FIXED, "rate": "3.84", "mortgage_type": "uninsured"},
-            {"lender": "IntelliMortgage", "term": 60, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 60, "type": RateType.FIXED, "rate": "3.09", "mortgage_type": "uninsured", "featured": True},
+            {"lender": "Lendwise", "term": 60, "type": RateType.FIXED, "rate": "3.19", "mortgage_type": "uninsured"},
+            {"lender": "CMLS Financial", "term": 60, "type": RateType.FIXED, "rate": "3.24", "mortgage_type": "uninsured"},
+            {"lender": "Merix Financial", "term": 60, "type": RateType.FIXED, "rate": "3.29", "mortgage_type": "uninsured"},
+            {"lender": "Street Capital", "term": 60, "type": RateType.FIXED, "rate": "3.34", "mortgage_type": "uninsured"},
+            {"lender": "IntelliMortgage", "term": 60, "type": RateType.FIXED, "rate": "3.29", "mortgage_type": "uninsured"},
             # 3-Year Fixed
-            {"lender": "nesto", "term": 36, "type": RateType.FIXED, "rate": "3.54", "mortgage_type": "uninsured"},
-            {"lender": "Lendwise", "term": 36, "type": RateType.FIXED, "rate": "3.69", "mortgage_type": "uninsured"},
-            {"lender": "Merix Financial", "term": 36, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 36, "type": RateType.FIXED, "rate": "3.04", "mortgage_type": "uninsured"},
+            {"lender": "Lendwise", "term": 36, "type": RateType.FIXED, "rate": "3.19", "mortgage_type": "uninsured"},
+            {"lender": "Merix Financial", "term": 36, "type": RateType.FIXED, "rate": "3.24", "mortgage_type": "uninsured"},
             # 5-Year Variable
-            {"lender": "nesto", "term": 60, "type": RateType.VARIABLE, "rate": "3.35", "mortgage_type": "uninsured", "featured": True, "spread": "Prime - 1.10%"},
-            {"lender": "Lendwise", "term": 60, "type": RateType.VARIABLE, "rate": "3.45", "mortgage_type": "uninsured", "spread": "Prime - 1.00%"},
-            {"lender": "CMLS Financial", "term": 60, "type": RateType.VARIABLE, "rate": "3.50", "mortgage_type": "uninsured", "spread": "Prime - 0.95%"},
+            {"lender": "nesto", "term": 60, "type": RateType.VARIABLE, "rate": "2.85", "mortgage_type": "uninsured", "featured": True, "spread": "Prime - 1.10%"},
+            {"lender": "Lendwise", "term": 60, "type": RateType.VARIABLE, "rate": "2.95", "mortgage_type": "uninsured", "spread": "Prime - 1.00%"},
+            {"lender": "CMLS Financial", "term": 60, "type": RateType.VARIABLE, "rate": "3.00", "mortgage_type": "uninsured", "spread": "Prime - 0.95%"},
             # 2-Year Fixed
-            {"lender": "nesto", "term": 24, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "uninsured"},
-            {"lender": "Lendwise", "term": 24, "type": RateType.FIXED, "rate": "4.19", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 24, "type": RateType.FIXED, "rate": "3.54", "mortgage_type": "uninsured"},
+            {"lender": "Lendwise", "term": 24, "type": RateType.FIXED, "rate": "3.69", "mortgage_type": "uninsured"},
             # 1-Year Fixed
-            {"lender": "nesto", "term": 12, "type": RateType.FIXED, "rate": "4.44", "mortgage_type": "uninsured"},
-            {"lender": "Lendwise", "term": 12, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 12, "type": RateType.FIXED, "rate": "3.94", "mortgage_type": "uninsured"},
+            {"lender": "Lendwise", "term": 12, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured"},
             # 10-Year Fixed
-            {"lender": "nesto", "term": 120, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured"},
-            {"lender": "Lendwise", "term": 120, "type": RateType.FIXED, "rate": "4.34", "mortgage_type": "uninsured"},
+            {"lender": "nesto", "term": 120, "type": RateType.FIXED, "rate": "3.74", "mortgage_type": "uninsured"},
+            {"lender": "Lendwise", "term": 120, "type": RateType.FIXED, "rate": "3.84", "mortgage_type": "uninsured"},
             # Digital banks
-            {"lender": "Tangerine", "term": 60, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured"},
-            {"lender": "Simplii", "term": 60, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured"},
-            {"lender": "EQ Bank", "term": 60, "type": RateType.FIXED, "rate": "4.44", "mortgage_type": "uninsured"},
+            {"lender": "Tangerine", "term": 60, "type": RateType.FIXED, "rate": "3.99", "mortgage_type": "uninsured"},
+            {"lender": "Simplii", "term": 60, "type": RateType.FIXED, "rate": "4.09", "mortgage_type": "uninsured"},
+            {"lender": "EQ Bank", "term": 60, "type": RateType.FIXED, "rate": "3.94", "mortgage_type": "uninsured"},
         ]
         
         rates = []
@@ -140,10 +140,10 @@ class WOWAScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "wowa_fallback_2026-04-25",
+                "source": "wowa_fallback_2026-07-19",
                 "aggregator": "WOWA.ca",
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

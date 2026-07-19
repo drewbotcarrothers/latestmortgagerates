@@ -1,7 +1,7 @@
 """
 IntelliMortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class IntelliMortgageScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from IntelliMortgage (Apr 25, 2026)")
+        logger.info("Using fallback rates from IntelliMortgage (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -102,15 +102,15 @@ class IntelliMortgageScraper:
         Fallback rates from IntelliMortgage (April 25, 2026).
         Online mortgage platform with competitive rates.
         """
-        logger.info("Using fallback rates from IntelliMortgage (Apr 25, 2026)")
+        logger.info("Using fallback rates from IntelliMortgage (2026-07-19)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.39", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.09", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.70", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.75%"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
+            {"term": 12, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "4.59", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.79", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.20", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.75%"},
+            {"term": 120, "type": RateType.FIXED, "rate": "4.24", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
         ]
         
         rates = []
@@ -118,10 +118,10 @@ class IntelliMortgageScraper:
             mortgage_type = MortgageType.UNINSURED
             
             raw_data = {
-                "source": "intellimortgage_fallback_2026-04-25",
+                "source": "intellimortgage_fallback_2026-07-19",
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "last_verified": "2026-04-25"
+                "last_verified": "2026-07-19"
             }
             if item.get("spread"):
                 raw_data["spread_to_prime"] = item["spread"]

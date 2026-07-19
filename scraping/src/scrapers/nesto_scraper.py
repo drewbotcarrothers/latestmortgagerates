@@ -1,7 +1,7 @@
 """
 nesto mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: April 25, 2026
+Updated: July 19, 2026
 """
 
 import re
@@ -39,7 +39,7 @@ class NestoScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from nesto (Apr 25, 2026)")
+        logger.info("Using fallback rates from nesto (2026-07-19)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -134,19 +134,19 @@ class NestoScraper:
         
         fallback_data = [
             # Insured rates (best LTV tiers)
-            {"term": 24, "type": RateType.FIXED, "rate": "6.16", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "2 Year Fixed (Insured)"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.10", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Fixed (Insured)", "featured": True},
-            {"term": 36, "type": RateType.VARIABLE, "rate": "3.85", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Variable (Insured)"},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.72", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "4 Year Fixed (Insured)"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Fixed (Insured)", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.40", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Variable (Insured)", "featured": True, "spread": "Prime - 1.05%"},
-            {"term": 84, "type": RateType.FIXED, "rate": "6.09", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "7 Year Fixed (Insured)"},
-            {"term": 120, "type": RateType.FIXED, "rate": "7.64", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "10 Year Fixed (Insured)"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.76", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "2 Year Fixed (Insured)"},
+            {"term": 36, "type": RateType.FIXED, "rate": "3.60", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Fixed (Insured)", "featured": True},
+            {"term": 36, "type": RateType.VARIABLE, "rate": "3.35", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "3 Year Variable (Insured)"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.22", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "4 Year Fixed (Insured)"},
+            {"term": 60, "type": RateType.FIXED, "rate": "3.54", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Fixed (Insured)", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "2.90", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "5 Year Variable (Insured)", "featured": True, "spread": "Prime - 1.05%"},
+            {"term": 84, "type": RateType.FIXED, "rate": "5.69", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "7 Year Fixed (Insured)"},
+            {"term": 120, "type": RateType.FIXED, "rate": "7.24", "mortgage_type": "insured", "ltv_tier": "0-65%", "product": "10 Year Fixed (Insured)"},
             
             # Uninsured rates
-            {"term": 36, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "3 Year Fixed (Uninsured)"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Fixed (Uninsured)"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.90", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Variable (Uninsured)"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "3 Year Fixed (Uninsured)"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.04", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Fixed (Uninsured)"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.40", "mortgage_type": "uninsured", "ltv_tier": "65-80%", "product": "5 Year Variable (Uninsured)"},
         ]
         
         rates = []
