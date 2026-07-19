@@ -10,6 +10,9 @@
     "generate:cards": "node scripts/generate-weekly-5yr-cards.js",
     "generate:monthly": "node scripts/generate-monthly-deepdive.js",
     "generate:legacy": "node scripts/generate-rate-of-day.js",
+    "generate:om:short": "python openmontage_hybrid.py --type short",
+    "generate:om:cards": "python openmontage_hybrid.py --type cards",
+    "generate:om:monthly": "python openmontage_hybrid.py --type monthly",
     "upload": "node scripts/upload-youtube.js",
     "render": "cd output/$(ls -t output/ | head -1) && npx hyperframes render --quality high --output video.mp4",
     "preview": "cd output/$(ls -t output/ | head -1) && npx hyperframes preview"
