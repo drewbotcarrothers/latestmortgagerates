@@ -53,7 +53,7 @@ def get_stealth_browser() -> tuple[Browser, BrowserContext]:
         geolocation={'latitude': 43.6532, 'longitude': -79.3832},  # Toronto
         permissions=['geolocation'],
         color_scheme='light',
-        reduced_motion='no_preference',
+        reduced_motion='no-preference',
     )
     
     # Add stealth scripts to evade detection
