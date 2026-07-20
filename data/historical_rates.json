@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "last_updated": "2026-07-19T23:53:47.496368",
-    "total_days": 87,
+    "last_updated": "2026-07-20T13:05:08.300565",
+    "total_days": 88,
     "prime_rate": 5.45
   },
   "data": [
@@ -1831,6 +1831,27 @@
       "lender_count": 33,
       "total_rates": 238,
       "created_at": "2026-07-19T11:53:32.116425"
+    },
+    {
+      "date": "2026-07-20",
+      "fixed_uninsured_best_rate": 3.74,
+      "fixed_uninsured_best_lender": "Wealthsimple",
+      "fixed_uninsured_avg_rate": 4.24,
+      "fixed_insured_best_rate": 3.59,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.2,
+      "variable_uninsured_best_rate": 3.15,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 3.65,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 2.95,
+      "variable_insured_best_lender": "Equitable Bank",
+      "variable_insured_avg_rate": 3.66,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 240,
+      "created_at": "2026-07-20T13:05:08.297954"
     }
   ]
 }
