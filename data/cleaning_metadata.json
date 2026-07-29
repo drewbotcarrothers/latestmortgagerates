@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-29T13:00:04.212077",
+  "generated_at": "2026-07-29T23:59:46.079165",
   "total_rates": 240,
   "cleaning_stats": {
-    "input_count": 294,
+    "input_count": 282,
     "removed_aggregator": 0,
     "removed_duplicates": 0,
     "removed_unrealistic": 0,
     "removed_no_metadata": 1,
-    "removed_inferior": 53,
-    "flagged_suspicious": 7,
+    "removed_inferior": 41,
+    "flagged_suspicious": 6,
     "output_count": 240,
     "by_lender": {
       "rbc": 10,
