@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-08-04T12:57:48.686975",
+    "last_updated": "2026-08-05T00:00:31.003279",
     "total_days": 90,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-05-06",
-      "fixed_uninsured_best_rate": 3.99,
-      "fixed_uninsured_best_lender": "Butler Mortgage",
-      "fixed_uninsured_avg_rate": 4.69,
-      "fixed_insured_best_rate": 4.04,
-      "fixed_insured_best_lender": "nesto",
-      "fixed_insured_avg_rate": 4.62,
-      "variable_uninsured_best_rate": 3.4,
-      "variable_uninsured_best_lender": "nesto",
-      "variable_uninsured_avg_rate": 4.1,
-      "variable_uninsured_spread_to_prime": 0.0,
-      "variable_insured_best_rate": 3.4,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.08,
-      "variable_insured_spread_to_prime": 0.0,
-      "prime_rate": 5.45,
-      "lender_count": 34,
-      "total_rates": 259,
-      "created_at": "2026-05-06T12:28:57.379173"
-    },
     {
       "date": "2026-05-07",
       "fixed_uninsured_best_rate": 3.99,
@@ -1894,6 +1873,27 @@
       "lender_count": 33,
       "total_rates": 240,
       "created_at": "2026-08-04T00:05:04.195027"
+    },
+    {
+      "date": "2026-08-05",
+      "fixed_uninsured_best_rate": 3.74,
+      "fixed_uninsured_best_lender": "Wealthsimple",
+      "fixed_uninsured_avg_rate": 4.25,
+      "fixed_insured_best_rate": 3.59,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.2,
+      "variable_uninsured_best_rate": 3.15,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 3.65,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 2.95,
+      "variable_insured_best_lender": "Equitable Bank",
+      "variable_insured_avg_rate": 3.66,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 33,
+      "total_rates": 240,
+      "created_at": "2026-08-05T00:00:31.001136"
     }
   ]
 }
