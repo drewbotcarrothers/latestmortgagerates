@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T11:24:10.868877",
+  "generated_at": "2026-08-08T23:23:49.528284",
   "total_rates": 240,
   "cleaning_stats": {
     "input_count": 294,
@@ -8,7 +8,7 @@
     "removed_unrealistic": 0,
     "removed_no_metadata": 1,
     "removed_inferior": 53,
-    "flagged_suspicious": 7,
+    "flagged_suspicious": 6,
     "output_count": 240,
     "by_lender": {
       "rbc": 10,
