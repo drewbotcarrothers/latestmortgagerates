@@ -25,7 +25,7 @@ class WealthsimpleScraper:
     RATE_URL = "https://www.wealthsimple.com/en-ca/mortgages"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(datetime.now().astimezone().tzinfo)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Wealthsimple mortgage rates."""
@@ -83,85 +83,81 @@ class WealthsimpleScraper:
                 # Wealthsimple renders rates as structured text near headings
                 main_content = page.locator("main").inner_html(timeout=10000)
                 
-                # Extract all rate blocks: pattern is "X year term" followed by "X.XX%" and "Fixed/Variable mortgage rate"
-                # Use a more robust multi-pattern approach
+                # Strategy 1: DOM-based extraction (most reliable for Wealthsimple's React-rendered page)
+                rate_elements = page.locator('main p:has-text("%")').all()
                 
-                # Pattern 1: Look for the rate cards via page text
-                page_text = page.locator("main").inner_text(timeout=10000)
-                
-                # Find "5 year term" blocks with rates
-                term_blocks = re.finditer(
-                    r'(\d+)\s+year\s+term\s+(\d+\.\d+)%\s+(Fixed|Variable)\s+mortgage\s+rate',
-                    page_text,
-                    re.IGNORECASE
-                )
-                
-                for match in term_blocks:
-                    try:
-                        years = int(match.group(1))
-                        rate = Decimal(match.group(2))
-                        rate_type_str = match.group(3).lower()
-                        rate_type = RateType.FIXED if rate_type_str == "fixed" else RateType.VARIABLE
+                for elem in rate_elements:
+                    text = elem.inner_text()
+                    rate_val = self._extract_rate_from_text(text)
+                    if rate_val and 2 <= float(rate_val) <= 15:
+                        # Try to determine term and type from nearby context
+                        parent = elem.locator("xpath=..")
+                        parent_text = parent.inner_text()
                         
-                        if 1 <= years <= 10 and 2 <= float(rate) <= 15:
-                            rates.append(RawRate(
-                                lender_slug=self.LENDER_SLUG,
-                                lender_name=self.LENDER_NAME,
-                                term_months=years * 12,
-                                rate_type=rate_type,
-                                mortgage_type=MortgageType.INSURED,  # Wealthsimple advertises insured rates
-                                rate=rate,
-                                source_url=self.RATE_URL,
-                                scraped_at=self.scraped_at,
-                                raw_data={
-                                    "source": "wealthsimple_live_scrape",
-                                    "years": years,
-                                    "extraction_method": "text_pattern"
-                                }
-                            ))
-                    except Exception as e:
-                        logger.debug(f"Skipping malformed match: {e}")
+                        years = 5  # Default
+                        year_match = re.search(r'(\d+)\s+year', parent_text, re.IGNORECASE)
+                        if year_match:
+                            years = int(year_match.group(1))
+                        
+                        rate_type = RateType.FIXED
+                        if "variable" in parent_text.lower():
+                            rate_type = RateType.VARIABLE
+                        
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=years * 12,
+                            rate_type=rate_type,
+                            mortgage_type=MortgageType.INSURED,
+                            rate=rate_val,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "wealthsimple_live_scrape",
+                                "years": years,
+                                "extraction_method": "dom_based",
+                                "context_text": parent_text[:200]
+                            }
+                        ))
                 
-                # Strategy 2: If text pattern fails, try DOM-based extraction
+                # Strategy 2: If DOM-based fails, try text pattern on full page text
                 if not rates:
-                    logger.info("Text pattern failed, trying DOM-based extraction...")
+                    logger.info("DOM extraction failed, trying text pattern...")
                     
-                    # Find paragraphs containing % symbol
-                    rate_elements = page.locator('main p:has-text("%")').all()
+                    page_text = page.locator("main").inner_text(timeout=10000)
                     
-                    for elem in rate_elements:
-                        text = elem.inner_text()
-                        rate_val = self._extract_rate_from_text(text)
-                        if rate_val and 2 <= float(rate_val) <= 15:
-                            # Try to determine term and type from nearby context
-                            parent = elem.locator("xpath=..")
-                            parent_text = parent.inner_text()
+                    # Find "5 year term" blocks with rates (tolerate whitespace/newlines)
+                    term_blocks = re.finditer(
+                        r'(\d+)\s+year\s+term\s+(\d+\.\d+)%\s+(Fixed|Variable)\s+mortgage\s+rate',
+                        page_text,
+                        re.IGNORECASE | re.DOTALL
+                    )
+                    
+                    for match in term_blocks:
+                        try:
+                            years = int(match.group(1))
+                            rate = Decimal(match.group(2))
+                            rate_type_str = match.group(3).lower()
+                            rate_type = RateType.FIXED if rate_type_str == "fixed" else RateType.VARIABLE
                             
-                            years = 5  # Default
-                            year_match = re.search(r'(\d+)\s+year', parent_text, re.IGNORECASE)
-                            if year_match:
-                                years = int(year_match.group(1))
-                            
-                            rate_type = RateType.FIXED
-                            if "variable" in parent_text.lower():
-                                rate_type = RateType.VARIABLE
-                            
-                            rates.append(RawRate(
-                                lender_slug=self.LENDER_SLUG,
-                                lender_name=self.LENDER_NAME,
-                                term_months=years * 12,
-                                rate_type=rate_type,
-                                mortgage_type=MortgageType.INSURED,
-                                rate=rate_val,
-                                source_url=self.RATE_URL,
-                                scraped_at=self.scraped_at,
-                                raw_data={
-                                    "source": "wealthsimple_live_scrape",
-                                    "years": years,
-                                    "extraction_method": "dom_based",
-                                    "context_text": parent_text[:200]
-                                }
-                            ))
+                            if 1 <= years <= 10 and 2 <= float(rate) <= 15:
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=years * 12,
+                                    rate_type=rate_type,
+                                    mortgage_type=MortgageType.INSURED,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={
+                                        "source": "wealthsimple_live_scrape",
+                                        "years": years,
+                                        "extraction_method": "text_pattern"
+                                    }
+                                ))
+                        except Exception as e:
+                            logger.debug(f"Skipping malformed match: {e}")
                 
                 # Strategy 3: JSON-LD or structured data
                 if not rates:
