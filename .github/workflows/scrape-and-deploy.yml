@@ -36,7 +36,7 @@ jobs:
 
       - name: Run scraper
         working-directory: scraping
-        run: python test_all_lenders_v2.py || true
+        run: python test_all_lenders_v2.py
 
       # Step 3.4: Deduplicate and validate rates
       - name: Clean and deduplicate rates
