@@ -1,7 +1,7 @@
 """
 Centum mortgage rate scraper.
-Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Uses Playwright for live scraping with anti-bot measures.
+Updated: August 13, 2026
 """
 
 import re
@@ -19,18 +19,18 @@ from models import RawRate, RateType, MortgageType
 
 class CentumScraper:
     """Scraper for Centum mortgage rates."""
-    
+
     LENDER_SLUG = "centum"
     LENDER_NAME = "Centum"
-    RATE_URL = "https://www.centum.ca/our-rates"
-    
+    RATE_URL = "https://www.centum.ca/rates"
+
     def __init__(self):
         self.scraped_at = datetime.utcnow()
-    
+
     def scrape(self) -> List[RawRate]:
         """Scrape Centum mortgage rates."""
         logger.info("Fetching Centum rate page...")
-        
+
         try:
             rates = self._scrape_with_playwright()
             if rates:
@@ -38,107 +38,129 @@ class CentumScraper:
                 return rates
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
-        
-        logger.info("Using fallback rates from Centum (2026-07-19)")
-        rates = self._get_fallback_rates()
-        return rates
-    
+
+        logger.warning("Centum live scraping failed - returning empty list")
+        return []
+
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
+        """Use Playwright to scrape live rates from Centum rates table."""
         try:
             from playwright.sync_api import sync_playwright
-            
+
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                        "--disable-blink-features=AutomationControlled",
+                    ]
+                )
                 context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080},
                 )
                 page = context.new_page()
-                
+
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
-                
+                page.wait_for_timeout(3000)
+
                 rates = []
-                content = page.content()
-                
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
-                
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "centum_live_scrape", "years": years}
-                                ))
-                        except:
-                            pass
-                
+
+                # Find the rates table
+                tables = page.query_selector_all("table")
+                logger.info(f"Found {len(tables)} tables on Centum page")
+
+                for table in tables:
+                    rows = table.query_selector_all("tbody tr")
+                    if not rows:
+                        rows = table.query_selector_all("tr")
+
+                    for row in rows:
+                        cells = row.query_selector_all("td")
+                        if len(cells) < 2:
+                            continue
+
+                        term_text = cells[0].inner_text().strip()
+                        rate_text = cells[1].inner_text().strip()
+
+                        # Parse term
+                        term_match = re.search(r'(\d+)\s*Year', term_text, re.IGNORECASE)
+                        if not term_match:
+                            continue
+                        term_months = int(term_match.group(1)) * 12
+
+                        # Parse rate
+                        rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
+                        if not rate_match:
+                            continue
+
+                        rate = Decimal(rate_match.group(1))
+
+                        # Only accept reasonable rates (2-15%)
+                        if rate < 2 or rate > 15:
+                            continue
+
+                        # Determine rate type
+                        if "variable" in term_text.lower():
+                            rate_type = RateType.VARIABLE
+                        else:
+                            rate_type = RateType.FIXED
+
+                        # Centum shows "best" rates - mark as insured (high-ratio)
+                        mortgage_type = MortgageType.INSURED
+
+                        product_name = f"Best {term_months // 12}-Year {rate_type.value.title()}"
+
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=term_months,
+                            rate_type=rate_type,
+                            mortgage_type=mortgage_type,
+                            rate=rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "centum_live_scrape",
+                                "term_text": term_text,
+                                "rate_text": rate_text,
+                                "product": product_name
+                            }
+                        ))
+
+                # Also check for the rate cards (Current Prime Rate, etc.)
+                # that appear above the table
+                prime_text = page.inner_text("body")
+                prime_match = re.search(r'Current Prime Rate\s*(\d+\.\d+)%', prime_text, re.IGNORECASE)
+                if prime_match:
+                    prime_rate = Decimal(prime_match.group(1))
+                    if 2 <= prime_rate <= 15:
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=60,  # Variable rates typically shown as 5-year
+                            rate_type=RateType.VARIABLE,
+                            mortgage_type=MortgageType.UNINSURED,
+                            rate=prime_rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "centum_live_scrape",
+                                "product": "Current Prime Rate",
+                                "rate_text": f"{prime_rate}%"
+                            }
+                        ))
+
                 browser.close()
                 return rates
-                
+
         except ImportError:
             logger.warning("Playwright not available")
             return []
         except Exception as e:
             logger.error(f"Playwright error: {e}")
             return []
-    
-    def _get_fallback_rates(self) -> List[RawRate]:
-        """
-        Fallback rates from Centum (April 25, 2026).
-        Canada's largest mortgage brokerage network.
-        """
-        logger.info("Using fallback rates from Centum (2026-07-19)")
-        
-        fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "4.94", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.64", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "3.84", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.25", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.70%"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
-        ]
-        
-        rates = []
-        for item in fallback_data:
-            mortgage_type = MortgageType.UNINSURED
-            
-            raw_data = {
-                "source": "centum_fallback_2026-07-19",
-                "product": item.get("product"),
-                "featured": item.get("featured", False),
-                "last_verified": "2026-07-19"
-            }
-            if item.get("spread"):
-                raw_data["spread_to_prime"] = item["spread"]
-            
-            rates.append(RawRate(
-                lender_slug=self.LENDER_SLUG,
-                lender_name=self.LENDER_NAME,
-                term_months=item["term"],
-                rate_type=item["type"],
-                mortgage_type=mortgage_type,
-                rate=Decimal(item["rate"]),
-                source_url=self.RATE_URL,
-                scraped_at=self.scraped_at,
-                raw_data=raw_data
-            ))
-        
-        return rates
 
 
 if __name__ == "__main__":
@@ -147,16 +169,10 @@ if __name__ == "__main__":
         rates = scraper.scrape()
         print(f"\nScraped {len(rates)} rates from Centum:")
         print("-" * 60)
-        
-        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
+        for r in sorted(rates, key=lambda x: (x.mortgage_type.value, x.term_months)):
             years = r.term_months // 12
-            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
-            spread = r.raw_data.get("spread_to_prime", "")
-            spread_str = f" [{spread}]" if spread else ""
-            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{spread_str}{featured}")
-            
-        print("-" * 60)
-        
+            product = r.raw_data.get("product", "")
+            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}%  {product}")
     except Exception as e:
         print(f"Error: {e}")
         import traceback
