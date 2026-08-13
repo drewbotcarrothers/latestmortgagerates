@@ -1,7 +1,7 @@
 """
-Vancity Credit Union mortgage rate scraper.
-Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Vancity mortgage rate scraper.
+Uses Playwright for live scraping with anti-bot measures.
+Updated: August 13, 2026
 """
 
 import re
@@ -18,7 +18,7 @@ from models import RawRate, RateType, MortgageType
 
 
 class VancityScraper:
-    """Scraper for Vancity Credit Union mortgage rates."""
+    """Scraper for Vancity mortgage rates."""
     
     LENDER_SLUG = "vancity"
     LENDER_NAME = "Vancity"
@@ -39,53 +39,118 @@ class VancityScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Vancity (2026-07-19)")
-        rates = self._get_fallback_rates()
-        return rates
+        logger.warning("Vancity live scraping failed - returning empty list")
+        return []
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
+        """Use Playwright to scrape live rates from Vancity tables."""
         try:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                        "--disable-blink-features=AutomationControlled",
+                    ]
+                )
                 context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080},
                 )
                 page = context.new_page()
                 
+                # Navigate to Vancity rates page - need to scroll to mortgage section
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(3000)
+                
+                # Scroll to mortgage section
+                page.evaluate("document.getElementById('mortgage').scrollIntoView()")
                 page.wait_for_timeout(2000)
                 
                 rates = []
-                content = page.content()
                 
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
+                # Vancity has tables with mortgage rates
+                tables = page.query_selector_all("table")
+                logger.info(f"Found {len(tables)} tables on Vancity page")
                 
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "vancity_live_scrape", "years": years}
-                                ))
-                        except:
-                            pass
+                for table in tables:
+                    # Get headers to identify the table type
+                    headers = table.query_selector_all("th")
+                    header_text = " ".join([h.inner_text().strip().lower() for h in headers])
+                    
+                    # Check if this is a mortgage rates table
+                    is_mortgage_table = any(word in header_text for word in ['mortgage', 'fixed', 'variable', 'term', 'rate'])
+                    
+                    if not is_mortgage_table:
+                        continue
+                    
+                    is_fixed = "fixed" in header_text
+                    is_variable = "variable" in header_text
+                    
+                    rows = table.query_selector_all("tbody tr")
+                    if not rows:
+                        rows = table.query_selector_all("tr")
+                    
+                    for row in rows:
+                        cells = row.query_selector_all("td")
+                        if len(cells) < 2:
+                            continue
+                        
+                        term_text = cells[0].inner_text().strip()
+                        rate_text = cells[1].inner_text().strip()
+                        
+                        # Skip header rows
+                        if 'term' in term_text.lower() and ('rate' in rate_text.lower() or '%' in rate_text):
+                            continue
+                        
+                        # Parse term
+                        term_match = re.search(r'(\d+)\s*(?:Year|Yr)', term_text, re.IGNORECASE)
+                        if not term_match:
+                            term_match = re.search(r'(\d+)', term_text)
+                        if term_match:
+                            term_months = int(term_match.group(1)) * 12
+                        else:
+                            continue
+                        
+                        # Parse rate
+                        rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
+                        if rate_match:
+                            rate = Decimal(rate_match.group(1))
+                        else:
+                            rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                            if rate_match:
+                                rate = Decimal(rate_match.group(1))
+                            else:
+                                continue
+                        
+                        # Determine rate type
+                        if is_variable or 'variable' in term_text.lower():
+                            rate_type = RateType.VARIABLE
+                        else:
+                            rate_type = RateType.FIXED
+                        
+                        mortgage_type = MortgageType.UNINSURED
+                        product_name = f"{term_match.group(1)}-Year {rate_type.value.title()}"
+                        
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=term_months,
+                            rate_type=rate_type,
+                            mortgage_type=mortgage_type,
+                            rate=rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "vancity_live_scrape",
+                                "term_text": term_text,
+                                "rate_text": rate_text,
+                                "product": product_name
+                            }
+                        ))
                 
                 browser.close()
                 return rates
@@ -96,50 +161,6 @@ class VancityScraper:
         except Exception as e:
             logger.error(f"Playwright error: {e}")
             return []
-    
-    def _get_fallback_rates(self) -> List[RawRate]:
-        """
-        Fallback rates from Vancity (April 25, 2026).
-        Major BC credit union.
-        """
-        logger.info("Using fallback rates from Vancity (2026-07-19)")
-        
-        fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.14", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.84", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "3.94", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.30", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.65%"},
-            {"term": 84, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.34", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
-        ]
-        
-        rates = []
-        for item in fallback_data:
-            mortgage_type = MortgageType.UNINSURED
-            
-            raw_data = {
-                "source": "vancity_fallback_2026-07-19",
-                "product": item.get("product"),
-                "featured": item.get("featured", False),
-                "last_verified": "2026-07-19"
-            }
-            if item.get("spread"):
-                raw_data["spread_to_prime"] = item["spread"]
-            
-            rates.append(RawRate(
-                lender_slug=self.LENDER_SLUG,
-                lender_name=self.LENDER_NAME,
-                term_months=item["term"],
-                rate_type=item["type"],
-                mortgage_type=mortgage_type,
-                rate=Decimal(item["rate"]),
-                source_url=self.RATE_URL,
-                scraped_at=self.scraped_at,
-                raw_data=raw_data
-            ))
-        
-        return rates
 
 
 if __name__ == "__main__":
@@ -149,14 +170,10 @@ if __name__ == "__main__":
         print(f"\nScraped {len(rates)} rates from Vancity:")
         print("-" * 60)
         
-        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
+        for r in sorted(rates, key=lambda x: (x.mortgage_type.value, x.term_months)):
             years = r.term_months // 12
-            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
-            spread = r.raw_data.get("spread_to_prime", "")
-            spread_str = f" [{spread}]" if spread else ""
-            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{spread_str}{featured}")
-            
-        print("-" * 60)
+            product = r.raw_data.get("product", "")
+            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}%  {product}")
         
     except Exception as e:
         print(f"Error: {e}")
