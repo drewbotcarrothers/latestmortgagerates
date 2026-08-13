@@ -60,8 +60,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
-          # Stage changes but don't commit yet — handle remote races properly
-          git add data/
+          # Stage all changes including any temp files
+          git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
@@ -79,10 +79,13 @@ jobs:
             fi
 
             echo "⚠️ Push failed (attempt $i), pulling and rebasing..."
+            git stash
             if git pull --rebase origin master; then
+              git stash pop
               echo "Rebased, retrying push..."
             else
               echo "❌ Rebase failed, aborting"
+              git stash pop 2>/dev/null || true
               git rebase --abort 2>/dev/null || true
               exit 1
             fi
