@@ -7,7 +7,7 @@ Updated: August 13, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -22,10 +22,10 @@ class EQBankScraper:
     
     LENDER_SLUG = "eqbank"
     LENDER_NAME = "EQ Bank"
-    RATE_URL = "https://www.eqbank.ca"
+    RATE_URL = "https://www.eqbank.ca/residential/mortgage-rates"
     
     def __init__(self):
-        self.scraped_at = datetime.now(datetime.now().astimezone().tzinfo)
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape EQ Bank mortgage rates."""
@@ -83,50 +83,106 @@ class EQBankScraper:
                 
                 # Navigate with longer timeout and load strategy
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(5000)
+                page.wait_for_timeout(3000)
                 
                 rates = []
+                content = page.content()
                 
-                # Look for rate tables
-                rows = page.query_selector_all("table tbody tr")
-                for row in rows:
-                    cells = row.query_selector_all("td")
-                    if len(cells) >= 2:
-                        term_text = cells[0].inner_text().strip()
-                        rate_text = cells[1].inner_text().strip()
+                # EQ Bank stores rates in Next.js hydration JSON within script tags
+                # Look for the pattern: self.__next_f.push([1, "...rate data..."])
+                
+                # Extract all script content
+                script_pattern = r'<script[^>]*>(.*?)</script>'
+                scripts = re.findall(script_pattern, content, re.DOTALL)
+                
+                # Look for rate data in the scripts
+                rate_data = {}
+                
+                for script_content in scripts:
+                    # Look for Next.js hydration data
+                    if 'self.__next_f' in script_content or 'Standard-Mortgage-Rate' in script_content:
+                        # Try to find rate values using regex patterns
+                        # Pattern: "Standard-Mortgage-Rate-5-Year-Fixed": "5.24"
+                        rate_matches = re.findall(r'([\w-]+Mortgage[\w-]+\d*[\w-]*)":\s*"?([\d.]+)"?', script_content)
+                        for key, value in rate_matches:
+                            rate_data[key] = value
                         
-                        # Parse term (e.g., "3 Year" -> 36 months)
-                        term_match = re.search(r'(\d+)\s*(?:Year|Yr)', term_text, re.IGNORECASE)
-                        if term_match:
-                            term_months = int(term_match.group(1)) * 12
-                        else:
-                            continue
-                        
-                        # Parse rate
-                        rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
-                        if rate_match:
-                            rate = Decimal(rate_match.group(1))
-                        else:
-                            continue
-                        
-                        rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
-                        mortgage_type = MortgageType.INSURED if 'insured' in term_text.lower() or 'high-ratio' in term_text.lower() else MortgageType.UNINSURED
-                        
-                        rates.append(RawRate(
-                            lender_slug=self.LENDER_SLUG,
-                            lender_name=self.LENDER_NAME,
-                            term_months=term_months,
-                            rate_type=rate_type,
-                            mortgage_type=mortgage_type,
-                            rate=rate,
-                            source_url=self.RATE_URL,
-                            scraped_at=self.scraped_at,
-                            raw_data={
-                                "source": "eqbank_live_scrape",
-                                "term_text": term_text,
-                                "rate_text": rate_text
-                            }
-                        ))
+                        # Also look for simpler patterns
+                        simple_matches = re.findall(r'"(\d+-Year-[\w-]+)":\s*"?([\d.]+)"?', script_content)
+                        for key, value in simple_matches:
+                            rate_data[key] = value
+                
+                # If we found rate data in JSON, parse it
+                if rate_data:
+                    logger.info(f"Found {len(rate_data)} rate entries in JSON payload")
+                    
+                    # Map known rate keys
+                    rate_mappings = {
+                        'Standard-Mortgage-Rate-1-Year-Fixed': (12, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-2-Year-Fixed': (24, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-3-Year-Fixed': (36, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-4-Year-Fixed': (48, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-5-Year-Fixed': (60, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-7-Year-Fixed': (84, RateType.FIXED, MortgageType.UNINSURED),
+                        'Standard-Mortgage-Rate-10-Year-Fixed': (120, RateType.FIXED, MortgageType.UNINSURED),
+                        'EQB-Evolution-Suite-5-Year-Adjustable': (60, RateType.VARIABLE, MortgageType.UNINSURED),
+                    }
+                    
+                    for key, (term, rate_type, mortgage_type) in rate_mappings.items():
+                        if key in rate_data:
+                            try:
+                                rate = Decimal(rate_data[key])
+                                rates.append(RawRate(
+                                    lender_slug=self.LENDER_SLUG,
+                                    lender_name=self.LENDER_NAME,
+                                    term_months=term,
+                                    rate_type=rate_type,
+                                    mortgage_type=mortgage_type,
+                                    rate=rate,
+                                    source_url=self.RATE_URL,
+                                    scraped_at=self.scraped_at,
+                                    raw_data={"source": "eqbank_live_scrape", "key": key}
+                                ))
+                            except Exception:
+                                pass
+                
+                # Fallback: try to scrape rendered tables
+                if not rates:
+                    tables = page.query_selector_all("table")
+                    for table in tables:
+                        rows = table.query_selector_all("tbody tr")
+                        for row in rows:
+                            try:
+                                cells = row.query_selector_all("td")
+                                if len(cells) >= 2:
+                                    term_text = cells[0].inner_text().strip().lower()
+                                    rate_text = cells[1].inner_text().strip()
+                                    
+                                    if not re.search(r'\d+\.\d+', rate_text):
+                                        continue
+                                    
+                                    term_match = re.search(r'(\d+)', term_text)
+                                    if term_match:
+                                        years = int(term_match.group(1))
+                                        rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                        if rate_match:
+                                            rate = Decimal(rate_match.group(1))
+                                            rate_type = RateType.VARIABLE if 'variable' in term_text or 'adjustable' in term_text else RateType.FIXED
+                                            rates.append(RawRate(
+                                                lender_slug=self.LENDER_SLUG,
+                                                lender_name=self.LENDER_NAME,
+                                                term_months=years * 12,
+                                                rate_type=rate_type,
+                                                mortgage_type=MortgageType.UNINSURED,
+                                                rate=rate,
+                                                source_url=self.RATE_URL,
+                                                scraped_at=self.scraped_at,
+                                                raw_data={"source": "eqbank_live_scrape", "term_text": term_text}
+                                            ))
+                            except Exception:
+                                continue
+                
+                return rates
                 
                 if browser:
                     browser.close()
