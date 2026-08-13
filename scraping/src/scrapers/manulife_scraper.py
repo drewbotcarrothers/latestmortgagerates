@@ -1,13 +1,13 @@
 """
 Manulife Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Updated: August 13, 2026
 """
 
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -25,7 +25,7 @@ class ManulifeBankScraper:
     RATE_URL = "https://www.manulifebank.ca/mortgage-rates"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Manulife Bank mortgage rates."""
@@ -48,48 +48,76 @@ class ManulifeBankScraper:
         try:
             from playwright.sync_api import sync_playwright
             
+            browser = None
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                # Disable HTTP/2 to avoid ERR_HTTP2_PROTOCOL_ERROR
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                    ]
                 )
-                page = context.new_page()
                 
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
-                
-                rates = []
-                content = page.content()
-                
-                # Look for rate patterns
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
-                
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "manulife_live_scrape", "years": years}
-                                ))
-                        except:
-                            pass
-                
-                browser.close()
-                return rates
+                try:
+                    context = browser.new_context(
+                        user_agent=(
+                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                        ),
+                        extra_http_headers={
+                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                            "Accept-Language": "en-CA,en;q=0.9",
+                        }
+                    )
+                    
+                    page = context.new_page()
+                    
+                    # Block heavy resources
+                    page.route(
+                        "**/*",
+                        lambda route: route.abort()
+                        if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                        else route.continue_()
+                    )
+                    
+                    page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
+                    page.wait_for_timeout(5000)
+                    
+                    rates = []
+                    content = page.content()
+                    
+                    # Look for rate patterns
+                    patterns = [
+                        (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                        (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                    ]
+                    
+                    for pattern, rate_type in patterns:
+                        matches = re.finditer(pattern, content, re.IGNORECASE)
+                        for match in matches:
+                            try:
+                                years = int(match.group(1))
+                                rate = Decimal(match.group(2))
+                                if 1 <= years <= 10 and 2 <= rate <= 10:
+                                    rates.append(RawRate(
+                                        lender_slug=self.LENDER_SLUG,
+                                        lender_name=self.LENDER_NAME,
+                                        term_months=years * 12,
+                                        rate_type=rate_type,
+                                        mortgage_type=MortgageType.UNINSURED,
+                                        rate=rate,
+                                        source_url=self.RATE_URL,
+                                        scraped_at=self.scraped_at,
+                                        raw_data={"source": "manulife_live_scrape", "years": years}
+                                    ))
+                            except:
+                                pass
+                    
+                    return rates
+                finally:
+                    if browser:
+                        browser.close()
                 
         except ImportError:
             logger.warning("Playwright not available")
