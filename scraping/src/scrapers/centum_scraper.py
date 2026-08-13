@@ -22,7 +22,7 @@ class CentumScraper:
     
     LENDER_SLUG = "centum"
     LENDER_NAME = "Centum"
-    RATE_URL = "https://www.centum.ca/our-rates"
+    RATE_URL = "https://www.centum.ca/rates"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()

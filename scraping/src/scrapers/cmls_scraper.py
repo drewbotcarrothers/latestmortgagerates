@@ -22,7 +22,7 @@ class CMLSScraper:
     
     LENDER_SLUG = "cmls"
     LENDER_NAME = "CMLS Financial"
-    RATE_URL = "https://www.cmls.ca/rates"
+    RATE_URL = "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()
