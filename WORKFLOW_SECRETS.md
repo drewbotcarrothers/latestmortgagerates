@@ -23,8 +23,38 @@ The following secrets are **REQUIRED** for the scrape-and-deploy workflow to fun
 - `port: 21`
 - **DO NOT** use `ftps`, `ftps-legacy`, or `sftp`
 
+## Email Notification Secrets (OPTIONAL)
+
+To receive email summaries after each scrape run, configure these secrets:
+
+| Secret Name | Purpose | Example |
+|-------------|---------|---------|
+| `EMAIL_USERNAME` | Gmail address for sending | `yourbot@gmail.com` |
+| `EMAIL_PASSWORD` | Gmail App Password (not your regular password!) | `abcd efgh ijkl mnop` |
+
+### Setting up Gmail App Passwords
+
+1. Go to your Google Account → Security → 2-Step Verification → Enable it
+2. Go to Security → App passwords → Generate new app password
+3. Name it "Rate Scraper Bot" → Copy the 16-character password
+4. Add `EMAIL_USERNAME` and `EMAIL_PASSWORD` to GitHub secrets
+
+**⚠️ IMPORTANT:** Use an App Password, not your regular Gmail password. Regular passwords won't work with SMTP.
+
+### Email Contents
+
+Each email includes:
+- Total rates scraped
+- Live vs fallback rate counts
+- Per-lender status (success/failure/rates found)
+- Scraping duration per lender
+- JSON attachments (metadata.json and rates.json)
+
+---
+
 ## Where Used
 
+### FTP Secrets
 These secrets are referenced in `.github/workflows/scrape-and-deploy.yml`:
 
 ```yaml
