@@ -1,5 +1,5 @@
 """
-Test all lenders (25 direct lenders - NO aggregators).
+Test all lenders (30 direct lenders - NO aggregators).
 Scrapes rates from all banks and saves to database.
 With timeouts and comprehensive error handling.
 """
@@ -125,7 +125,7 @@ def run_scraper_with_timeout(scraper, timeout_secs=SCRAPER_TIMEOUT):
 def scrape_all_lenders():
     """Scrape all lenders, save to database, and export for website."""
     
-    logger.info("Starting full lender scraping pipeline (25 direct lenders)")
+    logger.info("Starting full lender scraping pipeline (30 direct lenders)")
     start_time = time.time()
     
     # Initialize components
