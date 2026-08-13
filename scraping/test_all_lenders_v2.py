@@ -88,38 +88,40 @@ class ScraperTimeout(Exception):
     pass
 
 
-def run_scraper_with_timeout(scraper, timeout_secs=SCRAPER_TIMEOUT):
+def run_scraper_with_timeout(scraper_class, timeout_secs=SCRAPER_TIMEOUT):
     """
-    Run a scraper with a timeout.
-    Returns (rates, result, duration) tuple.
+    Run a scraper with a HARD timeout using separate process.
+    Can kill stuck Playwright processes that threads cannot interrupt.
+    Returns (rates, error_msg, duration) tuple.
     """
+    from concurrent.futures import ProcessPoolExecutor, TimeoutError as FutureTimeoutError
+    import multiprocessing
+    
     start_time = time.time()
-    rates = []
-    error_msg = None
     
-    def scrape_thread():
-        nonlocal rates, error_msg
+    with ProcessPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(_run_scraper_in_process, scraper_class)
         try:
-            rates = scraper.scrape()
-        except Exception as e:
-            error_msg = str(e)
-    
-    # Start scraper in a thread
-    thread = threading.Thread(target=scrape_thread)
-    thread.start()
-    thread.join(timeout=timeout_secs)
-    
-    duration = time.time() - start_time
-    
-    if thread.is_alive():
-        # Scraper is still running after timeout
-        logger.warning(f"Scraper {scraper.LENDER_SLUG} timed out after {timeout_secs}s")
-        return [], f"TIMEOUT after {timeout_secs}s", duration
-    
-    if error_msg:
-        return [], error_msg, duration
-    
-    return rates, None, duration
+            rates, error_msg = future.result(timeout=timeout_secs)
+            duration = time.time() - start_time
+            if error_msg:
+                return [], error_msg, duration
+            return rates, None, duration
+        except FutureTimeoutError:
+            duration = time.time() - start_time
+            logger.warning(f"Scraper {scraper_class.__name__} PROCESS TIMEOUT after {timeout_secs}s")
+            return [], f"TIMEOUT after {timeout_secs}s", duration
+
+
+def _run_scraper_in_process(scraper_class):
+    """Run scraper in separate process for timeout enforcement."""
+    try:
+        scraper = scraper_class()
+        rates = scraper.scrape()
+        return rates, None
+    except Exception as e:
+        import traceback
+        return [], f"{str(e)}\n{traceback.format_exc()}"
 
 
 def scrape_all_lenders():
@@ -205,7 +207,7 @@ def scrape_all_lenders():
             continue
         
         # Run with timeout
-        rates, error, duration = run_scraper_with_timeout(scraper, SCRAPER_TIMEOUT)
+        rates, error, duration = run_scraper_with_timeout(scraper_class, SCRAPER_TIMEOUT)
         
         if error:
             logger.error(f"Failed to scrape {scraper.LENDER_SLUG}: {error}")
