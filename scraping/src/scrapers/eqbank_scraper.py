@@ -81,93 +81,125 @@ class EQBankScraper:
                     else route.continue_()
                 )
                 
-                # Navigate with longer timeout and load strategy
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
                 page.wait_for_timeout(3000)
                 
                 rates = []
-                content = page.content()
                 
-                # EQ Bank stores rates in Next.js hydration JSON within script tags
-                # Look for the pattern: self.__next_f.push([1, "...rate data..."])
+                # EQ Bank renders rates in the DOM after hydration
+                # We scrape from the visible page content only
+                # Look for rate cards or table rows with current rates
                 
-                # Extract all script content
-                script_pattern = r'<script[^>]*>(.*?)</script>'
-                scripts = re.findall(script_pattern, content, re.DOTALL)
+                # Method 1: Look for rate cards with specific class patterns
+                rate_cards = page.query_selector_all('[class*="rate"], [class*="Rate"], [class*="mortgage"], [class*="Mortgage"]')
                 
-                # Look for rate data in the scripts
-                rate_data = {}
-                
-                for script_content in scripts:
-                    # Look for Next.js hydration data
-                    if 'self.__next_f' in script_content or 'Standard-Mortgage-Rate' in script_content:
-                        # Try to find rate values using regex patterns
-                        # Pattern: "Standard-Mortgage-Rate-5-Year-Fixed": "5.24"
-                        rate_matches = re.findall(r'([\w-]+Mortgage[\w-]+\d*[\w-]*)":\s*"?([\d.]+)"?', script_content)
-                        for key, value in rate_matches:
-                            rate_data[key] = value
+                for card in rate_cards:
+                    try:
+                        # Get all text from the card
+                        card_text = card.inner_text().strip()
                         
-                        # Also look for simpler patterns
-                        simple_matches = re.findall(r'"(\d+-Year-[\w-]+)":\s*"?([\d.]+)"?', script_content)
-                        for key, value in simple_matches:
-                            rate_data[key] = value
+                        # Skip if it looks like historical data (contains dates like "march 6, 2020")
+                        if re.search(r'\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}\b', card_text, re.IGNORECASE):
+                            continue
+                        
+                        # Skip if contains "archive" or "historical"
+                        if 'archive' in card_text.lower() or 'historical' in card_text.lower():
+                            continue
+                        
+                        # Look for rate patterns like "X.XX%"
+                        rate_match = re.search(r'(\d+\.\d+)%', card_text)
+                        if not rate_match:
+                            continue
+                        
+                        rate = Decimal(rate_match.group(1))
+                        
+                        # Sanity check: rate should be between 1% and 10% for current market
+                        if rate < Decimal('1.0') or rate > Decimal('10.0'):
+                            continue
+                        
+                        # Look for term mentions
+                        term_match = re.search(r'(\d+)\s*(?:Year|Yr)', card_text, re.IGNORECASE)
+                        if term_match:
+                            years = int(term_match.group(1))
+                        else:
+                            # Try to find standalone numbers that could be terms
+                            term_match = re.search(r'\b(1|2|3|4|5|7|10)\b', card_text)
+                            if term_match:
+                                years = int(term_match.group(1))
+                            else:
+                                continue
+                        
+                        # Determine rate type
+                        rate_type = RateType.FIXED
+                        if 'variable' in card_text.lower() or 'adjustable' in card_text.lower():
+                            rate_type = RateType.VARIABLE
+                        
+                        # Determine mortgage type
+                        mortgage_type = MortgageType.UNINSURED
+                        if 'insured' in card_text.lower() or 'high.ratio' in card_text.lower():
+                            mortgage_type = MortgageType.INSURED
+                        
+                        # Check for duplicate before adding
+                        is_duplicate = any(
+                            r.term_months == years * 12 and 
+                            r.rate_type == rate_type and 
+                            r.mortgage_type == mortgage_type and
+                            abs(r.rate - rate) < Decimal('0.01')
+                            for r in rates
+                        )
+                        
+                        if not is_duplicate:
+                            rates.append(RawRate(
+                                lender_slug=self.LENDER_SLUG,
+                                lender_name=self.LENDER_NAME,
+                                term_months=years * 12,
+                                rate_type=rate_type,
+                                mortgage_type=mortgage_type,
+                                rate=rate,
+                                source_url=self.RATE_URL,
+                                scraped_at=self.scraped_at,
+                                raw_data={"source": "eqbank_live_scrape", "context": card_text[:200]}
+                            ))
+                    except Exception:
+                        continue
                 
-                # If we found rate data in JSON, parse it
-                if rate_data:
-                    logger.info(f"Found {len(rate_data)} rate entries in JSON payload")
-                    
-                    # Map known rate keys
-                    rate_mappings = {
-                        'Standard-Mortgage-Rate-1-Year-Fixed': (12, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-2-Year-Fixed': (24, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-3-Year-Fixed': (36, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-4-Year-Fixed': (48, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-5-Year-Fixed': (60, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-7-Year-Fixed': (84, RateType.FIXED, MortgageType.UNINSURED),
-                        'Standard-Mortgage-Rate-10-Year-Fixed': (120, RateType.FIXED, MortgageType.UNINSURED),
-                        'EQB-Evolution-Suite-5-Year-Adjustable': (60, RateType.VARIABLE, MortgageType.UNINSURED),
-                    }
-                    
-                    for key, (term, rate_type, mortgage_type) in rate_mappings.items():
-                        if key in rate_data:
-                            try:
-                                rate = Decimal(rate_data[key])
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=term,
-                                    rate_type=rate_type,
-                                    mortgage_type=mortgage_type,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "eqbank_live_scrape", "key": key}
-                                ))
-                            except Exception:
-                                pass
-                
-                # Fallback: try to scrape rendered tables
-                if not rates:
+                # Method 2: Also try table-based extraction
+                if len(rates) < 4:
                     tables = page.query_selector_all("table")
                     for table in tables:
-                        rows = table.query_selector_all("tbody tr")
-                        for row in rows:
-                            try:
+                        try:
+                            rows = table.query_selector_all("tbody tr")
+                            for row in rows:
                                 cells = row.query_selector_all("td")
                                 if len(cells) >= 2:
-                                    term_text = cells[0].inner_text().strip().lower()
+                                    term_text = cells[0].inner_text().strip()
                                     rate_text = cells[1].inner_text().strip()
                                     
-                                    if not re.search(r'\d+\.\d+', rate_text):
+                                    # Skip historical entries
+                                    if re.search(r'\b(january|february|march|april|may|june|july|august|september|october|november|december)\b', term_text + ' ' + rate_text, re.IGNORECASE):
+                                        continue
+                                    
+                                    rate_match = re.search(r'(\d+\.\d+)%', rate_text)
+                                    if not rate_match:
+                                        continue
+                                    
+                                    rate = Decimal(rate_match.group(1))
+                                    if rate < Decimal('1.0') or rate > Decimal('10.0'):
                                         continue
                                     
                                     term_match = re.search(r'(\d+)', term_text)
                                     if term_match:
                                         years = int(term_match.group(1))
-                                        rate_match = re.search(r'(\d+\.\d+)', rate_text)
-                                        if rate_match:
-                                            rate = Decimal(rate_match.group(1))
-                                            rate_type = RateType.VARIABLE if 'variable' in term_text or 'adjustable' in term_text else RateType.FIXED
+                                        rate_type = RateType.VARIABLE if 'variable' in term_text.lower() or 'adjustable' in term_text.lower() else RateType.FIXED
+                                        
+                                        is_duplicate = any(
+                                            r.term_months == years * 12 and 
+                                            r.rate_type == rate_type and 
+                                            abs(r.rate - rate) < Decimal('0.01')
+                                            for r in rates
+                                        )
+                                        
+                                        if not is_duplicate:
                                             rates.append(RawRate(
                                                 lender_slug=self.LENDER_SLUG,
                                                 lender_name=self.LENDER_NAME,
@@ -177,12 +209,10 @@ class EQBankScraper:
                                                 rate=rate,
                                                 source_url=self.RATE_URL,
                                                 scraped_at=self.scraped_at,
-                                                raw_data={"source": "eqbank_live_scrape", "term_text": term_text}
+                                                raw_data={"source": "eqbank_live_scrape", "term_text": term_text, "rate_text": rate_text}
                                             ))
-                            except Exception:
-                                continue
-                
-                return rates
+                        except Exception:
+                            continue
                 
                 if browser:
                     browser.close()
