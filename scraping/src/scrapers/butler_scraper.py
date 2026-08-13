@@ -45,6 +45,34 @@ class ButlerMortgageScraper:
     def _scrape_with_playwright(self) -> List[RawRate]:
         """Scrape rates using Playwright browser automation."""
         try:
+            from .browser_helper import launch_stealth_browser, goto_with_retry
+            
+            with launch_stealth_browser() as (browser, context, page):
+                if goto_with_retry(page, self.RATE_URL):
+                    rates = []
+                    text_content = page.inner_text("body")
+                    
+                    # Parse fixed rates
+                    fixed_rates = self._parse_rates_from_text(text_content, RateType.FIXED)
+                    rates.extend(fixed_rates)
+                    
+                    # Parse variable rates
+                    variable_rates = self._parse_rates_from_text(text_content, RateType.VARIABLE)
+                    rates.extend(variable_rates)
+                    
+                    return rates
+                else:
+                    return []
+        except ImportError:
+            logger.warning("Playwright stealth not available, falling back to standard")
+            return self._scrape_with_standard_playwright()
+        except Exception as e:
+            logger.error(f"Stealth browser error: {e}")
+            return []
+
+    def _scrape_with_standard_playwright(self) -> List[RawRate]:
+        """Fallback: Scrape rates using standard Playwright (no stealth)."""
+        try:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
@@ -60,17 +88,14 @@ class ButlerMortgageScraper:
                 rates = []
                 text_content = page.inner_text("body")
                 
-                # Parse fixed rates
                 fixed_rates = self._parse_rates_from_text(text_content, RateType.FIXED)
                 rates.extend(fixed_rates)
                 
-                # Parse variable rates
                 variable_rates = self._parse_rates_from_text(text_content, RateType.VARIABLE)
                 rates.extend(variable_rates)
                 
                 browser.close()
                 return rates
-                
         except ImportError:
             logger.warning("Playwright not available")
             return []
