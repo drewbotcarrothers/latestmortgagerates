@@ -58,7 +58,7 @@ from src.scrapers.truenorth_scraper import TrueNorthMortgageScraper
 from src.scrapers.wealthsimple_scraper import WealthsimpleScraper
 
 # Import NEW scrapers - National Alternative Lenders (March 2025)
-from src.scrapers.equitable_scraper import EquitableScraper
+from src.scrapers.equitable_scraper import EquitableBankScraper
 from src.scrapers.hometrust_scraper import HomeTrustScraper
 
 
@@ -172,7 +172,7 @@ def scrape_all_lenders():
         ("True North", TrueNorthMortgageScraper),
         
         # National Alternative Lenders (2) - Alternative lending specialists
-        ("Equitable Bank", EquitableScraper),
+        ("Equitable Bank", EquitableBankScraper),
         ("Home Trust", HomeTrustScraper),
     ]
     
