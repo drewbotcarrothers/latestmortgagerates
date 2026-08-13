@@ -7,7 +7,7 @@ Updated: July 19, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -22,10 +22,10 @@ class LaurentianBankScraper:
     
     LENDER_SLUG = "laurentian"
     LENDER_NAME = "Laurentian Bank"
-    RATE_URL = "https://www.laurentianbank.ca/personal/mortgages"
+    RATE_URL = "https://www.laurentianbank.ca/en/personal/rates/mortgages"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Laurentian Bank mortgage rates."""
@@ -56,39 +56,96 @@ class LaurentianBankScraper:
                 page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(5000)
                 
                 rates = []
-                content = page.content()
                 
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
+                # Laurentian has multiple tables: Fixed-rate, Variable-rate, High-ratio
+                tables = page.locator('table')
+                table_count = tables.count()
+                logger.info(f"Found {table_count} tables on Laurentian rates page")
                 
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
+                for i in range(min(table_count, 10)):
+                    try:
+                        table = tables.nth(i)
+                        table_text = table.inner_text()
+                        
+                        # Extract rows with term and rate
+                        # Patterns: "6 months 7.840", "1 year 5.640", "5 years 6.290"
+                        patterns = [
+                            (r'(?:^|\n)\s*(\d+)\s+(?:months?|mo)[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                            (r'(?:^|\n)\s*(\d+)\s+(?:year|yr)s?[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                            (r'(?:^|\n)\s*Promotional\s+rate[^\d]*?(\d+)\s+(?:year|yr)[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                        ]
+                        
+                        for pattern, rate_type in patterns:
+                            matches = re.finditer(pattern, table_text, re.IGNORECASE)
+                            for match in matches:
+                                try:
+                                    if 'promotional' in match.group(0).lower():
+                                        years = int(match.group(1))
+                                        rate = Decimal(match.group(2))
+                                    else:
+                                        term_str = match.group(1)
+                                        rate = Decimal(match.group(2))
+                                        years = int(term_str)
+                                    
+                                    if years <= 10 and 2 <= rate <= 10:
+                                        term_months = years * 12 if years >= 1 else 6
+                                        rates.append(RawRate(
+                                            lender_slug=self.LENDER_SLUG,
+                                            lender_name=self.LENDER_NAME,
+                                            term_months=term_months,
+                                            rate_type=rate_type,
+                                            mortgage_type=MortgageType.UNINSURED,
+                                            rate=rate,
+                                            source_url=self.RATE_URL,
+                                            scraped_at=self.scraped_at,
+                                            raw_data={"source": "laurentian_table_scrape", "years": years}
+                                        ))
+                                except:
+                                    pass
+                                    
+                    except Exception as e:
+                        logger.warning(f"Table {i} extraction failed: {e}")
+                        continue
+                
+                # Also try to extract variable rates
+                try:
+                    content = page.content()
+                    var_patterns = [
+                        (r'Variable-rate\s+mortgage.*?([\d.]+)%', RateType.VARIABLE, 60),  # 5 year variable
+                    ]
+                    for pattern, rate_type, term in var_patterns:
+                        match = re.search(pattern, content, re.IGNORECASE | re.DOTALL)
+                        if match:
+                            rate = Decimal(match.group(1))
+                            if 2 <= rate <= 10:
                                 rates.append(RawRate(
                                     lender_slug=self.LENDER_SLUG,
                                     lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
+                                    term_months=term,
                                     rate_type=rate_type,
                                     mortgage_type=MortgageType.UNINSURED,
                                     rate=rate,
                                     source_url=self.RATE_URL,
                                     scraped_at=self.scraped_at,
-                                    raw_data={"source": "laurentian_live_scrape", "years": years}
+                                    raw_data={"source": "laurentian_live_scrape"}
                                 ))
-                        except:
-                            pass
+                except:
+                    pass
                 
                 browser.close()
-                return rates
+                
+                # Remove duplicates
+                seen = set()
+                unique_rates = []
+                for r in rates:
+                    key = (r.term_months, r.rate_type.value, str(r.rate))
+                    if key not in seen:
+                        seen.add(key)
+                        unique_rates.append(r)
+                return unique_rates
                 
         except ImportError:
             logger.warning("Playwright not available")

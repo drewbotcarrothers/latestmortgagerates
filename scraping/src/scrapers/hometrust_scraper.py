@@ -7,7 +7,7 @@ Updated: July 19, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -22,10 +22,10 @@ class HomeTrustScraper:
     
     LENDER_SLUG = "hometrust"
     LENDER_NAME = "Home Trust"
-    RATE_URL = "https://www.hometrust.ca/mortgages"
+    RATE_URL = "https://www.hometrust.ca/mortgages/rates/"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Home Trust mortgage rates."""
@@ -56,39 +56,91 @@ class HomeTrustScraper:
                 page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(5000)
                 
                 rates = []
+                
+                # Home Trust has two product sections with posted rates
+                # Accelerator Mortgage (insured) and Classic Mortgage
                 content = page.content()
                 
+                # Extract from the posted rates tables
+                # Pattern: "1 year fixed" followed by rate value
                 patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                    (r'1\s+year\s+fixed.*?([\d.]+)%', RateType.FIXED, 12),
+                    (r'2\s+year\s+fixed.*?([\d.]+)%', RateType.FIXED, 24),
+                    (r'3\s+year\s+fixed.*?([\d.]+)%', RateType.FIXED, 36),
+                    (r'4\s+year\s+fixed.*?([\d.]+)%', RateType.FIXED, 48),
+                    (r'5\s+year\s+fixed.*?([\d.]+)%', RateType.FIXED, 60),
+                    (r'5\s+year\s+variable.*?([\d.]+)%', RateType.VARIABLE, 60),
                 ]
                 
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
+                # Try to extract from visible text first
+                page_text = page.inner_text('body')
+                
+                for pattern, rate_type, term_months in patterns:
+                    matches = re.finditer(pattern, page_text, re.IGNORECASE | re.DOTALL)
                     for match in matches:
                         try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
+                            rate = Decimal(match.group(1))
+                            if 2 <= rate <= 10:
                                 rates.append(RawRate(
                                     lender_slug=self.LENDER_SLUG,
                                     lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
+                                    term_months=term_months,
                                     rate_type=rate_type,
                                     mortgage_type=MortgageType.UNINSURED,
                                     rate=rate,
                                     source_url=self.RATE_URL,
                                     scraped_at=self.scraped_at,
-                                    raw_data={"source": "hometrust_live_scrape", "years": years}
+                                    raw_data={"source": "hometrust_live_scrape"}
                                 ))
                         except:
                             pass
                 
+                # Also try table extraction
+                try:
+                    tables = page.locator('table')
+                    for i in range(min(tables.count(), 3)):
+                        table_text = tables.nth(i).inner_text()
+                        table_patterns = [
+                            (r'(\d+)\s+year.*?fixed.*?([\d.]+)%', RateType.FIXED),
+                        ]
+                        for pattern, rate_type in table_patterns:
+                            matches = re.finditer(pattern, table_text, re.IGNORECASE | re.DOTALL)
+                            for match in matches:
+                                try:
+                                    years = int(match.group(1))
+                                    rate = Decimal(match.group(2))
+                                    if 1 <= years <= 10 and 2 <= rate <= 10:
+                                        term_months = years * 12
+                                        rates.append(RawRate(
+                                            lender_slug=self.LENDER_SLUG,
+                                            lender_name=self.LENDER_NAME,
+                                            term_months=term_months,
+                                            rate_type=rate_type,
+                                            mortgage_type=MortgageType.UNINSURED,
+                                            rate=rate,
+                                            source_url=self.RATE_URL,
+                                            scraped_at=self.scraped_at,
+                                            raw_data={"source": "hometrust_table_scrape", "years": years}
+                                        ))
+                                except:
+                                    pass
+                except:
+                    pass
+                
                 browser.close()
-                return rates
+                
+                # Remove duplicates
+                seen = set()
+                unique_rates = []
+                for r in rates:
+                    key = (r.term_months, r.rate_type.value, str(r.rate))
+                    if key not in seen:
+                        seen.add(key)
+                        unique_rates.append(r)
+                return unique_rates
                 
         except ImportError:
             logger.warning("Playwright not available")

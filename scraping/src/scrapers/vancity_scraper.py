@@ -7,7 +7,7 @@ Updated: July 19, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -22,10 +22,10 @@ class VancityScraper:
     
     LENDER_SLUG = "vancity"
     LENDER_NAME = "Vancity"
-    RATE_URL = "https://www.vancity.com/personal/rates/#mortgage"
+    RATE_URL = "https://www.vancity.com/rates/mortgages"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Vancity mortgage rates."""
@@ -56,39 +56,95 @@ class VancityScraper:
                 page = context.new_page()
                 
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
+                page.wait_for_timeout(5000)
                 
                 rates = []
-                content = page.content()
                 
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
-                
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
+                # Vancity has multiple tables with mortgage rates
+                # Try to extract from tables on the page
+                try:
+                    tables = page.locator('table')
+                    table_count = tables.count()
+                    logger.info(f"Found {table_count} tables on Vancity rates page")
+                    
+                    for i in range(min(table_count, 10)):
                         try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "vancity_live_scrape", "years": years}
-                                ))
+                            table = tables.nth(i)
+                            table_text = table.inner_text()
+                            
+                            # Look for term and rate pairs in table rows
+                            # Pattern: "X-year" in one cell, rate in another
+                            row_patterns = [
+                                (r'(\d+)[-\s]*year[^\d]*?(?:fixed|term)[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                                (r'(\d+)[-\s]*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                            ]
+                            
+                            for pattern, rate_type in row_patterns:
+                                matches = re.finditer(pattern, table_text, re.IGNORECASE)
+                                for match in matches:
+                                    try:
+                                        years = int(match.group(1))
+                                        rate = Decimal(match.group(2))
+                                        if 1 <= years <= 10 and 2 <= rate <= 10:
+                                            rates.append(RawRate(
+                                                lender_slug=self.LENDER_SLUG,
+                                                lender_name=self.LENDER_NAME,
+                                                term_months=years * 12,
+                                                rate_type=rate_type,
+                                                mortgage_type=MortgageType.UNINSURED,
+                                                rate=rate,
+                                                source_url=self.RATE_URL,
+                                                scraped_at=self.scraped_at,
+                                                raw_data={"source": "vancity_table_scrape", "years": years}
+                                            ))
+                                    except:
+                                        pass
                         except:
                             pass
+                            
+                except Exception as e:
+                    logger.warning(f"Table extraction failed: {e}")
+                
+                # Also try content-based extraction
+                if not rates:
+                    content = page.content()
+                    patterns = [
+                        (r'(\d+)[-\s]*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
+                        (r'(\d+)[-\s]*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
+                    ]
+                    
+                    for pattern, rate_type in patterns:
+                        matches = re.finditer(pattern, content, re.IGNORECASE)
+                        for match in matches:
+                            try:
+                                years = int(match.group(1))
+                                rate = Decimal(match.group(2))
+                                if 1 <= years <= 10 and 2 <= rate <= 10:
+                                    rates.append(RawRate(
+                                        lender_slug=self.LENDER_SLUG,
+                                        lender_name=self.LENDER_NAME,
+                                        term_months=years * 12,
+                                        rate_type=rate_type,
+                                        mortgage_type=MortgageType.UNINSURED,
+                                        rate=rate,
+                                        source_url=self.RATE_URL,
+                                        scraped_at=self.scraped_at,
+                                        raw_data={"source": "vancity_live_scrape", "years": years}
+                                    ))
+                            except:
+                                pass
                 
                 browser.close()
-                return rates
+                
+                # Remove duplicates
+                seen = set()
+                unique_rates = []
+                for r in rates:
+                    key = (r.term_months, r.rate_type.value, str(r.rate))
+                    if key not in seen:
+                        seen.add(key)
+                        unique_rates.append(r)
+                return unique_rates
                 
         except ImportError:
             logger.warning("Playwright not available")
