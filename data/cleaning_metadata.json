@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-08-13T22:22:13.798805",
-  "total_rates": 188,
+  "generated_at": "2026-08-13T23:36:05.377215",
+  "total_rates": 189,
   "cleaning_stats": {
-    "input_count": 322,
+    "input_count": 306,
     "removed_aggregator": 0,
     "removed_duplicates": 33,
     "removed_unrealistic": 0,
-    "removed_no_metadata": 21,
-    "removed_inferior": 80,
+    "removed_no_metadata": 2,
+    "removed_inferior": 82,
     "flagged_suspicious": 12,
-    "output_count": 188,
+    "output_count": 189,
     "by_lender": {
-      "rbc": 10,
+      "rbc": 11,
       "td": 2,
       "scotiabank": 3,
       "nationalbank": 3,
       "nesto": 4,
       "tangerine": 8,
-      "eqbank": 6,
+      "eqbank": 5,
       "simplii": 8,
       "alterna": 8,
       "wealthsimple": 2,
@@ -28,7 +28,7 @@
       "atb": 8,
       "firstnational": 6,
       "mcap": 8,
-      "laurentian": 8,
+      "laurentian": 10,
       "manulife": 7,
       "rfa": 8,
       "cmls": 8,
@@ -37,16 +37,16 @@
       "centum": 6,
       "truenorth": 14,
       "equitable": 7,
-      "hometrust": 6
+      "hometrust": 5
     },
     "sources_used": {
-      "rbc_live_scrape": 10,
+      "rbc_live_scrape": 11,
       "td_live_scrape": 2,
       "scotiabank_live_scrape": 3,
       "nationalbank_live_scrape": 3,
       "nesto_live_scrape": 4,
       "tangerine_live_scrape": 8,
-      "eqbank_live_scrape": 6,
+      "eqbank_live_scrape": 5,
       "simplii_fallback_2026-07-19": 8,
       "alterna_fallback_2026-07-19": 8,
       "wealthsimple_live_scrape": 2,
@@ -57,7 +57,7 @@
       "atb_fallback_2026-07-19": 8,
       "firstnational_live_scrape": 6,
       "mcap_fallback_2026-07-19": 8,
-      "laurentian_fallback_2026-07-19": 8,
+      "laurentian_table_scrape": 10,
       "manulife_live_scrape": 7,
       "rfa_fallback_2026-07-19": 8,
       "cmls_fallback_2026-07-19": 8,
@@ -66,7 +66,7 @@
       "centum_fallback_2026-07-19": 6,
       "truenorth_live_scrape": 14,
       "equitable_fallback_2026-07-19": 7,
-      "hometrust_fallback_2026-07-19": 6
+      "hometrust_live_scrape": 5
     }
   },
   "data_quality": "deduplicated_and_validated"
