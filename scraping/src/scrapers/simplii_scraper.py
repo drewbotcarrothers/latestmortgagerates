@@ -1,13 +1,13 @@
 """
 Simplii Financial mortgage rate scraper.
-Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Uses Playwright for live scraping with HTTP/2 workaround and fallback to captured rates.
+Updated: August 13, 2026
 """
 
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -25,7 +25,7 @@ class SimpliiScraper:
     RATE_URL = "https://www.simplii.ca"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Simplii Financial mortgage rates."""
@@ -45,61 +45,90 @@ class SimpliiScraper:
         return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
+        """Use Playwright with HTTP/2 disabled."""
         try:
             from playwright.sync_api import sync_playwright
             
+            browser = None
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
+                # Disable HTTP/2 to avoid ERR_HTTP2_PROTOCOL_ERROR
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                    ]
+                )
                 
-                # Navigate to Simplii mortgage rates page
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=25000)
+                context = browser.new_context(
+                    user_agent=(
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                    ),
+                    extra_http_headers={
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        "Accept-Language": "en-CA,en;q=0.9",
+                    }
+                )
                 
-                # Wait a bit for JS to execute
-                page.wait_for_timeout(2000)
+                page = context.new_page()
                 
-                rates = []
+                # Block heavy resources
+                page.route(
+                    "**/*",
+                    lambda route: route.abort()
+                    if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                    else route.continue_()
+                )
                 
-                # Look for rate tables
-                rows = page.query_selector_all("table tbody tr")
-                for row in rows:
-                    cells = row.query_selector_all("td")
-                    if len(cells) >= 2:
-                        term_text = cells[0].inner_text().strip()
-                        rate_text = cells[1].inner_text().strip()
-                        
-                        # Parse term (e.g., "3 Year" -> 36 months)
-                        term_match = re.search(r'(\d+)\s*(?:Year|Yr)', term_text, re.IGNORECASE)
-                        if term_match:
-                            term_months = int(term_match.group(1)) * 12
-                        else:
-                            continue
-                        
-                        # Parse rate
-                        rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
-                        if rate_match:
-                            rate = Decimal(rate_match.group(1))
-                        else:
-                            continue
-                        
-                        rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
-                        mortgage_type = MortgageType.INSURED if 'insured' in term_text.lower() or 'high-ratio' in term_text.lower() else MortgageType.UNINSURED
-                        
-                        rates.append(RawRate(
-                            lender_slug=self.LENDER_SLUG,
-                            lender_name=self.LENDER_NAME,
-                            term_months=term_months,
-                            rate_type=rate_type,
-                            mortgage_type=mortgage_type,
-                            rate=rate,
-                            source_url=self.RATE_URL,
-                            scraped_at=self.scraped_at,
-                            raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text}
-                        ))
-                
-                browser.close()
-                return rates
+                try:
+                    # Navigate with longer timeout and load strategy
+                    page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
+                    page.wait_for_timeout(5000)
+                    
+                    rates = []
+                    
+                    # Look for rate tables
+                    rows = page.query_selector_all("table tbody tr")
+                    for row in rows:
+                        cells = row.query_selector_all("td")
+                        if len(cells) >= 2:
+                            term_text = cells[0].inner_text().strip()
+                            rate_text = cells[1].inner_text().strip()
+                            
+                            # Parse term (e.g., "3 Year" -> 36 months)
+                            term_match = re.search(r'(\d+)\s*(?:Year|Yr)', term_text, re.IGNORECASE)
+                            if term_match:
+                                term_months = int(term_match.group(1)) * 12
+                            else:
+                                continue
+                            
+                            # Parse rate
+                            rate_match = re.search(r'(\d+\.?\d*)\s*%', rate_text)
+                            if rate_match:
+                                rate = Decimal(rate_match.group(1))
+                            else:
+                                continue
+                            
+                            rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
+                            mortgage_type = MortgageType.INSURED if 'insured' in term_text.lower() or 'high-ratio' in term_text.lower() else MortgageType.UNINSURED
+                            
+                            rates.append(RawRate(
+                                lender_slug=self.LENDER_SLUG,
+                                lender_name=self.LENDER_NAME,
+                                term_months=term_months,
+                                rate_type=rate_type,
+                                mortgage_type=mortgage_type,
+                                rate=rate,
+                                source_url=self.RATE_URL,
+                                scraped_at=self.scraped_at,
+                                raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text}
+                            ))
+                    
+                    return rates
+                finally:
+                    if browser:
+                        browser.close()
                 
         except ImportError:
             logger.warning("Playwright not available")
