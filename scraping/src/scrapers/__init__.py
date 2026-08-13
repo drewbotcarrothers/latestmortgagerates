@@ -9,13 +9,9 @@ from .cibc_scraper import CIBCScraper
 from .tangerine_scraper import TangerineScraper
 from .vancity_scraper import VancityScraper
 from .atb_scraper import ATBScraper
-from .cwb_scraper import CWBScraper
 from .coastcapital_scraper import CoastCapitalScraper
 from .cmls_scraper import CMLSScraper
-from .merix_scraper import MerixScraper
-from .lendwise_scraper import LendwiseScraper
 from .butler_scraper import ButlerMortgageScraper
-from .intellimortgage_scraper import IntelliMortgageScraper
 from .streetcapital_scraper import StreetCapitalScraper
 from .centum_scraper import CentumScraper
 from .ratesca_scraper import RatesCaScraper
@@ -33,13 +29,9 @@ __all__ = [
     'TangerineScraper',
     'VancityScraper',
     'ATBScraper',
-    'CWBScraper',
     'CoastCapitalScraper',
     'CMLSScraper',
-    'MerixScraper',
-    'LendwiseScraper',
     'ButlerMortgageScraper',
-    'IntelliMortgageScraper',
     'StreetCapitalScraper',
     'CentumScraper',
     'RatesCaScraper',
