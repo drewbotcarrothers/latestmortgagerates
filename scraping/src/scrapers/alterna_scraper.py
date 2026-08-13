@@ -22,7 +22,7 @@ class AlternaScraper:
     
     LENDER_SLUG = "alterna"
     LENDER_NAME = "Alterna Bank"
-    RATE_URL = "https://www.alternabank.ca/mortgage-rates"
+    RATE_URL = "https://www.alternabank.ca/en/personal/rates/mortgages"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()

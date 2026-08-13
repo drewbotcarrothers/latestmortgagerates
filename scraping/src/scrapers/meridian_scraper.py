@@ -22,7 +22,7 @@ class MeridianScraper:
     
     LENDER_SLUG = "meridian"
     LENDER_NAME = "Meridian Credit Union"
-    RATE_URL = "https://www.meridiancu.ca/personal/rates/mortgage-rates"
+    RATE_URL = "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()
