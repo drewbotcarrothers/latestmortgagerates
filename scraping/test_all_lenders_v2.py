@@ -1,5 +1,5 @@
 """
-Test all lenders (30 direct lenders - NO aggregators).
+Test all lenders (25 direct lenders - NO aggregators).
 Scrapes rates from all banks and saves to database.
 With timeouts and comprehensive error handling.
 """
@@ -39,22 +39,17 @@ from src.scrapers.firstnational_scraper import FirstNationalScraper
 from src.scrapers.mcap_scraper import MCAPScraper
 from src.scrapers.laurentian_scraper import LaurentianBankScraper
 from src.scrapers.manulife_scraper import ManulifeBankScraper
-from src.scrapers.motive_scraper import MotiveScraper
 from src.scrapers.alterna_scraper import AlternaScraper
 from src.scrapers.rfa_scraper import RFAScraper
 
 # Import NEW scrapers - Regional Banks & Credit Unions
 from src.scrapers.vancity_scraper import VancityScraper
 from src.scrapers.atb_scraper import ATBScraper
-from src.scrapers.cwb_scraper import CWBScraper
 from src.scrapers.coastcapital_scraper import CoastCapitalScraper
 
 # Import NEW scrapers - Monoline Lenders
 from src.scrapers.cmls_scraper import CMLSScraper
-from src.scrapers.merix_scraper import MerixScraper
-from src.scrapers.lendwise_scraper import LendwiseScraper
 from src.scrapers.butler_scraper import ButlerMortgageScraper
-from src.scrapers.intellimortgage_scraper import IntelliMortgageScraper
 from src.scrapers.streetcapital_scraper import StreetCapitalScraper
 from src.scrapers.centum_scraper import CentumScraper
 from src.scrapers.truenorth_scraper import TrueNorthMortgageScraper
@@ -71,16 +66,15 @@ from src.scrapers.hometrust_scraper import HomeTrustScraper
 APPROVED_LENDERS = {
     # Big 6 Banks (6)
     'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank',
-    # Digital Banks (7) - Online-first banks
-    'nesto', 'tangerine', 'eqbank', 'simplii', 'motive', 'alterna', 'wealthsimple',
+    # Digital Banks (6) - Online-first banks
+    'nesto', 'tangerine', 'eqbank', 'simplii', 'alterna', 'wealthsimple',
     # Credit Unions (4)
     'meridian', 'desjardins', 'vancity', 'coastcapital',
-    # Regional Banks (2)
-    'atb', 'cwb',
-    # Monoline Lenders (13) - Mortgage specialists
+    # Regional Banks (1)
+    'atb',
+    # Monoline Lenders (10) - Mortgage specialists
     'firstnational', 'mcap', 'laurentian', 'manulife', 'rfa',
-    'cmls', 'merix', 'lendwise', 'butlermortgage', 'intellimortgage', 
-    'streetcapital', 'centum', 'truenorth',
+    'cmls', 'butlermortgage', 'streetcapital', 'centum', 'truenorth',
     # National Alternative Lenders (2) - Alternative lending specialists
     'equitable', 'hometrust',
 }
@@ -131,7 +125,7 @@ def run_scraper_with_timeout(scraper, timeout_secs=SCRAPER_TIMEOUT):
 def scrape_all_lenders():
     """Scrape all lenders, save to database, and export for website."""
     
-    logger.info("Starting full lender scraping pipeline (30 direct lenders)")
+    logger.info("Starting full lender scraping pipeline (25 direct lenders)")
     start_time = time.time()
     
     # Initialize components
@@ -148,12 +142,11 @@ def scrape_all_lenders():
         ("CIBC", CIBCScraper),
         ("NBC", NationalBankScraper),
         
-        # Digital Banks (7) - Online-only or digital-first banks
+        # Digital Banks (6) - Online-only or digital-first banks
         ("Nesto", NestoScraper),
         ("Tangerine", TangerineScraper),
         ("EQ Bank", EQBankScraper),
         ("Simplii", SimpliiScraper),
-        ("Motive", MotiveScraper),
         ("Alterna", AlternaScraper),
         ("Wealthsimple", WealthsimpleScraper),  # Fintech with full banking capabilities
         
@@ -163,21 +156,17 @@ def scrape_all_lenders():
         ("Vancity", VancityScraper),
         ("Coast Capital", CoastCapitalScraper),
         
-        # Regional Banks (2)
+        # Regional Banks (1)
         ("ATB", ATBScraper),
-        ("CWB", CWBScraper),
         
-        # Monoline Lenders (13) - Mortgage specialists
+        # Monoline Lenders (10) - Mortgage specialists
         ("First National", FirstNationalScraper),
         ("MCAP", MCAPScraper),
         ("Laurentian", LaurentianBankScraper),
         ("Manulife", ManulifeBankScraper),
         ("RFA", RFAScraper),
         ("CMLS", CMLSScraper),
-        ("Merix", MerixScraper),
-        ("Lendwise", LendwiseScraper),
         ("Butler", ButlerMortgageScraper),
-        ("IntelliMortgage", IntelliMortgageScraper),
         ("Street Capital", StreetCapitalScraper),
         ("Centum", CentumScraper),
         ("True North", TrueNorthMortgageScraper),
