@@ -7,7 +7,7 @@ Updated: August 13, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -25,7 +25,7 @@ class MCAPScraper:
     RATE_URL = "https://www.mcap.com"
     
     def __init__(self):
-        self.scraped_at = datetime.now(datetime.timezone.utc)
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape MCAP mortgage rates."""
