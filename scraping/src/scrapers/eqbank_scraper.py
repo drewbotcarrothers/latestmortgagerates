@@ -1,7 +1,7 @@
 """
 EQ Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Updated: August 13, 2026
 """
 
 import re
@@ -25,7 +25,7 @@ class EQBankScraper:
     RATE_URL = "https://www.eqbank.ca"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(datetime.now().astimezone().tzinfo)
     
     def scrape(self) -> List[RawRate]:
         """Scrape EQ Bank mortgage rates."""
@@ -45,19 +45,45 @@ class EQBankScraper:
         return rates
     
     def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
+        """Use Playwright with HTTP/2 disabled."""
+        browser = None
         try:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
+                # Disable HTTP/2 to avoid ERR_HTTP2_PROTOCOL_ERROR
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                    ]
+                )
                 
-                # Navigate to EQ Bank mortgage rates page
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=25000)
+                context = browser.new_context(
+                    user_agent=(
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                    ),
+                    extra_http_headers={
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        "Accept-Language": "en-CA,en;q=0.9",
+                    }
+                )
                 
-                # Wait a bit for JS to execute
-                page.wait_for_timeout(2000)
+                page = context.new_page()
+                
+                # Block heavy resources
+                page.route(
+                    "**/*",
+                    lambda route: route.abort()
+                    if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                    else route.continue_()
+                )
+                
+                # Navigate with longer timeout and load strategy
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(5000)
                 
                 rates = []
                 
@@ -95,10 +121,15 @@ class EQBankScraper:
                             rate=rate,
                             source_url=self.RATE_URL,
                             scraped_at=self.scraped_at,
-                            raw_data={"source": "eqbank_live_scrape", "term_text": term_text, "rate_text": rate_text}
+                            raw_data={
+                                "source": "eqbank_live_scrape",
+                                "term_text": term_text,
+                                "rate_text": rate_text
+                            }
                         ))
                 
-                browser.close()
+                if browser:
+                    browser.close()
                 return rates
                 
         except ImportError:
@@ -107,6 +138,12 @@ class EQBankScraper:
         except Exception as e:
             logger.error(f"Playwright error: {e}")
             return []
+        finally:
+            if browser:
+                try:
+                    browser.close()
+                except Exception:
+                    pass
 
     def _get_fallback_rates(self) -> List[RawRate]:
         """
