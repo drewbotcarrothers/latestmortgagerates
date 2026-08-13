@@ -207,7 +207,7 @@ def scrape_all_lenders():
             continue
         
         # Run with timeout
-        rates, error, duration = run_scraper_with_timeout(scraper_class, SCRAPER_TIMEOUT)
+        rates, error, duration = run_scraper_with_timeout(ScraperClass, SCRAPER_TIMEOUT)
         
         if error:
             logger.error(f"Failed to scrape {scraper.LENDER_SLUG}: {error}")
