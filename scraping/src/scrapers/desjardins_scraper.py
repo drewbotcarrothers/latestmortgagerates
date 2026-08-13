@@ -22,7 +22,7 @@ class DesjardinsScraper:
     
     LENDER_SLUG = "desjardins"
     LENDER_NAME = "Desjardins"
-    RATE_URL = "https://www.desjardins.com/en/mortgages.html"
+    RATE_URL = "https://www.desjardins.com/en/mortgages/mortgage-rates"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()

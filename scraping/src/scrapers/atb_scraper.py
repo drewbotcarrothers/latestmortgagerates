@@ -22,7 +22,7 @@ class ATBScraper:
     
     LENDER_SLUG = "atb"
     LENDER_NAME = "ATB Financial"
-    RATE_URL = "https://www.atb.com/en/personal/borrow/mortgage-rates.html"
+    RATE_URL = "https://www.atb.com/en/personal/mortgages/mortgage-rates"
     
     def __init__(self):
         self.scraped_at = datetime.utcnow()
