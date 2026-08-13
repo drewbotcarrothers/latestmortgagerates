@@ -84,131 +84,124 @@ class SimpliiScraper:
                 try:
                     # Navigate with longer timeout and load strategy
                     page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                    
-                    # Wait for JS to replace RDS placeholders
-                    logger.info("Waiting for JS to populate rates...")
-                    page.wait_for_function(
-                        """() => !document.body.innerText.includes('RDS%')""",
-                        timeout=15000
-                    )
-                    logger.info("Rates populated successfully")
+                    page.wait_for_timeout(5000)
                     
                     rates = []
                     
-                    # Extract from special rates table (table.dotted-cool-black)
-                    special_table = page.query_selector("table.dotted-cool-black")
-                    if special_table:
-                        rows = special_table.query_selector_all("tbody tr")
-                        for row in rows:
-                            cells = row.query_selector_all("td")
-                            if len(cells) >= 2:
-                                term_text = cells[0].inner_text().strip()
-                                rate_text = cells[1].inner_text().strip()
-                                
-                                # Skip if still a placeholder
-                                if 'RDS%' in rate_text or not re.search(r'\d+\.\d+', rate_text):
-                                    continue
-                                
-                                # Parse term (e.g., "2-year fixed")
-                                term_match = re.search(r'(\d+)', term_text)
-                                if term_match:
-                                    years = int(term_match.group(1))
-                                else:
-                                    continue
-                                
-                                # Parse rate
-                                rate_match = re.search(r'(\d+\.\d+)', rate_text)
-                                if rate_match:
-                                    rate = Decimal(rate_match.group(1))
-                                else:
-                                    continue
-                                
-                                rate_type = RateType.VARIABLE if 'variable' in term_text.lower() else RateType.FIXED
-                                mortgage_type = MortgageType.UNINSURED
-                                
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=mortgage_type,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text, "table": "special"}
-                                ))
-                    
-                    # Click "Show more" if posted rates are hidden
-                    show_more = page.query_selector("a.show-more-link")
-                    if show_more and show_more.is_visible():
-                        show_more.click()
-                        page.wait_for_timeout(1000)
-                    
-                    # Extract from posted rates table
+                    # Find all tables and look for ones with rate data
                     tables = page.query_selector_all("table")
-                    for table in tables:
-                        if table == special_table:
-                            continue
-                        rows = table.query_selector_all("tbody tr")
-                        for row in rows:
-                            cells = row.query_selector_all("td")
-                            if len(cells) >= 2:
-                                term_text = cells[0].inner_text().strip().lower()
-                                rate_text = cells[1].inner_text().strip()
-                                
-                                if 'RDS%' in rate_text or not re.search(r'\d+\.\d+', rate_text):
-                                    continue
-                                
-                                term_match = re.search(r'(\d+)', term_text)
-                                if term_match:
-                                    years = int(term_match.group(1))
-                                else:
-                                    continue
-                                
-                                rate_match = re.search(r'(\d+\.\d+)', rate_text)
-                                if rate_match:
-                                    rate = Decimal(rate_match.group(1))
-                                else:
-                                    continue
-                                
-                                rate_type = RateType.VARIABLE if 'variable' in term_text else RateType.FIXED
-                                
-                                # Check if insured
-                                mortgage_type = MortgageType.UNINSURED
-                                if 'insured' in term_text or 'high-ratio' in term_text:
-                                    mortgage_type = MortgageType.INSURED
-                                
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=mortgage_type,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text, "table": "posted"}
-                                ))
                     
-                    # Get prime rate
-                    prime_spans = page.query_selector_all('span[data-rds*="PRIME.Published"]')
-                    for prime_span in prime_spans:
-                        prime_text = prime_span.inner_text().strip()
-                        prime_match = re.search(r'(\d+\.\d+)', prime_text)
-                        if prime_match:
-                            rate = Decimal(prime_match.group(1))
-                            rates.append(RawRate(
-                                lender_slug=self.LENDER_SLUG,
-                                lender_name=self.LENDER_NAME,
-                                term_months=0,
-                                rate_type=RateType.VARIABLE,
-                                mortgage_type=MortgageType.UNINSURED,
-                                rate=rate,
-                                source_url=self.RATE_URL,
-                                scraped_at=self.scraped_at,
-                                raw_data={"source": "simplii_live_scrape", "special": "prime_rate", "rate_text": prime_text}
-                            ))
-                            break
+                    for table in tables:
+                        try:
+                            rows = table.query_selector_all("tr")
+                            for row in rows:
+                                try:
+                                    cells = row.query_selector_all("td")
+                                    if len(cells) >= 2:
+                                        term_text = cells[0].inner_text().strip().lower()
+                                        rate_text = cells[1].inner_text().strip()
+                                        
+                                        # Skip header rows
+                                        if 'type' in term_text and 'term' in term_text:
+                                            continue
+                                        if 'special rate' in term_text or 'apr' in term_text:
+                                            continue
+                                        
+                                        # Skip if still a placeholder
+                                        if 'RDS%' in rate_text:
+                                            continue
+                                        
+                                        # Parse term (e.g., "2-year fixed")
+                                        term_match = re.search(r'(\d+)', term_text)
+                                        if term_match:
+                                            years = int(term_match.group(1))
+                                        else:
+                                            continue
+                                        
+                                        # Parse rate - look for percentage
+                                        rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                        if rate_match:
+                                            rate = Decimal(rate_match.group(1))
+                                        else:
+                                            continue
+                                        
+                                        # Sanity check
+                                        if rate < Decimal('1.0') or rate > Decimal('20.0'):
+                                            continue
+                                        
+                                        rate_type = RateType.VARIABLE if 'variable' in term_text else RateType.FIXED
+                                        mortgage_type = MortgageType.UNINSURED
+                                        
+                                        rates.append(RawRate(
+                                            lender_slug=self.LENDER_SLUG,
+                                            lender_name=self.LENDER_NAME,
+                                            term_months=years * 12,
+                                            rate_type=rate_type,
+                                            mortgage_type=mortgage_type,
+                                            rate=rate,
+                                            source_url=self.RATE_URL,
+                                            scraped_at=self.scraped_at,
+                                            raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text}
+                                        ))
+                                except Exception:
+                                    continue
+                        except Exception:
+                            continue
+                    
+                    # If we found rates from the visible table, try clicking "Show more" for posted rates
+                    if len(rates) >= 4:
+                        try:
+                            show_more = page.query_selector("button:has-text('Show more')")
+                            if show_more:
+                                show_more.click()
+                                page.wait_for_timeout(2000)
+                                
+                                # Re-scan for additional tables after clicking
+                                tables = page.query_selector_all("table")
+                                for table in tables:
+                                    try:
+                                        rows = table.query_selector_all("tr")
+                                        for row in rows:
+                                            try:
+                                                cells = row.query_selector_all("td")
+                                                if len(cells) >= 2:
+                                                    term_text = cells[0].inner_text().strip().lower()
+                                                    rate_text = cells[1].inner_text().strip()
+                                                    
+                                                    if 'RDS%' in rate_text or 'type' in term_text:
+                                                        continue
+                                                    
+                                                    term_match = re.search(r'(\d+)', term_text)
+                                                    if term_match:
+                                                        years = int(term_match.group(1))
+                                                        rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                                        if rate_match:
+                                                            rate = Decimal(rate_match.group(1))
+                                                            if rate < Decimal('1.0') or rate > Decimal('20.0'):
+                                                                continue
+                                                            
+                                                            rate_type = RateType.VARIABLE if 'variable' in term_text else RateType.FIXED
+                                                            
+                                                            # Check for duplicates
+                                                            is_dup = any(r.term_months == years * 12 and r.rate_type == rate_type and abs(r.rate - rate) < Decimal('0.01') for r in rates)
+                                                            if not is_dup:
+                                                                rates.append(RawRate(
+                                                                    lender_slug=self.LENDER_SLUG,
+                                                                    lender_name=self.LENDER_NAME,
+                                                                    term_months=years * 12,
+                                                                    rate_type=rate_type,
+                                                                    mortgage_type=MortgageType.UNINSURED,
+                                                                    rate=rate,
+                                                                    source_url=self.RATE_URL,
+                                                                    scraped_at=self.scraped_at,
+                                                                    raw_data={"source": "simplii_live_scrape", "term_text": term_text, "rate_text": rate_text, "table": "posted"}
+                                                                ))
+                                            except Exception:
+                                                continue
+                                    except Exception:
+                                        continue
+                        except Exception:
+                            pass
                     
                     return rates
                 finally:
