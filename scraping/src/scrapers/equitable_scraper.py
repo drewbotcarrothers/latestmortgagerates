@@ -7,7 +7,7 @@ Updated: July 19, 2026
 import re
 from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -22,10 +22,10 @@ class EquitableBankScraper:
     
     LENDER_SLUG = "equitable"
     LENDER_NAME = "Equitable Bank"
-    RATE_URL = "https://www.equitablebank.com"
+    RATE_URL = "https://www.equitablebank.com/mortgages/current-rates"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape Equitable Bank mortgage rates."""
