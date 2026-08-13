@@ -25,7 +25,7 @@ class TDScraper:
     RATE_URL = "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates"
     
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
+        self.scraped_at = datetime.now(datetime.timezone.utc)
     
     def scrape(self) -> List[RawRate]:
         """Scrape TD mortgage rates."""
@@ -64,14 +64,58 @@ class TDScraper:
         browser = None
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True, timeout=15000)
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=[
+                        "--disable-http2",
+                        "--disable-quic",
+                    ]
                 )
+                
+                context = browser.new_context(
+                    user_agent=(
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+                    ),
+                    extra_http_headers={
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        "Accept-Language": "en-CA,en;q=0.9",
+                    }
+                )
+                
                 page = context.new_page()
                 
+                # Block heavy resources
+                page.route(
+                    "**/*",
+                    lambda route: route.abort()
+                    if route.request.resource_type in ["image", "media", "font", "stylesheet"]
+                    else route.continue_()
+                )
+                
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(3000)  # Allow JS to populate rates
+                page.wait_for_timeout(5000)  # Allow JS to populate rates
+                
+                # Extra: wait for rate cells to contain actual numbers (not just '%')
+                try:
+                    page.wait_for_function(
+                        """() => {
+                            const cells = document.querySelectorAll('table td');
+                            for (const cell of cells) {
+                                const text = cell.innerText;
+                                if (/\\d+\\.\\d+%/.test(text)) return true;
+                            }
+                            return false;
+                        }""",
+                        timeout=10000
+                    )
+                    logger.info("Rate cells populated with numeric values")
+                except Exception:
+                    logger.warning("Timed out waiting for rate values to populate")
+                
+                # Scroll to trigger any lazy loading
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight / 3)")
+                page.wait_for_timeout(1000)
                 
                 rates = []
                 
@@ -157,6 +201,48 @@ class TDScraper:
                         ))
                 
                 logger.info(f"Found {len(rates)} rates from special table")
+                
+                # ==== SECTION 1b: Try DOM text extraction if tables are empty ====
+                if not rates:
+                    logger.info("Table extraction empty, trying DOM text-based extraction...")
+                    page_text = page.locator("body").inner_text()
+                    
+                    # Look for TD patterns like "3 Year Fixed Closed\n4.29%\n(Posted Rate: 6.05%)"
+                    # or "5 Year Variable Closed\n3.79% (TD Mortgage Prime Rate 4.60% -0.31%)"
+                    import re as re_dom
+                    
+                    # Pattern: term text followed by rate on next line
+                    blocks = re_dom.finditer(
+                        r'(\d+)\s*(?:Year|Yr)(?:\s+Fixed|\s+Variable)?\s+(?:Closed|Open|Convertible)?[\n\s]+([\d.]+)\s*%',
+                        page_text,
+                        re_dom.IGNORECASE
+                    )
+                    
+                    for match in blocks:
+                        years = int(match.group(1))
+                        rate = Decimal(match.group(2))
+                        
+                        # Determine rate type from surrounding context
+                        context = page_text[max(0, match.start()-50):min(len(page_text), match.end()+50)]
+                        rate_type = RateType.VARIABLE if 'variable' in context.lower() else RateType.FIXED
+                        
+                        rates.append(RawRate(
+                            lender_slug=self.LENDER_SLUG,
+                            lender_name=self.LENDER_NAME,
+                            term_months=years * 12,
+                            rate_type=rate_type,
+                            mortgage_type=MortgageType.UNINSURED,
+                            rate=rate,
+                            source_url=self.RATE_URL,
+                            scraped_at=self.scraped_at,
+                            raw_data={
+                                "source": "td_live_scrape",
+                                "extraction_method": "dom_text_fallback",
+                                "context": context[:100]
+                            }
+                        ))
+                    
+                    logger.info(f"Found {len(rates)} rates from DOM text extraction")
                 
                 # ==== SECTION 2: Fixed Rate Mortgages (full table) ====
                 logger.info("Parsing Fixed Rate Mortgages table...")
