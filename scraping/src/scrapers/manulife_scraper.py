@@ -22,7 +22,7 @@ class ManulifeBankScraper:
     
     LENDER_SLUG = "manulife"
     LENDER_NAME = "Manulife Bank"
-    RATE_URL = "https://www.manulifebank.ca/mortgage-rates"
+    RATE_URL = "https://www.manulifebank.ca/current-rates.html"
     
     def __init__(self):
         self.scraped_at = datetime.now(timezone.utc)
@@ -82,37 +82,74 @@ class ManulifeBankScraper:
                     )
                     
                     page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                    page.wait_for_timeout(5000)
+                    page.wait_for_timeout(3000)
                     
                     rates = []
-                    content = page.content()
                     
-                    # Look for rate patterns
-                    patterns = [
-                        (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                        (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                    ]
+                    # Find tables containing rate data
+                    tables = page.locator("table").all()
                     
-                    for pattern, rate_type in patterns:
-                        matches = re.finditer(pattern, content, re.IGNORECASE)
-                        for match in matches:
+                    for table in tables:
+                        # Get all rows in the table
+                        rows = table.locator("tr").all()
+                        
+                        for row in rows:
                             try:
-                                years = int(match.group(1))
-                                rate = Decimal(match.group(2))
-                                if 1 <= years <= 10 and 2 <= rate <= 10:
-                                    rates.append(RawRate(
-                                        lender_slug=self.LENDER_SLUG,
-                                        lender_name=self.LENDER_NAME,
-                                        term_months=years * 12,
-                                        rate_type=rate_type,
-                                        mortgage_type=MortgageType.UNINSURED,
-                                        rate=rate,
-                                        source_url=self.RATE_URL,
-                                        scraped_at=self.scraped_at,
-                                        raw_data={"source": "manulife_live_scrape", "years": years}
-                                    ))
-                            except:
-                                pass
+                                cells = row.locator("td").all_inner_texts()
+                                
+                                # Looking for pattern: term text + rate
+                                if len(cells) >= 2:
+                                    term_text = cells[0].strip().lower()
+                                    rate_text = cells[1].strip()
+                                    
+                                    # Extract term years
+                                    term_match = re.search(r'(\d+)[\s-]*year', term_text)
+                                    if term_match:
+                                        years = int(term_match.group(1))
+                                        
+                                        # Extract rate
+                                        rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                        if rate_match:
+                                            rate = Decimal(rate_match.group(1))
+                                            
+                                            if 1 <= years <= 10 and 2 <= rate <= 10:
+                                                # Determine rate type
+                                                rate_type = RateType.VARIABLE if 'variable' in term_text else RateType.FIXED
+                                                
+                                                rates.append(RawRate(
+                                                    lender_slug=self.LENDER_SLUG,
+                                                    lender_name=self.LENDER_NAME,
+                                                    term_months=years * 12,
+                                                    rate_type=rate_type,
+                                                    mortgage_type=MortgageType.UNINSURED,
+                                                    rate=rate,
+                                                    source_url=self.RATE_URL,
+                                                    scraped_at=self.scraped_at,
+                                                    raw_data={"source": "manulife_live_scrape", "years": years, "term_text": term_text}
+                                                ))
+                            except Exception:
+                                continue
+                    
+                    # Also look for special/promotional rates
+                    try:
+                        # Look for base rate / prime rate
+                        content = page.content()
+                        prime_match = re.search(r'(?:prime rate|base rate)[^\d]*(\d+\.\d+)', content, re.IGNORECASE)
+                        if prime_match:
+                            rate = Decimal(prime_match.group(1))
+                            rates.append(RawRate(
+                                lender_slug=self.LENDER_SLUG,
+                                lender_name=self.LENDER_NAME,
+                                term_months=0,
+                                rate_type=RateType.VARIABLE,
+                                mortgage_type=MortgageType.UNINSURED,
+                                rate=rate,
+                                source_url=self.RATE_URL,
+                                scraped_at=self.scraped_at,
+                                raw_data={"source": "manulife_live_scrape", "special": "prime_rate"}
+                            ))
+                    except Exception:
+                        pass
                     
                     return rates
                 finally:

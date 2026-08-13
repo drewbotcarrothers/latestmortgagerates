@@ -22,7 +22,7 @@ class FirstNationalScraper:
     
     LENDER_SLUG = "firstnational"
     LENDER_NAME = "First National"
-    RATE_URL = "https://www.firstnational.ca"
+    RATE_URL = "https://www.firstnational.ca/residential/mortgage-rates"
     
     def __init__(self):
         self.scraped_at = datetime.now(timezone.utc)
@@ -81,37 +81,84 @@ class FirstNationalScraper:
                 
                 # Navigate with longer timeout and load strategy
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(5000)
+                page.wait_for_timeout(3000)
                 
                 rates = []
-                content = page.content()
                 
-                # Look for rate patterns
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
+                # Find all tables
+                tables = page.locator("table.table-striped").all()
                 
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "firstnational_live_scrape", "years": years}
-                                ))
-                        except:
-                            pass
+                for table_idx, table in enumerate(tables):
+                    try:
+                        rows = table.locator("tr").all()
+                        
+                        for row in rows:
+                            try:
+                                cells = row.locator("td").all_inner_texts()
+                                
+                                if len(cells) < 2:
+                                    continue
+                                
+                                # First cell usually contains term info
+                                term_text = cells[0].strip().lower()
+                                
+                                # Look for year terms in subsequent cells
+                                for col_idx in range(1, len(cells)):
+                                    rate_text = cells[col_idx].strip()
+                                    
+                                    # Skip N/A entries
+                                    if not rate_text or rate_text.lower() in ['n/a', '']:
+                                        continue
+                                    
+                                    # Extract rate
+                                    rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                    if rate_match:
+                                        rate = Decimal(rate_match.group(1))
+                                        if 2 <= rate <= 10:
+                                            # Determine term from column position or text
+                                            years = None
+                                            
+                                            # Check if first cell has term info
+                                            term_match = re.search(r'(\d+)[\s-]*year', term_text)
+                                            if term_match:
+                                                years = int(term_match.group(1))
+                                            else:
+                                                # Try to get term from aria-label on the td
+                                                try:
+                                                    aria_label = row.locator("td").nth(col_idx).get_attribute("aria-label") or ""
+                                                    aria_match = re.search(r'(\d+)', aria_label)
+                                                    if aria_match:
+                                                        years = int(aria_match.group(1))
+                                                except:
+                                                    # Fallback: use column index as term (1-7 typically maps to 1-7 years)
+                                                    if col_idx <= 7:
+                                                        years = col_idx
+                                            
+                                            if years and 1 <= years <= 10:
+                                                # Determine rate type from table position
+                                                rate_type = RateType.VARIABLE if table_idx == 1 or 'variable' in term_text else RateType.FIXED
+                                                
+                                                # Determine mortgage type from row text
+                                                mortgage_type = MortgageType.UNINSURED
+                                                if 'insured' in term_text or 'high ratio' in term_text or 'ltv' in term_text:
+                                                    if '80' not in term_text:  # Not conventional (80%+ LTV)
+                                                        mortgage_type = MortgageType.INSURED
+                                                
+                                                rates.append(RawRate(
+                                                    lender_slug=self.LENDER_SLUG,
+                                                    lender_name=self.LENDER_NAME,
+                                                    term_months=years * 12,
+                                                    rate_type=rate_type,
+                                                    mortgage_type=mortgage_type,
+                                                    rate=rate,
+                                                    source_url=self.RATE_URL,
+                                                    scraped_at=self.scraped_at,
+                                                    raw_data={"source": "firstnational_live_scrape", "years": years, "table": table_idx, "row_text": term_text}
+                                                ))
+                            except Exception:
+                                continue
+                    except Exception:
+                        continue
                 
                 return rates
                 
