@@ -36,7 +36,6 @@ const lenderNames: Record<string, string> = {
   tangerine: "Tangerine",
   eqbank: "EQ Bank",
   simplii: "Simplii Financial",
-  motive: "Motive Financial",
   alterna: "Alterna Bank",
   wealthsimple: "Wealthsimple",
   
@@ -48,7 +47,6 @@ const lenderNames: Record<string, string> = {
   
   // Regional Banks
   atb: "ATB Financial",
-  cwb: "Canadian Western Bank",
   
   // Monoline Lenders
   firstnational: "First National",
@@ -57,10 +55,7 @@ const lenderNames: Record<string, string> = {
   manulife: "Manulife Bank",
   rfa: "RFA Bank",
   cmls: "CMLS Financial",
-  merix: "Merix Financial",
-  lendwise: "Lendwise",
   butlermortgage: "Butler Mortgage",
-  intellimortgage: "IntelliMortgage",
   streetcapital: "Street Capital",
   centum: "Centum",
   
@@ -85,7 +80,6 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   tangerine: { bg: "bg-orange-500", text: "text-white", abbr: "Tang" },
   eqbank: { bg: "bg-indigo-600", text: "text-white", abbr: "EQ" },
   simplii: { bg: "bg-red-500", text: "text-white", abbr: "Simplii" },
-  motive: { bg: "bg-yellow-600", text: "text-white", abbr: "Motive" },
   alterna: { bg: "bg-cyan-600", text: "text-white", abbr: "Alterna" },
   wealthsimple: { bg: "bg-purple-600", text: "text-white", abbr: "WS" },
   
@@ -97,7 +91,6 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   
   // Regional Banks
   atb: { bg: "bg-teal-600", text: "text-white", abbr: "ATB" },
-  cwb: { bg: "bg-green-700", text: "text-white", abbr: "CWB" },
   
   // Monoline Lenders
   firstnational: { bg: "bg-teal-500", text: "text-white", abbr: "FNF" },
@@ -106,10 +99,7 @@ const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }>
   manulife: { bg: "bg-green-700", text: "text-white", abbr: "Manu" },
   rfa: { bg: "bg-slate-600", text: "text-white", abbr: "RFA" },
   cmls: { bg: "bg-blue-800", text: "text-white", abbr: "CMLS" },
-  merix: { bg: "bg-indigo-700", text: "text-white", abbr: "Merix" },
-  lendwise: { bg: "bg-emerald-600", text: "text-white", abbr: "Lendwise" },
   butlermortgage: { bg: "bg-orange-600", text: "text-white", abbr: "Butler" },
-  intellimortgage: { bg: "bg-purple-600", text: "text-white", abbr: "Intelli" },
   streetcapital: { bg: "bg-cyan-700", text: "text-white", abbr: "Street" },
   centum: { bg: "bg-red-700", text: "text-white", abbr: "Centum" },
   
