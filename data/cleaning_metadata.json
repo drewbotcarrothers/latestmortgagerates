@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-14T01:24:20.929849",
-  "total_rates": 189,
+  "generated_at": "2026-08-14T10:55:27.179124",
+  "total_rates": 190,
   "cleaning_stats": {
-    "input_count": 306,
+    "input_count": 302,
     "removed_aggregator": 0,
     "removed_duplicates": 33,
     "removed_unrealistic": 0,
     "removed_no_metadata": 2,
-    "removed_inferior": 82,
+    "removed_inferior": 77,
     "flagged_suspicious": 12,
-    "output_count": 189,
+    "output_count": 190,
     "by_lender": {
       "rbc": 11,
       "td": 2,
@@ -37,7 +37,7 @@
       "centum": 6,
       "truenorth": 14,
       "equitable": 7,
-      "hometrust": 5
+      "hometrust": 6
     },
     "sources_used": {
       "rbc_live_scrape": 11,
@@ -66,7 +66,7 @@
       "centum_fallback_2026-07-19": 6,
       "truenorth_live_scrape": 14,
       "equitable_fallback_2026-07-19": 7,
-      "hometrust_live_scrape": 5
+      "hometrust_fallback_2026-07-19": 6
     }
   },
   "data_quality": "deduplicated_and_validated"
