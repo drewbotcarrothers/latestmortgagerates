@@ -54,30 +54,7 @@ jobs:
           pip install loguru
           python historical_rates.py
 
-      # Step 3.6: Generate email summary
-      - name: Generate email summary
-        run: |
-          pip install loguru
-          python scripts/generate_email_summary.py
-
-      # Step 3.7: Send email notification via Hostinger SMTP
-      - name: Send email notification
-        if: always()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.SMTP_HOST }}
-          server_port: 465
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          secure: true
-          subject: "📊 Rate Scraper Report - $(date +'%Y-%m-%d %H:%M UTC')"
-          to: acarrothers@gmail.com
-          from: "Rate Scraper Bot <${{ secrets.SMTP_USERNAME }}>"
-          html_body: file://email_summary.html
-          convert_markdown: false
-          attachments: data/metadata.json,data/rates.json
-
-      # Step 3: Commit data changes
+      # Step 3: Commit data changes FIRST (before email)
       - name: Commit and push data
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -102,13 +79,24 @@ jobs:
             fi
 
             echo "⚠️ Push failed (attempt $i), pulling and rebasing..."
-            git stash
+            # Check if there are local changes before stashing
+            if ! git diff --quiet; then
+              git stash push -m "workflow-temp-$i"
+              STASHED=true
+            else
+              STASHED=false
+            fi
+            
             if git pull --rebase origin master; then
-              git stash pop
+              if [ "$STASHED" = "true" ]; then
+                git stash pop
+              fi
               echo "Rebased, retrying push..."
             else
               echo "❌ Rebase failed, aborting"
-              git stash pop 2>/dev/null || true
+              if [ "$STASHED" = "true" ]; then
+                git stash pop 2>/dev/null || true
+              fi
               git rebase --abort 2>/dev/null || true
               exit 1
             fi
@@ -116,6 +104,29 @@ jobs:
 
           echo "❌ Failed to push after 3 attempts"
           exit 1
+
+      # Step 3.6: Generate email summary (after commit to avoid race)
+      - name: Generate email summary
+        run: |
+          pip install loguru
+          python scripts/generate_email_summary.py
+
+      # Step 3.7: Send email notification via Hostinger SMTP
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          secure: true
+          subject: "📊 Rate Scraper Report - $(date +'%Y-%m-%d %H:%M UTC')"
+          to: acarrothers@gmail.com
+          from: "Rate Scraper Bot <${{ secrets.SMTP_USERNAME }}>"
+          html_body: file://email_summary.html
+          convert_markdown: false
+          attachments: data/metadata.json,data/rates.json
 
       # Step 3: Build website
       - name: Setup Node.js
