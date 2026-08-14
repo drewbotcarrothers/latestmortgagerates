@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-08-13T23:36:05.848519",
+    "last_updated": "2026-08-14T01:06:49.816089",
     "total_days": 91,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-05-15",
-      "fixed_uninsured_best_rate": 3.94,
-      "fixed_uninsured_best_lender": "Butler Mortgage",
-      "fixed_uninsured_avg_rate": 4.67,
-      "fixed_insured_best_rate": 4.04,
-      "fixed_insured_best_lender": "nesto",
-      "fixed_insured_avg_rate": 4.62,
-      "variable_uninsured_best_rate": 3.3,
-      "variable_uninsured_best_lender": "Royal Bank of Canada",
-      "variable_uninsured_avg_rate": 4.1,
-      "variable_uninsured_spread_to_prime": 0.0,
-      "variable_insured_best_rate": 3.4,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.08,
-      "variable_insured_spread_to_prime": 0.0,
-      "prime_rate": 5.45,
-      "lender_count": 34,
-      "total_rates": 259,
-      "created_at": "2026-05-15T12:33:04.009425"
-    },
     {
       "date": "2026-05-16",
       "fixed_uninsured_best_rate": 3.94,
@@ -1915,6 +1894,27 @@
       "lender_count": 31,
       "total_rates": 227,
       "created_at": "2026-08-13T00:01:05.516784"
+    },
+    {
+      "date": "2026-08-14",
+      "fixed_uninsured_best_rate": 3.74,
+      "fixed_uninsured_best_lender": "Equitable Bank",
+      "fixed_uninsured_avg_rate": 4.31,
+      "fixed_insured_best_rate": 3.59,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.17,
+      "variable_uninsured_best_rate": 3.15,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 3.66,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 2.95,
+      "variable_insured_best_lender": "Equitable Bank",
+      "variable_insured_avg_rate": 3.54,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 27,
+      "total_rates": 190,
+      "created_at": "2026-08-14T01:06:49.813227"
     }
   ]
 }
