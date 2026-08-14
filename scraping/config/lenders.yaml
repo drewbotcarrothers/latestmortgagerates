@@ -67,14 +67,9 @@ lenders:
     frequency: "12h"
     priority: 2
 
-  eqbank:
-    name: "EQ Bank"
-    slug: "eqbank"
-    type: "digital"
-    rate_url: "https://www.eqbank.ca/personal-banking/mortgages/mortgage-rates"
-    scrape_method: "browser"
-    frequency: "12h"
-    priority: 2
+  # REMOVED: EQ Bank no longer publishes mortgage rates
+  # They redirect to nesto.ca (mortgage marketplace/broker model)
+  # See: https://www.eqbank.ca/personal-banking/mortgage-marketplace
 
   # Credit Unions & Regional Banks
   vancity:

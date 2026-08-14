@@ -1,7 +1,7 @@
 """
 Laurentian Bank mortgage rate scraper.
 Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Updated: August 14, 2026 - Fixed table parsing
 """
 
 import re
@@ -39,7 +39,7 @@ class LaurentianBankScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        logger.info("Using fallback rates from Laurentian Bank (2026-07-19)")
+        logger.info("Using fallback rates from Laurentian Bank (2026-08-14)")
         rates = self._get_fallback_rates()
         return rates
     
@@ -49,91 +49,100 @@ class LaurentianBankScraper:
             from playwright.sync_api import sync_playwright
             
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=["--disable-http2", "--disable-quic"]
+                )
                 context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                 )
                 page = context.new_page()
                 
+                # Block heavy resources
+                page.route("**/*", lambda route: route.abort() if route.request.resource_type in ["image", "media", "font", "stylesheet"] else route.continue_())
+                
                 page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(5000)
+                page.wait_for_timeout(3000)
                 
                 rates = []
                 
-                # Laurentian has multiple tables: Fixed-rate, Variable-rate, High-ratio
+                # Get all tables and extract text
                 tables = page.locator('table')
                 table_count = tables.count()
                 logger.info(f"Found {table_count} tables on Laurentian rates page")
                 
-                for i in range(min(table_count, 10)):
+                for i in range(table_count):
                     try:
                         table = tables.nth(i)
-                        table_text = table.inner_text()
+                        rows = table.locator('tr').all()
                         
-                        # Extract rows with term and rate
-                        # Patterns: "6 months 7.840", "1 year 5.640", "5 years 6.290"
-                        patterns = [
-                            (r'(?:^|\n)\s*(\d+)\s+(?:months?|mo)[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                            (r'(?:^|\n)\s*(\d+)\s+(?:year|yr)s?[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                            (r'(?:^|\n)\s*Promotional\s+rate[^\d]*?(\d+)\s+(?:year|yr)[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                        ]
-                        
-                        for pattern, rate_type in patterns:
-                            matches = re.finditer(pattern, table_text, re.IGNORECASE)
-                            for match in matches:
-                                try:
-                                    if 'promotional' in match.group(0).lower():
-                                        years = int(match.group(1))
-                                        rate = Decimal(match.group(2))
+                        for row in rows:
+                            try:
+                                cells = row.locator('td').all()
+                                if len(cells) >= 2:
+                                    term_text = cells[0].inner_text().strip()
+                                    rate_text = cells[1].inner_text().strip()
+                                    
+                                    # Skip header rows
+                                    if 'term' in term_text.lower() or 'fixed rate' in term_text.lower():
+                                        continue
+                                    
+                                    # Extract rate
+                                    rate_match = re.search(r'(\d+\.\d+)', rate_text)
+                                    if not rate_match:
+                                        continue
+                                    
+                                    rate = Decimal(rate_match.group(1))
+                                    
+                                    # Sanity check
+                                    if rate < Decimal('2.0') or rate > Decimal('10.0'):
+                                        continue
+                                    
+                                    # Extract term
+                                    term_match = re.search(r'(\d+)\s+(?:months?|mo)', term_text, re.IGNORECASE)
+                                    if term_match:
+                                        months = int(term_match.group(1))
                                     else:
-                                        term_str = match.group(1)
-                                        rate = Decimal(match.group(2))
-                                        years = int(term_str)
+                                        term_match = re.search(r'(\d+)\s+(?:year|yr)', term_text, re.IGNORECASE)
+                                        if term_match:
+                                            months = int(term_match.group(1)) * 12
+                                        else:
+                                            continue
                                     
-                                    if years <= 10 and 2 <= rate <= 10:
-                                        term_months = years * 12 if years >= 1 else 6
-                                        rates.append(RawRate(
-                                            lender_slug=self.LENDER_SLUG,
-                                            lender_name=self.LENDER_NAME,
-                                            term_months=term_months,
-                                            rate_type=rate_type,
-                                            mortgage_type=MortgageType.UNINSURED,
-                                            rate=rate,
-                                            source_url=self.RATE_URL,
-                                            scraped_at=self.scraped_at,
-                                            raw_data={"source": "laurentian_table_scrape", "years": years}
-                                        ))
-                                except:
-                                    pass
+                                    # Determine rate type
+                                    rate_type = RateType.FIXED
+                                    if 'variable' in term_text.lower():
+                                        rate_type = RateType.VARIABLE
                                     
+                                    # Determine mortgage type (insured vs uninsured)
+                                    mortgage_type = MortgageType.UNINSURED
+                                    if 'high.ratio' in term_text.lower() or 'insured' in term_text.lower():
+                                        mortgage_type = MortgageType.INSURED
+                                    
+                                    # Determine if promotional
+                                    is_promo = 'promotional' in term_text.lower()
+                                    
+                                    rates.append(RawRate(
+                                        lender_slug=self.LENDER_SLUG,
+                                        lender_name=self.LENDER_NAME,
+                                        term_months=months,
+                                        rate_type=rate_type,
+                                        mortgage_type=mortgage_type,
+                                        rate=rate,
+                                        source_url=self.RATE_URL,
+                                        scraped_at=self.scraped_at,
+                                        raw_data={
+                                            "source": "laurentian_live_scrape",
+                                            "term_text": term_text,
+                                            "is_promotional": is_promo
+                                        }
+                                    ))
+                            except Exception as e:
+                                continue
+                                
                     except Exception as e:
                         logger.warning(f"Table {i} extraction failed: {e}")
                         continue
-                
-                # Also try to extract variable rates
-                try:
-                    content = page.content()
-                    var_patterns = [
-                        (r'Variable-rate\s+mortgage.*?([\d.]+)%', RateType.VARIABLE, 60),  # 5 year variable
-                    ]
-                    for pattern, rate_type, term in var_patterns:
-                        match = re.search(pattern, content, re.IGNORECASE | re.DOTALL)
-                        if match:
-                            rate = Decimal(match.group(1))
-                            if 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=term,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "laurentian_live_scrape"}
-                                ))
-                except:
-                    pass
                 
                 browser.close()
                 
@@ -141,10 +150,11 @@ class LaurentianBankScraper:
                 seen = set()
                 unique_rates = []
                 for r in rates:
-                    key = (r.term_months, r.rate_type.value, str(r.rate))
+                    key = (r.term_months, r.rate_type.value, r.mortgage_type.value, str(r.rate))
                     if key not in seen:
                         seen.add(key)
                         unique_rates.append(r)
+                
                 return unique_rates
                 
         except ImportError:
@@ -156,63 +166,39 @@ class LaurentianBankScraper:
     
     def _get_fallback_rates(self) -> List[RawRate]:
         """
-        Fallback rates from Laurentian Bank (April 25, 2026).
+        Fallback rates from Laurentian Bank (August 14, 2026).
         """
-        logger.info("Using fallback rates from Laurentian Bank (2026-07-19)")
+        logger.info("Using fallback rates from Laurentian Bank (2026-08-14)")
         
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.49", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "5.19", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.89", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "insured", "product": "5 Year Fixed (Insured)"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.35", "mortgage_type": "uninsured", "product": "5 Year Variable"},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "4.15", "mortgage_type": "insured", "product": "5 Year Variable (Insured)"},
+            # Closed fixed rates
+            {"term": 6, "type": RateType.FIXED, "rate": "7.84", "mortgage_type": "uninsured", "product": "6 Month Closed"},
+            {"term": 12, "type": RateType.FIXED, "rate": "5.64", "mortgage_type": "uninsured", "product": "1 Year Closed"},
+            {"term": 18, "type": RateType.FIXED, "rate": "5.64", "mortgage_type": "uninsured", "product": "18 Month Closed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.94", "mortgage_type": "uninsured", "product": "2 Year Closed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "6.09", "mortgage_type": "uninsured", "product": "3 Year Closed"},
+            {"term": 48, "type": RateType.FIXED, "rate": "6.19", "mortgage_type": "uninsured", "product": "4 Year Closed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "6.29", "mortgage_type": "uninsured", "product": "5 Year Closed"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.79", "mortgage_type": "uninsured", "product": "5 Year Promotional"},
+            # Variable rates
+            {"term": 36, "type": RateType.VARIABLE, "rate": "4.45", "mortgage_type": "uninsured", "product": "3 Year Variable (Prime + 0.00%)"},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "4.05", "mortgage_type": "uninsured", "product": "5 Year Variable (Prime - 0.50%)"},
+            # High ratio insured
+            {"term": 60, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "insured", "product": "5 Year High Ratio"},
         ]
         
         rates = []
-        for item in fallback_data:
-            mortgage_type = MortgageType.INSURED if item.get("mortgage_type") == "insured" else MortgageType.UNINSURED
-            
-            raw_data = {
-                "source": "laurentian_fallback_2026-07-19",
-                "product": item.get("product"),
-                "featured": item.get("featured", False),
-                "last_verified": "2026-07-19"
-            }
-            
+        for data in fallback_data:
             rates.append(RawRate(
                 lender_slug=self.LENDER_SLUG,
                 lender_name=self.LENDER_NAME,
-                term_months=item["term"],
-                rate_type=item["type"],
-                mortgage_type=mortgage_type,
-                rate=Decimal(item["rate"]),
+                term_months=data["term"],
+                rate_type=data["type"],
+                mortgage_type=MortgageType.INSURED if data["mortgage_type"] == "insured" else MortgageType.UNINSURED,
+                rate=Decimal(data["rate"]),
                 source_url=self.RATE_URL,
                 scraped_at=self.scraped_at,
-                raw_data=raw_data
+                raw_data={"source": "laurentian_fallback", "product": data["product"]}
             ))
         
         return rates
-
-
-if __name__ == "__main__":
-    scraper = LaurentianBankScraper()
-    try:
-        rates = scraper.scrape()
-        print(f"\nScraped {len(rates)} rates from Laurentian Bank:")
-        print("-" * 60)
-        
-        for r in sorted(rates, key=lambda x: (x.mortgage_type.value, x.term_months)):
-            years = r.term_months // 12
-            product = r.raw_data.get("product", "")
-            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
-            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}%{featured}")
-            if product:
-                print(f"    {product}")
-        
-    except Exception as e:
-        print(f"Error: {e}")
-        import traceback
-        traceback.print_exc()
