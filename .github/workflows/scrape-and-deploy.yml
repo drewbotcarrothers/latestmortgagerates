@@ -13,7 +13,7 @@ env:
 jobs:
   scrape-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # Prevent indefinite hangs from networkidle or stuck Playwright
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
@@ -60,18 +60,19 @@ jobs:
           pip install loguru
           python scripts/generate_email_summary.py
 
-      # Step 3.7: Send email notification
+      # Step 3.7: Send email notification via Hostinger SMTP
       - name: Send email notification
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          secure: true
           subject: "📊 Rate Scraper Report - $(date +'%Y-%m-%d %H:%M UTC')"
           to: acarrothers@gmail.com
-          from: "Rate Scraper Bot <${{ secrets.EMAIL_USERNAME }}>"
+          from: "Rate Scraper Bot <${{ secrets.SMTP_USERNAME }}>"
           html_body: file://email_summary.html
           convert_markdown: false
           attachments: data/metadata.json,data/rates.json
