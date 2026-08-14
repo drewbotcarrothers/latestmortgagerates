@@ -172,25 +172,11 @@ lenders:
     priority: 2
     notes: "Online mortgage platform"
 
-  streetcapital:
-    name: "Street Capital"
-    slug: "streetcapital"
-    type: "monoline"
-    rate_url: "https://www.streetcapital.ca/mortgage-rates"
-    scrape_method: "browser"
-    frequency: "12h"
-    priority: 2
-    notes: "Major monoline lender"
+  # REMOVED: Street Capital - site down (503 errors), may be retired
+  # See: https://www.streetcapital.ca/mortgage-rates
 
-  centum:
-    name: "Centum"
-    slug: "centum"
-    type: "monoline"
-    rate_url: "https://www.centum.ca/our-rates"
-    scrape_method: "browser"
-    frequency: "12h"
-    priority: 2
-    notes: "Largest mortgage brokerage network in Canada"
+  # REMOVED: Centum - not a direct lender (brokerage network)
+  # Rates are from partner lenders, not Centum itself
 
   # Rate Aggregators
   ratesca:
