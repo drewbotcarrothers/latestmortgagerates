@@ -115,7 +115,7 @@ cibc: success=true, rates_found=0, duration=30.51s
 | **CMLS** | URL may be wrong, broker-only lender | Medium |
 | **Meridian** | Credit union, may require auth or have changed | Medium |
 | **MCAP** | Wholesale lender, may not have public rates | High |
-| **ATB** | Regional bank (Alberta), URL may have changed | Low |
+| **ATB** | Site down - all pages returning 404 | High |
 | **RFA** | Already fixed URL, may need parser update | Medium |
 | **Street Capital** | Site may be down (503 errors previously) | High |
 | **Alterna** | URL fixed yesterday, may need verification | Low |
