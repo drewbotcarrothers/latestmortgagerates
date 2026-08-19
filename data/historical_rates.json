@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-08-18T23:17:16.611210",
+    "last_updated": "2026-08-19T11:18:38.616590",
     "total_days": 91,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-05-20",
-      "fixed_uninsured_best_rate": 3.94,
-      "fixed_uninsured_best_lender": "Butler Mortgage",
-      "fixed_uninsured_avg_rate": 4.67,
-      "fixed_insured_best_rate": 4.09,
-      "fixed_insured_best_lender": "Equitable Bank",
-      "fixed_insured_avg_rate": 4.62,
-      "variable_uninsured_best_rate": 3.3,
-      "variable_uninsured_best_lender": "Royal Bank of Canada",
-      "variable_uninsured_avg_rate": 4.1,
-      "variable_uninsured_spread_to_prime": 0.0,
-      "variable_insured_best_rate": 3.4,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.08,
-      "variable_insured_spread_to_prime": 0.0,
-      "prime_rate": 5.45,
-      "lender_count": 34,
-      "total_rates": 259,
-      "created_at": "2026-05-20T00:01:22.554484"
-    },
     {
       "date": "2026-05-21",
       "fixed_uninsured_best_rate": 4.04,
@@ -1915,6 +1894,27 @@
       "lender_count": 23,
       "total_rates": 164,
       "created_at": "2026-08-18T11:18:58.245246"
+    },
+    {
+      "date": "2026-08-19",
+      "fixed_uninsured_best_rate": 3.74,
+      "fixed_uninsured_best_lender": "Equitable Bank",
+      "fixed_uninsured_avg_rate": 4.44,
+      "fixed_insured_best_rate": 3.59,
+      "fixed_insured_best_lender": "Equitable Bank",
+      "fixed_insured_avg_rate": 4.18,
+      "variable_uninsured_best_rate": 3.15,
+      "variable_uninsured_best_lender": "Equitable Bank",
+      "variable_uninsured_avg_rate": 3.73,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 2.95,
+      "variable_insured_best_lender": "Equitable Bank",
+      "variable_insured_avg_rate": 3.54,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 23,
+      "total_rates": 164,
+      "created_at": "2026-08-19T11:18:38.613515"
     }
   ]
 }
