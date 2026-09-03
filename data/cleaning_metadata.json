@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-03T00:56:45.933735",
+  "generated_at": "2026-09-03T14:51:23.168190",
   "total_rates": 165,
   "cleaning_stats": {
-    "input_count": 259,
+    "input_count": 261,
     "removed_aggregator": 0,
     "removed_duplicates": 35,
     "removed_unrealistic": 0,
     "removed_no_metadata": 2,
-    "removed_inferior": 57,
+    "removed_inferior": 59,
     "flagged_suspicious": 8,
     "output_count": 165,
     "by_lender": {
@@ -56,7 +56,7 @@
       "rfa_fallback_2026-07-19": 8,
       "cmls_fallback_2026-07-19": 8,
       "butlermortgage_live_scrape": 14,
-      "truenorth_fallback_2026-07-19": 14,
+      "truenorth_live_scrape": 14,
       "equitable_fallback_2026-07-19": 7,
       "hometrust_fallback_2026-07-19": 6
     }
