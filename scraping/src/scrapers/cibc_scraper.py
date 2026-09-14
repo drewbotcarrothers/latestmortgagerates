@@ -1,14 +1,16 @@
 """
 CIBC mortgage rate scraper.
 
-CIBC publishes rates via RDS placeholders that JavaScript hydrates. Live
-Playwright often times out from datacenter IPs. HTTP HTML still contains
-RDS tokens only. When live extraction fails, we return special/posted rates
-copied from CIBC's public mortgage-rates page (rendered snapshot 2026-09-14).
+Primary source: CIBC's public RDS productRatesLegacy endpoint (same feed
+the cibc.com mortgage-rates page hydrates). Works from datacenter IPs.
+
+Fallbacks: Playwright/HTTP on the public page, then dated specials copied
+from the rendered cibc.com page (2026-09-14).
 """
 
-from decimal import Decimal
-from typing import List
+import re
+from decimal import Decimal, InvalidOperation
+from typing import Dict, List, Optional, Tuple
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -20,10 +22,58 @@ from models import RawRate, RateType, MortgageType
 
 try:
     from .rate_parse import extract_rates_from_html, fallback_rows_to_rates
-    from .http_fetch import fetch_html
+    from .http_fetch import fetch_html, fetch_json
+    from .proxy_config import playwright_proxy, log_proxy_status, proxy_enabled
 except ImportError:
     from rate_parse import extract_rates_from_html, fallback_rows_to_rates
-    from http_fetch import fetch_html
+    from http_fetch import fetch_html, fetch_json
+    from proxy_config import playwright_proxy, log_proxy_status, proxy_enabled
+
+
+RATES_API = (
+    "https://www.cibconline.cibc.com/ebm-pno/api/v1/json/productRatesLegacy"
+    "?lobId=5&sourceProductCode={code}%2C"
+)
+
+# Public page mapping (rates-table.html):
+#   category 1 = posted, 18 = special offer, 2 = APR
+# Product codes match RDS%rate[5].<CODE>.Published(...) tokens.
+PRODUCTS = {
+    "FRCM": {"rate_type": RateType.FIXED, "mortgage_type": MortgageType.UNINSURED, "label": "Fixed closed"},
+    "MICRO": {"rate_type": RateType.FIXED, "mortgage_type": MortgageType.INSURED, "label": "High-ratio fixed"},
+    "5YRVARCLO": {"rate_type": RateType.VARIABLE, "mortgage_type": MortgageType.UNINSURED, "label": "Variable closed"},
+    "MICROVAR": {"rate_type": RateType.VARIABLE, "mortgage_type": MortgageType.INSURED, "label": "High-ratio variable"},
+}
+
+CAT_POSTED = 1
+CAT_SPECIAL = 18
+ROW_RE = re.compile(
+    r"\['([^']+)',\s*[^,]+,\s*(\d+),\s*'([^']+)',\s*'Published',\s*'([^']*)'",
+)
+TERM_RE = re.compile(r"^(\d+)_null_null_(Year|Years|Months)_T$", re.I)
+
+
+def _parse_cibc_rate(value: str) -> Optional[Decimal]:
+    try:
+        rate = Decimal(value)
+    except (InvalidOperation, ValueError):
+        return None
+    if rate <= Decimal("1.50") or rate > Decimal("12.00"):
+        return None
+    return rate
+
+
+def _term_months(term_key: str) -> Optional[int]:
+    match = TERM_RE.match(term_key)
+    if not match:
+        return None
+    amount = int(match.group(1))
+    unit = match.group(2).lower()
+    if unit.startswith("month"):
+        return amount if amount in (6, 12, 18, 24) else None
+    if 1 <= amount <= 10:
+        return amount * 12
+    return None
 
 
 class CIBCScraper:
@@ -38,12 +88,21 @@ class CIBCScraper:
         self.scraped_at = datetime.now(timezone.utc)
 
     def scrape(self) -> List[RawRate]:
-        logger.info("Fetching CIBC rate page...")
+        logger.info("Fetching CIBC rates...")
+        log_proxy_status("CIBC")
+
+        try:
+            rates = self._scrape_from_api()
+            if rates:
+                logger.success(f"CIBC first-party API returned {len(rates)} live rates")
+                return rates
+        except Exception as e:
+            logger.warning(f"CIBC API scrape failed: {e}")
 
         try:
             rates = self._scrape_with_playwright()
             if rates:
-                logger.success(f"Successfully scraped {len(rates)} live rates from CIBC")
+                logger.success(f"Successfully scraped {len(rates)} live rates from CIBC page")
                 return rates
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
@@ -68,10 +127,81 @@ class CIBCScraper:
             logger.warning(f"CIBC HTTP scrape failed: {e}")
 
         logger.warning(
-            "CIBC live scrape did not hydrate RDS rate placeholders "
-            "(common from datacenter IPs). Using verified public specials from 2026-09-14."
+            "CIBC live scrape failed. Using verified public specials from 2026-09-14."
         )
         return self._get_fallback_rates()
+
+    def _scrape_from_api(self) -> List[RawRate]:
+        grouped: Dict[Tuple[str, str, int], Dict[int, Tuple[Decimal, str]]] = {}
+        for code, meta in PRODUCTS.items():
+            payload = fetch_json(
+                RATES_API.format(code=code),
+                timeout=15.0,
+                headers={
+                    "Accept": "text/javascript,application/json,*/*;q=0.8",
+                    "Referer": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
+                    "Origin": "https://www.cibc.com",
+                },
+            )
+            text = payload if isinstance(payload, str) else ("" if payload is None else str(payload))
+            if not text:
+                logger.warning(f"CIBC API empty for {code}")
+                continue
+            rows = 0
+            for match in ROW_RE.finditer(text):
+                term_key, category_s, rate_s, published = match.groups()
+                category = int(category_s)
+                if category not in (CAT_POSTED, CAT_SPECIAL):
+                    continue
+                term_months = _term_months(term_key)
+                rate = _parse_cibc_rate(rate_s)
+                if not term_months or rate is None:
+                    continue
+                key = (code, term_key, term_months)
+                grouped.setdefault(key, {})[category] = (rate, published)
+                rows += 1
+            logger.info(f"CIBC API {code}: {rows} posted/special rows")
+
+        rates: List[RawRate] = []
+        seen = set()
+        for (code, term_key, term_months), cats in grouped.items():
+            meta = PRODUCTS[code]
+            special = cats.get(CAT_SPECIAL)
+            posted = cats.get(CAT_POSTED)
+            chosen = special or posted
+            if not chosen:
+                continue
+            rate, published = chosen
+            posted_rate = posted[0] if posted else None
+            section = "special" if special else "posted"
+            dedupe = (term_months, meta["rate_type"], meta["mortgage_type"], str(rate), section)
+            if dedupe in seen:
+                continue
+            seen.add(dedupe)
+            rates.append(
+                RawRate(
+                    lender_slug=self.LENDER_SLUG,
+                    lender_name=self.LENDER_NAME,
+                    term_months=term_months,
+                    rate_type=meta["rate_type"],
+                    mortgage_type=meta["mortgage_type"],
+                    rate=rate,
+                    posted_rate=posted_rate,
+                    source_url=self.RATE_URL,
+                    scraped_at=self.scraped_at,
+                    raw_data={
+                        "source": "cibc_live_scrape",
+                        "extraction_method": "product_rates_api",
+                        "product_code": code,
+                        "term_key": term_key,
+                        "section": section,
+                        "product": meta["label"],
+                        "published_at": published,
+                        "featured": term_months in (36, 60) and section == "special",
+                    },
+                )
+            )
+        return rates
 
     def _scrape_with_playwright(self) -> List[RawRate]:
         try:
@@ -81,11 +211,16 @@ class CIBCScraper:
             return []
 
         try:
+            launch_kwargs = {
+                "headless": True,
+                "args": ["--disable-http2", "--disable-quic", "--disable-blink-features=AutomationControlled"],
+            }
+            proxy = playwright_proxy()
+            if proxy:
+                launch_kwargs["proxy"] = proxy
+            timeout_ms = 25000 if proxy_enabled() else self.NAV_TIMEOUT_MS
             with sync_playwright() as p:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=["--disable-http2", "--disable-quic", "--disable-blink-features=AutomationControlled"],
-                )
+                browser = p.chromium.launch(**launch_kwargs)
                 context = browser.new_context(
                     user_agent=(
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -95,9 +230,9 @@ class CIBCScraper:
                     extra_http_headers={"Accept-Language": "en-CA,en;q=0.9"},
                 )
                 page = context.new_page()
-                page.set_default_navigation_timeout(self.NAV_TIMEOUT_MS)
+                page.set_default_navigation_timeout(timeout_ms)
                 try:
-                    page.goto(self.RATE_URL, wait_until="commit", timeout=self.NAV_TIMEOUT_MS)
+                    page.goto(self.RATE_URL, wait_until="commit", timeout=timeout_ms)
                     try:
                         page.wait_for_function(
                             "() => !document.body.innerText.includes('RDS%') && /\\d+\\.\\d+\\s*%/.test(document.body.innerText)",
@@ -110,9 +245,6 @@ class CIBCScraper:
                 finally:
                     browser.close()
 
-            if "RDS%" in text and not any(ch.isdigit() and "%" in text for ch in "%"):
-                return []
-
             rates = extract_rates_from_html(
                 html + "\n" + text,
                 lender_slug=self.LENDER_SLUG,
@@ -122,7 +254,6 @@ class CIBCScraper:
                 source="cibc_live_scrape",
                 extraction_method="playwright",
             )
-            # Prefer special-offer values: drop leftovers that still look like RDS noise
             cleaned = []
             seen = set()
             for rate in rates:
@@ -146,7 +277,7 @@ class CIBCScraper:
         CIBC advertised special offers and high-ratio specials.
 
         Copied from the public CIBC mortgage-rates page after JS hydration
-        (2026-09-14). Special offers are the consumer-facing discounted rates.
+        (2026-09-14). Used only when the first-party API and page scrape fail.
         """
         fallback_data = [
             {"term": 12, "type": RateType.FIXED, "rate": "4.74", "mortgage_type": "uninsured", "product": "1-Year Fixed Special"},
@@ -180,7 +311,8 @@ if __name__ == "__main__":
         for r in sorted(rates, key=lambda x: (x.mortgage_type.value, x.term_months, x.rate_type.value)):
             years = r.term_months // 12
             src = (r.raw_data or {}).get("source")
-            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}%  ({src})")
+            method = (r.raw_data or {}).get("extraction_method")
+            print(f"  {r.mortgage_type.value:10} {years}yr {r.rate_type.value:8} {r.rate}%  ({src}/{method})")
     except Exception as e:
         print(f"Error: {e}")
         import traceback

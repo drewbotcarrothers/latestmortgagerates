@@ -1,8 +1,13 @@
-"""Lightweight HTTP fetch for lender pages that publish rates in HTML."""
+"""Lightweight HTTP fetch for lender pages that publish rates in HTML or JSON."""
 
 from typing import Optional
 
 from loguru import logger
+
+try:
+    from .proxy_config import httpx_proxy
+except ImportError:
+    from proxy_config import httpx_proxy
 
 DEFAULT_HEADERS = {
     "User-Agent": (
@@ -14,8 +19,21 @@ DEFAULT_HEADERS = {
 }
 
 
-def fetch_html(url: str, timeout: float = 20.0) -> Optional[str]:
-    """Fetch a URL with httpx. Returns HTML text or None."""
+def _client_kwargs(timeout: float, headers: Optional[dict] = None) -> dict:
+    kwargs = {
+        "timeout": timeout,
+        "follow_redirects": True,
+        "headers": headers or DEFAULT_HEADERS,
+        "http2": False,
+    }
+    proxy = httpx_proxy()
+    if proxy:
+        kwargs["proxy"] = proxy
+    return kwargs
+
+
+def fetch_html(url: str, timeout: float = 20.0, headers: Optional[dict] = None) -> Optional[str]:
+    """Fetch a URL with httpx. Returns response text or None."""
     try:
         import httpx
     except ImportError:
@@ -23,12 +41,7 @@ def fetch_html(url: str, timeout: float = 20.0) -> Optional[str]:
         return None
 
     try:
-        with httpx.Client(
-            timeout=timeout,
-            follow_redirects=True,
-            headers=DEFAULT_HEADERS,
-            http2=False,
-        ) as client:
+        with httpx.Client(**_client_kwargs(timeout, headers)) as client:
             response = client.get(url)
             if response.status_code >= 400:
                 logger.warning(f"HTTP {response.status_code} for {url}")
@@ -36,4 +49,48 @@ def fetch_html(url: str, timeout: float = 20.0) -> Optional[str]:
             return response.text
     except Exception as e:
         logger.warning(f"HTTP fetch failed for {url}: {e}")
+        return None
+
+
+def fetch_json(
+    url: str,
+    timeout: float = 20.0,
+    method: str = "GET",
+    json_body: Optional[dict] = None,
+    headers: Optional[dict] = None,
+):
+    """Fetch JSON from a first-party rates endpoint. Returns parsed object or None."""
+    try:
+        import httpx
+    except ImportError:
+        logger.warning("httpx not available")
+        return None
+
+    hdrs = {
+        **DEFAULT_HEADERS,
+        # TD's getRates returns text/plain JSON and 406s a JSON-only Accept.
+        "Accept": "application/json, text/plain, text/javascript, */*;q=0.8",
+    }
+    if headers:
+        hdrs.update(headers)
+
+    try:
+        with httpx.Client(**_client_kwargs(timeout, hdrs)) as client:
+            if method.upper() == "POST":
+                response = client.post(url, json=json_body or {})
+            else:
+                response = client.get(url)
+            if response.status_code >= 400:
+                logger.warning(f"HTTP {response.status_code} for {url}")
+                return None
+            try:
+                return response.json()
+            except Exception:
+                import json as json_lib
+                try:
+                    return json_lib.loads(response.text)
+                except Exception:
+                    return response.text
+    except Exception as e:
+        logger.warning(f"JSON fetch failed for {url}: {e}")
         return None

@@ -50,11 +50,21 @@ def scrape_live_rates(
         return []
 
     try:
+        from .proxy_config import playwright_proxy, log_proxy_status
+    except ImportError:
+        from proxy_config import playwright_proxy, log_proxy_status
+
+    try:
+        log_proxy_status(lender_name)
         with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=["--disable-http2", "--disable-quic"],
-            )
+            launch_kwargs = {
+                "headless": True,
+                "args": ["--disable-http2", "--disable-quic"],
+            }
+            proxy = playwright_proxy()
+            if proxy:
+                launch_kwargs["proxy"] = proxy
+            browser = p.chromium.launch(**launch_kwargs)
             context = browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
