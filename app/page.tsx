@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import RateFilters from "./components/RateFilters";
@@ -40,22 +40,23 @@ interface Rate {
 import ratesData from "../data/rates.json";
 import metadata from "../data/metadata.json";
 
-// Format the last updated date from metadata
+function formatLastUpdated(iso?: string): string {
+  if (!iso) return "—";
+  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/.test(iso) ? iso : `${iso}Z`;
+  const d = new Date(normalized);
+  if (Number.isNaN(d.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d);
+}
+
 function LastUpdated() {
-  const [date, setDate] = useState<string>("");
-  useEffect(() => {
-    if (metadata?.last_updated) {
-      const d = new Date(metadata.last_updated);
-      setDate(d.toLocaleString('en-CA', { 
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }));
-    }
-  }, []);
-  return <span>{date || "-"}</span>;
+  return <span>{formatLastUpdated(metadata?.last_updated)}</span>;
 }
 
 // Calculate market stats for a rate category
