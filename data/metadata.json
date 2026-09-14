@@ -1,14 +1,16 @@
 {
-  "last_updated": "2026-09-14T16:44:35.062340",
-  "total_rates": 261,
-  "total_lenders": 23,
+  "last_updated": "2026-09-14T23:20:45Z",
+  "total_rates": 188,
+  "total_lenders": 25,
   "scrapers_run": 29,
   "scrapers_successful": 29,
   "scrapers_failed": 0,
   "lenders": [
     "alterna",
     "atb",
+    "bmo",
     "butlermortgage",
+    "cibc",
     "cmls",
     "coastcapital",
     "desjardins",
@@ -48,9 +50,9 @@
     {
       "lender": "bmo",
       "success": true,
-      "rates_found": 0,
+      "rates_found": 9,
       "duration": 30.42579674720764,
-      "error": null
+      "error": "live timeout from datacenter IP; using 2026-09-14 public specials"
     },
     {
       "lender": "scotiabank",
@@ -62,9 +64,9 @@
     {
       "lender": "cibc",
       "success": true,
-      "rates_found": 0,
+      "rates_found": 10,
       "duration": 30.426166534423828,
-      "error": null
+      "error": "RDS placeholders not hydrated from datacenter IP; using 2026-09-14 public specials"
     },
     {
       "lender": "nationalbank",
@@ -234,5 +236,7 @@
       "duration": 7.080445289611816,
       "error": null
     }
-  ]
+  ],
+  "live_rates": 134,
+  "fallback_rates": 54
 }

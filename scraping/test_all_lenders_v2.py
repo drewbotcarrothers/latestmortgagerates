@@ -432,11 +432,22 @@ def scrape_all_lenders():
         
         print(f"Exported {len(export_data)} rates to {output_path}")
         
-        # Also save metadata
+        live_count = 0
+        fallback_count = 0
+        for rate in valid_rates:
+            source = (rate.raw_data or {}).get("source", "")
+            if "fallback" in str(source) or "stale" in str(source):
+                fallback_count += 1
+            else:
+                live_count += 1
+
+        from datetime import timezone as _tz
         metadata = {
-            "last_updated": datetime.now().isoformat(),
+            "last_updated": datetime.now(_tz.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "total_rates": len(export_data),
             "total_lenders": len(lender_counts),
+            "live_rates": live_count,
+            "fallback_rates": fallback_count,
             "scrapers_run": len(scraper_classes),
             "scrapers_successful": len(successful),
             "scrapers_failed": len(failed),

@@ -1,13 +1,10 @@
 """
 ATB Financial mortgage rate scraper.
-Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+Public rates moved to /resources/rates/mortgage-rates/.
 """
 
-import re
-from decimal import Decimal
 from typing import List
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from loguru import logger
@@ -16,150 +13,64 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
 
+try:
+    from .live_scrape import scrape_live_rates
+    from .rate_parse import fallback_rows_to_rates
+except ImportError:
+    from live_scrape import scrape_live_rates
+    from rate_parse import fallback_rows_to_rates
+
 
 class ATBScraper:
-    """Scraper for ATB Financial mortgage rates."""
-    
     LENDER_SLUG = "atb"
     LENDER_NAME = "ATB Financial"
-    RATE_URL = "https://www.atb.com/en/personal/mortgages/mortgage-rates"
-    
+    RATE_URL = "https://www.atb.com/resources/rates/mortgage-rates/"
+
     def __init__(self):
-        self.scraped_at = datetime.utcnow()
-    
+        self.scraped_at = datetime.now(timezone.utc)
+
     def scrape(self) -> List[RawRate]:
-        """Scrape ATB Financial mortgage rates."""
         logger.info("Fetching ATB Financial rate page...")
-        
-        try:
-            rates = self._scrape_with_playwright()
-            if rates:
-                logger.success(f"Successfully scraped {len(rates)} live rates from ATB Financial")
-                return rates
-        except Exception as e:
-            logger.warning(f"Playwright scraping failed: {e}")
-        
-        logger.info("Using fallback rates from ATB Financial (2026-07-19)")
-        rates = self._get_fallback_rates()
-        return rates
-    
-    def _scrape_with_playwright(self) -> List[RawRate]:
-        """Use Playwright to scrape live rates."""
-        try:
-            from playwright.sync_api import sync_playwright
-            
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-                )
-                page = context.new_page()
-                
-                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2000)
-                
-                rates = []
-                content = page.content()
-                
-                patterns = [
-                    (r'(\d+)\s*year[^\d]*?fixed[^\d]*?(\d+\.\d+)', RateType.FIXED),
-                    (r'(\d+)\s*year[^\d]*?variable[^\d]*?(\d+\.\d+)', RateType.VARIABLE),
-                ]
-                
-                for pattern, rate_type in patterns:
-                    matches = re.finditer(pattern, content, re.IGNORECASE)
-                    for match in matches:
-                        try:
-                            years = int(match.group(1))
-                            rate = Decimal(match.group(2))
-                            if 1 <= years <= 10 and 2 <= rate <= 10:
-                                rates.append(RawRate(
-                                    lender_slug=self.LENDER_SLUG,
-                                    lender_name=self.LENDER_NAME,
-                                    term_months=years * 12,
-                                    rate_type=rate_type,
-                                    mortgage_type=MortgageType.UNINSURED,
-                                    rate=rate,
-                                    source_url=self.RATE_URL,
-                                    scraped_at=self.scraped_at,
-                                    raw_data={"source": "atb_live_scrape", "years": years}
-                                ))
-                        except:
-                            pass
-                
-                browser.close()
-                return rates
-                
-        except ImportError:
-            logger.warning("Playwright not available")
-            return []
-        except Exception as e:
-            logger.error(f"Playwright error: {e}")
-            return []
-    
+        rates = scrape_live_rates(
+            url=self.RATE_URL,
+            lender_slug=self.LENDER_SLUG,
+            lender_name=self.LENDER_NAME,
+            scraped_at=self.scraped_at,
+            source="atb_live_scrape",
+        )
+        if rates:
+            logger.success(f"Successfully scraped {len(rates)} live rates from ATB Financial")
+            return rates
+        logger.info("Using fallback rates from ATB Financial (2026-09-14)")
+        return self._get_fallback_rates()
+
     def _get_fallback_rates(self) -> List[RawRate]:
-        """
-        Fallback rates from ATB Financial (April 25, 2026).
-        Alberta's provincial bank.
-        """
-        logger.info("Using fallback rates from ATB Financial (2026-07-19)")
-        
         fallback_data = [
-            {"term": 12, "type": RateType.FIXED, "rate": "5.29", "mortgage_type": "uninsured", "product": "1 Year Fixed"},
-            {"term": 24, "type": RateType.FIXED, "rate": "4.99", "mortgage_type": "uninsured", "product": "2 Year Fixed"},
-            {"term": 36, "type": RateType.FIXED, "rate": "4.64", "mortgage_type": "uninsured", "product": "3 Year Fixed", "featured": True},
-            {"term": 48, "type": RateType.FIXED, "rate": "4.34", "mortgage_type": "uninsured", "product": "4 Year Fixed"},
-            {"term": 60, "type": RateType.FIXED, "rate": "4.09", "mortgage_type": "uninsured", "product": "5 Year Fixed", "featured": True},
-            {"term": 60, "type": RateType.VARIABLE, "rate": "3.35", "mortgage_type": "uninsured", "product": "5 Year Variable", "featured": True, "spread": "Prime - 0.60%"},
-            {"term": 84, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "uninsured", "product": "7 Year Fixed"},
-            {"term": 120, "type": RateType.FIXED, "rate": "4.39", "mortgage_type": "uninsured", "product": "10 Year Fixed"},
+            {"term": 12, "type": RateType.FIXED, "rate": "6.09", "mortgage_type": "uninsured", "product": "1-Year Closed Fixed"},
+            {"term": 24, "type": RateType.FIXED, "rate": "5.59", "mortgage_type": "uninsured", "product": "2-Year Closed Fixed"},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "3-Year Conventional", "featured": True},
+            {"term": 36, "type": RateType.FIXED, "rate": "4.39", "mortgage_type": "insured", "product": "3-Year High Ratio"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.54", "mortgage_type": "uninsured", "product": "4-Year Conventional"},
+            {"term": 48, "type": RateType.FIXED, "rate": "4.44", "mortgage_type": "insured", "product": "4-Year High Ratio"},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.49", "mortgage_type": "uninsured", "product": "5-Year Rate First Conventional", "featured": True},
+            {"term": 60, "type": RateType.FIXED, "rate": "4.29", "mortgage_type": "insured", "product": "5-Year Rate First High Ratio", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.80", "mortgage_type": "uninsured", "product": "5-Year Variable", "featured": True},
+            {"term": 60, "type": RateType.VARIABLE, "rate": "3.65", "mortgage_type": "insured", "product": "5-Year Variable High Ratio", "featured": True},
         ]
-        
-        rates = []
-        for item in fallback_data:
-            mortgage_type = MortgageType.UNINSURED
-            
-            raw_data = {
-                "source": "atb_fallback_2026-07-19",
-                "product": item.get("product"),
-                "featured": item.get("featured", False),
-                "last_verified": "2026-07-19"
-            }
-            if item.get("spread"):
-                raw_data["spread_to_prime"] = item["spread"]
-            
-            rates.append(RawRate(
-                lender_slug=self.LENDER_SLUG,
-                lender_name=self.LENDER_NAME,
-                term_months=item["term"],
-                rate_type=item["type"],
-                mortgage_type=mortgage_type,
-                rate=Decimal(item["rate"]),
-                source_url=self.RATE_URL,
-                scraped_at=self.scraped_at,
-                raw_data=raw_data
-            ))
-        
-        return rates
+        return fallback_rows_to_rates(
+            fallback_data,
+            lender_slug=self.LENDER_SLUG,
+            lender_name=self.LENDER_NAME,
+            source_url=self.RATE_URL,
+            scraped_at=self.scraped_at,
+            source="atb_fallback_2026-09-14",
+            last_verified="2026-09-14",
+        )
 
 
 if __name__ == "__main__":
     scraper = ATBScraper()
-    try:
-        rates = scraper.scrape()
-        print(f"\nScraped {len(rates)} rates from ATB Financial:")
-        print("-" * 60)
-        
-        for r in sorted(rates, key=lambda x: (x.term_months, x.rate_type.value)):
-            years = r.term_months // 12
-            featured = " [FEATURED]" if r.raw_data.get("featured") else ""
-            spread = r.raw_data.get("spread_to_prime", "")
-            spread_str = f" [{spread}]" if spread else ""
-            print(f"  {years}yr {r.rate_type.value:8} {r.rate}%{spread_str}{featured}")
-            
-        print("-" * 60)
-        
-    except Exception as e:
-        print(f"Error: {e}")
-        import traceback
-        traceback.print_exc()
+    rates = scraper.scrape()
+    print(f"Scraped {len(rates)} ATB rates")
+    for r in rates:
+        print(f"  {r.mortgage_type.value:10} {r.term_months//12}yr {r.rate_type.value:8} {r.rate}% {(r.raw_data or {}).get('source')}")

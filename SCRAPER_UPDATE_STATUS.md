@@ -1,123 +1,58 @@
-# Scraper Update Status - ✅ COMPLETE
+# Scraper Status — September 14, 2026
 
-**Date Completed:** April 25, 2026  
-**Total Scrapers:** 39  
-**Status:** 100% Updated
+This replaces the April 2026 “100% complete” note. Live vs fallback changes with each twice-daily run.
 
----
+## What works live (HTTP or Playwright from this environment)
 
-## Summary
+| Lender | Notes |
+|--------|--------|
+| RBC, TD, Scotiabank, National Bank | Existing Playwright scrapers |
+| nesto, Tangerine, Wealthsimple | Live |
+| First National, Laurentian, Manulife, Butler, True North | Live |
+| Alterna, Meridian, Desjardins, ATB | **Fixed 2026-09-14** — HTML tables + corrected URLs |
 
-All **39 mortgage rate scrapers** have been updated with:
-- **Live scraping capability** (Playwright for most, API for BoC)
-- **Verified fallback rates** dated April 25, 2026
-- **Standardized structure** across all files
-- **Proper raw_data** with source tracking and `last_verified` timestamps
+## BMO and CIBC
 
----
+Public pages still expose rates, but they are JS-hydrated (CIBC RDS placeholders; BMO AEM). Navigation from GitHub Actions / Azure / this cloud environment **times out** (~15–45s). Residential crawlers (e.g. NerdWallet citing bmo.com, CIBC’s own rendered page) see current specials.
 
-## Categories Completed
+Scrapers now:
 
-### Big 6 Banks (6 scrapers)
-| # | Lender | File |
-|---|--------|------|
-| 1 | RBC | `rbc_scraper.py` |
-| 2 | TD | `td_scraper.py` |
-| 3 | BMO | `bmo_scraper.py` |
-| 4 | Scotiabank | `scotiabank_scraper.py` |
-| 5 | CIBC | `cibc_scraper.py` |
-| 6 | National Bank | `nationalbank_scraper.py` |
+1. Try Playwright with a short timeout (no CSS blocking).
+2. Try HTTP HTML.
+3. **Fall back to dated, source-cited specials** so the banks appear in comparison data instead of vanishing with `success: true, rates_found: 0`.
 
-### Monoline Lenders (12 scrapers)
-| # | Lender | File |
-|---|--------|------|
-| 7 | First National | `firstnational_scraper.py` |
-| 8 | MCAP | `mcap_scraper.py` |
-| 9 | Manulife | `manulife_scraper.py` |
-| 10 | Laurentian | `laurentian_scraper.py` |
-| 11 | RFA | `rfa_scraper.py` |
-| 12 | CMLS | `cmls_scraper.py` |
-| 13 | Merix | `merix_scraper.py` |
-| 14 | Lendwise | `lendwise_scraper.py` |
-| 15 | Butler Mortgage | `butler_scraper.py` |
-| 16 | IntelliMortgage | `intellimortgage_scraper.py` |
-| 17 | Street Capital | `streetcapital_scraper.py` |
-| 18 | Centum | `centum_scraper.py` |
+A residential proxy would be required for reliable live BMO/CIBC (and Simplii RDS) from CI. That is out of scope for this change.
 
-### Digital Banks (6 scrapers)
-| # | Lender | File |
-|---|--------|------|
-| 19 | nesto | `nesto_scraper.py` |
-| 20 | Simplii | `simplii_scraper.py` |
-| 21 | Tangerine | `tangerine_scraper.py` |
-| 22 | Motive | `motive_scraper.py` |
-| 23 | Alterna | `alterna_scraper.py` |
-| 24 | Wealthsimple | `wealthsimple_scraper.py` |
+## Fallbacks refreshed 2026-09-14
 
-### Regional/Credit Unions (9 scrapers)
-| # | Lender | File |
-|---|--------|------|
-| 25 | EQ Bank | `eqbank_scraper.py` |
-| 26 | Meridian | `meridian_scraper.py` |
-| 27 | ATB | `atb_scraper.py` |
-| 28 | Coast Capital | `coastcapital_scraper.py` |
-| 29 | CWB | `cwb_scraper.py` |
-| 30 | Desjardins | `desjardins_scraper.py` |
-| 31 | Equitable | `equitable_scraper.py` |
-| 32 | Home Trust | `hometrust_scraper.py` |
-| 33 | Vancity | `vancity_scraper.py` |
+| Lender | Source / caveat |
+|--------|-----------------|
+| BMO | NerdWallet table 2026-09-14 citing bmo.com specials |
+| CIBC | Rendered cibc.com mortgage-rates page 2026-09-14 |
+| Simplii | No new Simplii-branded mortgages since 2025-06-19; page shows CIBC specials |
+| Alterna / Meridian / Desjardins / ATB | First-party HTML (also scraped live) |
+| Vancity | Featured rates on `/borrow/mortgages` (Cloudflare on `/rates/mortgages`) |
+| Coast Capital | Featured 5-year rates on buying-your-next-home |
+| Equitable | `.ca` URL; JS-heavy. 5yr from Ratehub 2026-09-04; other terms Forbes 2026-08-05. **Removed stale 3.59% July curve.** |
+| CMLS | JS widget; only Ratehub 5yr 4.54% (2026-09-04) kept — dropped unverified 3.84% curve |
+| RFA | rfabank.com often 522 here; iShopRates 2026-07-06 |
+| Home Trust | Page often times out; Accelerator posted rates from 2026-08-13 investigation |
 
-### Aggregators/Benchmark (6 scrapers)
-| # | Lender | File | Notes |
-|---|--------|------|-------|
-| 34 | Ratehub | `ratehub_scraper.py` | Multi-lender aggregator |
-| 35 | Rates.ca | `ratesca_scraper.py` | Multi-lender aggregator |
-| 36 | LowestRates | `lowestrates_scraper.py` | Multi-lender aggregator |
-| 37 | WOWA | `wowa_scraper.py` | Multi-lender aggregator |
-| 38 | Bank of Canada | `boc_scraper.py` | JSON API (not Playwright) |
-| 39 | True North | `truenorth_scraper.py` | First updated, province-aware |
+## Intentionally empty (not shown as direct consumer rates)
 
----
+| Lender | Why |
+|--------|-----|
+| EQ Bank | Mortgage marketplace redirects to nesto |
+| MCAP | Wholesale / broker-only, no public consumer product rates |
+| Street Capital | Site 503 / appears retired |
+| Centum | Brokerage network, not a direct lender |
 
-## Standardized Pattern
+## Metadata / Last updated
 
-All scrapers follow:
-```python
-def scrape(self) -> List[RawRate]:
-    # 1. Try live scraping (Playwright or API)
-    rates = self._scrape_with_playwright()  # or API call
-    if rates:
-        return rates
-    
-    # 2. Fall back to verified rates
-    return self._get_fallback_rates()
+`data/metadata.json` `last_updated` is now UTC with a `Z` suffix. The homepage formats it at static-export time (America/Toronto) so the live site no longer shows `Last updated: -` in the HTML.
 
-def _get_fallback_rates(self) -> List[RawRate]:
-    # All rates include:
-    raw_data = {
-        "source": "{lender}_fallback_2026-04-25",
-        "last_verified": "2026-04-25",
-        "featured": True/False
-    }
-```
+## Remaining gaps
 
----
-
-## Additional Tools Created
-
-| Tool | Purpose |
-|------|---------|
-| `scraping/rate_monitor.py` | Monitors scraper freshness, alerts on stale data (>7 days) |
-| `SCRAPER_UPDATE_STATUS.md` | This tracking document |
-
----
-
-## Git History
-
-19 commits pushed to master on April 25, 2026 covering all 39 scrapers.
-
----
-
-## Next Review
-
-**May 2, 2026** - Weekly rate verification cadence
+- BMO/CIBC/Simplii live scrape from CI needs a residential IP or an official rates API.
+- CMLS, Equitable, RFA, Home Trust, Vancity, Coast Capital still often fallback-only from datacenter IPs.
+- Aggregators (Ratehub, Rates.ca, WOWA, LowestRates) are not included in the display whitelist.

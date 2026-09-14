@@ -25,7 +25,7 @@ lenders:
     name: "Bank of Montreal"
     slug: "bmo"
     type: "bank"
-    rate_url: "https://www.bmo.com/main/personal/mortgages/mortgage-rates/"
+    rate_url: "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/"
     scrape_method: "browser"
     frequency: "6h"
     priority: 1
@@ -43,7 +43,7 @@ lenders:
     name: "CIBC"
     slug: "cibc"
     type: "bank"
-    rate_url: "https://www.cibc.com/en/personal-banking/mortgages/mortgage-rates.html"
+    rate_url: "https://www.cibc.com/en/interest-rates/mortgage-rates.html"
     scrape_method: "browser"
     frequency: "6h"
     priority: 1
@@ -76,7 +76,7 @@ lenders:
     name: "Vancity"
     slug: "vancity"
     type: "credit_union"
-    rate_url: "https://www.vancity.com/personal/rates/#mortgage"
+    rate_url: "https://www.vancity.com/borrow/mortgages"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2
@@ -86,7 +86,7 @@ lenders:
     name: "ATB Financial"
     slug: "atb"
     type: "regional_bank"
-    rate_url: "https://www.atb.com/en/personal/borrow/mortgage-rates.html"
+    rate_url: "https://www.atb.com/resources/rates/mortgage-rates/"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2
@@ -106,7 +106,7 @@ lenders:
     name: "Coast Capital Savings"
     slug: "coastcapital"
     type: "credit_union"
-    rate_url: "https://www.coastcapitalsavings.com/rates/mortgage-rates"
+    rate_url: "https://www.coastcapitalsavings.com/mortgages/buying-your-next-home"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2
@@ -126,7 +126,7 @@ lenders:
     name: "CMLS Financial"
     slug: "cmls"
     type: "monoline"
-    rate_url: "https://www.cmls.ca/rates"
+    rate_url: "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2

@@ -4,6 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import Navigation from "./Navigation";
 
+function formatHeaderDate(iso?: string): string {
+  if (!iso) return "—";
+  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/.test(iso) ? iso : `${iso}Z`;
+  const d = new Date(normalized);
+  if (Number.isNaN(d.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d);
+}
+
 interface HeaderProps {
   currentPage: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts";
   showStats?: boolean;
@@ -52,7 +67,7 @@ export default function Header({
               <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Last updated: {lastUpdated}</span>
+              <span>Last updated: {formatHeaderDate(lastUpdated)}</span>
             </div>
             {rateCount && lenderCount && (
               <div className="flex items-center gap-2">
