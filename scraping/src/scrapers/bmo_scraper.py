@@ -22,9 +22,11 @@ from models import RawRate, RateType, MortgageType
 try:
     from .rate_parse import extract_rates_from_html, fallback_rows_to_rates
     from .http_fetch import fetch_html
+    from .proxy_config import log_proxy_status, playwright_proxy, proxy_enabled
 except ImportError:
     from rate_parse import extract_rates_from_html, fallback_rows_to_rates
     from http_fetch import fetch_html
+    from proxy_config import log_proxy_status, playwright_proxy, proxy_enabled
 
 
 class BMOScraper:
@@ -40,6 +42,14 @@ class BMOScraper:
 
     def scrape(self) -> List[RawRate]:
         logger.info("Fetching BMO rate page...")
+        log_proxy_status("BMO")
+        if not proxy_enabled():
+            logger.warning(
+                "BMO first-party page is unreachable from datacenter IPs "
+                "(TCP never commits). Skipping live attempts until "
+                "SCRAPER_PROXY_URL is set. Using dated fallback."
+            )
+            return self._get_fallback_rates()
 
         try:
             rates = self._scrape_with_playwright()
@@ -50,7 +60,7 @@ class BMOScraper:
             logger.warning(f"Playwright scraping failed: {e}")
 
         try:
-            html = fetch_html(self.RATE_URL, timeout=12.0)
+            html = fetch_html(self.RATE_URL, timeout=20.0 if proxy_enabled() else 8.0)
             if html:
                 rates = extract_rates_from_html(
                     html,
@@ -88,22 +98,30 @@ class BMOScraper:
 
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=["--disable-http2", "--disable-quic", "--disable-blink-features=AutomationControlled"],
-                )
+                launch_kwargs = {
+                    "headless": True,
+                    "args": ["--disable-http2", "--disable-quic", "--disable-blink-features=AutomationControlled"],
+                }
+                proxy = playwright_proxy()
+                if proxy:
+                    launch_kwargs["proxy"] = proxy
+                timeout_ms = 45000 if proxy else self.NAV_TIMEOUT_MS
+                browser = p.chromium.launch(**launch_kwargs)
                 context = browser.new_context(
                     user_agent=(
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
                     ),
                     locale="en-CA",
+                    timezone_id="America/Toronto",
+                    geolocation={"latitude": 43.6532, "longitude": -79.3832},
+                    permissions=["geolocation"],
                     extra_http_headers={"Accept-Language": "en-CA,en;q=0.9"},
                 )
                 page = context.new_page()
-                page.set_default_navigation_timeout(self.NAV_TIMEOUT_MS)
+                page.set_default_navigation_timeout(timeout_ms)
                 try:
-                    page.goto(self.RATE_URL, wait_until="commit", timeout=self.NAV_TIMEOUT_MS)
+                    page.goto(self.RATE_URL, wait_until="commit", timeout=timeout_ms)
                     try:
                         page.wait_for_function(
                             "() => /\\d+\\.\\d+\\s*%/.test(document.body.innerText)",

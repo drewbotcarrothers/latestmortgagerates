@@ -1,12 +1,15 @@
 """
 TD Bank mortgage rate scraper.
-Uses Playwright for live scraping with fallback to captured rates.
-Updated: July 19, 2026
+
+Primary source: TD's public psservice getRates API (same feed the
+mortgage-rates page hydrates via ratesAPIInfo). Works from datacenter IPs.
+
+Fallbacks: Playwright on td.com, then dated specials (2026-07-19).
 """
 
 import re
-from decimal import Decimal
-from typing import List
+from decimal import Decimal, InvalidOperation
+from typing import List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -15,6 +18,17 @@ from loguru import logger
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
+
+try:
+    from .http_fetch import fetch_json
+    from .proxy_config import log_proxy_status, playwright_proxy
+except ImportError:
+    from http_fetch import fetch_json
+    from proxy_config import log_proxy_status, playwright_proxy
+
+
+RATES_API = "https://psservice.td.com/ca/en/carate/getRates"
+PRODUCT_RE = re.compile(r"^MTG([FV])(\d{3})([CO])$")
 
 
 class TDScraper:
@@ -29,10 +43,18 @@ class TDScraper:
     
     def scrape(self) -> List[RawRate]:
         """Scrape TD mortgage rates."""
-        logger.info("Fetching TD rate page...")
+        logger.info("Fetching TD rates...")
+        log_proxy_status("TD")
+
+        try:
+            rates = self._scrape_from_api()
+            if rates:
+                logger.success(f"TD first-party API returned {len(rates)} live rates")
+                return rates
+        except Exception as e:
+            logger.warning(f"TD API scrape failed: {e}")
         
         try:
-            # Try Playwright first
             rates = self._scrape_with_playwright()
             if rates:
                 logger.success(f"Successfully scraped {len(rates)} live rates from TD")
@@ -40,10 +62,103 @@ class TDScraper:
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
         
-        # Fallback to static data
         logger.info("Using fallback rates from TD website (2026-07-19)")
-        rates = self._get_fallback_rates()
+        return self._get_fallback_rates()
+
+    def _scrape_from_api(self) -> List[RawRate]:
+        payload = fetch_json(
+            RATES_API,
+            timeout=20.0,
+            method="POST",
+            json_body={"ratesType": "resl"},
+            headers={
+                "Accept": "application/json, text/plain, */*",
+                "Origin": "https://www.td.com",
+                "Referer": "https://www.td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+            },
+        )
+        if not isinstance(payload, dict) or not payload:
+            return []
+
+        rates: List[RawRate] = []
+        seen = set()
+        for code, buckets in payload.items():
+            match = PRODUCT_RE.match(str(code))
+            if not match or not isinstance(buckets, dict):
+                continue
+            rate_type = RateType.VARIABLE if match.group(1) == "V" else RateType.FIXED
+            term_months = int(match.group(2))
+            is_open = match.group(3) == "O"
+            if term_months not in (6, 12, 24, 36, 48, 60, 72, 84, 120):
+                continue
+
+            for bucket_name, fields in buckets.items():
+                mortgage_type = (
+                    MortgageType.INSURED if bucket_name == "highRatio" else MortgageType.UNINSURED
+                )
+                parsed = self._parse_td_fields(fields)
+                if not parsed:
+                    continue
+                advertised, posted, apr = parsed
+                key = (term_months, rate_type, mortgage_type, str(advertised), is_open)
+                if key in seen:
+                    continue
+                seen.add(key)
+                section = "special" if posted and advertised < posted else "posted"
+                rates.append(
+                    RawRate(
+                        lender_slug=self.LENDER_SLUG,
+                        lender_name=self.LENDER_NAME,
+                        term_months=term_months,
+                        rate_type=rate_type,
+                        mortgage_type=mortgage_type,
+                        rate=advertised,
+                        posted_rate=posted,
+                        source_url=self.RATE_URL,
+                        scraped_at=self.scraped_at,
+                        raw_data={
+                            "source": "td_live_scrape",
+                            "extraction_method": "psservice_getrates",
+                            "product_code": code,
+                            "section": section,
+                            "is_open": is_open,
+                            "apr": apr,
+                            "featured": term_months in (36, 60) and section == "special" and not is_open,
+                            "product": f"{term_months // 12 if term_months >= 12 else term_months}"
+                            f"{' Year' if term_months >= 12 else ' Month'} "
+                            f"{rate_type.value.title()} {'Open' if is_open else 'Closed'}",
+                        },
+                    )
+                )
         return rates
+
+    def _parse_td_fields(self, fields) -> Optional[tuple]:
+        """API row: [posted, discount, calculated, apr, flag]."""
+        if not isinstance(fields, (list, tuple)) or len(fields) < 3:
+            return None
+        posted = self._as_rate(fields[0])
+        calculated = self._as_rate(fields[2])
+        apr = str(fields[3]) if len(fields) > 3 and fields[3] not in (None, "") else None
+        if posted is None and calculated is None:
+            return None
+        # Field 2 is posted minus the discount. A negative discount makes
+        # "calculated" worse than posted — that is not a consumer special.
+        if calculated is not None and posted is not None and calculated < posted:
+            advertised = calculated
+        else:
+            advertised = posted or calculated
+        if advertised is None:
+            return None
+        return advertised, posted, apr
+
+    def _as_rate(self, value) -> Optional[Decimal]:
+        try:
+            rate = Decimal(str(value))
+        except (InvalidOperation, ValueError, TypeError):
+            return None
+        if Decimal("1.50") <= rate <= Decimal("15.00"):
+            return rate
+        return None
     
     def _scrape_with_playwright(self) -> List[RawRate]:
         """Use Playwright to scrape live rates from TD website.
@@ -64,13 +179,17 @@ class TDScraper:
         browser = None
         try:
             with sync_playwright() as p:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=[
+                launch_kwargs = {
+                    "headless": True,
+                    "args": [
                         "--disable-http2",
                         "--disable-quic",
-                    ]
-                )
+                    ],
+                }
+                proxy = playwright_proxy()
+                if proxy:
+                    launch_kwargs["proxy"] = proxy
+                browser = p.chromium.launch(**launch_kwargs)
                 
                 context = browser.new_context(
                     user_agent=(

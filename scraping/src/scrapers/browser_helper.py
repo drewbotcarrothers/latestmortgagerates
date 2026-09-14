@@ -72,19 +72,29 @@ def launch_stealth_browser(
     
     logger.info(f"Launching stealth browser: {user_agent[:60]}... viewport={viewport}")
     
+    try:
+        from .proxy_config import playwright_proxy, log_proxy_status
+    except ImportError:
+        from proxy_config import playwright_proxy, log_proxy_status
+
+    log_proxy_status("stealth browser")
     with sync_playwright() as p:
         # Launch browser with anti-detection args
-        browser = p.chromium.launch(
-            headless=headless,
-            args=[
+        launch_kwargs = {
+            "headless": headless,
+            "args": [
                 "--disable-blink-features=AutomationControlled",
                 "--disable-web-security",
                 "--disable-features=IsolateOrigins,site-per-process",
                 "--disable-http2",  # Prevent HTTP/2 protocol errors
                 "--disable-quic",   # Prevent QUIC errors
                 "--disable-features=BlockInsecurePrivateNetworkRequests",
-            ]
-        )
+            ],
+        }
+        proxy = playwright_proxy()
+        if proxy:
+            launch_kwargs["proxy"] = proxy
+        browser = p.chromium.launch(**launch_kwargs)
         
         # Create context with realistic settings
         context = browser.new_context(

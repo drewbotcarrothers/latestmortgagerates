@@ -17,6 +17,15 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
 
+try:
+    from .http_fetch import fetch_html
+    from .rate_parse import extract_rates_from_html
+    from .proxy_config import log_proxy_status, playwright_proxy
+except ImportError:
+    from http_fetch import fetch_html
+    from rate_parse import extract_rates_from_html
+    from proxy_config import log_proxy_status, playwright_proxy
+
 
 class RBCScraper:
     """Scraper for RBC Royal Bank mortgage rates."""
@@ -30,23 +39,41 @@ class RBCScraper:
     
     def scrape(self) -> List[RawRate]:
         """Scrape RBC mortgage rates."""
-        rates = []
-        
         logger.info("Fetching RBC rate page...")
-        
+        log_proxy_status("RBC")
+
         try:
-            # Try Playwright first
             rates = self._scrape_with_playwright()
             if rates:
                 logger.success(f"Successfully scraped {len(rates)} live rates from RBC")
                 return rates
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
+
+        try:
+            html = fetch_html(self.RATE_URL, timeout=20.0)
+            if html:
+                rates = self._rates_from_html(html, "http_html")
+                if rates:
+                    logger.success(f"RBC HTTP HTML returned {len(rates)} live rates")
+                    return rates
+        except Exception as e:
+            logger.warning(f"RBC HTTP scrape failed: {e}")
         
-        # Fallback to static data
         logger.info("Using fallback rates from RBC website")
-        rates = self._get_fallback_rates()
-        return rates
+        return self._get_fallback_rates()
+
+    def _rates_from_html(self, html: str, extraction_method: str) -> List[RawRate]:
+        rates = extract_rates_from_html(
+            html,
+            lender_slug=self.LENDER_SLUG,
+            lender_name=self.LENDER_NAME,
+            source_url=self.RATE_URL,
+            scraped_at=self.scraped_at,
+            source="rbc_live_scrape",
+            extraction_method=extraction_method,
+        )
+        return [r for r in rates if Decimal("1.50") <= r.rate <= Decimal("12.00")]
     
     def _scrape_with_playwright(self) -> List[RawRate]:
         """Use Playwright to scrape live rates from all sections including Other Rates.
@@ -63,8 +90,12 @@ class RBCScraper:
         browser = None
         try:
             with sync_playwright() as p:
-                # Aggressive timeouts — RBC blocks headless, fail fast
-                browser = p.chromium.launch(headless=True, timeout=8000)
+                # Aggressive timeouts — RBC has blocked headless in the past; fail fast
+                launch_kwargs = {"headless": True, "timeout": 8000}
+                proxy = playwright_proxy()
+                if proxy:
+                    launch_kwargs["proxy"] = proxy
+                browser = p.chromium.launch(**launch_kwargs)
                 context = browser.new_context(
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
                 )
