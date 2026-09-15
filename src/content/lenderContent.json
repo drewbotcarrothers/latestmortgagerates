@@ -111,6 +111,8 @@
       }
     ],
     "relatedLinks": [
+      { "href": "/compare/wealthsimple-vs-td/", "label": "Wealthsimple vs TD mortgages" },
+      { "href": "/compare/td-vs-rbc/", "label": "TD vs RBC mortgage rates" },
       { "href": "/tools/affordability-calculator/", "label": "Mortgage affordability calculator" },
       { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
       { "href": "/rates/variable/", "label": "Compare variable rates" },
@@ -418,6 +420,8 @@
       }
     ],
     "relatedLinks": [
+      { "href": "/compare/wealthsimple-vs-td/", "label": "Wealthsimple vs TD mortgages" },
+      { "href": "/compare/nesto-vs-wealthsimple/", "label": "nesto vs Wealthsimple mortgages" },
       { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
       { "href": "/rates/variable/", "label": "Compare variable rates" },
       { "href": "/rates/insured/", "label": "Compare insured mortgage rates" },

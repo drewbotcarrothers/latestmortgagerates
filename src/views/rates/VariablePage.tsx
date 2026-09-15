@@ -4,6 +4,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import RateHubLinks from "@/components/RateHubLinks";
+import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
@@ -102,6 +103,13 @@ export default function VariableRatesPage() {
           </div>
 
           <RateHubLinks currentHref="/rates/variable/" className="mb-8" />
+
+          <CompareLinks
+            kind="product"
+            title="Choosing a product?"
+            description="Variable specials move with prime. Compare the structure with 5-year fixed, and match insured vs uninsured."
+            className="mb-8"
+          />
 
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">

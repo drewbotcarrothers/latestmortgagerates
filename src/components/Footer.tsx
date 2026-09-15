@@ -41,11 +41,18 @@ const MapPinIcon = () => (
   </svg>
 );
 
+const ScaleIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h6l3 10 3-10h6M5 13h4m6 0h4" />
+  </svg>
+);
+
 export default function Footer({ showDisclaimer = true }: FooterProps) {
   const currentYear = new Date().getFullYear();
   
   const navItems = [
     { href: "/", label: "Current Rates", icon: HomeIcon },
+    { href: "/compare/", label: "Compare Mortgages", icon: ScaleIcon },
     { href: "/trends/", label: "Rate Trends", icon: TrendIcon },
     { href: "/blog/", label: "Guides & News", icon: BookOpenIcon },
     { href: "/glossary/", label: "Glossary", icon: LibraryIcon },
@@ -176,7 +183,13 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 { href: "/rates/variable/", label: "Variable Rates" },
                 { href: "/rates/insured/", label: "Insured Rates" },
                 { href: "/rates/uninsured/", label: "Uninsured Rates" },
+                { href: "/compare/", label: "Compare Mortgages" },
+                { href: "/compare/fixed-vs-variable/", label: "Fixed vs Variable" },
+                { href: "/compare/insured-vs-uninsured/", label: "Insured vs Uninsured" },
                 { href: "/tools/", label: "Calculators" },
+                { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
+                { href: "/blog/", label: "Mortgage Guides" },
+                { href: "/glossary/", label: "Rate Glossary" },
                 { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
                 { href: "/blog/", label: "Mortgage Guides" },
                 { href: "/glossary/", label: "Rate Glossary" },

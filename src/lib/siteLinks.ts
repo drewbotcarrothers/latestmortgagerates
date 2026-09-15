@@ -95,6 +95,42 @@ export const RATE_HUBS: SiteLink[] = [
 
 export const TOOLS_INDEX_HREF = "/tools/";
 
+export const COMPARE_INDEX_HREF = "/compare/";
+
+/** Mid-funnel comparison guides. Keep in sync with src/content/comparisons.ts. */
+export const COMPARE_PAGES: SiteLink[] = [
+  {
+    href: "/compare/fixed-vs-variable/",
+    title: "Fixed vs Variable",
+    description: "Payment certainty versus prime-linked rates",
+  },
+  {
+    href: "/compare/insured-vs-uninsured/",
+    title: "Insured vs Uninsured",
+    description: "High-ratio premiums versus conventional rates",
+  },
+  {
+    href: "/compare/wealthsimple-vs-td/",
+    title: "Wealthsimple vs TD",
+    description: "Digital brokerage versus a Big 5 bank",
+  },
+  {
+    href: "/compare/td-vs-rbc/",
+    title: "TD vs RBC",
+    description: "FlexLine versus Homeline, live 5-year rates",
+  },
+  {
+    href: "/compare/nesto-vs-wealthsimple/",
+    title: "nesto vs Wealthsimple",
+    description: "Digital lender versus digital brokerage",
+  },
+  {
+    href: "/compare/bmo-vs-cibc/",
+    title: "BMO vs CIBC",
+    description: "Smart Fixed versus Home Power Plan",
+  },
+];
+
 export function normalizePath(href: string): string {
   return href.replace(/\/$/, "");
 }

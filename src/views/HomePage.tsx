@@ -13,6 +13,7 @@ import RateAlertForm from "@/components/RateAlertForm";
 import RateDropBanner from "@/components/RateDropBanner";
 import RateTableSchema from "@/components/RateTableSchema";
 import RateHubLinks from "@/components/RateHubLinks";
+import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -360,6 +361,8 @@ export default function Home() {
         />
 
         <RateHubLinks className="mt-8" />
+
+        <CompareLinks className="mt-8" />
 
         <AdUnit format="display" className="mt-8" />
 

@@ -4,6 +4,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import RateHubLinks from "@/components/RateHubLinks";
+import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
@@ -105,6 +106,13 @@ export default function FiveYearFixedPage() {
           </div>
 
           <RateHubLinks currentHref="/rates/5-year-fixed/" className="mb-8" />
+
+          <CompareLinks
+            kind="product"
+            title="Choosing a product?"
+            description="Use the live 5-year tables, then read the decision guides before you lock a term or a down-payment path."
+            className="mb-8"
+          />
 
           {/* Rate Table */}
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">

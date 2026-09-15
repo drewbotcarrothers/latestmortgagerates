@@ -3,7 +3,8 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import { RATE_HUBS, TOOL_LINKS, TOOLS_INDEX_HREF } from "./siteLinks.ts";
+import { COMPARE_INDEX_HREF, COMPARE_PAGES, RATE_HUBS, TOOL_LINKS, TOOLS_INDEX_HREF } from "./siteLinks.ts";
+import { COMPARISONS } from "../content/comparisons.ts";
 
 const SRC = fileURLToPath(new URL("..", import.meta.url));
 
@@ -28,12 +29,22 @@ const KNOWN_HUBS = [
   "/rates/uninsured/",
 ];
 
+const KNOWN_COMPARES = [
+  "/compare/fixed-vs-variable/",
+  "/compare/insured-vs-uninsured/",
+  "/compare/wealthsimple-vs-td/",
+  "/compare/td-vs-rbc/",
+  "/compare/nesto-vs-wealthsimple/",
+  "/compare/bmo-vs-cibc/",
+];
+
 describe("siteLinks", () => {
   it("uses trailing slashes on every tool and rate hub URL", () => {
-    for (const link of [...TOOL_LINKS, ...RATE_HUBS]) {
+    for (const link of [...TOOL_LINKS, ...RATE_HUBS, ...COMPARE_PAGES]) {
       assert.match(link.href, /\/$/, `${link.title} missing trailing slash: ${link.href}`);
     }
     assert.equal(TOOLS_INDEX_HREF, "/tools/");
+    assert.equal(COMPARE_INDEX_HREF, "/compare/");
   });
 
   it("only lists calculators and hubs that exist as pages", () => {
@@ -44,6 +55,14 @@ describe("siteLinks", () => {
     assert.deepEqual(
       RATE_HUBS.map((h) => h.href).sort(),
       [...KNOWN_HUBS].sort()
+    );
+    assert.deepEqual(
+      COMPARE_PAGES.map((c) => c.href).sort(),
+      [...KNOWN_COMPARES].sort()
+    );
+    assert.deepEqual(
+      COMPARE_PAGES.map((c) => c.href).sort(),
+      COMPARISONS.map((c) => `/compare/${c.slug}/`).sort()
     );
   });
 });
