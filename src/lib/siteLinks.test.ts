@@ -105,6 +105,9 @@ describe("internal hrefs", () => {
         }
       }
     }
+    assert.equal(violations.length, 0, `slashless internal links:\n${violations.join("\n")}`);
+  });
+
   it("does not point city hrefs at missing city pages", () => {
     const existing = new Set(readdirSync(join(SRC, "pages/cities")));
     const cityHref = /\/cities\/([a-z0-9-]+)\/?/g;
