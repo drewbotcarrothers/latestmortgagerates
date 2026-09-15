@@ -50,6 +50,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 4. **Deploy**: Deploys updated site to Hostinger via FTP
 
 **Features**:
+- Homebrew Python 3.11 + Node 20 (does **not** use `actions/setup-python` / `setup-node`; those need `/Users/runner/hostedtoolcache` on macOS — see `RUNNER.md`)
 - Playwright Chromium via `python -m playwright install chromium` (no Linux apt/`install-deps`)
 - Optional proxy secrets as fallback only; home IP is the primary BMO path
 - Hostinger FTP deploy and git commit of `data/` are unchanged
@@ -164,6 +165,9 @@ Add these badges to your main README.md:
 - Check secrets are set correctly in GitHub
 - Verify FTP credentials work with FileZilla
 - Check server path is correct
+
+**Setup Python fails with `mkdir: /Users/runner: Permission denied`**
+- `actions/setup-python` was used on the Mac. The scrape workflow must use the Homebrew setup script instead (`RUNNER.md`)
 
 **Scraper Times Out**
 - Confirm the `lmr-home` Mac runner is online and idle (`RUNNER.md`)
