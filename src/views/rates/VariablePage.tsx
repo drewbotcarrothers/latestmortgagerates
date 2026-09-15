@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import RateHubLinks from "@/components/RateHubLinks";
 import ratesData from "@data/rates.json";
 
 
@@ -98,6 +99,8 @@ export default function VariableRatesPage() {
             </div>
           </div>
 
+          <RateHubLinks currentHref="/rates/variable/" className="mb-8" />
+
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-slate-900">Current Variable Rates</h2>
@@ -157,12 +160,17 @@ export default function VariableRatesPage() {
               },
               {
                 question: "What happens if I break a variable mortgage early?",
-                answer: "Variable mortgages typically have lower penalties than fixed. The standard penalty is 3 months' interest (not the higher IRD calculation). This makes variable mortgages more flexible if you might sell, refinance, or move before the term ends.",
+                answer: (
+                  <>
+                    Variable mortgages typically have lower penalties than fixed. The standard penalty is 3 months' interest (not the higher IRD calculation). Estimate the cost with our{" "}
+                    <a href="/tools/mortgage-penalty-calculator/" className="text-teal-600 hover:underline font-medium">penalty calculator</a>.
+                  </>
+                ),
               },
             ]}
           />
 
-          <CalculatorRelatedTools currentTool="/rates/variable" />
+          <CalculatorRelatedTools currentTool="/rates/variable/" showRateHubs={false} />
         </div>
 
         <Footer />

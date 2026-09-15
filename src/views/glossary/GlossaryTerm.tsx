@@ -26,7 +26,7 @@ export default function GlossaryTermPage({ slug }: { slug: string }) {
       <BreadcrumbSchema
         items={[
           { name: "Home", url: "https://latestmortgagerates.ca" },
-          { name: "Glossary", url: "https://latestmortgagerates.ca/glossary" },
+          { name: "Glossary", url: "https://latestmortgagerates.ca/glossary/" },
           { name: term.term },
         ]}
       />
@@ -80,7 +80,7 @@ export default function GlossaryTermPage({ slug }: { slug: string }) {
                 </li>
                 <li><span className="text-slate-400">/</span></li>
                 <li>
-                  <a href="/glossary" className="hover:text-teal-600 transition">
+                  <a href="/glossary/" className="hover:text-teal-600 transition">
                     Glossary
                   </a>
                 </li>
@@ -151,7 +151,7 @@ export default function GlossaryTermPage({ slug }: { slug: string }) {
                 {relatedTerms.map((t) => (
                   <a
                     key={t.slug}
-                    href={`/glossary/${t.slug}`}
+                    href={`/glossary/${t.slug}/`}
                     className="px-4 py-2 bg-slate-50 hover:bg-teal-50 text-slate-700 hover:text-teal-700 rounded-lg text-sm font-medium border border-slate-200 hover:border-teal-300 transition-all"
                   >
                     {t.term}
@@ -164,7 +164,7 @@ export default function GlossaryTermPage({ slug }: { slug: string }) {
           {/* Browse More */}
           <div className="text-center">
             <a
-              href="/glossary"
+              href="/glossary/"
               className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-medium transition-colors"
             >
               ← Browse all {glossaryTerms.length} mortgage terms

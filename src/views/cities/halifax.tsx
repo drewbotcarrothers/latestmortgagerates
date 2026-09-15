@@ -204,9 +204,9 @@ export default function HalifaxPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/montreal" className="text-teal-600 hover:underline">Montreal Rates</a></li>
-                <li><a href="/cities/ottawa" className="text-teal-600 hover:underline">Ottawa Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/montreal/" className="text-teal-600 hover:underline">Montreal Rates</a></li>
+                <li><a href="/cities/ottawa/" className="text-teal-600 hover:underline">Ottawa Rates</a></li>
               </ul>
             </div>
 
@@ -228,7 +228,7 @@ export default function HalifaxPage() {
             Know someone moving to Halifax? Share these affordable rates!
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/halifax"
+            url="https://latestmortgagerates.ca/cities/halifax/"
             title="Best Mortgage Rates in Halifax 2025"
             description="Ocean living at affordable prices! Average home $520K. Compare the lowest mortgage rates in Atlantic Canada."
           />

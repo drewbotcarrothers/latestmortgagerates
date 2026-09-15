@@ -82,9 +82,9 @@ export default function SaskatoonPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/regina" className="text-teal-600 hover:underline">Regina Rates</a></li>
-                <li><a href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</a></li>
+                <li><a href="/cities/regina/" className="text-teal-600 hover:underline">Regina Rates</a></li>
+                <li><a href="/cities/edmonton/" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Calgary Rates</a></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6">
@@ -94,7 +94,7 @@ export default function SaskatoonPage() {
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-2">Share Saskatoon Rates</h3>
-              <SocialShare url="https://latestmortgagerates.ca/cities/saskatoon"
+              <SocialShare url="https://latestmortgagerates.ca/cities/saskatoon/"
                 title="Best Mortgage Rates Saskatoon 2025"
                 description="Paris of the Prairies! No land transfer tax, $380K average. 5-year fixed from 4.19%."
               />

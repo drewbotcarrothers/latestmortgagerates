@@ -143,9 +143,9 @@ export default function KitchenerPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
-                <li><a href="/cities/london" className="text-teal-600 hover:underline">London Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/hamilton/" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
+                <li><a href="/cities/london/" className="text-teal-600 hover:underline">London Rates</a></li>
               </ul>
             </div>
 
@@ -160,7 +160,7 @@ export default function KitchenerPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-2">Share KW Rates</h3>
               <p className="text-slate-600 text-sm mb-4">Know a tech worker buying?</p>
-              <SocialShare url="https://latestmortgagerates.ca/cities/kitchener"
+              <SocialShare url="https://latestmortgagerates.ca/cities/kitchener/"
                 title="Best Mortgage Rates Kitchener-Waterloo 2025"
                 description="Canada's Tech Triangle! High incomes, $750K average homes. 5-year fixed from 4.19%."
               />

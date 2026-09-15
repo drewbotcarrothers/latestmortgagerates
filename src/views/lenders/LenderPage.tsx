@@ -1,6 +1,7 @@
 import LenderLogo from "@/components/LenderLogo";
 import Navigation from "@/components/Navigation";
 import FAQSection from "@/components/FAQSection";
+import RateHubLinks from "@/components/RateHubLinks";
 
 // Force static generation for static export
 
@@ -768,6 +769,18 @@ export default function LenderPage({ slug }: { slug: string }) {
           );
         })()}
 
+        {(() => {
+          const content = getLenderContent(slug);
+          if (content?.relatedLinks?.length) return null;
+          return (
+            <RateHubLinks
+              className="mb-8"
+              title={`Compare ${lenderName} against the market`}
+              description={`See how ${lenderName} stacks up on 5-year fixed, variable, insured, and uninsured rates.`}
+            />
+          );
+        })()}
+
         {/* Related Content */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Popular Cities */}
@@ -782,12 +795,12 @@ export default function LenderPage({ slug }: { slug: string }) {
             <p className="text-sm text-slate-500 mb-4">See {lenderName} rates in major Canadian markets</p>
             <div className="space-y-2">
               {[
-                { href: "/cities/toronto", label: "Toronto", province: "ON" },
-                { href: "/cities/vancouver", label: "Vancouver", province: "BC" },
-                { href: "/cities/calgary", label: "Calgary", province: "AB" },
-                { href: "/cities/montreal", label: "Montreal", province: "QC" },
-                { href: "/cities/ottawa", label: "Ottawa", province: "ON" },
-                { href: "/cities/edmonton", label: "Edmonton", province: "AB" },
+                { href: "/cities/toronto/", label: "Toronto", province: "ON" },
+                { href: "/cities/vancouver/", label: "Vancouver", province: "BC" },
+                { href: "/cities/calgary/", label: "Calgary", province: "AB" },
+                { href: "/cities/montreal/", label: "Montreal", province: "QC" },
+                { href: "/cities/ottawa/", label: "Ottawa", province: "ON" },
+                { href: "/cities/edmonton/", label: "Edmonton", province: "AB" },
               ].map((city) => (
                 <a
                   key={city.href}
@@ -812,11 +825,11 @@ export default function LenderPage({ slug }: { slug: string }) {
             <p className="text-sm text-slate-500 mb-4">Calculate payments and affordability</p>
             <div className="space-y-2">
               {[
-                { href: "/tools/mortgage-calculator", label: "Payment Calculator", desc: "Monthly payments" },
-                { href: "/tools/affordability-calculator", label: "Affordability", desc: "How much home?" },
-                { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator", desc: "Insurance premiums" },
-                { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax", desc: "Closing costs" },
-                { href: "/tools/stress-test-qualifier", label: "Stress Test", desc: "Qualify?" },
+                { href: "/tools/mortgage-calculator/", label: "Payment Calculator", desc: "Monthly payments" },
+                { href: "/tools/affordability-calculator/", label: "Affordability", desc: "How much home?" },
+                { href: "/tools/closing-costs-calculator/", label: "Closing Costs", desc: "Fees to close" },
+                { href: "/tools/stress-test-qualifier/", label: "Stress Test", desc: "Qualify?" },
+                { href: "/tools/", label: "All calculators", desc: "10 free tools" },
               ].map((tool) => (
                 <a
                   key={tool.href}

@@ -35,7 +35,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Impact on Mortgage Rates</h2>
 
-<p class="mb-4">For homeowners facing renewals in 2025, this hold provides some certainty. Variable-rate mortgage holders won't see immediate changes to their payments, while fixed-rate borrowers may benefit from stable bond yields that influence fixed mortgage pricing.</p>
+<p class="mb-4">For homeowners facing renewals in 2025, this hold provides some certainty. Variable-rate mortgage holders won't see immediate changes to their payments, while fixed-rate borrowers may benefit from stable bond yields that influence fixed mortgage pricing. Compare live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rates</a> and <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a> before you lock in.</p>
 
 <div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
   <h3 class="font-semibold text-emerald-800 mb-3">Current Market Rates (March 2025)</h3>
@@ -48,7 +48,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">What Should Renewers Do?</h2>
 
-<p class="mb-4">If you're renewing in the next 6 months:</p>
+<p class="mb-4">If you're renewing in the next 6 months, start with our <a href="/tools/mortgage-renewal-calculator/" class="text-teal-600 hover:underline font-medium">renewal calculator</a> to see whether staying or switching saves more:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
   <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
@@ -99,7 +99,7 @@ export const blogPosts: BlogPost[] = [
     slug: "best-5-year-fixed-rates-week-12-2025",
     title: "Best 5-Year Fixed Mortgage Rates This Week: March 10-16",
     excerpt: "This week's top 5-year fixed rates from 34 Canadian lenders. See who's offering the lowest rates and how much you could save compared to your current mortgage.",
-    content: `<p class="mb-4">Every week, we analyze mortgage rates from Canada's top lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for March 10-16, 2025.</p>
+    content: `<p class="mb-4">Every week, we analyze mortgage rates from Canada's top lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for March 10-16, 2025. For the live table, see our <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rate hub</a> and split <a href="/rates/insured/" class="text-teal-600 hover:underline">insured</a> vs <a href="/rates/uninsured/" class="text-teal-600 hover:underline">uninsured</a> products.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">This Week's Top 5 Rates</h2>
 
@@ -171,6 +171,7 @@ export const blogPosts: BlogPost[] = [
     <li class="text-emerald-700 font-semibold">Monthly savings: $357</li>
     <li class="text-emerald-700 font-semibold">5-year savings: $21,420</li>
   </ul>
+  <p class="text-sm mt-3">Estimate your own payment with the <a href="/tools/mortgage-calculator/" class="text-teal-700 hover:underline font-medium">mortgage payment calculator</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Who Qualifies for These Rates?</h2>
@@ -249,7 +250,7 @@ export const blogPosts: BlogPost[] = [
 </div>
 
 <div class="bg-slate-100 rounded-lg p-4 mb-6 border border-slate-200">
-  <p class="text-sm text-slate-600">💡 <strong>Use our calculator:</strong> <a href="/tools/affordability-calculator" class="text-teal-600 hover:underline font-medium">Affordability Calculator →</a></p>
+  <p class="text-sm text-slate-600">💡 <strong>Use our calculator:</strong> <a href="/tools/affordability-calculator/" class="text-teal-600 hover:underline font-medium">Affordability Calculator →</a></p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 2: Save Your Down Payment</h2>
@@ -287,7 +288,7 @@ export const blogPosts: BlogPost[] = [
   </div>
 </div>
 
-<p class="mb-4">📍 <strong>Land Transfer Tax Rebates:</strong> First-time buyers may receive rebates in Ontario, BC, and other provinces. See our <a href="/tools/land-transfer-tax-calculator" class="text-teal-600 hover:underline">LTT Calculator</a> for details.</p>
+<p class="mb-4">📍 <strong>Land Transfer Tax Rebates:</strong> First-time buyers may receive rebates in Ontario, BC, and other provinces. See our <a href="/tools/land-transfer-tax-calculator/" class="text-teal-600 hover:underline">LTT Calculator</a> for details.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 3: Get Pre-Approved</h2>
 
@@ -342,7 +343,7 @@ export const blogPosts: BlogPost[] = [
 </div>
 
 <div class="bg-slate-100 rounded-lg p-4 mb-6 border border-slate-200">
-  <p class="text-sm text-slate-600">💡 <strong>Estimate your total:</strong> <a href="/tools/closing-costs-calculator" class="text-teal-600 hover:underline font-medium">Closing Costs Calculator →</a></p>
+  <p class="text-sm text-slate-600">💡 <strong>Estimate your total:</strong> <a href="/tools/closing-costs-calculator/" class="text-teal-600 hover:underline font-medium">Closing Costs Calculator →</a></p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Step 5: Choose Your Mortgage</h2>
@@ -501,7 +502,7 @@ export const blogPosts: BlogPost[] = [
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Helpful Calculators &amp; Tools</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-  <a href="/tools/mortgage-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+  <a href="/tools/mortgage-calculator/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
     <div class="flex items-center justify-between">
       <div>
         <p class="font-semibold text-slate-800">Mortgage Payment Calculator</p>
@@ -511,7 +512,7 @@ export const blogPosts: BlogPost[] = [
     </div>
   </a>
 
-  <a href="/tools/affordability-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+  <a href="/tools/affordability-calculator/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
     <div class="flex items-center justify-between">
       <div>
         <p class="font-semibold text-slate-800">Affordability Calculator</p>
@@ -521,7 +522,7 @@ export const blogPosts: BlogPost[] = [
     </div>
   </a>
 
-  <a href="/tools/land-transfer-tax-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+  <a href="/tools/land-transfer-tax-calculator/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
     <div class="flex items-center justify-between">
       <div>
         <p class="font-semibold text-slate-800">Land Transfer Tax Calculator</p>
@@ -531,11 +532,31 @@ export const blogPosts: BlogPost[] = [
     </div>
   </a>
 
-  <a href="/tools/cmhc-insurance-calculator" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+  <a href="/tools/cmhc-insurance-calculator/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
     <div class="flex items-center justify-between">
       <div>
         <p class="font-semibold text-slate-800">CMHC Insurance Calculator</p>
         <p class="text-sm text-slate-500">Calculate mortgage default premiums</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="/tools/stress-test-qualifier/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">Stress Test Qualifier</p>
+        <p class="text-sm text-slate-500">Check if you pass the qualification test</p>
+      </div>
+      <span class="text-teal-600">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="/rates/5-year-fixed/" class="bg-slate-50 hover:bg-slate-100 rounded-lg p-4 border border-slate-200 transition-colors">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-semibold text-slate-800">5-Year Fixed Rates</p>
+        <p class="text-sm text-slate-500">Compare today’s locked-in rates</p>
       </div>
       <span class="text-teal-600">&rarr;</span>
     </div>
@@ -642,7 +663,9 @@ Fixed mortgage rates predict where the economy is heading, based on bond market 
 
 Historically, variable rates have saved money over 5-year terms about 60% of the time. But fixed rates offer payment certainty that many homeowners value.
 
-**Neither is "better" - it depends on your risk tolerance and financial situation.**`,
+**Neither is "better" - it depends on your risk tolerance and financial situation.**
+
+<p class="mt-6">Compare live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rates</a> and <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a>, then model payments with the <a href="/tools/mortgage-calculator/" class="text-teal-600 hover:underline font-medium">payment calculator</a>.</p>`,
     author: "Andrew",
     authorTitle: "Senior Financial Analyst",
     date: "2025-03-01",
@@ -684,7 +707,7 @@ Historically, variable rates have saved money over 5-year terms about 60% of the
   </div>
 </div>
 
-<p class="mb-4">These rates make homeownership more accessible than at any point in the past two years.</p>
+<p class="mb-4">These rates make homeownership more accessible than at any point in the past two years. Shop the live tables for <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed</a> and <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable</a> rates, then check qualification with the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test calculator</a>.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Inventory and Competition</h2>
 

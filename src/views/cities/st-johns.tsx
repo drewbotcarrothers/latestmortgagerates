@@ -85,8 +85,8 @@ export default function StJohnsPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/halifax" className="text-teal-600 hover:underline">Halifax Rates</a></li>
-                <li><a href="/cities/moncton" className="text-teal-600 hover:underline">Moncton Rates</a></li>
+                <li><a href="/cities/halifax/" className="text-teal-600 hover:underline">Halifax Rates</a></li>
+                <li><a href="/cities/moncton/" className="text-teal-600 hover:underline">Moncton Rates</a></li>
               </ul>
             </div>
             
@@ -98,7 +98,7 @@ export default function StJohnsPage() {
             
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-2">Share St. John's Rates</h3>
-              <SocialShare url="https://latestmortgagerates.ca/cities/st-johns"
+              <SocialShare url="https://latestmortgagerates.ca/cities/st-johns/"
                 title="Best Mortgage Rates St. John's 2025"
                 description="Canada's cheapest major city! $315K average, Jellybean Row houses. 5-year fixed from 4.19%."
               />

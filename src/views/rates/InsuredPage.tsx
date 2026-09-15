@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import RateHubLinks from "@/components/RateHubLinks";
 import ratesData from "@data/rates.json";
 
 
@@ -95,6 +96,8 @@ export default function InsuredRatesPage() {
             </div>
           </div>
 
+          <RateHubLinks currentHref="/rates/insured/" className="mb-8" />
+
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-slate-900">Current Insured Rates</h2>
@@ -142,7 +145,12 @@ export default function InsuredRatesPage() {
               },
               {
                 question: "How much is CMHC insurance?",
-                answer: "CMHC premiums range from 0.6% to 4.0% of your mortgage amount, depending on your down payment percentage. With 5% down, you pay 4.0%. With 15% down, you pay 2.8%. The premium is usually added to your mortgage and paid over the life of the loan.",
+                answer: (
+                  <>
+                    CMHC premiums range from 0.6% to 4.0% of your mortgage amount, depending on your down payment percentage. With 5% down, you pay 4.0%. With 15% down, you pay 2.8%. Estimate yours with the{" "}
+                    <a href="/tools/cmhc-insurance-calculator/" className="text-teal-600 hover:underline font-medium">CMHC calculator</a>.
+                  </>
+                ),
               },
               {
                 question: "Can I get rid of mortgage insurance?",
@@ -155,7 +163,7 @@ export default function InsuredRatesPage() {
             ]}
           />
 
-          <CalculatorRelatedTools currentTool="/rates/insured" />
+          <CalculatorRelatedTools currentTool="/rates/insured/" showRateHubs={false} />
         </div>
 
         <Footer />

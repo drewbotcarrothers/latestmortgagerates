@@ -9,77 +9,79 @@ export interface GlossaryTerm {
 // Related tools mapping for glossary terms
 export const relatedToolsMap: Record<string, { href: string; label: string }[]> = {
   "amortization-period": [
-    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "apr": [
-    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
   ],
   "cmhc-insurance": [
-    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "conventional-mortgage": [
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
+    { href: "/rates/uninsured/", label: "Compare Uninsured Rates" },
   ],
   "down-payment": [
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
-    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
   ],
   "fhsa": [
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "fixed-rate-mortgage": [
-    { href: "/", label: "Compare Fixed Rates" },
-    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+    { href: "/rates/5-year-fixed/", label: "Compare 5-Year Fixed Rates" },
+    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
   ],
   "variable-rate-mortgage": [
-    { href: "/", label: "Compare Variable Rates" },
-    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
+    { href: "/rates/variable/", label: "Compare Variable Rates" },
+    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
   ],
   "heloc": [
-    { href: "/tools/refinance-calculator", label: "Refinance Calculator" },
+    { href: "/tools/refinance-calculator/", label: "Refinance Calculator" },
   ],
   "high-ratio-mortgage": [
-    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
+    { href: "/rates/insured/", label: "Compare Insured Rates" },
   ],
   "land-transfer-tax": [
-    { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax Calculator" },
+    { href: "/tools/land-transfer-tax-calculator/", label: "Land Transfer Tax Calculator" },
   ],
   "mortgage-broker": [
     { href: "/", label: "Compare Lenders" },
   ],
   "mortgage-default-insurance": [
-    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
   ],
   "mortgage-pre-approval": [
-    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/stress-test-qualifier/", label: "Stress Test Qualifier" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "mortgage-renewal": [
-    { href: "/tools/mortgage-renewal-calculator", label: "Renewal Calculator" },
+    { href: "/tools/mortgage-renewal-calculator/", label: "Renewal Calculator" },
   ],
   "mortgage-stress-test": [
-    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/stress-test-qualifier/", label: "Stress Test Qualifier" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "open-mortgage": [
-    { href: "/tools/mortgage-penalty-calculator", label: "Penalty Calculator" },
+    { href: "/tools/mortgage-penalty-calculator/", label: "Penalty Calculator" },
   ],
   "refinancing": [
-    { href: "/tools/refinance-calculator", label: "Refinance Calculator" },
+    { href: "/tools/refinance-calculator/", label: "Refinance Calculator" },
   ],
   "stress-test": [
-    { href: "/tools/stress-test-qualifier", label: "Stress Test Qualifier" },
+    { href: "/tools/stress-test-qualifier/", label: "Stress Test Qualifier" },
   ],
   "gds-ratio": [
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "tds-ratio": [
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
   ],
   "closing-costs": [
-    { href: "/tools/closing-costs-calculator", label: "Closing Costs Calculator" },
+    { href: "/tools/closing-costs-calculator/", label: "Closing Costs Calculator" },
   ],
 };
 

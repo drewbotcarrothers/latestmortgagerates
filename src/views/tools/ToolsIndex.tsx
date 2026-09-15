@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RateHubLinks from "@/components/RateHubLinks";
 
 
 interface ToolCardProps {
@@ -51,7 +52,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Mortgage Payment Calculator",
     description: "Calculate your monthly mortgage payments, amortization schedule, and see how much interest you'll pay over the life of your loan.",
-    href: "/tools/mortgage-calculator",
+    href: "/tools/mortgage-calculator/",
     icon: "🧮",
     questions: [
       "What will my monthly mortgage payment be?",
@@ -63,7 +64,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Mortgage Affordability Calculator",
     description: "Find out how much house you can afford based on your income, debts, and down payment. Includes GDS and TDS ratio calculations.",
-    href: "/tools/affordability-calculator",
+    href: "/tools/affordability-calculator/",
     icon: "🏠",
     questions: [
       "How much mortgage can I afford?",
@@ -75,7 +76,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Land Transfer Tax Calculator",
     description: "Calculate land transfer taxes for any Canadian province. Includes first-time homebuyer rebates and Toronto municipal tax.",
-    href: "/tools/land-transfer-tax-calculator",
+    href: "/tools/land-transfer-tax-calculator/",
     icon: "📋",
     questions: [
       "How much land transfer tax will I pay?",
@@ -87,7 +88,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Mortgage Renewal Calculator",
     description: "Compare renewing with your current lender vs shopping for a better rate. Calculate potential savings, monthly payment differences, and break-even analysis.",
-    href: "/tools/mortgage-renewal-calculator",
+    href: "/tools/mortgage-renewal-calculator/",
     icon: "🔄",
     questions: [
       "Should I renew with my current lender or shop around?",
@@ -99,7 +100,7 @@ const tools: ToolCardProps[] = [
   {
     title: "CMHC Insurance Calculator",
     description: "Calculate your CMHC mortgage insurance premium. See how your down payment affects your insurance costs and total mortgage amount.",
-    href: "/tools/cmhc-insurance-calculator",
+    href: "/tools/cmhc-insurance-calculator/",
     icon: "🛡️",
     questions: [
       "How much CMHC insurance will I pay?",
@@ -111,7 +112,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Rent vs Buy Calculator",
     description: "Compare the financial impact of renting vs buying a home. See your break-even point and long-term net worth with each option.",
-    href: "/tools/rent-vs-buy-calculator",
+    href: "/tools/rent-vs-buy-calculator/",
     icon: "⚖️",
     questions: [
       "Should I rent or buy a home?",
@@ -123,7 +124,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Refinance Calculator",
     description: "Calculate if refinancing your mortgage makes sense. Compare rates, estimate penalties, and see your break-even point and savings.",
-    href: "/tools/refinance-calculator",
+    href: "/tools/refinance-calculator/",
     icon: "🔄",
     questions: [
       "Should I refinance my mortgage?",
@@ -135,7 +136,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Closing Costs Calculator",
     description: "Calculate total closing costs for buying a home in Canada. Includes land transfer tax, legal fees, and province-specific rebates.",
-    href: "/tools/closing-costs-calculator",
+    href: "/tools/closing-costs-calculator/",
     icon: "💰",
     questions: [
       "How much are closing costs?",
@@ -147,7 +148,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Mortgage Penalty Calculator",
     description: "Calculate your penalty for breaking your mortgage early. Estimate 3-month interest or IRD penalties for fixed and variable rates.",
-    href: "/tools/mortgage-penalty-calculator",
+    href: "/tools/mortgage-penalty-calculator/",
     icon: "⚠️",
     questions: [
       "How much is my mortgage penalty?",
@@ -159,7 +160,7 @@ const tools: ToolCardProps[] = [
   {
     title: "Stress Test Qualifier",
     description: "Check if you qualify for a mortgage under Canada's stress test rules. Calculate GDS and TDS ratios to see if you can get approved.",
-    href: "/tools/stress-test-qualifier",
+    href: "/tools/stress-test-qualifier/",
     icon: "✅",
     questions: [
       "Will I pass the stress test?",
@@ -282,7 +283,8 @@ export default function ToolsPage() {
           <div className="card-default p-6">
             <h3 className="font-semibold text-slate-900 mb-2">What's the mortgage stress test?</h3>
             <p className="text-slate-600">
-              Canadian lenders must qualify you at a higher rate (currently 5.25% or your contract rate + 2%, whichever is higher) to ensure you can handle rate increases.
+              Canadian lenders must qualify you at a higher rate (currently 5.25% or your contract rate + 2%, whichever is higher) to ensure you can handle rate increases. Check yours with the{" "}
+              <a href="/tools/stress-test-qualifier/" className="text-teal-600 hover:underline font-medium">stress test qualifier</a>.
             </p>
           </div>
           <div className="card-default p-6">
@@ -292,6 +294,13 @@ export default function ToolsPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 pb-12">
+        <RateHubLinks
+          title="Compare the rates behind these calculators"
+          description="Use a payment or affordability estimate, then shop 5-year fixed, variable, insured, and uninsured rates."
+        />
       </div>
 
       {/* CTA Section */}
@@ -308,10 +317,7 @@ export default function ToolsPage() {
               href="/"
               className="inline-flex items-center px-6 py-3 bg-white text-teal-700 font-semibold rounded-lg hover:bg-teal-50 transition-colors"
             >
-              View Current Rates
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+              View all rates
             </a>
           </div>
         </div>

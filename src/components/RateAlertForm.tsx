@@ -199,7 +199,7 @@ export default function RateAlertForm({ embedded = false }: RateAlertFormProps) 
               <label htmlFor="terms" className="text-sm text-slate-600">
                 I agree to receive email notifications about mortgage rate drops. 
                 I can unsubscribe at any time.{" "}
-                <a href="/privacy" className="text-teal-600 hover:underline">Privacy Policy</a>.
+                <a href="/privacy/" className="text-teal-600 hover:underline">Privacy Policy</a>.
               </label>
             </div>
 

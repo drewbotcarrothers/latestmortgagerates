@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RateHubLinks from "@/components/RateHubLinks";
 import { blogPosts, categories, getFeaturedPosts, getRecentPosts } from "@/content/blog";
 
 
@@ -188,6 +189,35 @@ export default function BlogPage() {
               <p className="text-sm text-slate-500">{info.description}</p>
             </a>
           ))}
+        </div>
+
+        <div className="mt-12 space-y-6">
+          <RateHubLinks
+            title="Compare today's mortgage rates"
+            description="Use these rate hubs alongside our guides — then run the numbers with a calculator."
+          />
+          <div className="card-default p-6">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">Mortgage calculators</h2>
+            <p className="text-slate-600 mb-4">Free tools to estimate payments, affordability, closing costs, and qualification.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {[
+                { href: "/tools/mortgage-calculator/", title: "Payment Calculator" },
+                { href: "/tools/affordability-calculator/", title: "Affordability Calculator" },
+                { href: "/tools/closing-costs-calculator/", title: "Closing Costs" },
+                { href: "/tools/stress-test-qualifier/", title: "Stress Test" },
+                { href: "/tools/cmhc-insurance-calculator/", title: "CMHC Calculator" },
+                { href: "/tools/", title: "All calculators" },
+              ].map((tool) => (
+                <a
+                  key={tool.href}
+                  href={tool.href}
+                  className="p-3 rounded-lg bg-slate-50 hover:bg-white border border-slate-200 text-sm font-medium text-slate-900 hover:text-teal-600 transition"
+                >
+                  {tool.title} →
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

@@ -97,7 +97,7 @@ export default function GlossaryLink({ contentSelector }: GlossaryLinkProps) {
           );
           html = html.replace(
             regex,
-            `<a href="/glossary#${slug}" class="text-teal-600 hover:text-teal-700 underline decoration-teal-300/50 hover:decoration-teal-500 transition-colors">$\u0026</a>`
+            `<a href="/glossary/${slug}/" class="text-teal-600 hover:text-teal-700 underline decoration-teal-300/50 hover:decoration-teal-500 transition-colors">$\u0026</a>`
           );
         }
 

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import RateHubLinks from "@/components/RateHubLinks";
 import ratesData from "@data/rates.json";
 
 
@@ -101,6 +102,8 @@ export default function FiveYearFixedPage() {
             </div>
           </div>
 
+          <RateHubLinks currentHref="/rates/5-year-fixed/" className="mb-8" />
+
           {/* Rate Table */}
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
@@ -158,7 +161,13 @@ export default function FiveYearFixedPage() {
               },
               {
                 question: "Can I break a 5-year fixed mortgage early?",
-                answer: "Yes, but you'll pay a prepayment penalty. For fixed-rate mortgages, this is typically the greater of 3 months' interest or the Interest Rate Differential (IRD). Use our Penalty Calculator to estimate your cost.",
+                answer: (
+                  <>
+                    Yes, but you'll pay a prepayment penalty. For fixed-rate mortgages, this is typically the greater of 3 months' interest or the Interest Rate Differential (IRD). Use our{" "}
+                    <a href="/tools/mortgage-penalty-calculator/" className="text-teal-600 hover:underline font-medium">Penalty Calculator</a>{" "}
+                    to estimate your cost.
+                  </>
+                ),
               },
               {
                 question: "How do I qualify for the best 5-year fixed rate?",
@@ -167,7 +176,7 @@ export default function FiveYearFixedPage() {
             ]}
           />
 
-          <CalculatorRelatedTools currentTool="/rates/5-year-fixed" />
+          <CalculatorRelatedTools currentTool="/rates/5-year-fixed/" showRateHubs={false} />
         </div>
 
         <Footer />

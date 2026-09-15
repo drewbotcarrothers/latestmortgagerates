@@ -16,7 +16,7 @@ export default function GuideCTA({ variant = "full", className = "" }: GuideCTAP
               Save $5,000-$25,000 with insider secrets banks don't want you to know.
             </p>
             <a
-              href="/mortgage-guide"
+              href="/mortgage-guide/"
               className="inline-flex items-center text-sm font-semibold text-amber-700 hover:text-amber-800"
             >
               Learn More
@@ -42,7 +42,7 @@ export default function GuideCTA({ variant = "full", className = "" }: GuideCTAP
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="/mortgage-guide"
+              href="/mortgage-guide/"
               className="inline-flex items-center px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold rounded-lg transition"
             >
               Learn More
