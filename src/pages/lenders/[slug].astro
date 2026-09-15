@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LenderPage from "../../views/lenders/LenderPage";
+import ratesData from "../../../data/rates.json";
+import lenderContentData from "../../content/lenderContent.json";
+
+interface Rate {
+  lender_name: string;
+  lender_slug: string;
+  rate: number;
+}
+
+interface LenderContent {
+  tagline?: string;
+  overview?: string;
+}
+
+export function getStaticPaths() {
+  const uniqueLenders = [...new Set((ratesData as Rate[]).map((r) => r.lender_slug))];
+  return uniqueLenders.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
+const lenderName = lenderRates[0]?.lender_name || slug;
+const lowestRate = lenderRates.length ? Math.min(...lenderRates.map((r) => r.rate)) : 0;
+const content = (lenderContentData as Record<string, LenderContent>)[slug || ""] || {};
+const description = content.overview
+  ? `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. ${content.tagline || ""} Updated daily.`
+  : `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
+---
+
+<BaseLayout
+  title={`${lenderName} Mortgage Rates | Latest Mortgage Rates Canada`}
+  description={description}
+  canonical={`https://latestmortgagerates.ca/lenders/${slug}/`}
+  keywords={`${lenderName} mortgage rates, ${lenderName} rates, Canadian mortgage rates`}
+>
+  <LenderPage slug={slug!} client:load />
+</BaseLayout>

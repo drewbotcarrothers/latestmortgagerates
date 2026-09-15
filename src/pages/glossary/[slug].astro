@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GlossaryTermPage from "../../views/glossary/GlossaryTerm";
+import { glossaryTerms } from "../../content/glossary";
+
+export function getStaticPaths() {
+  return glossaryTerms.map((term) => ({ params: { slug: term.slug } }));
+}
+
+const { slug } = Astro.params;
+const term = glossaryTerms.find((t) => t.slug === slug);
+const title = term
+  ? `${term.term}: Definition & Guide | Mortgage Glossary Canada`
+  : "Term Not Found | Mortgage Glossary";
+const description = term
+  ? `${term.definition.substring(0, 155)}${term.definition.length > 155 ? "..." : ""} Learn more about ${term.term} and related mortgage tools.`
+  : "The requested glossary term could not be found.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={`https://latestmortgagerates.ca/glossary/${slug}/`}
+>
+  <GlossaryTermPage slug={slug!} client:load />
+</BaseLayout>

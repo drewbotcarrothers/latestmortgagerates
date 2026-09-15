@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install (if missing) and put Homebrew Python 3.11 + Node 20 on PATH.
+# Install (if missing) and put Homebrew Python 3.11 + Node 22 on PATH.
 #
 # Used by scrape-and-deploy.yml on the lmr-home Mac. Do not use
 # actions/setup-python on this runner: that action hardcodes
@@ -19,7 +19,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export NONINTERACTIVE=1
 
 PYTHON_VERSION="${PYTHON_VERSION:-3.11}"
-NODE_VERSION="${NODE_VERSION:-20}"
+NODE_VERSION="${NODE_VERSION:-22}"
 PY_FORMULA="python@${PYTHON_VERSION}"
 PY_BIN="python${PYTHON_VERSION}"
 NODE_FORMULA="node@${NODE_VERSION}"
@@ -86,8 +86,8 @@ assert sys.version_info[:len(expected)] == expected, sys.version
 print('venv python ->', sys.executable, sys.version.split()[0])"
 
 # --- Node ---
-# Prefer node@20. Homebrew disables that formula on 2026-10-28; fall back to
-# current `brew node` (must still be >= 20 for Next.js 15).
+# Prefer node@22 (Astro 7 requires Node >= 22.12). Fall back to current
+# `brew node` if the versioned formula is unavailable (must still be >= NODE_VERSION).
 node_major() {
   node -p "process.versions.node.split('.')[0]"
 }

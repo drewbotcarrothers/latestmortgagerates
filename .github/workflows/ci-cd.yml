@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
 
 jobs:
   lint:
@@ -21,19 +21,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
-        working-directory: app
         run: npm ci
 
-      - name: Run linter
-        working-directory: app
-        run: npm run lint --if-present
-        continue-on-error: true
-
-      - name: Type check
-        working-directory: app
-        run: npm run type-check --if-present
+      - name: Astro check
+        run: npm run check --if-present
         continue-on-error: true
 
   build:
@@ -47,13 +41,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
-        working-directory: app
         run: npm ci
 
-      - name: Build application
-        working-directory: app
+      - name: Build Astro site
         run: npm run build
 
       - name: Upload build artifacts

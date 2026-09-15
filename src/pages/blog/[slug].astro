@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPostPage from "../../views/blog/BlogPost";
+import { blogPosts, getPostBySlug } from "../../content/blog";
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = getPostBySlug(slug!);
+const title = post
+  ? `${post.title} | Latest Mortgage Rates Canada`
+  : "Post Not Found | Latest Mortgage Rates Canada";
+const description = post?.excerpt || "The requested article could not be found.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={`https://latestmortgagerates.ca/blog/${slug}/`}
+  ogType="article"
+  keywords={post?.tags.join(", ")}
+>
+  <BlogPostPage slug={slug!} client:load />
+</BaseLayout>
