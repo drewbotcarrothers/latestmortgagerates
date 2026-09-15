@@ -4,6 +4,7 @@ import AffordabilityCalculator from "@/components/AffordabilityCalculator";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import GuideCTA from "@/components/GuideCTA";
 import FAQSection from "@/components/FAQSection";
 
 
