@@ -148,7 +148,10 @@ export function seoDescription(page: ComparisonPage, ctx: CompareRateContext): s
   const live = liveSummary(page, ctx);
   const combined = live ? `${page.seoDescription} ${live}` : page.seoDescription;
   if (combined.length <= 160) return combined;
-  return `${combined.slice(0, 157).trimEnd()}...`;
+  // Keep a complete sentence rather than truncating a live-rate fragment mid-word.
+  return page.seoDescription.length <= 160
+    ? page.seoDescription
+    : `${page.seoDescription.slice(0, 157).trimEnd()}...`;
 }
 
 export function liveSummary(page: ComparisonPage, ctx: CompareRateContext): string {

@@ -139,11 +139,11 @@ export default function ComparePage({ slug }: { slug: string }) {
                 </h2>
                 <div className="flex flex-wrap gap-3 text-sm">
                   <a href={page.left.href} className="text-teal-600 hover:underline font-medium inline-flex items-center gap-2">
-                    {page.left.lenderSlug && <LenderLogo lenderSlug={page.left.lenderSlug} size="sm" />}
+                    {page.left.lenderSlug && <LenderLogo lenderSlug={page.left.lenderSlug} size="sm" showText={false} />}
                     {page.left.name} page →
                   </a>
                   <a href={page.right.href} className="text-teal-600 hover:underline font-medium inline-flex items-center gap-2">
-                    {page.right.lenderSlug && <LenderLogo lenderSlug={page.right.lenderSlug} size="sm" />}
+                    {page.right.lenderSlug && <LenderLogo lenderSlug={page.right.lenderSlug} size="sm" showText={false} />}
                     {page.right.name} page →
                   </a>
                 </div>
@@ -215,7 +215,7 @@ export default function ComparePage({ slug }: { slug: string }) {
               <section key={side.name} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <h2 className="text-2xl font-bold text-slate-900">When to choose {side.shortName}</h2>
-                  {side.lenderSlug && <LenderLogo lenderSlug={side.lenderSlug} size="md" />}
+                  {side.lenderSlug && <LenderLogo lenderSlug={side.lenderSlug} size="md" showText={false} />}
                 </div>
                 <p className="text-slate-600 mb-4">{side.summary}</p>
                 <ul className="space-y-2 mb-4">
