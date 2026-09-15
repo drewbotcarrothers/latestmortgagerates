@@ -40,7 +40,7 @@ export default function RelatedArticles({
         {related.map((post) => (
           <a
             key={post.slug}
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}/`}
             className="group block bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow"
           >
             <div className="p-5">

@@ -83,13 +83,13 @@ export const metadata: Metadata = {
   description: "Find the lowest mortgage rates in ${city.name} for ${year}. Compare rates from 20+ lenders. 5-year fixed from ${(4.0 + Math.random() * 0.5).toFixed(2)}%. Updated daily.",
   keywords: "${city.name} mortgage rates, ${city.name} mortgage broker, best rates ${city.name}, ${city.name} home buyer, mortgage rates today",
   alternates: {
-    canonical: "https://latestmortgagerates.ca/cities/${city.slug}",
+    canonical: "https://latestmortgagerates.ca/cities/${city.slug}/",
   },
   openGraph: {
     title: "Best Mortgage Rates ${city.name} ${year} | Compare 20+ Lenders",
     description: "Find the lowest mortgage rates in ${city.name}. 5-year fixed from ${(4.0 + Math.random() * 0.5).toFixed(2)}%. Compare banks, credit unions & online lenders.",
     type: "website",
-    url: "https://latestmortgagerates.ca/cities/${city.slug}",
+    url: "https://latestmortgagerates.ca/cities/${city.slug}/",
     locale: "en_CA",
   },
   twitter: {
@@ -115,7 +115,7 @@ export default function ${city.name.replace(/[^a-zA-Z]/g, '')}Page() {
               name: "${city.name}",
               containedIn: "${city.province}",
             },
-            url: "https://latestmortgagerates.ca/cities/${city.slug}",
+            url: "https://latestmortgagerates.ca/cities/${city.slug}/",
           }),
         }}
       />
@@ -260,17 +260,17 @@ export default function ${city.name.replace(/[^a-zA-Z]/g, '')}Page() {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
               <h3 className="font-bold text-slate-900 mb-4">${city.name} Mortgage Calculator</h3>
               <p className="text-slate-600 text-sm mb-4">Calculate your monthly payments for ${city.name} home prices.</p>
-              <Link href="/tools/mortgage-calculator" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
+              <Link href="/tools/mortgage-calculator/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
                 Calculate Payments
               </Link>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Related ${city.name} Resources</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/blog/closing-costs-canada" className="text-teal-600 hover:underline">Closing Costs Guide</Link></li>
-                <li><Link href="/blog/first-time-home-buyer-guide-canada" className="text-teal-600 hover:underline">First-Time Buyer Guide</Link></li>
-                <li><Link href="/cities/${city.near[0]}" className="text-teal-600 hover:underline">Compare: ${city.near[0].charAt(0).toUpperCase() + city.near[0].slice(1).replace(/-/g, ' ')}</Link></li>
-                <li><Link href="/cities/${city.near[1]}" className="text-teal-600 hover:underline">Compare: ${city.near[1].charAt(0).toUpperCase() + city.near[1].slice(1).replace(/-/g, ' ')}</Link></li>
+                <li><Link href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</Link></li>
+                <li><Link href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</Link></li>
+                <li><Link href="/cities/${city.near[0]}/" className="text-teal-600 hover:underline">Compare: ${city.near[0].charAt(0).toUpperCase() + city.near[0].slice(1).replace(/-/g, ' ')}</Link></li>
+                <li><Link href="/cities/${city.near[1]}/" className="text-teal-600 hover:underline">Compare: ${city.near[1].charAt(0).toUpperCase() + city.near[1].slice(1).replace(/-/g, ' ')}</Link></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6">
@@ -291,7 +291,7 @@ export default function ${city.name.replace(/[^a-zA-Z]/g, '')}Page() {
             Know someone buying in ${city.name}? Share these rates with them.
           </p>
           <SocialShare
-            url="https://latestmortgagerates.ca/cities/${city.slug}"
+            url="https://latestmortgagerates.ca/cities/${city.slug}/"
             title="Best Mortgage Rates in ${city.name} ${year}"
             description="Compare the lowest mortgage rates in ${city.name}. 5-year fixed from ${(4.0 + Math.random() * 0.5).toFixed(2)}%."
           />

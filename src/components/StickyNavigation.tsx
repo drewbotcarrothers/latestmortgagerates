@@ -12,9 +12,9 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   const navItems = [
     { href: "/", label: "Rates", id: "rates" },
-    { href: "/blog", label: "Guides", id: "guides" },
-    { href: "/glossary", label: "Glossary", id: "glossary" },
-    { href: "/tools", label: "Tools", id: "tools" },
+    { href: "/blog/", label: "Guides", id: "guides" },
+    { href: "/glossary/", label: "Glossary", id: "glossary" },
+    { href: "/tools/", label: "Tools", id: "tools" },
   ];
 
   return (

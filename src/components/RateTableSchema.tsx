@@ -46,7 +46,7 @@ export default function RateTableSchema({
         "@type": "FinancialProduct",
         name: `${rate.lender_name} ${termYears}-Year ${rateType} Mortgage`,
         description: `${rateType} ${mortgageType} mortgage with ${termYears}-year term at ${rate.rate.toFixed(2)}% interest rate`,
-        url: `${baseUrl}/lenders/${rate.lender_slug}`,
+        url: `${baseUrl}/lenders/${rate.lender_slug}/`,
         provider: {
           "@type": "BankOrCreditUnion",
           name: rate.lender_name,

@@ -56,32 +56,25 @@ function formatRateType(type: string): string {
 // Generate JSON-LD structured data
 function generateStructuredData(lenderName: string, rates: Rate[], slug: string) {
   const lowestRate = Math.min(...rates.map((r) => r.rate));
-  const lowestRateObj = rates.find((r) => r.rate === lowestRate);
-  
+  const pageUrl = `https://latestmortgagerates.ca/lenders/${slug}/`;
+
+  // Do not emit AggregateRating / Review markup. Mortgage percentages are not
+  // 1–5 star reviews; GSC flagged ratingValue out of range and missing reviewCount.
   return {
     "@context": "https://schema.org",
     "@type": "FinancialProduct",
-    name: `${lenderName} Mortgage Rates`,
+    name: `${lenderName} Mortgage`,
+    description: `Current ${lenderName} mortgage rates in Canada. Compare fixed and variable terms.`,
+    url: pageUrl,
     provider: {
       "@type": "BankOrCreditUnion",
       name: lenderName,
-      url: rates.find((r) => r.source_url)?.source_url || `https://latestmortgagerates.ca/lenders/${slug}`,
+      url: rates.find((r) => r.source_url)?.source_url || pageUrl,
     },
-    offers: rates
-      .filter((rate) => rate.source_url)
-      .map((rate) => ({
-        "@type": "AggregateOffer",
-        price: rate.rate.toString(),
-        priceCurrency: "CAD",
-        description: `${formatRateType(rate.rate_type)} rate for ${getTermLabel(rate.term_months)}`,
-        availability: "https://schema.org/InStock",
-        url: rate.source_url,
-      })),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: lowestRate.toFixed(2),
-      bestRating: lowestRate.toFixed(2),
-      worstRating: Math.max(...rates.map((r) => r.rate)).toFixed(2),
+    interestRate: {
+      "@type": "QuantitativeValue",
+      value: Number(lowestRate.toFixed(2)),
+      unitText: "PERCENT",
     },
   };
 }
@@ -749,7 +742,7 @@ export default function LenderPage({ slug }: { slug: string }) {
                   return lender ? (
                     <a
                       key={lenderSlug}
-                      href={`/lenders/${lenderSlug}`}
+                      href={`/lenders/${lenderSlug}/`}
                       className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
                     >
                       <span className="text-slate-700 group-hover:text-teal-700 text-sm">{lender.lender_name}</span>

@@ -191,8 +191,8 @@ export default function OakvillePage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Related Oakville Resources</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/blog/closing-costs-canada" className="text-teal-600 hover:underline">Closing Costs Guide</a></li>
-                <li><a href="/blog/first-time-home-buyer-guide-canada" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
+                <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</a></li>
+                <li><a href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
                 <li><a href="/cities/burlington" className="text-teal-600 hover:underline">Compare: Burlington</a></li>
                 <li><a href="/cities/mississauga" className="text-teal-600 hover:underline">Compare: Mississauga</a></li>
               </ul>

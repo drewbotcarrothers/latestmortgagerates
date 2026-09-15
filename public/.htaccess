@@ -1,0 +1,47 @@
+# Hostinger Apache (static Astro export). Copied to dist/ on build.
+# 301s for old Next.js / SEO-generator URLs that still 404 in Google Search Console.
+
+DirectorySlash On
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# www is a duplicate host; canonical tags already point at the apex domain.
+RewriteCond %{HTTP_HOST} ^www\.latestmortgagerates\.ca$ [NC]
+RewriteRule ^(.*)$ https://latestmortgagerates.ca/$1 [R=301,L]
+
+# Former calculator path (GSC 404; still linked as "payment calculator" in older content).
+RewriteRule ^tools/mortgage-payment-calculator/?$ /tools/mortgage-calculator/ [R=301,L]
+
+# Lenders that are no longer published (no public consumer rates, or acquired).
+RewriteRule ^lenders/eqbank/?$ /lenders/nesto/ [R=301,L]
+RewriteRule ^lenders/mcap/?$ / [R=301,L]
+RewriteRule ^lenders/hsbc/?$ /lenders/rbc/ [R=301,L]
+
+# Footer used /unsubscribe; the live page is /unsubscribed/.
+RewriteRule ^unsubscribe/?$ /unsubscribed/ [R=301,L]
+
+# Dead blog URLs still linked from city sidebars and the March 2026 sitemap fallbacks.
+RewriteRule ^blog/closing-costs-canada/?$ /tools/closing-costs-calculator/ [R=301,L]
+RewriteRule ^blog/first-time-home-buyer-guide-canada/?$ /blog/first-time-buyer-guide-2026/ [R=301,L]
+RewriteRule ^blog/first-time-buyer-guide-2025/?$ /blog/first-time-buyer-guide-2026/ [R=301,L]
+RewriteRule ^blog/best-mortgage-rates-vancouver/?$ /cities/vancouver/ [R=301,L]
+RewriteRule ^blog/best-mortgage-rates-toronto/?$ /cities/toronto/ [R=301,L]
+RewriteRule ^blog/bank-of-canada-rate-hold-january-2025/?$ /blog/bank-of-canada-holds-rate-march-2025/ [R=301,L]
+RewriteRule ^blog/spring-housing-market-2025/?$ /blog/spring-2026-housing-market-outlook/ [R=301,L]
+RewriteRule ^blog/variable-vs-fixed-2025/?$ /blog/bond-yields-mortgage-rates-explained/ [R=301,L]
+RewriteRule ^blog/renewal-strategy-2025/?$ /tools/mortgage-renewal-calculator/ [R=301,L]
+RewriteRule ^blog/category/ /blog/ [R=301,L]
+
+# Glossary slugs from generate-sitemap.py fallbacks (never existed as pages).
+RewriteRule ^glossary/fixed-rate/?$ /glossary/fixed-rate-mortgage/ [R=301,L]
+RewriteRule ^glossary/variable-rate/?$ /glossary/variable-rate-mortgage/ [R=301,L]
+RewriteRule ^glossary/ltv-ratio/?$ /glossary/ltv/ [R=301,L]
+RewriteRule ^glossary/prepayment-privilege/?$ /glossary/prepayment-privileges/ [R=301,L]
+RewriteRule ^glossary/portability/?$ /glossary/portable-mortgage/ [R=301,L]
+RewriteRule ^glossary/closing-costs/?$ /tools/closing-costs-calculator/ [R=301,L]
+
+# Old hub path.
+RewriteRule ^guides/?$ /blog/ [R=301,L]
+</IfModule>

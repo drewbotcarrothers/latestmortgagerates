@@ -129,7 +129,7 @@ export default function FiveYearFixedPage() {
                       <td className="px-6 py-4 text-sm font-bold text-teal-600">{rate.rate.toFixed(2)}%</td>
                       <td className="px-6 py-4 text-sm">
                         <a
-                          href={`/lenders/${rate.lender_slug}`}
+                          href={`/lenders/${rate.lender_slug}/`}
                           className="text-teal-600 hover:text-teal-700 font-medium"
                         >
                           View →

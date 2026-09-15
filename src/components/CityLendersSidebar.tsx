@@ -45,7 +45,7 @@ export default function CityLendersSidebar({ cityName, maxLenders = 6 }: CityLen
         {bestRates.map((rate) => (
           <a
             key={rate.lender_slug}
-            href={`/lenders/${rate.lender_slug}`}
+            href={`/lenders/${rate.lender_slug}/`}
             className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors group border border-transparent hover:border-slate-200"
           >
             <div className="flex-1">
