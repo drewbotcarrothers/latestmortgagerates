@@ -167,9 +167,9 @@ Add these badges to your main README.md:
 - Check server path is correct
 
 **FTPError: 550 api/version/index.html: Not a directory**
-- Hostinger still has Next.js leftover **files** named `api/version` / `api/rates`. Astro must emit flat `api/version.json` + `api/rates.json` (and extensionless copies), not `api/version/index.html`. See `scripts/verify-static-api.mjs`.
+- Hostinger has a Next.js leftover **file** `api/version` and (after the failed Astro FTP) a **directory** `api/rates/`. Emit `api/version.json` + file `api/version`, and `api/rates.json` + `api/rates/index.html`. Never emit `api/version/index.html` or a file named `api/rates`. See `scripts/verify-static-api.mjs`.
 - Do **not** enable `dangerous-clean-slate` on `server-dir: ./` — that wipes Hostinger extras (PHP, etc.).
-- After merging the flat-file API fix, re-run **Scrape Rates & Deploy** on `master`. Attempt 1 should succeed; the 2-minute retry only runs if attempt 1 failed (`continue-on-error` makes a failed attempt 1 look like a check in the UI).
+- After merging the API-path fix, re-run **Scrape Rates & Deploy** on `master`. Attempt 1 should succeed; the 2-minute retry only runs if attempt 1 failed (`continue-on-error` makes a failed attempt 1 look like a check in the UI).
 
 **Setup Python fails with `mkdir: /Users/runner: Permission denied`**
 - `actions/setup-python` was used on the Mac. The scrape workflow must use the Homebrew setup script instead (`RUNNER.md`)

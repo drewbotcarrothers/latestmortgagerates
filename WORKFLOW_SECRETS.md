@@ -138,4 +138,4 @@ If you need to update the secret values:
 → You tried to use FTPS/SFTP. Revert to plain `ftp` protocol on port 21.
 
 **Error: "FTPError: 550 api/version/index.html: Not a directory"**
-→ Next.js static export left `api/version` (and `api/rates`) as **files** on Hostinger. Directory-style Astro output (`api/version/index.html`) cannot be uploaded over those files. The build writes flat `api/version.json` / `api/rates.json` plus extensionless copies. Do not set `dangerous-clean-slate: true` on the whole site. After merge, re-run **Scrape Rates & Deploy**; FTP attempt 1 should complete green.
+→ Next.js left `api/version` as a **file**. The failed Astro FTP created `api/rates/` as a **directory**. Do not upload `api/version/index.html` or a file named `api/rates`. Canonical files are `api/version.json` and `api/rates.json`. Do not set `dangerous-clean-slate: true` on the whole site. After merge, re-run **Scrape Rates & Deploy**; FTP attempt 1 should complete green.

@@ -19,7 +19,7 @@ const dataDir = fileURLToPath(new URL("./data", import.meta.url));
 
 /**
  * Write a file at `dir/name`, removing a directory at that path first.
- * Next.js static export left Hostinger files named `api/version` and `api/rates`.
+ * Hostinger still has a Next.js leftover file named `api/version`.
  * Astro must not emit `api/version/index.html` or FTP fails with 550 Not a directory.
  */
 function writeFlatFile(dir, name, body) {
@@ -41,6 +41,11 @@ function jsonApiFiles() {
 
         const apiDir = join(out, "api");
         mkdirSync(apiDir, { recursive: true });
+
+        // Hostinger after the failed Astro FTP (run 34950784306):
+        //   api/version  → leftover Next.js FILE  (MKD fails: 550 Not a directory)
+        //   api/rates    → DIRECTORY already created (index.html uploaded)
+        // Match that mix: version stays a file; rates may keep a directory.
 
         const filtered = rates
           .filter((r) => r.rate_type === "fixed" && r.term_months === 60)
@@ -72,13 +77,21 @@ function jsonApiFiles() {
           buildTime: new Date().toISOString(),
         });
 
-        // Canonical JSON files (widget + new clients).
+        // Canonical JSON files (widget + new clients). These names do not
+        // collide with either leftover (`version` file or `rates/` directory).
         writeFlatFile(apiDir, "rates.json", ratesBody);
         writeFlatFile(apiDir, "version.json", versionBody);
-        // Extensionless files overwrite the Next.js leftovers so /api/rates and
-        // /api/version keep working without creating directories FTP cannot MKD.
-        writeFlatFile(apiDir, "rates", ratesBody);
+        // Overwrite the Next.js file so /api/version keeps working.
         writeFlatFile(apiDir, "version", versionBody);
+        // Keep /api/rates/ working on the directory Hostinger already has.
+        // Do not write a file named `api/rates` — that would 550 over the dir.
+        const ratesDir = join(apiDir, "rates");
+        if (existsSync(ratesDir) && lstatSync(ratesDir).isFile()) {
+          rmSync(ratesDir);
+        }
+        mkdirSync(ratesDir, { recursive: true });
+        writeFileSync(join(ratesDir, "index.json"), ratesBody);
+        writeFileSync(join(ratesDir, "index.html"), ratesBody);
 
         copyFileSync(join(root, "data/rates.json"), join(out, "rates.json"));
         copyFileSync(join(root, "data/metadata.json"), join(out, "metadata.json"));

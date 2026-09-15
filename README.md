@@ -41,14 +41,15 @@ npm run preview
 
 The site is a **static** Astro build (`output: 'static'`, `trailingSlash: 'always'`, `outDir: 'dist'`). Rate tables are generated at build time from `data/rates.json` and `data/metadata.json`. Do not invent rates.
 
-Widget and API JSON are **flat files** so Hostinger FTP can overwrite the old Next.js leftovers:
+Widget and API JSON are emitted to match what Hostinger already has (Next leftover **file** `api/version`, plus `api/rates/` from the failed Astro FTP):
 
 | URL | File in `dist/` |
 |-----|-----------------|
-| `/api/rates.json` (canonical) and `/api/rates` | `api/rates.json` + extensionless `api/rates` |
-| `/api/version.json` and `/api/version` | `api/version.json` + extensionless `api/version` |
+| `/api/rates.json` (canonical) | `api/rates.json` |
+| `/api/rates` and `/api/rates/` | `api/rates/index.html` (directory already on Hostinger) |
+| `/api/version.json` and `/api/version` | `api/version.json` + extensionless file `api/version` |
 
-Do **not** emit `api/version/index.html` or `api/rates/index.html`. Those paths make FTP try to create a directory over an existing file (`FTPError: 550 … Not a directory`). `npm run build` runs `scripts/verify-static-api.mjs` to enforce this.
+Do **not** emit `api/version/index.html` (550 Not a directory over the leftover file) or a file named `api/rates` (would collide with the existing directory). `npm run build` runs `scripts/verify-static-api.mjs` to enforce this.
 
 ## Scraping
 

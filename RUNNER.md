@@ -152,7 +152,7 @@ Look for `bmo_live_scrape` in **Run scraper** logs after a successful live BMO f
 
 If Homebrew formulae are missing on a stale cellar, update once on the Mac: `brew update && brew install python@3.11 node@22`.
 
-Hostinger still has Next.js leftover **files** named `api/version` and `api/rates`. The Astro build writes matching files (`api/version.json`, `api/rates.json`, plus extensionless copies) instead of `api/version/index.html`. That avoids `FTPError: 550 api/version/index.html: Not a directory`. Do not turn on `dangerous-clean-slate` for the whole `public_html`.
+Hostinger leftovers (verified against production after the failed Astro FTP): `api/version` is a **file**, `api/rates/` is a **directory**. The build writes `api/version.json` + extensionless `api/version`, and `api/rates.json` + `api/rates/index.html`. It does **not** write `api/version/index.html` (that was the 550). Do not turn on `dangerous-clean-slate` for the whole `public_html`.
 
 ## Related
 

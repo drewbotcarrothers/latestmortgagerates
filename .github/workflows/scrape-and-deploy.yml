@@ -179,7 +179,7 @@ jobs:
       # are skipped when attempt 1 succeeds (outcome == success).
       # Do not enable dangerous-clean-slate — it would wipe public_html extras
       # (PHP, Hostinger files). API JSON is emitted as flat files so FTP can
-      # overwrite Next.js leftovers named api/version and api/rates.
+      # overwrite Next.js leftover file api/version and update api/rates/.
       - name: Deploy to Hostinger (FTP - Attempt 1)
         id: deploy1
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

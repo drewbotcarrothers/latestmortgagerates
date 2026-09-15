@@ -10,7 +10,10 @@
   AddType application/json .json
 </IfModule>
 
-# Next.js static export left extensionless files named `rates` and `version`.
-<FilesMatch "^(rates|version)(\.json)?$">
+DirectoryIndex index.html index.json
+
+# `version` is an extensionless JSON file. `rates/` is a directory whose
+# index.html body is also JSON (Hostinger leftover mix after Astro FTP).
+<FilesMatch "^(version|version\.json|rates\.json|index\.html|index\.json)$">
   ForceType application/json
 </FilesMatch>
