@@ -171,8 +171,8 @@ export default function LandTransferTaxCalculatorPage() {
                     </div>
                     <div className="bg-slate-50 p-4 rounded-lg">
                       <h3 className="font-semibold text-slate-900 mb-2">British Columbia</h3>
-                      <p className="text-sm text-slate-600"><strong>Maximum Rebate:</strong> $8,000</p>
-                      <p className="text-sm text-slate-600 mt-1">Full rebate on homes up to $500,000</p>
+                      <p className="text-sm text-slate-600"><strong>Maximum Exemption:</strong> $8,000</p>
+                      <p className="text-sm text-slate-600 mt-1">Exempts PTT on the first $500,000. Full program eligibility up to $835,000; partial phase-out under $860,000 (registrations on or after 1 April 2024).</p>
                     </div>
                     <div className="bg-slate-50 p-4 rounded-lg">
                       <h3 className="font-semibold text-slate-900 mb-2">Prince Edward Island</h3>

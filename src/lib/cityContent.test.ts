@@ -152,6 +152,21 @@ describe("city local content", () => {
     const city = requireCity("vancouver");
     assert.equal(city.province, "BC");
   });
+
+  it("documents post–April 2024 BC first-time PTT ceilings, not the retired $525k phase-out", () => {
+    const victoria = getCityContent("victoria");
+    const vancouver = getCityContent("vancouver");
+    for (const city of [victoria, vancouver]) {
+      const blob = [
+        city.lttBody,
+        city.firstTimeBuyer.intro,
+        ...city.firstTimeBuyer.points.map((p) => p.heading + p.body),
+      ].join("\n");
+      assert.match(blob, /\$835,000/);
+      assert.match(blob, /\$860,000/);
+      assert.doesNotMatch(blob, /\$525,000/);
+    }
+  });
 });
 
 describe("city page wiring", () => {

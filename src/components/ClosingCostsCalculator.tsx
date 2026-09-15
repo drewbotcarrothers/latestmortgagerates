@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import {
+  calculateBcFthbExemption,
+  calculateBcPropertyTransferTax,
+} from "@/lib/mortgageMath";
 
 interface ClosingCostsParams {
   homePrice: number;
@@ -82,16 +86,7 @@ export default function ClosingCostsCalculator() {
         landTransferTax *= 2; // Municipal + Provincial
       }
     } else if (params.province === "british_columbia") {
-      // BC Property Transfer Tax
-      if (price <= 200000) {
-        landTransferTax = price * 0.01;
-      } else if (price <= 2000000) {
-        landTransferTax = 200000 * 0.01 + (price - 200000) * 0.02;
-      } else if (price <= 3000000) {
-        landTransferTax = 200000 * 0.01 + 1800000 * 0.02 + (price - 2000000) * 0.03;
-      } else {
-        landTransferTax = 200000 * 0.01 + 1800000 * 0.02 + 1000000 * 0.03 + (price - 3000000) * 0.05;
-      }
+      landTransferTax = calculateBcPropertyTransferTax(price);
     } else if (params.province === "quebec") {
       // Quebec (outside Montreal)
       if (price <= 55500) {
@@ -142,12 +137,7 @@ export default function ClosingCostsCalculator() {
           rebate = Math.min(4475, landTransferTax); // Toronto has additional municipal rebate
         }
       } else if (params.province === "british_columbia") {
-        // Full exemption up to $500k, partial to $525k
-        if (price <= 500000) {
-          rebate = landTransferTax;
-        } else if (price <= 525000) {
-          rebate = landTransferTax * ((525000 - price) / 25000);
-        }
+        rebate = calculateBcFthbExemption(price);
       } else if (params.province === "pei") {
         // Full exemption
         if (price <= 200000) {

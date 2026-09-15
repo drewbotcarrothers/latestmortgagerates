@@ -216,7 +216,7 @@ const PROVINCES: Record<ProvinceId, ProvinceLayer> = {
     firstTimePoints: [
       {
         heading: "B.C. first-time PTT program",
-        body: "If you qualify, PTT is exempt on the first $500,000 of value. You generally must be a Canadian citizen or permanent resident, meet B.C. residency or tax-filing tests, occupy the home, and not have owned a principal residence before. Thresholds changed on 1 April 2024—verify on the provincial site before you firm up.",
+        body: "If you qualify, PTT is exempt on the first $500,000 of value (maximum $8,000). Since 1 April 2024 the home’s fair market value must be $835,000 or less for the full program; the exemption phases out between $835,000 and $860,000. You generally must be a Canadian citizen or permanent resident, meet B.C. residency or tax-filing tests, occupy the home, and not have owned a principal residence before.",
       },
       ...FEDERAL_FTB,
     ],

@@ -295,3 +295,66 @@ export function calculateMortgagePenalty(input: PenaltyCalcInput): PenaltyCalcRe
     explanation,
   };
 }
+
+/**
+ * B.C. Property Transfer Tax and first-time home buyers’ exemption.
+ *
+ * Default thresholds are for registrations on or after 1 April 2024.
+ * Source: https://www2.gov.bc.ca/gov/content/taxes/property-taxes/property-transfer-tax/exemptions/first-time-home-buyers/current-amount
+ *
+ * Models a 100%-eligible transfer on a property smaller than 0.5 hectares
+ * with no non-residential improvements. Does not model additional foreign-buyer PTT.
+ */
+export const BC_PTT_FTHB_FULL_EXEMPTION_FMV = 500_000;
+export const BC_PTT_FTHB_MAX_EXEMPTION = 8_000;
+/** Qualifying FMV for the full $8,000 exemption band (on/after 1 April 2024). */
+export const BC_PTT_FTHB_FULL_PROGRAM_FMV = 835_000;
+/** Exemption is $0 at this FMV and above (on/after 1 April 2024). */
+export const BC_PTT_FTHB_PHASE_OUT_END_FMV = 860_000;
+
+export function calculateBcPropertyTransferTax(fairMarketValue: number): number {
+  if (fairMarketValue <= 0) return 0;
+  if (fairMarketValue <= 200_000) return fairMarketValue * 0.01;
+  if (fairMarketValue <= 2_000_000) {
+    return 200_000 * 0.01 + (fairMarketValue - 200_000) * 0.02;
+  }
+  if (fairMarketValue <= 3_000_000) {
+    return 200_000 * 0.01 + 1_800_000 * 0.02 + (fairMarketValue - 2_000_000) * 0.03;
+  }
+  return (
+    200_000 * 0.01 +
+    1_800_000 * 0.02 +
+    1_000_000 * 0.03 +
+    (fairMarketValue - 3_000_000) * 0.05
+  );
+}
+
+/**
+ * First-time home buyers’ exemption for registrations on or after 1 April 2024.
+ * Full exemption on PTT for FMV at or below $500,000; $8,000 cap through $835,000;
+ * proportional reduction between $835,000 and $860,000; $0 at $860,000+.
+ */
+export function calculateBcFthbExemption(fairMarketValue: number): number {
+  if (fairMarketValue <= 0) return 0;
+  const ptt = calculateBcPropertyTransferTax(fairMarketValue);
+  if (fairMarketValue <= BC_PTT_FTHB_FULL_EXEMPTION_FMV) {
+    return ptt;
+  }
+  if (fairMarketValue <= BC_PTT_FTHB_FULL_PROGRAM_FMV) {
+    return BC_PTT_FTHB_MAX_EXEMPTION;
+  }
+  if (fairMarketValue < BC_PTT_FTHB_PHASE_OUT_END_FMV) {
+    const remainingShare =
+      (BC_PTT_FTHB_PHASE_OUT_END_FMV - fairMarketValue) /
+      (BC_PTT_FTHB_PHASE_OUT_END_FMV - BC_PTT_FTHB_FULL_PROGRAM_FMV);
+    return BC_PTT_FTHB_MAX_EXEMPTION * remainingShare;
+  }
+  return 0;
+}
+
+export function calculateBcPttPayableAfterFthb(fairMarketValue: number): number {
+  return Math.max(
+    0,
+    calculateBcPropertyTransferTax(fairMarketValue) - calculateBcFthbExemption(fairMarketValue)
+  );
+}

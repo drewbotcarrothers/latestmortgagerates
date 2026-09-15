@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import {
+  calculateBcFthbExemption,
+  calculateBcPropertyTransferTax,
+} from "@/lib/mortgageMath";
 
 interface LandTransferTax {
   province: string;
@@ -53,28 +57,12 @@ const provinces: Record<string, ProvinceRates> = {
   british_columbia: {
     name: "British Columbia",
     calculate: (price) => {
-      let tax = 0;
-      if (price <= 200000) {
-        tax = price * 0.01;
-      } else if (price <= 2000000) {
-        tax = 200000 * 0.01 + (price - 200000) * 0.02;
-      } else if (price <= 3000000) {
-        tax = 200000 * 0.01 + 1800000 * 0.02 + (price - 2000000) * 0.03;
-      } else {
-        tax = 200000 * 0.01 + 1800000 * 0.02 + 1000000 * 0.03 + (price - 3000000) * 0.05;
-      }
+      const tax = calculateBcPropertyTransferTax(price);
       return { provincial: tax, municipal: 0, explanation: "BC: 1% on first $200K, 2% on $200K-$2M, 3% on $2M-$3M, 5% above $3M" };
     },
     firstTimeRebate: (price) => {
-      // BC first-time buyer exemption up to $500K, partial to $525K
-      if (price <= 500000) {
-        return provinces.british_columbia.calculate(price).provincial;
-      } else if (price <= 525000) {
-        const fullAmount = provinces.british_columbia.calculate(price).provincial;
-        // Linear reduction from $500K to $525K
-        return fullAmount * ((525000 - price) / 25000);
-      }
-      return 0;
+      // Registrations on or after 1 April 2024: $8,000 cap through $835K, phase-out under $860K.
+      return calculateBcFthbExemption(price);
     },
   },
   alberta: {
@@ -268,7 +256,9 @@ export default function LandTransferTaxCalculator() {
 
         {province === "british_columbia" && (
           <p className="mt-2">
-            <strong>BC Exemption:</strong> Properties under $500K fully exempt. Partial exemption to $525K.
+            <strong>BC Exemption (on or after 1 April 2024):</strong> Full exemption on the first
+            $500,000 of fair market value (max $8,000). Homes at or below $835,000 still get that
+            $8,000 cap; the exemption phases out between $835,000 and $860,000.
           </p>
         )}
 

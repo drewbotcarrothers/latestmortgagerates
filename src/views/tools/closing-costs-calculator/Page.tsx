@@ -22,7 +22,7 @@ const faqs = [
   {
     question: "Do first-time buyers get closing cost rebates?",
     answer:
-      "Several provinces reduce land transfer tax for eligible first-time buyers. Ontario refunds up to $4,000 of provincial land transfer tax. Toronto adds a municipal rebate of up to $4,475, so a qualifying Toronto first-time buyer can receive up to $8,475 combined. This calculator models B.C.’s first-time buyer exemption as a full rebate on homes at or below $500,000 and a partial rebate up to $525,000 (about $8,000 at the $500,000 threshold). P.E.I. is modelled as a full exemption on homes at or below $200,000. Programs and eligibility rules change, so confirm with your lawyer before you firm up an offer.",
+      "Several provinces reduce land transfer tax for eligible first-time buyers. Ontario refunds up to $4,000 of provincial land transfer tax. Toronto adds a municipal rebate of up to $4,475, so a qualifying Toronto first-time buyer can receive up to $8,475 combined. This calculator models B.C.’s first-time buyer exemption for registrations on or after 1 April 2024: full exemption on the first $500,000 of fair market value (max $8,000), the $8,000 cap through $835,000, and a proportional phase-out between $835,000 and $860,000. P.E.I. is modelled as a full exemption on homes at or below $200,000. Programs and eligibility rules change, so confirm with your lawyer before you firm up an offer.",
   },
   {
     question: "Are closing costs different in each province?",
@@ -218,7 +218,7 @@ export default function ClosingCostsPage() {
                   <div className="bg-slate-50 p-4 rounded-lg">
                     <h3 className="font-semibold text-slate-900 mb-1">British Columbia</h3>
                     <p className="text-sm text-slate-600">
-                      Property transfer tax starts at 1% on the first $200,000 and 2% on the next band. First-time buyer relief in this tool is tied to the $500,000 / $525,000 thresholds above—not a blank cheque on a $1 million home.
+                      Property transfer tax starts at 1% on the first $200,000 and 2% on the next band. First-time buyer relief in this tool follows the current (on or after 1 April 2024) program: $8,000 of exemption through $835,000, then a phase-out that ends at $860,000—not a blank cheque on a $1 million home.
                     </p>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-lg">
