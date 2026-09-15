@@ -29,7 +29,7 @@
     "tagline": "Comfortable banking with flexible mortgage solutions.",
     "seoTitle": "TD Mortgage Rates Canada | Fixed, Variable & Refinance",
     "seoDescription": "See current TD mortgage rates for a purchase or refinance. Compare fixed and variable TD Mortgage Solutions, then check how they stack up today.",
-    "overview": "<p>TD Bank is one of Canada's most recognized financial institutions, offering a full suite of mortgage products designed for every stage of homeownership. TD is well-known for its <strong>TD Mortgage Affordability Calculator</strong> and flexible prepayment options that let borrowers increase payments by up to 100% or make annual lump-sum prepayments up to 15%. TD offers both fixed and variable mortgage rates, including the popular <strong>TD Home Equity FlexLine</strong> that combines a mortgage with a revolving line of credit. With thousands of branches, robust online banking, and dedicated mortgage specialists, TD makes the home buying and refinancing process straightforward for Canadian families.</p>",
+    "overview": "<p>TD Bank (Toronto-Dominion) is one of Canada's Big Five banks and a full-service mortgage lender with a large branch and digital network. Most shoppers meet TD as a <strong>direct lender</strong>: you apply with a mortgage specialist, online, or through an existing TD relationship rather than treating it as a broker-only monoline. The product set covers closed fixed and variable mortgages, refinances, and the <strong>TD Home Equity FlexLine</strong>, which pairs a traditional mortgage portion with a revolving home-equity line of credit.</p><p>TD is often chosen for convenience and prepayment flexibility (commonly cited as increasing payments by up to 100% and making annual lump-sum prepayments up to 15% of the original principal—confirm the current product sheet). It is less often the cheapest 5-year rate on a blind comparison against monolines. Use the live table on this page as the rate source; do not treat marketing copy as a quote. Then check GDS and TDS with the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> before you rely on a pre-approval.</p>",
     "specialties": [
       "Fixed-rate mortgages",
       "Variable-rate mortgages",
@@ -49,6 +49,69 @@
       "TD variable mortgage",
       "TD Home Equity FlexLine",
       "TD mortgage calculator"
+    ],
+    "whoItsFor": "<p>TD mortgages tend to fit borrowers who already bank at TD, want in-person specialists, or need a bundled setup (chequing, credit cards, and a mortgage in one institution). The FlexLine is aimed at homeowners who want to keep unused equity available without a separate refinance every time they need funds.</p><p>TD is a weaker fit if your only goal is the lowest advertised 5-year rate and you are happy using a broker and a monoline. Big-bank credit, income, and property rules still apply, including the federal qualifying-rate test on new purchases and refinances. Newcomers with limited Canadian credit should ask specifically about TD's newcomer documentation—not assume every branch will structure the same deal.</p>",
+    "products": [
+      {
+        "title": "Closed fixed-rate mortgages",
+        "description": "Payment stays the same for the term (commonly 1–5 years, sometimes longer). Useful if you want a known payment and are comparing the 5-year fixed market. IRD or three-month interest penalties can apply if you break early."
+      },
+      {
+        "title": "Closed variable-rate mortgages",
+        "description": "Rate moves with TD's prime. Your payment or the split between principal and interest will change with prime, depending on product. Still qualified at the stress-test rate, not at prime minus a discount."
+      },
+      {
+        "title": "TD Home Equity FlexLine",
+        "description": "A readvanceable-style product: a mortgage segment plus a HELOC segment, typically capped by combined loan-to-value rules (often discussed as up to 80% combined, with the revolving portion limited further). Confirm current LTV caps with TD; they are policy, not a promise on this page."
+      },
+      {
+        "title": "Refinance and switch",
+        "description": "TD can refinance an existing mortgage (subject to qualification) or receive a switch. Switching in from another lender is a new origination for stress-test purposes. Run the refinance calculator before you pay a penalty to move."
+      }
+    ],
+    "howRatesCompare": "<p>TD's <strong>posted</strong> rates are not the rates most qualified borrowers pay. Special or discounted offers are what belong in a comparison. The cards and matrix at the top of this page are pulled from our rate feed—use those figures, not a round number from an old article.</p><p>On a vanilla 5-year closed mortgage, TD often sits with other large banks: convenient, relationship-priced, and frequently a bit higher than aggressive monolines. That gap can shrink if you have a strong TD relationship, a high-ratio insured deal, or a FlexLine structure the bank wants to book. Always compare the same term, insured vs uninsured, and the same prepayment rules. Start with <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> hubs, then return here to see only TD's lineup.</p>",
+    "shoppingTips": [
+      "Ask for the discounted rate in writing (term, insured vs uninsured, and whether cash-back is attached). Posted rate is a starting point, not the deal.",
+      "If you hold other TD products, ask whether relationship pricing applies—and what happens to the rate if you later move your chequing account.",
+      "Map FlexLine fees, HELOC prime spread, and the split between the term mortgage and the line of credit before you choose it over a simple closed mortgage.",
+      "At renewal, get TD's offer first, then compare it to the live table on our homepage. Staying can skip a new stress test; switching usually cannot.",
+      "Confirm current prepayment privileges on the exact product (the widely cited 15% lump sum and 100% payment increase are not universal across every TD mortgage vintage).",
+      "Run GDS/TDS yourself with the stress test calculator using TD's offered contract rate, then compare the actual payment with the mortgage payment calculator."
+    ],
+    "faqs": [
+      {
+        "question": "Does TD usually have the lowest mortgage rate in Canada?",
+        "answer": "Often no. TD is a full-service bank. On a plain 5-year closed mortgage, monoline lenders and some credit unions frequently advertise lower contract rates. TD can still win on convenience, FlexLine structure, or a relationship discount. Compare the live TD rates on this page with the 5-year fixed and variable hubs rather than assuming a bank rate is the market low."
+      },
+      {
+        "question": "What is the TD Home Equity FlexLine?",
+        "answer": "It combines a traditional mortgage portion with a revolving home equity line of credit. You pay down the mortgage segment and, subject to the product rules, can re-borrow available credit without a brand-new application each time. Combined loan-to-value limits apply. It is more flexible than a simple closed mortgage and more complex to compare on rate alone."
+      },
+      {
+        "question": "Can I get a TD mortgage through a mortgage broker?",
+        "answer": "TD is primarily a direct-to-consumer bank. Many brokers cannot book TD the way they book monolines. If you want TD specifically, plan to talk to a TD mortgage specialist or apply through TD's own channels, then still compare the offer against brokered lenders."
+      },
+      {
+        "question": "What prepayment privileges does TD advertise?",
+        "answer": "TD commonly describes the ability to increase regular payments by up to 100% and to make lump-sum prepayments of up to 15% of the original principal each year, without a penalty. Privileges are product-specific and can differ on older books, cash-back mortgages, or promotions. Read the commitment letter."
+      },
+      {
+        "question": "Does TD offer mortgages for newcomers to Canada?",
+        "answer": "TD has newcomer-focused mortgage programs that can use alternative documentation when Canadian credit history is thin. Eligibility, down-payment, and income rules are set by TD and by default insurers on high-ratio deals. Bring immigration status, foreign credit, and down-payment source documents to a specialist rather than relying on a website summary."
+      },
+      {
+        "question": "Should I renew with TD or switch lenders?",
+        "answer": "Renewing with TD usually avoids a new stress test. Switching to another lender generally means qualifying again at the qualifying rate. If you would pass the stress test and another lender's rate is meaningfully lower after penalties and fees, switching can pay. If you are tight on GDS/TDS, TD's renewal offer may be the practical path even if it is not the lowest advertised rate."
+      }
+    ],
+    "relatedLinks": [
+      { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
+      { "href": "/rates/variable/", "label": "Compare variable rates" },
+      { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
+      { "href": "/tools/mortgage-calculator/", "label": "Payment calculator" },
+      { "href": "/tools/refinance-calculator/", "label": "Refinance calculator" },
+      { "href": "/cities/toronto/", "label": "Toronto mortgage rates" },
+      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
     ]
   },
   "scotiabank": {
@@ -340,7 +403,7 @@
     "tagline": "All-in-one banking that puts your mortgage to work.",
     "seoTitle": "Manulife Bank Mortgage Rates | Manulife One & Posted 2026",
     "seoDescription": "Compare Manulife Bank mortgage rates and Manulife One. See posted fixed and variable offers plus the all-in-one account, then check today's rates.",
-    "overview": "<p>Manulife Bank offers the innovative <strong>Manulife One</strong> account, an all-in-one mortgage and banking solution that combines your mortgage, line of credit, and chequing into a single account. By depositing your income directly against your mortgage balance, you can dramatically reduce interest costs and pay off your home faster. Manulife also offers traditional fixed and variable mortgage products with competitive rates. Their digital platform makes it easy to manage your all-in-one account, track interest savings, and access funds when needed. For financially savvy homeowners looking to optimize their mortgage strategy, Manulife One is a unique and powerful tool.</p>",
+    "overview": "<p>Manulife Bank is a Schedule I Canadian bank and a subsidiary of Manulife Financial. It is not a mortgage-only monoline. The distinctive product is <strong>Manulife One</strong>: an all-in-one account that can combine a mortgage, a line of credit, and day-to-day deposits so interest is charged on the net borrowed balance after you deposit income. Manulife also sells more conventional <strong>Manulife Bank Select</strong> fixed and variable mortgages for borrowers who want a standard closed term without operating their chequing account inside the mortgage.</p><p>Shop Manulife if the all-in-one structure matches how you actually hold cash. If you only want the lowest 5-year sticker rate and will keep a separate chequing account at another bank, start with the live rates on this page and still compare <a href=\"/rates/5-year-fixed/\">5-year fixed</a> offers from other lenders. For a different all-in-one style product, see <a href=\"/lenders/scotiabank/\">Scotiabank's STEP</a>.</p>",
     "specialties": [
       "All-in-one mortgage banking",
       "Manulife One account",
@@ -361,6 +424,69 @@
       "Manulife Bank mortgage review",
       "all in one mortgage Canada",
       "Manulife One vs Scotiabank STEP"
+    ],
+    "whoItsFor": "<p>Manulife One is built for people who will park paycheques, savings, and idle cash in the same account as the mortgage. Interest is calculated on the outstanding net balance, so a large deposit can cut interest in a way a conventional closed mortgage cannot. Households with lumpy income (bonuses, commission, or a sale proceeds parked temporarily) sometimes use that feature on purpose.</p><p>Skip One if you spend down to a low balance every month, want the simplest possible mortgage, or dislike mixing daily banking with your home loan. In that case look at Manulife Bank Select or another conventional lender. Manulife Bank is OSFI-regulated, so new purchases and refinances still need to pass the <a href=\"/tools/stress-test-qualifier/\">mortgage stress test</a>.</p>",
+    "products": [
+      {
+        "title": "Manulife One (all-in-one)",
+        "description": "A readvanceable account: deposits reduce the balance that interest is charged on; you can hold variable and, depending on the setup, fixed-rate sub-accounts. Savings come from cash behaviour, not from a magic rate. Fees, sub-account rules, and the base rate are set by Manulife—read the current product page rather than old blog math."
+      },
+      {
+        "title": "Manulife Bank Select (conventional)",
+        "description": "Standard closed fixed and variable mortgages if you want a familiar term, payment, and separate chequing account. Compare these first if you are rate-shopping against banks and monolines on a like-for-like 5-year closed product."
+      },
+      {
+        "title": "Variable and prime-linked options",
+        "description": "Variable Select and One's base/variable components move with Manulife Bank's prime or base rate, not with a rate you lock for five years. Qualification still uses the stress-test rate, which is higher than the contract rate."
+      },
+      {
+        "title": "Home equity access",
+        "description": "One's line-of-credit behaviour is the main way Manulife packages re-borrowing. Conventional HELOC-style access still has combined LTV limits. It is not a substitute for a refinance calculator if you are debt-consolidating a different lender."
+      }
+    ],
+    "howRatesCompare": "<p>Manulife publishes posted tables and separate special or high-ratio offers. The figures in the cards above come from our feed—use them instead of any rate written in this article. Posted Select rates are often higher than the specials; One's headline savings are partly behavioural (cash sitting against the balance) and partly the contract rate on each sub-account.</p><p>On a straight 5-year closed comparison, Manulife is not automatically cheaper than a monoline. Where One can win is total interest over a few years if you genuinely keep a high average deposit. Where it can lose is if the contract rate is higher and your operating balance is thin. Compare insured vs uninsured lines in the matrix, then check <a href=\"/rates/variable/\">variable</a> and <a href=\"/rates/insured/\">insured</a> hubs for context.</p>",
+    "shoppingTips": [
+      "Decide first: Manulife One versus a conventional Select mortgage. Mixing the sales pitch from one product with the rate from the other is how people mis-shop this lender.",
+      "Ask for the current Manulife One base rate, any fixed sub-account rates, account fees, and how interest is calculated day-to-day—then model your real average balance, not a best-case month.",
+      "If you only want a closed 5-year, compare Select (or another lender) on term, insured vs uninsured, and prepayment penalties. Do not assume One is 'always less interest.'",
+      "Treat special 'as low as' rates as offer-sheet items with conditions (new clients, high-ratio, term). Match them to the same row in the table on this page.",
+      "Manulife Bank still stress-tests new originations. A One application is not a bypass of GDS/TDS.",
+      "If you like the all-in-one idea but want a bank you already use, compare the structure to Scotiabank STEP rather than comparing brand slogans."
+    ],
+    "faqs": [
+      {
+        "question": "What is Manulife One?",
+        "answer": "Manulife One is an all-in-one banking and mortgage account. Deposits sit against the borrowed balance so you pay interest on the net amount, and you can usually access available credit without opening a separate HELOC application. It is more flexible than a simple closed mortgage and requires more discipline. It is optional; Manulife also offers conventional Select mortgages."
+      },
+      {
+        "question": "How does Manulife One reduce interest?",
+        "answer": "Interest is charged on the outstanding net balance after deposits. A paycheque that sits in the account for two weeks before bills go out reduces interest for those days. If the account is emptied quickly, the benefit shrinks. The contract rate on each sub-account still matters; cash behaviour cannot fix a badly priced rate."
+      },
+      {
+        "question": "Does Manulife Bank offer ordinary fixed and variable mortgages?",
+        "answer": "Yes. Manulife Bank Select is the conventional closed-mortgage lineup. Use that comparison if you want a standard term and payment. Use the rate table on this page for current Select and related figures from our feed."
+      },
+      {
+        "question": "Is Manulife Bank a real bank?",
+        "answer": "Yes. Manulife Bank of Canada is a Schedule I bank regulated by OSFI, separate from Manulife's insurance business even though it is part of the same group. Deposits are eligible for CDIC coverage within CDIC rules. A Manulife One account is still a mortgage product with credit approval, not an investment return."
+      },
+      {
+        "question": "Who should not choose Manulife One?",
+        "answer": "Borrowers who keep almost no cash in the account, who want the lowest possible 5-year closed rate from a brokered monoline, or who prefer not to mix daily spending with their mortgage. Also anyone who would fail the stress test—One does not waive federal qualification on a new purchase or refinance."
+      },
+      {
+        "question": "Are Manulife's advertised rates the same as posted rates?",
+        "answer": "Not always. Manulife shows posted tables and promotional or high-ratio specials with conditions. Compare the specific product (One vs Select, fixed vs variable, insured vs uninsured) to the live matrix on this page. We do not invent a 'today's best Manulife rate' in this article."
+      }
+    ],
+    "relatedLinks": [
+      { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
+      { "href": "/rates/variable/", "label": "Compare variable rates" },
+      { "href": "/lenders/scotiabank/", "label": "Scotiabank mortgage rates (STEP)" },
+      { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
+      { "href": "/tools/refinance-calculator/", "label": "Refinance calculator" },
+      { "href": "/glossary/heloc/", "label": "HELOC glossary" },
+      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
     ]
   },
   "laurentian": {
@@ -576,7 +702,7 @@
     "tagline": "Alberta's financial institution, built for Albertans.",
     "seoTitle": "ATB Mortgage Rates Alberta | Current Fixed & Variable",
     "seoDescription": "See current ATB mortgage rates for Alberta—fixed, variable, and HELOC. Compare ATB Financial offers for Calgary, Edmonton, and across the province.",
-    "overview": "<p>ATB Financial is a unique Alberta-based financial institution, wholly owned by the Province of Alberta, dedicated to serving Albertans with personalized banking and mortgage solutions. ATB offers a full range of mortgage products including fixed-rate, variable-rate, and home equity lines of credit, all with competitive rates and flexible terms. Their mortgage specialists have deep knowledge of Alberta's real estate market, from Calgary and Edmonton to rural communities. ATB is known for its entrepreneurial spirit, community investment, and commitment to putting Albertans first in every financial decision.</p>",
+    "overview": "<p>ATB Financial is Alberta's provincially owned financial institution—a Crown corporation of the Government of Alberta, not one of the federally chartered Big Five banks. It takes deposits and makes loans for Albertans, with a branch and advisor network that is meant to cover Calgary, Edmonton, smaller cities, and rural communities, including agricultural borrowers that national banks sometimes treat as a specialty file.</p><p>ATB offers closed fixed and variable residential mortgages and home equity lines of credit. Because it is provincially regulated, its uninsured underwriting can differ from OSFI Guideline B-20 even though <strong>insured</strong> (high-ratio) mortgages still have to satisfy CMHC, Sagen, or Canada Guaranty—including a qualifying-rate test. Alberta buyers also skip provincial land transfer tax; estimate remaining cash to close with the <a href=\"/tools/closing-costs-calculator/\">closing costs calculator</a> after you pick a price.</p>",
     "specialties": [
       "Alberta-focused mortgages",
       "Fixed-rate mortgages",
@@ -597,6 +723,69 @@
       "Alberta mortgage lender",
       "Calgary mortgage rates",
       "Edmonton mortgage rates"
+    ],
+    "whoItsFor": "<p>ATB is for people whose home and banking life are in Alberta: city purchases in <a href=\"/cities/calgary/\">Calgary</a> or <a href=\"/cities/edmonton/\">Edmonton</a>, smaller centres, and rural or farm properties where local knowledge of land, income, and seasonal cash flow matters. If you do not live in Alberta and are not buying there, ATB is generally the wrong lender to pursue.</p><p>Choose ATB when you want an Alberta-based advisor, possibly a HELOC, or an agricultural/rural discussion that a Toronto call centre will not own. Choose a national bank or a brokered monoline when you need a lender that follows you to another province or when a broker can show a clearly lower insured 5-year on the same file. Run the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> anyway—insurers still apply GDS/TDS on high-ratio deals.</p>",
+    "products": [
+      {
+        "title": "Residential fixed-rate mortgages",
+        "description": "Closed fixed terms for Alberta purchases, transfers, and refinances. Compare ATB's 5-year fixed row in the table above with other lenders on the 5-year fixed hub, matching insured vs uninsured."
+      },
+      {
+        "title": "Residential variable-rate mortgages",
+        "description": "Prime-linked variables. Alberta's oil-and-rate cycles make some buyers prefer a fixed payment; others want the variable. Qualification on insured deals still uses a stress-test rate, not prime."
+      },
+      {
+        "title": "Home equity line of credit",
+        "description": "A HELOC against Alberta property, subject to ATB's LTV and income rules. Useful for renovations or bridging, not as a substitute for comparing a full refinance with the refinance calculator."
+      },
+      {
+        "title": "Rural and agricultural lending",
+        "description": "ATB is unusually willing, relative to a typical Big Five retail desk, to talk through farm and rural files. These are underwritten on ATB's own programs. Do not assume a city residential rate card applies unchanged to a quarter section."
+      }
+    ],
+    "howRatesCompare": "<p>ATB prices for the Alberta market. It is not automatically cheaper or more expensive than RBC, TD, or a monoline on every term. Some weeks a Big Five special in Calgary undercuts ATB; some files (rural, relationship, uninsured conventional) look better in-house. The only honest comparison is the live matrix on this page versus <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> tables, using the same insured/uninsured label.</p><p>Do not paste a rate into this article. Posted vs special still matters: ask which column you were quoted. Alberta's lack of land transfer tax does not change the interest rate, but it does change total cash to close relative to Ontario or B.C. on the same price.</p>",
+    "shoppingTips": [
+      "Confirm you are eligible as an Alberta resident or Alberta property buyer before you spend time on an application.",
+      "Ask whether the quote is insured or uninsured and whether it is a special or a posted rate. Match that row to this page's table.",
+      "On high-ratio deals, expect insurer rules (including a qualifying rate). ATB's provincial status does not waive CMHC/Sagen/Canada Guaranty.",
+      "For rural or agricultural property, bring income evidence the way ATB's ag desk asks for it—T4-only worksheets often undershoot farm files.",
+      "Budget closing cash without provincial land transfer tax, but still include legal, registration, and inspection. Use the closing costs calculator with province set to Alberta.",
+      "Get ATB's number in writing, then compare Calgary or Edmonton pages and the national rate table. Relationship and local turnaround can matter as much as 5 basis points."
+    ],
+    "faqs": [
+      {
+        "question": "Can I get an ATB mortgage if I do not live in Alberta?",
+        "answer": "ATB Financial is built for Albertans and Alberta property. If you live in another province and are not buying in Alberta, you should look at national banks, credit unions in your province, or brokered lenders instead. Eligibility for specific programs is ATB's to confirm."
+      },
+      {
+        "question": "Is ATB a bank?",
+        "answer": "ATB is a financial institution wholly owned by the Province of Alberta. It is not a federal Schedule I bank like TD or Manulife Bank. It still offers deposits, mortgages, and other retail products under Alberta's regulatory framework. Deposit protection follows Alberta's arrangements for ATB, not CDIC in the same way as a Schedule I bank."
+      },
+      {
+        "question": "Does ATB use the federal mortgage stress test?",
+        "answer": "Insured (high-ratio) mortgages must meet default-insurer rules, which include qualifying at a stress-test rate. Uninsured mortgages at a provincially regulated lender can follow that lender's own policy, which may look similar to OSFI B-20 or may differ. Ask ATB which qualifying rate they will use on your file, and run our stress test calculator as a conservative check."
+      },
+      {
+        "question": "Does Alberta have land transfer tax?",
+        "answer": "No provincial land transfer tax. Buyers still pay land-titles registration, legal fees, and the usual inspections. That is one reason cash to close in Calgary or Edmonton can be lower than on the same price in Toronto or Vancouver. Use the closing costs calculator with Alberta selected."
+      },
+      {
+        "question": "How do ATB mortgage rates compare with the big banks?",
+        "answer": "It depends on the week, the term, and insured vs uninsured. ATB sometimes matches or beats a Big Five special in Alberta and sometimes does not. Use the live ATB table on this page and the national 5-year fixed hub. We do not publish a made-up ATB average in this article."
+      },
+      {
+        "question": "Can ATB help with a farm or rural property?",
+        "answer": "Agricultural and rural lending is one of ATB's stated strengths. Those files are not the same as a Calgary condo purchase: income, security, and amortization can follow different programs. Speak to an ATB advisor who handles that book rather than shopping only the residential rate cards shown here."
+      }
+    ],
+    "relatedLinks": [
+      { "href": "/cities/calgary/", "label": "Calgary mortgage rates" },
+      { "href": "/cities/edmonton/", "label": "Edmonton mortgage rates" },
+      { "href": "/tools/closing-costs-calculator/", "label": "Closing costs calculator" },
+      { "href": "/tools/land-transfer-tax-calculator/", "label": "Land transfer tax calculator" },
+      { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
+      { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
+      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
     ]
   },
   "equitable": {

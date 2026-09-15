@@ -1,5 +1,6 @@
 import LenderLogo from "@/components/LenderLogo";
 import Navigation from "@/components/Navigation";
+import FAQSection from "@/components/FAQSection";
 
 // Force static generation for static export
 
@@ -9,7 +10,21 @@ import ratesData from "@data/rates.json";
 // Import lender content data
 import lenderContentData from "@/content/lenderContent.json";
 
-// Type for lender content
+interface LenderProduct {
+  title: string;
+  description: string;
+}
+
+interface LenderFaq {
+  question: string;
+  answer: string;
+}
+
+interface LenderRelatedLink {
+  href: string;
+  label: string;
+}
+
 interface LenderContent {
   name: string;
   tagline: string;
@@ -17,6 +32,12 @@ interface LenderContent {
   specialties: string[];
   uniqueFeatures: string[];
   seoKeywords: string[];
+  whoItsFor?: string;
+  products?: LenderProduct[];
+  howRatesCompare?: string;
+  shoppingTips?: string[];
+  faqs?: LenderFaq[];
+  relatedLinks?: LenderRelatedLink[];
 }
 
 // Get lender content by slug
@@ -660,6 +681,92 @@ export default function LenderPage({ slug }: { slug: string }) {
             </div>
           </div>
         </section>
+
+        {(() => {
+          const content = getLenderContent(slug);
+          if (!content) return null;
+          const hasDepth =
+            Boolean(content.whoItsFor) ||
+            Boolean(content.products?.length) ||
+            Boolean(content.howRatesCompare) ||
+            Boolean(content.shoppingTips?.length) ||
+            Boolean(content.faqs?.length) ||
+            Boolean(content.relatedLinks?.length);
+          if (!hasDepth) return null;
+
+          return (
+            <div className="space-y-8 mb-8">
+              {content.whoItsFor && (
+                <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-3">Who {lenderName} mortgages are for</h2>
+                  <div
+                    className="text-slate-600 leading-relaxed space-y-3 [&_a]:text-teal-600 [&_a]:font-medium [&_a]:hover:underline [&_p]:mb-3"
+                    dangerouslySetInnerHTML={{ __html: content.whoItsFor }}
+                  />
+                </section>
+              )}
+
+              {content.products && content.products.length > 0 && (
+                <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-4">Mortgage products</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {content.products.map((product) => (
+                      <div key={product.title} className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                        <h3 className="font-semibold text-slate-900 mb-2">{product.title}</h3>
+                        <p className="text-sm text-slate-600">{product.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {content.howRatesCompare && (
+                <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-3">How {lenderName} rates typically compare</h2>
+                  <div
+                    className="text-slate-600 leading-relaxed space-y-3 [&_a]:text-teal-600 [&_a]:font-medium [&_a]:hover:underline [&_p]:mb-3"
+                    dangerouslySetInnerHTML={{ __html: content.howRatesCompare }}
+                  />
+                </section>
+              )}
+
+              {content.shoppingTips && content.shoppingTips.length > 0 && (
+                <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-4">Tips for shopping a {lenderName} mortgage</h2>
+                  <ul className="space-y-3">
+                    {content.shoppingTips.map((tip) => (
+                      <li key={tip} className="flex items-start gap-2 text-slate-600">
+                        <svg className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {content.faqs && content.faqs.length > 0 && (
+                <FAQSection faqs={content.faqs} />
+              )}
+
+              {content.relatedLinks && content.relatedLinks.length > 0 && (
+                <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-xl font-bold text-slate-900 mb-3">Compare rates and tools</h2>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {content.relatedLinks.map((link) => (
+                      <li key={link.href}>
+                        <a href={link.href} className="text-teal-600 hover:underline font-medium text-sm">
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
+          );
+        })()}
 
         {/* Related Content */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
