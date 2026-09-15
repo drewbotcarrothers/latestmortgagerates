@@ -99,7 +99,8 @@ These secrets are referenced in `.github/workflows/scrape-and-deploy.yml`:
     port: 21
     protocol: ftp
     local-dir: ./dist/
-    dangerous-clean-slate: true
+    # Do not set dangerous-clean-slate: true — it wipes Hostinger extras.
+    # API JSON is emitted as flat files so FTP can overwrite Next.js leftovers.
 ```
 
 ## History
@@ -135,3 +136,6 @@ If you need to update the secret values:
 
 **Error: "SSL routines:ssl3_get_record:wrong version number"**
 → You tried to use FTPS/SFTP. Revert to plain `ftp` protocol on port 21.
+
+**Error: "FTPError: 550 api/version/index.html: Not a directory"**
+→ Next.js static export left `api/version` (and `api/rates`) as **files** on Hostinger. Directory-style Astro output (`api/version/index.html`) cannot be uploaded over those files. The build writes flat `api/version.json` / `api/rates.json` plus extensionless copies. Do not set `dangerous-clean-slate: true` on the whole site. After merge, re-run **Scrape Rates & Deploy**; FTP attempt 1 should complete green.

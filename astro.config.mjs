@@ -2,12 +2,33 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import { fileURLToPath } from "node:url";
-import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { join } from "node:path";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
 const dataDir = fileURLToPath(new URL("./data", import.meta.url));
+
+/**
+ * Write a file at `dir/name`, removing a directory at that path first.
+ * Next.js static export left Hostinger files named `api/version` and `api/rates`.
+ * Astro must not emit `api/version/index.html` or FTP fails with 550 Not a directory.
+ */
+function writeFlatFile(dir, name, body) {
+  const target = join(dir, name);
+  if (existsSync(target) && lstatSync(target).isDirectory()) {
+    rmSync(target, { recursive: true, force: true });
+  }
+  writeFileSync(target, body);
+}
 
 function jsonApiFiles() {
   return {
@@ -18,10 +39,8 @@ function jsonApiFiles() {
         const rates = JSON.parse(readFileSync(join(root, "data/rates.json"), "utf8"));
         const metadata = JSON.parse(readFileSync(join(root, "data/metadata.json"), "utf8"));
 
-        const ratesDir = join(out, "api", "rates");
-        const versionDir = join(out, "api", "version");
-        mkdirSync(ratesDir, { recursive: true });
-        mkdirSync(versionDir, { recursive: true });
+        const apiDir = join(out, "api");
+        mkdirSync(apiDir, { recursive: true });
 
         const filtered = rates
           .filter((r) => r.rate_type === "fixed" && r.term_months === 60)
@@ -53,11 +72,13 @@ function jsonApiFiles() {
           buildTime: new Date().toISOString(),
         });
 
-        // Hostinger + trailingSlash: /api/rates/ and /api/version/
-        writeFileSync(join(ratesDir, "index.json"), ratesBody);
-        writeFileSync(join(ratesDir, "index.html"), ratesBody);
-        writeFileSync(join(versionDir, "index.json"), versionBody);
-        writeFileSync(join(versionDir, "index.html"), versionBody);
+        // Canonical JSON files (widget + new clients).
+        writeFlatFile(apiDir, "rates.json", ratesBody);
+        writeFlatFile(apiDir, "version.json", versionBody);
+        // Extensionless files overwrite the Next.js leftovers so /api/rates and
+        // /api/version keep working without creating directories FTP cannot MKD.
+        writeFlatFile(apiDir, "rates", ratesBody);
+        writeFlatFile(apiDir, "version", versionBody);
 
         copyFileSync(join(root, "data/rates.json"), join(out, "rates.json"));
         copyFileSync(join(root, "data/metadata.json"), join(out, "metadata.json"));

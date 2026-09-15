@@ -173,7 +173,13 @@ jobs:
           cp data/metadata.json dist/
           cat dist/build-info.txt
 
-      # Step 5: Deploy to Hostinger via FTP (with retry)
+      # Step 5: Deploy to Hostinger via FTP (retry only if attempt 1 fails).
+      # Attempt 1 uses continue-on-error so a transient FTP blip can be retried;
+      # GitHub still marks that step with a check. The wait + attempt 2 steps
+      # are skipped when attempt 1 succeeds (outcome == success).
+      # Do not enable dangerous-clean-slate — it would wipe public_html extras
+      # (PHP, Hostinger files). API JSON is emitted as flat files so FTP can
+      # overwrite Next.js leftovers named api/version and api/rates.
       - name: Deploy to Hostinger (FTP - Attempt 1)
         id: deploy1
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -187,6 +193,15 @@ jobs:
           server-dir: ./
           timeout: 120000
         continue-on-error: true
+
+      - name: FTP attempt 1 status
+        run: |
+          echo "FTP attempt 1 outcome: ${{ steps.deploy1.outcome }}"
+          if [ "${{ steps.deploy1.outcome }}" = "success" ]; then
+            echo "FTP succeeded; skipping retry."
+          else
+            echo "FTP attempt 1 failed; waiting 2 minutes before retry."
+          fi
 
       - name: Wait 2 minutes before retry
         if: steps.deploy1.outcome == 'failure'

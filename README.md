@@ -41,6 +41,15 @@ npm run preview
 
 The site is a **static** Astro build (`output: 'static'`, `trailingSlash: 'always'`, `outDir: 'dist'`). Rate tables are generated at build time from `data/rates.json` and `data/metadata.json`. Do not invent rates.
 
+Widget and API JSON are **flat files** so Hostinger FTP can overwrite the old Next.js leftovers:
+
+| URL | File in `dist/` |
+|-----|-----------------|
+| `/api/rates.json` (canonical) and `/api/rates` | `api/rates.json` + extensionless `api/rates` |
+| `/api/version.json` and `/api/version` | `api/version.json` + extensionless `api/version` |
+
+Do **not** emit `api/version/index.html` or `api/rates/index.html`. Those paths make FTP try to create a directory over an existing file (`FTPError: 550 … Not a directory`). `npm run build` runs `scripts/verify-static-api.mjs` to enforce this.
+
 ## Scraping
 
 ```bash
@@ -60,6 +69,8 @@ See `SCRAPER_UPDATE_STATUS.md` for current live vs fallback lender notes and `WO
 Pushes to `master` run `.github/workflows/ci-cd.yml` (GitHub-hosted Ubuntu): install, `astro build`, FTP `dist/` to Hostinger.
 
 The scrape workflow (`.github/workflows/scrape-and-deploy.yml`) runs on `[self-hosted, macOS, lmr-home]`. It uses Homebrew Python/Node (`.github/scripts/setup-self-hosted-macos.sh`) — **do not** use `actions/setup-python` or `actions/setup-node` on that Mac (`/Users/runner` toolcache). After scraping it runs `npm ci` + `npm run build` (Astro) and FTPs `dist/`.
+
+After merging an Astro/FTP path change, re-run **Scrape Rates & Deploy** on `master` (`RUNNER.md`). FTP attempt 1 should complete green; the 2-minute retry is skipped unless attempt 1 actually failed.
 
 ### 2. Add GitHub Secrets
 

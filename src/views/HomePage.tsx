@@ -361,18 +361,18 @@ export default function Home() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-1">Download Rate Data</h2>
               <p className="text-slate-500 text-sm">
-                Download the complete rate dataset in CSV format for your own analysis.
+                Download the current 5-year fixed rates as JSON for your own analysis.
               </p>
             </div>
             <a 
-              href="/api/rates" 
-              download="mortgage-rates.csv"
+              href="/api/rates.json" 
+              download="mortgage-rates.json"
               className="btn-primary"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Download CSV
+              Download JSON
             </a>
           </div>
         </div>

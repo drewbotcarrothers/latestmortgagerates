@@ -148,8 +148,11 @@ Look for `bmo_live_scrape` in **Run scraper** logs after a successful live BMO f
 3. **Run workflow** on `master` (or this PR branch to test before merge)
 4. Confirm **Setup Python 3.11 and Node 22 (Homebrew)** succeeds (no `/Users/runner`)
 5. Confirm the job ran on `andrews-mbp-lmr` / `lmr-home`, and BMO logs show `bmo_live_scrape` (typically `public_data_api` or `playwright_webkit`) rather than `bmo_fallback_`
+6. Confirm **Build Astro site** and **Deploy to Hostinger (FTP - Attempt 1)** succeed. If attempt 1 is green, **Wait 2 minutes before retry** and **Attempt 2** are skipped. A green Attempt 1 with `continue-on-error` plus a red Attempt 2 means attempt 1 actually failed (check the step logs for `550`).
 
 If Homebrew formulae are missing on a stale cellar, update once on the Mac: `brew update && brew install python@3.11 node@22`.
+
+Hostinger still has Next.js leftover **files** named `api/version` and `api/rates`. The Astro build writes matching files (`api/version.json`, `api/rates.json`, plus extensionless copies) instead of `api/version/index.html`. That avoids `FTPError: 550 api/version/index.html: Not a directory`. Do not turn on `dangerous-clean-slate` for the whole `public_html`.
 
 ## Related
 

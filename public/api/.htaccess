@@ -1,0 +1,16 @@
+# Widget/clients fetch these static JSON files from other origins.
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type"
+  Header set Cache-Control "public, max-age=3600"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/json .json
+</IfModule>
+
+# Next.js static export left extensionless files named `rates` and `version`.
+<FilesMatch "^(rates|version)(\.json)?$">
+  ForceType application/json
+</FilesMatch>
