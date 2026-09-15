@@ -104,6 +104,7 @@ These secrets are referenced in `.github/workflows/scrape-and-deploy.yml`:
 
 ## History
 
+- **2026-09-15**: Scrape job uses Homebrew Python 3.11 + Node 20 on `lmr-home` (not `actions/setup-python`, which requires `/Users/runner`). See `RUNNER.md`.
 - **2026-09-15**: Scrape job moved to self-hosted Mac (`lmr-home`). Proxy secrets remain optional fallback; home ISP IP is the primary live-BMO path. See `RUNNER.md`.
 - **2026-03-21**: Changed to plain `ftp` protocol on port 21 per Hostinger requirements
 - **2026-03-21**: Briefly tried `sftp` (port 22) and `ftps-legacy` but reverted to plain FTP

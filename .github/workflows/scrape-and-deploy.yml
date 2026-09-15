@@ -17,7 +17,8 @@ jobs:
     # Never add pull_request triggers — this is a public repo; a PR from a fork
     # would execute on the self-hosted machine with full repo secrets.
     runs-on: [self-hosted, macOS, lmr-home]
-    timeout-minutes: 15
+    # First run may brew-install python@3.11 / node@20 and download Chromium.
+    timeout-minutes: 20
     permissions:
       contents: write
     steps:
@@ -27,10 +28,13 @@ jobs:
           fetch-depth: 0
 
       # Step 2: Scrape rates
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+      # Do NOT use actions/setup-python (or setup-node) on this Mac.
+      # setup-python@v5 hardcodes /Users/runner/hostedtoolcache on macOS
+      # (non-relocatable CPython). Andrew's runner user is andrewcarrothers,
+      # so `mkdir /Users/runner` fails with Permission denied. AGENT_TOOLSDIRECTORY
+      # cannot override that path — the action overwrites it. Use Homebrew instead.
+      - name: Setup Python 3.11 and Node 20 (Homebrew)
+        run: bash .github/scripts/setup-self-hosted-macos.sh
 
       - name: Install Python dependencies
         working-directory: scraping
@@ -61,7 +65,7 @@ jobs:
       - name: Clean and deduplicate rates
         working-directory: scraping
         run: |
-          pip install loguru pydantic
+          python -m pip install loguru pydantic
           python clean_and_save.py ../data/rates.json ../data/rates.json
           echo "Rate cleaning complete"
 
@@ -69,7 +73,7 @@ jobs:
       - name: Update historical rates
         working-directory: scraping/src
         run: |
-          pip install loguru
+          python -m pip install loguru
           python historical_rates.py
 
       # Step 3: Commit data changes FIRST (before email)
@@ -125,13 +129,14 @@ jobs:
 
       # Step 3.6: Generate email summary (after commit to avoid race)
       - name: Generate email summary
+        id: email_summary
         run: |
-          pip install loguru
+          python -m pip install loguru
           python scripts/generate_email_summary.py
 
       # Step 3.7: Send email notification via Hostinger SMTP
       - name: Send email notification
-        if: always()
+        if: ${{ steps.email_summary.outcome == 'success' }}
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.SMTP_HOST }}
@@ -146,12 +151,7 @@ jobs:
           convert_markdown: false
           attachments: data/metadata.json,data/rates.json
 
-      # Step 3: Build website
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
+      # Step 3: Build website (Node 20 already on PATH from Homebrew setup)
       - name: Install dependencies
         run: npm ci
 
