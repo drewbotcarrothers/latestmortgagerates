@@ -15,6 +15,216 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "best-5-year-fixed-rates-week-38-2026",
+    title: "Best 5-Year Fixed Mortgage Rates This Week: September 15-21",
+    excerpt: "This week's top 5-year fixed rates from 25 Canadian lenders, scraped September 15, 2026. See who's offering the lowest rates and how much you could save versus posted bank rates.",
+    content: `<p class="mb-4">Every week, we analyze mortgage rates from Canada's lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for September 15-21, 2026 (ISO week 38). Figures below come from our September 15, 2026 scrape (<code>data/rates.json</code> / <a href="/api/rates.json" class="text-teal-600 hover:underline font-medium">/api/rates.json</a>, last updated 2026-09-15 10:39 UTC). For the live table, see our <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rate hub</a> and split <a href="/rates/insured/" class="text-teal-600 hover:underline">insured</a> vs <a href="/rates/uninsured/" class="text-teal-600 hover:underline">uninsured</a> products.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">This Week's Top 5 Rates</h2>
+
+<div class="overflow-x-auto mb-6">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rank</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Lender</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rate</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Type</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white text-xs font-bold rounded-full">1</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/coastcapital/" class="text-teal-600 hover:underline">Coast Capital Savings</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.06%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">BC credit union</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-500 text-white text-xs font-bold rounded-full">2</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/butlermortgage/" class="text-teal-600 hover:underline">Butler Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.09%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Broker channel</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-cyan-500 text-white text-xs font-bold rounded-full">3</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/alterna/" class="text-teal-600 hover:underline">Alterna Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.14%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Credit union bank</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">4</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/wealthsimple/" class="text-teal-600 hover:underline">Wealthsimple</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.19%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Digital lender</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">5</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/truenorth/" class="text-teal-600 hover:underline">True North Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.24%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">National broker</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-200">
+  <p class="text-sm mb-2"><span class="font-semibold">5-year fixed range (25 lenders):</span> 4.06% – 4.99%</p>
+  <p class="text-sm mb-2"><span class="font-semibold">Average of 5-year fixed products in our table:</span> 4.60%</p>
+  <p class="text-sm"><span class="font-semibold">Posted rates in this scrape:</span> TD 6.09%, CIBC 6.49%</p>
+</div>
+
+<div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
+  <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
+  <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same September 15 scrape is <strong>3.44%</strong> insured at <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a>, with <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> and <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Example on a $500,000 mortgage</h2>
+
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3">25-year amortization, monthly payment estimate:</h3>
+  <ul class="space-y-2 text-sm">
+    <li>At 4.06% (best 5-year fixed): <strong>$2,656/month</strong></li>
+    <li>At 6.49% (CIBC posted in this scrape): <strong>$3,373/month</strong></li>
+    <li class="text-emerald-700 font-semibold">Monthly difference: $717</li>
+    <li class="text-emerald-700 font-semibold">5-year difference: $43,020</li>
+  </ul>
+  <p class="text-sm mt-3">Estimate your own payment with the <a href="/tools/mortgage-calculator/" class="text-teal-700 hover:underline font-medium">mortgage payment calculator</a>. Qualification still uses the stress-test rate — check it with the <a href="/tools/stress-test-qualifier/" class="text-teal-700 hover:underline font-medium">stress test qualifier</a>.</p>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Insured vs uninsured</h2>
+
+<p class="mb-4">This week's lowest 5-year fixed is an <strong>insured</strong> (high-ratio) product. The lowest <strong>uninsured</strong> 5-year fixed in the same table is Butler Mortgage at 4.09%. Shop both <a href="/rates/insured/" class="text-teal-600 hover:underline font-medium">insured</a> and <a href="/rates/uninsured/" class="text-teal-600 hover:underline font-medium">uninsured</a> hubs if your down payment sits near 20%.</p>
+
+<p class="mb-3">The lowest advertised rates typically still require:</p>
+
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>Strong credit and documented income</li>
+  <li>Debt-service ratios within lender guidelines</li>
+  <li>Less than 20% down for insured pricing, or 20%+ for uninsured</li>
+</ul>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
+
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 3.44%), but they will move if prime moves after a future overnight-rate change.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
+
+<ol class="list-decimal list-inside space-y-2 mb-6 ml-4">
+  <li>Get pre-approved to hold a rate for 90-120 days</li>
+  <li>Compare rates AND terms (prepayment options, penalties)</li>
+  <li>Consider using a mortgage broker for access to more lenders</li>
+  <li>Don't forget to negotiate - even published rates often have room</li>
+</ol>
+
+<p class="mb-4">More context: the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a> covers product choice, qualification, and closing costs alongside these weekly numbers.</p>`,
+    author: "Andrew",
+    authorTitle: "Rate Analyst",
+    date: "2026-09-15",
+    category: "rates",
+    tags: ["best rates", "fixed mortgage", "weekly update", "rate comparison"],
+    readTime: 4,
+    featured: true,
+    image: "/blog/best-rates-week-38-2026.jpg"
+  },
+  {
+    slug: "bank-of-canada-holds-rate-september-2026",
+    title: "Bank of Canada Holds Rate at 2.25%: What It Means for Mortgage Renewals",
+    excerpt: "The Bank of Canada kept its overnight rate unchanged at 2.25% on September 2, 2026. Here's what that hold means for variable vs fixed mortgages and homeowners facing renewals.",
+    content: `<p class="mb-4">The Bank of Canada announced on September 2, 2026 that it is holding its target for the overnight rate at 2.25%, with the Bank Rate at 2.5% and the deposit rate at 2.20%. The next scheduled announcement is October 28, 2026. This decision has direct implications for variable-rate payments and for anyone shopping a fixed term or renewal.</p>
+
+<p class="mb-4 text-sm text-slate-600">Source: <a href="https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/" class="text-teal-600 hover:underline font-medium">Bank of Canada press release, September 2, 2026</a>.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Why the Bank Held Rates</h2>
+
+<p class="mb-4">Governing Council said the economy and inflation were evolving broadly as forecast in the July Monetary Policy Report, so it agreed to leave the policy rate unchanged. At the same time, it flagged higher upside risks to inflation and more uncertain growth because of new tariffs.</p>
+
+<p class="mb-3 font-semibold text-slate-800">Key points from the official release:</p>
+
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>Canadian GDP rose 3.3% in the second quarter after a very weak first quarter; the Bank described the pick-up as broad-based, with some of the strength reflecting temporary factors</li>
+  <li>Consumption posted solid gains; housing activity rebounded after several weak quarters; exports and business investment were up sharply</li>
+  <li>The unemployment rate edged down to 6.4% in July, but labour demand remains subdued and indicators still point to excess supply</li>
+  <li>CPI inflation has been hovering around 3%, mainly because of persistently higher gasoline prices</li>
+  <li>Excluding gasoline, inflation was 2.2% in July and measures of core inflation remained close to 2%</li>
+  <li>The Middle East conflict is keeping energy prices high; new US tariffs and Canadian counter-measures followed a breakdown in trade talks</li>
+  <li>Financial conditions have tightened since July, with long-term bond yields up globally, including in Canada</li>
+</ul>
+
+<p class="mb-4">Governing Council said it will assess the sustainability of the economic rebound and the outlook for inflation, and is prepared to adjust monetary policy as needed. The next Monetary Policy Report will be published with the October 28 decision.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Impact on Mortgage Rates</h2>
+
+<p class="mb-4"><strong>Variable-rate mortgages</strong> are priced off lender prime, which typically moves with the overnight rate. A hold means variable payments should not change solely because of this announcement. Compare live <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a> before you assume a discount to prime will last through October.</p>
+
+<p class="mb-4"><strong>Fixed-rate mortgages</strong> are priced off bond yields, not the overnight rate. The Bank explicitly noted that long-term yields have moved up since July. A policy-rate hold does not freeze 5-year fixed quotes. Shop the live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed hub</a> rather than treating 2.25% as your mortgage rate.</p>
+
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3">Current Market Rates (September 15, 2026 scrape)</h3>
+  <ul class="space-y-2 text-sm">
+    <li><span class="font-medium">5-Year Fixed:</span> 4.06% – 4.99% (best: Coast Capital Savings 4.06% insured)</li>
+    <li><span class="font-medium">5-Year Variable:</span> 3.44% – 4.24% (best: Meridian 3.44% insured)</li>
+    <li><span class="font-medium">Overnight rate:</span> 2.25% (held September 2, 2026)</li>
+  </ul>
+  <p class="text-sm mt-3">Full weekly table: <a href="/blog/best-5-year-fixed-rates-week-38-2026/" class="text-teal-700 hover:underline font-medium">best 5-year fixed rates, week of September 15-21</a>.</p>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">What Should Renewers Do?</h2>
+
+<p class="mb-4">If you're renewing before the October 28 decision, start with our <a href="/tools/mortgage-renewal-calculator/" class="text-teal-600 hover:underline font-medium">renewal calculator</a> and confirm you still pass the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test qualifier</a> at the contract rate plus the buffer:</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+      <strong class="font-semibold text-slate-800">Start shopping early</strong>
+    </div>
+    <p class="text-sm text-slate-600">Get quotes from 3-5 lenders while the overnight rate is unchanged</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-teal-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+      <strong class="font-semibold text-slate-800">Separate variable from fixed</strong>
+    </div>
+    <p class="text-sm text-slate-600">Variable follows prime; fixed still tracks bond yields</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+      <strong class="font-semibold text-slate-800">Don't accept the first offer</strong>
+    </div>
+    <p class="text-sm text-slate-600">Posted big-bank rates in this scrape run as high as 6.49%</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-slate-400 text-white text-xs font-bold flex items-center justify-center">4</span>
+      <strong class="font-semibold text-slate-800">Re-check qualification</strong>
+    </div>
+    <p class="text-sm text-slate-600">Use the stress test even if you are only switching lenders at renewal</p>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Looking Ahead</h2>
+
+<p class="mb-4">The Bank did not signal a cut or a hike. It said upside risks to inflation have increased — from still-high oil prices, elevated refinery margins, and new US and Canadian tariffs that could feed into consumer prices over time — while the recovery's sustainability is less certain. Governing Council is prepared to adjust the policy rate as needed.</p>
+
+<p class="mb-4">Until October 28, treat variable as stable versus this hold, and treat fixed as a live quote. For product choice, qualification, and closing costs, see the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a>.</p>`,
+    author: "Andrew",
+    authorTitle: "Mortgage Market Analyst",
+    date: "2026-09-02",
+    category: "news",
+    tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
+    readTime: 5,
+    featured: true,
+    image: "/blog/boc-rate-hold-september-2026.jpg"
+  },
+  {
     slug: "bank-of-canada-holds-rate-march-2025",
     title: "Bank of Canada Holds Rate at 2.75%: What It Means for Mortgage Renewals",
     excerpt: "The Bank of Canada kept its overnight rate unchanged at 2.75% in March 2025. Here's what this decision means for homeowners facing mortgage renewals this year.",
@@ -92,7 +302,7 @@ export const blogPosts: BlogPost[] = [
     category: "news",
     tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
     readTime: 5,
-    featured: true,
+    featured: false,
     image: "/blog/boc-rate-hold.jpg"
   },
   {
@@ -207,7 +417,7 @@ export const blogPosts: BlogPost[] = [
     category: "rates",
     tags: ["best rates", "fixed mortgage", "weekly update", "rate comparison"],
     readTime: 4,
-    featured: true,
+    featured: false,
     image: "/blog/best-rates-march.jpg"
   },
   {
