@@ -139,7 +139,7 @@ export default function InsuredRatesPage() {
             <GuideCTA variant="compact" />
           </div>
 
-          <AdUnit format="display" className="mb-8" />
+          <AdUnit format="display" className="mt-12 mb-10" />
 
           <FAQSection
             faqs={[

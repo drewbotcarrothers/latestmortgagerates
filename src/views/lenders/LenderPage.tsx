@@ -612,7 +612,7 @@ export default function LenderPage({ slug }: { slug: string }) {
           <GuideCTA variant="compact" />
         </div>
 
-        <AdUnit format="display" className="mb-8" />
+        <AdUnit format="display" className="mt-12 mb-10" />
 
         {/* Lender Overview */}
         <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8 overflow-hidden">
