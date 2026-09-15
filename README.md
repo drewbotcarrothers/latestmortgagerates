@@ -85,6 +85,10 @@ Go to **Settings > Secrets and variables > Actions** and add:
 | `REMOTE_PATH` | Target directory (e.g., `/public_html/` or `/public_html/rates/`) |
 | `SCRAPER_PROXY_URL` | Optional residential proxy for live BMO (see `WORKFLOW_SECRETS.md`) |
 
+## Blog content cadence
+
+Weekly 5-year fixed roundups (Mondays) and Bank of Canada decision posts (announcement mornings) are added as `BlogPost` objects in `src/content/blog.ts`. See `CONTENT_CADENCE.md` for slug patterns, required links, and the rule against inventing rates.
+
 ## Data Updates
 
 The scraper runs separately and exports data to `data/rates.json` plus `data/metadata.json` (`last_updated` is UTC with a `Z` suffix). The homepage "Last updated" label is baked into the static export from that timestamp.
