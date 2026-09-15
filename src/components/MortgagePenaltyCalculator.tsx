@@ -230,7 +230,7 @@ export default function MortgagePenaltyCalculator() {
           <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
             <h4 className="font-semibold text-amber-900 mb-2">💡 About Penalties</h4>
             <ul className="space-y-2 text-sm text-amber-800">
-              <li>• <strong>3 Months Interest:</strong> Rate ÷ 12 × outstanding balance × 3 (typical for variable)</li>
+              <li>• <strong>3 Months Interest:</strong> Rate / 12 × outstanding balance × 3 (typical for variable)</li>
               <li>• <strong>IRD:</strong> Often applies to fixed rates</li>
               <li>• <strong>Big Banks:</strong> May use posted rate at origination (higher penalty)</li>
               <li>• <strong>Monolines:</strong> Often use fairer IRD calculations</li>
@@ -253,7 +253,7 @@ export default function MortgagePenaltyCalculator() {
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
               <p className="text-sm text-slate-300 mb-1">3 Months Interest</p>
               <p className="text-xl font-bold">{formatCurrency(results.threeMonthInterest)}</p>
-              <p className="text-xs text-slate-400">Interest on your outstanding balance (rate ÷ 12 × 3)</p>
+              <p className="text-xs text-slate-400">Interest on your outstanding balance (rate / 12 × 3)</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">

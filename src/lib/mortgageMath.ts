@@ -272,8 +272,8 @@ export function calculateMortgagePenalty(input: PenaltyCalcInput): PenaltyCalcRe
 
   if (input.mortgageType === "variable") {
     penaltyType = "3 Months Interest";
-    explanation =
-      "Variable-rate mortgages typically charge 3 months of interest on the outstanding balance (rate ÷ 12 × balance × 3).";
+      explanation =
+        "Variable-rate mortgages typically charge 3 months of interest on the outstanding balance (rate / 12 × balance × 3).";
   } else if (irdAmount > threeMonthInterest) {
     penaltyType = "Interest Rate Differential (IRD)";
     explanation = `Your IRD (${formatCad(irdAmount)}) is higher than 3 months' interest (${formatCad(threeMonthInterest)}). Lenders charge the greater of the two.`;
