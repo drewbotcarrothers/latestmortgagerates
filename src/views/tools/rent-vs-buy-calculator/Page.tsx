@@ -5,6 +5,7 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import GuideCTA from "@/components/GuideCTA";
 
 
 export default function RentVsBuyPage() {
@@ -61,6 +62,9 @@ export default function RentVsBuyPage() {
 
         <div className="max-w-7xl mx-auto px-4 py-8">
           <RentVsBuyCalculator />
+          <div className="mt-8 max-w-xl">
+            <GuideCTA variant="compact" />
+          </div>
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/rent-vs-buy-calculator" />

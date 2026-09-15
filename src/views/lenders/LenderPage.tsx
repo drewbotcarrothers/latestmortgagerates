@@ -2,6 +2,7 @@ import LenderLogo from "@/components/LenderLogo";
 import Navigation from "@/components/Navigation";
 import FAQSection from "@/components/FAQSection";
 import RateHubLinks from "@/components/RateHubLinks";
+import GuideCTA from "@/components/GuideCTA";
 
 // Force static generation for static export
 
@@ -605,6 +606,10 @@ export default function LenderPage({ slug }: { slug: string }) {
             </div>
           </section>
         )}
+
+        <div className="mb-8">
+          <GuideCTA variant="compact" />
+        </div>
 
         {/* Lender Overview */}
         <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8 overflow-hidden">

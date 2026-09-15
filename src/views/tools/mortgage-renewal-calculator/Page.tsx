@@ -4,6 +4,7 @@ import MortgageRenewalCalculator from "@/components/MortgageRenewalCalculator";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import GuideCTA from "@/components/GuideCTA";
 
 
 // FAQ for structured data
@@ -132,6 +133,9 @@ export default function MortgageRenewalCalculatorPage() {
         {/* Calculator Section */}
         <div className="max-w-7xl mx-auto px-4 py-8">
           <MortgageRenewalCalculator />
+          <div className="mt-8 max-w-xl">
+            <GuideCTA variant="compact" />
+          </div>
         </div>
 
         {/* FAQ Section */}

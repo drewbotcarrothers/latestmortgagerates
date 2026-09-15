@@ -5,6 +5,7 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import GuideCTA from "@/components/GuideCTA";
 
 
 export default function RefinancePage() {
@@ -69,6 +70,9 @@ export default function RefinancePage() {
         {/* Calculator Section */}
         <div className="max-w-7xl mx-auto px-4 py-8">
           <RefinanceCalculator />
+          <div className="mt-8 max-w-xl">
+            <GuideCTA variant="compact" />
+          </div>
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/refinance-calculator" />

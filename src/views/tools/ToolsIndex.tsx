@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RateHubLinks from "@/components/RateHubLinks";
+import GuideCTA from "@/components/GuideCTA";
 
 
 interface ToolCardProps {
@@ -296,7 +297,8 @@ export default function ToolsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-12">
+      <div className="max-w-7xl mx-auto px-4 pb-12 space-y-6">
+        <GuideCTA variant="compact" />
         <RateHubLinks
           title="Compare the rates behind these calculators"
           description="Use a payment or affordability estimate, then shop 5-year fixed, variable, insured, and uninsured rates."
