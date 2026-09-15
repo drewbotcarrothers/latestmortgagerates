@@ -8,6 +8,10 @@ on:
     - cron: '0 15 * * 0'
     # Monthly on 1st at 9:00 AM EST - Rate check poll
     - cron: '0 14 1 * *'
+  push:
+    branches: [master]
+    paths:
+      - 'src/content/blog.ts'
   workflow_dispatch:
     inputs:
       post_type:
@@ -20,13 +24,24 @@ on:
           - daily_rates
           - weekly_summary
           - monthly_poll
+          - blog_amplify
+      blog_slug:
+        description: 'Blog slug to amplify (blog_amplify only). Leave empty for the newest unpublished post.'
+        required: false
+        type: string
+      force_repost:
+        description: 'Repost even if this slug was already amplified'
+        required: false
+        type: boolean
+        default: false
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
 
 jobs:
   post-to-x:
     name: Post to X (Twitter)
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.post_type != 'blog_amplify')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,6 +51,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -57,3 +73,76 @@ jobs:
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+
+  blog-amplify:
+    name: Amplify blog post to social
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.post_type == 'blog_amplify')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: blog-amplify-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Amplify unpublished blog post
+        id: amplify
+        run: npx tsx scripts/blog-to-social.ts
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          BLOG_SLUG: ${{ github.event.inputs.blog_slug }}
+          FORCE_REPOST: ${{ github.event.inputs.force_repost }}
+          MAX_POSTS: '1'
+
+      - name: Commit posted-blog tracker
+        if: always() && !cancelled()
+        run: |
+          set -euo pipefail
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git add data/social-posted-blogs.json
+          if git diff --cached --quiet; then
+            echo "No tracker changes to commit"
+            exit 0
+          fi
+
+          SLUGS="${{ steps.amplify.outputs.posted_slugs }}"
+          if [ -n "$SLUGS" ]; then
+            MSG="chore(social): mark blog ${SLUGS} as posted"
+          else
+            MSG="chore(social): mark blog posts as posted"
+          fi
+
+          git commit -m "$MSG"
+
+          for i in 1 2 3; do
+            if git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}"; then
+              echo "✅ Tracker push succeeded on attempt $i"
+              exit 0
+            fi
+            echo "⚠️ Tracker push failed (attempt $i), retrying..."
+            sleep $((i * 4))
+          done
+
+          echo "❌ Could not push social posted-blog tracker"
+          exit 1

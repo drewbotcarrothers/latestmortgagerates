@@ -87,7 +87,7 @@ Go to **Settings > Secrets and variables > Actions** and add:
 
 ## Blog content cadence
 
-Weekly 5-year fixed roundups (Mondays) and Bank of Canada decision posts (announcement mornings) are added as `BlogPost` objects in `src/content/blog.ts`. See `CONTENT_CADENCE.md` for slug patterns, required links, and the rule against inventing rates.
+Weekly 5-year fixed roundups (Mondays) and Bank of Canada decision posts (announcement mornings) are added as `BlogPost` objects in `src/content/blog.ts`. See `CONTENT_CADENCE.md` for slug patterns, required links, and the rule against inventing rates. New posts on `master` are amplified to X/Facebook (`SOCIAL.md`).
 
 ## Data Updates
 

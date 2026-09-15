@@ -29,6 +29,9 @@ jobs:
       - name: Calculator unit tests
         run: npm test
 
+      - name: Blog-to-social dry run
+        run: DRY_RUN=true BLOG_SLUG=first-time-buyer-guide-2026 FORCE_REPOST=true npx tsx scripts/blog-to-social.ts
+
       - name: Astro check
         run: npm run check --if-present
         continue-on-error: true

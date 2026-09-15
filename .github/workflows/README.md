@@ -8,7 +8,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 |----------|------|---------|---------|
 | **CI/CD Pipeline** | `ci-cd.yml` | Push to master, PRs | Lint, build, and deploy on code changes |
 | **Scrape & Deploy** | `scrape-and-deploy.yml` | Schedule (2x/day), manual — **self-hosted `lmr-home` Mac only** (no `pull_request`) | Scrape rates, commit changes, auto-deploy |
-| **Post to Social** | `post-to-social.yml` | Schedule (daily), manual | Post rate updates to X/Twitter |
+| **Post to Social** | `post-to-social.yml` | Schedule (daily), push of `src/content/blog.ts` to master, manual | Rate tweets plus blog amplify to X/Facebook |
 | **Send Email Alerts** | `send-email-alerts.yml` | Schedule (daily/weekly/monthly), manual | Send subscriber email alerts |
 
 ---
@@ -59,20 +59,24 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 
 ### 3. Post to Social (`post-to-social.yml`)
 
-**Purpose**: Automated social media posts
+**Purpose**: Automated social media posts (rate tweets + new blog amplify)
 
 **Triggers**:
-- Schedule: Daily at 9:00 AM EST
+- Schedule: Daily at 9:00 AM EST (smart tweet)
 - Schedule: Weekly on Sundays at 10:00 AM EST
-- Manual dispatch with post type selection
+- Schedule: Monthly on the 1st (rate poll)
+- Push to `master` when `src/content/blog.ts` changes (blog amplify)
+- Manual dispatch with post type selection (`smart_tweet`, `monthly_poll`, `blog_amplify`, …)
 
 **Jobs**:
-- **Post to X**: Posts rate updates to Twitter/X
+- **Post to X**: Scheduled / manual rate updates via `scripts/smart-tweet.ts` and `scripts/monthly-poll.ts`
+- **Amplify blog post**: Posts the newest unpublished blog article to X and the Facebook Page, then commits `data/social-posted-blogs.json`
+
+See **`SOCIAL.md`** for copy rules, Facebook Page secrets, dry-run, and how to dispatch a specific slug.
 
 **Future Extensions**:
 - Post to Bluesky
 - Post to LinkedIn
-- Post to Facebook
 
 ---
 
@@ -112,6 +116,12 @@ Required secrets (set in GitHub Settings > Secrets and variables > Actions):
 - `TWITTER_API_KEY` - API Key
 - `TWITTER_API_SECRET` - API Secret
 - `TWITTER_ACCESS_SECRET` - Access Token Secret
+
+### Social Media (Facebook Page) — add these for blog amplify
+- `FACEBOOK_PAGE_ID` - Numeric Facebook Page ID
+- `FACEBOOK_PAGE_ACCESS_TOKEN` - Long-lived Page access token (`pages_manage_posts`, `pages_read_engagement`)
+
+Full setup: **`SOCIAL.md`**. Missing Facebook secrets skip the Page post; X still goes out.
 
 ### Email (for alerts)
 - `SMTP_HOST` - SMTP server

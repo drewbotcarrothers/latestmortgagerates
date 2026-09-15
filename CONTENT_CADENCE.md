@@ -2,6 +2,8 @@
 
 Blog posts live in `src/content/blog.ts` as `BlogPost` objects. Copy the HTML/Tailwind style, field names, and internal-link patterns from existing entries (`best-5-year-fixed-rates-week-38-2026` / `best-5-year-fixed-rates-week-12-2025`, `bank-of-canada-holds-rate-september-2026` / `bank-of-canada-holds-rate-march-2025`).
 
+After a new post merges to `master`, GitHub Actions amplifies it once to X and Facebook. See `SOCIAL.md`.
+
 Do not invent percentages. Pull live rates from `https://latestmortgagerates.ca/api/rates.json` and/or repo `data/rates.json`. Pull Bank of Canada rationale only from the official press release.
 
 ## Mondays — weekly 5-year fixed roundup
