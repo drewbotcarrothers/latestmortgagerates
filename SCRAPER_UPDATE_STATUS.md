@@ -10,7 +10,7 @@ Live vs fallback still changes with each twice-daily run. This note covers **Big
 | **TD** | **Yes** | First-party `POST https://psservice.td.com/ca/en/carate/getRates` (`ratesType=resl`). Same `ratesAPIInfo` the td.com page uses. | `td_fallback_2026-07-19` only if API + Playwright fail |
 | **Scotiabank** | **Yes** | First-party `dmtsms.scotiabank.com/api/rates/daily/nonspecialmortgage` + `varmortgage` (bns.dynamic-tokens). | `scotiabank_fallback_2026-07-19` only if API + Playwright fail |
 | **RBC** | **Yes** | Public HTML already contains special/posted rates (no JS hydration required). HTTP first, Playwright backup. | `rbc_fallback_2026-07-19` only if HTML + Playwright fail |
-| **BMO** | **No — proxy required** | Public AEM page. From this cloud VM and GitHub Actions, TCP to `bmo.com` never commits (0 network responses, 15–45s timeout). No public machine-readable rates API found. Playwright/HTTP use `SCRAPER_PROXY_URL` when set. | Dated specials `bmo_fallback_2026-09-14` (NerdWallet table citing bmo.com) |
+| **BMO** | **Yes — Safari TLS / WebKit** (self-hosted Mac; also works from some datacenter IPs with `curl_cffi`) | First-party JSON: `public-data/api/v2.0/bmo-ca-mortgages-rates.json` (specials) + `public-data/api/epm/v1.0/bmo-epm-mortgage.json` (posted). Same feeds the mortgage-rates page hydrates. Plain curl / httpx / Playwright Chromium are fingerprint-blocked (HTTP/2 INTERNAL_ERROR). | Dated specials `bmo_fallback_2026-09-14` only if JSON + WebKit fail |
 
 Live rates are tagged `*_live_scrape` with a fresh `scraped_at`. Fallbacks stay clearly dated (`last_verified`).
 
@@ -18,8 +18,7 @@ Live rates are tagged `*_live_scrape` with a fresh `scraped_at`. Fallbacks stay 
 
 See `WORKFLOW_SECRETS.md` for exact secret names. Shared helper: `scraping/src/scrapers/proxy_config.py` (httpx + Playwright). The scrape workflow already forwards the secrets; nothing else is required except setting a value.
 
-Banks that are live **without** a proxy: CIBC, TD, Scotiabank, RBC.
-Bank that needs a proxy for live first-party rates: **BMO**.
+Banks that are live **without** a proxy: CIBC, TD, Scotiabank, RBC, and **BMO** (BMO needs Safari TLS impersonation or Playwright WebKit, not a paid proxy).
 
 ## What works live (other lenders)
 
@@ -53,7 +52,7 @@ Bank that needs a proxy for live first-party rates: **BMO**.
 
 ## Remaining gaps
 
-- **BMO live from CI** needs `SCRAPER_PROXY_URL` (or a provider alias). No official public rates API was found; the HTML page is the only first-party source and it is IP-blocked from datacenters.
+- **BMO live** uses first-party public-data JSON with Safari TLS impersonation (`curl_cffi`) and Playwright WebKit fallback. Plain Chromium/`curl` still fail. No paid proxy required on `lmr-home`. Re-run **Scrape Rates & Deploy** and look for `bmo_live_scrape`.
 - CIBC’s HTML page is still RDS-token-only from datacenter IPs; the **API** is the live path (verified from this environment).
 - Simplii RDS page is out of scope for this Big 5 change.
 - CMLS, Equitable, RFA, Home Trust, Vancity, Coast Capital still often fallback-only from datacenter IPs.

@@ -120,15 +120,26 @@ After the runner is online, or to test without waiting for cron:
 
 To re-run a failed attempt: open that run → **Re-run all jobs** (or **Re-run failed jobs**).
 
-## Playwright / Chromium on macOS
+## Playwright on macOS (Chromium + WebKit)
 
-The workflow installs Chromium with:
+The workflow installs browsers with:
 
 ```bash
 python -m playwright install chromium
+python -m playwright install webkit
 ```
 
-It does **not** run `playwright install-deps` / `--with-deps` (Linux apt only). Chromium is cached under the Mac user’s Playwright cache (`~/Library/Caches/ms-playwright`) after the first install.
+It does **not** run `playwright install-deps` / `--with-deps` (Linux apt only). Binaries are cached under the Mac user’s Playwright cache (`~/Library/Caches/ms-playwright`) after the first install.
+
+BMO blocks typical Chromium / curl TLS fingerprints even from this residential IP (Safari in a real window still loads). The BMO scraper therefore:
+
+1. Fetches BMO’s public-data JSON with **Safari TLS impersonation** (`curl_cffi`)
+2. Falls back to **Playwright WebKit** (Safari-like) API request / HTML
+3. Uses dated `bmo_fallback_*` only if those fail
+
+Other lenders still use Chromium or first-party APIs. Do not drop the Chromium install.
+
+Look for `bmo_live_scrape` in **Run scraper** logs after a successful live BMO fetch.
 
 ## After merge: re-run Scrape Rates & Deploy
 
@@ -136,7 +147,7 @@ It does **not** run `playwright install-deps` / `--with-deps` (Linux apt only). 
 2. Open [Actions → Scrape Rates & Deploy](https://github.com/drewbotcarrothers/latestmortgagerates/actions/workflows/scrape-and-deploy.yml)
 3. **Run workflow** on `master` (or this PR branch to test before merge)
 4. Confirm **Setup Python 3.11 and Node 20 (Homebrew)** succeeds (no `/Users/runner`)
-5. Confirm the job ran on `andrews-mbp-lmr` / `lmr-home`, and BMO logs show `bmo_live_scrape` when bmo.com is reachable
+5. Confirm the job ran on `andrews-mbp-lmr` / `lmr-home`, and BMO logs show `bmo_live_scrape` (typically `public_data_api` or `playwright_webkit`) rather than `bmo_fallback_`
 
 If Homebrew formulae are missing on a stale cellar, update once on the Mac: `brew update && brew install python@3.11 node@20`.
 

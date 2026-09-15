@@ -11,7 +11,7 @@ Next.js website for comparing Canadian mortgage rates from major banks, credit u
 - Responsive design with Tailwind CSS
 - Fully automated deployment via GitHub Actions
 
-Rates are scraped twice daily from first-party bank sources on a **self-hosted home Mac** (`lmr-home`; see `RUNNER.md`) so BMO sees a Canadian residential ISP IP. CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML. Proxy secrets (`SCRAPER_PROXY_URL` in `WORKFLOW_SECRETS.md`) are an optional fallback only. If live BMO still fails, a dated, labeled fallback is used. EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
+Rates are scraped twice daily from first-party bank sources on a **self-hosted home Mac** (`lmr-home`; see `RUNNER.md`). CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML; BMO uses first-party public-data JSON with a Safari-like TLS client (plain Chromium/curl are fingerprint-blocked). Proxy secrets (`SCRAPER_PROXY_URL` in `WORKFLOW_SECRETS.md`) are an optional fallback only. If live BMO still fails, a dated, labeled fallback is used. EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
 
 ## Tech Stack
 
@@ -39,7 +39,7 @@ npm run build
 ```bash
 cd scraping
 pip install -r requirements.txt
-python -m playwright install chromium
+python -m playwright install chromium webkit
 python test_all_lenders_v2.py
 python clean_and_save.py ../data/rates.json ../data/rates.json
 ```
