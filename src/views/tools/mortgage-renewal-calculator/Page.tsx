@@ -105,7 +105,7 @@ export default function MortgageRenewalCalculatorPage() {
                   </li>
                   <li className="text-slate-500">/</li>
                   <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                    <a href="/tools" itemProp="item" className="hover:text-white transition">
+                    <a href="/tools/" itemProp="item" className="hover:text-white transition">
                       <span itemProp="name">Tools</span>
                     </a>
                     <meta itemProp="position" content="2" />

@@ -214,8 +214,8 @@ export default function VancouverPage() {
               <ul className="space-y-2 text-sm">
                 <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">BC Closing Costs</a></li>
                 <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Vancouver Rates Guide</a></li>
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Compare: Toronto</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Compare: Toronto</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
               </ul>
             </div>
 
@@ -238,7 +238,7 @@ export default function VancouverPage() {
             Know someone buying in Vancouver? Share these rates with them.
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/vancouver"
+            url="https://latestmortgagerates.ca/cities/vancouver/"
             title="Best Mortgage Rates in Vancouver 2025"
             description="Compare the lowest mortgage rates in Vancouver and GVA. 5-year fixed from 4.14%."
           />

@@ -201,9 +201,9 @@ export default function WinnipegPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</a></li>
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/edmonton/" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Calgary Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
               </ul>
             </div>
 
@@ -225,7 +225,7 @@ export default function WinnipegPage() {
             Know someone buying in Winnipeg? Share Canada's most affordable rates!
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/winnipeg"
+            url="https://latestmortgagerates.ca/cities/winnipeg/"
             title="Best Mortgage Rates in Winnipeg 2025"
             description="Canada's most affordable city! Average home $360K. Compare the lowest mortgage rates in Manitoba."
           />

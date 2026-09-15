@@ -53,7 +53,7 @@ export default function MortgageCalculatorPage() {
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-teal-300 mb-4">
-              <a href="/tools" className="hover:text-white transition-colors">
+              <a href="/tools/" className="hover:text-white transition-colors">
                 Tools
               </a>
               <span>/</span>
@@ -165,21 +165,21 @@ export default function MortgageCalculatorPage() {
             <div className="card-default p-6">
               <h3 className="text-lg font-bold text-slate-900 mb-4">Related Tools</h3>
               <div className="space-y-3">
-                <a href="/tools/affordability-calculator" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                <a href="/tools/affordability-calculator/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
                   <span className="text-2xl">🏠</span>
                   <div>
                     <p className="font-medium text-slate-900">Affordability Calculator</p>
                     <p className="text-sm text-slate-500">How much can you afford?</p>
                   </div>
                 </a>
-                <a href="/tools/cmhc-insurance-calculator" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                <a href="/tools/cmhc-insurance-calculator/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
                   <span className="text-2xl">🛡️</span>
                   <div>
                     <p className="font-medium text-slate-900">CMHC Calculator</p>
                     <p className="text-sm text-slate-500">Calculate insurance premiums</p>
                   </div>
                 </a>
-                <a href="/tools/land-transfer-tax-calculator" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                <a href="/tools/land-transfer-tax-calculator/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
                   <span className="text-2xl">📋</span>
                   <div>
                     <p className="font-medium text-slate-900">Land Transfer Tax</p>
@@ -194,15 +194,11 @@ export default function MortgageCalculatorPage() {
               <p className="text-teal-100 text-sm mb-4">
                 See the best mortgage rates from 31+ Canadian lenders.
               </p>
-              <a
-                href="/"
-                className="inline-flex items-center text-sm font-semibold text-white hover:text-teal-100"
-              >
-                View Rates
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
+              <div className="flex flex-col gap-2 text-sm font-semibold">
+                <a href="/rates/5-year-fixed/" className="text-white hover:text-teal-100">5-year fixed rates →</a>
+                <a href="/rates/variable/" className="text-white hover:text-teal-100">Variable rates →</a>
+                <a href="/" className="text-white hover:text-teal-100">All lenders →</a>
+              </div>
             </div>
 
             <GuideCTA variant="compact" />

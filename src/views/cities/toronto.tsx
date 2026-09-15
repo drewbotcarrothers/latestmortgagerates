@@ -241,8 +241,8 @@ export default function TorontoPage() {
                 <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Toronto Closing Costs Guide</a></li>
                 <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates Deep Dive</a></li>
                 <li><a href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
-                <li><a href="/cities/vancouver" className="text-teal-600 hover:underline">Compare: Vancouver</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Compare: Vancouver</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
               </ul>
             </div>
 
@@ -267,7 +267,7 @@ export default function TorontoPage() {
             Know someone buying in Toronto? Share these rates with them.
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/toronto"
+            url="https://latestmortgagerates.ca/cities/toronto/"
             title="Best Mortgage Rates in Toronto 2025"
             description="Compare the lowest mortgage rates in Toronto and GTA. 5-year fixed from 4.19%."
           />

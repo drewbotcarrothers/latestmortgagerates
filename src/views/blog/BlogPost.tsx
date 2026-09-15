@@ -4,6 +4,7 @@ import RelatedArticles from "@/components/RelatedArticles";
 import RelatedTools from "@/components/RelatedTools";
 import GlossaryLink from "@/components/GlossaryLink";
 import GuideCTA from "@/components/GuideCTA";
+import RateHubLinks from "@/components/RateHubLinks";
 import { blogPosts, getPostBySlug, categories, getRecentPosts } from "@/content/blog";
 
 // Tool mapping for contextual sidebar links
@@ -14,8 +15,8 @@ const toolMapping: Record<string, { href: string; icon: string; title: string; d
     { href: "/tools/land-transfer-tax-calculator/", icon: "📋", title: "Land Transfer Tax", description: "Calculate closing costs" },
   ],
   rates: [
-    { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
-    { href: "/trends/", icon: "📈", title: "Rate Trends", description: "Historical rate analysis" },
+    { href: "/rates/5-year-fixed/", icon: "📌", title: "5-Year Fixed Rates", description: "Compare locked-in 5-year rates" },
+    { href: "/rates/variable/", icon: "📈", title: "Variable Rates", description: "Prime-linked variable rates" },
     { href: "/tools/mortgage-renewal-calculator/", icon: "🔄", title: "Renewal Calculator", description: "Should you renew or switch?" },
   ],
   affordability: [
@@ -30,13 +31,13 @@ const toolMapping: Record<string, { href: string; icon: string; title: string; d
   ],
   firsttime: [
     { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "What can you afford?" },
-    { href: "/tools/land-transfer-tax-calculator/", icon: "📋", title: "Land Transfer Tax", description: "First-time buyer rebates" },
-    { href: "/tools/cmhc-insurance-calculator/", icon: "🛡️", title: "CMHC Calculator", description: "Insurance for <20% down" },
+    { href: "/tools/stress-test-qualifier/", icon: "✅", title: "Stress Test", description: "Check if you qualify" },
+    { href: "/tools/closing-costs-calculator/", icon: "💰", title: "Closing Costs", description: "Cash needed to close" },
   ],
   default: [
     { href: "/tools/mortgage-calculator/", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+    { href: "/rates/5-year-fixed/", icon: "📌", title: "5-Year Fixed Rates", description: "See today's best fixed rates" },
     { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
-    { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
   ],
 };
 
@@ -186,6 +187,8 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             <RelatedTools tools={getRelatedTools(post)} title="Tools Mentioned in This Article" />
           </div>
 
+          <RateHubLinks className="mt-8" />
+
           <div className="mt-12 pt-8 border-t border-slate-200">
             <h2 className="text-lg font-semibold text-slate-900 mb-4">Tags</h2>
             <div className="flex flex-wrap gap-2">
@@ -205,15 +208,26 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             <p className="text-slate-600 mb-4">
               See how rates from Canada's top lenders compare before your renewal or purchase.
             </p>
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
-            >
-              View Current Rates
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
+              >
+                View Current Rates
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a href="/rates/5-year-fixed/" className="inline-flex items-center px-4 py-3 text-teal-800 font-medium hover:underline">
+                5-year fixed
+              </a>
+              <a href="/rates/variable/" className="inline-flex items-center px-4 py-3 text-teal-800 font-medium hover:underline">
+                Variable
+              </a>
+              <a href="/tools/" className="inline-flex items-center px-4 py-3 text-teal-800 font-medium hover:underline">
+                Calculators
+              </a>
+            </div>
           </div>
 
           <div className="mt-8">

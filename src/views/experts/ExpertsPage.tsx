@@ -324,7 +324,7 @@ export default function ExpertsPage() {
                 </svg>
               </a>
               <a
-                href="/trends"
+                href="/trends/"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-800/50 text-white border border-cyan-400 rounded-xl font-semibold hover:bg-cyan-800 transition-colors"
               >
                 See Rate Trends

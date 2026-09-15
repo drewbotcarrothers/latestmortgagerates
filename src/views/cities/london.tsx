@@ -146,9 +146,9 @@ export default function LondonPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/kitchener" className="text-teal-600 hover:underline">Kitchener Rates</a></li>
-                <li><a href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
-                <li><a href="/cities/windsor" className="text-teal-600 hover:underline">Windsor Rates</a></li>
+                <li><a href="/cities/kitchener/" className="text-teal-600 hover:underline">Kitchener Rates</a></li>
+                <li><a href="/cities/hamilton/" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
+                <li><a href="/cities/windsor/" className="text-teal-600 hover:underline">Windsor Rates</a></li>
               </ul>
             </div>
 
@@ -163,7 +163,7 @@ export default function LondonPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-2">Share London Rates</h3>
               <p className="text-slate-600 text-sm mb-4">Know someone buying in London?</p>
-              <SocialShare url="https://latestmortgagerates.ca/cities/london"
+              <SocialShare url="https://latestmortgagerates.ca/cities/london/"
                 title="Best Mortgage Rates London 2025"
                 description="The Forest City! Affordable homes, university town. 5-year fixed from 4.19%."
               />

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HowToSchema from "@/components/HowToSchema";
+import RateHubLinks from "@/components/RateHubLinks";
 
 
 const benefits = [
@@ -177,37 +178,38 @@ export default function EbookLandingPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <a href="/tools/mortgage-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+              <a href="/tools/mortgage-calculator/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
                 <span className="text-3xl mb-3 block">&#x1f9ee;</span>
                 <h3 className="font-bold text-slate-900 mb-2">Payment Calculator</h3>
                 <p className="text-sm text-slate-600">Calculate monthly payments for any mortgage amount and rate.</p>
               </a>
-              <a href="/tools/affordability-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+              <a href="/tools/affordability-calculator/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
                 <span className="text-3xl mb-3 block">&#x1f3e0;</span>
                 <h3 className="font-bold text-slate-900 mb-2">Affordability Calculator</h3>
                 <p className="text-sm text-slate-600">Find out exactly how much mortgage you qualify for.</p>
               </a>
-              <a href="/tools/cmhc-insurance-calculator" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
-                <span className="text-3xl mb-3 block">&#x1f6e1;</span>
-                <h3 className="font-bold text-slate-900 mb-2">CMHC Calculator</h3>
-                <p className="text-sm text-slate-600">See how much mortgage insurance will cost with your down payment.</p>
+              <a href="/tools/stress-test-qualifier/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x2705;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Stress Test Qualifier</h3>
+                <p className="text-sm text-slate-600">See if you pass Canada’s mortgage stress test before you negotiate.</p>
               </a>
-              <a href="/glossary" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+              <a href="/tools/closing-costs-calculator/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+                <span className="text-3xl mb-3 block">&#x1f4b0;</span>
+                <h3 className="font-bold text-slate-900 mb-2">Closing Costs</h3>
+                <p className="text-sm text-slate-600">Estimate land transfer tax, legal fees, and cash to close.</p>
+              </a>
+              <a href="/glossary/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
                 <span className="text-3xl mb-3 block">&#x1f4da;</span>
                 <h3 className="font-bold text-slate-900 mb-2">Mortgage Glossary</h3>
                 <p className="text-sm text-slate-600">Understand every term before you negotiate. 50+ definitions.</p>
               </a>
-              <a href="/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
-                <span className="text-3xl mb-3 block">&#x1f4ca;</span>
-                <h3 className="font-bold text-slate-900 mb-2">Compare Rates</h3>
-                <p className="text-sm text-slate-600">See live rates from 31+ Canadian lenders to benchmark your offer.</p>
-              </a>
-              <a href="/blog" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
+              <a href="/blog/" className="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all">
                 <span className="text-3xl mb-3 block">&#x1f4f0;</span>
                 <h3 className="font-bold text-slate-900 mb-2">Rate News &amp; Analysis</h3>
                 <p className="text-sm text-slate-600">Weekly market updates and rate predictions from our experts.</p>
               </a>
             </div>
+            <RateHubLinks className="mt-8" title="Compare live rates while you read" />
           </div>
         </section>
 

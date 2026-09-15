@@ -184,7 +184,7 @@ export default function KamloopsPage() {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
               <h3 className="font-bold text-slate-900 mb-4">Kamloops Mortgage Calculator</h3>
               <p className="text-slate-600 text-sm mb-4">Calculate your monthly payments for Kamloops home prices.</p>
-              <a href="/tools/mortgage-calculator" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
+              <a href="/tools/mortgage-calculator/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
                 Calculate Payments
               </a>
             </div>
@@ -193,8 +193,8 @@ export default function KamloopsPage() {
               <ul className="space-y-2 text-sm">
                 <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</a></li>
                 <li><a href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
-                <li><a href="/cities/kelowna" className="text-teal-600 hover:underline">Compare: Kelowna</a></li>
-                <li><a href="/cities/vancouver" className="text-teal-600 hover:underline">Compare: Vancouver</a></li>
+                <li><a href="/cities/kelowna/" className="text-teal-600 hover:underline">Compare: Kelowna</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Compare: Vancouver</a></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6">
@@ -215,7 +215,7 @@ export default function KamloopsPage() {
             Know someone buying in Kamloops? Share these rates with them.
           </p>
           <SocialShare
-            url="https://latestmortgagerates.ca/cities/kamloops"
+            url="https://latestmortgagerates.ca/cities/kamloops/"
             title="Best Mortgage Rates in Kamloops 2026"
             description="Compare the lowest mortgage rates in Kamloops. 5-year fixed from 4.08%."
           />

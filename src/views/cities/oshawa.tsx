@@ -80,15 +80,15 @@ return(
 <div className="bg-white rounded-lg shadow-md p-6 mt-6">
 <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
 <ul className="space-y-2 text-sm">
-<li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-<li><a href="/cities/barrie" className="text-teal-600 hover:underline">Barrie Rates</a></li>
-<li><a href="/cities/hamilton" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
+<li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+<li><a href="/cities/barrie/" className="text-teal-600 hover:underline">Barrie Rates</a></li>
+<li><a href="/cities/hamilton/" className="text-teal-600 hover:underline">Hamilton Rates</a></li>
 </ul>
 </div>
 
 <div className="bg-teal-50 rounded-lg p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Compare Oshawa Rates</h3><p className="text-slate-600 text-sm mb-4">See rates from Durham Region lenders.</p><a href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</a></div>
 
-<div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Share Oshawa Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/oshawa" title="Best Mortgage Rates Oshawa 2025" description="GTA location with non-GTA prices! $720K average with GO Train access. 5-year fixed from 4.19%." /></div>
+<div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Share Oshawa Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/oshawa/" title="Best Mortgage Rates Oshawa 2025" description="GTA location with non-GTA prices! $720K average with GO Train access. 5-year fixed from 4.19%." /></div>
 <CityLendersSidebar cityName="Oshawa" />
 </aside>
 </div>

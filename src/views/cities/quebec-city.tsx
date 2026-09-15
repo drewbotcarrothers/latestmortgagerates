@@ -123,9 +123,9 @@ export default function QuebecCityPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/montreal" className="text-teal-600 hover:underline">Montreal Rates</a></li>
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/halifax" className="text-teal-600 hover:underline">Halifax Rates</a></li>
+                <li><a href="/cities/montreal/" className="text-teal-600 hover:underline">Montreal Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/halifax/" className="text-teal-600 hover:underline">Halifax Rates</a></li>
               </ul>
             </div>
 
@@ -138,7 +138,7 @@ export default function QuebecCityPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-2">Share Quebec City Rates</h3>
               <p className="text-slate-600 text-sm mb-4">Know someone buying?</p>
-              <SocialShare url="https://latestmortgagerates.ca/cities/quebec-city"
+              <SocialShare url="https://latestmortgagerates.ca/cities/quebec-city/"
                 title="Best Mortgage Rates Quebec City 2025"
                 description="UNESCO World Heritage site, $360K average homes! 5-year fixed from 4.19%."
               />

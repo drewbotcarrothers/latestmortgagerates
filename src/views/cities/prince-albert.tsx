@@ -184,7 +184,7 @@ export default function PrinceAlbertPage() {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
               <h3 className="font-bold text-slate-900 mb-4">Prince Albert Mortgage Calculator</h3>
               <p className="text-slate-600 text-sm mb-4">Calculate your monthly payments for Prince Albert home prices.</p>
-              <a href="/tools/mortgage-calculator" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
+              <a href="/tools/mortgage-calculator/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
                 Calculate Payments
               </a>
             </div>
@@ -193,8 +193,8 @@ export default function PrinceAlbertPage() {
               <ul className="space-y-2 text-sm">
                 <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</a></li>
                 <li><a href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
-                <li><a href="/cities/saskatoon" className="text-teal-600 hover:underline">Compare: Saskatoon</a></li>
-                <li><a href="/cities/regina" className="text-teal-600 hover:underline">Compare: Regina</a></li>
+                <li><a href="/cities/saskatoon/" className="text-teal-600 hover:underline">Compare: Saskatoon</a></li>
+                <li><a href="/cities/regina/" className="text-teal-600 hover:underline">Compare: Regina</a></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6">
@@ -215,7 +215,7 @@ export default function PrinceAlbertPage() {
             Know someone buying in Prince Albert? Share these rates with them.
           </p>
           <SocialShare
-            url="https://latestmortgagerates.ca/cities/prince-albert"
+            url="https://latestmortgagerates.ca/cities/prince-albert/"
             title="Best Mortgage Rates in Prince Albert 2026"
             description="Compare the lowest mortgage rates in Prince Albert. 5-year fixed from 4.12%."
           />

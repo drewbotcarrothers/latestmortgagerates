@@ -179,9 +179,9 @@ export default function VictoriaPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
-                <li><a href="/cities/kelowna" className="text-teal-600 hover:underline">Kelowna Rates</a></li>
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
+                <li><a href="/cities/kelowna/" className="text-teal-600 hover:underline">Kelowna Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
               </ul>
             </div>
 
@@ -197,7 +197,7 @@ export default function VictoriaPage() {
               <h3 className="font-bold text-slate-900 mb-2">Share Victoria Rates</h3>
               <p className="text-slate-600 text-sm mb-4">Know someone moving to Victoria?</p>
               <SocialShare 
-                url="https://latestmortgagerates.ca/cities/victoria"
+                url="https://latestmortgagerates.ca/cities/victoria/"
                 title="Best Mortgage Rates in Victoria 2025"
                 description="Vancouver Island living! $1.05M average, no speculation tax, mildest climate. 5-year fixed from 4.19%."
               />

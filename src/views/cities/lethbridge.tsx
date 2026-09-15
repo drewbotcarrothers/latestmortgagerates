@@ -184,7 +184,7 @@ export default function LethbridgePage() {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
               <h3 className="font-bold text-slate-900 mb-4">Lethbridge Mortgage Calculator</h3>
               <p className="text-slate-600 text-sm mb-4">Calculate your monthly payments for Lethbridge home prices.</p>
-              <a href="/tools/mortgage-calculator" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
+              <a href="/tools/mortgage-calculator/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition">
                 Calculate Payments
               </a>
             </div>
@@ -193,8 +193,8 @@ export default function LethbridgePage() {
               <ul className="space-y-2 text-sm">
                 <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</a></li>
                 <li><a href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
-                <li><a href="/cities/red-deer" className="text-teal-600 hover:underline">Compare: Red deer</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
+                <li><a href="/cities/red-deer/" className="text-teal-600 hover:underline">Compare: Red deer</a></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6">
@@ -215,7 +215,7 @@ export default function LethbridgePage() {
             Know someone buying in Lethbridge? Share these rates with them.
           </p>
           <SocialShare
-            url="https://latestmortgagerates.ca/cities/lethbridge"
+            url="https://latestmortgagerates.ca/cities/lethbridge/"
             title="Best Mortgage Rates in Lethbridge 2026"
             description="Compare the lowest mortgage rates in Lethbridge. 5-year fixed from 4.18%."
           />

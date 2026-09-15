@@ -83,13 +83,13 @@ export default function ReginaPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/saskatoon" className="text-teal-600 hover:underline">Saskatoon Rates</a></li>
-                <li><a href="/cities/winnipeg" className="text-teal-600 hover:underline">Winnipeg Rates</a></li>
-                <li><a href="/cities/edmonton" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
+                <li><a href="/cities/saskatoon/" className="text-teal-600 hover:underline">Saskatoon Rates</a></li>
+                <li><a href="/cities/winnipeg/" className="text-teal-600 hover:underline">Winnipeg Rates</a></li>
+                <li><a href="/cities/edmonton/" className="text-teal-600 hover:underline">Edmonton Rates</a></li>
               </ul>
             </div>
             <div className="bg-teal-50 rounded-lg p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Compare Regina Rates</h3><p className="text-slate-600 text-sm mb-4">See rates from Saskatchewan lenders.</p><a href="/" className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">View Rates</a></div>
-            <div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Share Regina Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/regina"
+            <div className="bg-white rounded-lg shadow-md p-6 mt-6"><h3 className="font-bold text-slate-900 mb-2">Share Regina Rates</h3><SocialShare url="https://latestmortgagerates.ca/cities/regina/"
                 title="Best Mortgage Rates Regina 2025"
                 description="Canada's cheapest capital! $330K average, no property transfer tax. 5-year fixed from 4.19%."
               /></div>

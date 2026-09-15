@@ -49,7 +49,7 @@ export default function RentVsBuyPage() {
           <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 text-teal-300 mb-4">
-                <a href="/tools" className="hover:text-white transition-colors">Tools</a>
+                <a href="/tools/" className="hover:text-white transition-colors">Tools</a>
                 <span>/</span>
                 <span>Rent vs Buy Calculator</span>
               </div>

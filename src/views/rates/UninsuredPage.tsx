@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import RateHubLinks from "@/components/RateHubLinks";
 import ratesData from "@data/rates.json";
 
 
@@ -95,6 +96,8 @@ export default function UninsuredRatesPage() {
             </div>
           </div>
 
+          <RateHubLinks currentHref="/rates/uninsured/" className="mb-8" />
+
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-slate-900">Current Uninsured Rates</h2>
@@ -142,7 +145,14 @@ export default function UninsuredRatesPage() {
               },
               {
                 question: "Should I put 20% down to avoid CMHC?",
-                answer: "It depends. With 20% down you avoid CMHC premiums (~$10,000-$20,000 savings) and get a 30-year amortization option. But if you only have exactly 20%, keeping some cash for emergencies or investments may be smarter. Run the numbers with our calculators.",
+                answer: (
+                  <>
+                    It depends. With 20% down you avoid CMHC premiums (~$10,000-$20,000 savings) and get a 30-year amortization option. But if you only have exactly 20%, keeping some cash for emergencies or investments may be smarter. Run the numbers with our{" "}
+                    <a href="/tools/affordability-calculator/" className="text-teal-600 hover:underline font-medium">affordability calculator</a>{" "}
+                    and{" "}
+                    <a href="/tools/cmhc-insurance-calculator/" className="text-teal-600 hover:underline font-medium">CMHC calculator</a>.
+                  </>
+                ),
               },
               {
                 question: "Can I switch from insured to uninsured?",
@@ -155,7 +165,7 @@ export default function UninsuredRatesPage() {
             ]}
           />
 
-          <CalculatorRelatedTools currentTool="/rates/uninsured" />
+          <CalculatorRelatedTools currentTool="/rates/uninsured/" showRateHubs={false} />
         </div>
 
         <Footer />

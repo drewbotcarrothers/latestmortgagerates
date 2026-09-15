@@ -221,9 +221,9 @@ export default function CalgaryPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
-                <li><a href="/cities/montreal" className="text-teal-600 hover:underline">Montreal Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
+                <li><a href="/cities/montreal/" className="text-teal-600 hover:underline">Montreal Rates</a></li>
               </ul>
             </div>
           <CityLendersSidebar cityName="Calgary" />
@@ -237,7 +237,7 @@ export default function CalgaryPage() {
             Know someone buying in Calgary? Share these rates with them.
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/calgary"
+            url="https://latestmortgagerates.ca/cities/calgary/"
             title="Best Mortgage Rates in Calgary 2025"
             description="No land transfer tax in Calgary! Compare the lowest mortgage rates from Alberta lenders. 5-year fixed from 4.19%."
           />

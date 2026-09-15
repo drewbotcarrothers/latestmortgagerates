@@ -89,14 +89,14 @@ export default function GlossaryPage() {
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <h3 className="text-xl font-semibold text-slate-900">
                         <a
-                          href={`/glossary/${term.slug}`}
+                          href={`/glossary/${term.slug}/`}
                           className="hover:text-teal-600 transition-colors"
                         >
                           {term.term}
                         </a>
                       </h3>
                       <a
-                        href={`/glossary/${term.slug}`}
+                        href={`/glossary/${term.slug}/`}
                         className="text-xs text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap"
                       >
                         Read more →

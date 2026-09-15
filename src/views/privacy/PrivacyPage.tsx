@@ -161,8 +161,8 @@ export default function PrivacyPage() {
             © 2026 LatestMortgageRates.ca - All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="/privacy" className="text-teal-600 hover:underline">Privacy Policy</a>
-            <a href="/terms" className="text-teal-600 hover:underline">Terms of Service</a>
+            <a href="/privacy/" className="text-teal-600 hover:underline">Privacy Policy</a>
+            <a href="/terms/" className="text-teal-600 hover:underline">Terms of Service</a>
           </div>
         </div>
       </footer>

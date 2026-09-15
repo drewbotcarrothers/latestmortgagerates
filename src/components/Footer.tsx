@@ -52,24 +52,6 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
     { href: "/tools/", label: "Calculators", icon: CalculatorIcon },
   ];
 
-  const popularTools = [
-    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
-    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
-    { href: "/tools/land-transfer-tax-calculator/", label: "Land Transfer Tax" },
-    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
-    { href: "/tools/closing-costs-calculator/", label: "Closing Costs" },
-    { href: "/tools/rent-vs-buy-calculator/", label: "Rent vs Buy" },
-  ];
-
-  const popularCities = [
-    { href: "/cities/toronto/", label: "Toronto" },
-    { href: "/cities/vancouver/", label: "Vancouver" },
-    { href: "/cities/calgary/", label: "Calgary" },
-    { href: "/cities/montreal/", label: "Montreal" },
-    { href: "/cities/ottawa/", label: "Ottawa" },
-    { href: "/cities/edmonton/", label: "Edmonton" },
-  ];
-
   return (
     <footer className="bg-slate-900 text-slate-300">
       {/* Trust Banner */}
@@ -189,11 +171,14 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <h4 className="font-semibold text-white mb-4">Resources</h4>
             <ul className="space-y-2.5">
               {[
+                { href: "/rates/5-year-fixed/", label: "5-Year Fixed Rates" },
+                { href: "/rates/variable/", label: "Variable Rates" },
+                { href: "/rates/insured/", label: "Insured Rates" },
+                { href: "/rates/uninsured/", label: "Uninsured Rates" },
+                { href: "/tools/", label: "Calculators" },
+                { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
                 { href: "/blog/", label: "Mortgage Guides" },
                 { href: "/glossary/", label: "Rate Glossary" },
-                { href: "/tools/", label: "Calculators" },
-                { href: "/", label: "Compare Rates" },
-                { href: "/widget/", label: "Free Widget" },
               ].map((item) => (
                 <li key={item.href}>
                   <a 

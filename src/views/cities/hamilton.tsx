@@ -176,9 +176,9 @@ export default function HamiltonPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/oshawa" className="text-teal-600 hover:underline">Oshawa Rates</a></li>
-                <li><a href="/cities/barrie" className="text-teal-600 hover:underline">Barrie Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/oshawa/" className="text-teal-600 hover:underline">Oshawa Rates</a></li>
+                <li><a href="/cities/barrie/" className="text-teal-600 hover:underline">Barrie Rates</a></li>
               </ul>
             </div>
 
@@ -194,7 +194,7 @@ export default function HamiltonPage() {
               <h3 className="font-bold text-slate-900 mb-2">Share Hamilton Rates</h3>
               <p className="text-slate-600 text-sm mb-4">Know someone buying in Hamilton?</p>
               <SocialShare 
-                url="https://latestmortgagerates.ca/cities/hamilton"
+                url="https://latestmortgagerates.ca/cities/hamilton/"
                 title="Best Mortgage Rates in Hamilton 2025"
                 description="Toronto alternative! $800K average homes, GO Train access. 5-year fixed from 4.19%."
               />

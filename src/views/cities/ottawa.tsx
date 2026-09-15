@@ -199,9 +199,9 @@ export default function OttawaPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/montreal" className="text-teal-600 hover:underline">Montreal Rates</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/montreal/" className="text-teal-600 hover:underline">Montreal Rates</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Calgary Rates</a></li>
               </ul>
             </div>
 
@@ -223,7 +223,7 @@ export default function OttawaPage() {
             Know someone buying in Ottawa? Share these rates!
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/ottawa"
+            url="https://latestmortgagerates.ca/cities/ottawa/"
             title="Best Mortgage Rates in Ottawa 2025"
             description="Stable government jobs, affordable housing in Canada's capital. Compare the lowest mortgage rates. 5-year fixed from 4.19%."
           />

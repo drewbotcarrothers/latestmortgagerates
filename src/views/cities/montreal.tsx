@@ -207,9 +207,9 @@ export default function MontrealPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Compare Cities</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Toronto Rates</a></li>
-                <li><a href="/cities/vancouver" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
-                <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Calgary Rates</a></li>
+                <li><a href="/cities/toronto/" className="text-teal-600 hover:underline">Toronto Rates</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Vancouver Rates</a></li>
+                <li><a href="/cities/calgary/" className="text-teal-600 hover:underline">Calgary Rates</a></li>
               </ul>
             </div>
 
@@ -231,7 +231,7 @@ export default function MontrealPage() {
             Know someone buying in Montreal? Share these affordable rates!
           </p>
           <SocialShare 
-            url="https://latestmortgagerates.ca/cities/montreal"
+            url="https://latestmortgagerates.ca/cities/montreal/"
             title="Best Mortgage Rates in Montreal 2025"
             description="Montreal mortgage rates - half the price of Toronto! Compare the lowest rates from Quebec lenders. 5-year fixed from 4.19%."
           />

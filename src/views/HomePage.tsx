@@ -12,6 +12,7 @@ import SocialShare from "@/components/SocialShare";
 import RateAlertForm from "@/components/RateAlertForm";
 import RateDropBanner from "@/components/RateDropBanner";
 import RateTableSchema from "@/components/RateTableSchema";
+import RateHubLinks from "@/components/RateHubLinks";
 
 interface FilterState {
   term: string;
@@ -195,10 +196,11 @@ export default function Home() {
       {/* Today's Best Rates - Consolidated Section */}
       <div className="hero-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 py-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
             <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h2>
             <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
           </div>
+          <RateHubLinks variant="pills" showToolsIndex className="mb-6" />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Fixed Insured Card */}
@@ -206,9 +208,9 @@ export default function Home() {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  5-Year Fixed
+                  <a href="/rates/5-year-fixed/" className="hover:text-white transition">5-Year Fixed</a>
                 </h3>
-                <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">Insured</span>
+                <a href="/rates/insured/" className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded hover:bg-emerald-500/30">Insured</a>
               </div>
               {marketStats.fixedInsured?.top3.length ? (
                 <div className="space-y-2">
@@ -225,7 +227,7 @@ export default function Home() {
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.fixedInsured.count} lenders</span>
-                    <span>Avg {marketStats.fixedInsured.avg}%</span>
+                    <a href="/rates/insured/" className="text-teal-200 hover:text-white">See all →</a>
                   </div>
                 </div>
               ) : (
@@ -238,9 +240,9 @@ export default function Home() {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  5-Year Fixed
+                  <a href="/rates/5-year-fixed/" className="hover:text-white transition">5-Year Fixed</a>
                 </h3>
-                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">Uninsured</a>
               </div>
               {marketStats.fixedUninsured?.top3.length ? (
                 <div className="space-y-2">
@@ -257,7 +259,7 @@ export default function Home() {
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.fixedUninsured.count} lenders</span>
-                    <span>Avg {marketStats.fixedUninsured.avg}%</span>
+                    <a href="/rates/uninsured/" className="text-teal-200 hover:text-white">See all →</a>
                   </div>
                 </div>
               ) : (
@@ -270,9 +272,9 @@ export default function Home() {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                  5-Year Variable
+                  <a href="/rates/variable/" className="hover:text-white transition">5-Year Variable</a>
                 </h3>
-                <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">Insured</span>
+                <a href="/rates/insured/" className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded hover:bg-teal-500/30">Insured</a>
               </div>
               {marketStats.variableInsured?.top3.length ? (
                 <div className="space-y-2">
@@ -289,7 +291,7 @@ export default function Home() {
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.variableInsured.count} lenders</span>
-                    <span>Avg {marketStats.variableInsured.avg}%</span>
+                    <a href="/rates/variable/" className="text-teal-200 hover:text-white">See all →</a>
                   </div>
                 </div>
               ) : (
@@ -302,9 +304,9 @@ export default function Home() {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-medium text-teal-100 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                  5-Year Variable
+                  <a href="/rates/variable/" className="hover:text-white transition">5-Year Variable</a>
                 </h3>
-                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">Uninsured</a>
               </div>
               {marketStats.variableUninsured?.top3.length ? (
                 <div className="space-y-2">
@@ -321,7 +323,7 @@ export default function Home() {
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
                     <span>{marketStats.variableUninsured.count} lenders</span>
-                    <span>Avg {marketStats.variableUninsured.avg}%</span>
+                    <a href="/rates/variable/" className="text-teal-200 hover:text-white">See all →</a>
                   </div>
                 </div>
               ) : (
@@ -354,6 +356,8 @@ export default function Home() {
           rateTypeLabel={filters.rateType === "all" ? "Fixed & Variable" : filters.rateType === "fixed" ? "Fixed" : "Variable"}
           mortgageTypeLabel={filters.mortgageType === "all" ? "Insured & Uninsured" : filters.mortgageType === "insured" ? "Insured" : "Uninsured"}
         />
+
+        <RateHubLinks className="mt-8" />
 
         {/* Download CSV Section */}
         <div className="mt-8 card-default p-6">
@@ -402,8 +406,19 @@ export default function Home() {
         {/* More Calculators */}
         <div className="mt-8 card-default p-6">
           <h2 className="text-xl font-bold text-slate-900 mb-4">More Mortgage Calculators</h2>
-          <p className="text-slate-600 mb-6">Explore our full suite of free Canadian mortgage tools to plan every aspect of your home purchase.</p>
+          <p className="text-slate-600 mb-6">
+            Explore our full suite of{" "}
+            <a href="/tools/" className="text-teal-600 hover:underline font-medium">free Canadian mortgage tools</a>
+            {" "}to plan every aspect of your home purchase.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/tools/mortgage-calculator/" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
+              <span className="text-2xl">🧮</span>
+              <div>
+                <p className="font-medium text-slate-900 group-hover:text-teal-600">Payment Calculator</p>
+                <p className="text-sm text-slate-500">Monthly payments and amortization</p>
+              </div>
+            </a>
             <a href="/tools/affordability-calculator/" className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 hover:bg-white hover:shadow-md border border-slate-200 transition-all group">
               <span className="text-2xl">🏠</span>
               <div>
