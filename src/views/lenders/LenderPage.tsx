@@ -33,6 +33,7 @@ interface LenderContent {
   specialties: string[];
   uniqueFeatures: string[];
   seoKeywords: string[];
+  heroIntro?: string;
   whoItsFor?: string;
   products?: LenderProduct[];
   howRatesCompare?: string;
@@ -231,6 +232,7 @@ export default function LenderPage({ slug }: { slug: string }) {
   });
   
   const structuredData = generateStructuredData(lenderName, lenderRates, slug);
+  const content = getLenderContent(slug);
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -272,14 +274,11 @@ export default function LenderPage({ slug }: { slug: string }) {
               <div>
                 <h1 className="text-3xl font-bold text-slate-900">{lenderName} Mortgage Rates</h1>
                 <p className="text-slate-600 mt-1">
-                  Compare current {lenderName} mortgage rates in Canada
+                  {content?.heroIntro || `Compare current ${lenderName} mortgage rates in Canada`}
                 </p>
-                {(() => {
-                  const content = getLenderContent(slug);
-                  return content?.tagline ? (
-                    <p className="text-teal-700 font-medium mt-1 text-sm">{content.tagline}</p>
-                  ) : null;
-                })()}
+                {content?.tagline ? (
+                  <p className="text-teal-700 font-medium mt-1 text-sm">{content.tagline}</p>
+                ) : null}
               </div>
             </div>
             <Navigation currentPage="rates" />

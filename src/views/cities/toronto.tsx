@@ -203,13 +203,18 @@ export default function TorontoPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border border-slate-200 rounded-lg hover:border-teal-300 transition">
                   <h3 className="font-semibold text-slate-900">Major Banks</h3>
-                  <p className="text-sm text-slate-600 mt-1">RBC, TD, Scotiabank, BMO, CIBC</p>
+                  <p className="text-sm text-slate-600 mt-1">
+                    <a href="/lenders/rbc/" className="text-teal-600 hover:underline">RBC</a>,{" "}
+                    <a href="/lenders/td/" className="text-teal-600 hover:underline">TD</a>, Scotiabank, BMO, CIBC
+                  </p>
                   <p className="text-sm text-slate-700 mt-2">Widely available, relationship pricing, branch access</p>
                 </div>
                 <div className="p-4 border border-slate-200 rounded-lg hover:border-teal-300 transition">
                   <h3 className="font-semibold text-slate-900">Credit Unions</h3>
-                  <p className="text-sm text-slate-600 mt-1">Meridian, Vancity (Toronto branch)</p>
-                  <p className="text-sm text-slate-700 mt-2">Competitive rates, local focus, flexible terms</p>
+                  <p className="text-sm text-slate-600 mt-1">
+                    <a href="/lenders/meridian/" className="text-teal-600 hover:underline">Meridian Credit Union</a>
+                  </p>
+                  <p className="text-sm text-slate-700 mt-2">Competitive Ontario rates, local focus, flexible terms</p>
                 </div>
                 <div className="p-4 border border-slate-200 rounded-lg hover:border-teal-300 transition">
                   <h3 className="font-semibold text-slate-900">Monoline Lenders</h3>
@@ -217,8 +222,11 @@ export default function TorontoPage() {
                   <p className="text-sm text-slate-700 mt-2">Often lowest rates, broker-only access</p>
                 </div>
                 <div className="p-4 border border-slate-200 rounded-lg hover:border-teal-300 transition">
-                  <h3 className="font-semibold text-slate-900">Online Lenders</h3>
-                  <p className="text-sm text-slate-600 mt-1">Tangerine, EQ Bank, Motusbank</p>
+                  <h3 className="font-semibold text-slate-900">Online / digital</h3>
+                  <p className="text-sm text-slate-600 mt-1">
+                    Tangerine, EQ Bank,{" "}
+                    <a href="/lenders/wealthsimple/" className="text-teal-600 hover:underline">Wealthsimple</a>
+                  </p>
                   <p className="text-sm text-slate-700 mt-2">Digital-first, competitive rates, fast approval</p>
                 </div>
               </div>

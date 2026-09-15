@@ -131,7 +131,7 @@ export const blogPosts: BlogPost[] = [
       </tr>
       <tr>
         <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-500 text-white text-xs font-bold rounded-full">3</span></td>
-        <td class="p-3 border-t border-slate-200 font-medium">Meridian</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/meridian/" class="text-teal-600 hover:underline">Meridian</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.79%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
         <td class="p-3 border-t border-slate-200 text-slate-500">Ontario credit union</td>
@@ -145,7 +145,7 @@ export const blogPosts: BlogPost[] = [
       </tr>
       <tr>
         <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">5</span></td>
-        <td class="p-3 border-t border-slate-200 font-medium">Wealthsimple</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/wealthsimple/" class="text-teal-600 hover:underline">Wealthsimple</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">3.99%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
         <td class="p-3 border-t border-slate-200 text-slate-500">Digital bank</td>

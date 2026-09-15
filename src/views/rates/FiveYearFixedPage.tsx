@@ -171,7 +171,7 @@ export default function FiveYearFixedPage() {
               },
               {
                 question: "How do I qualify for the best 5-year fixed rate?",
-                answer: "To get the best rate: have good credit (680+), stable income, low debt-to-income ratios (GDS ≤ 39%, TDS ≤ 44%), and 20%+ down payment (for uninsured rates). Shop with multiple lenders or use a mortgage broker.",
+                answer: "To get the best rate: have good credit (680+), stable income, low debt-to-income ratios (GDS ≤ 39%, TDS ≤ 44%), and 20%+ down payment (for uninsured rates). Shop with multiple lenders or use a mortgage broker. Digital brokerages such as Wealthsimple often show competitive insured 5-year specials—compare their lender page with this table on the same insured vs uninsured label.",
               },
             ]}
           />

@@ -152,6 +152,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 { href: "/lenders/bmo/", label: "BMO" },
                 { href: "/lenders/cibc/", label: "CIBC" },
                 { href: "/lenders/nesto/", label: "nesto" },
+                { href: "/lenders/wealthsimple/", label: "Wealthsimple" },
                 { href: "/lenders/truenorth/", label: "True North Mortgage" },
               ].map((item) => (
                 <li key={item.href}>
