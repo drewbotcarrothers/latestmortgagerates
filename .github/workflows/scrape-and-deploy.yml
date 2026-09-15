@@ -12,7 +12,11 @@ env:
 
 jobs:
   scrape-and-deploy:
-    runs-on: ubuntu-latest
+    # Home Mac runner (Canadian residential ISP IP) so BMO is reachable without
+    # a paid proxy. Labels must match the registered runner (lmr-home).
+    # Never add pull_request triggers — this is a public repo; a PR from a fork
+    # would execute on the self-hosted machine with full repo secrets.
+    runs-on: [self-hosted, macOS, lmr-home]
     timeout-minutes: 15
     permissions:
       contents: write
@@ -31,16 +35,18 @@ jobs:
       - name: Install Python dependencies
         working-directory: scraping
         run: |
-          pip install -r requirements.txt
-          pip install playwright
+          python -m pip install -r requirements.txt
+          python -m pip install playwright
+          # Chromium binary only. Do not use `install-deps` or `--with-deps`
+          # (those install Linux apt packages and fail on macOS).
           python -m playwright install chromium
 
       - name: Run scraper
         working-directory: scraping
         env:
-          # Optional residential/rotating proxy so BMO (and other JS-blocked
-          # first-party pages) can be reached from GitHub Actions IPs.
-          # Leave unset to keep dated BMO fallbacks. Never commit credentials.
+          # Optional fallback only. Primary BMO path is this self-hosted
+          # Canadian residential IP (lmr-home). Leave proxy secrets unset
+          # unless the home IP is blocked. Never commit credentials.
           SCRAPER_PROXY_URL: ${{ secrets.SCRAPER_PROXY_URL }}
           SCRAPER_PROXY_USERNAME: ${{ secrets.SCRAPER_PROXY_USERNAME }}
           SCRAPER_PROXY_PASSWORD: ${{ secrets.SCRAPER_PROXY_PASSWORD }}

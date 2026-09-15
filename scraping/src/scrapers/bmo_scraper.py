@@ -2,9 +2,10 @@
 BMO mortgage rate scraper.
 
 Live scrape is attempted first. BMO's public rate page is JS-rendered and
-often times out from datacenter IPs (GitHub Actions / Azure). When live
-extraction fails, we return special/posted rates verified from BMO's own
-page via NerdWallet's BMO rate table (source: bmo.com), dated 2026-09-14.
+blocks typical datacenter / GitHub-hosted IPs. Production runs on a
+self-hosted Canadian residential Mac (see RUNNER.md). When live extraction
+fails, we return special/posted rates verified from BMO's own page via
+NerdWallet's BMO rate table (source: bmo.com), dated 2026-09-14.
 """
 
 import re
@@ -44,12 +45,10 @@ class BMOScraper:
         logger.info("Fetching BMO rate page...")
         log_proxy_status("BMO")
         if not proxy_enabled():
-            logger.warning(
-                "BMO first-party page is unreachable from datacenter IPs "
-                "(TCP never commits). Skipping live attempts until "
-                "SCRAPER_PROXY_URL is set. Using dated fallback."
+            logger.info(
+                "No scraper proxy configured; attempting live BMO from this "
+                "runner IP (self-hosted Canadian residential is the primary path)."
             )
-            return self._get_fallback_rates()
 
         try:
             rates = self._scrape_with_playwright()
