@@ -7,7 +7,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 | Workflow | File | Trigger | Purpose |
 |----------|------|---------|---------|
 | **CI/CD Pipeline** | `ci-cd.yml` | Push to master, PRs | Lint, build, and deploy on code changes |
-| **Scrape & Deploy** | `scrape-and-deploy.yml` | Schedule (2x/day), manual | Scrape rates, commit changes, auto-deploy |
+| **Scrape & Deploy** | `scrape-and-deploy.yml` | Schedule (2x/day), manual — **self-hosted `lmr-home` Mac only** (no `pull_request`) | Scrape rates, commit changes, auto-deploy |
 | **Post to Social** | `post-to-social.yml` | Schedule (daily), manual | Post rate updates to X/Twitter |
 | **Send Email Alerts** | `send-email-alerts.yml` | Schedule (daily/weekly/monthly), manual | Send subscriber email alerts |
 
@@ -37,21 +37,22 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 
 **Purpose**: Automated rate scraping and deployment
 
-**Triggers**:
-- Schedule: 6:00 AM EST and 6:00 PM EST (11:00 & 23:00 UTC)
-- Manual dispatch with option for full vs quick scrape
+**Runner**: Self-hosted home Mac — `[self-hosted, macOS, lmr-home]` (Canadian residential ISP IP for live BMO). See `RUNNER.md`. **Do not add `pull_request` triggers** (public repo + self-hosted).
+
+**Triggers** (keep these only):
+- Schedule: 6:00 AM EST and 6:00 PM EST (11:00 & 23:00 UTC) — Mac must be awake
+- Manual `workflow_dispatch`
 
 **Jobs**:
 1. **Scrape**: Runs Python/Playwright scraper for 30+ lenders
 2. **Commit**: Commits rate changes to repository
 3. **Build**: Rebuilds the application with new data
-4. **Deploy**: Deploys updated site to Hostinger
+4. **Deploy**: Deploys updated site to Hostinger via FTP
 
 **Features**:
-- Caching for Python dependencies and Playwright browsers
-- Artifact passing between jobs
-- Conditional execution (only deploys if rates changed)
-- Concurrency control (prevents overlapping scrapes)
+- Playwright Chromium via `python -m playwright install chromium` (no Linux apt/`install-deps`)
+- Optional proxy secrets as fallback only; home IP is the primary BMO path
+- Hostinger FTP deploy and git commit of `data/` are unchanged
 
 ---
 
@@ -165,9 +166,15 @@ Add these badges to your main README.md:
 - Check server path is correct
 
 **Scraper Times Out**
-- Some sites may block GitHub Actions IPs
-- Check Playwright browser installation
+- Confirm the `lmr-home` Mac runner is online and idle (`RUNNER.md`)
+- BMO blocks GitHub-hosted datacenter IPs; this job must not run on `ubuntu-latest`
+- Check Playwright Chromium install (`python -m playwright install chromium`)
 - Review scraper logs
+
+**Job queued / waiting for a runner**
+- Mac asleep, lid closed, or runner app not running
+- Labels missing `lmr-home` / `macOS` / `self-hosted`
+- Use **Run workflow** after waking the Mac; missed crons are not retried
 
 **Build Fails**
 - Check Node.js version compatibility

@@ -23,11 +23,17 @@ The following secrets are **REQUIRED** for the scrape-and-deploy workflow to fun
 - `port: 21`
 - **DO NOT** use `ftps`, `ftps-legacy`, or `sftp`
 
-### Scraper proxy secrets (OPTIONAL — needed for live BMO from GitHub Actions)
+### Self-hosted runner (primary BMO path)
 
-BMO’s public mortgage-rates page does not accept connections from typical datacenter / GitHub Actions IPs (TCP never reaches `commit`; 0 network responses). CIBC, RBC, TD, and Scotiabank now scrape live from first-party APIs or HTML **without** a proxy.
+**Scrape Rates & Deploy** runs on Andrew’s home Mac (`runs-on: [self-hosted, macOS, lmr-home]`), which uses a Canadian residential ISP IP. That is the **primary** way to get live BMO (and other Big 5) rates without a paid proxy.
 
-To scrape **live BMO** (and any other JS-blocked first-party page that still times out) from CI, add a residential or rotating proxy. Do not commit credentials.
+See **`RUNNER.md`** for labels, keeping the Mac awake at 6 AM / 6 PM Eastern, public-repo security (never `pull_request` + self-hosted), and how to re-run via `workflow_dispatch`.
+
+### Scraper proxy secrets (OPTIONAL fallback)
+
+BMO’s public mortgage-rates page does not accept connections from typical datacenter / GitHub-hosted Actions IPs (TCP never reaches `commit`; 0 network responses). CIBC, RBC, TD, and Scotiabank scrape live from first-party APIs or HTML **without** a proxy.
+
+Proxy secrets are an **optional fallback** if the home runner is offline or the residential IP is blocked. Leave them unset for the normal self-hosted path. Do not commit credentials.
 
 | Secret Name | Purpose | Example |
 |-------------|---------|---------|
@@ -39,13 +45,13 @@ To scrape **live BMO** (and any other JS-blocked first-party page that still tim
 | `OXYLABS_PROXY_URL` | Provider-specific alias | Oxylabs residential URL |
 | `SMARTPROXY_URL` | Provider-specific alias | Smartproxy / Decodo URL |
 
-**How it is used:** `.github/workflows/scrape-and-deploy.yml` passes these into the `Run scraper` step. `scraping/src/scrapers/proxy_config.py` reads the first non-empty value and applies it to httpx and Playwright. Empty / missing secrets are ignored — scrapers then use dated BMO fallbacks.
+**How it is used:** `.github/workflows/scrape-and-deploy.yml` still passes these into the `Run scraper` step. `scraping/src/scrapers/proxy_config.py` reads the first non-empty value and applies it to httpx and Playwright. Empty / missing secrets are ignored — the scraper uses the runner’s own IP (home ISP on `lmr-home`). If live BMO still fails, dated BMO fallbacks are used.
 
 **Suggested setup (Andrew):**
-1. Sign up for a Canadian residential proxy (Bright Data, Oxylabs, Smartproxy, or similar).
-2. Create a GitHub Actions secret named `SCRAPER_PROXY_URL` with the provider’s HTTP proxy URL.
-3. Re-run **Scrape Rates & Deploy**. BMO should flip from `bmo_fallback_2026-09-14` to `bmo_live_scrape` if the proxy can reach bmo.com.
-4. If the provider uses IP allowlisting, allow GitHub-hosted runner ranges or use a proxy username that does not require allowlisting.
+1. Prefer the self-hosted `lmr-home` Mac (see `RUNNER.md`). No proxy required for BMO when that runner is online from a Canadian residential IP.
+2. Only if the home IP is blocked: sign up for a Canadian residential proxy (Bright Data, Oxylabs, Smartproxy, or similar) and set `SCRAPER_PROXY_URL`.
+3. Re-run **Scrape Rates & Deploy** via **Actions → Run workflow**. BMO should use `bmo_live_scrape` if bmo.com is reachable.
+4. If a proxy provider uses IP allowlisting, allow the home ISP IP (or the provider username that does not require allowlisting). Do not point allowlists at GitHub-hosted ranges unless you have moved the job back to `ubuntu-latest`.
 
 Never paste the proxy URL into the repo, issues, or PR text.
 
@@ -98,6 +104,7 @@ These secrets are referenced in `.github/workflows/scrape-and-deploy.yml`:
 
 ## History
 
+- **2026-09-15**: Scrape job moved to self-hosted Mac (`lmr-home`). Proxy secrets remain optional fallback; home ISP IP is the primary live-BMO path. See `RUNNER.md`.
 - **2026-03-21**: Changed to plain `ftp` protocol on port 21 per Hostinger requirements
 - **2026-03-21**: Briefly tried `sftp` (port 22) and `ftps-legacy` but reverted to plain FTP
 - **2026-03-18**: Changed from `FTP_*` to `SFTP_*` to match existing GitHub secrets

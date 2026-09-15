@@ -11,7 +11,7 @@ Next.js website for comparing Canadian mortgage rates from major banks, credit u
 - Responsive design with Tailwind CSS
 - Fully automated deployment via GitHub Actions
 
-Rates are scraped twice daily from first-party bank sources. CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML. **BMO’s public page is blocked from GitHub Actions / datacenter IPs** — set `SCRAPER_PROXY_URL` (see `WORKFLOW_SECRETS.md`) for a live BMO scrape; otherwise a dated, labeled fallback is used. EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
+Rates are scraped twice daily from first-party bank sources on a **self-hosted home Mac** (`lmr-home`; see `RUNNER.md`) so BMO sees a Canadian residential ISP IP. CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML. Proxy secrets (`SCRAPER_PROXY_URL` in `WORKFLOW_SECRETS.md`) are an optional fallback only. If live BMO still fails, a dated, labeled fallback is used. EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
 
 ## Tech Stack
 
@@ -44,7 +44,7 @@ python test_all_lenders_v2.py
 python clean_and_save.py ../data/rates.json ../data/rates.json
 ```
 
-See `SCRAPER_UPDATE_STATUS.md` for current live vs fallback lender notes and `WORKFLOW_SECRETS.md` for optional proxy secrets (`SCRAPER_PROXY_URL`).
+See `SCRAPER_UPDATE_STATUS.md` for current live vs fallback lender notes, `RUNNER.md` for the self-hosted Mac runner, and `WORKFLOW_SECRETS.md` for optional proxy fallback secrets (`SCRAPER_PROXY_URL`).
 
 ## Deployment
 
@@ -68,7 +68,7 @@ Go to **Settings > Secrets and variables > Actions** and add:
 | `SFTP_USERNAME` | Your Hostinger SFTP username |
 | `SSH_PRIVATE_KEY` | Your SSH private key (preferred) OR SFTP password as string |
 | `REMOTE_PATH` | Target directory (e.g., `/public_html/` or `/public_html/rates/`) |
-| `SCRAPER_PROXY_URL` | Optional residential proxy for live BMO (see `WORKFLOW_SECRETS.md`) |
+| `SCRAPER_PROXY_URL` | Optional proxy fallback for live BMO if the home runner IP is blocked (see `WORKFLOW_SECRETS.md`) |
 
 ### 3. Automatic Deployment
 
