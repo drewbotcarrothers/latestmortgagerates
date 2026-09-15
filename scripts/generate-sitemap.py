@@ -32,17 +32,22 @@ STATIC_PAGES = [
     ("/blog", "0.70", "daily"),
     ("/glossary", "0.60", "weekly"),
     ("/tools", "0.80", "weekly"),
+    ("/mortgage-guide", "0.70", "monthly"),
+    ("/widget", "0.50", "monthly"),
+    ("/privacy", "0.30", "yearly"),
+    ("/terms", "0.30", "yearly"),
+    ("/rates/5-year-fixed", "0.90", "daily"),
+    ("/rates/variable", "0.90", "daily"),
+    ("/rates/insured", "0.90", "daily"),
+    ("/rates/uninsured", "0.90", "daily"),
 ]
 
 
 def load_blog_posts():
     """Load blog post pages."""
     try:
-        blog_dir = Path(__file__).parent.parent / "app" / "blog"
-        blog_page = blog_dir / "page.tsx"
-        
-        # Extract slugs from data.ts or page.tsx
-        data_file = blog_dir / "data.ts"
+        blog_dir = Path(__file__).parent.parent / "src" / "content"
+        data_file = blog_dir / "blog.ts"
         if data_file.exists():
             content = data_file.read_text()
             # Simple extraction - in production this would parse properly
@@ -65,7 +70,7 @@ def load_blog_posts():
 def load_glossary_terms():
     """Load glossary term pages."""
     try:
-        glossary_page = Path(__file__).parent.parent / "app" / "glossary" / "page.tsx"
+        glossary_page = Path(__file__).parent.parent / "src" / "content" / "glossary.ts"
         if glossary_page.exists():
             content = glossary_page.read_text()
             import re
@@ -177,11 +182,11 @@ def generate_sitemap():
         
         urls_added += 1
     
-    # Add glossary terms
+    # Add glossary term pages
     for slug in load_glossary_terms():
         url = SubElement(urlset, "url")
         loc = SubElement(url, "loc")
-        loc.text = f"{BASE_URL}/glossary#{slug}"
+        loc.text = f"{BASE_URL}/glossary/{slug}"
         
         lastmod = SubElement(url, "lastmod")
         lastmod.text = today
@@ -193,6 +198,40 @@ def generate_sitemap():
         priority_elem.text = "0.50"
         
         urls_added += 1
+
+    # City pages
+    cities_dir = Path(__file__).parent.parent / "src" / "pages" / "cities"
+    if cities_dir.exists():
+        for city in sorted(p.name for p in cities_dir.iterdir() if p.is_dir()):
+            url = SubElement(urlset, "url")
+            loc = SubElement(url, "loc")
+            loc.text = f"{BASE_URL}/cities/{city}"
+            lastmod = SubElement(url, "lastmod")
+            lastmod.text = today
+            changefreq_elem = SubElement(url, "changefreq")
+            changefreq_elem.text = "weekly"
+            priority_elem = SubElement(url, "priority")
+            priority_elem.text = "0.90"
+            urls_added += 1
+
+    # Lender pages from committed rate data
+    rates_file = Path(__file__).parent.parent / "data" / "rates.json"
+    if rates_file.exists():
+        try:
+            lenders = sorted({r.get("lender_slug") for r in json.loads(rates_file.read_text()) if r.get("lender_slug")})
+            for slug in lenders:
+                url = SubElement(urlset, "url")
+                loc = SubElement(url, "loc")
+                loc.text = f"{BASE_URL}/lenders/{slug}"
+                lastmod = SubElement(url, "lastmod")
+                lastmod.text = today
+                changefreq_elem = SubElement(url, "changefreq")
+                changefreq_elem.text = "daily"
+                priority_elem = SubElement(url, "priority")
+                priority_elem.text = "0.80"
+                urls_added += 1
+        except Exception as e:
+            print(f"Warning: Could not load lenders: {e}")
     
     # Pretty print XML
     xml_str = tostring(urlset, encoding="unicode")

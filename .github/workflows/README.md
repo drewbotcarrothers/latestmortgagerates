@@ -26,7 +26,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 
 **Jobs**:
 1. **Lint & Type Check**: Runs ESLint and TypeScript checks
-2. **Build**: Builds the Next.js application and uploads artifacts
+2. **Build**: Builds the Astro static site and uploads artifacts
 3. **Deploy**: Deploys to Hostinger via FTP (only on push to master)
 
 **Concurrency**: Cancels in-progress runs for the same branch
@@ -50,7 +50,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 4. **Deploy**: Deploys updated site to Hostinger via FTP
 
 **Features**:
-- Homebrew Python 3.11 + Node 20 (does **not** use `actions/setup-python` / `setup-node`; those need `/Users/runner/hostedtoolcache` on macOS — see `RUNNER.md`)
+- Homebrew Python 3.11 + Node 22 (does **not** use `actions/setup-python` / `setup-node`; those need `/Users/runner/hostedtoolcache` on macOS — see `RUNNER.md`)
 - Playwright Chromium + WebKit via `python -m playwright install chromium` / `webkit` (no Linux apt/`install-deps`). WebKit is the Safari-like fallback for BMO.
 - Optional proxy secrets as fallback only; home IP is the primary BMO path
 - Hostinger FTP deploy and git commit of `data/` are unchanged

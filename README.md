@@ -1,6 +1,6 @@
 # LatestMortgageRates.ca
 
-Next.js website for comparing Canadian mortgage rates from major banks, credit unions, and monoline lenders.
+Astro website for comparing Canadian mortgage rates from major banks, credit unions, and monoline lenders.
 
 ## Features
 
@@ -11,17 +11,19 @@ Next.js website for comparing Canadian mortgage rates from major banks, credit u
 - Responsive design with Tailwind CSS
 - Fully automated deployment via GitHub Actions
 
-Rates are scraped twice daily from first-party bank sources on a **self-hosted home Mac** (`lmr-home`; see `RUNNER.md`). CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML; BMO uses first-party public-data JSON with a Safari-like TLS client (plain Chromium/curl are fingerprint-blocked). Proxy secrets (`SCRAPER_PROXY_URL` in `WORKFLOW_SECRETS.md`) are an optional fallback only. If live BMO still fails, a dated, labeled fallback is used. EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
+Rates are scraped twice daily from first-party bank sources. CIBC, TD, and Scotiabank use official public rate APIs; RBC uses first-party HTML. **BMO’s public page is blocked from GitHub Actions / datacenter IPs** — the scrape job runs on the self-hosted Mac runner `lmr-home` (see `RUNNER.md`). EQ Bank, MCAP, Street Capital, and Centum are not shown as direct lenders (no public consumer rates, wholesale-only, or retired).
 
 ## Tech Stack
 
-- Next.js 15 (App Router)
-- React 19
+- Astro (static output)
+- React islands (filters, calculators, theme, charts)
 - TypeScript
 - Tailwind CSS
-- Static Export (SSG)
+- Hostinger FTP static hosting (`dist/`)
 
 ## Local Development
+
+Requires **Node.js 22.12+** (Astro 7).
 
 ```bash
 # Install dependencies
@@ -30,33 +32,34 @@ npm install
 # Run dev server
 npm run dev
 
-# Build for production
+# Production build (writes static files to dist/)
 npm run build
+
+# Preview the production build
+npm run preview
 ```
+
+The site is a **static** Astro build (`output: 'static'`, `trailingSlash: 'always'`, `outDir: 'dist'`). Rate tables are generated at build time from `data/rates.json` and `data/metadata.json`. Do not invent rates.
 
 ## Scraping
 
 ```bash
 cd scraping
 pip install -r requirements.txt
-python -m playwright install chromium webkit
+python -m playwright install chromium
 python test_all_lenders_v2.py
 python clean_and_save.py ../data/rates.json ../data/rates.json
 ```
 
-See `SCRAPER_UPDATE_STATUS.md` for current live vs fallback lender notes, `RUNNER.md` for the self-hosted Mac runner, and `WORKFLOW_SECRETS.md` for optional proxy fallback secrets (`SCRAPER_PROXY_URL`).
+See `SCRAPER_UPDATE_STATUS.md` for current live vs fallback lender notes and `WORKFLOW_SECRETS.md` for optional proxy secrets (`SCRAPER_PROXY_URL`). The self-hosted Mac scrape runner is documented in `RUNNER.md`.
 
 ## Deployment
 
 ### 1. Push to GitHub
 
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/latestmortgagerates.git
-git push -u origin main
-```
+Pushes to `master` run `.github/workflows/ci-cd.yml` (GitHub-hosted Ubuntu): install, `astro build`, FTP `dist/` to Hostinger.
+
+The scrape workflow (`.github/workflows/scrape-and-deploy.yml`) runs on `[self-hosted, macOS, lmr-home]`. It uses Homebrew Python/Node (`.github/scripts/setup-self-hosted-macos.sh`) — **do not** use `actions/setup-python` or `actions/setup-node` on that Mac (`/Users/runner` toolcache). After scraping it runs `npm ci` + `npm run build` (Astro) and FTPs `dist/`.
 
 ### 2. Add GitHub Secrets
 
@@ -66,21 +69,9 @@ Go to **Settings > Secrets and variables > Actions** and add:
 |--------|-------------|
 | `SFTP_HOST` | Your Hostinger SFTP hostname (e.g., `ftp.yourdomain.com`) |
 | `SFTP_USERNAME` | Your Hostinger SFTP username |
-| `SSH_PRIVATE_KEY` | Your SSH private key (preferred) OR SFTP password as string |
+| `SFTP_PASSWORD` | FTP password |
 | `REMOTE_PATH` | Target directory (e.g., `/public_html/` or `/public_html/rates/`) |
-| `SCRAPER_PROXY_URL` | Optional proxy fallback for live BMO if the home runner IP is blocked (see `WORKFLOW_SECRETS.md`) |
-
-### 3. Automatic Deployment
-
-Every push to `main` branch triggers automatic deployment to Hostinger.
-
-## Getting Hostinger Credentials
-
-1. Log into Hostinger hPanel
-2. Go to **Files > FTP Accounts**
-3. Create or view FTP account
-4. Note the server/hostname
-5. Generate SSH key or use password
+| `SCRAPER_PROXY_URL` | Optional residential proxy for live BMO (see `WORKFLOW_SECRETS.md`) |
 
 ## Data Updates
 

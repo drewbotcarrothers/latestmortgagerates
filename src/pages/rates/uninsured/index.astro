@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/rates/UninsuredPage";
+import ratesData from "../../../../data/rates.json";
+
+interface Rate {
+  rate: number;
+  term_months: number;
+  rate_type: string;
+  mortgage_type: string;
+}
+
+const filtered = (ratesData as Rate[]).filter((r) => r.mortgage_type === "uninsured");
+const bestFixed5yr = filtered.filter((r) => r.term_months === 60 && r.rate_type === "fixed").sort((a, b) => a.rate - b.rate)[0];
+const bestVariable5yr = filtered.filter((r) => r.term_months === 60 && r.rate_type === "variable").sort((a, b) => a.rate - b.rate)[0];
+const f = bestFixed5yr?.rate.toFixed(2) || "N/A";
+const v = bestVariable5yr?.rate.toFixed(2) || "N/A";
+---
+<BaseLayout
+  title="Uninsured Mortgage Rates Canada | Conventional 20%+ Down"
+  description={`Compare uninsured mortgage rates in Canada. Best 5-year fixed: ${f}%, best variable: ${v}%. For conventional mortgages with 20%+ down.`}
+  canonical="https://latestmortgagerates.ca/rates/uninsured/"
+>
+  <Page client:load />
+</BaseLayout>

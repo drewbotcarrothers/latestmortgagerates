@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
   PYTHON_VERSION: '3.11'
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     # Never add pull_request triggers — this is a public repo; a PR from a fork
     # would execute on the self-hosted machine with full repo secrets.
     runs-on: [self-hosted, macOS, lmr-home]
-    # First run may brew-install python@3.11 / node@20 and download Chromium + WebKit.
+    # First run may brew-install python@3.11 / node@22 and download Chromium + WebKit.
     timeout-minutes: 25
     permissions:
       contents: write
@@ -33,7 +33,7 @@ jobs:
       # (non-relocatable CPython). Andrew's runner user is andrewcarrothers,
       # so `mkdir /Users/runner` fails with Permission denied. AGENT_TOOLSDIRECTORY
       # cannot override that path — the action overwrites it. Use Homebrew instead.
-      - name: Setup Python 3.11 and Node 20 (Homebrew)
+      - name: Setup Python 3.11 and Node 22 (Homebrew)
         run: bash .github/scripts/setup-self-hosted-macos.sh
 
       - name: Install Python dependencies
@@ -153,7 +153,7 @@ jobs:
           convert_markdown: false
           attachments: data/metadata.json,data/rates.json
 
-      # Step 3: Build website (Node 20 already on PATH from Homebrew setup)
+      # Step 3: Build website (Node 22 already on PATH from Homebrew setup)
       - name: Install dependencies
         run: npm ci
 
@@ -161,7 +161,7 @@ jobs:
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
 
-      - name: Build Next.js app
+      - name: Build Astro site
         run: npm run build
 
       - name: Create build info

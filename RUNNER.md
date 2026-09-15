@@ -25,7 +25,7 @@ runs-on: [self-hosted, macOS, lmr-home]
 
 If the job sits in “Waiting for a runner” / “Queued”, confirm the Mac runner is **Idle**, online, and has exactly those labels (case-sensitive `macOS`).
 
-## Homebrew Python 3.11 + Node 20 (required)
+## Homebrew Python 3.11 + Node 22 (required)
 
 Do **not** use `actions/setup-python` or `actions/setup-node` on this runner.
 
@@ -41,9 +41,9 @@ Permission denied
 The workflow uses **Homebrew** instead (`.github/scripts/setup-self-hosted-macos.sh`):
 
 1. Finds brew at `/opt/homebrew/bin/brew` (Apple Silicon) or `/usr/local/bin/brew` (Intel) even if the LaunchAgent PATH is empty
-2. `brew install python@3.11` and `brew install node@20` if they are missing
+2. `brew install python@3.11` and `brew install node@22` if they are missing
 3. Creates a **job-local venv** under `$RUNNER_TEMP` so pip never writes to Anaconda (`~/anaconda3`) or the system interpreter
-4. Puts that venv and Node 20 on `PATH` for later steps
+4. Puts that venv and Node 22 on `PATH` for later steps (Astro 7 requires Node ≥ 22.12)
 
 ### One-time Mac setup
 
@@ -54,15 +54,15 @@ The workflow uses **Homebrew** instead (`.github/scripts/setup-self-hosted-macos
 # Apple Silicon: add brew to your interactive shell if the installer says so
 # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 
-brew install python@3.11 node@20
+brew install python@3.11 node@22
 python3.11 --version   # expect 3.11.x
-# node@20 is keg-only:
-"$(brew --prefix node@20)/bin/node" --version   # expect v20.x
+# node@22 is keg-only:
+"$(brew --prefix node@22)/bin/node" --version   # expect v22.x
 ```
 
 The workflow will install the formulae itself when missing, as long as `brew` is present. Pre-installing makes the first scrape faster (no compile/download during the 20-minute job budget).
 
-Homebrew **disables `node@20` on 2026-10-28**. Until then the workflow prefers `node@20`. After that date it falls back to current `brew node` (must be ≥ 20). `python@3.11` remains available through 2027.
+If `node@22` is unavailable, the setup script falls back to current `brew node` (must be ≥ 22). `python@3.11` remains available through 2027.
 
 Do **not** point the workflow at `/Users/andrewcarrothers/anaconda3/bin/python3`. The venv is intentional.
 
@@ -146,10 +146,10 @@ Look for `bmo_live_scrape` in **Run scraper** logs after a successful live BMO f
 1. Confirm the Mac is awake and the runner is **Idle**
 2. Open [Actions → Scrape Rates & Deploy](https://github.com/drewbotcarrothers/latestmortgagerates/actions/workflows/scrape-and-deploy.yml)
 3. **Run workflow** on `master` (or this PR branch to test before merge)
-4. Confirm **Setup Python 3.11 and Node 20 (Homebrew)** succeeds (no `/Users/runner`)
+4. Confirm **Setup Python 3.11 and Node 22 (Homebrew)** succeeds (no `/Users/runner`)
 5. Confirm the job ran on `andrews-mbp-lmr` / `lmr-home`, and BMO logs show `bmo_live_scrape` (typically `public_data_api` or `playwright_webkit`) rather than `bmo_fallback_`
 
-If Homebrew formulae are missing on a stale cellar, update once on the Mac: `brew update && brew install python@3.11 node@20`.
+If Homebrew formulae are missing on a stale cellar, update once on the Mac: `brew update && brew install python@3.11 node@22`.
 
 ## Related
 

@@ -1,0 +1,126 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  keywords?: string;
+  ogType?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title = "Latest Mortgage Rates Canada",
+  description = "Compare the latest mortgage rates from Canada's top lenders including Big 5 banks and monoline lenders. Updated daily with current fixed and variable rates.",
+  canonical,
+  keywords = "mortgage rates Canada, Canadian mortgage rates, fixed mortgage rates, variable mortgage rates, Big 5 banks, monoline lenders, best mortgage rates, compare mortgage rates",
+  ogType = "website",
+  noIndex = false,
+} = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = "https://latestmortgagerates.ca/logo.png";
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Latest Mortgage Rates" />
+    <meta name="creator" content="Latest Mortgage Rates Canada" />
+    <meta name="publisher" content="Latest Mortgage Rates Canada" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    {noIndex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
+    <meta name="google-site-verification" content="Ig1eCo0oeTZP3easNZIpTQWufSfctB_5d5BwYSdkjWc" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Latest Mortgage Rates Canada" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Latest Mortgage Rates Canada - Compare Rates from Top Lenders" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@latestmortgage" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Latest Mortgage Rates Canada",
+      url: "https://latestmortgagerates.ca",
+      logo: "https://latestmortgagerates.ca/logo.png",
+      description: "Compare the latest mortgage rates from Canada's top lenders",
+      sameAs: [
+        "https://twitter.com/latestmortgage",
+        "https://www.facebook.com/latestmortgagerates",
+      ],
+    })} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Latest Mortgage Rates Canada",
+      url: "https://latestmortgagerates.ca",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://latestmortgagerates.ca/?search={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    })} />
+
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-7909541570116920"
+      crossorigin="anonymous"
+    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYL8HBJY2X"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYL8HBJY2X');
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body class="antialiased transition-colors duration-300">
+    <slot />
+  </body>
+</html>

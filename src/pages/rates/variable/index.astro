@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/rates/VariablePage";
+import ratesData from "../../../../data/rates.json";
+
+interface Rate {
+  rate: number;
+  term_months: number;
+  rate_type: string;
+  mortgage_type: string;
+}
+
+const filtered = (ratesData as Rate[]).filter((r) => r.term_months === 60 && r.rate_type === "variable");
+const bestUninsured = filtered.filter((r) => r.mortgage_type === "uninsured").sort((a, b) => a.rate - b.rate)[0];
+const bestInsured = filtered.filter((r) => r.mortgage_type === "insured").sort((a, b) => a.rate - b.rate)[0];
+const u = bestUninsured?.rate.toFixed(2) || "N/A";
+const i = bestInsured?.rate.toFixed(2) || "N/A";
+---
+<BaseLayout
+  title="5-Year Variable Mortgage Rates Canada | Prime - Discount"
+  description={`Compare the best 5-year variable mortgage rates in Canada. Best uninsured: ${u}%, best insured: ${i}%. Prime-based rates updated daily.`}
+  canonical="https://latestmortgagerates.ca/rates/variable/"
+>
+  <Page client:load />
+</BaseLayout>

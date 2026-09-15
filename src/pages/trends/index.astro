@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TrendsPageClient from "../../views/trends/TrendsPageClient";
+---
+<BaseLayout
+  title="Mortgage Rate Trends & Historical Analysis | Latest Mortgage Rates Canada"
+  description="Track Canadian mortgage rate trends with interactive charts. View historical data for fixed and variable rates over 7, 30, 60, or 90 days. Compare insured vs uninsured rates."
+  canonical="https://latestmortgagerates.ca/trends/"
+>
+  <TrendsPageClient client:load />
+</BaseLayout>
