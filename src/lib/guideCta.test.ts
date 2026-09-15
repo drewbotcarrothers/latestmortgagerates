@@ -50,6 +50,8 @@ const REQUIRED_PLACEMENTS = [
   "src/views/rates/VariablePage.tsx",
   "src/views/rates/InsuredPage.tsx",
   "src/views/rates/UninsuredPage.tsx",
+  "src/views/compare/ComparePage.tsx",
+  "src/views/compare/CompareIndex.tsx",
 ];
 
 describe("GuideCTA placements", () => {

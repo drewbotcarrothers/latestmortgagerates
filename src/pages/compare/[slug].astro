@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ComparePage from "../../views/compare/ComparePage";
+import { COMPARISONS, compareContext, seoDescription, type MortgageRate } from "../../lib/compare";
+import ratesData from "../../../data/rates.json";
+
+export function getStaticPaths() {
+  return COMPARISONS.map((page) => ({ params: { slug: page.slug } }));
+}
+
+const { slug } = Astro.params;
+const page = COMPARISONS.find((entry) => entry.slug === slug);
+if (!page) {
+  throw new Error(`Unknown comparison slug: ${slug}`);
+}
+const ctx = compareContext(ratesData as MortgageRate[], page);
+const description = seoDescription(page, ctx);
+---
+<BaseLayout
+  title={page.title}
+  description={description}
+  canonical={`https://latestmortgagerates.ca/compare/${slug}/`}
+  keywords={page.keywords}
+>
+  <ComparePage slug={slug!} client:load />
+</BaseLayout>

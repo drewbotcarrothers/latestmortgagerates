@@ -4,6 +4,7 @@ import FAQSection from "@/components/FAQSection";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import { compareHref, comparisonsForLender } from "@/lib/compare";
 
 // Force static generation for static export
 
@@ -613,6 +614,31 @@ export default function LenderPage({ slug }: { slug: string }) {
         </div>
 
         <AdUnit format="display" className="mt-12 mb-10" />
+
+        {(() => {
+          const headToHeads = comparisonsForLender(slug);
+          if (headToHeads.length === 0) return null;
+          return (
+            <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Head-to-head comparisons</h2>
+              <p className="text-slate-600 text-sm mb-4">
+                Live-rate guides that include {lenderName}. Dash cells mean that product is not in today&apos;s feed.
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {headToHeads.map((page) => (
+                  <li key={page.slug}>
+                    <a
+                      href={compareHref(page.slug)}
+                      className="text-teal-600 hover:underline font-medium text-sm"
+                    >
+                      {page.left.shortName} vs {page.right.shortName} →
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })()}
 
         {/* Lender Overview */}
         <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8 overflow-hidden">
