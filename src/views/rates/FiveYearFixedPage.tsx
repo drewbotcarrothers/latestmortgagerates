@@ -4,6 +4,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import RateHubLinks from "@/components/RateHubLinks";
+import GuideCTA from "@/components/GuideCTA";
 import ratesData from "@data/rates.json";
 
 
@@ -143,6 +144,10 @@ export default function FiveYearFixedPage() {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <div className="mb-8">
+            <GuideCTA variant="compact" />
           </div>
 
           <FAQSection
