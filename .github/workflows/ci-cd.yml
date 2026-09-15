@@ -68,6 +68,8 @@ jobs:
           name: build-output
           path: dist/
 
+      # Flat api/*.json files overwrite Next.js leftovers; do not use
+      # dangerous-clean-slate (would wipe Hostinger public_html extras).
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

@@ -8,7 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/verify-static-api.mjs",
+    "verify-api": "node scripts/verify-static-api.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "start": "astro preview"

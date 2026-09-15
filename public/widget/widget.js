@@ -11,7 +11,8 @@
 
   // Configuration
   const config = {
-    apiUrl: 'https://latestmortgagerates.ca/api/rates',
+    apiUrl: 'https://latestmortgagerates.ca/api/rates.json',
+    apiUrlFallback: 'https://latestmortgagerates.ca/api/rates',
     fallbackRates: [
       { lender: 'nesto', rate: 3.64, type: '5Y Fixed', url: 'https://latestmortgagerates.ca' },
       { lender: 'Butler Mortgage', rate: 3.64, type: '5Y Fixed', url: 'https://latestmortgagerates.ca' },
@@ -77,19 +78,23 @@
   styleEl.textContent = styles[config.theme] || styles.light;
   document.head.appendChild(styleEl);
 
-  // Fetch rates
+  // Fetch rates (static JSON; query params are ignored). Prefer .json so FTP
+  // never has to create an api/rates/ directory over the Next.js leftover file.
   async function fetchRates() {
-    try {
-      // Try to fetch from API
-      const response = await fetch(config.apiUrl + '?limit=' + config.limit);
-      if (!response.ok) throw new Error('API error');
-      const data = await response.json();
-      return data.rates || config.fallbackRates;
-    } catch (error) {
-      // Fallback to hardcoded rates
-      console.log('LMR Widget: Using fallback rates');
-      return config.fallbackRates.slice(0, config.limit);
+    const urls = [config.apiUrl, config.apiUrlFallback];
+    for (const url of urls) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) continue;
+        const data = await response.json();
+        const rates = data.rates || config.fallbackRates;
+        return rates.slice(0, config.limit);
+      } catch (error) {
+        // try next URL
+      }
     }
+    console.log('LMR Widget: Using fallback rates');
+    return config.fallbackRates.slice(0, config.limit);
   }
 
   // Render widget
