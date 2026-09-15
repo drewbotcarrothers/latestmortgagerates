@@ -181,7 +181,7 @@ export default function CMHCCalculator() {
       </div>
 
       <div className="mt-4 text-xs text-slate-500">
-        <p><strong>CMHC Premium Rates (2025):</strong></p>
+        <p><strong>CMHC Premium Rates (2026):</strong></p>
         <ul className="mt-1 space-y-1">
           <li>65% - 80% LTV: 2.25%</li>
           <li>80% - 85% LTV: 3.35%</li>

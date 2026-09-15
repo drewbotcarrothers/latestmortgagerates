@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { calculateRefinance } from "../lib/mortgageMath";
 
 interface RefinanceParams {
   currentBalance: number;
   currentRate: number;
   currentTermRemaining: number;
+  remainingAmortizationYears: number;
   newRate: number;
   newTerm: number;
   penaltyType: 'three_month' | 'ird';
@@ -32,6 +34,7 @@ export default function RefinanceCalculator() {
     currentBalance: 400000,
     currentRate: 5.5,
     currentTermRemaining: 3,
+    remainingAmortizationYears: 25,
     newRate: 4.2,
     newTerm: 5,
     penaltyType: 'ird',
@@ -40,82 +43,29 @@ export default function RefinanceCalculator() {
   });
 
   const results = useMemo((): RefinanceResult => {
-    const monthlyRateCurrent = params.currentRate / 100 / 12;
-    const monthlyRateNew = params.newRate / 100 / 12;
-    const monthsRemaining = params.currentTermRemaining * 12;
-    const newTermMonths = params.newTerm * 12;
-    
-    // Calculate current monthly payment (assuming original 25-year amortization)
-    const originalAmortizationMonths = 25 * 12;
-    const currentMonthlyPayment = params.currentBalance * 
-      (monthlyRateCurrent * Math.pow(1 + monthlyRateCurrent, originalAmortizationMonths)) /
-      (Math.pow(1 + monthlyRateCurrent, originalAmortizationMonths) - 1);
-    
-    // Calculate new monthly payment
-    const newMonthlyPayment = params.currentBalance * 
-      (monthlyRateNew * Math.pow(1 + monthlyRateNew, newTermMonths)) /
-      (Math.pow(1 + monthlyRateNew, newTermMonths) - 1);
-    
-    const monthlySavings = currentMonthlyPayment - newMonthlyPayment;
-    
-    // Calculate penalty
-    let penaltyAmount = 0;
-    if (params.penaltyType === 'three_month') {
-      penaltyAmount = currentMonthlyPayment * 3;
-    } else {
-      // IRD calculation (simplified)
-      const rateDiff = params.postedRate - params.currentRate;
-      const monthsLeft = monthsRemaining;
-      penaltyAmount = params.currentBalance * (rateDiff / 100) * (monthsLeft / 12);
-      penaltyAmount = Math.max(penaltyAmount, currentMonthlyPayment * 3); // Minimum 3 months
-    }
-    
-    // Total cost to refinance
-    const totalCost = penaltyAmount + params.closingCosts;
-    
-    // Break-even
-    const breakEvenMonths = monthlySavings > 0 
-      ? Math.ceil(totalCost / monthlySavings) 
-      : Infinity;
-    
-    // Calculate remaining interest under current mortgage
-    let remainingInterestCurrent = 0;
-    let balance = params.currentBalance;
-    for (let i = 0; i < monthsRemaining; i++) {
-      const interest = balance * monthlyRateCurrent;
-      const principal = currentMonthlyPayment - interest;
-      remainingInterestCurrent += interest;
-      balance -= principal;
-      if (balance <= 0) break;
-    }
-    
-    // Calculate interest under new mortgage
-    let remainingInterestNew = 0;
-    balance = params.currentBalance;
-    for (let i = 0; i < newTermMonths; i++) {
-      const interest = balance * monthlyRateNew;
-      const principal = newMonthlyPayment - interest;
-      remainingInterestNew += interest;
-      balance -= principal;
-      if (balance <= 0) break;
-    }
-    
-    const interestSavings = remainingInterestCurrent - remainingInterestNew;
-    const totalSavings = interestSavings - totalCost;
-    const worthIt = totalSavings > 0 && breakEvenMonths <= 24; // Worth it if break-even within 2 years
-    
+    const calc = calculateRefinance({
+      currentBalance: params.currentBalance,
+      currentRate: params.currentRate,
+      currentTermRemainingYears: params.currentTermRemaining,
+      remainingAmortizationYears: params.remainingAmortizationYears,
+      newRate: params.newRate,
+      penaltyType: params.penaltyType,
+      postedRate: params.postedRate,
+      closingCosts: params.closingCosts,
+    });
+    const breakEvenMonths = Number.isFinite(calc.breakEvenMonths) ? calc.breakEvenMonths : 0;
     return {
-      currentMonthlyPayment: Math.round(currentMonthlyPayment),
-      newMonthlyPayment: Math.round(newMonthlyPayment),
-      monthlySavings: Math.round(monthlySavings),
-      penaltyAmount: Math.round(penaltyAmount),
-      totalCost: Math.round(totalCost),
-      breakEvenMonths: breakEvenMonths === Infinity ? 0 : breakEvenMonths,
-      totalSavings: Math.round(totalSavings),
-      remainingInterestCurrent: Math.round(remainingInterestCurrent),
-      remainingInterestNew: Math.round(remainingInterestNew),
-      interestSavings: Math.round(interestSavings),
-      worthIt,
+      currentMonthlyPayment: Math.round(calc.currentMonthlyPayment),
+      newMonthlyPayment: Math.round(calc.newMonthlyPayment),
+      monthlySavings: Math.round(calc.monthlySavings),
+      penaltyAmount: Math.round(calc.penaltyAmount),
+      totalCost: Math.round(calc.totalCost),
+      breakEvenMonths,
+      totalSavings: Math.round(calc.totalSavings),
+      remainingInterestCurrent: Math.round(calc.remainingInterestCurrent),
+      remainingInterestNew: Math.round(calc.remainingInterestNew),
+      interestSavings: Math.round(calc.interestSavings),
+      worthIt: calc.worthIt,
     };
   }, [params]);
 
@@ -176,6 +126,20 @@ export default function RefinanceCalculator() {
                   <option value={5}>5 years</option>
                 </select>
               </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Years Remaining on Amortization</label>
+                <select
+                  value={params.remainingAmortizationYears}
+                  onChange={(e) => setParams({ ...params, remainingAmortizationYears: Number(e.target.value) })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                >
+                  {[10, 15, 20, 25, 30].map((years) => (
+                    <option key={years} value={years}>{years} years</option>
+                  ))}
+                </select>
+                <p className="text-xs text-slate-500 mt-1">Used for both current and new monthly payments — not the contract term</p>
+              </div>
             </div>
           </div>
           
@@ -211,7 +175,7 @@ export default function RefinanceCalculator() {
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500">%</span>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">Your lender's current posted rate for similar term</p>
+                  <p className="text-xs text-slate-500 mt-1">Current comparable rate for your remaining term. IRD applies when this is lower than your contract rate.</p>
                 </div>
               )}
               
@@ -271,6 +235,7 @@ export default function RefinanceCalculator() {
                   <option value={7}>7 years</option>
                   <option value={10}>10 years</option>
                 </select>
+                <p className="text-xs text-slate-500 mt-1">Contract length you would lock in. Monthly payments still use remaining amortization, and savings are measured over your remaining current term.</p>
               </div>
             </div>
           </div>
@@ -307,10 +272,13 @@ export default function RefinanceCalculator() {
               {results.worthIt ? '✅ Refinancing Makes Sense' : '⚠️ Consider Carefully'}
             </h3>
             <p className="text-slate-600">
-              {results.worthIt 
-                ? `You'll save ${formatCurrency(results.totalSavings)} over the new term`
-                : `Break-even is ${results.breakEvenMonths} months - longer than your remaining term`
-              }
+              {results.worthIt
+                ? `You'll save ${formatCurrency(results.totalSavings)} over your remaining ${params.currentTermRemaining}-year term after penalty and closing costs`
+                : results.monthlySavings <= 0
+                  ? 'The new payment is not lower once both options use the same remaining amortization'
+                  : results.breakEvenMonths > 0 && results.breakEvenMonths > params.currentTermRemaining * 12
+                    ? `Break-even is ${results.breakEvenMonths} months — longer than your remaining term`
+                    : `Net savings over the remaining term are ${formatCurrency(results.totalSavings)} after penalty and closing costs`}
             </p>
           </div>
           
@@ -332,7 +300,7 @@ export default function RefinanceCalculator() {
             </div>
             
             <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-              <p className="text-sm text-slate-600 mb-1">Total Savings</p>
+              <p className="text-sm text-slate-600 mb-1">Total Savings ({params.currentTermRemaining} yr)</p>
               <p className={`text-2xl font-bold ${
                 results.totalSavings > 0 ? 'text-emerald-600' : 'text-red-600'
               }`}>
@@ -364,16 +332,16 @@ export default function RefinanceCalculator() {
               <h4 className="font-semibold text-slate-900 mb-3">Interest Comparison</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Current (remaining)</span>
+                  <span className="text-slate-600">Current (remaining term)</span>
                   <span className="font-medium">{formatCurrency(results.remainingInterestCurrent)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">New (full term)</span>
+                  <span className="text-slate-600">New (same {params.currentTermRemaining} years)</span>
                   <span className="font-medium">{formatCurrency(results.remainingInterestNew)}</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-slate-100">
                   <span className="text-slate-900 font-medium">Interest Savings</span>
-                  <span className="font-bold text-emerald-600">{formatCurrency(results.interestSavings)}</span>
+                  <span className={`font-bold ${results.interestSavings >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>{formatCurrency(results.interestSavings)}</span>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 interface AffordabilityResult {
   maxHomePrice: number;
@@ -12,6 +12,43 @@ interface AffordabilityResult {
   loanToValue: number;
   cmhcPremium: number;
   needsInsurance: boolean;
+}
+
+function MoneyInput({
+  value,
+  onChange,
+  className,
+}: {
+  value: number;
+  onChange: (value: number) => void;
+  className: string;
+}) {
+  const [text, setText] = useState(() => String(value));
+
+  useEffect(() => {
+    const parsed = Number(text.replace(/[^0-9.]/g, "")) || 0;
+    if (parsed !== value) {
+      setText(value === 0 ? "0" : String(value));
+    }
+  }, [value, text]);
+
+  return (
+    <input
+      type="text"
+      inputMode="decimal"
+      value={text}
+      onChange={(e) => {
+        const raw = e.target.value.replace(/[^0-9.]/g, "");
+        const normalized = raw.replace(/^0+(?=\d)/, "");
+        setText(normalized);
+        onChange(normalized === "" || normalized === "." ? 0 : Number(normalized));
+      }}
+      onBlur={() => {
+        setText(value === 0 ? "0" : String(value));
+      }}
+      className={className}
+    />
+  );
 }
 
 export default function AffordabilityCalculator() {
@@ -145,10 +182,9 @@ export default function AffordabilityCalculator() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                    <input
-                      type="number"
+                    <MoneyInput
                       value={annualIncome}
-                      onChange={(e) => setAnnualIncome(Number(e.target.value))}
+                      onChange={setAnnualIncome}
                       className="w-full pl-8 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition"
                     />
                   </div>
@@ -169,10 +205,9 @@ export default function AffordabilityCalculator() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                    <input
-                      type="number"
+                    <MoneyInput
                       value={monthlyDebts}
-                      onChange={(e) => setMonthlyDebts(Number(e.target.value))}
+                      onChange={setMonthlyDebts}
                       className="w-full pl-8 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition"
                     />
                   </div>
@@ -194,10 +229,9 @@ export default function AffordabilityCalculator() {
                   </label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                    <input
-                      type="number"
+                    <MoneyInput
                       value={downPayment}
-                      onChange={(e) => setDownPayment(Number(e.target.value))}
+                      onChange={setDownPayment}
                       className="w-full pl-8 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition"
                     />
                   </div>
@@ -246,10 +280,9 @@ export default function AffordabilityCalculator() {
                   <label className="block text-sm font-medium text-slate-700 mb-1">Monthly Property Tax</label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                    <input
-                      type="number"
+                    <MoneyInput
                       value={propertyTax}
-                      onChange={(e) => setPropertyTax(Number(e.target.value))}
+                      onChange={setPropertyTax}
                       className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
@@ -258,10 +291,9 @@ export default function AffordabilityCalculator() {
                   <label className="block text-sm font-medium text-slate-700 mb-1">Monthly Heating</label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                    <input
-                      type="number"
+                    <MoneyInput
                       value={heatingCosts}
-                      onChange={(e) => setHeatingCosts(Number(e.target.value))}
+                      onChange={setHeatingCosts}
                       className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
@@ -271,12 +303,11 @@ export default function AffordabilityCalculator() {
                 <label className="block text-sm font-medium text-slate-700 mb-1">Condo Fees (if applicable)</label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-                  <input
-                    type="number"
-                    value={condoFees}
-                    onChange={(e) => setCondoFees(Number(e.target.value))}
-                    className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
-                  />
+                    <MoneyInput
+                      value={condoFees}
+                      onChange={setCondoFees}
+                      className="w-full pl-8 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                    />
                 </div>
                 <p className="text-xs text-slate-500 mt-1">Only 50% counts towards GDS ratio</p>
               </div>
