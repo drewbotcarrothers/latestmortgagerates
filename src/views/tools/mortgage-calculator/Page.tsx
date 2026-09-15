@@ -5,6 +5,7 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 
 
 export default function MortgageCalculatorPage() {
@@ -162,6 +163,7 @@ export default function MortgageCalculatorPage() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            <AdUnit format="sidebar" />
             <div className="card-default p-6">
               <h3 className="text-lg font-bold text-slate-900 mb-4">Related Tools</h3>
               <div className="space-y-3">

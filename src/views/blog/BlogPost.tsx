@@ -4,6 +4,7 @@ import RelatedArticles from "@/components/RelatedArticles";
 import RelatedTools from "@/components/RelatedTools";
 import GlossaryLink from "@/components/GlossaryLink";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 import RateHubLinks from "@/components/RateHubLinks";
 import { blogPosts, getPostBySlug, categories, getRecentPosts } from "@/content/blog";
 
@@ -170,6 +171,8 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             className="prose prose-base max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-h2:text-xl prose-h3:text-lg prose-p:text-slate-600 prose-p:mb-4 prose-p:leading-relaxed prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-strong:font-semibold prose-strong:text-slate-800 prose-li:text-slate-600 prose-table:border-collapse prose-table:w-full prose-th:bg-slate-100 prose-th:p-3 prose-th:text-left prose-th:text-sm prose-th:font-semibold prose-td:p-3 prose-td:text-sm prose-td:border-t prose-td:border-slate-200 prose-blockquote:border-l-4 prose-blockquote:border-teal-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-slate-600"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          <AdUnit format="inArticle" className="my-10" />
 
           {/* Auto-link glossary terms */}
           <GlossaryLink contentSelector="#blog-content" />

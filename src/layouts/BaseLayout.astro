@@ -105,11 +105,13 @@ const ogImage = "https://latestmortgagerates.ca/logo.png";
       },
     })} />
 
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-7909541570116920"
-      crossorigin="anonymous"
-    ></script>
+    {!noIndex && (
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/adsbygoogle.js?client=ca-pub-7909541570116920"
+        crossorigin="anonymous"
+      ></script>
+    )}
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYL8HBJY2X"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];

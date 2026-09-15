@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HowToSchema from "@/components/HowToSchema";
 import RateHubLinks from "@/components/RateHubLinks";
+import AdUnit from "@/components/AdUnit";
 
 
 const benefits = [
@@ -167,6 +168,10 @@ export default function EbookLandingPage() {
               ))}
             </div>          </div>
         </section>
+
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <AdUnit format="display" />
+        </div>
 
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
