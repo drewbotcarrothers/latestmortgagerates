@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/montreal";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("montreal");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Montreal 2025 | Quebec's Most Affordable City"
-  description="Find the lowest mortgage rates in Montreal for 2025. Compare rates from Quebec lenders. Average home price $540K - half of Toronto! 5-year fixed from 4.19%."
-  canonical="https://latestmortgagerates.ca/cities/montreal/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="montreal" client:load />
 </BaseLayout>

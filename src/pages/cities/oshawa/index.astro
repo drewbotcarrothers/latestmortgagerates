@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/oshawa";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("oshawa");
 ---
 <BaseLayout
-  title="Latest Mortgage Rates Canada"
-  description="Compare the latest mortgage rates from Canada's top lenders."
-  canonical="https://latestmortgagerates.ca/cities/oshawa/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="oshawa" client:load />
 </BaseLayout>

@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/kitchener";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("kitchener");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Kitchener 2025 | Canada's Tech Triangle"
-  description="Find the lowest mortgage rates in Kitchener-Waterloo for 2025. Tech hub of Canada, average home price $750K. Compare Ontario lenders. 5-year fixed from 4.19%."
-  canonical="https://latestmortgagerates.ca/cities/kitchener/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="kitchener" client:load />
 </BaseLayout>

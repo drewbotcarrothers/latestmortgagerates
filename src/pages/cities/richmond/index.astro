@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/richmond";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("richmond");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Richmond 2026 | Current & Historical Rates"
-  description="Find the lowest mortgage rates in Richmond for 2026. Compare rates from 20+ lenders. 5-year fixed from 4.49%. Updated daily."
-  canonical="https://latestmortgagerates.ca/cities/richmond/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="richmond" client:load />
 </BaseLayout>

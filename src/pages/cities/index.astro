@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CitiesIndexPage from "../../views/CitiesIndex";
+---
+<BaseLayout
+  title="Mortgage Rates by Canadian City | Land Transfer Tax Notes"
+  description="Compare live Canadian mortgage rates by city, plus provincial land transfer tax, welcome tax, and first-time buyer notes. Toronto, Vancouver, Calgary, and 45+ more."
+  canonical="https://latestmortgagerates.ca/cities/"
+>
+  <CitiesIndexPage client:load />
+</BaseLayout>

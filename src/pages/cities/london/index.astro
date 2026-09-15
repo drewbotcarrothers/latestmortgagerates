@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/london";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("london");
 ---
 <BaseLayout
-  title="Best Mortgage Rates London ON 2025 | Forest City Value"
-  description="Find the lowest mortgage rates in London Ontario for 2025. The Forest City, average home price $680K. Compare Ontario lenders. 5-year fixed from 4.19%."
-  canonical="https://latestmortgagerates.ca/cities/london/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="london" client:load />
 </BaseLayout>

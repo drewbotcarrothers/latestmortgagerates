@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/barrie";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("barrie");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Barrie 2025 | Lake Simcoe Living"
-  description="Find the lowest mortgage rates in Barrie for 2025. Lakefront living, GO Train to Toronto. Average home price $750K. 5-year fixed from 4.19%."
-  canonical="https://latestmortgagerates.ca/cities/barrie/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="barrie" client:load />
 </BaseLayout>
