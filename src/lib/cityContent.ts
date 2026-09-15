@@ -1183,10 +1183,10 @@ function uniqueFaqs(preferred: CityFaq[], fallback: CityFaq[], city: CityRecord)
 
 function defaultSeo(city: CityRecord, layer: ProvinceLayer): CitySeo {
   const title = `${city.name} Mortgage Rates | ${layer.seoTitleSuffix}`;
-  const description = `Compare live Canadian mortgage rates for ${city.name}, ${PROVINCE_NAMES[city.province]}. ${layer.lttHeadline}. First-time and renewal notes, nearby cities, and closing-cost tools. Updated with the same lender feed as our homepage.`;
+  const description = `Compare live Canadian mortgage rates for ${city.name}, ${PROVINCE_NAMES[city.province]}. ${layer.lttHeadline}. First-time and renewal notes, nearby cities, and closing-cost tools.`;
   return {
     title: title.length > 65 ? `${city.name} Mortgage Rates | ${PROVINCE_NAMES[city.province]}` : title,
-    description: description.slice(0, 170),
+    description,
     canonical: `${SITE}${cityPath(city.slug)}`,
     keywords: [
       `${city.name} mortgage rates`,
