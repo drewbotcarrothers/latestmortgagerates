@@ -75,6 +75,7 @@ describe("GuideCTA placements", () => {
   it("uses one GuideCTA per page (no full+compact stacking)", () => {
     const stacked: string[] = [];
     for (const file of walk(SRC)) {
+      if (file.endsWith(".test.ts")) continue;
       const text = read(file);
       const usages = text.match(GUIDE_USAGE) ?? [];
       if (usages.length > 1) stacked.push(`${rel(file)} (${usages.length})`);
