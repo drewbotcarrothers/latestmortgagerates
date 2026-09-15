@@ -63,7 +63,7 @@ const tools: ToolCardProps[] = [
   },
   {
     title: "Mortgage Affordability Calculator",
-    description: "Find out how much house you can afford based on your income, debts, and down payment. Includes GDS and TDS ratio calculations.",
+    description: "Find out how much house you can afford based on your income, debts, and down payment. Uses the same GDS/TDS rules as a TD mortgage affordability calculator.",
     href: "/tools/affordability-calculator/",
     icon: "🏠",
     questions: [

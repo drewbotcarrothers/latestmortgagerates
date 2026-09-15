@@ -15,6 +15,7 @@ interface LenderContent {
   overview?: string;
   seoTitle?: string;
   seoDescription?: string;
+  seoKeywords?: string[];
 }
 
 export function getStaticPaths() {
@@ -39,7 +40,7 @@ const description = content.seoDescription
   title={title}
   description={description}
   canonical={`https://latestmortgagerates.ca/lenders/${slug}/`}
-  keywords={`${lenderName} mortgage rates, ${lenderName} rates, Canadian mortgage rates`}
+  keywords={[`${lenderName} mortgage rates`, `${lenderName} rates`, "Canadian mortgage rates", ...(content.seoKeywords || [])].join(", ")}
 >
   <LenderPage slug={slug!} client:load />
 </BaseLayout>

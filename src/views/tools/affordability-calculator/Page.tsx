@@ -4,7 +4,7 @@ import AffordabilityCalculator from "@/components/AffordabilityCalculator";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
-import GuideCTA from "@/components/GuideCTA";
+import FAQSection from "@/components/FAQSection";
 
 
 export default function AffordabilityCalculatorPage() {
@@ -63,8 +63,8 @@ export default function AffordabilityCalculatorPage() {
               Mortgage Affordability Calculator
             </h1>
             <p className="text-xl text-slate-300">
-              Find out how much house you can afford based on your income, debts, and down payment. 
-              Includes Canada's mortgage stress test requirements.
+              Find out how much house you can afford based on your income, debts, and down payment.
+              Uses the same GDS/TDS and stress-test rules TD and other Canadian banks apply.
             </p>
           </div>
         </div>
@@ -88,7 +88,9 @@ export default function AffordabilityCalculatorPage() {
                 <p className="text-slate-600 mb-4">
                   Our affordability calculator helps you determine your maximum home purchase price based on 
                   Canadian mortgage qualification rules. We calculate both your Gross Debt Service (GDS) and 
-                  Total Debt Service (TDS) ratios to ensure you meet lender requirements.
+                  Total Debt Service (TDS) ratios to ensure you meet lender requirements. That is the same
+                  framework a <a href="/lenders/td/" className="text-teal-600 font-medium hover:underline">TD mortgage affordability calculator</a> uses:
+                  income, existing debts, down payment, and a qualifying rate—not just the contract rate on a flyer.
                 </p>
                 <h3 className="text-lg font-semibold text-slate-900 mt-6 mb-3">What You'll Need:</h3>
                 <ul className="space-y-2 text-slate-600">
@@ -154,32 +156,30 @@ export default function AffordabilityCalculatorPage() {
               </div>
             </section>
 
-            <section className="card-default p-6">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">Does this calculator include the stress test?</h3>
-                  <p className="text-slate-600">
-                    Yes, our calculator applies the Canadian mortgage stress test rules using the current qualifying rate 
-                    of 5.25% or your entered rate + 2%, whichever is higher.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">What if my down payment is less than 20%?</h3>
-                  <p className="text-slate-600">
-                    If your down payment is less than 20%, you'll need mortgage default insurance (CMHC/Genworth/Canada Guaranty). 
-                    The calculator includes this premium in your total mortgage amount.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">Can I afford more if I have a co-signer?</h3>
-                  <p className="text-slate-600">
-                    Yes, adding a co-signer with income can increase your affordability. Include their annual income in the 
-                    calculator, but remember their debts will also be included in the TDS calculation.
-                  </p>
-                </div>
-              </div>
-            </section>
+            <FAQSection
+              faqs={[
+                {
+                  question: "Does this calculator include the stress test?",
+                  answer:
+                    "Yes. It applies Canadian mortgage stress-test rules using the current qualifying rate of 5.25% or your entered rate + 2%, whichever is higher.",
+                },
+                {
+                  question: "Can I use this as a TD mortgage affordability calculator?",
+                  answer:
+                    "Yes for a planning estimate. TD and other Big 5 banks use GDS, TDS, and a qualifying-rate stress test to size a mortgage. Enter a TD contract rate from our TD lender page to approximate how much house TD might allow, then confirm with a TD specialist. Lender overlays, property type, and down-payment rules can still change the result.",
+                },
+                {
+                  question: "What if my down payment is less than 20%?",
+                  answer:
+                    "If your down payment is less than 20%, you'll need mortgage default insurance (CMHC/Sagen/Canada Guaranty). The calculator includes this premium in your total mortgage amount.",
+                },
+                {
+                  question: "Can I afford more if I have a co-signer?",
+                  answer:
+                    "Yes, adding a co-signer with income can increase your affordability. Include their annual income in the calculator, but remember their debts will also be included in the TDS calculation.",
+                },
+              ]}
+            />
           </div>
 
           {/* Sidebar */}
@@ -206,6 +206,20 @@ export default function AffordabilityCalculatorPage() {
                   <div>
                     <p className="font-medium text-slate-900">Land Transfer Tax</p>
                     <p className="text-sm text-slate-500">Calculate closing costs</p>
+                  </div>
+                </a>
+                <a href="/lenders/td/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                  <span className="text-2xl">🏦</span>
+                  <div>
+                    <p className="font-medium text-slate-900">TD mortgage rates</p>
+                    <p className="text-sm text-slate-500">Use a live TD rate in this calculator</p>
+                  </div>
+                </a>
+                <a href="/lenders/wealthsimple/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                  <span className="text-2xl">📱</span>
+                  <div>
+                    <p className="font-medium text-slate-900">Wealthsimple mortgage rates</p>
+                    <p className="text-sm text-slate-500">Compare a digital brokerage vs banks</p>
                   </div>
                 </a>
               </div>

@@ -14,7 +14,7 @@ const vancouverFaqs = [
   },
   {
     question: "Are Vancouver mortgage rates different from rest of Canada?",
-    answer: "Base rates are similar nationally, but BC has a strong credit union presence (Vancity, Coast Capital) that often offers competitive rates. The foreign buyer ban has also affected Vancouver market dynamics.",
+    answer: "Base rates are similar nationally, but BC has a strong credit union presence (Vancity, Coast Capital) that often offers competitive rates. Compare current Vancity mortgage rates on our Vancity lender page. The foreign buyer ban has also affected Vancouver market dynamics.",
   },
   {
     question: "What is the average home price in Vancouver?",
@@ -177,7 +177,7 @@ export default function VancouverPage() {
                 
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h3 className="font-semibold text-slate-900">Credit Union Strength</h3>
-                  <p className="text-slate-700">Vancouver has strong credit unions like Vancity offering competitive rates and programs.</p>
+                  <p className="text-slate-700">Vancouver has strong credit unions like <a href="/lenders/vancity/" className="text-teal-600 font-medium hover:underline">Vancity</a> offering competitive rates and programs. Compare live <a href="/lenders/vancity/">Vancity mortgage rates</a> with the national tables before you assume a bank special is the local low.</p>
                 </div>
                 
                 <div className="border-l-4 border-orange-500 pl-4">

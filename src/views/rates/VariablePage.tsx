@@ -167,6 +167,10 @@ export default function VariableRatesPage() {
                   </>
                 ),
               },
+              {
+                question: "Where do digital brokerages like Wealthsimple sit on variable rates?",
+                answer: "Wealthsimple is a brokerage, not a bank with its own prime. Variable mortgages they arrange are priced as a spread to the funding lender's prime. Check the live variable table on this page and the Wealthsimple lender page—do not assume a digital rate is always the lowest, and match insured vs uninsured before you compare with a Big 5 special.",
+              },
             ]}
           />
 
