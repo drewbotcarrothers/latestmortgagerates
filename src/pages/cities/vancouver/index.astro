@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/vancouver";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("vancouver");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Vancouver 2025 | Current & Historical BC Rates"
-  description="Find the lowest mortgage rates in Vancouver and GVA for 2025. Compare rates from 20+ BC lenders including credit unions, banks & online lenders. 5-year fixed from 4.14%. Updated daily."
-  canonical="https://latestmortgagerates.ca/cities/vancouver/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="vancouver" client:load />
 </BaseLayout>

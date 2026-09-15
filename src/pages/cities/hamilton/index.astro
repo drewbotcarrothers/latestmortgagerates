@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/hamilton";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("hamilton");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Hamilton 2025 | Toronto Alternative"
-  description="Find the lowest mortgage rates in Hamilton for 2025. GTA alternative, average home price $800K. Compare Ontario lenders. 5-year fixed from 4.19%. GO Train to Toronto."
-  canonical="https://latestmortgagerates.ca/cities/hamilton/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="hamilton" client:load />
 </BaseLayout>

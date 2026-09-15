@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/edmonton";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("edmonton");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Edmonton 2025 | Alberta's Affordable Capital"
-  description="Find the lowest mortgage rates in Edmonton for 2025. No land transfer tax! Average home price $390K. Compare rates from Alberta lenders. 5-year fixed from 4.19%."
-  canonical="https://latestmortgagerates.ca/cities/edmonton/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="edmonton" client:load />
 </BaseLayout>

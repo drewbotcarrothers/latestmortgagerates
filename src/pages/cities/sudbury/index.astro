@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/sudbury";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("sudbury");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Sudbury 2026 | Current & Historical Rates"
-  description="Find the lowest mortgage rates in Sudbury for 2026. Compare rates from 20+ lenders. 5-year fixed from 4.43%. Updated daily."
-  canonical="https://latestmortgagerates.ca/cities/sudbury/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="sudbury" client:load />
 </BaseLayout>

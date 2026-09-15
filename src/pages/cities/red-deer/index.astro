@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Page from "../../../views/cities/red-deer";
+import CityPage from "../../../views/cities/CityPage";
+import { getCitySeo } from "../../../lib/cityContent";
+
+const seo = getCitySeo("red-deer");
 ---
 <BaseLayout
-  title="Best Mortgage Rates Red Deer 2026 | Current & Historical Rates"
-  description="Find the lowest mortgage rates in Red Deer for 2026. Compare rates from 20+ lenders. 5-year fixed from 4.35%. Updated daily."
-  canonical="https://latestmortgagerates.ca/cities/red-deer/"
+  title={seo.title}
+  description={seo.description}
+  canonical={seo.canonical}
+  keywords={seo.keywords}
 >
-  <Page client:load />
+  <CityPage slug="red-deer" client:load />
 </BaseLayout>
