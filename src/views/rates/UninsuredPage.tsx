@@ -5,6 +5,7 @@ import FAQSection from "@/components/FAQSection";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
 
 
@@ -137,6 +138,8 @@ export default function UninsuredRatesPage() {
           <div className="mb-8">
             <GuideCTA variant="compact" />
           </div>
+
+          <AdUnit format="display" className="mb-8" />
 
           <FAQSection
             faqs={[

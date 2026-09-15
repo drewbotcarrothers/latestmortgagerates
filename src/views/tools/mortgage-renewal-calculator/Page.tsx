@@ -5,6 +5,7 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 
 
 // FAQ for structured data
@@ -158,6 +159,10 @@ export default function MortgageRenewalCalculatorPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4">
+          <AdUnit format="display" />
         </div>
 
         {/* Related Tools */}

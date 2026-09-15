@@ -1,5 +1,6 @@
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 import { TOOLS_INDEX_HREF } from "@/lib/siteLinks";
 
 interface CityToolsProps {
@@ -60,6 +61,7 @@ export default function CityTools({ cityName, province }: CityToolsProps) {
           </a>
         </p>
       </section>
+      <AdUnit format="display" />
       <RateHubLinks
         title={`Compare ${place} mortgage rates`}
         description={`National rate hubs for shoppers in ${place} — then compare lenders on each page.`}

@@ -6,6 +6,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 
 
 export default function MortgagePenaltyPage() {
@@ -68,6 +69,10 @@ export default function MortgagePenaltyPage() {
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/mortgage-penalty-calculator" />
+
+        <div className="max-w-4xl mx-auto px-4 pt-4">
+          <AdUnit format="display" />
+        </div>
 
         <div className="max-w-4xl mx-auto px-4 py-8">
           <FAQSection

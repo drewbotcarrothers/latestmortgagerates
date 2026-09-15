@@ -14,6 +14,7 @@ import RateDropBanner from "@/components/RateDropBanner";
 import RateTableSchema from "@/components/RateTableSchema";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 
 interface FilterState {
   term: string;
@@ -360,6 +361,8 @@ export default function Home() {
 
         <RateHubLinks className="mt-8" />
 
+        <AdUnit format="display" className="mt-8" />
+
         {/* Download CSV Section */}
         <div className="mt-8 card-default p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -403,6 +406,8 @@ export default function Home() {
         <div className="mt-8">
           <MortgageCalculator />
         </div>
+
+        <AdUnit format="display" className="mt-8" />
 
         {/* More Calculators */}
         <div className="mt-8 card-default p-6">

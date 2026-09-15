@@ -4,6 +4,7 @@ import LandTransferCalculator from "@/components/LandTransferCalculator";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import GuideCTA from "@/components/GuideCTA";
+import AdUnit from "@/components/AdUnit";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 
 
@@ -221,6 +222,7 @@ export default function LandTransferTaxCalculatorPage() {
 
             {/* Sidebar */}
             <div className="space-y-6">
+              <AdUnit format="sidebar" />
               <div className="card-default p-6">
                 <h3 className="text-lg font-bold text-slate-900 mb-4">Related Tools</h3>
                 <div className="space-y-3">
