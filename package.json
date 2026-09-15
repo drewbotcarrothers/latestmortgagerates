@@ -12,6 +12,7 @@
     "verify-api": "node scripts/verify-static-api.mjs",
     "preview": "astro preview",
     "check": "astro check",
+    "test": "tsx --test src/lib/mortgageMath.test.ts",
     "start": "astro preview"
   },
   "dependencies": {

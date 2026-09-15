@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { calculateMortgagePenalty } from "../lib/mortgageMath";
 
 interface PenaltyParams {
   mortgageBalance: number;
@@ -17,7 +18,7 @@ interface PenaltyResult {
   irdAmount: number;
   finalPenalty: number;
   penaltyType: string;
-  monthlyPayment: number;
+  monthlyInterest: number;
   explanation: string;
 }
 
@@ -36,69 +37,21 @@ export default function MortgagePenaltyCalculator() {
     `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
 
   const results = useMemo((): PenaltyResult => {
-    const monthlyRate = params.currentRate / 100 / 12;
-    
-    // Calculate monthly payment (assuming 25-year amortization)
-    const amortizationMonths = 25 * 12;
-    const monthlyPayment = params.mortgageBalance * 
-      (monthlyRate * Math.pow(1 + monthlyRate, amortizationMonths)) /
-      (Math.pow(1 + monthlyRate, amortizationMonths) - 1);
-    
-    // Calculate 3 months interest
-    const threeMonthInterest = monthlyPayment * 3;
-    
-    // Calculate IRD
-    // IRD = (Current Rate - Posted Rate for similar term) x Balance x (Months Remaining / 12)
-    let irdAmount = 0;
-    
-    if (params.mortgageType === 'fixed') {
-      // Determine comparable term based on months remaining
-      let comparableTerm = 5;
-      if (params.monthsRemaining <= 12) comparableTerm = 1;
-      else if (params.monthsRemaining <= 24) comparableTerm = 2;
-      else if (params.monthsRemaining <= 36) comparableTerm = 3;
-      else if (params.monthsRemaining <= 48) comparableTerm = 4;
-      
-      // Calculate rate differential
-      const rateDifferential = params.currentRate - params.postedRate;
-      
-      if (rateDifferential > 0) {
-        // Standard IRD calculation
-        irdAmount = params.mortgageBalance * (rateDifferential / 100) * (params.monthsRemaining / 12);
-        
-        // Big banks often use a more punitive formula (posted rate at discount)
-        if (params.lenderType === 'bank') {
-          // This is a simplified version - banks often use complex formulas
-          // that compare to their posted rates at time of origination
-          irdAmount = Math.max(irdAmount, threeMonthInterest * 2);
-        }
-      }
-    }
-    
-    // Final penalty is the greater of 3 months interest or IRD
-    const finalPenalty = Math.max(threeMonthInterest, irdAmount);
-    
-    let penaltyType = '3 Months Interest';
-    let explanation = '';
-    
-    if (params.mortgageType === 'variable') {
-      penaltyType = '3 Months Interest';
-      explanation = 'Variable rate mortgages typically charge 3 months interest as a penalty.';
-    } else if (irdAmount > threeMonthInterest) {
-      penaltyType = 'Interest Rate Differential (IRD)';
-      explanation = `Your IRD (${formatCurrency(irdAmount)}) is higher than 3 months interest (${formatCurrency(threeMonthInterest)}).`;
-    } else {
-      penaltyType = '3 Months Interest';
-      explanation = `3 months interest (${formatCurrency(threeMonthInterest)}) is higher than your IRD (${formatCurrency(irdAmount)}).`;
-    }
-    
+    const calc = calculateMortgagePenalty({
+      mortgageBalance: params.mortgageBalance,
+      currentRate: params.currentRate,
+      mortgageType: params.mortgageType,
+      monthsRemaining: params.monthsRemaining,
+      postedRate: params.postedRate,
+      lenderType: params.lenderType,
+    });
     return {
-      threeMonthInterest: Math.round(threeMonthInterest),
-      irdAmount: Math.round(irdAmount),
-      finalPenalty: Math.round(finalPenalty),
-      penaltyType,
-      monthlyPayment: Math.round(monthlyPayment),
-      explanation,
+      threeMonthInterest: Math.round(calc.threeMonthInterest),
+      irdAmount: Math.round(calc.irdAmount),
+      finalPenalty: Math.round(calc.finalPenalty),
+      penaltyType: calc.penaltyType,
+      monthlyInterest: Math.round(calc.monthlyInterest),
+      explanation: calc.explanation,
     };
   }, [params]);
 
@@ -277,7 +230,7 @@ export default function MortgagePenaltyCalculator() {
           <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
             <h4 className="font-semibold text-amber-900 mb-2">💡 About Penalties</h4>
             <ul className="space-y-2 text-sm text-amber-800">
-              <li>• <strong>3 Months Interest:</strong> Standard for variable rates</li>
+              <li>• <strong>3 Months Interest:</strong> Rate ÷ 12 × outstanding balance × 3 (typical for variable)</li>
               <li>• <strong>IRD:</strong> Often applies to fixed rates</li>
               <li>• <strong>Big Banks:</strong> May use posted rate at origination (higher penalty)</li>
               <li>• <strong>Monolines:</strong> Often use fairer IRD calculations</li>
@@ -300,7 +253,7 @@ export default function MortgagePenaltyCalculator() {
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
               <p className="text-sm text-slate-300 mb-1">3 Months Interest</p>
               <p className="text-xl font-bold">{formatCurrency(results.threeMonthInterest)}</p>
-              <p className="text-xs text-slate-400">Based on your monthly payment</p>
+              <p className="text-xs text-slate-400">Interest on your outstanding balance (rate ÷ 12 × 3)</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -318,8 +271,8 @@ export default function MortgagePenaltyCalculator() {
           
           <div className="mt-6 pt-6 border-t border-white/10">
             <div className="flex justify-between items-center">
-              <span className="text-slate-300">Monthly Payment</span>
-              <span className="text-xl font-bold">{formatCurrency(results.monthlyPayment)}</span>
+              <span className="text-slate-300">Monthly interest on balance</span>
+              <span className="text-xl font-bold">{formatCurrency(results.monthlyInterest)}</span>
             </div>
           </div>
         </div>

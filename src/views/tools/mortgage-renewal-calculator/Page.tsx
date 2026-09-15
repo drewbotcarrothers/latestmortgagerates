@@ -161,7 +161,7 @@ export default function MortgageRenewalCalculatorPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a
-              href="/tools/mortgage-payment-calculator"
+              href="/tools/mortgage-calculator"
               className="card-default p-6 hover:shadow-lg transition"
             >
               <h3 className="font-semibold text-slate-900 mb-2">Mortgage Payment Calculator</h3>

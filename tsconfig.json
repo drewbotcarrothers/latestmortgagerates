@@ -16,5 +16,5 @@
     "types": ["astro/client"]
   },
   "include": [".astro/types.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
-  "exclude": ["node_modules", "dist", "app"]
+  "exclude": ["node_modules", "dist", "app", "**/*.test.ts"]
 }

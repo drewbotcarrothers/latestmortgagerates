@@ -17,7 +17,7 @@ export default function RefinancePage() {
         steps={[
           {
             name: "Enter Current Mortgage Details",
-            text: "Input your current mortgage balance, rate, and remaining term.",
+            text: "Input your current mortgage balance, rate, remaining term, and remaining amortization.",
           },
           {
             name: "Enter New Rate",

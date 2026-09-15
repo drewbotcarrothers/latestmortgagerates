@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from 'react';
+import { calculateRenewalComparison } from '../lib/mortgageMath';
 
 interface ComparisonResult {
   currentLender: {
@@ -33,59 +34,15 @@ export default function MortgageRenewalCalculator() {
   const [switchingCosts, setSwitchingCosts] = useState<number>(500); // appraisal, legal, etc
   const [currentLenderSwitch, setCurrentLenderSwitch] = useState<number>(0); // can be $0
 
-  const calculateMortgage = (
-    principal: number,
-    annualRate: number,
-    yearsRemaining: number,
-    amortizationYears: number
-  ) => {
-    const monthlyRate = annualRate / 100 / 12;
-    const totalPayments = amortizationYears * 12;
-    const paymentsMade = (amortizationYears - yearsRemaining) * 12;
-    const remainingPayments = yearsRemaining * 12;
-    
-    // Calculate monthly payment based on original amortization
-    const monthlyPayment = principal * (
-      (monthlyRate * Math.pow(1 + monthlyRate, remainingPayments)) /
-      (Math.pow(1 + monthlyRate, remainingPayments) - 1)
-    );
-    
-    const totalCost = monthlyPayment * remainingPayments;
-    const totalInterest = totalCost - principal;
-    
-    return { monthlyPayment, totalInterest, totalCost };
-  };
-
   const results = useMemo<ComparisonResult>(() => {
-    // Current lender renewal (often at posted rate)
-    const currentLender = calculateMortgage(
-      currentBalance,
+    return calculateRenewalComparison({
+      balance: currentBalance,
       currentRate,
-      renewalTerm,
-      timeRemaining
-    );
-    
-    // New lender (competitive rate)
-    const newLender = calculateMortgage(
-      currentBalance,
-      renewalRate,
-      renewalTerm,
-      timeRemaining
-    );
-    
-    const monthlySavings = currentLender.monthlyPayment - newLender.monthlyPayment;
-    const totalInterestSavings = currentLender.totalInterest - newLender.totalInterest;
-    const savingsOverTerm = (monthlySavings * 12 * renewalTerm) - switchingCosts;
-    
-    return {
-      currentLender,
-      newLender,
-      savings: {
-        monthly: monthlySavings,
-        totalInterest: totalInterestSavings,
-        overTerm: savingsOverTerm
-      }
-    };
+      marketRate: renewalRate,
+      amortizationYears: timeRemaining,
+      renewalTermYears: renewalTerm,
+      switchingCosts,
+    });
   }, [currentBalance, currentRate, renewalRate, renewalTerm, timeRemaining, switchingCosts]);
 
   const formatCurrency = (value: number) => {

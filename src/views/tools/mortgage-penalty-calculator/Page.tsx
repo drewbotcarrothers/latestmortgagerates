@@ -74,7 +74,7 @@ export default function MortgagePenaltyPage() {
               },
               {
                 question: "What's the difference between 3 months interest and IRD?",
-                answer: "3 months' interest is simply your monthly interest payment × 3. IRD (Interest Rate Differential) is more complex: it's the difference between your mortgage rate and the lender's current posted rate for a term similar to your remaining term, multiplied by your mortgage balance and remaining time. IRD penalties are almost always much higher than 3 months' interest and can reach tens of thousands of dollars.",
+                answer: "3 months' interest is interest on your outstanding balance for three months: (annual rate ÷ 12) × balance × 3. It is not 3 × your blended monthly payment, which also includes principal. IRD (Interest Rate Differential) is the difference between your contract rate and the lender's current comparable rate for your remaining term, multiplied by your mortgage balance and remaining time. Lenders charge the greater of the two. IRD penalties are often much higher than 3 months' interest when rates have fallen.",
               },
               {
                 question: "Can I avoid paying a mortgage penalty?",
