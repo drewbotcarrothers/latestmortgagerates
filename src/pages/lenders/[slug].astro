@@ -13,6 +13,8 @@ interface Rate {
 interface LenderContent {
   tagline?: string;
   overview?: string;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export function getStaticPaths() {
@@ -25,13 +27,16 @@ const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
 const lenderName = lenderRates[0]?.lender_name || slug;
 const lowestRate = lenderRates.length ? Math.min(...lenderRates.map((r) => r.rate)) : 0;
 const content = (lenderContentData as Record<string, LenderContent>)[slug || ""] || {};
-const description = content.overview
-  ? `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. ${content.tagline || ""} Updated daily.`
-  : `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
+const title = content.seoTitle || `${lenderName} Mortgage Rates | Latest Mortgage Rates Canada`;
+const description = content.seoDescription
+  ? content.seoDescription
+  : content.overview
+    ? `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. ${content.tagline || ""} Updated daily.`
+    : `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
 ---
 
 <BaseLayout
-  title={`${lenderName} Mortgage Rates | Latest Mortgage Rates Canada`}
+  title={title}
   description={description}
   canonical={`https://latestmortgagerates.ca/lenders/${slug}/`}
   keywords={`${lenderName} mortgage rates, ${lenderName} rates, Canadian mortgage rates`}
