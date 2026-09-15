@@ -51,7 +51,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 
 **Features**:
 - Homebrew Python 3.11 + Node 20 (does **not** use `actions/setup-python` / `setup-node`; those need `/Users/runner/hostedtoolcache` on macOS — see `RUNNER.md`)
-- Playwright Chromium via `python -m playwright install chromium` (no Linux apt/`install-deps`)
+- Playwright Chromium + WebKit via `python -m playwright install chromium` / `webkit` (no Linux apt/`install-deps`). WebKit is the Safari-like fallback for BMO.
 - Optional proxy secrets as fallback only; home IP is the primary BMO path
 - Hostinger FTP deploy and git commit of `data/` are unchanged
 
