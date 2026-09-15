@@ -69,4 +69,34 @@ if (readFileSync(join(api, "version"), "utf8") !== versionJson) {
   fail("api/version and api/version.json must have the same body");
 }
 
-console.log("verify-static-api: ok (flat *.json + version file + rates/ dir)");
+const htaccess = join(dist, ".htaccess");
+if (!existsSync(htaccess) || !lstatSync(htaccess).isFile()) {
+  fail("dist/.htaccess is required for Hostinger 301s (old GSC 404 URLs)");
+}
+
+const sitemapPath = join(dist, "sitemap.xml");
+if (!existsSync(sitemapPath) || !lstatSync(sitemapPath).isFile()) {
+  fail("dist/sitemap.xml missing (copy sitemap-0.xml after Astro sitemap build)");
+}
+
+const sitemap = readFileSync(sitemapPath, "utf8");
+const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+if (locs.length < 50) {
+  fail(`sitemap.xml only has ${locs.length} URLs`);
+}
+
+const blockedPrefixes = ["/widget/", "/unsubscribed/", "/unsubscribe/", "/api/"];
+for (const loc of locs) {
+  if (!loc.startsWith("https://latestmortgagerates.ca")) {
+    fail(`sitemap URL is not canonical host: ${loc}`);
+  }
+  if (!loc.endsWith("/")) {
+    fail(`sitemap URL must use trailing slash: ${loc}`);
+  }
+  const path = loc.slice("https://latestmortgagerates.ca".length);
+  if (blockedPrefixes.some((prefix) => path === prefix || path.startsWith(prefix))) {
+    fail(`sitemap must not include noindex/utility URL: ${loc}`);
+  }
+}
+
+console.log(`verify-static-api: ok (flat *.json + version file + rates/ dir + sitemap ${locs.length} URLs)`);

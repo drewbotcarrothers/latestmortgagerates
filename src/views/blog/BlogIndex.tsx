@@ -9,7 +9,7 @@ function BlogCard({ post }: { post: typeof blogPosts[0] }) {
   
   return (
     <article className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow">
-      <a href={`/blog/${post.slug}`} className="block">
+      <a href={`/blog/${post.slug}/`} className="block">
         <div className="aspect-video bg-slate-200 relative">
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-300 to-slate-400">
             <span className="text-slate-500 text-6xl">📰</span>
@@ -33,7 +33,7 @@ function BlogCard({ post }: { post: typeof blogPosts[0] }) {
           <span>{post.readTime} min read</span>
         </div>
         
-        <a href={`/blog/${post.slug}`}>
+        <a href={`/blog/${post.slug}/`}>
           <h2 className="text-xl font-bold text-slate-900 mb-3 hover:text-teal-600 transition-colors line-clamp-2">
             {post.title}
           </h2>
@@ -48,7 +48,7 @@ function BlogCard({ post }: { post: typeof blogPosts[0] }) {
           </div>
           
           <a 
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}/`}
             className="text-teal-600 font-medium text-sm hover:text-teal-700 flex items-center gap-1"
           >
             Read More
@@ -80,7 +80,7 @@ function FeaturedPost({ post }: { post: typeof blogPosts[0] }) {
             <span className="text-slate-400 text-sm">{categories[post.category].label}</span>
           </div>
           
-          <a href={`/blog/${post.slug}`}>
+          <a href={`/blog/${post.slug}/`}>
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4 hover:text-teal-300 transition-colors">
               {post.title}
             </h2>
@@ -99,7 +99,7 @@ function FeaturedPost({ post }: { post: typeof blogPosts[0] }) {
           </div>
           
           <a 
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}/`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500 text-white font-medium rounded-lg hover:bg-teal-600 transition-colors"
           >
             Read Article
@@ -181,7 +181,7 @@ export default function BlogPage() {
           {Object.entries(categories).map(([key, info]) => (
             <a
               key={key}
-              href={`/blog/category/${key}`}
+              href="/blog/"
               className="bg-white rounded-lg p-4 border border-slate-200 hover:border-teal-300 hover:shadow-md transition-all"
             >
               <h4 className="font-semibold text-slate-900">{info.label}</h4>

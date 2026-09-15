@@ -173,7 +173,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
               >
                 <td className="py-4 px-4">
                   <a
-                    href={`/lenders/${rate.lender_slug}`}
+                    href={`/lenders/${rate.lender_slug}/`}
                     className="flex items-center gap-3 hover:opacity-80 transition-opacity"
                   >
                     <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
@@ -220,7 +220,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                 <td className="py-4 px-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <a
-                      href={`/lenders/${rate.lender_slug}`}
+                      href={`/lenders/${rate.lender_slug}/`}
                       className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
                     >
                       View

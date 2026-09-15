@@ -212,8 +212,8 @@ export default function VancouverPage() {
             <div className="bg-white rounded-lg shadow-md p-6 mt-6">
               <h3 className="font-bold text-slate-900 mb-4">Related Resources</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/blog/closing-costs-canada" className="text-teal-600 hover:underline">BC Closing Costs</a></li>
-                <li><a href="/blog/best-mortgage-rates-vancouver" className="text-teal-600 hover:underline">Vancouver Rates Guide</a></li>
+                <li><a href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">BC Closing Costs</a></li>
+                <li><a href="/cities/vancouver/" className="text-teal-600 hover:underline">Vancouver Rates Guide</a></li>
                 <li><a href="/cities/toronto" className="text-teal-600 hover:underline">Compare: Toronto</a></li>
                 <li><a href="/cities/calgary" className="text-teal-600 hover:underline">Compare: Calgary</a></li>
               </ul>

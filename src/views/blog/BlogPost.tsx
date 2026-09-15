@@ -9,33 +9,33 @@ import { blogPosts, getPostBySlug, categories, getRecentPosts } from "@/content/
 // Tool mapping for contextual sidebar links
 const toolMapping: Record<string, { href: string; icon: string; title: string; description: string }[]> = {
   calculator: [
-    { href: "/tools/mortgage-calculator", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
-    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
-    { href: "/tools/land-transfer-tax-calculator", icon: "📋", title: "Land Transfer Tax", description: "Calculate closing costs" },
+    { href: "/tools/mortgage-calculator/", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+    { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
+    { href: "/tools/land-transfer-tax-calculator/", icon: "📋", title: "Land Transfer Tax", description: "Calculate closing costs" },
   ],
   rates: [
     { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
-    { href: "/trends", icon: "📈", title: "Rate Trends", description: "Historical rate analysis" },
-    { href: "/tools/mortgage-renewal-calculator", icon: "🔄", title: "Renewal Calculator", description: "Should you renew or switch?" },
+    { href: "/trends/", icon: "📈", title: "Rate Trends", description: "Historical rate analysis" },
+    { href: "/tools/mortgage-renewal-calculator/", icon: "🔄", title: "Renewal Calculator", description: "Should you renew or switch?" },
   ],
   affordability: [
-    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much house can you afford?" },
-    { href: "/tools/cmhc-insurance-calculator", icon: "🛡️", title: "CMHC Calculator", description: "Calculate insurance premiums" },
-    { href: "/tools/closing-costs-calculator", icon: "💰", title: "Closing Costs", description: "Total costs to buy a home" },
+    { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "How much house can you afford?" },
+    { href: "/tools/cmhc-insurance-calculator/", icon: "🛡️", title: "CMHC Calculator", description: "Calculate insurance premiums" },
+    { href: "/tools/closing-costs-calculator/", icon: "💰", title: "Closing Costs", description: "Total costs to buy a home" },
   ],
   renewal: [
-    { href: "/tools/mortgage-renewal-calculator", icon: "🔄", title: "Renewal Calculator", description: "Compare renewal options" },
-    { href: "/tools/refinance-calculator", icon: "📉", title: "Refinance Calculator", description: "Should you refinance?" },
+    { href: "/tools/mortgage-renewal-calculator/", icon: "🔄", title: "Renewal Calculator", description: "Compare renewal options" },
+    { href: "/tools/refinance-calculator/", icon: "📉", title: "Refinance Calculator", description: "Should you refinance?" },
     { href: "/", icon: "📊", title: "Current Rates", description: "Compare today's rates" },
   ],
   firsttime: [
-    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "What can you afford?" },
-    { href: "/tools/land-transfer-tax-calculator", icon: "📋", title: "Land Transfer Tax", description: "First-time buyer rebates" },
-    { href: "/tools/cmhc-insurance-calculator", icon: "🛡️", title: "CMHC Calculator", description: "Insurance for <20% down" },
+    { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "What can you afford?" },
+    { href: "/tools/land-transfer-tax-calculator/", icon: "📋", title: "Land Transfer Tax", description: "First-time buyer rebates" },
+    { href: "/tools/cmhc-insurance-calculator/", icon: "🛡️", title: "CMHC Calculator", description: "Insurance for <20% down" },
   ],
   default: [
-    { href: "/tools/mortgage-calculator", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
-    { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
+    { href: "/tools/mortgage-calculator/", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+    { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
     { href: "/", icon: "📊", title: "Compare Rates", description: "See today's best rates" },
   ],
 };
@@ -89,7 +89,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             <h1 className="text-3xl font-bold text-slate-900 mb-4">Article Not Found</h1>
             <p className="text-slate-600 mb-6">The article you're looking for doesn't exist.</p>
             <a
-              href="/blog"
+              href="/blog/"
               className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
             >
               Back to Blog
@@ -118,7 +118,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
           <nav className="text-sm text-slate-500 mb-6">
             <a href="/" className="hover:text-slate-700">Home</a>
             <span className="mx-2">/</span>
-            <a href="/blog" className="hover:text-slate-700">Blog</a>
+            <a href="/blog/" className="hover:text-slate-700">Blog</a>
             <span className="mx-2">/</span>
             <span className="text-slate-900">{post.title}</span>
           </nav>
@@ -227,7 +227,7 @@ export default function BlogPostPage({ slug }: { slug: string }) {
                 {recentPosts.map((recentPost) => (
                   <a
                     key={recentPost.slug}
-                    href={`/blog/${recentPost.slug}`}
+                    href={`/blog/${recentPost.slug}/`}
                     className="bg-white rounded-lg shadow-sm border border-slate-200 p-4 hover:shadow-md transition-shadow"
                   >
                     <span className="text-xs font-medium text-teal-600 uppercase">

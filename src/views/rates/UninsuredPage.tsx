@@ -119,7 +119,7 @@ export default function UninsuredRatesPage() {
                       <td className="px-6 py-4 text-sm text-slate-600">{rate.rate_type === "fixed" ? "Fixed" : "Variable"}</td>
                       <td className="px-6 py-4 text-sm font-bold text-emerald-600">{rate.rate.toFixed(2)}%</td>
                       <td className="px-6 py-4 text-sm">
-                        <a href={`/lenders/${rate.lender_slug}`} className="text-emerald-600 hover:text-emerald-700 font-medium">
+                        <a href={`/lenders/${rate.lender_slug}/`} className="text-emerald-600 hover:text-emerald-700 font-medium">
                           View →
                         </a>
                       </td>

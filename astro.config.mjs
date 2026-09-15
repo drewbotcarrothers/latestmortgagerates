@@ -95,9 +95,25 @@ function jsonApiFiles() {
 
         copyFileSync(join(root, "data/rates.json"), join(out, "rates.json"));
         copyFileSync(join(root, "data/metadata.json"), join(out, "metadata.json"));
+
+        // GSC is submitted at /sitemap.xml. Astro emits sitemap-index.xml + sitemap-0.xml.
+        // Copy the chunk so robots.txt and the existing GSC submission stay valid.
+        const sitemapChunk = join(out, "sitemap-0.xml");
+        if (existsSync(sitemapChunk)) {
+          copyFileSync(sitemapChunk, join(out, "sitemap.xml"));
+        }
       },
     },
   };
+}
+
+function isIndexableSitemapUrl(page) {
+  const path = new URL(page).pathname;
+  if (path.startsWith("/widget")) return false;
+  if (path.startsWith("/unsubscribed")) return false;
+  if (path.startsWith("/unsubscribe")) return false;
+  if (path.startsWith("/api/")) return false;
+  return true;
 }
 
 export default defineConfig({
@@ -109,6 +125,7 @@ export default defineConfig({
     react(),
     sitemap({
       lastmod: new Date(),
+      filter: isIndexableSitemapUrl,
     }),
     jsonApiFiles(),
   ],

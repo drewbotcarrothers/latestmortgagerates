@@ -46,28 +46,28 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
   
   const navItems = [
     { href: "/", label: "Current Rates", icon: HomeIcon },
-    { href: "/trends", label: "Rate Trends", icon: TrendIcon },
-    { href: "/blog", label: "Guides & News", icon: BookOpenIcon },
-    { href: "/glossary", label: "Glossary", icon: LibraryIcon },
-    { href: "/tools", label: "Calculators", icon: CalculatorIcon },
+    { href: "/trends/", label: "Rate Trends", icon: TrendIcon },
+    { href: "/blog/", label: "Guides & News", icon: BookOpenIcon },
+    { href: "/glossary/", label: "Glossary", icon: LibraryIcon },
+    { href: "/tools/", label: "Calculators", icon: CalculatorIcon },
   ];
 
   const popularTools = [
-    { href: "/tools/mortgage-calculator", label: "Payment Calculator" },
-    { href: "/tools/affordability-calculator", label: "Affordability Calculator" },
-    { href: "/tools/land-transfer-tax-calculator", label: "Land Transfer Tax" },
-    { href: "/tools/cmhc-insurance-calculator", label: "CMHC Calculator" },
-    { href: "/tools/closing-costs-calculator", label: "Closing Costs" },
-    { href: "/tools/rent-vs-buy-calculator", label: "Rent vs Buy" },
+    { href: "/tools/mortgage-calculator/", label: "Payment Calculator" },
+    { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
+    { href: "/tools/land-transfer-tax-calculator/", label: "Land Transfer Tax" },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
+    { href: "/tools/closing-costs-calculator/", label: "Closing Costs" },
+    { href: "/tools/rent-vs-buy-calculator/", label: "Rent vs Buy" },
   ];
 
   const popularCities = [
-    { href: "/cities/toronto", label: "Toronto" },
-    { href: "/cities/vancouver", label: "Vancouver" },
-    { href: "/cities/calgary", label: "Calgary" },
-    { href: "/cities/montreal", label: "Montreal" },
-    { href: "/cities/ottawa", label: "Ottawa" },
-    { href: "/cities/edmonton", label: "Edmonton" },
+    { href: "/cities/toronto/", label: "Toronto" },
+    { href: "/cities/vancouver/", label: "Vancouver" },
+    { href: "/cities/calgary/", label: "Calgary" },
+    { href: "/cities/montreal/", label: "Montreal" },
+    { href: "/cities/ottawa/", label: "Ottawa" },
+    { href: "/cities/edmonton/", label: "Edmonton" },
   ];
 
   return (
@@ -164,13 +164,13 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <h4 className="font-semibold text-white mb-4">Top Lenders</h4>
             <ul className="space-y-2.5">
               {[
-                { href: "/lenders/rbc", label: "RBC Royal Bank" },
-                { href: "/lenders/td", label: "TD Bank" },
-                { href: "/lenders/scotiabank", label: "Scotiabank" },
-                { href: "/lenders/bmo", label: "BMO" },
-                { href: "/lenders/cibc", label: "CIBC" },
-                { href: "/lenders/nesto", label: "nesto" },
-                { href: "/lenders/truenorth", label: "True North Mortgage" },
+                { href: "/lenders/rbc/", label: "RBC Royal Bank" },
+                { href: "/lenders/td/", label: "TD Bank" },
+                { href: "/lenders/scotiabank/", label: "Scotiabank" },
+                { href: "/lenders/bmo/", label: "BMO" },
+                { href: "/lenders/cibc/", label: "CIBC" },
+                { href: "/lenders/nesto/", label: "nesto" },
+                { href: "/lenders/truenorth/", label: "True North Mortgage" },
               ].map((item) => (
                 <li key={item.href}>
                   <a
@@ -189,11 +189,11 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <h4 className="font-semibold text-white mb-4">Resources</h4>
             <ul className="space-y-2.5">
               {[
-                { href: "/blog", label: "Mortgage Guides" },
-                { href: "/glossary", label: "Rate Glossary" },
-                { href: "/tools", label: "Calculators" },
+                { href: "/blog/", label: "Mortgage Guides" },
+                { href: "/glossary/", label: "Rate Glossary" },
+                { href: "/tools/", label: "Calculators" },
                 { href: "/", label: "Compare Rates" },
-                { href: "/widget", label: "Free Widget" },
+                { href: "/widget/", label: "Free Widget" },
               ].map((item) => (
                 <li key={item.href}>
                   <a 
@@ -213,7 +213,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <ul className="space-y-2.5">
               <li>
                 <a 
-                  href="/privacy" 
+                  href="/privacy/" 
                   className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
                 >
                   Privacy Policy
@@ -221,7 +221,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
               </li>
               <li>
                 <a 
-                  href="/terms" 
+                  href="/terms/" 
                   className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
                 >
                   Terms of Service
@@ -229,7 +229,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
               </li>
               <li>
                 <a 
-                  href="/unsubscribe" 
+                  href="/unsubscribed/" 
                   className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
                 >
                   Unsubscribe
