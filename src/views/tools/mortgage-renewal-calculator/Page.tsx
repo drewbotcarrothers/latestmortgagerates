@@ -161,21 +161,21 @@ export default function MortgageRenewalCalculatorPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Tools</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a
-              href="/tools/mortgage-calculator"
+              href="/tools/mortgage-calculator/"
               className="card-default p-6 hover:shadow-lg transition"
             >
               <h3 className="font-semibold text-slate-900 mb-2">Mortgage Payment Calculator</h3>
               <p className="text-sm text-slate-600">Calculate your monthly payments with any rate</p>
             </a>
             <a
-              href="/tools/refinance-calculator"
+              href="/tools/refinance-calculator/"
               className="card-default p-6 hover:shadow-lg transition"
             >
               <h3 className="font-semibold text-slate-900 mb-2">Refinance Calculator</h3>
               <p className="text-sm text-slate-600">See if refinancing makes sense for you</p>
             </a>
             <a
-              href="/tools/affordability-calculator"
+              href="/tools/affordability-calculator/"
               className="card-default p-6 hover:shadow-lg transition"
             >
               <h3 className="font-semibold text-slate-900 mb-2">Affordability Calculator</h3>

@@ -7,16 +7,16 @@ interface ToolLink {
 }
 
 const allTools: ToolLink[] = [
-  { href: "/tools/mortgage-calculator", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
-  { href: "/tools/affordability-calculator", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
-  { href: "/tools/land-transfer-tax-calculator", icon: "📋", title: "Land Transfer Tax", description: "Provincial & municipal taxes" },
-  { href: "/tools/cmhc-insurance-calculator", icon: "🛡️", title: "CMHC Calculator", description: "Insurance premiums" },
-  { href: "/tools/closing-costs-calculator", icon: "💰", title: "Closing Costs", description: "Total fees to close" },
-  { href: "/tools/rent-vs-buy-calculator", icon: "⚖️", title: "Rent vs Buy", description: "Which saves more?" },
-  { href: "/tools/mortgage-penalty-calculator", icon: "📉", title: "Penalty Calculator", description: "Break fee estimate" },
-  { href: "/tools/mortgage-renewal-calculator", icon: "🔄", title: "Renewal Calculator", description: "Compare renewal options" },
-  { href: "/tools/refinance-calculator", icon: "💡", title: "Refinance Calculator", description: "Break-even analysis" },
-  { href: "/tools/stress-test-qualifier", icon: "✅", title: "Stress Test", description: "Do you qualify?" },
+  { href: "/tools/mortgage-calculator/", icon: "🧮", title: "Payment Calculator", description: "Calculate monthly payments" },
+  { href: "/tools/affordability-calculator/", icon: "🏠", title: "Affordability Calculator", description: "How much can you afford?" },
+  { href: "/tools/land-transfer-tax-calculator/", icon: "📋", title: "Land Transfer Tax", description: "Provincial & municipal taxes" },
+  { href: "/tools/cmhc-insurance-calculator/", icon: "🛡️", title: "CMHC Calculator", description: "Insurance premiums" },
+  { href: "/tools/closing-costs-calculator/", icon: "💰", title: "Closing Costs", description: "Total fees to close" },
+  { href: "/tools/rent-vs-buy-calculator/", icon: "⚖️", title: "Rent vs Buy", description: "Which saves more?" },
+  { href: "/tools/mortgage-penalty-calculator/", icon: "📉", title: "Penalty Calculator", description: "Break fee estimate" },
+  { href: "/tools/mortgage-renewal-calculator/", icon: "🔄", title: "Renewal Calculator", description: "Compare renewal options" },
+  { href: "/tools/refinance-calculator/", icon: "💡", title: "Refinance Calculator", description: "Break-even analysis" },
+  { href: "/tools/stress-test-qualifier/", icon: "✅", title: "Stress Test", description: "Do you qualify?" },
 ];
 
 interface CalculatorRelatedToolsProps {
@@ -25,7 +25,8 @@ interface CalculatorRelatedToolsProps {
 }
 
 export default function CalculatorRelatedTools({ currentTool, title = "Explore More Calculators" }: CalculatorRelatedToolsProps) {
-  const tools = allTools.filter((t) => t.href !== currentTool).slice(0, 6);
+  const current = (currentTool ?? "").replace(/\/$/, "");
+  const tools = allTools.filter((t) => t.href.replace(/\/$/, "") !== current).slice(0, 6);
 
   return (
     <div className="mt-8 card-default p-6">
