@@ -1,121 +1,223 @@
+#!/usr/bin/env python3
+"""Generate a plain-text scrape summary email for the deploy workflow."""
+
 import json
 import os
-import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
-def generate_summary_email():
-    """Generate a simple high-level email summary of the rate scraper run."""
-    
-    # Read metadata
-    with open('data/metadata.json', 'r') as f:
-        metadata = json.load(f)
-    
-    # Read rates.json for detailed stats
-    with open('data/rates.json', 'r') as f:
-        rates = json.load(f)
-    
-    last_updated = metadata['last_updated']
-    total_rates = metadata['total_rates']
-    total_lenders = metadata['total_lenders']
-    scrapers_run = metadata['scrapers_run']
-    successful = metadata['scrapers_successful']
-    failed = metadata['scrapers_failed']
-    
-    # Count live vs fallback rates
-    live_rates = [r for r in rates if r.get('source_url') and 'fallback' not in r.get('source_url', '')]
-    fallback_rates = [r for r in rates if not r.get('source_url') or 'fallback' in r.get('source_url', '')]
-    
-    live_count = len(live_rates)
-    fallback_count = len(fallback_rates)
-    live_pct = (live_count / total_rates * 100) if total_rates > 0 else 0
-    
-    # Build simple HTML email
-    html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-        .header {{ background: #1a5f7a; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }}
-        .header h1 {{ margin: 0; font-size: 22px; }}
-        .header p {{ margin: 5px 0 0 0; opacity: 0.9; }}
-        .stats {{ background: #f8f9fa; padding: 20px; }}
-        .stat-row {{ display: flex; justify-content: space-between; margin: 10px 0; padding: 8px 0; border-bottom: 1px solid #ddd; }}
-        .stat-label {{ font-weight: bold; color: #555; }}
-        .stat-value {{ font-weight: bold; font-size: 18px; }}
-        .live {{ color: #28a745; }}
-        .fallback {{ color: #ffc107; }}
-        .failed {{ color: #dc3545; }}
-        .footer {{ margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 0 0 8px 8px; font-size: 12px; color: #666; text-align: center; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📊 Rate Scraper Report</h1>
-            <p>{last_updated}</p>
-        </div>
-        
-        <div class="stats">
-            <div class="stat-row">
-                <span class="stat-label">Live Rates</span>
-                <span class="stat-value live">{live_count} ({live_pct:.0f}%)</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-label">Fallback Rates</span>
-                <span class="stat-value fallback">{fallback_count}</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-label">Total Lenders</span>
-                <span class="stat-value">{total_lenders}</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-label">Scrapers Run</span>
-                <span class="stat-value">{scrapers_run}</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-label">Successful</span>
-                <span class="stat-value" style="color: #28a745;">{successful}</span>
-            </div>
-            <div class="stat-row">
-                <span class="stat-label">Failed</span>
-                <span class="stat-value" style="color: {'#dc3545' if failed > 0 else '#666'};">{failed}</span>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>latestmortgagerates.ca</p>
-        </div>
-    </div>
-</body>
-</html>
-"""
-    
-    # Simple text version
-    text = f"""📊 Rate Scraper Report - {last_updated}
+SITE_URL = "https://latestmortgagerates.ca/"
+SUBJECT_PREFIX = "Rate scraper report"
 
-Live Rates: {live_count} ({live_pct:.0f}%)
-Fallback Rates: {fallback_count}
-Total Lenders: {total_lenders}
-Scrapers Run: {scrapers_run}
-Successful: {successful}
-Failed: {failed}
+# Compact "best rates" picks from the published rates file.
+BEST_PRODUCTS = (
+    ("5y fixed insured", 60, "fixed", "insured"),
+    ("5y fixed uninsured", 60, "fixed", "uninsured"),
+    ("5y variable", 60, "variable", None),
+)
 
-latestmortgagerates.ca
-"""
-    
-    return html, text
 
-if __name__ == '__main__':
-    html_content, text_content = generate_summary_email()
-    
-    with open('email_summary.html', 'w') as f:
-        f.write(html_content)
-    
-    with open('email_summary.txt', 'w') as f:
-        f.write(text_content)
-    
+def load_json(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def parse_timestamp(value):
+    """Parse metadata last_updated (ISO-8601, often ...Z) into a UTC datetime."""
+    if not value or not isinstance(value, str):
+        return None
+    text = value.strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def format_header_time(last_updated):
+    dt = parse_timestamp(last_updated)
+    if dt:
+        return dt.strftime("%Y-%m-%d %H:%M UTC")
+    return last_updated or "unknown"
+
+
+def subject_line(last_updated):
+    dt = parse_timestamp(last_updated)
+    if dt:
+        return f"{SUBJECT_PREFIX} - {dt.strftime('%Y-%m-%d')}"
+    return SUBJECT_PREFIX
+
+
+def is_fallback_rate(rate):
+    """Match the scraper's fallback/stale detection (raw_data.source)."""
+    source = str((rate.get("raw_data") or {}).get("source") or "").lower()
+    if source:
+        return "fallback" in source or "stale" in source
+    url = str(rate.get("source_url") or "").lower()
+    return (not url) or ("fallback" in url)
+
+
+def live_fallback_counts(metadata, rates):
+    live = metadata.get("live_rates")
+    fallback = metadata.get("fallback_rates")
+    if isinstance(live, int) and isinstance(fallback, int):
+        return live, fallback
+    fallback_count = sum(1 for rate in rates if is_fallback_rate(rate))
+    return len(rates) - fallback_count, fallback_count
+
+
+def failed_scraper_rows(metadata):
+    rows = []
+    for result in metadata.get("scraper_results") or []:
+        if result.get("success") is False:
+            rows.append(result)
+    return rows
+
+
+def _rate_value(rate):
+    try:
+        return float(rate["rate"])
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def find_best_rate(rates, term_months, rate_type, mortgage_type=None):
+    candidates = []
+    rate_type = rate_type.lower()
+    mortgage_type = mortgage_type.lower() if mortgage_type else None
+    for rate in rates:
+        if rate.get("term_months") != term_months:
+            continue
+        if str(rate.get("rate_type") or "").lower() != rate_type:
+            continue
+        if mortgage_type and str(rate.get("mortgage_type") or "").lower() != mortgage_type:
+            continue
+        value = _rate_value(rate)
+        if value is None:
+            continue
+        candidates.append((value, str(rate.get("lender_name") or ""), rate))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda item: (item[0], item[1]))
+    return candidates[0][2]
+
+
+def format_best_rate_line(label, rate):
+    if rate is None:
+        return f"{label + ':':<22} n/a"
+    value = _rate_value(rate)
+    lender = rate.get("lender_name") or rate.get("lender_slug") or "unknown"
+    extra = ""
+    # When the product filter is not insured-specific, mention the type.
+    mortgage_type = str(rate.get("mortgage_type") or "").lower()
+    if label == "5y variable" and mortgage_type:
+        extra = f" ({mortgage_type})"
+    return f"{label + ':':<22} {value:.2f}%  {lender}{extra}"
+
+
+def _int(metadata, key, default=0):
+    value = metadata.get(key, default)
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def pct(part, whole):
+    if whole <= 0:
+        return 0
+    return part / whole * 100
+
+
+def generate_summary_email(metadata, rates):
+    """Return (subject, plain_text_body) for one scrape run."""
+    last_updated = metadata.get("last_updated")
+    subject = subject_line(last_updated)
+    header_time = format_header_time(last_updated)
+
+    total_rates = _int(metadata, "total_rates", len(rates))
+    total_lenders = _int(metadata, "total_lenders")
+    scrapers_run = _int(metadata, "scrapers_run")
+    successful = _int(metadata, "scrapers_successful")
+    failed = _int(metadata, "scrapers_failed")
+    live_count, fallback_count = live_fallback_counts(metadata, rates)
+    live_pct = pct(live_count, total_rates)
+    fallback_pct = pct(fallback_count, total_rates)
+
+    failed_rows = failed_scraper_rows(metadata)
+    if failed == 0 and failed_rows:
+        failed = len(failed_rows)
+
+    lines = [
+        SUBJECT_PREFIX,
+        "=" * 48,
+        f"Last updated:          {header_time}",
+        "",
+        "Scrape",
+        "-" * 48,
+        f"Total rates:           {total_rates}",
+        f"Lenders:               {total_lenders}",
+        f"Scrapers run:          {scrapers_run}",
+        f"Successful:            {successful}",
+        f"Failed:                {failed}",
+        f"Live rates:            {live_count} ({live_pct:.0f}%)",
+        f"Fallback rates:        {fallback_count} ({fallback_pct:.0f}%)",
+    ]
+
+    if failed_rows:
+        lines.extend(["", "Failed scrapers", "-" * 48])
+        for result in failed_rows:
+            name = result.get("lender") or "unknown"
+            error = (result.get("error") or "").strip()
+            lines.append(f"- {name}: {error}" if error else f"- {name}")
+
+    lines.extend(["", "Best rates", "-" * 48])
+    for label, term, rate_type, mortgage_type in BEST_PRODUCTS:
+        best = find_best_rate(rates, term, rate_type, mortgage_type)
+        lines.append(format_best_rate_line(label, best))
+
+    lines.extend(
+        [
+            "",
+            "Site",
+            "-" * 48,
+            SITE_URL,
+            "",
+        ]
+    )
+
+    return subject, "\n".join(lines)
+
+
+def write_github_output(name, value):
+    path = os.environ.get("GITHUB_OUTPUT")
+    if not path:
+        return
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(f"{name}={value}\n")
+
+
+def main():
+    metadata = load_json("data/metadata.json")
+    rates = load_json("data/rates.json")
+    if not isinstance(rates, list):
+        rates = rates.get("rates") or []
+
+    subject, text = generate_summary_email(metadata, rates)
+
+    with open("email_summary.txt", "w", encoding="utf-8") as f:
+        f.write(text)
+        if not text.endswith("\n"):
+            f.write("\n")
+
+    write_github_output("subject", subject)
     print("Email summary generated successfully!")
-    print(f"HTML: {len(html_content)} chars")
-    print(f"Text: {len(text_content)} chars")
+    print(f"Subject: {subject}")
+    print(f"Text: {len(text)} chars")
+
+
+if __name__ == "__main__":
+    main()

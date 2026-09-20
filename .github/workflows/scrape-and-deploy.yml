@@ -146,10 +146,10 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           secure: true
-          subject: "📊 Rate Scraper Report - $(date +'%Y-%m-%d %H:%M UTC')"
+          subject: ${{ steps.email_summary.outputs.subject }}
           to: acarrothers@gmail.com
           from: "Rate Scraper Bot <${{ secrets.SMTP_USERNAME }}>"
-          html_body: file://email_summary.html
+          body: file://email_summary.txt
           convert_markdown: false
           attachments: data/metadata.json,data/rates.json
 
