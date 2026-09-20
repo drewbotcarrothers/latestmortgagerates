@@ -1,5 +1,7 @@
 # LatestMortgageRates.ca
 
+**Live site:** [latestmortgagerates.ca](https://latestmortgagerates.ca/)
+
 Astro website for comparing Canadian mortgage rates from major banks, credit unions, and monoline lenders.
 
 ## Features
