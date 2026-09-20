@@ -205,6 +205,21 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
               ))}
             </ul>
           </div>
+
+          {/* More Canadian tools */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">More Canadian tools</h4>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="https://canadiancreditcardfinder.com/"
+                  className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
+                >
+                  Canadian Credit Card Finder
+                </a>
+              </li>
+            </ul>
+          </div>
           
           {/* Legal */}
           <div>
