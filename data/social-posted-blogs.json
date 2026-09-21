@@ -28,6 +28,12 @@
     "spring-2026-housing-market-outlook": {
       "postedAt": "2026-09-15T00:00:00.000Z",
       "source": "seed"
+    },
+    "best-5-year-fixed-rates-week-39-2026": {
+      "postedAt": "2026-09-21T14:39:38.752Z",
+      "twitterId": "2102045091351106046",
+      "facebookId": null,
+      "source": "workflow"
     }
   }
 }
