@@ -1,0 +1,32 @@
+# Generated / local-only OpenMontage pipeline outputs (do not commit)
+__pycache__/
+*.pyc
+*.pyo
+
+# Rates snapshots / live dumps
+rates_live.json
+**/rates_live.json
+**/rates_snapshot.json
+
+# Media & Remotion outputs (if ever written under this tree)
+*.mp4
+*.mov
+*.webm
+*.mp3
+*.wav
+*.vtt
+*.png
+*.jpg
+*.jpeg
+!project.example.json
+
+# Render / artifact dirs if created locally under this folder
+artifacts/
+renders/
+public/
+assets/audio/
+assets/images/
+output/
+.remotion_props*.json
+*_build_meta.json
+concat.txt

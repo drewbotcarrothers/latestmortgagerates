@@ -1,0 +1,10 @@
+{
+  "project_id": "lmr-top5-rates-by-term",
+  "title": "Canada's Best Mortgage Rates Today — Top 5 by Term",
+  "pipeline_type": "animated-explainer",
+  "style_playbook": "latestmortgagerates",
+  "brand": "latestmortgagerates",
+  "created": "2026-09-15",
+  "media_profile": "youtube_landscape",
+  "_note": "Stub metadata only. The live OpenMontage project lives outside this repo at $OPENMONTAGE_ROOT/projects/lmr-top5-rates-by-term/ (default OPENMONTAGE_ROOT=/workspace/OpenMontage). Do not vendor the OpenMontage monorepo or Remotion node_modules here."
+}
