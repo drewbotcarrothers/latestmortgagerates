@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-09-21T06:10:08.609325",
+    "last_updated": "2026-09-22T06:20:04.633624",
     "total_days": 90,
     "prime_rate": 5.45
   },
   "data": [
-    {
-      "date": "2026-06-23",
-      "fixed_uninsured_best_rate": 3.94,
-      "fixed_uninsured_best_lender": "Butler Mortgage",
-      "fixed_uninsured_avg_rate": 4.65,
-      "fixed_insured_best_rate": 4.04,
-      "fixed_insured_best_lender": "True North Mortgage",
-      "fixed_insured_avg_rate": 4.62,
-      "variable_uninsured_best_rate": 3.65,
-      "variable_uninsured_best_lender": "Equitable Bank",
-      "variable_uninsured_avg_rate": 4.11,
-      "variable_uninsured_spread_to_prime": 0.0,
-      "variable_insured_best_rate": 3.4,
-      "variable_insured_best_lender": "nesto",
-      "variable_insured_avg_rate": 4.08,
-      "variable_insured_spread_to_prime": 0.0,
-      "prime_rate": 5.45,
-      "lender_count": 33,
-      "total_rates": 238,
-      "created_at": "2026-06-23T00:06:19.993888"
-    },
     {
       "date": "2026-06-24",
       "fixed_uninsured_best_rate": 3.94,
@@ -1894,6 +1873,27 @@
       "lender_count": 25,
       "total_rates": 207,
       "created_at": "2026-09-21T06:10:08.607969"
+    },
+    {
+      "date": "2026-09-22",
+      "fixed_uninsured_best_rate": 4.14,
+      "fixed_uninsured_best_lender": "Butler Mortgage",
+      "fixed_uninsured_avg_rate": 4.74,
+      "fixed_insured_best_rate": 4.06,
+      "fixed_insured_best_lender": "Coast Capital Savings",
+      "fixed_insured_avg_rate": 4.53,
+      "variable_uninsured_best_rate": 3.64,
+      "variable_uninsured_best_lender": "Meridian Credit Union",
+      "variable_uninsured_avg_rate": 3.98,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.44,
+      "variable_insured_best_lender": "Meridian Credit Union",
+      "variable_insured_avg_rate": 3.69,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 5.45,
+      "lender_count": 25,
+      "total_rates": 195,
+      "created_at": "2026-09-22T06:20:04.632317"
     }
   ]
 }
