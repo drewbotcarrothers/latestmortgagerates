@@ -1,4 +1,5 @@
 // Fix all data: regenerate rates.json from scraper fallbacks, fix historical spreads, backfill missing days
+import { PRIME_RATE } from "./primeRate.ts";
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,7 +14,7 @@ let fixed = 0;
 let alreadyCorrect = 0;
 
 for (const entry of historicalJson.data) {
-  const primeRate = entry.prime_rate || 5.45;
+  const primeRate = entry.prime_rate || PRIME_RATE;
   
   // Fix uninsured variable spread
   if (entry.variable_uninsured_best_rate && entry.variable_uninsured_best_rate > 0) {
@@ -76,7 +77,7 @@ if (removedDupes > 0) {
 // Step 3: Update metadata
 historicalJson.metadata.last_updated = new Date().toISOString();
 historicalJson.metadata.total_days = historicalJson.data.length;
-historicalJson.metadata.prime_rate = 5.45;
+historicalJson.metadata.prime_rate = PRIME_RATE;
 
 // Save updated historical data
 fs.writeFileSync(historicalPath, JSON.stringify(historicalJson, null, 2));

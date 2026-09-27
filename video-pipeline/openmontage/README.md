@@ -10,7 +10,7 @@ Automated weekly-friendly pipeline that:
 
 Does **not** upload to YouTube.
 
-Brand / production rules: [`VIDEO-RULES.md`](./VIDEO-RULES.md).
+Brand / production rules: [`LMR_VIDEO_REFERENCE.md`](../LMR_VIDEO_REFERENCE.md).
 
 ## Setup
 

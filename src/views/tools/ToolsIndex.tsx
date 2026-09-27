@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
+import { lenderCountLabel } from "@/lib/lenderCount";
 
 
 interface ToolCardProps {
@@ -312,7 +313,7 @@ export default function ToolsPage() {
             <div>
               <h2 className="text-2xl font-bold mb-2">Ready to Compare Real Rates?</h2>
               <p className="text-teal-100">
-                See today's best mortgage rates from 31+ Canadian lenders.
+                See today's best mortgage rates from {lenderCountLabel} Canadian lenders.
               </p>
             </div>
             <a

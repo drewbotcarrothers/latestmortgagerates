@@ -8,12 +8,15 @@ import random
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from prime_rate import configured_prime_rate
+
 # Current data as baseline
 current_fixed_uninsured = 3.89
 current_fixed_insured = 3.64
 current_variable_uninsured = 3.65
 current_variable_insured = 3.40
-current_prime = 5.45
+# Big 5 prime from config/prime_rate.json. Do not hard-code a stale prime.
+current_prime = configured_prime_rate()
 
 # Realistic trend - rates have been gradually decreasing over past 90 days
 # Starting from around 4.5% fixed, 4.8% variable at beginning of January 2026
@@ -27,7 +30,7 @@ def generate_historical_data():
     
     # Base values 90 days ago (higher rates)
     base_fixed = 4.45  # Was around 4.45% in early Jan
-    base_variable = 4.65  # Was around 4.65% in early Jan (prime was ~5.95)
+    base_variable = 4.65  # Modeled variable level; prime itself is current_prime below
     
     for i in range(90, -1, -1):  # 90 days ago to today
         date = today - timedelta(days=i)
@@ -49,13 +52,9 @@ def generate_historical_data():
         variable_uninsured = round(variable_trend + random.uniform(-0.08, 0.05), 2)
         variable_insured = round(variable_trend + random.uniform(-0.08, 0.05) - 0.25, 2)
         
-        # Prime rate (stepped down during this period)
-        if i < 15:  # Last 15 days: prime is 5.45
-            prime = 5.45
-        elif i < 45:  # Days 15-45: prime was 5.70
-            prime = 5.70
-        else:  # Days 45-90: prime was 6.00
-            prime = 6.00
+        # Prime has been the configured Big 5 rate since prime_effective
+        # (2025-10-30). Do not invent 5.45 / 5.70 / 6.00 steps.
+        prime = current_prime
         
         # Make spreads reasonable
         variable_uninsured_spread = round(variable_uninsured - prime, 2)
@@ -108,7 +107,7 @@ def main():
         "metadata": {
             "last_updated": datetime.now().isoformat(),
             "total_days": len(data),
-            "prime_rate": 5.45
+            "prime_rate": current_prime
         },
         "data": data
     }

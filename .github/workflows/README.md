@@ -44,7 +44,7 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 - Manual `workflow_dispatch`
 
 **Jobs**:
-1. **Scrape**: Runs Python/Playwright scraper for 30+ lenders
+1. **Scrape**: Runs Python/Playwright scraper for 25+ lenders
 2. **Commit**: Commits rate changes to repository
 3. **Build**: Rebuilds the application with new data
 4. **Deploy**: Deploys updated site to Hostinger via FTP

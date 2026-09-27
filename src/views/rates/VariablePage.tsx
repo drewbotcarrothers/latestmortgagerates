@@ -8,6 +8,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
+import { PRIME_RATE } from "@/lib/primeRate";
 
 
 interface Rate {
@@ -168,7 +169,7 @@ export default function VariableRatesPage() {
               },
               {
                 question: "What does 'Prime - 1.05%' mean?",
-                answer: "It means your mortgage rate is 1.05 percentage points below the lender's prime rate. If prime is 5.45%, your rate would be 4.40%. The discount (or 'spread') is locked in for your term, but the actual rate moves with prime.",
+                answer: `It means your mortgage rate is 1.05 percentage points below the lender's prime rate. If prime is ${PRIME_RATE.toFixed(2)}%, your rate would be ${(PRIME_RATE - 1.05).toFixed(2)}%. The discount (or 'spread') is locked in for your term, but the actual rate moves with prime.`,
               },
               {
                 question: "How often do variable rates change?",

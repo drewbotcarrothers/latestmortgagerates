@@ -1,3 +1,5 @@
+import { PRIME_RATE, PRIME_SPREAD, BOC_POLICY_RATE } from "../lib/primeRate";
+
 export interface GlossaryTerm {
   term: string;
   slug: string;
@@ -270,7 +272,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Prime Rate",
     slug: "prime-rate",
     category: "Rates",
-    definition: "The interest rate banks charge their best customers, typically set at the Bank of Canada overnight rate plus 2-2.2%. Currently around 5.45%. Variable mortgage rates are expressed as Prime minus or plus a certain percentage.",
+    definition: `The interest rate banks charge their best customers. Big 5 prime is the Bank of Canada policy rate plus ${PRIME_SPREAD.toFixed(2)} percentage points (currently ${PRIME_RATE.toFixed(2)}%, with the policy rate at ${BOC_POLICY_RATE.toFixed(2)}%). Variable mortgage rates are expressed as Prime minus or plus a certain percentage.`,
   },
   {
     term: "Property Tax",

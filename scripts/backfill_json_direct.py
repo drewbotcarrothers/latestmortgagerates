@@ -9,6 +9,13 @@ from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
 
+
+def _configured_prime_rate() -> float:
+    """Big 5 prime from config/prime_rate.json. Do not hard-code this."""
+    path = Path(__file__).resolve().parents[1] / "config" / "prime_rate.json"
+    with path.open() as handle:
+        return float(json.load(handle)["prime_rate"])
+
 def get_git_commits(filepath, since_date):
     """Get commits for a file since date."""
     cmd = ["git", "log", "--since", since_date, "--format=%H|%ci", "--", filepath]
@@ -96,7 +103,7 @@ def calculate_best_rates(rates_data):
         "variable_insured_best_lender": var_in_lender,
         "variable_insured_avg_rate": var_in_avg,
         "variable_insured_spread_to_prime": var_in_spread,
-        "prime_rate": 5.45,
+        "prime_rate": _configured_prime_rate(),
         "lender_count": lender_count,
         "total_rates": len(rates_data),
     }

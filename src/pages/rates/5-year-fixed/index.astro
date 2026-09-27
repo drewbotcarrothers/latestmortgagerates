@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Page from "../../../views/rates/FiveYearFixedPage";
 import ratesData from "../../../../data/rates.json";
+import { lenderCountLabel } from "../../../lib/lenderCount";
 
 interface Rate {
   rate: number;
@@ -18,7 +19,7 @@ const i = bestInsured?.rate.toFixed(2) || "N/A";
 ---
 <BaseLayout
   title="5-Year Fixed Mortgage Rates Canada | Best Rates & Comparison"
-  description={`Compare the best 5-year fixed mortgage rates in Canada. Best uninsured: ${u}%, best insured: ${i}%. Updated daily from 30+ lenders.`}
+  description={`Compare the best 5-year fixed mortgage rates in Canada. Best uninsured: ${u}%, best insured: ${i}%. Updated daily from ${lenderCountLabel} lenders.`}
   canonical="https://latestmortgagerates.ca/rates/5-year-fixed/"
 >
   <Page client:load />

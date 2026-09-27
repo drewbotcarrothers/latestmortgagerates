@@ -1,3 +1,5 @@
+import { lenderCountLabel } from "../lib/lenderCount";
+
 export type CompareKind = "product" | "lender";
 
 /** Minimal rate shape for FAQ copy. Avoids importing compare helpers (circular). */
@@ -64,7 +66,7 @@ export const COMPARISONS: ComparisonPage[] = [
     h1: "Fixed vs Variable Mortgage Rates in Canada",
     title: "Fixed vs Variable Mortgage Canada | Compare",
     seoDescription:
-      "Compare Canadian fixed vs variable mortgages: payment certainty, prime-linked risk, and break penalties. Live 5-year rates from 30+ lenders.",
+      `Compare Canadian fixed vs variable mortgages: payment certainty, prime-linked risk, and break penalties. Live 5-year rates from ${lenderCountLabel} lenders.`,
     keywords:
       "fixed vs variable mortgage Canada, fixed or variable mortgage, 5 year fixed vs variable, variable mortgage penalty, Canadian mortgage comparison",
     intro:

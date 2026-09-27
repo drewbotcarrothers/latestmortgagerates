@@ -1,4 +1,5 @@
 // Fix historical data gaps and UTC date issue
+import { PRIME_RATE } from "./primeRate.ts";
 import * as fs from 'fs';
 
 const historicalJson = JSON.parse(fs.readFileSync('data/historical_rates.json', 'utf8'));
@@ -56,7 +57,7 @@ if (apr23) {
       return arr.reduce((sum: number, item: any) => sum + item[prop], 0) / arr.length;
     };
     
-    const primeRate = 5.45;
+    const primeRate = PRIME_RATE;
     const uniqueLenders = [...new Set(ratesData.map((r: any) => r.lender_slug))];
     
     const vuBest = variableUninsured[0];

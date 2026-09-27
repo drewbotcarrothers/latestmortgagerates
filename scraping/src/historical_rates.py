@@ -11,6 +11,8 @@ from decimal import Decimal
 from dataclasses import dataclass, asdict
 from loguru import logger
 
+from prime_rate import configured_prime_rate, resolve_prime_rate
+
 DB_PATH = Path(__file__).parent.parent / "data" / "staging.db"
 HISTORICAL_DB_PATH = Path(__file__).parent.parent / "data" / "historical.db"
 
@@ -47,9 +49,13 @@ class DailyRateSnapshot:
 def init_historical_db():
     """Create the historical database table."""
     HISTORICAL_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    # New databases only. Existing tables keep their old column default, but
+    # every insert below passes prime_rate explicitly from resolve_prime_rate().
+    prime_default = configured_prime_rate()
     
     conn = sqlite3.connect(HISTORICAL_DB_PATH)
-    conn.execute("""
+    conn.execute(f"""
         CREATE TABLE IF NOT EXISTS daily_snapshots (
             date TEXT PRIMARY KEY,
             fixed_uninsured_best_rate REAL,
@@ -66,7 +72,7 @@ def init_historical_db():
             variable_insured_best_lender TEXT,
             variable_insured_avg_rate REAL,
             variable_insured_spread_to_prime REAL,
-            prime_rate REAL DEFAULT 5.45,
+            prime_rate REAL DEFAULT {prime_default:.2f},
             lender_count INTEGER,
             total_rates INTEGER,
             created_at TEXT NOT NULL
@@ -94,7 +100,11 @@ def calculate_stats(rates: List[Dict]) -> Tuple[float, float, str]:
     return round(best_rate, 2), round(avg_rate, 2), best_lender
 
 
-def save_daily_snapshot(rates_data: List[Dict], date: Optional[str] = None):
+def save_daily_snapshot(
+    rates_data: List[Dict],
+    date: Optional[str] = None,
+    prime_rate: Optional[float] = None,
+):
     """
     Save a daily snapshot of best rates.
     
@@ -147,8 +157,10 @@ def save_daily_snapshot(rates_data: List[Dict], date: Optional[str] = None):
     lender_count = len(set(r.get('lender_slug') for r in rates_data if r.get('lender_slug')))
     total_rates = len(rates_data)
     
-    # Prime rate (assumed, can be extracted if available)
-    prime_rate = 5.45
+    # Big 5 prime from config/prime_rate.json, refreshed from BoC Valet when called
+    # via main(). Never hard-code this — a stale literal is what kept writing 5.45.
+    if prime_rate is None:
+        prime_rate = resolve_prime_rate(refresh_config=True)
     
     # Save to database
     conn = sqlite3.connect(HISTORICAL_DB_PATH)
@@ -201,7 +213,10 @@ def get_historical_data(days: int = 90) -> List[Dict]:
     return [dict(row) for row in rows]
 
 
-def generate_json_output(output_path: Optional[Path] = None):
+def generate_json_output(
+    output_path: Optional[Path] = None,
+    prime_rate: Optional[float] = None,
+):
     """
     Generate JSON file for frontend consumption.
     Appends to existing historical data if present.
@@ -249,7 +264,7 @@ def generate_json_output(output_path: Optional[Path] = None):
         "metadata": {
             "last_updated": datetime.now().isoformat(),
             "total_days": len(merged_data),
-            "prime_rate": 5.45
+            "prime_rate": prime_rate if prime_rate is not None else configured_prime_rate()
         },
         "data": merged_data
     }
@@ -277,11 +292,14 @@ def main():
     with open(rates_file) as f:
         rates_data = json.load(f)
     
+    # One resolution per run: Valet policy+2.20, else config/prime_rate.json.
+    prime_rate = resolve_prime_rate(refresh_config=True)
+
     # Save today's snapshot
-    save_daily_snapshot(rates_data)
+    save_daily_snapshot(rates_data, prime_rate=prime_rate)
     
     # Generate JSON output
-    generate_json_output()
+    generate_json_output(prime_rate=prime_rate)
     
     logger.info("Historical rates update complete")
 

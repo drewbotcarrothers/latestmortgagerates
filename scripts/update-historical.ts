@@ -1,3 +1,4 @@
+import { PRIME_RATE } from "./primeRate.ts";
 import * as fs from 'fs';
 
 // Load current rates
@@ -31,8 +32,7 @@ function calculateMetrics(rates: any[]) {
     return arr.reduce((sum: number, item: any) => sum + item[prop], 0) / arr.length;
   };
   
-  // Prime rate (currently 4.95%)
-  const primeRate = 4.95;
+  const primeRate = PRIME_RATE;
   
   // Get unique lenders
   const uniqueLenders = [...new Set(rates.map((r: any) => r.lender_slug))];

@@ -7,6 +7,7 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import FAQSection from "@/components/FAQSection";
+import { lenderCountLabel } from "@/lib/lenderCount";
 
 
 export default function AffordabilityCalculatorPage() {
@@ -231,7 +232,7 @@ export default function AffordabilityCalculatorPage() {
             <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-xl p-6 text-white">
               <h3 className="text-lg font-bold mb-2">Ready to Get Pre-Approved?</h3>
               <p className="text-teal-100 text-sm mb-4">
-                Compare rates from 31+ lenders and find the best mortgage for your budget.
+                Compare rates from {lenderCountLabel} lenders and find the best mortgage for your budget.
               </p>
               <a
                 href="/"
