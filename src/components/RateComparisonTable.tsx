@@ -88,14 +88,15 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
     );
   };
 
-  const getMortgageTypeBadge = (type: string) => {
+  const getMortgageTypeBadge = (type: string | null | undefined) => {
     const styles: Record<string, string> = {
       insured: "bg-amber-50 text-amber-700 border-amber-200",
       uninsured: "bg-slate-50 text-slate-600 border-slate-200",
     };
+    const label = type === "insured" ? "Insured" : type === "uninsured" ? "Uninsured" : "Not stated";
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type] || "bg-slate-100 border-slate-200"}`}>
-        {type === "insured" ? "Insured" : "Uninsured"}
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type || ""] || "bg-amber-50 text-amber-800 border-amber-200"}`}>
+        {label}
       </span>
     );
   };

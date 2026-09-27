@@ -50,7 +50,13 @@ export default function CityLendersSidebar({ cityName, maxLenders = 6 }: CityLen
           >
             <div className="flex-1">
               <p className="font-medium text-slate-900 group-hover:text-teal-700 text-sm">{rate.lender_name}</p>
-              <p className="text-xs text-slate-500">{rate.mortgage_type === "insured" ? "Insured" : "Uninsured"}</p>
+              <p className="text-xs text-slate-500">
+                {rate.mortgage_type === "insured"
+                  ? "Insured"
+                  : rate.mortgage_type === "uninsured"
+                    ? "Uninsured"
+                    : "Not stated"}
+              </p>
             </div>
             <div className="text-right">
               <span className="font-bold text-emerald-600">{rate.rate.toFixed(2)}%</span>

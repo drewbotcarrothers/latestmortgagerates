@@ -19,6 +19,12 @@ interface Rate {
   mortgage_type: string;
 }
 
+function insuranceLabel(mortgageType: string | null | undefined): string {
+  if (mortgageType === "insured") return "insured";
+  if (mortgageType === "uninsured") return "uninsured";
+  return "insurance not stated";
+}
+
 function bestRate(term: number, type: string): Rate | undefined {
   return (ratesData as Rate[])
     .filter((r) => r.term_months === term && r.rate_type === type)
@@ -138,7 +144,7 @@ export default function CityPage({ slug }: { slug: string }) {
                   </p>
                   <p className="text-sm text-slate-500">
                     {bestFixed
-                      ? `${bestFixed.lender_name} · ${bestFixed.mortgage_type}`
+                      ? `${bestFixed.lender_name} · ${insuranceLabel(bestFixed.mortgage_type)}`
                       : "Compare all lenders"}
                   </p>
                 </div>
@@ -149,7 +155,7 @@ export default function CityPage({ slug }: { slug: string }) {
                   </p>
                   <p className="text-sm text-slate-500">
                     {bestVariable
-                      ? `${bestVariable.lender_name} · ${bestVariable.mortgage_type}`
+                      ? `${bestVariable.lender_name} · ${insuranceLabel(bestVariable.mortgage_type)}`
                       : "Compare all lenders"}
                   </p>
                 </div>

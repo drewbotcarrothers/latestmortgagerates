@@ -348,7 +348,11 @@ def scrape_all_lenders():
                                 lender_name=item.get("lender_name", item["lender_slug"]),
                                 term_months=item["term_months"],
                                 rate_type=RateType(item["rate_type"]),
-                                mortgage_type=MortgageType(item.get("mortgage_type", "uninsured")),
+                                mortgage_type=(
+                                    MortgageType(item["mortgage_type"])
+                                    if item.get("mortgage_type")
+                                    else None
+                                ),
                                 rate=Decimal(str(item["rate"])),
                                 posted_rate=Decimal(str(item["posted_rate"])) if item.get("posted_rate") else None,
                                 source_url=item.get("source_url", ""),
@@ -415,7 +419,7 @@ def scrape_all_lenders():
                 "lender_slug": rate.lender_slug,
                 "term_months": rate.term_months,
                 "rate_type": rate.rate_type.value,
-                "mortgage_type": rate.mortgage_type.value,
+                "mortgage_type": rate.mortgage_type.value if rate.mortgage_type else None,
                 "rate": float(rate.rate),
                 "posted_rate": float(rate.posted_rate) if rate.posted_rate else None,
                 "source_url": rate.source_url,

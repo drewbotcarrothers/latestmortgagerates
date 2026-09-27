@@ -66,7 +66,7 @@ def rate_to_dict(rate):
         "lender_slug": rate.lender_slug,
         "term_months": rate.term_months,
         "rate_type": rate.rate_type.value if hasattr(rate.rate_type, 'value') else str(rate.rate_type),
-        "mortgage_type": rate.mortgage_type.value if hasattr(rate.mortgage_type, 'value') else str(rate.mortgage_type),
+        "mortgage_type": rate.mortgage_type.value if getattr(rate.mortgage_type, "value", None) else None,
         "rate": float(rate.rate) if isinstance(rate.rate, Decimal) else rate.rate,
         "posted_rate": float(rate.posted_rate) if rate.posted_rate else None,
         "source_url": rate.source_url,

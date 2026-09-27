@@ -179,7 +179,7 @@ class RateDeduplicator:
         deduped = []
         for rate in valid_meta:
             key = (rate.lender_slug, rate.term_months, rate.rate_type.value, 
-                   rate.mortgage_type.value if rate.mortgage_type else "uninsured",
+                   rate.mortgage_type.value if rate.mortgage_type else "unspecified",
                    str(rate.rate))
             if key not in seen:
                 seen[key] = rate
@@ -193,7 +193,7 @@ class RateDeduplicator:
         grouped: Dict = {}
         for rate in deduped:
             key = (rate.lender_slug, rate.term_months, rate.rate_type.value,
-                   rate.mortgage_type.value if rate.mortgage_type else "uninsured")
+                   rate.mortgage_type.value if rate.mortgage_type else "unspecified")
             if key not in grouped:
                 grouped[key] = []
             grouped[key].append(rate)
@@ -356,7 +356,7 @@ class RateDeduplicator:
             summary[slug]["rates"].append({
                 "term_months": rate.term_months,
                 "rate_type": rate.rate_type.value,
-                "mortgage_type": rate.mortgage_type.value if rate.mortgage_type else "uninsured",
+                "mortgage_type": rate.mortgage_type.value if rate.mortgage_type else None,
                 "rate": str(rate.rate),
                 "posted_rate": str(rate.posted_rate) if rate.posted_rate else None,
                 "source": rate.source_url
