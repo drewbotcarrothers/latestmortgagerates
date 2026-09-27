@@ -77,7 +77,7 @@ def save_rates_to_json(rates: List[RawRate], filepath: str, stats: Dict = None):
             "term_months": rate.term_months,
             "rate_type": rate.rate_type.value,
             "rate": float(rate.rate),
-            "mortgage_type": rate.mortgage_type.value if rate.mortgage_type else "uninsured",
+            "mortgage_type": rate.mortgage_type.value if rate.mortgage_type else None,
             "apr": str(rate.raw_data.get("apr")) if rate.raw_data and rate.raw_data.get("apr") else None,
             "posted_rate": float(rate.posted_rate) if rate.posted_rate else None,
             "ltv_tier": rate.raw_data.get("ltv_tier") if rate.raw_data else None,

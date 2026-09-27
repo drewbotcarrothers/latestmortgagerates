@@ -37,7 +37,12 @@ export default function RateTableSchema({
   const itemList = rates.slice(0, 20).map((rate, index) => {
     const termYears = rate.term_months / 12;
     const rateType = rate.rate_type === "fixed" ? "Fixed" : "Variable";
-    const mortgageType = rate.mortgage_type === "insured" ? "Insured" : "Uninsured";
+    const mortgageType =
+      rate.mortgage_type === "insured"
+        ? "Insured"
+        : rate.mortgage_type === "uninsured"
+          ? "Uninsured"
+          : "Not stated";
 
     return {
       "@type": "ListItem",

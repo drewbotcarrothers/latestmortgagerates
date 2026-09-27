@@ -75,7 +75,10 @@ function getTermLabel(months: number): string {
   return `${months / 12} years`;
 }
 
-function formatRateType(type: string): string {
+function formatRateType(type: string | null | undefined): string {
+  if (type === "insured") return "Insured";
+  if (type === "uninsured") return "Uninsured";
+  if (!type) return "Not stated";
   return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
@@ -166,9 +169,11 @@ export default function LenderPage({ slug }: { slug: string }) {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                rate.mortgage_type === "insured" 
-                  ? "bg-emerald-100 text-emerald-700 border border-emerald-200" 
-                  : "bg-slate-100 text-slate-700 border border-slate-200"
+                rate.mortgage_type === "insured"
+                  ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                  : rate.mortgage_type === "uninsured"
+                    ? "bg-slate-100 text-slate-700 border border-slate-200"
+                    : "bg-amber-50 text-amber-800 border border-amber-200"
               }`}>
                 {formatRateType(rate.mortgage_type)}
               </span>

@@ -39,7 +39,7 @@ LENDERS = {
     "cmls": ("CMLS Financial", "https://www.cmls.ca/mortgage-rates/"),
     "merix": ("Merix Financial", "https://www.merixfinancial.com/mortgage-rates"),
     "lendwise": ("Lendwise", "https://www.lendwise.com/mortgage-rates/"),
-    "butlermortgage": ("Butler Mortgage", "https://www.butlermortgage.com/rates/"),
+    "butlermortgage": ("Butler Mortgage", "https://www.butlermortgage.ca/low-mortgage-rates/"),
     "intellimortgage": ("IntelliMortgage", "https://www.intellimortgage.com/rates/"),
     "streetcapital": ("Street Capital", "https://www.streetcapital.ca/mortgage-rates"),
     "centum": ("Centum", "https://www.centum.ca/mortgage-rates"),

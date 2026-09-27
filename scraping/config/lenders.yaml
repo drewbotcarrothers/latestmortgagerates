@@ -156,7 +156,7 @@ lenders:
     name: "Butler Mortgage"
     slug: "butlermortgage"
     type: "monoline"
-    rate_url: "https://www.butlermortgage.com/rates"
+    rate_url: "https://www.butlermortgage.ca/low-mortgage-rates/"
     scrape_method: "browser"
     frequency: "12h"
     priority: 2
