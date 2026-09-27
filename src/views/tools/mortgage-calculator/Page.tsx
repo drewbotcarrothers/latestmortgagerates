@@ -6,6 +6,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import { lenderCountLabel } from "@/lib/lenderCount";
 
 
 export default function MortgageCalculatorPage() {
@@ -194,7 +195,7 @@ export default function MortgageCalculatorPage() {
             <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-xl p-6 text-white">
               <h3 className="text-lg font-bold mb-2">Compare Today's Rates</h3>
               <p className="text-teal-100 text-sm mb-4">
-                See the best mortgage rates from 31+ Canadian lenders.
+                See the best mortgage rates from {lenderCountLabel} Canadian lenders.
               </p>
               <div className="flex flex-col gap-2 text-sm font-semibold">
                 <a href="/rates/5-year-fixed/" className="text-white hover:text-teal-100">5-year fixed rates →</a>

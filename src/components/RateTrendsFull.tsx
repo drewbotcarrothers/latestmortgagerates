@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import RateTrendsChart from './RateTrendsChart';
 import type { HistoricalDataPoint } from './RateTrendsChart';
+import { PRIME_RATE } from "@/lib/primeRate";
 
 interface TimeRange {
   days: number;
@@ -129,7 +130,7 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
       change: change.toFixed(2),
       changePercent,
       trendDirection,
-      primeRate: lastDay?.prime_rate || 5.45,
+      primeRate: lastDay?.prime_rate || PRIME_RATE,
     };
   }, [historicalData, selectedRange, selectedType, showInsured]);
 

@@ -1,4 +1,5 @@
 // Add today's rate snapshot to historical_rates.json without overwriting existing data
+import { PRIME_RATE } from "./primeRate.ts";
 import * as fs from 'fs';
 
 // Load current rates
@@ -35,8 +36,7 @@ function calculateMetrics(rates: any[]) {
     return arr.reduce((sum: number, item: any) => sum + item[prop], 0) / arr.length;
   };
   
-  // Prime rate (as of April 2026: 5.45%)
-  const primeRate = 5.45;
+  const primeRate = PRIME_RATE;
   
   // Get unique lenders
   const uniqueLenders = [...new Set(rates.map((r: any) => r.lender_slug))];
@@ -74,7 +74,7 @@ function fixSpreadCalculations(historicalJson: any) {
   let fixed = 0;
   
   for (const entry of historicalJson.data) {
-    const primeRate = entry.prime_rate || 5.45;
+    const primeRate = entry.prime_rate || PRIME_RATE;
     
     // Fix uninsured variable spread
     if (entry.variable_uninsured_best_rate && entry.variable_uninsured_best_rate > 0) {

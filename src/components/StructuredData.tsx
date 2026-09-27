@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
+import { lenderCountLabel } from "@/lib/lenderCount";
+import { PRIME_RATE } from "@/lib/primeRate";
 
 interface Rate {
   lender_name: string;
@@ -76,7 +78,7 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
       "@id": `${baseUrl}/#/schema/WebSite/1`,
       url: baseUrl,
       name: "Latest Mortgage Rates Canada",
-      description: "Compare current mortgage rates from 30+ Canadian lenders",
+      description: `Compare current mortgage rates from ${lenderCountLabel} Canadian lenders`,
       publisher: {
         "@id": `${baseUrl}/#/schema/Organization/1`,
       },
@@ -159,7 +161,7 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
           name: "What is the difference between fixed and variable mortgage rates?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Fixed mortgage rates remain constant throughout your term, providing payment stability and protection against rate increases. Variable mortgage rates fluctuate with your lender's prime rate (currently 5.45%), which means your payments may increase or decrease following Bank of Canada policy changes. Variable rates typically start 0.3% to 0.7% lower than comparable fixed rates but carry more interest rate risk.",
+            text: `Fixed mortgage rates remain constant throughout your term, providing payment stability and protection against rate increases. Variable mortgage rates fluctuate with your lender's prime rate (currently ${PRIME_RATE.toFixed(2)}%), which means your payments may increase or decrease following Bank of Canada policy changes. Variable rates typically start 0.3% to 0.7% lower than comparable fixed rates but carry more interest rate risk.`,
           },
         },
         {
@@ -183,7 +185,7 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
           name: "What is the Bank of Canada prime rate and how does it affect mortgages?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "The Bank of Canada prime rate is currently 5.45%. Variable mortgage rates are quoted as 'prime minus X%' or 'prime plus X%'. When the Bank of Canada changes its overnight rate, lenders typically adjust their prime rate accordingly, which directly affects variable mortgage payments. Fixed rates are more influenced by government bond yields than the prime rate.",
+            text: `The Bank of Canada prime rate is currently ${PRIME_RATE.toFixed(2)}%. Variable mortgage rates are quoted as 'prime minus X%' or 'prime plus X%'. When the Bank of Canada changes its overnight rate, lenders typically adjust their prime rate accordingly, which directly affects variable mortgage payments. Fixed rates are more influenced by government bond yields than the prime rate.`,
           },
         },
         {

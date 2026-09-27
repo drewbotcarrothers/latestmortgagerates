@@ -14,6 +14,8 @@ Optional flags:
   --skip-render     Build artifacts + TTS + thumbnail only
   --rates PATH      Use a local rates JSON instead of live fetch
   --concurrency N   Remotion concurrency (default 4)
+
+Brand / production rules: video-pipeline/LMR_VIDEO_REFERENCE.md
 """
 
 from __future__ import annotations

@@ -15,6 +15,7 @@ from loguru import logger
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from models import RawRate, RateType, MortgageType
+from prime_rate import configured_prime_rate
 
 
 class NestoScraper:
@@ -128,9 +129,10 @@ class NestoScraper:
         """
         Fallback rates from nesto (July 19, 2026).
         nesto is a digital mortgage lender with very competitive rates.
-        Prime rate: 5.45% (April 2026)
+        Prime rate: config/prime_rate.json (Big 5 prime; do not hard-code 5.45).
         """
         logger.info("Using fallback rates from nesto (Jul 19, 2026)")
+        prime_rate = f"{configured_prime_rate():.2f}"
         
         fallback_data = [
             # Insured rates (best LTV tiers)
@@ -158,7 +160,7 @@ class NestoScraper:
                 "ltv_tier": item.get("ltv_tier"),
                 "product": item.get("product"),
                 "featured": item.get("featured", False),
-                "prime_rate": "5.45",
+                "prime_rate": prime_rate,
                 "last_verified": "2026-07-19"
             }
             if item.get("spread"):

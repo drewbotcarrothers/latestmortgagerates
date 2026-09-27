@@ -1,4 +1,6 @@
 
+import { lenderCountLabel } from "@/lib/lenderCount";
+
 interface FooterProps {
   showDisclaimer?: boolean;
 }
@@ -67,7 +69,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-              <span className="text-slate-400">30+ Lenders Compared</span>
+              <span className="text-slate-400">{lenderCountLabel} Lenders Compared</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-teal-500"></div>
