@@ -78,8 +78,31 @@
   styleEl.textContent = styles[config.theme] || styles.light;
   document.head.appendChild(styleEl);
 
+  function isFiveYearFixed(rate) {
+    if (!rate || typeof rate !== 'object') return false;
+    if (rate.type === '5 Year Fixed') return true;
+    return rate.rate_type === 'fixed' && Number(rate.term_months) === 60;
+  }
+
+  // Prefer the dedicated best-five list. If a response only has the full
+  // `rates` array, keep the widget on 5-year fixed quotes sorted best-first.
+  function selectRates(data) {
+    if (data && Array.isArray(data.top_5yr_fixed) && data.top_5yr_fixed.length) {
+      return data.top_5yr_fixed;
+    }
+    if (data && Array.isArray(data.rates)) {
+      return data.rates
+        .filter(isFiveYearFixed)
+        .sort((a, b) => (Number(a.rate) || 99) - (Number(b.rate) || 99));
+    }
+    return config.fallbackRates;
+  }
+
   // Fetch rates (static JSON; query params are ignored). Prefer .json so FTP
   // never has to create an api/rates/ directory over the Next.js leftover file.
+  // Cached copies of this script still do `data.rates.slice(0, limit)` and
+  // render `lender` / `type` / `rate`. The full `rates` array stays sorted
+  // best-first and includes those fields, so those copies still draw a list.
   async function fetchRates() {
     const urls = [config.apiUrl, config.apiUrlFallback];
     for (const url of urls) {
@@ -87,8 +110,8 @@
         const response = await fetch(url);
         if (!response.ok) continue;
         const data = await response.json();
-        const rates = data.rates || config.fallbackRates;
-        return rates.slice(0, config.limit);
+        const rates = selectRates(data);
+        return (rates.length ? rates : config.fallbackRates).slice(0, config.limit);
       } catch (error) {
         // try next URL
       }

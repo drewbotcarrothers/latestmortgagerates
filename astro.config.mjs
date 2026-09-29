@@ -30,6 +30,32 @@ function writeFlatFile(dir, name, body) {
   writeFileSync(target, body);
 }
 
+function compareByRate(a, b) {
+  return (a.rate || 99) - (b.rate || 99);
+}
+
+/** "5 Year Fixed", "3 Year Variable", or "6 Month Fixed" when the term is not a whole year. */
+function formatRateType(termMonths, rateType) {
+  const months = Number(termMonths);
+  const kind = rateType === "fixed" ? "Fixed" : rateType === "variable" ? "Variable" : String(rateType || "");
+  let term = "Unknown term";
+  if (Number.isFinite(months) && months > 0) {
+    term = months % 12 === 0 ? `${months / 12} Year` : `${months} Month`;
+  }
+  return kind ? `${term} ${kind}` : term;
+}
+
+function legacyRateRow(r) {
+  return {
+    lender: r.lender_name,
+    lender_slug: r.lender_slug,
+    rate: r.rate,
+    type: formatRateType(r.term_months, r.rate_type),
+    url: `https://latestmortgagerates.ca/lenders/${r.lender_slug}/`,
+    updated_at: r.scraped_at,
+  };
+}
+
 function jsonApiFiles() {
   return {
     name: "lmr-static-json-api",
@@ -47,23 +73,29 @@ function jsonApiFiles() {
         //   api/rates    → DIRECTORY already created (index.html uploaded)
         // Match that mix: version stays a file; rates may keep a directory.
 
-        const filtered = rates
+        const allRates = [...rates].sort(compareByRate).map((r) => ({
+          ...r,
+          lender: r.lender_name,
+          lender_slug: r.lender_slug,
+          type: formatRateType(r.term_months, r.rate_type),
+          url: `https://latestmortgagerates.ca/lenders/${r.lender_slug}/`,
+          updated_at: r.scraped_at,
+        }));
+
+        // Previous payload: best five 5-year fixed rows only. Kept so the
+        // embed widget (and anything that still wants that short list) does
+        // not have to re-filter the full set.
+        const top5yrFixed = rates
           .filter((r) => r.rate_type === "fixed" && r.term_months === 60)
-          .sort((a, b) => (a.rate || 99) - (b.rate || 99))
+          .sort(compareByRate)
           .slice(0, 5)
-          .map((r) => ({
-            lender: r.lender_name,
-            lender_slug: r.lender_slug,
-            rate: r.rate,
-            type: `${r.term_months / 12} Year ${r.rate_type === "fixed" ? "Fixed" : "Variable"}`,
-            url: `https://latestmortgagerates.ca/lenders/${r.lender_slug}/`,
-            updated_at: r.scraped_at,
-          }));
+          .map(legacyRateRow);
 
         const ratesBody = JSON.stringify({
-          rates: filtered,
+          rates: allRates,
+          top_5yr_fixed: top5yrFixed,
           meta: {
-            total_rates: rates.length,
+            total_rates: allRates.length,
             lenders_count: metadata?.total_lenders || 34,
             last_updated: metadata?.last_updated,
             source: "https://latestmortgagerates.ca",

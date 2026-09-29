@@ -54,6 +54,21 @@ if (!Array.isArray(rates.rates) || rates.rates.length === 0) {
   fail("api/rates.json must contain a non-empty rates array");
 }
 
+const sourceRates = JSON.parse(readFileSync(join(process.cwd(), "data/rates.json"), "utf8"));
+if (!Array.isArray(sourceRates)) {
+  fail("data/rates.json must be an array");
+}
+if (rates.rates.length !== sourceRates.length) {
+  fail(
+    `api/rates.json has ${rates.rates.length} rows but data/rates.json has ${sourceRates.length}`,
+  );
+}
+if (rates.meta?.total_rates !== sourceRates.length) {
+  fail(
+    `meta.total_rates is ${rates.meta?.total_rates} but data/rates.json has ${sourceRates.length} rows`,
+  );
+}
+
 const version = JSON.parse(readFileSync(join(api, "version.json"), "utf8"));
 if (!version.lastUpdated) {
   fail("api/version.json must include lastUpdated");
