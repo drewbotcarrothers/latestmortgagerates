@@ -5,6 +5,7 @@ import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
+import LenderLogo from "@/components/LenderLogo";
 import {
   type MortgageRate,
   compareContext,
@@ -116,6 +117,14 @@ export default function CompareIndex() {
                     href={compareHref(page.slug)}
                     className="block bg-white rounded-xl border border-slate-200 p-6 hover:border-teal-300 hover:shadow-sm transition"
                   >
+                    <div className="flex items-center gap-3 mb-3">
+                      {page.left.lenderSlug ? (
+                        <LenderLogo lenderSlug={page.left.lenderSlug} size="sm" showText={false} />
+                      ) : null}
+                      {page.right.lenderSlug ? (
+                        <LenderLogo lenderSlug={page.right.lenderSlug} size="sm" showText={false} />
+                      ) : null}
+                    </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
                       {page.left.shortName} vs {page.right.shortName}
                     </h3>

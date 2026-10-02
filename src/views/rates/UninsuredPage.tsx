@@ -8,6 +8,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
+import LenderLogo from "@/components/LenderLogo";
 
 
 interface Rate {
@@ -127,7 +128,11 @@ export default function UninsuredRatesPage() {
                 <tbody className="divide-y divide-slate-200">
                   {filteredRates.slice(0, 20).map((rate, i) => (
                     <tr key={`${rate.lender_slug}-${rate.term_months}-${rate.rate_type}-${i}`} className="hover:bg-slate-50">
-                      <td className="px-6 py-4 text-sm font-medium text-slate-900">{rate.lender_name}</td>
+                      <td className="px-6 py-4">
+                        <a href={`/lenders/${rate.lender_slug}/`} className="inline-flex max-w-full hover:opacity-80">
+                          <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                        </a>
+                      </td>
                       <td className="px-6 py-4 text-sm text-slate-600">{rate.term_months / 12}-Year</td>
                       <td className="px-6 py-4 text-sm text-slate-600">{rate.rate_type === "fixed" ? "Fixed" : "Variable"}</td>
                       <td className="px-6 py-4 text-sm font-bold text-emerald-600">{rate.rate.toFixed(2)}%</td>

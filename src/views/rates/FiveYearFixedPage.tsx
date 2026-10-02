@@ -8,6 +8,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import ratesData from "@data/rates.json";
+import LenderLogo from "@/components/LenderLogo";
 
 
 interface Rate {
@@ -133,7 +134,11 @@ export default function FiveYearFixedPage() {
                 <tbody className="divide-y divide-slate-200">
                   {filteredRates.slice(0, 20).map((rate, i) => (
                     <tr key={`${rate.lender_slug}-${rate.mortgage_type}-${i}`} className="hover:bg-slate-50">
-                      <td className="px-6 py-4 text-sm font-medium text-slate-900">{rate.lender_name}</td>
+                      <td className="px-6 py-4">
+                        <a href={`/lenders/${rate.lender_slug}/`} className="inline-flex max-w-full hover:opacity-80">
+                          <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
+                        </a>
+                      </td>
                       <td className="px-6 py-4 text-sm text-slate-600">
                         <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${rate.mortgage_type === "insured" ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
                           {rate.mortgage_type === "insured" ? "Insured" : "Uninsured"}
