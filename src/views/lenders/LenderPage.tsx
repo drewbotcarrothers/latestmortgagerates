@@ -278,7 +278,7 @@ export default function LenderPage({ slug }: { slug: string }) {
           
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <LenderLogo lenderSlug={slug} size="lg" />
+              <LenderLogo lenderSlug={slug} size="lg" showText={false} loading="eager" />
               <div>
                 <h1 className="text-3xl font-bold text-slate-900">{lenderName} Mortgage Rates</h1>
                 <p className="text-slate-600 mt-1">
@@ -650,9 +650,7 @@ export default function LenderPage({ slug }: { slug: string }) {
           <div className="p-6 md:p-8">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-teal-700">{lenderName.charAt(0)}</span>
-                </div>
+                <LenderLogo lenderSlug={slug} size="lg" showText={false} />
               </div>
               
               <div className="flex-1">
@@ -903,7 +901,10 @@ export default function LenderPage({ slug }: { slug: string }) {
                       href={`/lenders/${lenderSlug}/`}
                       className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
                     >
-                      <span className="text-slate-700 group-hover:text-teal-700 text-sm">{lender.lender_name}</span>
+                      <span className="flex items-center gap-2 min-w-0">
+                        <LenderLogo lenderSlug={lenderSlug} size="xs" showText={false} />
+                        <span className="text-slate-700 group-hover:text-teal-700 text-sm truncate">{lender.lender_name}</span>
+                      </span>
                       <svg className="w-4 h-4 text-slate-300 group-hover:text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
                       </svg>

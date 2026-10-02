@@ -1,71 +1,9 @@
-# Lender Logos
+# Lender logos
 
-Place lender logo images in this directory. Each logo should be a PNG file named after the lender's slug.
+Self-hosted marks for the lenders in `data/rates.json`. The site does not hotlink a logo API.
 
-## Required Logo Files
+- Files live in this directory as `public/logos/<slug>.svg`, `.png`, or `.webp`.
+- Provenance is recorded in `src/data/lender-logos.json` (`slug`, `file`, `source_url`, `retrieved`).
+- `LenderLogo` renders the file at a fixed height. If a slug has no file, it draws a monogram badge instead.
 
-### Big 6 Banks
-- `rbc.png` - RBC Royal Bank
-- `td.png` - TD Canada Trust
-- `scotiabank.png` - Scotiabank
-- `bmo.png` - BMO Bank of Montreal
-- `cibc.png` - CIBC
-- `nationalbank.png` - National Bank
-
-### Digital Banks
-- `nesto.png` - nesto
-- `tangerine.png` - Tangerine
-- `eqbank.png` - EQ Bank
-- `simplii.png` - Simplii Financial
-- `motive.png` - Motive Financial
-- `alterna.png` - Alterna Bank
-
-### Credit Unions
-- `meridian.png` - Meridian Credit Union
-- `desjardins.png` - Desjardins
-- `vancity.png` - Vancity
-- `coastcapital.png` - Coast Capital Savings
-
-### Regional Banks
-- `atb.png` - ATB Financial
-- `cwb.png` - Canadian Western Bank
-
-### Monoline Lenders
-- `firstnational.png` - First National
-- `mcap.png` - MCAP
-- `laurentian.png` - Laurentian Bank
-- `manulife.png` - Manulife Bank
-- `rfa.png` - RFA Bank
-- `cmls.png` - CMLS Financial
-- `merix.png` - Merix Financial
-- `lendwise.png` - Lendwise
-- `butlermortgage.png` - Butler Mortgage
-- `intellimortgage.png` - IntelliMortgage
-- `streetcapital.png` - Street Capital
-- `centum.png` - Centum
-
-## Logo Specifications
-
-- **Format:** PNG with transparent background (preferred)
-- **Size:** 200x200px minimum (displays at 32x32, 40x40, or 48x48)
-- **Style:** Simple, recognizable logos that work at small sizes
-- **Naming:** Use lowercase, no spaces (e.g., `firstnational.png` not `First National.png`)
-
-## Fallback Behavior
-
-If a logo file is missing, the component will automatically display:
-- A colored circular badge with the lender's initials
-- The lender's full name (if `showText` is true)
-
-This ensures the site works even without all logos uploaded.
-
-## Getting Logos
-
-You can:
-1. Download official logos from each lender's website
-2. Use a logo API service like Clearbit or Logo.dev
-3. Create simple text-based logos
-
-## Current Status
-
-All 30 lenders currently use the fallback colored initials system until logo images are added to this directory.
+Sources are each lender's own site header, icon, or newsroom image, or Wikimedia Commons when the file is the official mark. A few white-on-dark header SVGs were recolored to the lender's published brand color so they stay readable on white; those notes are in the manifest.

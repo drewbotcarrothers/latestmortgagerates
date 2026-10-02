@@ -46,8 +46,9 @@ function ProductRateCard({
     >
       <p className="text-sm text-slate-600">{label}</p>
       <p className="text-3xl font-bold text-teal-600 mt-1">{formatPct(pick)}</p>
-      <p className="text-sm text-slate-500 mt-1">
-        {pick ? pick.lender_name : "Not in today's feed"}
+      <p className="text-sm text-slate-500 mt-2 flex items-center gap-2">
+        {pick ? <LenderLogo lenderSlug={pick.lender_slug} size="xs" showText={false} /> : null}
+        <span className="truncate">{pick ? pick.lender_name : "Not in today's feed"}</span>
       </p>
     </a>
   );
@@ -154,10 +155,20 @@ export default function ComparePage({ slug }: { slug: string }) {
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">Product</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
-                        {page.left.shortName}
+                        <span className="inline-flex items-center gap-2 normal-case">
+                          {page.left.lenderSlug ? (
+                            <LenderLogo lenderSlug={page.left.lenderSlug} size="xs" showText={false} />
+                          ) : null}
+                          {page.left.shortName}
+                        </span>
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
-                        {page.right.shortName}
+                        <span className="inline-flex items-center gap-2 normal-case">
+                          {page.right.lenderSlug ? (
+                            <LenderLogo lenderSlug={page.right.lenderSlug} size="xs" showText={false} />
+                          ) : null}
+                          {page.right.shortName}
+                        </span>
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase">
                         Lower in today&apos;s feed

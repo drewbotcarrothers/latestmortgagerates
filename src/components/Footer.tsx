@@ -261,8 +261,10 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <p className="text-center text-sm text-slate-500">
               © {currentYear} LatestMortgageRates.ca - All rights reserved.
             </p>
-            <p className="text-center text-xs text-slate-600">
+            <p className="text-center text-xs text-slate-600 max-w-xl">
               Not affiliated with any bank or mortgage lender. Rates are for comparison purposes only.
+              Lender names and logos are trademarks of their respective owners, used for identification only.
+              No endorsement is implied.
             </p>
           </div>
         </div>

@@ -1,6 +1,7 @@
 
 // Import rates data
 import ratesData from "@data/rates.json";
+import LenderLogo from "@/components/LenderLogo";
 
 interface Rate {
   lender_name: string;
@@ -48,8 +49,10 @@ export default function CityLendersSidebar({ cityName, maxLenders = 6 }: CityLen
             href={`/lenders/${rate.lender_slug}/`}
             className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors group border border-transparent hover:border-slate-200"
           >
-            <div className="flex-1">
-              <p className="font-medium text-slate-900 group-hover:text-teal-700 text-sm">{rate.lender_name}</p>
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} />
+              <div className="min-w-0">
+              <p className="font-medium text-slate-900 group-hover:text-teal-700 text-sm truncate">{rate.lender_name}</p>
               <p className="text-xs text-slate-500">
                 {rate.mortgage_type === "insured"
                   ? "Insured"
@@ -57,6 +60,7 @@ export default function CityLendersSidebar({ cityName, maxLenders = 6 }: CityLen
                     ? "Uninsured"
                     : "Not stated"}
               </p>
+              </div>
             </div>
             <div className="text-right">
               <span className="font-bold text-emerald-600">{rate.rate.toFixed(2)}%</span>

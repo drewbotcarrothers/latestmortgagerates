@@ -8,6 +8,7 @@ import CityLocalContent from "@/components/CityLocalContent";
 import { requireCity } from "@/lib/cities";
 import { getCityContent } from "@/lib/cityContent";
 import ratesData from "@data/rates.json";
+import LenderLogo from "@/components/LenderLogo";
 import metadata from "@data/metadata.json";
 
 interface Rate {
@@ -142,10 +143,13 @@ export default function CityPage({ slug }: { slug: string }) {
                   <p className="text-3xl font-bold text-teal-600">
                     {bestFixed ? `${bestFixed.rate.toFixed(2)}%` : "See table"}
                   </p>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-slate-500 flex items-center gap-2">
+                    {bestFixed ? <LenderLogo lenderSlug={bestFixed.lender_slug} size="xs" showText={false} /> : null}
+                    <span className="truncate">
                     {bestFixed
                       ? `${bestFixed.lender_name} · ${insuranceLabel(bestFixed.mortgage_type)}`
                       : "Compare all lenders"}
+                    </span>
                   </p>
                 </div>
                 <div className="bg-emerald-50 rounded-lg p-4">
@@ -153,10 +157,13 @@ export default function CityPage({ slug }: { slug: string }) {
                   <p className="text-3xl font-bold text-emerald-600">
                     {bestVariable ? `${bestVariable.rate.toFixed(2)}%` : "See table"}
                   </p>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-slate-500 flex items-center gap-2">
+                    {bestVariable ? <LenderLogo lenderSlug={bestVariable.lender_slug} size="xs" showText={false} /> : null}
+                    <span className="truncate">
                     {bestVariable
                       ? `${bestVariable.lender_name} · ${insuranceLabel(bestVariable.mortgage_type)}`
                       : "Compare all lenders"}
+                    </span>
                   </p>
                 </div>
               </div>

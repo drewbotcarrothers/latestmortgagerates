@@ -1,152 +1,81 @@
-"use client";
-
-import { useState } from "react";
+import { logoBox, lenderLogoRecord, monogramFor, type LogoSize } from "@/lib/lenderLogos";
 
 interface LenderLogoProps {
   lenderSlug: string;
-  size?: "sm" | "md" | "lg";
+  size?: LogoSize;
   showText?: boolean;
+  /** Above-the-fold marks should load immediately. Everything else stays lazy. */
+  loading?: "lazy" | "eager";
 }
 
-const sizeClasses = {
-  sm: "w-8 h-8",
-  md: "w-10 h-10",
-  lg: "w-12 h-12",
-};
-
-const sizePixels = {
-  sm: 32,
-  md: 40,
-  lg: 48,
-};
-
-// Lender display names mapping
-const lenderNames: Record<string, string> = {
-  // Big 6 Banks
-  rbc: "RBC Royal Bank",
-  td: "TD Canada Trust",
-  scotiabank: "Scotiabank",
-  bmo: "BMO Bank of Montreal",
-  cibc: "CIBC",
-  nationalbank: "National Bank",
-  
-  // Digital/Direct Banks
-  nesto: "nesto",
-  tangerine: "Tangerine",
-  eqbank: "EQ Bank",
-  simplii: "Simplii Financial",
-  alterna: "Alterna Bank",
-  wealthsimple: "Wealthsimple",
-  
-  // Credit Unions
-  meridian: "Meridian Credit Union",
-  desjardins: "Desjardins",
-  vancity: "Vancity",
-  coastcapital: "Coast Capital Savings",
-  
-  // Regional Banks
-  atb: "ATB Financial",
-  
-  // Monoline Lenders
-  firstnational: "First National",
-  mcap: "MCAP",
-  laurentian: "Laurentian Bank",
-  manulife: "Manulife Bank",
-  rfa: "RFA Bank",
-  cmls: "CMLS Financial",
-  butlermortgage: "Butler Mortgage",
-  streetcapital: "Street Capital",
-  centum: "Centum",
-  
-  // Additional Lenders
-  equitable: "Equitable Bank",
-  hometrust: "Home Trust",
-  truenorth: "True North Mortgage",
-};
-
-// Fallback styles for when image is not available
-const fallbackStyles: Record<string, { bg: string; text: string; abbr: string }> = {
-  // Big 6 Banks
-  rbc: { bg: "bg-blue-700", text: "text-white", abbr: "RBC" },
-  td: { bg: "bg-emerald-600", text: "text-white", abbr: "TD" },
-  scotiabank: { bg: "bg-red-600", text: "text-white", abbr: "Scotia" },
-  bmo: { bg: "bg-red-700", text: "text-white", abbr: "BMO" },
-  cibc: { bg: "bg-red-600", text: "text-white", abbr: "CIBC" },
-  nationalbank: { bg: "bg-emerald-700", text: "text-white", abbr: "NatBank" },
-  
-  // Digital/Direct Banks
-  nesto: { bg: "bg-emerald-500", text: "text-white", abbr: "nesto" },
-  tangerine: { bg: "bg-orange-500", text: "text-white", abbr: "Tang" },
-  eqbank: { bg: "bg-indigo-600", text: "text-white", abbr: "EQ" },
-  simplii: { bg: "bg-red-500", text: "text-white", abbr: "Simplii" },
-  alterna: { bg: "bg-cyan-600", text: "text-white", abbr: "Alterna" },
-  wealthsimple: { bg: "bg-purple-600", text: "text-white", abbr: "WS" },
-  
-  // Credit Unions
-  meridian: { bg: "bg-teal-600", text: "text-white", abbr: "M" },
-  desjardins: { bg: "bg-emerald-500", text: "text-white", abbr: "Desj" },
-  vancity: { bg: "bg-red-500", text: "text-white", abbr: "Vancity" },
-  coastcapital: { bg: "bg-teal-500", text: "text-white", abbr: "Coast" },
-  
-  // Regional Banks
-  atb: { bg: "bg-teal-600", text: "text-white", abbr: "ATB" },
-  
-  // Monoline Lenders
-  firstnational: { bg: "bg-teal-500", text: "text-white", abbr: "FNF" },
-  mcap: { bg: "bg-gray-700", text: "text-white", abbr: "MCAP" },
-  laurentian: { bg: "bg-teal-600", text: "text-white", abbr: "Laurent" },
-  manulife: { bg: "bg-green-700", text: "text-white", abbr: "Manu" },
-  rfa: { bg: "bg-slate-600", text: "text-white", abbr: "RFA" },
-  cmls: { bg: "bg-blue-800", text: "text-white", abbr: "CMLS" },
-  butlermortgage: { bg: "bg-orange-600", text: "text-white", abbr: "Butler" },
-  streetcapital: { bg: "bg-cyan-700", text: "text-white", abbr: "Street" },
-  centum: { bg: "bg-red-700", text: "text-white", abbr: "Centum" },
-  
-  // Additional Lenders
-  equitable: { bg: "bg-slate-700", text: "text-white", abbr: "Equitable" },
-  hometrust: { bg: "bg-amber-600", text: "text-white", abbr: "Home" },
-  truenorth: { bg: "bg-sky-600", text: "text-white", abbr: "TN" },
-  
-  // Default fallback
-  default: { bg: "bg-gray-400", text: "text-white", abbr: "?" },
-};
-
-export default function LenderLogo({ lenderSlug, size = "md", showText = true }: LenderLogoProps) {
-  const [imageError, setImageError] = useState(false);
-  const normalizedSlug = lenderSlug.toLowerCase();
-  const lenderName = lenderNames[normalizedSlug] || lenderNames[normalizedSlug.replace(/\s+/g, '')] || "Unknown";
-  const fallback = fallbackStyles[normalizedSlug] || fallbackStyles.default;
-  const logoPath = `/logos/${normalizedSlug}.png`;
-  const pixelSize = sizePixels[size];
-
-  // If image failed to load or we're in fallback mode, show colored initials
-  if (imageError) {
-    return (
-      <div className="flex items-center gap-3">
-        <div className={`${sizeClasses[size]} ${fallback.bg} rounded-lg flex items-center justify-center font-bold shrink-0 shadow-sm`}>
-          <span className={`${fallback.text} text-xs`}>{fallback.abbr}</span>
-        </div>
-        {showText && (
-          <span className="font-medium text-slate-900 dark:text-gray-100">{lenderName}</span>
-        )}
-      </div>
-    );
-  }
-
-  // Try to load actual logo image
+function Monogram({
+  initials,
+  color,
+  size,
+  label,
+}: {
+  initials: string;
+  color: string;
+  size: LogoSize;
+  label: string;
+}) {
+  const height = size === "xs" ? 20 : size === "sm" ? 28 : size === "md" ? 32 : 40;
+  const text =
+    size === "xs" ? "text-[9px]" : size === "sm" ? "text-[10px]" : size === "lg" ? "text-sm" : "text-xs";
   return (
-    <div className="flex items-center gap-3">
-      <div className={`${sizeClasses[size]} relative shrink-0`}>
+    <span
+      role="img"
+      aria-label={label}
+      className={`${text} inline-flex items-center justify-center rounded-md font-bold text-white shrink-0 shadow-sm`}
+      style={{ width: height, height, backgroundColor: color }}
+    >
+      {initials}
+    </span>
+  );
+}
+
+export default function LenderLogo({
+  lenderSlug,
+  size = "md",
+  showText = true,
+  loading = "lazy",
+}: LenderLogoProps) {
+  const record = lenderLogoRecord(lenderSlug);
+  const name = record?.name || lenderSlug;
+  const label = `${name} logo`;
+  const box = record && record.kind === "logo" && record.file
+    ? logoBox(record.width, record.height, size)
+    : null;
+
+  const mark =
+    record?.kind === "logo" && record.file && box ? (
+      <span
+        className="inline-flex items-center justify-center shrink-0 overflow-hidden rounded-md border border-slate-200 bg-white p-0.5 box-border"
+        style={{ width: box.width, height: box.height }}
+      >
         <img
-          src={logoPath}
-          alt={`${lenderName} logo`}
-          className="object-contain rounded-lg w-full h-full"
-          onError={() => setImageError(true)}
+          src={`/logos/${record.file}`}
+          alt={label}
+          width={box.width}
+          height={box.height}
+          loading={loading}
+          decoding="async"
+          className="max-h-full max-w-full object-contain"
         />
-      </div>
-      {showText && (
-        <span className="font-medium text-slate-900 dark:text-gray-100">{lenderName}</span>
-      )}
-    </div>
+      </span>
+    ) : (
+      <Monogram
+        initials={record?.initials || monogramFor(lenderSlug, name).initials}
+        color={record?.color || monogramFor(lenderSlug, name).color}
+        size={size}
+        label={label}
+      />
+    );
+
+  return (
+    <span className="inline-flex items-center gap-2 min-w-0">
+      {mark}
+      {showText ? <span className="font-medium text-slate-900 truncate">{name}</span> : null}
+    </span>
   );
 }

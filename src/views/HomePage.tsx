@@ -16,6 +16,7 @@ import RateHubLinks from "@/components/RateHubLinks";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import LenderLogo from "@/components/LenderLogo";
 
 interface FilterState {
   term: string;
@@ -218,11 +219,12 @@ export default function Home() {
               {marketStats.fixedInsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.fixedInsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between hover:opacity-80 transition">
-                      <div className="flex items-center gap-2">
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
+                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
                         <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
                       </div>
                       <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
@@ -250,11 +252,12 @@ export default function Home() {
               {marketStats.fixedUninsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.fixedUninsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between hover:opacity-80 transition">
-                      <div className="flex items-center gap-2">
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
+                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
                         <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
                       </div>
                       <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
@@ -282,11 +285,12 @@ export default function Home() {
               {marketStats.variableInsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.variableInsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between hover:opacity-80 transition">
-                      <div className="flex items-center gap-2">
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
+                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
                         <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
                       </div>
                       <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
@@ -314,11 +318,12 @@ export default function Home() {
               {marketStats.variableUninsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.variableUninsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between hover:opacity-80 transition">
-                      <div className="flex items-center gap-2">
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2 min-w-0">
                         <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
+                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
                         <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
                       </div>
                       <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
