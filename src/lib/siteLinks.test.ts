@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import { COMPARE_INDEX_HREF, COMPARE_PAGES, RATE_HUBS, TOOL_LINKS, TOOLS_INDEX_HREF } from "./siteLinks.ts";
+import { COMMUNITY_LINKS, COMPARE_INDEX_HREF, COMPARE_PAGES, RATE_HUBS, TOOL_LINKS, TOOLS_INDEX_HREF } from "./siteLinks.ts";
 import { COMPARISONS } from "../content/comparisons.ts";
 
 const SRC = fileURLToPath(new URL("..", import.meta.url));
@@ -18,6 +18,7 @@ const KNOWN_TOOLS = [
   "/tools/rent-vs-buy-calculator/",
   "/tools/mortgage-penalty-calculator/",
   "/tools/mortgage-renewal-calculator/",
+  "/tools/renewal-offer-checker/",
   "/tools/refinance-calculator/",
   "/tools/stress-test-qualifier/",
 ];
@@ -40,7 +41,7 @@ const KNOWN_COMPARES = [
 
 describe("siteLinks", () => {
   it("uses trailing slashes on every tool and rate hub URL", () => {
-    for (const link of [...TOOL_LINKS, ...RATE_HUBS, ...COMPARE_PAGES]) {
+    for (const link of [...TOOL_LINKS, ...RATE_HUBS, ...COMPARE_PAGES, ...COMMUNITY_LINKS]) {
       assert.match(link.href, /\/$/, `${link.title} missing trailing slash: ${link.href}`);
     }
     assert.equal(TOOLS_INDEX_HREF, "/tools/");

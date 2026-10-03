@@ -54,11 +54,15 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
   
   const navItems = [
     { href: "/", label: "Current Rates", icon: HomeIcon },
+    { href: "/real-mortgage-rates/", label: "Real Mortgage Rates", icon: TrendIcon },
+    { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate Your Rate", icon: BookOpenIcon },
+    { href: "/tools/renewal-offer-checker/", label: "Renewal Offer Checker", icon: CalculatorIcon },
     { href: "/compare/", label: "Compare Mortgages", icon: ScaleIcon },
     { href: "/trends/", label: "Rate Trends", icon: TrendIcon },
     { href: "/blog/", label: "Guides & News", icon: BookOpenIcon },
     { href: "/glossary/", label: "Glossary", icon: LibraryIcon },
     { href: "/tools/", label: "Calculators", icon: CalculatorIcon },
+    { href: "/methodology/", label: "Rate Methodology", icon: LibraryIcon },
   ];
 
   return (
