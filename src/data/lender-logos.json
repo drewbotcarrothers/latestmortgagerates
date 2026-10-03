@@ -153,7 +153,7 @@
       "retrieved": "2026-10-02",
       "width": 320,
       "height": 80,
-      "notes": "Official header SVG was 95 KB; stored as a resized WebP of that file."
+      "notes": "Official header SVG was 95 KB; stored as a resized PNG of that file on the shared canvas."
     },
     {
       "slug": "nesto",
