@@ -7,6 +7,7 @@ import RateHubLinks from "@/components/RateHubLinks";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import CommunityCallout from "@/components/community/CommunityCallout";
 import ratesData from "@data/rates.json";
 import LenderLogo from "@/components/LenderLogo";
 import { PRIME_RATE } from "@/lib/primeRate";
@@ -159,6 +160,8 @@ export default function VariableRatesPage() {
           <div className="mb-8">
             <GuideCTA variant="compact" />
           </div>
+
+          <CommunityCallout className="mb-8" />
 
           <AdUnit format="display" className="mt-12 mb-10" />
 

@@ -88,6 +88,17 @@ const tools: ToolCardProps[] = [
     ],
   },
   {
+    title: "Renewal Offer Checker",
+    description: "See where a rate you were offered sits against rates Canadian borrowers report, and against that bank's posted rate.",
+    href: "/tools/renewal-offer-checker/",
+    icon: "🎯",
+    questions: [
+      "Is this renewal offer better than what people report getting?",
+      "How does it compare with the bank's posted rate?",
+      "Should I negotiate before I sign?",
+    ],
+  },
+  {
     title: "Mortgage Renewal Calculator",
     description: "Compare renewing with your current lender vs shopping for a better rate. Calculate potential savings, monthly payment differences, and break-even analysis.",
     href: "/tools/mortgage-renewal-calculator/",

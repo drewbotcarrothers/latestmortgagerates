@@ -5,6 +5,7 @@ import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import { compareHref, comparisonsForLender } from "@/lib/compare";
+import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 
 // Force static generation for static export
 
@@ -545,6 +546,8 @@ export default function LenderPage({ slug }: { slug: string }) {
             </table>
           </div>
         </section>
+
+        <LenderCommunitySection slug={slug} />
 
         {/* Fixed Rates — Grouped by Term */}
         {fixedByTerm.length > 0 && (
