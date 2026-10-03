@@ -78,9 +78,9 @@ export default function LenderLogo({
     );
 
   return (
-    <span className="inline-flex items-center gap-2 min-w-0">
+    <span className={`inline-flex items-center gap-2 ${showText ? "min-w-0 max-w-full" : "shrink-0"}`}>
       {mark}
-      {showText ? <span className="font-medium text-slate-900 truncate">{name}</span> : null}
+      {showText ? <span className="min-w-0 truncate font-medium text-slate-900">{name}</span> : null}
     </span>
   );
 }
