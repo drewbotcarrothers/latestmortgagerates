@@ -7,7 +7,12 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from src.scrapers.butler_scraper import mortgage_type_from_context, parse_butler_html
+from src.scrapers.butler_scraper import (
+    blanket_high_ratio,
+    explicit_product_types,
+    mortgage_type_from_context,
+    parse_butler_html,
+)
 from src.models import MortgageType, RateType
 
 
@@ -95,6 +100,94 @@ def test_uninsured_label_is_not_read_as_insured():
     assert Decimal("3.19") not in {rate.rate for rate in parsed.values()}
 
 
+# Homepage featured cards, captured 2026-10-01. The rate table does not repeat
+# these labels. "View All Rates" on this block links to the rate table.
+FEATURED = """
+<h2>Our Featured Rates in Toronto and Ontario</h2>
+<article>
+  <small>2-Year Fixed Rate <span>Mortgage</span></small>
+  <div class="rate">4.14%</div>
+  <button data-rate="4.14" data-form-title="2-YEAR/FIXED">Inquire</button>
+</article>
+<article>
+  <small>3-Year Fixed Rate <span>High-Ratio Mortgage</span></small>
+  <div class="rate">4.19%</div>
+  <button data-rate="4.19" data-form-title="3-YEAR/FIXED">Inquire</button>
+</article>
+<article>
+  <small>5-Year Fixed Rate <span> High-Ratio Mortgage</span></small>
+  <div class="rate">4.29%</div>
+  <button data-rate="4.29" data-form-title="5-YEAR/FIXED">Inquire</button>
+</article>
+<article>
+  <small>5-Year VRM Rate <span>High-Ratio Mortgage</span></small>
+  <div class="rate">3.25%</div>
+  <button data-rate="3.25" data-form-title="5-YEAR/VARIABLE">Inquire</button>
+</article>
+"""
+
+
+def test_featured_high_ratio_labels_only_those_products():
+    stated = explicit_product_types(FEATURED)
+    assert stated[(36, RateType.FIXED)] == MortgageType.INSURED
+    assert stated[(60, RateType.FIXED)] == MortgageType.INSURED
+    assert stated[(60, RateType.VARIABLE)] == MortgageType.INSURED
+    assert (24, RateType.FIXED) not in stated
+    assert blanket_high_ratio(FEATURED) is False
+
+    html = FIXTURE_PATH.read_text(encoding="utf-8")
+    parsed = _by_key(parse_butler_html(
+        html,
+        source_url=SOURCE,
+        scraped_at=SCRAPED_AT,
+        qualification_html=FEATURED,
+    ))
+    # The fixture's percentages differ from the featured cards. The label
+    # follows the product, not the number.
+    assert parsed[(36, RateType.FIXED)].mortgage_type == MortgageType.INSURED
+    assert parsed[(60, RateType.FIXED)].mortgage_type == MortgageType.INSURED
+    assert parsed[(60, RateType.VARIABLE)].mortgage_type == MortgageType.INSURED
+    # 2-year is published as "Mortgage", not high-ratio. Other table rows
+    # are not named on the featured list.
+    assert parsed[(24, RateType.FIXED)].mortgage_type is None
+    assert parsed[(6, RateType.FIXED)].mortgage_type is None
+    assert parsed[(48, RateType.FIXED)].mortgage_type is None
+    assert parsed[(84, RateType.FIXED)].mortgage_type is None
+    assert parsed[(120, RateType.FIXED)].mortgage_type is None
+    assert parsed[(36, RateType.VARIABLE)].mortgage_type is None
+    assert parsed[(60, RateType.FIXED)].rate == Decimal("4.14")
+    assert parsed[(60, RateType.VARIABLE)].rate == Decimal("3.25")
+
+
+def test_blanket_high_ratio_sentence_labels_every_term():
+    html = """
+    <h2>Mortgage Rates</h2>
+    <p>Our best rates are for high-ratio mortgages (less than 20% down).</p>
+    <button data-rate="4.14" data-form-title="2-YEAR/FIXED">Inquire</button>
+    <button data-rate="4.29" data-form-title="5-YEAR/FIXED">Inquire</button>
+    <button data-rate="3.25" data-form-title="5-YEAR/VARIABLE">Inquire</button>
+    """
+    assert blanket_high_ratio(html) is True
+    parsed = _by_key(_parse(html))
+    assert parsed[(24, RateType.FIXED)].mortgage_type == MortgageType.INSURED
+    assert parsed[(60, RateType.FIXED)].mortgage_type == MortgageType.INSURED
+    assert parsed[(60, RateType.VARIABLE)].mortgage_type == MortgageType.INSURED
+
+
+def test_row_heading_wins_over_featured_label():
+    html = """
+    <h3>5-Year Uninsured Fixed</h3>
+    <button data-rate="4.20" data-form-title="5-YEAR/FIXED">Inquire</button>
+    """
+    parsed = _by_key(parse_butler_html(
+        html,
+        source_url=SOURCE,
+        scraped_at=SCRAPED_AT,
+        qualification_html=FEATURED,
+    ))
+    assert parsed[(60, RateType.FIXED)].mortgage_type == MortgageType.UNINSURED
+
+
 def test_empty_or_unusable_html_returns_nothing():
     assert _parse("") == []
     assert _parse("   ") == []
@@ -105,5 +198,8 @@ def test_empty_or_unusable_html_returns_nothing():
 if __name__ == "__main__":
     test_fixture_splits_fixed_and_variable()
     test_uninsured_label_is_not_read_as_insured()
+    test_featured_high_ratio_labels_only_those_products()
+    test_blanket_high_ratio_sentence_labels_every_term()
+    test_row_heading_wins_over_featured_label()
     test_empty_or_unusable_html_returns_nothing()
     print("ok")
