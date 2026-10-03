@@ -5,6 +5,8 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { closingCostsGuide } from "@/content/calculatorGuides";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -239,6 +241,8 @@ export default function ClosingCostsPage() {
                   </div>
                 </div>
               </section>
+
+              <CalculatorGuide sections={closingCostsGuide()} />
 
               <FAQSection faqs={faqs} />
             </div>

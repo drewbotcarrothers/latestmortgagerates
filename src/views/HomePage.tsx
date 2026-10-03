@@ -17,6 +17,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import LenderLogo from "@/components/LenderLogo";
+import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 
 interface FilterState {
   term: string;
@@ -167,9 +168,9 @@ export default function Home() {
                 />
               </a>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">
+                <p className="text-2xl font-bold text-slate-900">
                   Latest Mortgage Rates Canada
-                </h1>
+                </p>
                 <p className="text-slate-500 text-sm max-w-xl">
                   Compare current rates from Canada's top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
                 </p>
@@ -201,7 +202,7 @@ export default function Home() {
       <div className="hero-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-            <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h2>
+            <h1 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h1>
             <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
           </div>
           <RateHubLinks variant="pills" showToolsIndex className="mb-6" />
@@ -368,6 +369,8 @@ export default function Home() {
         <RateHubLinks className="mt-8" />
 
         <CompareLinks className="mt-8" />
+
+        <StrikingDistanceLenderLinks className="mt-8" />
 
         <AdUnit format="display" className="mt-8" />
 

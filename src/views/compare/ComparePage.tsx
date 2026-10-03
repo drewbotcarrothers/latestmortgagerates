@@ -8,6 +8,7 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import LenderLogo from "@/components/LenderLogo";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 import ratesData from "@data/rates.json";
 import {
   type MortgageRate,
@@ -131,6 +132,22 @@ export default function ComparePage({ slug }: { slug: string }) {
             Percentages below are live from our daily lender feed. A dash means that product is not in today&apos;s
             scrape — we do not invent a current rate. Always confirm with the lender.
           </p>
+
+          {slug === "td-vs-rbc" && (
+            <p className="text-slate-700 mb-6">
+              For the full TD sheet, including refinance specials, see{" "}
+              <a href="/lenders/td/" className="text-teal-700 font-medium hover:underline">
+                TD mortgage rates
+              </a>
+              . The other side of this comparison is{" "}
+              <a href="/lenders/rbc/" className="text-teal-700 font-medium hover:underline">
+                RBC mortgage rates
+              </a>
+              .
+            </p>
+          )}
+
+          <StrikingDistanceLenderLinks className="mb-8" />
 
           {isLender && ctx.leftLender && ctx.rightLender ? (
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">

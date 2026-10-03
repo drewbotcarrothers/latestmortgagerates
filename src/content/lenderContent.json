@@ -27,9 +27,8 @@
   "td": {
     "name": "TD Bank",
     "tagline": "Comfortable banking with flexible mortgage solutions.",
-    "seoTitle": "TD Mortgage Rates Canada | Affordability Calculator",
-    "seoDescription": "See current TD mortgage rates and estimate affordability. Compare fixed and variable TD offers, then run a TD-style GDS/TDS affordability calculator.",
-    "heroIntro": "Compare current TD mortgage rates in Canada and estimate affordability with the same GDS/TDS rules TD uses. Live rates are in the table—not invented below.",
+    "seoDescription": "Compare TD mortgage rates today: fixed, variable, and special offers from our latest scrape, including how TD bank refinance rates differ from a straight renewal. The table is the rate source — confirm the contract with TD.",
+    "heroIntro": "Compare current TD mortgage rates in Canada. Live fixed, variable, and special offers are in the table — not invented below.",
     "overview": "<p>TD Bank (Toronto-Dominion) is one of Canada's Big Five banks and a full-service mortgage lender with a large branch and digital network. Most shoppers meet TD as a <strong>direct lender</strong>: you apply with a mortgage specialist, online, or through an existing TD relationship rather than treating it as a broker-only monoline. The product set covers closed fixed and variable mortgages, refinances, and the <strong>TD Home Equity FlexLine</strong>, which pairs a traditional mortgage portion with a revolving home-equity line of credit.</p><p>TD is often chosen for convenience and prepayment flexibility (commonly cited as increasing payments by up to 100% and making annual lump-sum prepayments up to 15% of the original principal—confirm the current product sheet). It is less often the cheapest 5-year rate on a blind comparison against monolines. Use the live table on this page as the rate source; do not treat marketing copy as a quote. Then check GDS and TDS with the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> before you rely on a pre-approval.</p>",
     "specialties": [
       "Fixed-rate mortgages",
@@ -49,8 +48,8 @@
       "TD fixed mortgage",
       "TD variable mortgage",
       "TD Home Equity FlexLine",
-      "TD mortgage calculator",
-      "TD mortgage affordability calculator"
+      "TD bank refinance rates",
+      "TD mortgage specials"
     ],
     "whoItsFor": "<p>TD mortgages tend to fit borrowers who already bank at TD, want in-person specialists, or need a bundled setup (chequing, credit cards, and a mortgage in one institution). The FlexLine is aimed at homeowners who want to keep unused equity available without a separate refinance every time they need funds.</p><p>TD is a weaker fit if your only goal is the lowest advertised 5-year rate and you are happy using a broker and a monoline. Big-bank credit, income, and property rules still apply, including the federal qualifying-rate test on new purchases and refinances. Estimate payment room with the <a href=\"/tools/affordability-calculator/\">mortgage affordability calculator</a> using a TD rate from the table above, then check GDS/TDS with the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a>. Newcomers with limited Canadian credit should ask specifically about TD's newcomer documentation—not assume every branch will structure the same deal.</p>",
     "products": [
@@ -106,8 +105,18 @@
         "answer": "Renewing with TD usually avoids a new stress test. Switching to another lender generally means qualifying again at the qualifying rate. If you would pass the stress test and another lender's rate is meaningfully lower after penalties and fees, switching can pay. If you are tight on GDS/TDS, TD's renewal offer may be the practical path even if it is not the lowest advertised rate."
       },
       {
-        "question": "Where can I find a TD mortgage affordability calculator?",
-        "answer": "TD publishes its own affordability tools, and the same GDS, TDS, and qualifying-rate rules apply whether you use TD's site or ours. Use our mortgage affordability calculator with a TD contract rate from the table on this page to estimate how much house you can afford, then confirm the figure with a TD specialist. The stress test calculator checks the qualifying-rate step separately."
+        "question": "What are TD bank refinance rates?",
+        "answer": "TD bank refinance rates are the discounted fixed and variable specials in the table at the top of this page, not TD's posted rate. A refinance or a switch to TD is a new loan: TD qualifies you at the federal stress-test rate, the greater of the contract rate plus 2 percentage points or the 5.25 floor. Renewing an existing TD mortgage with TD usually does not require a new stress test. Compare the live rows with the TD vs RBC page before you pay a penalty to move, and estimate the break cost with the penalty and refinance calculators."
+      },
+      {
+        "question": "Where can I check TD mortgage affordability?",
+        "answer": "The GDS, TDS, and qualifying-rate rules are the same whether you use TD's tools or ours. Take a contract rate from the table on this page, then use the affordability calculator and the stress test calculator. Those tools sit with the other calculators; they are not the rate."
+      }
+    ],
+    "extraSections": [
+      {
+        "heading": "TD bank refinance rates",
+        "html": "<p>TD bank refinance rates are the fixed and variable specials in the table at the top of this page. Do not use TD's posted rate, and do not look for a refinance percentage written into this paragraph — if it is not in the scrape, we do not have it.</p><p>A refinance with TD pays out your current mortgage and starts a new one. If you are leaving another lender, or breaking a TD term early, a penalty may apply. TD will qualify the new balance at the federal stress-test rate: the greater of the contract rate plus 2 percentage points or the 5.25 floor. Switching into TD is a new origination for that test. Renewing an existing TD mortgage and staying at TD is different: you usually do not have to pass the stress test again just to stay.</p><p>Put the live TD row next to <a href=\"/compare/td-vs-rbc/\">TD vs RBC</a> and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub before you pay a penalty. Estimate the break cost with the <a href=\"/tools/mortgage-penalty-calculator/\">penalty calculator</a> and whether the new payment wins with the <a href=\"/tools/refinance-calculator/\">refinance calculator</a>.</p>"
       }
     ],
     "relatedLinks": [
@@ -331,7 +340,6 @@
   "wealthsimple": {
     "name": "Wealthsimple",
     "tagline": "Low rates, cash back, and a fully digital mortgage experience.",
-    "seoTitle": "Wealthsimple Mortgage Rates Canada | vs Big 5 Banks",
     "seoDescription": "Does Wealthsimple offer mortgages? Yes. Compare current Wealthsimple mortgage rates in Canada vs Big 5 banks—live fixed, variable, and cash-back details.",
     "heroIntro": "Compare current Wealthsimple mortgage rates in Canada versus the Big 5. Yes — Wealthsimple offers mortgages through in-house brokers who search 25+ lending partners.",
     "overview": "<p><strong>Does Wealthsimple offer mortgages?</strong> Yes. Wealthsimple is not a Big 5 bank and does not originate mortgages the way <a href=\"/lenders/td/\">TD</a> or <a href=\"/lenders/rbc/\">RBC</a> do. <strong>Wealthsimple Mortgage Services Inc.</strong> is a licensed mortgage brokerage: in-house brokers search <strong>25+ lending partners</strong> for a purchase, refinance, or switch, then assign a dedicated broker from rate quote through closing. The application is digital. Wealthsimple states it does not charge brokerage fees; you may still pay legal, title, or appraisal costs charged by others.</p><p>Use the live cards and matrix on this page as the only rate source for <strong>Wealthsimple mortgage rates</strong> in Canada—we do not invent a 5-year number in this article. Their public rate table is often strongest on insured (high-ratio) 5-year fixed and variable specials; uninsured availability depends on the partner lender. A separate cash-back promotion (up to $3,000 at the top Generation tier, scaled by mortgage size and Core / Premium / Generation status) may apply on new mortgages, not typical renewals. Confirm current promo rules with Wealthsimple. Coverage is provincial: their FAQ lists Ontario, Alberta, British Columbia, Saskatchewan, New Brunswick, Nova Scotia, PEI, and Newfoundland—not Quebec or the territories.</p>",
@@ -386,6 +394,22 @@
       "Run GDS/TDS with the stress test calculator using the partner lender's contract rate, then check payment size with the mortgage payment calculator."
     ],
     "faqs": [
+      {
+        "question": "What is the Wealthsimple mortgage rate today?",
+        "answer": "Today's Wealthsimple mortgage rate is whatever the table at the top of this page shows for each term. We update that table from the scrape and do not type a rate into this answer. Compare the same term and insured versus uninsured label with the 5-year fixed and variable hubs."
+      },
+      {
+        "question": "What are Wealthsimple fixed mortgage rates?",
+        "answer": "Wealthsimple fixed mortgage rates are the fixed rows in today's table. The public scrape is often strongest on insured 5-year fixed. If a shorter fixed term is missing, that product was not in the scrape — we do not fill the gap with an estimate."
+      },
+      {
+        "question": "What are Wealthsimple variable mortgage rates?",
+        "answer": "Wealthsimple variable mortgage rates are priced off the funding lender's prime, not a separate Wealthsimple prime rate. Use the variable row in today's table. The spread can change when that lender's prime changes."
+      },
+      {
+        "question": "Can I renew a mortgage through Wealthsimple?",
+        "answer": "Wealthsimple's cash-back promotion is aimed at new mortgages, not typical renewals. A renewal you keep at the current lender usually skips a new stress test; moving the mortgage to a Wealthsimple partner is a new origination and usually means qualifying again. Ask which partner would fund a switch and read the penalty on the mortgage you would leave."
+      },
       {
         "question": "Does Wealthsimple offer mortgages?",
         "answer": "Yes. Wealthsimple offers mortgages in Canada through Wealthsimple Mortgage Services Inc., a licensed brokerage. In-house brokers search 25+ lending partners for purchases, refinances, and switches. Wealthsimple is not itself a Big 5 bank lender. The live rates on this page are what we currently scrape from their mortgage site."
@@ -684,7 +708,6 @@
   "meridian": {
     "name": "Meridian Credit Union",
     "tagline": "Ontario's largest credit union, owned by the people it serves.",
-    "seoTitle": "Meridian Credit Union Mortgage Rates | Ontario",
     "seoDescription": "Compare current Meridian Credit Union mortgage rates in Ontario—fixed, variable, and HELOC. See how Meridian stacks up vs the Big 5, then check today's table.",
     "heroIntro": "Compare current Meridian Credit Union mortgage rates in Ontario versus the banks. Member-owned lending with live fixed, variable, and HELOC figures above.",
     "overview": "<p>Meridian Credit Union is Ontario's largest credit union: a member-owned cooperative, not one of the federally chartered Big 5 banks. It offers closed fixed-rate and variable-rate residential mortgages and home equity lines of credit, with advisors who work Ontario files rather than a national call centre. The <strong>Maximum Mortgage</strong> program is Meridian's bundled setup—pairing the mortgage with other Meridian products can change the rate you are offered. Membership is part of how credit unions work; plan to join if you are not already a member.</p><p>Use the live cards and matrix on this page as the source for <strong>Meridian Credit Union mortgage rates</strong>. We do not invent a 5-year number here. Compare the same term and insured vs uninsured label with <a href=\"/lenders/td/\">TD</a>, other Ontario options, and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub. For Toronto-area context see <a href=\"/cities/toronto/\">Toronto mortgage rates</a>. High-ratio deals still face insurer qualifying-rate rules; run the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> before you treat a pre-approval as a ceiling.</p>",
@@ -738,6 +761,30 @@
     ],
     "faqs": [
       {
+        "question": "What are Meridian mortgage rates in Ontario?",
+        "answer": "Meridian mortgage rates in Ontario are the fixed, variable, and other terms in today's table on this page. Meridian lends to Ontario members on Ontario property. We do not publish a separate Ontario average."
+      },
+      {
+        "question": "What are Meridian mortgage rates today?",
+        "answer": "Today's Meridian mortgage rates are the rows in the table at the top of this page, dated with the build. If a term is blank, it was not in the scrape."
+      },
+      {
+        "question": "What are Meridian fixed mortgage rates?",
+        "answer": "Meridian fixed mortgage rates are the fixed rows in today's table, split by insured and uninsured when the scrape includes both. Match that label before you compare with a bank special."
+      },
+      {
+        "question": "What are Meridian variable mortgage rates?",
+        "answer": "Meridian variable mortgage rates move with Meridian's prime. Use the 5-year variable row in today's table. Insured files are still qualified at a stress-test rate, not at the variable contract rate."
+      },
+      {
+        "question": "What are Meridian mortgage renewal rates?",
+        "answer": "A Meridian renewal rate is the offer on your existing mortgage at the end of the term, which can differ from the new-business rates in today's table. Staying with Meridian usually avoids a new stress test. Switching lenders usually means qualifying again. Compare the live table with your renewal letter before you decide."
+      },
+      {
+        "question": "Does Meridian offer a HELOC?",
+        "answer": "Yes. Meridian offers a home equity line of credit against Ontario property, subject to its loan-to-value and income rules. HELOC pricing is not in this mortgage scrape, so the table does not show a HELOC rate. Ask Meridian for the current spread to prime."
+      },
+      {
         "question": "What are current Meridian Credit Union mortgage rates?",
         "answer": "Use the cards and rate overview table at the top of this page. Those figures update with our feed. We do not publish a made-up Meridian 5-year average in this FAQ. Compare the same term and insured vs uninsured label with the 5-year fixed hub."
       },
@@ -775,7 +822,6 @@
   "vancity": {
     "name": "Vancity",
     "tagline": "Values-based banking for a sustainable future.",
-    "seoTitle": "Vancity Mortgage Rates | Current BC Fixed & Variable",
     "seoDescription": "Compare current Vancity mortgage rates in B.C.—fixed, variable, and Mixer Mortgage. See how Vancouver's credit union stacks up vs the banks, then check today's table.",
     "heroIntro": "Compare current Vancity mortgage rates in British Columbia versus the banks. Live fixed, variable, and Mixer Mortgage context—using the table above, not invented numbers.",
     "overview": "<p>Vancity is Canada's largest community credit union, focused on Metro Vancouver, Victoria, and the rest of its B.C. membership. It is not a Big 5 bank. Members get closed fixed-rate and variable-rate mortgages, home-equity products, and the <strong>Mixer Mortgage</strong>, which splits the loan between a fixed portion and a variable portion. Vancity is a certified B Corporation and directs a stated share of net profits (commonly described as 30%) into community programs. You generally need to be a member to hold the mortgage.</p><p>Use the live cards and matrix on this page as the source for <strong>Vancity mortgage rates</strong>. We do not invent a 5-year number in this article. Compare the same term and insured vs uninsured label with the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub and with national banks, then see <a href=\"/cities/vancouver/\">Vancouver mortgage rates</a> for local context. High-ratio deals still face insurer qualifying-rate rules; check the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> before you rely on a pre-approval.</p>",
@@ -828,6 +874,26 @@
       "Ask whether posted or special pricing applies, and whether any community or green-mortgage conditions are attached to the rate."
     ],
     "faqs": [
+      {
+        "question": "What are Van City mortgage rates?",
+        "answer": "Van City mortgage rates are the same thing as Vancity mortgage rates: the credit union's fixed and variable quotes in today's table. Vancity serves British Columbia members. We do not keep a separate rate under the spaced spelling."
+      },
+      {
+        "question": "What are Vancity mortgage rates today?",
+        "answer": "Today's Vancity mortgage rates are the insured and uninsured rows at the top of this page. A blank cell means that term was not in the latest scrape."
+      },
+      {
+        "question": "What are Vancity fixed mortgage rates?",
+        "answer": "Vancity fixed mortgage rates are the fixed rows in today's table, including 1-year, 3-year, and 5-year when the scrape has them. Mixer Mortgage splits a loan between fixed and variable and is not a single cell in that table — ask Vancity for the current split."
+      },
+      {
+        "question": "What are Vancity variable mortgage rates?",
+        "answer": "Vancity variable mortgage rates are prime-linked. Use the variable row in today's table and match insured versus uninsured. Qualification on an insured file still uses a stress-test rate."
+      },
+      {
+        "question": "What are Vancity mortgage renewal rates?",
+        "answer": "A renewal rate is the offer on your existing Vancity mortgage when the term ends. It can differ from the new-business rates in today's table. Staying usually skips a new stress test; moving the mortgage usually does not. Compare the letter with the live table before you decide."
+      },
       {
         "question": "What are current Vancity mortgage rates?",
         "answer": "Use the cards and rate overview table at the top of this page. Those figures update with our feed. We do not publish a made-up Vancity 5-year average in this FAQ. Compare the same term and insured vs uninsured label with the 5-year fixed and variable hubs."
@@ -920,7 +986,6 @@
     "name": "ATB Financial",
     "tagline": "Alberta's financial institution, built for Albertans.",
     "heroIntro": "Compare current ATB mortgage rates in Alberta versus the Big 5. Live fixed, variable, and HELOC figures are in the table above—not invented in this article.",
-    "seoTitle": "ATB Mortgage Rates | Alberta Fixed & Variable Today",
     "seoDescription": "Compare current ATB mortgage rates in Alberta—fixed, variable, and HELOC. See how ATB Financial stacks up vs the Big 5, then check today's live table.",
     "overview": "<p>ATB Financial is Alberta's provincially owned financial institution—a Crown corporation of the Government of Alberta, not one of the federally chartered Big Five banks. It takes deposits and makes loans for Albertans, with a branch and advisor network that is meant to cover Calgary, Edmonton, smaller cities, and rural communities, including agricultural borrowers that national banks sometimes treat as a specialty file.</p><p>ATB offers closed fixed and variable residential mortgages and home equity lines of credit. Because it is provincially regulated, its uninsured underwriting can differ from OSFI Guideline B-20 even though <strong>insured</strong> (high-ratio) mortgages still have to satisfy CMHC, Sagen, or Canada Guaranty—including a qualifying-rate test. Alberta buyers also skip provincial land transfer tax; estimate remaining cash to close with the <a href=\"/tools/closing-costs-calculator/\">closing costs calculator</a> after you pick a price.</p>",
     "specialties": [
@@ -973,6 +1038,26 @@
       "Get ATB's number in writing, then compare Calgary or Edmonton pages and the national rate table. Relationship and local turnaround can matter as much as 5 basis points."
     ],
     "faqs": [
+      {
+        "question": "What are ATB Financial mortgage rates today?",
+        "answer": "ATB Financial mortgage rates today are the fixed and variable rows in the table at the top of this page. ATB is Alberta's provincially owned financial institution. We do not type a rate into this answer."
+      },
+      {
+        "question": "What are ATB fixed mortgage rates?",
+        "answer": "ATB fixed mortgage rates are the 1-year, 3-year, and 5-year fixed rows when the scrape includes them, split by insured and uninsured. A blank cell means that product was not published in the latest scrape."
+      },
+      {
+        "question": "What are ATB variable mortgage rates?",
+        "answer": "ATB variable mortgage rates are the variable rows in today's table. Insured files are still qualified at a stress-test rate, not at the variable contract rate."
+      },
+      {
+        "question": "What are ATB mortgage renewal rates?",
+        "answer": "An ATB renewal rate is the offer on your existing ATB mortgage at the end of the term. It can differ from the new-business rates in today's table. Staying with ATB usually avoids a new stress test. Switching to a federally regulated lender usually means qualifying again."
+      },
+      {
+        "question": "Does ATB offer a HELOC?",
+        "answer": "Yes. ATB offers a home equity line of credit on Alberta property, subject to its loan-to-value and income rules. HELOC pricing is not in this mortgage scrape, so the rates table does not show a HELOC rate. Ask ATB for the current spread."
+      },
       {
         "question": "What are current ATB mortgage rates?",
         "answer": "Use the cards and rate overview table at the top of this page. Those figures update with our feed. We do not publish a made-up ATB 5-year average in this FAQ. Compare the same term and insured vs uninsured label with the national 5-year fixed hub."
@@ -1066,8 +1151,8 @@
   },
   "truenorth": {
     "name": "True North Mortgage",
-    "tagline": "Canada's lowest mortgage rates, guaranteed.",
-    "overview": "<p>True North Mortgage is one of Canada's most popular mortgage brokerages, famous for its <strong>Lowest Rate Guarantee</strong> and volume-based discounting that delivers some of the best mortgage rates in the country. True North operates as a high-volume mortgage brokerage with both online and in-person service across Canada. They offer fixed-rate, variable-rate, and specialized mortgage products from a wide range of lenders including banks, monolines, and credit unions. True North's straightforward approach, transparent pricing, and commitment to beating competitors' rates have made them a favourite among rate-savvy Canadian homeowners.</p>",
+    "tagline": "A national brokerage shopping bank, monoline, and credit union rates.",
+    "overview": "<p>True North Mortgage is a high-volume Canadian mortgage brokerage with online and in-person service. It markets a <strong>Lowest Rate Guarantee</strong> and volume-based discounting. This page does not guarantee you the lowest rate in Canada, and it does not treat a short-term special as the 5-year rate. The table is our scrape of the fixed and variable quotes True North publishes. True North offers fixed-rate and variable-rate products from banks, monolines, and credit unions. Confirm the contract rate, term, and insured versus uninsured label with True North before you apply.</p>",
     "specialties": [
       "High-volume mortgage brokerage",
       "Fixed-rate mortgages",
