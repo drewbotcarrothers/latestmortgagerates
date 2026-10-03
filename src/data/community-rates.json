@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-03T06:48:36",
+  "generated": "2026-10-03T11:39:50",
   "asOf": "2026-10-03",
   "prime": 4.45,
   "attribution": "self-reported by Canadian borrowers online",
@@ -26,7 +26,7 @@
     "7d": {
       "from": "2026-09-27",
       "to": "2026-10-03",
-      "usableRecords": 101,
+      "usableRecords": 102,
       "products": [
         {
           "termMonths": 60,
@@ -55,26 +55,26 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.19,
           "lowestPostedLender": "butlermortgage",
-          "big5PostedMedian": 4.79,
+          "big5PostedMedian": 4.865,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": 0.1,
-          "spreadVsBig5Median": 0.7
+          "spreadVsBig5Median": 0.775
         },
         {
           "termMonths": 60,
           "rateType": "variable",
           "insured": "uninsured",
-          "n": 13,
-          "median": 3.5,
+          "n": 14,
+          "median": 3.535,
           "min": 3.3,
           "p25": 3.45,
-          "medianPrimeDiscount": 0.95,
+          "medianPrimeDiscount": 0.915,
           "lowestPosted": 3.6,
           "lowestPostedLender": "equitable",
           "big5PostedMedian": 4.1,
           "big5PostedMin": 3.95,
-          "spreadVsLowestPosted": 0.1,
-          "spreadVsBig5Median": 0.6
+          "spreadVsLowestPosted": 0.065,
+          "spreadVsBig5Median": 0.565
         },
         {
           "termMonths": 36,
@@ -87,10 +87,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.34,
           "lowestPostedLender": "atb",
-          "big5PostedMedian": 4.79,
+          "big5PostedMedian": 4.865,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": 0.15,
-          "spreadVsBig5Median": 0.6
+          "spreadVsBig5Median": 0.675
         },
         {
           "termMonths": 60,
@@ -103,10 +103,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.29,
           "lowestPostedLender": "rfa",
-          "big5PostedMedian": 4.99,
+          "big5PostedMedian": 5.04,
           "big5PostedMin": 4.9,
           "spreadVsLowestPosted": 0.0,
-          "spreadVsBig5Median": 0.7
+          "spreadVsBig5Median": 0.75
         },
         {
           "termMonths": 60,
@@ -119,10 +119,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.14,
           "lowestPostedLender": "atb",
-          "big5PostedMedian": 4.92,
+          "big5PostedMedian": 4.94,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": -0.13,
-          "spreadVsBig5Median": 0.65
+          "spreadVsBig5Median": 0.67
         },
         {
           "termMonths": 36,
@@ -168,7 +168,7 @@
           "lowestPosted": 4.14,
           "lowestPostedLender": "butlermortgage",
           "big5PostedMedian": 4.94,
-          "big5PostedMin": 4.94,
+          "big5PostedMin": 4.69,
           "spreadVsLowestPosted": 0.22,
           "spreadVsBig5Median": 1.02
         },
@@ -183,10 +183,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.25,
           "lowestPostedLender": "td",
-          "big5PostedMedian": 4.88,
+          "big5PostedMedian": 4.94,
           "big5PostedMin": 4.25,
           "spreadVsLowestPosted": 0.03,
-          "spreadVsBig5Median": 0.66
+          "spreadVsBig5Median": 0.72
         },
         {
           "termMonths": 12,
@@ -199,10 +199,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.35,
           "lowestPostedLender": "vancity",
-          "big5PostedMedian": 5.265,
-          "big5PostedMin": 5.04,
+          "big5PostedMedian": 5.04,
+          "big5PostedMin": 4.94,
           "spreadVsLowestPosted": -0.02,
-          "spreadVsBig5Median": 0.895
+          "spreadVsBig5Median": 0.67
         },
         {
           "termMonths": 36,
@@ -257,7 +257,7 @@
     "30d": {
       "from": "2026-09-04",
       "to": "2026-10-03",
-      "usableRecords": 375,
+      "usableRecords": 376,
       "products": [
         {
           "termMonths": 60,
@@ -286,10 +286,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.19,
           "lowestPostedLender": "butlermortgage",
-          "big5PostedMedian": 4.79,
+          "big5PostedMedian": 4.865,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": 0.16,
-          "spreadVsBig5Median": 0.76
+          "spreadVsBig5Median": 0.835
         },
         {
           "termMonths": 36,
@@ -302,26 +302,26 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.34,
           "lowestPostedLender": "atb",
-          "big5PostedMedian": 4.79,
+          "big5PostedMedian": 4.865,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": 0.25,
-          "spreadVsBig5Median": 0.7
+          "spreadVsBig5Median": 0.775
         },
         {
           "termMonths": 60,
           "rateType": "variable",
           "insured": "uninsured",
-          "n": 38,
-          "median": 3.595,
+          "n": 39,
+          "median": 3.6,
           "min": 3.25,
           "p25": 3.45,
-          "medianPrimeDiscount": 0.855,
+          "medianPrimeDiscount": 0.85,
           "lowestPosted": 3.6,
           "lowestPostedLender": "equitable",
           "big5PostedMedian": 4.1,
           "big5PostedMin": 3.95,
-          "spreadVsLowestPosted": 0.005,
-          "spreadVsBig5Median": 0.505
+          "spreadVsLowestPosted": 0.0,
+          "spreadVsBig5Median": 0.5
         },
         {
           "termMonths": 60,
@@ -334,10 +334,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.14,
           "lowestPostedLender": "atb",
-          "big5PostedMedian": 4.92,
+          "big5PostedMedian": 4.94,
           "big5PostedMin": 4.74,
           "spreadVsLowestPosted": 0.0,
-          "spreadVsBig5Median": 0.78
+          "spreadVsBig5Median": 0.8
         },
         {
           "termMonths": 60,
@@ -366,10 +366,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.29,
           "lowestPostedLender": "rfa",
-          "big5PostedMedian": 4.99,
+          "big5PostedMedian": 5.04,
           "big5PostedMin": 4.9,
           "spreadVsLowestPosted": 0.0,
-          "spreadVsBig5Median": 0.7
+          "spreadVsBig5Median": 0.75
         },
         {
           "termMonths": 36,
@@ -447,7 +447,7 @@
           "lowestPosted": 4.14,
           "lowestPostedLender": "butlermortgage",
           "big5PostedMedian": 4.94,
-          "big5PostedMin": 4.94,
+          "big5PostedMin": 4.69,
           "spreadVsLowestPosted": 0.19,
           "spreadVsBig5Median": 0.99
         },
@@ -463,7 +463,7 @@
           "lowestPosted": 4.34,
           "lowestPostedLender": "tangerine",
           "big5PostedMedian": 4.94,
-          "big5PostedMin": 4.94,
+          "big5PostedMin": 4.69,
           "spreadVsLowestPosted": 0.25,
           "spreadVsBig5Median": 0.85
         },
@@ -478,10 +478,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.25,
           "lowestPostedLender": "td",
-          "big5PostedMedian": 4.88,
+          "big5PostedMedian": 4.94,
           "big5PostedMin": 4.25,
           "spreadVsLowestPosted": 0.03,
-          "spreadVsBig5Median": 0.66
+          "spreadVsBig5Median": 0.72
         },
         {
           "termMonths": 48,
@@ -494,10 +494,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.25,
           "lowestPostedLender": "td",
-          "big5PostedMedian": 4.94,
+          "big5PostedMedian": 5.015,
           "big5PostedMin": 4.25,
           "spreadVsLowestPosted": 0.11,
-          "spreadVsBig5Median": 0.8
+          "spreadVsBig5Median": 0.875
         },
         {
           "termMonths": 60,
@@ -526,10 +526,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.35,
           "lowestPostedLender": "vancity",
-          "big5PostedMedian": 5.265,
-          "big5PostedMin": 5.04,
+          "big5PostedMedian": 5.04,
+          "big5PostedMin": 4.94,
           "spreadVsLowestPosted": -0.02,
-          "spreadVsBig5Median": 0.895
+          "spreadVsBig5Median": 0.67
         },
         {
           "termMonths": 36,
@@ -574,10 +574,10 @@
           "medianPrimeDiscount": null,
           "lowestPosted": 4.55,
           "lowestPostedLender": "vancity",
-          "big5PostedMedian": 5.265,
-          "big5PostedMin": 5.04,
+          "big5PostedMedian": 5.04,
+          "big5PostedMin": 4.94,
           "spreadVsLowestPosted": 0.32,
-          "spreadVsBig5Median": 1.035
+          "spreadVsBig5Median": 0.81
         },
         {
           "termMonths": 48,
@@ -724,7 +724,7 @@
       "p75": 4.2,
       "min": 3.69,
       "max": 4.59,
-      "big5PostedMedian": 4.79,
+      "big5PostedMedian": 4.865,
       "lowestPosted": 4.19,
       "lowestPostedLender": "butlermortgage",
       "shareBelowBig5": 1.0,
@@ -794,7 +794,7 @@
       "p75": 4.19,
       "min": 3.65,
       "max": 4.74,
-      "big5PostedMedian": 4.79,
+      "big5PostedMedian": 4.865,
       "lowestPosted": 4.34,
       "lowestPostedLender": "atb",
       "shareBelowBig5": 1.0,
@@ -849,8 +849,8 @@
       "termMonths": 60,
       "rateType": "variable",
       "insured": "uninsured",
-      "n": 38,
-      "median": 3.595,
+      "n": 39,
+      "median": 3.6,
       "p25": 3.45,
       "p75": 3.65,
       "min": 3.25,
@@ -896,6 +896,7 @@
         3.69,
         3.7,
         3.79,
+        3.8,
         3.82,
         3.97
       ]
@@ -910,7 +911,7 @@
       "p75": 4.32,
       "min": 3.79,
       "max": 5.75,
-      "big5PostedMedian": 4.92,
+      "big5PostedMedian": 4.94,
       "lowestPosted": 4.14,
       "lowestPostedLender": "atb",
       "shareBelowBig5": 0.97059,
@@ -1000,7 +1001,7 @@
       "p75": 4.38,
       "min": 3.85,
       "max": 4.69,
-      "big5PostedMedian": 4.99,
+      "big5PostedMedian": 5.04,
       "lowestPosted": 4.29,
       "lowestPostedLender": "rfa",
       "shareBelowBig5": 1.0,
@@ -1183,7 +1184,7 @@
       "p75": 4.26,
       "min": 3.94,
       "max": 4.5,
-      "big5PostedMedian": 4.88,
+      "big5PostedMedian": 4.94,
       "lowestPosted": 4.25,
       "lowestPostedLender": "td",
       "shareBelowBig5": 1.0,
@@ -1233,7 +1234,7 @@
       "p75": 4.19,
       "min": 3.65,
       "max": 4.74,
-      "big5PostedMedian": 4.79,
+      "big5PostedMedian": 4.865,
       "lowestPosted": 4.19,
       "lowestPostedLender": "butlermortgage",
       "shareBelowBig5": 1.0,
@@ -1393,7 +1394,7 @@
       "p75": 4.24,
       "min": 3.89,
       "max": 4.5,
-      "big5PostedMedian": 4.88,
+      "big5PostedMedian": 4.94,
       "lowestPosted": 4.25,
       "lowestPostedLender": "td",
       "shareBelowBig5": 1.0,
@@ -1419,7 +1420,7 @@
       "p75": 4.35,
       "min": 3.79,
       "max": 5.75,
-      "big5PostedMedian": 4.92,
+      "big5PostedMedian": 4.94,
       "lowestPosted": 4.14,
       "lowestPostedLender": "atb",
       "shareBelowBig5": 0.98387,
@@ -1492,7 +1493,7 @@
       "termMonths": 60,
       "rateType": "variable",
       "insured": "all",
-      "n": 162,
+      "n": 163,
       "median": 3.55,
       "p25": 3.45,
       "p75": 3.65,
@@ -1501,7 +1502,7 @@
       "big5PostedMedian": 4.025,
       "lowestPosted": 3.25,
       "lowestPostedLender": "butlermortgage",
-      "shareBelowBig5": 0.95062,
+      "shareBelowBig5": 0.95092,
       "rates": [
         2.95,
         3.25,
@@ -1647,6 +1648,7 @@
         3.7,
         3.74,
         3.79,
+        3.8,
         3.82,
         3.82,
         3.82,
@@ -1674,7 +1676,7 @@
     "termMonths": 60,
     "benchmarks": {
       "fixed": {
-        "big5PostedMedian": 4.92,
+        "big5PostedMedian": 4.94,
         "lowestPosted": 4.14,
         "lowestPostedLender": "atb"
       },
@@ -1780,7 +1782,7 @@
           "median": 4.29
         },
         "variable": {
-          "n": 45,
+          "n": 46,
           "median": 3.55
         }
       }
@@ -1930,8 +1932,8 @@
     },
     {
       "slug": "rbc",
-      "matchedN": 27,
-      "medianSpreadVsOwnPosted": 0.53,
+      "matchedN": 28,
+      "medianSpreadVsOwnPosted": 0.515,
       "products": [
         {
           "termMonths": 36,
@@ -1996,10 +1998,10 @@
         {
           "termMonths": 60,
           "rateType": "variable",
-          "n": 9,
-          "reportedMedian": 3.55,
+          "n": 10,
+          "reportedMedian": 3.62,
           "postedRate": 3.95,
-          "spreadVsPosted": 0.4,
+          "spreadVsPosted": 0.33,
           "rates": [
             3.45,
             3.45,
@@ -2008,6 +2010,7 @@
             3.55,
             3.69,
             3.7,
+            3.8,
             3.82,
             3.82
           ]
@@ -2016,16 +2019,16 @@
     },
     {
       "slug": "cibc",
-      "matchedN": 6,
-      "medianSpreadVsOwnPosted": 0.38,
+      "matchedN": 12,
+      "medianSpreadVsOwnPosted": 0.635,
       "products": [
         {
           "termMonths": 36,
           "rateType": "fixed",
           "n": 5,
           "reportedMedian": 3.95,
-          "postedRate": null,
-          "spreadVsPosted": null,
+          "postedRate": 4.94,
+          "spreadVsPosted": 0.99,
           "rates": [
             3.65,
             3.94,
@@ -2052,8 +2055,8 @@
           "rateType": "fixed",
           "n": 1,
           "reportedMedian": 4.54,
-          "postedRate": null,
-          "spreadVsPosted": null,
+          "postedRate": 5.14,
+          "spreadVsPosted": 0.6,
           "rates": [
             4.54
           ]
