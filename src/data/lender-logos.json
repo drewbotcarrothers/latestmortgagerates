@@ -8,8 +8,8 @@
       "file": "alterna.svg",
       "source_url": "https://www.alternabank.ca/media/vxmi4hy5/alterna-bank.svg",
       "retrieved": "2026-10-02",
-      "width": 214,
-      "height": 30
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "atb",
@@ -18,8 +18,8 @@
       "file": "atb.svg",
       "source_url": "https://www.atb.com/static/css/index.css?v=4629",
       "retrieved": "2026-10-02",
-      "width": 65,
-      "height": 44,
+      "width": 320,
+      "height": 80,
       "notes": "Header wordmark embedded in ATB's stylesheet (.atb-jewel). The published fill is white for a dark header; fill is #005eb8, the theme-color on atb.com, so the mark stays visible on light backgrounds."
     },
     {
@@ -29,7 +29,7 @@
       "file": "bmo.webp",
       "source_url": "https://newsroom.bmo.com/image/BMO_Logo_1200x627.jpg",
       "retrieved": "2026-10-02",
-      "width": 222,
+      "width": 320,
       "height": 80,
       "notes": "Cropped from BMO's official newsroom logo image. www.bmo.com did not serve the header SVG from this environment."
     },
@@ -40,8 +40,8 @@
       "file": "butlermortgage.webp",
       "source_url": "https://www.butlermortgage.ca/wp-content/uploads/2019/04/logo-1.png",
       "retrieved": "2026-10-02",
-      "width": 291,
-      "height": 74
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "cibc",
@@ -50,8 +50,8 @@
       "file": "cibc.svg",
       "source_url": "https://www.cibc.com/content/dam/global-assets/logos/cibc-logos/no-tagline/cibc-logo-colour-142x36.svg",
       "retrieved": "2026-10-02",
-      "width": 142,
-      "height": 36
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "cmls",
@@ -60,8 +60,8 @@
       "file": "cmls.svg",
       "source_url": "https://www.cmls.ca/img/logo.svg",
       "retrieved": "2026-10-02",
-      "width": 167,
-      "height": 62
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "coastcapital",
@@ -70,7 +70,7 @@
       "file": "coastcapital.webp",
       "source_url": "https://commons.wikimedia.org/wiki/File:Coast_Capital_Savings_logo.svg",
       "retrieved": "2026-10-02",
-      "width": 262,
+      "width": 320,
       "height": 80,
       "notes": "Official mark from Wikimedia Commons, resized to WebP. The credit union homepage did not return a logo file to this environment."
     },
@@ -81,7 +81,7 @@
       "file": "desjardins.webp",
       "source_url": "https://www.desjardins.com/content/dam/images/logos/commun/logo-desjardins-couleur.png",
       "retrieved": "2026-10-02",
-      "width": 370,
+      "width": 320,
       "height": 80
     },
     {
@@ -91,8 +91,8 @@
       "file": "equitable.svg",
       "source_url": "https://images.ctfassets.net/ymwa45h4u77x/5LwQVahyGqnQQSsFOzTGC4/af2d1dcc01ff314d51e70216f026c2e8/EquitableBank-EN_2__1_.svg",
       "retrieved": "2026-10-02",
-      "width": 626,
-      "height": 273
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "firstnational",
@@ -101,18 +101,18 @@
       "file": "firstnational.svg",
       "source_url": "https://www.firstnational.ca/images/default-source/brand/global/first-national-logo-color.svg?sfvrsn=227a738b_9",
       "retrieved": "2026-10-02",
-      "width": 565,
-      "height": 179
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "hometrust",
       "name": "Home Trust",
       "kind": "logo",
-      "file": "hometrust.png",
+      "file": "hometrust.webp",
       "source_url": "https://www.hometrust.ca/wp-content/uploads/2020/06/ht-logo_208x48-compressed.png",
       "retrieved": "2026-10-02",
-      "width": 208,
-      "height": 48
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "laurentian",
@@ -121,8 +121,8 @@
       "file": "laurentian.svg",
       "source_url": "https://images.ctfassets.net/b5xlbty9p8dy/1N5u3c9NZEFH5cFWZjGuYO/b8ede62d4fe64efdcfcc279667cc450e/Logo.svg",
       "retrieved": "2026-10-02",
-      "width": 174,
-      "height": 56
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "manulife",
@@ -131,8 +131,8 @@
       "file": "manulife.svg",
       "source_url": "https://www.manulifebank.ca/content/dam/manulife-bank/en_ca/logo/Manulife_Bank_ni_logo_black.svg",
       "retrieved": "2026-10-02",
-      "width": 184,
-      "height": 26
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "meridian",
@@ -141,17 +141,17 @@
       "file": "meridian.svg",
       "source_url": "https://www.meridiancu.ca/getmedia/6f757161-f1cb-4ea0-bab1-3c25b29a0677/meridian-logo.svg?ext=.svg",
       "retrieved": "2026-10-02",
-      "width": 200,
-      "height": 52
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "nationalbank",
       "name": "National Bank of Canada",
       "kind": "logo",
-      "file": "nationalbank.webp",
+      "file": "nationalbank.png",
       "source_url": "https://www.nbc.ca/content/dam/bnc/commun/logo/logo-nbc-155x50.svg",
       "retrieved": "2026-10-02",
-      "width": 283,
+      "width": 320,
       "height": 80,
       "notes": "Official header SVG was 95 KB; stored as a resized WebP of that file."
     },
@@ -162,7 +162,7 @@
       "file": "nesto.webp",
       "source_url": "https://www.nesto.ca/wp-content/themes/nesto-theme/assets/images/logo-nesto-en.svg",
       "retrieved": "2026-10-02",
-      "width": 186,
+      "width": 320,
       "height": 80,
       "notes": "SVG from the lender site was larger than 15 KB, so it is stored as a resized WebP."
     },
@@ -173,8 +173,8 @@
       "file": "rbc.svg",
       "source_url": "https://www.rbcroyalbank.com/dvl/v1.0/assets/images/logos/rbc-logo-shield-blue.svg",
       "retrieved": "2026-10-02",
-      "width": 39,
-      "height": 45
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "rfa",
@@ -183,8 +183,8 @@
       "file": "rfa.svg",
       "source_url": "https://www.rfa.ca/logo.svg",
       "retrieved": "2026-10-02",
-      "width": 226,
-      "height": 105
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "scotiabank",
@@ -193,8 +193,8 @@
       "file": "scotiabank.svg",
       "source_url": "https://www.scotiabank.com/content/dam/scotiabank/images/logos/2019/scotiabank-logo-red-desktop-200px.svg",
       "retrieved": "2026-10-02",
-      "width": 207,
-      "height": 29
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "simplii",
@@ -203,8 +203,8 @@
       "file": "simplii.svg",
       "source_url": "https://www.simplii.com/content/dam/simplii-assets/global/logos/simplii-logos/horizontal/simplii-financial-logotype-full-pink.svg",
       "retrieved": "2026-10-02",
-      "width": 145,
-      "height": 20
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "tangerine",
@@ -213,8 +213,8 @@
       "file": "tangerine.svg",
       "source_url": "https://www.tangerine.ca/content/experience-fragments/tangerine/ca/en/header/master/_jcr_content/root/container_1282085336/container_745983912/container_1531797112_822927059/image.coreimg.svg/1777585120988/logo-tangerine-orange.svg",
       "retrieved": "2026-10-02",
-      "width": 406,
-      "height": 84
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "td",
@@ -223,8 +223,8 @@
       "file": "td.png",
       "source_url": "https://www.td.com/content/dam/tdct/images/navigation-header-and-footer/td-logo-desktop.png",
       "retrieved": "2026-10-02",
-      "width": 90,
-      "height": 96
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "truenorth",
@@ -233,8 +233,8 @@
       "file": "truenorth.svg",
       "source_url": "https://d2r7yk1mqahd04.cloudfront.net/images/Standard%402x.svg",
       "retrieved": "2026-10-02",
-      "width": 377,
-      "height": 73
+      "width": 320,
+      "height": 80
     },
     {
       "slug": "vancity",
@@ -243,8 +243,8 @@
       "file": "vancity.svg",
       "source_url": "https://support.vancity.com/wp-content/themes/vdlh-reskin/assets/images/vdlh-logo.svg",
       "retrieved": "2026-10-02",
-      "width": 84,
-      "height": 27,
+      "width": 320,
+      "height": 80,
       "notes": "Wordmark from Vancity's official support site. The file is white for a dark header; fill is #E00040, sampled from their colour icon at https://support.vancity.com/wp-content/uploads/2026/01/cropped-Colour-favicon-1-192x192.png."
     },
     {
@@ -254,8 +254,14 @@
       "file": "wealthsimple.svg",
       "source_url": "https://www.cdn.wealthsimple.com/wordmark.svg",
       "retrieved": "2026-10-02",
-      "width": 1798,
-      "height": 296
+      "width": 320,
+      "height": 80
     }
-  ]
+  ],
+  "canvas": {
+    "width": 320,
+    "height": 80,
+    "aspect": "4:1",
+    "note": "Shared transparent canvas. SVG viewBox is 320x80. Raster files are 320x80 pixels, 2x the largest on-page frame (160x40)."
+  }
 }

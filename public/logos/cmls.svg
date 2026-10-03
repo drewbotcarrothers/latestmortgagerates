@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="166.895" height="62.36" viewBox="0 0 166.895 62.36">
-  <g id="Group" transform="translate(-9.839 -9.911)">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80">
+  <svg x="74.3579" y="8" width="171.2842" height="64" viewBox="0 0 166.895 62.36" preserveAspectRatio="xMidYMid meet">
+<g id="Group" transform="translate(-9.839 -9.911)">
     <g id="Calque_2">
       <g id="Layer_1">
         <g id="Group-2" data-name="Group">
@@ -11,4 +12,5 @@
       </g>
     </g>
   </g>
+  </svg>
 </svg>
