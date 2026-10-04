@@ -1,5 +1,5 @@
 import LenderLogo from "@/components/LenderLogo";
-import Navigation from "@/components/Navigation";
+import Header from "@/components/Header";
 import FAQSection from "@/components/FAQSection";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
@@ -260,6 +260,8 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       
+      <Header currentPage="lenders" />
+
       {/* Header */}
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -302,9 +304,6 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                   <p className="mt-1 text-sm font-medium text-teal-700">{content.tagline}</p>
                 ) : null}
               </div>
-            </div>
-            <div className="ml-auto shrink-0">
-              <Navigation currentPage="rates" />
             </div>
           </div>
         </div>

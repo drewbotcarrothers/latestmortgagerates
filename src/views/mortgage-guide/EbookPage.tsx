@@ -94,7 +94,7 @@ export default function EbookLandingPage() {
       />
       
       <main className="min-h-screen bg-slate-50">
-        <Header currentPage="guides" />
+        <Header currentPage="ebook" />
 
         <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white">
           <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
