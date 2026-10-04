@@ -222,7 +222,7 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
                   <div className="flex items-center justify-end gap-2">
                     <a
                       href={`/lenders/${rate.lender_slug}/`}
-                      className="inline-flex items-center gap-1 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
+                      className="inline-flex items-center gap-1 px-4 py-2 bg-teal-50 text-teal-800 text-sm font-medium rounded-lg border border-teal-200 hover:bg-teal-100 hover:border-teal-300 hover:text-teal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 transition-colors"
                     >
                       View
                       <ChevronRightIcon />
