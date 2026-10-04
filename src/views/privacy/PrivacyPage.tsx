@@ -1,10 +1,11 @@
-import Navigation from "@/components/Navigation";
+import Header from "@/components/Header";
 
 
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900">
+      <Header />
       {/* Header */}
       <header className="bg-white dark:bg-slate-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -24,7 +25,6 @@ export default function PrivacyPage() {
                 Last updated: March 4, 2026
               </p>
             </div>
-            <Navigation />
           </div>
         </div>
       </header>

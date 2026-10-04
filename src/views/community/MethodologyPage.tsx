@@ -21,7 +21,7 @@ export default function MethodologyPage() {
       />
       <main className="min-h-screen bg-slate-50">
         <Header currentPage="real-rates" />
-        <article className="mx-auto max-w-3xl px-4 py-10">
+        <article className="mx-auto max-w-7xl px-4 py-10">
           <nav className="mb-4 text-sm text-slate-500" aria-label="Breadcrumb">
             <a href="/" className="hover:text-slate-800">Home</a>
             <span className="mx-2">/</span>

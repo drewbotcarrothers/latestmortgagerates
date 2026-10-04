@@ -16,11 +16,16 @@ export interface LenderLogoRecord {
   notes?: string;
 }
 
-export const LOGO_BOX: Record<LogoSize, { height: number; maxWidth: number }> = {
-  xs: { height: 20, maxWidth: 72 },
-  sm: { height: 28, maxWidth: 112 },
-  md: { height: 32, maxWidth: 140 },
-  lg: { height: 40, maxWidth: 176 },
+/**
+ * Every self-hosted mark is drawn on the same 4:1 canvas (320×80).
+ * These frames are that canvas at the size each surface uses, so a shield
+ * and a wordmark occupy the same box.
+ */
+export const LOGO_FRAME: Record<LogoSize, { width: number; height: number }> = {
+  xs: { width: 80, height: 20 },
+  sm: { width: 112, height: 28 },
+  md: { width: 128, height: 32 },
+  lg: { width: 160, height: 40 },
 };
 
 const lenders = manifest.lenders as LenderLogoRecord[];
@@ -35,12 +40,9 @@ export function allLenderLogos(): LenderLogoRecord[] {
   return lenders;
 }
 
-/** Fixed box so the image slot does not shift layout as the file loads. */
-export function logoBox(width: number, height: number, size: LogoSize): { width: number; height: number } {
-  const box = LOGO_BOX[size];
-  const aspect = height > 0 ? width / height : 1;
-  const displayWidth = Math.min(box.maxWidth, Math.max(box.height, Math.round(box.height * aspect)));
-  return { width: displayWidth, height: box.height };
+/** Fixed frame so the image slot does not shift layout as the file loads. */
+export function logoBox(size: LogoSize): { width: number; height: number } {
+  return LOGO_FRAME[size];
 }
 
 export function monogramFor(slug: string, name: string): { initials: string; color: string } {

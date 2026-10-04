@@ -1,10 +1,13 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Page from "../../../views/tools/land-transfer-tax-calculator/Page";
+import { buildYear } from "../../../lib/buildDate";
+
+const year = buildYear(new Date());
 ---
 <BaseLayout
-  title="Land Transfer Tax Calculator Canada | Provincial & Municipal Taxes"
-  description="Calculate land transfer taxes for any Canadian province. Includes first-time homebuyer rebates, Toronto municipal tax, and provincial rates. Free instant calculation."
+  title={`Land Transfer Tax Calculator Canada (${year}) – Ontario, Toronto & BC First-Time Buyer Rebates`}
+  description="Calculate land transfer tax and B.C. property transfer tax. Ontario first-time rebate up to $4,000, Toronto MLTT rebate up to $4,475, and the B.C. first-time exemption through $835,000 (phase-out under $860,000)."
   canonical="https://latestmortgagerates.ca/tools/land-transfer-tax-calculator/"
 >
   <Page client:load />

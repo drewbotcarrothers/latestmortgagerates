@@ -6,6 +6,7 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
+import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 import {
   type MortgageRate,
   compareContext,
@@ -146,6 +147,8 @@ export default function CompareIndex() {
           <AdUnit format="display" className="mt-12 mb-10" />
 
           <RateHubLinks className="mb-8" />
+
+          <StrikingDistanceLenderLinks className="mb-8" />
 
           <section className="card-default p-6 mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-2">Tools to use with these guides</h2>

@@ -7,6 +7,8 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import RateHubLinks from "@/components/RateHubLinks";
 import { blogPosts, getPostBySlug, categories, getRecentPosts } from "@/content/blog";
+import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
+import { isWeeklyRatePost } from "@/lib/lenderLinks";
 import { COMMUNITY_CHART_MARKER } from "@/lib/communityReportCopy";
 import DistributionChart from "@/components/community/DistributionChart";
 import DumbbellChart from "@/components/community/DumbbellChart";
@@ -197,6 +199,14 @@ export default function BlogPostPage({ slug }: { slug: string }) {
           </div>
 
           <BlogBody content={post.content} />
+
+          {isWeeklyRatePost(post.slug) && (
+            <StrikingDistanceLenderLinks
+              className="mt-10"
+              heading="Lender pages from this week's rates"
+              intro="The weekly table ranks 5-year fixed quotes. These lender pages show today's fixed, variable, and other terms from the same scrape."
+            />
+          )}
 
           <AdUnit format="inArticle" className="my-10" />
 

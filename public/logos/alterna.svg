@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="213.63" height="30" viewBox="0 0 213.63 30">
-  <defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80">
+  <svg x="14.4" y="19.5534" width="291.2" height="40.8931" viewBox="0 0 213.63 30" preserveAspectRatio="xMidYMid meet" id="Layer_2" data-name="Layer 2">
+<defs>
     <style>
       .cls-1 {
         fill: #91b8c9;
@@ -28,4 +28,5 @@
       </g>
     </g>
   </g>
+  </svg>
 </svg>

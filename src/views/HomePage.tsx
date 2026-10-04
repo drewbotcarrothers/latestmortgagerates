@@ -4,8 +4,7 @@ import { useState, useMemo } from "react";
 import RateFilters from "@/components/RateFilters";
 import RateComparisonTable from "@/components/RateComparisonTable";
 import MortgageCalculator from "@/components/MortgageCalculator";
-import Navigation from "@/components/Navigation";
-import ThemeToggle from "@/components/ThemeToggle";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
 import SocialShare from "@/components/SocialShare";
@@ -17,7 +16,7 @@ import CommunityCallout from "@/components/community/CommunityCallout";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
-import LenderLogo from "@/components/LenderLogo";
+import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 
 interface FilterState {
   term: string;
@@ -44,25 +43,6 @@ interface Rate {
 // Import rates and metadata from JSON files
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import metadata from "@data/metadata.json";
-
-function formatLastUpdated(iso?: string): string {
-  if (!iso) return "—";
-  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/.test(iso) ? iso : `${iso}Z`;
-  const d = new Date(normalized);
-  if (Number.isNaN(d.getTime())) return "—";
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Toronto",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(d);
-}
-
-function LastUpdated() {
-  return <span>{formatLastUpdated(metadata?.last_updated)}</span>;
-}
 
 // Calculate market stats for a rate category
 function calcMarketStats(rateList: Rate[]) {
@@ -153,56 +133,19 @@ export default function Home() {
       {/* JSON-LD Structured Data */}
       <StructuredData rates={ratesData as Rate[]} lastUpdated={lastUpdatedDate} />
       
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <a href="/" className="flex-shrink-0">
-                <img
-                  src="/logo.png"
-                  alt="Latest Mortgage Rates Canada"
-                  width={70}
-                  height={70}
-                  className="rounded-lg"
-                />
-              </a>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">
-                  Latest Mortgage Rates Canada
-                </h1>
-                <p className="text-slate-500 text-sm max-w-xl">
-                  Compare current rates from Canada's top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <Navigation currentPage="rates" />
-            </div>
-          </div>
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Last updated: <LastUpdated /></span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              <span>Tracking {ratesData.length} rates from {lenders.length} lenders</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header
+        currentPage="rates"
+        showStats
+        lastUpdated={metadata?.last_updated}
+        rateCount={ratesData.length}
+        lenderCount={lenders.length}
+      />
 
       {/* Today's Best Rates - Consolidated Section */}
       <div className="hero-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-            <h2 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h2>
+            <h1 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h1>
             <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
           </div>
           <RateHubLinks variant="pills" showToolsIndex className="mb-6" />
@@ -220,15 +163,14 @@ export default function Home() {
               {marketStats.fixedInsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.fixedInsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-3 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
-                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
-                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                        <span className="text-slate-100 text-sm leading-5 truncate">{rate.lender_name}</span>
                       </div>
-                      <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                      <span className={`shrink-0 font-bold tabular-nums ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
                     </a>
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
@@ -253,15 +195,14 @@ export default function Home() {
               {marketStats.fixedUninsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.fixedUninsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-3 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-emerald-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
-                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
-                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                        <span className="text-slate-100 text-sm leading-5 truncate">{rate.lender_name}</span>
                       </div>
-                      <span className={`font-bold ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                      <span className={`shrink-0 font-bold tabular-nums ${i === 0 ? 'text-emerald-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
                     </a>
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
@@ -286,15 +227,14 @@ export default function Home() {
               {marketStats.variableInsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.variableInsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-3 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
-                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
-                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                        <span className="text-slate-100 text-sm leading-5 truncate">{rate.lender_name}</span>
                       </div>
-                      <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                      <span className={`shrink-0 font-bold tabular-nums ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
                     </a>
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
@@ -319,15 +259,14 @@ export default function Home() {
               {marketStats.variableUninsured?.top3.length ? (
                 <div className="space-y-2">
                   {marketStats.variableUninsured.top3.map((rate, i) => (
-                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-2 hover:opacity-80 transition">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                    <a key={i} href={`/lenders/${rate.lender_slug}/`} className="flex items-center justify-between gap-3 hover:opacity-80 transition">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-5 h-5 shrink-0 rounded-full text-[10px] font-bold flex items-center justify-center ${
                           i === 0 ? 'bg-teal-500 text-white' : 'bg-white/20 text-slate-300'
                         }`}>{i + 1}</span>
-                        <LenderLogo lenderSlug={rate.lender_slug} size="xs" showText={false} loading="eager" />
-                        <span className="text-slate-100 text-sm truncate">{rate.lender_name}</span>
+                        <span className="text-slate-100 text-sm leading-5 truncate">{rate.lender_name}</span>
                       </div>
-                      <span className={`font-bold ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
+                      <span className={`shrink-0 font-bold tabular-nums ${i === 0 ? 'text-teal-300 text-lg' : 'text-slate-200'}`}>{rate.rate.toFixed(2)}%</span>
                     </a>
                   ))}
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10 mt-2">
@@ -371,6 +310,8 @@ export default function Home() {
         <CommunityCallout className="mt-8" />
 
         <CompareLinks className="mt-8" />
+
+        <StrikingDistanceLenderLinks className="mt-8" />
 
         <AdUnit format="display" className="mt-8" />
 
