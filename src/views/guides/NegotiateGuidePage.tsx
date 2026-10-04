@@ -87,20 +87,20 @@ export default function NegotiateGuidePage() {
         <Header currentPage="negotiate" />
         <article>
           <section className="hero-gradient text-white">
-            <div className="mx-auto max-w-3xl px-4 py-12">
+            <div className="mx-auto max-w-7xl px-4 py-12">
               <nav className="mb-4 text-sm text-teal-200" aria-label="Breadcrumb">
                 <a href="/" className="hover:text-white">Home</a>
                 <span className="mx-2">/</span>
                 <span>Negotiate</span>
               </nav>
-              <h1 className="text-4xl font-bold tracking-tight">How much below posted can you negotiate?</h1>
-              <p className="mt-4 text-lg text-slate-200">
+              <h1 className="max-w-3xl text-4xl font-bold tracking-tight">How much below posted can you negotiate?</h1>
+              <p className="mt-4 max-w-3xl text-lg text-slate-200">
                 Big-bank posted rates are a shelf price. The rates {communityRates.attribution} show how far under that shelf recent approvals and renewals have landed. As of {formatAsOf()}.
               </p>
             </div>
           </section>
 
-          <div className="mx-auto max-w-3xl space-y-8 px-4 py-8">
+          <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
             <CommunityDisclaimer />
 
             <section>
