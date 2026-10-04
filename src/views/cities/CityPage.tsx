@@ -7,7 +7,7 @@ import CityTools from "@/components/CityTools";
 import CityLocalContent from "@/components/CityLocalContent";
 import { requireCity } from "@/lib/cities";
 import { getCityContent } from "@/lib/cityContent";
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
 import metadata from "@data/metadata.json";
 

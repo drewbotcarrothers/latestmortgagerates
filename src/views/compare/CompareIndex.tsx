@@ -4,7 +4,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
 import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 import {

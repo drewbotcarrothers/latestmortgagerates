@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RateTrendsFull from "@/components/RateTrendsFull";
 import RateTrends from "@/components/RateTrends";
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import historicalJson from "@data/historical_rates.json";
 
 const historicalData = (historicalJson as { data?: unknown[] }).data || [];

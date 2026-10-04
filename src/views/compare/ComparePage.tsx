@@ -9,7 +9,7 @@ import AdUnit from "@/components/AdUnit";
 import LenderLogo from "@/components/LenderLogo";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import {
   type MortgageRate,
   type RatePick,

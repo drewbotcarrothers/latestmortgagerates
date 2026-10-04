@@ -8,7 +8,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CommunityCallout from "@/components/community/CommunityCallout";
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
 
 
@@ -127,7 +127,7 @@ export default function InsuredRatesPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
-                  {filteredRates.slice(0, 20).map((rate, i) => (
+                  {[...filteredRates].sort((a, b) => a.rate - b.rate).slice(0, 20).map((rate, i) => (
                     <tr key={`${rate.lender_slug}-${rate.term_months}-${rate.rate_type}-${i}`} className="hover:bg-slate-50">
                       <td className="px-6 py-4">
                         <a href={`/lenders/${rate.lender_slug}/`} className="inline-flex max-w-full hover:opacity-80">

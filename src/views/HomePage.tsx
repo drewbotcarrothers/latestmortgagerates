@@ -41,7 +41,7 @@ interface Rate {
 }
 
 // Import rates and metadata from JSON files
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import metadata from "@data/metadata.json";
 
 // Calculate market stats for a rate category

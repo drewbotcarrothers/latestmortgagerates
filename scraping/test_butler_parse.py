@@ -7,8 +7,9 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+from src.butler_labels import label_unlabeled_butler_rates_insured
 from src.scrapers.butler_scraper import mortgage_type_from_context, parse_butler_html
-from src.models import MortgageType, RateType
+from src.models import MortgageType, RateType, RawRate
 
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "butler_low_mortgage_rates.html"
@@ -45,7 +46,7 @@ def test_fixture_splits_fixed_and_variable():
     assert set(parsed) == set(EXPECTED)
     for key, expected_rate in EXPECTED.items():
         assert parsed[key].rate == expected_rate
-        assert parsed[key].mortgage_type is None
+        assert parsed[key].mortgage_type == MortgageType.INSURED
         assert parsed[key].source_url == SOURCE
         assert (parsed[key].raw_data or {}).get("source") == "butlermortgage_live_scrape"
 
@@ -90,9 +91,43 @@ def test_uninsured_label_is_not_read_as_insured():
     assert parsed[(60, RateType.FIXED)].rate == Decimal("4.20")
     assert parsed[(60, RateType.FIXED)].mortgage_type == MortgageType.UNINSURED
     assert parsed[(36, RateType.VARIABLE)].mortgage_type == MortgageType.INSURED
-    assert parsed[(60, RateType.VARIABLE)].mortgage_type is None
+    assert parsed[(60, RateType.VARIABLE)].mortgage_type == MortgageType.INSURED
     assert (6, RateType.VARIABLE) not in parsed
     assert Decimal("3.19") not in {rate.rate for rate in parsed.values()}
+
+
+def test_explicit_uninsured_is_not_relabelled_and_other_lenders_stay_blank():
+    other = RawRate(
+        lender_slug="atb",
+        term_months=60,
+        rate_type=RateType.FIXED,
+        mortgage_type=None,
+        rate=Decimal("4.10"),
+        source_url="https://www.atb.com/",
+        scraped_at=SCRAPED_AT,
+    )
+    explicit = RawRate(
+        lender_slug="butlermortgage",
+        term_months=60,
+        rate_type=RateType.FIXED,
+        mortgage_type=MortgageType.UNINSURED,
+        rate=Decimal("4.20"),
+        source_url=SOURCE,
+        scraped_at=SCRAPED_AT,
+    )
+    unlabeled = RawRate(
+        lender_slug="butlermortgage",
+        term_months=36,
+        rate_type=RateType.VARIABLE,
+        mortgage_type=None,
+        rate=Decimal("3.50"),
+        source_url=SOURCE,
+        scraped_at=SCRAPED_AT,
+    )
+    label_unlabeled_butler_rates_insured([other, explicit, unlabeled])
+    assert other.mortgage_type is None
+    assert explicit.mortgage_type == MortgageType.UNINSURED
+    assert unlabeled.mortgage_type == MortgageType.INSURED
 
 
 def test_empty_or_unusable_html_returns_nothing():
@@ -105,5 +140,6 @@ def test_empty_or_unusable_html_returns_nothing():
 if __name__ == "__main__":
     test_fixture_splits_fixed_and_variable()
     test_uninsured_label_is_not_read_as_insured()
+    test_explicit_uninsured_is_not_relabelled_and_other_lenders_stay_blank()
     test_empty_or_unusable_html_returns_nothing()
     print("ok")

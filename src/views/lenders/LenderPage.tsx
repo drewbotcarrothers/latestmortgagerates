@@ -9,11 +9,8 @@ import { compareHref, comparisonsForLender } from "@/lib/compare";
 import { STRIKING_DISTANCE_SLUGS } from "@/lib/todaysRates";
 import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
 import LenderCommunitySection from "@/components/community/LenderCommunitySection";
-
-// Force static generation for static export
-
-// Import rates data
-import ratesData from "@data/rates.json";
+import LenderRateOverview from "@/components/LenderRateOverview";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 
 // Import lender content data
 import lenderContentData from "@/content/lenderContent.json";
@@ -230,25 +227,6 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
     );
   }
   
-  // Build rate matrix data for the overview table
-  const allTerms = [...new Set(lenderRates.map(r => r.term_months))].sort((a, b) => a - b);
-  const rateMatrix = allTerms.map(term => {
-    const termRates = lenderRates.filter(r => r.term_months === term);
-    const fixedInsured = termRates
-      .filter(r => r.rate_type === "fixed" && r.mortgage_type === "insured")
-      .sort((a, b) => a.rate - b.rate)[0];
-    const fixedUninsured = termRates
-      .filter(r => r.rate_type === "fixed" && r.mortgage_type === "uninsured")
-      .sort((a, b) => a.rate - b.rate)[0];
-    const varInsured = termRates
-      .filter(r => r.rate_type === "variable" && r.mortgage_type === "insured")
-      .sort((a, b) => a.rate - b.rate)[0];
-    const varUninsured = termRates
-      .filter(r => r.rate_type === "variable" && r.mortgage_type === "uninsured")
-      .sort((a, b) => a.rate - b.rate)[0];
-    return { term, label: getTermLabel(term), fixedInsured, fixedUninsured, varInsured, varUninsured };
-  });
-  
   const structuredData = generateStructuredData(lenderName, lenderRates, slug);
   const content = getLenderContent(slug);
 
@@ -452,118 +430,8 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
           </div>
         </div>
 
-        {/* Rate Matrix — All Terms Overview */}
-        <section className="bg-white rounded-xl shadow-sm border border-slate-200 mb-8 overflow-hidden">
-          <div className="p-6 border-b border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-slate-800">Rate Overview</h2>
-                <p className="text-slate-500 text-sm mt-1">Best rate for each term and product type</p>
-              </div>
-              <div className="hidden sm:flex items-center gap-4 text-xs text-slate-500">
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Best
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-slate-300"></span> Not offered
-                </span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50">
-                  <th className="text-left px-6 py-3 font-semibold text-slate-700">Term</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed Insured</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed Uninsured</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable Insured</th>
-                  <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable Uninsured</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {rateMatrix.map(({ term, label, fixedInsured, fixedUninsured, varInsured, varUninsured }) => {
-                  const rowRates = [fixedInsured, fixedUninsured, varInsured, varUninsured].filter(Boolean) as Rate[];
-                  const bestRowRate = rowRates.length > 0 ? Math.min(...rowRates.map(r => r.rate)) : Infinity;
-                  return (
-                  <tr key={term} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">{label}</td>
-                    
-                    <td className="px-4 py-4 text-center">
-                      {fixedInsured ? (
-                        <div>
-                          <span className={`font-bold text-lg ${
-                            fixedInsured.rate === bestRowRate ? "text-emerald-600" : "text-slate-700"
-                          }`}>
-                            {fixedInsured.rate.toFixed(2)}%
-                          </span>
-                          {fixedInsured.posted_rate && (
-                            <span className="block text-xs text-slate-400 line-through">{fixedInsured.posted_rate.toFixed(2)}%</span>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
-                    
-                    <td className="px-4 py-4 text-center">
-                      {fixedUninsured ? (
-                        <div>
-                          <span className={`font-bold text-lg ${
-                            fixedUninsured.rate === bestRowRate ? "text-emerald-600" : "text-slate-700"
-                          }`}>
-                            {fixedUninsured.rate.toFixed(2)}%
-                          </span>
-                          {fixedUninsured.posted_rate && (
-                            <span className="block text-xs text-slate-400 line-through">{fixedUninsured.posted_rate.toFixed(2)}%</span>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
-                    
-                    <td className="px-4 py-4 text-center">
-                      {varInsured ? (
-                        <div>
-                          <span className={`font-bold text-lg ${
-                            varInsured.rate === bestRowRate ? "text-emerald-600" : "text-slate-700"
-                          }`}>
-                            {varInsured.rate.toFixed(2)}%
-                          </span>
-                          {varInsured.spread_to_prime && (
-                            <span className="block text-xs text-teal-600">{varInsured.spread_to_prime}</span>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
-                    
-                    <td className="px-4 py-4 text-center">
-                      {varUninsured ? (
-                        <div>
-                          <span className={`font-bold text-lg ${
-                            varUninsured.rate === bestRowRate ? "text-emerald-600" : "text-slate-700"
-                          }`}>
-                            {varUninsured.rate.toFixed(2)}%
-                          </span>
-                          {varUninsured.spread_to_prime && (
-                            <span className="block text-xs text-teal-600">{varUninsured.spread_to_prime}</span>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
-                  </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <LenderRateOverview rates={lenderRates} />
+
 
         <LenderCommunitySection slug={slug} />
 
