@@ -63,8 +63,11 @@ RewriteRule ^guides/?$ /blog/ [R=301,L]
 #   connect https://reach.hostinger.com/api/v1/forms/<id>/impression   (parent page)
 # The framed form document then loads:
 #   https://reach-forms.hostingerusercontent.com/assets/*
+#   https://reach-forms.hostingerusercontent.com/cdn-cgi/rum (Cloudflare RUM)
 #   https://cdn-reach.hostinger.com/storage/.../forms/<id>/*.html
+#   https://cdn-reach.hostinger.com/brand/signature.png
 #   https://cdn-reach.hostinger.com/assets/flags/*.svg
 #   GET  https://reach.hostinger.com/api/v1/forms/<id>
 #   POST https://reach.hostinger.com/api/v1/forms/<id>/submit
+#   POST https://reach.hostinger.com/api/v1/forms/<id>/impression (parent page; preflight OPTIONS)
 # If a CSP is added later, allow those origins on script-src, frame-src, connect-src, and img-src.
