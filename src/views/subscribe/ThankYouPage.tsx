@@ -3,7 +3,7 @@ import { ExploreLinks, InboxTip, PrivacyNote, SubscribeFrame } from "@/component
 const STEPS = [
   "Open the confirmation email from Latest Mortgage Rates.",
   "Click Confirm your email in that message.",
-  "You're subscribed. The weekly updates start after that.",
+  "You're subscribed. The monthly mortgage rate report starts after that.",
 ];
 
 export default function ThankYouPage() {

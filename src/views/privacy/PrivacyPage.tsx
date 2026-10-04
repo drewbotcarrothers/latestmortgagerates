@@ -22,7 +22,7 @@ export default function PrivacyPage() {
                 Privacy Policy
               </h1>
               <p className="text-slate-600 dark:text-slate-300 mt-2">
-                Last updated: March 4, 2026
+                Last updated: October 4, 2026
               </p>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
               We do not actively collect personal information unless you voluntarily provide it to us. This may include:
             </p>
             <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-2 mb-4">
-              <li>Email addresses (if you sign up for rate alerts)</li>
+              <li>Email addresses (if you sign up for the monthly mortgage rate report)</li>
               <li>Contact information (if you use our contact forms)</li>
               <li>Mortgage preferences and location data</li>
             </ul>
@@ -88,11 +88,18 @@ export default function PrivacyPage() {
             <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-2 mb-4">
               <li>Provide and maintain our services</li>
               <li>Improve our website and user experience</li>
-              <li>Send mortgage rate alerts (if subscribed)</li>
+              <li>Send the monthly mortgage rate report (if you confirm your subscription)</li>
               <li>Analyze usage patterns and trends</li>
               <li>Prevent fraud and ensure security</li>
               <li>Comply with legal obligations</li>
             </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Email newsletter</h2>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              The monthly mortgage rate report is delivered via Hostinger Reach. When you sign up, your email address is stored with our email provider, Hostinger Reach. Signup is double opt-in: you are not added to the list until you confirm the message we send. You can unsubscribe anytime using the link in any newsletter email.
+            </p>
           </section>
 
           <section className="mb-8">

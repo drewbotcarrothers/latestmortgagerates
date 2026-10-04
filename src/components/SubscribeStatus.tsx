@@ -4,16 +4,16 @@ import Header from "@/components/Header";
 
 const BENEFITS = [
   {
-    title: "Weekly Canadian mortgage rate updates",
-    body: "A roundup of current fixed and variable rates from Canadian lenders.",
+    title: "Lowest posted rates",
+    body: "The lowest posted fixed and variable rates from Canadian lenders, once a month.",
   },
   {
-    title: "Bank of Canada decision recaps",
+    title: "What Canadians report getting below posted",
+    body: "Rates people report actually getting, next to the posted numbers.",
+  },
+  {
+    title: "Bank of Canada recaps",
     body: "What the latest rate announcement means for payments and renewals.",
-  },
-  {
-    title: "Rate-drop alerts",
-    body: "A note when Canadian mortgage rates move down, included with the weekly email.",
   },
 ];
 

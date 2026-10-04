@@ -3,9 +3,19 @@
 
 DirectorySlash On
 
+# Retired subscribe.php wrote public/data/subscribers.json. Block it if the file is still on the server.
+<IfModule mod_authz_core.c>
+  <Files "subscribers.json">
+    Require all denied
+  </Files>
+</IfModule>
+
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
+
+# Legacy subscriber export. Deny even when the file is not in this repo.
+RewriteRule ^data/subscribers\.json$ - [F,L]
 
 # www is a duplicate host; canonical tags already point at the apex domain.
 RewriteCond %{HTTP_HOST} ^www\.latestmortgagerates\.ca$ [NC]
@@ -45,3 +55,16 @@ RewriteRule ^glossary/closing-costs/?$ /tools/closing-costs-calculator/ [R=301,L
 # Old hub path.
 RewriteRule ^guides/?$ /blog/ [R=301,L]
 </IfModule>
+
+# No Content-Security-Policy is set (AdSense, Analytics, and inline scripts need a broad policy).
+# The Hostinger Reach newsletter embed must stay allowed. embed.js (inspected 2026-10-04) does:
+#   script  https://cdn-reach.hostinger.com/js/embed.js
+#   frame   https://reach-forms.hostingerusercontent.com/form/<id>
+#   connect https://reach.hostinger.com/api/v1/forms/<id>/impression   (parent page)
+# The framed form document then loads:
+#   https://reach-forms.hostingerusercontent.com/assets/*
+#   https://cdn-reach.hostinger.com/storage/.../forms/<id>/*.html
+#   https://cdn-reach.hostinger.com/assets/flags/*.svg
+#   GET  https://reach.hostinger.com/api/v1/forms/<id>
+#   POST https://reach.hostinger.com/api/v1/forms/<id>/submit
+# If a CSP is added later, allow those origins on script-src, frame-src, connect-src, and img-src.

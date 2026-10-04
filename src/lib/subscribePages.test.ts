@@ -48,11 +48,14 @@ describe("subscribe confirmation pages", () => {
     for (const href of ["/", "/real-mortgage-rates/", "/mortgage-guide/", "/privacy/"]) {
       assert.ok(shared.includes(`"${href}"`) || confirmed.includes(`"${href}"`), href);
     }
-    assert.match(shared, /Weekly Canadian mortgage rate updates/);
-    assert.match(shared, /Bank of Canada decision recaps/);
-    assert.match(shared, /Rate-drop alerts/);
+    assert.match(shared, /Lowest posted rates/);
+    assert.match(shared, /below posted/);
+    assert.match(shared, /Bank of Canada recaps/);
     assert.match(shared, /Promotions/);
-    assert.match(confirmed, /Weekly/);
+    assert.match(confirmed, /Monthly/);
+    assert.doesNotMatch(confirmed, /Weekly|weekly/);
+    assert.doesNotMatch(pending, /weekly/i);
+    assert.doesNotMatch(shared, /Weekly|Rate-drop alerts/);
     assert.match(shared, /unsubscribe anytime/i);
   });
 

@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
 import SocialShare from "@/components/SocialShare";
-import RateAlertForm from "@/components/RateAlertForm";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import RateDropBanner from "@/components/RateDropBanner";
 import RateTableSchema from "@/components/RateTableSchema";
 import RateHubLinks from "@/components/RateHubLinks";
@@ -425,10 +425,7 @@ export default function Home() {
         <GuideCTA variant="full" className="mt-8" />
       </div>
 
-      {/* Rate Alert Subscription */}
-      <div id="rate-alert-section" className="max-w-7xl mx-auto px-4 py-12 pb-16">
-        <RateAlertForm />
-      </div>
+      <NewsletterSignup variant="band" anchorId="rate-alert" />
 
       <Footer />
     </main>
