@@ -56,6 +56,12 @@ export const TOOL_LINKS: SiteLink[] = [
     description: "Compare renewal options",
   },
   {
+    href: "/tools/renewal-offer-checker/",
+    icon: "🎯",
+    title: "Renewal Offer Checker",
+    description: "Is the rate you were offered any good?",
+  },
+  {
     href: "/tools/refinance-calculator/",
     icon: "💡",
     title: "Refinance Calculator",
@@ -94,6 +100,30 @@ export const RATE_HUBS: SiteLink[] = [
 ];
 
 export const TOOLS_INDEX_HREF = "/tools/";
+
+/** Community-reported rate pages. Keep trailing slashes. */
+export const COMMUNITY_LINKS: SiteLink[] = [
+  {
+    href: "/real-mortgage-rates/",
+    title: "Real Mortgage Rates",
+    description: "Median rates borrowers report versus posted rates",
+  },
+  {
+    href: "/guides/negotiate-mortgage-rate/",
+    title: "Negotiate Your Rate",
+    description: "How far below posted people actually land",
+  },
+  {
+    href: "/tools/renewal-offer-checker/",
+    title: "Renewal Offer Checker",
+    description: "Percentile of a rate you were offered",
+  },
+  {
+    href: "/methodology/",
+    title: "Rate Methodology",
+    description: "How reported rates are compiled",
+  },
+];
 
 export const COMPARE_INDEX_HREF = "/compare/";
 

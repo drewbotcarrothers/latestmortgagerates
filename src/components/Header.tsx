@@ -19,7 +19,7 @@ function formatHeaderDate(iso?: string): string {
 }
 
 interface HeaderProps {
-  currentPage: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts";
+  currentPage: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts" | "real-rates" | "negotiate" | "offer-check";
   showStats?: boolean;
   lastUpdated?: string;
   rateCount?: number;

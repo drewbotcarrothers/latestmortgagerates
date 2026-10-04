@@ -1,3 +1,5 @@
+import { october2026Report } from "../lib/communityReportCopy";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -13,7 +15,23 @@ export interface BlogPost {
   image: string;
 }
 
+const octoberReport = october2026Report();
+
 export const blogPosts: BlogPost[] = [
+  {
+    slug: octoberReport.slug,
+    title: octoberReport.title,
+    excerpt: octoberReport.excerpt,
+    content: octoberReport.content,
+    author: octoberReport.author,
+    authorTitle: octoberReport.authorTitle,
+    date: octoberReport.date,
+    category: octoberReport.category,
+    tags: octoberReport.tags,
+    readTime: octoberReport.readTime,
+    featured: octoberReport.featured,
+    image: octoberReport.image,
+  },
   {
     slug: "best-5-year-fixed-rates-week-40-2026",
     title: "Best 5-Year Fixed Mortgage Rates This Week: September 28-October 4",

@@ -55,6 +55,10 @@ const REQUIRED_PLACEMENTS = [
   "src/views/rates/UninsuredPage.tsx",
   "src/views/compare/ComparePage.tsx",
   "src/views/compare/CompareIndex.tsx",
+  "src/views/community/RealRatesPage.tsx",
+  "src/views/community/MethodologyPage.tsx",
+  "src/views/guides/NegotiateGuidePage.tsx",
+  "src/views/tools/renewal-offer-checker/Page.tsx",
 ];
 
 const AD_FREE = [

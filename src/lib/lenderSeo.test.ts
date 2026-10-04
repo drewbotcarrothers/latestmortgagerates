@@ -166,7 +166,7 @@ describe("GSC near-page-1 lender SEO", () => {
     const links = td.relatedLinks as { href: string }[];
     assert.ok(links.some((link) => link.href.includes("affordability-calculator")));
     const lenderPage = readFileSync(join(root, "src/views/lenders/LenderPage.tsx"), "utf8");
-    assert.match(lenderPage, /<h1[^>]*>\{lenderRatesHeading\(lenderName\)\}<\/h1>/);
+    assert.match(lenderPage, /<h1[^>]*>\s*\{lenderRatesHeading\(lenderName\)\}\s*<\/h1>/);
     assert.doesNotMatch(lenderPage, /<h1[^>]*>[^<]*[Cc]alculator/);
     assert.equal(lenderRatesHeading("True North Mortgage"), "True North Mortgage Rates");
     assert.equal(lenderRatesHeading("Butler Mortgage"), "Butler Mortgage Rates");

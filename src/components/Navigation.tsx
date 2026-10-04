@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface NavigationProps {
-  currentPage?: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts" | "ebook";
+  currentPage?: "rates" | "guides" | "glossary" | "tools" | "blog" | "trends" | "experts" | "ebook" | "real-rates" | "negotiate" | "offer-check";
 }
 
 // Inline SVG icons
@@ -66,6 +66,9 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   const navItems = [
     { href: "/", label: "Rates", id: "rates", icon: HomeIcon },
+    { href: "/real-mortgage-rates/", label: "Real rates", id: "real-rates", icon: TrendIcon },
+    { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate", id: "negotiate", icon: BookOpenIcon },
+    { href: "/tools/renewal-offer-checker/", label: "Offer check", id: "offer-check", icon: CalculatorIcon },
     { href: "/trends/", label: "Trends", id: "trends", icon: TrendIcon },
     { href: "/blog/", label: "Blog", id: "blog", icon: BookOpenIcon },
     { href: "/mortgage-guide/", label: "Ebook", id: "ebook", icon: BookOpenIcon },
@@ -89,7 +92,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center gap-1">
+      <div className="hidden max-w-xl flex-wrap items-center justify-end gap-1 md:flex xl:max-w-3xl">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = currentPage === item.id;
@@ -98,7 +101,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
             <a
               key={item.id}
               href={item.href}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 ${
+              className={`flex items-center gap-1.5 px-2.5 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${
                 isActive
                   ? "bg-teal-50 text-teal-700 border border-teal-200"
                   : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"

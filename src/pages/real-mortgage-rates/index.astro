@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/community/RealRatesPage";
+import { distributionFor, formatAsOf, formatRate } from "../../lib/communityRates";
+
+const variable = distributionFor(60, "variable", "all");
+const fixed = distributionFor(60, "fixed", "all");
+const description = `What mortgage rate are people getting in Canada? As of ${formatAsOf()}, the median 5-year variable rate self-reported by Canadian borrowers online is ${variable ? formatRate(variable.median) : "published on this page"} (N = ${variable?.n ?? 0}) and the median 5-year fixed rate is ${fixed ? formatRate(fixed.median) : "published on this page"} (N = ${fixed?.n ?? 0}). Compared with posted rates. Unverified and not an offer.`;
+---
+<BaseLayout
+  title="Real Mortgage Rates Canadians Are Getting | What People Report"
+  description={description}
+  canonical="https://latestmortgagerates.ca/real-mortgage-rates/"
+  keywords="what mortgage rate are people getting, realistic mortgage rate Canada, real mortgage rates, below posted mortgage rates, Canadian mortgage rates"
+>
+  <Page client:load />
+</BaseLayout>

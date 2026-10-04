@@ -8,6 +8,7 @@ import TodaysLenderRates from "@/components/TodaysLenderRates";
 import { compareHref, comparisonsForLender } from "@/lib/compare";
 import { STRIKING_DISTANCE_SLUGS } from "@/lib/todaysRates";
 import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
+import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 
 // Force static generation for static export
 
@@ -285,20 +286,26 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
             </ol>
           </nav>
           
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <LenderLogo lenderSlug={slug} size="lg" showText={false} loading="eager" />
-              <div>
-                <h1 className="text-3xl font-bold text-slate-900">{lenderRatesHeading(lenderName)}</h1>
-                <p className="text-slate-600 mt-1">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex w-full min-w-0 max-w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4 lg:w-auto lg:min-w-[24rem] lg:flex-1 lg:basis-0">
+              <div className="shrink-0">
+                <LenderLogo lenderSlug={slug} size="lg" showText={false} loading="eager" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl">
+                  {lenderRatesHeading(lenderName)}
+                </h1>
+                <p className="mt-1 text-slate-600">
                   {content?.heroIntro || `Compare current ${lenderRatesKeyword(lenderName)} in Canada`}
                 </p>
                 {content?.tagline ? (
-                  <p className="text-teal-700 font-medium mt-1 text-sm">{content.tagline}</p>
+                  <p className="mt-1 text-sm font-medium text-teal-700">{content.tagline}</p>
                 ) : null}
               </div>
             </div>
-            <Navigation currentPage="rates" />
+            <div className="ml-auto shrink-0">
+              <Navigation currentPage="rates" />
+            </div>
           </div>
         </div>
       </header>
@@ -558,6 +565,8 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
             </table>
           </div>
         </section>
+
+        <LenderCommunitySection slug={slug} />
 
         {/* Fixed Rates — Grouped by Term */}
         {fixedByTerm.length > 0 && (
