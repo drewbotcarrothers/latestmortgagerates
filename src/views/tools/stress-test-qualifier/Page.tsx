@@ -5,6 +5,8 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -216,7 +218,9 @@ export default function StressTestPage() {
                 </ul>
               </section>
 
-              <FAQSection faqs={faqs} />
+              <CalculatorGuide sections={stressTestGuide()} />
+
+              <FAQSection faqs={[...faqs, ...stressTestExtraFaqs]} />
             </div>
 
             <div className="space-y-6">

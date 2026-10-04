@@ -1,4 +1,5 @@
-<svg width="226" height="105" viewBox="0 0 226 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80">
+  <svg x="91.2271" y="8" width="137.5458" height="64" viewBox="0 0 225.661 105" preserveAspectRatio="xMidYMid meet" fill="none">
 <g id="Logo" clip-path="url(#clip0_2081_169)">
 <path id="Path 3489" d="M161.375 0.000976562L120.606 105.001H144.282L153.374 80.641H191.474L200.565 105.001H225.349L184.578 0.000976562H161.375ZM172.452 28.745L184.665 61.509H160.178L172.452 28.745Z" fill="#00BFB3"/>
 <path id="Path 3490" d="M83.2349 0V87.578L95.2349 105H106.482V62.028H128.655L136.174 42.676H106.482V19.126H145.315L152.721 0.046L83.2349 0Z" fill="#00BFB3"/>
@@ -9,4 +10,5 @@
 <rect width="225.349" height="105" fill="white"/>
 </clipPath>
 </defs>
+  </svg>
 </svg>

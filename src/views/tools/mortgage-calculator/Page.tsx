@@ -6,7 +6,10 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
 import { lenderCountLabel } from "@/lib/lenderCount";
+import { mortgageCalculatorFaqs, mortgageCalculatorGuide } from "@/content/calculatorGuides";
 
 
 export default function MortgageCalculatorPage() {
@@ -133,33 +136,9 @@ export default function MortgageCalculatorPage() {
               </div>
             </section>
 
-            <section className="card-default p-6">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">What is mortgage amortization?</h3>
-                  <p className="text-slate-600">
-                    Amortization is the total length of time it takes to pay off your mortgage completely. 
-                    In Canada, common amortization periods are 25 years (for insured mortgages) and 30 years 
-                    (for conventional mortgages with 20%+ down payment).
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">How can I pay off my mortgage faster?</h3>
-                  <p className="text-slate-600">
-                    You can pay off your mortgage faster by: increasing your payment frequency (accelerated options), 
-                    making lump sum payments, increasing your regular payment amount, or choosing a shorter amortization period.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">What's the difference between term and amortization?</h3>
-                  <p className="text-slate-600">
-                    The <strong>term</strong> is the length of your current mortgage contract (typically 1-5 years), 
-                    while <strong>amortization</strong> is the total time to pay off your mortgage (typically 25-30 years).
-                  </p>
-                </div>
-              </div>
-            </section>
+            <CalculatorGuide sections={mortgageCalculatorGuide()} />
+
+            <FAQSection faqs={mortgageCalculatorFaqs} />
           </div>
 
           {/* Sidebar */}

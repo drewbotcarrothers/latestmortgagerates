@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import { glossaryTermsWithTools } from "@/content/glossary";
+import { ESSENTIAL_MORTGAGE_TERM_SLUGS, glossaryTermsWithTools } from "@/content/glossary";
 
 // Force static generation for static export
 
@@ -7,6 +7,10 @@ import { glossaryTermsWithTools } from "@/content/glossary";
 const categories = [...new Set(glossaryTermsWithTools.map((t) => t.category))].sort();
 
 export default function GlossaryPage() {
+  const essentialTerms = ESSENTIAL_MORTGAGE_TERM_SLUGS.map((slug) =>
+    glossaryTermsWithTools.find((term) => term.slug === slug)
+  ).filter((term): term is (typeof glossaryTermsWithTools)[number] => Boolean(term));
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Header currentPage="glossary" />
@@ -22,8 +26,8 @@ export default function GlossaryPage() {
           </nav>
           
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Mortgage Glossary</h1>
-            <p className="text-slate-600 mt-2">Key terms and definitions every Canadian homebuyer should know</p>
+            <h1 className="text-3xl font-bold text-slate-900">Mortgage Terms</h1>
+            <p className="text-slate-600 mt-2">Essential mortgage terms and the rest of the Canadian glossary, in plain language</p>
           </div>
         </div>
       </div>
@@ -47,6 +51,27 @@ export default function GlossaryPage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <section className="mb-10 bg-white rounded-xl border border-slate-200 shadow-sm p-6" aria-labelledby="essential-mortgage-terms">
+          <h2 id="essential-mortgage-terms" className="text-2xl font-bold text-slate-900 mb-2">
+            Essential mortgage terms
+          </h2>
+          <p className="text-slate-600 mb-6">
+            Start here if you searched for mortgage terms. Each definition links to the full glossary entry. Rates on this site come from our lender scrape, not from these definitions.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {essentialTerms.map((term) => (
+              <article key={term.slug} className="rounded-lg border border-slate-200 p-4">
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                  <a href={`/glossary/${term.slug}/`} className="hover:text-teal-600">
+                    {term.term}
+                  </a>
+                </h3>
+                <p className="text-sm text-slate-600">{term.definition}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <div className="mb-8">
           <span className="text-sm text-slate-500">
             {glossaryTermsWithTools.length} terms across {categories.length} categories

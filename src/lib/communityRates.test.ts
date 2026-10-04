@@ -49,16 +49,30 @@ describe("community rate rounding", () => {
 
 describe("community rate publication rules", () => {
   it("publishes a cell only when N is at least 10 and keeps raw medians", () => {
+    const source = communityRates.windows["30d"].products;
     const published = publicProducts("30d");
+    assert.ok(source.length > 0);
     assert.ok(published.length > 0);
-    assert.ok(published.every((product) => product.n >= PUBLIC_MIN_N));
-    const variable = published.find(
-      (product) => product.termMonths === 60 && product.rateType === "variable" && product.insured === "uninsured",
-    );
-    assert.ok(variable);
-    assert.equal(variable.n, 38);
-    assert.equal(variable.median, 3.595);
-    assert.equal(formatRate(variable.median), "3.60%");
+
+    for (const product of source) {
+      const shown = published.find(
+        (item) => item.termMonths === product.termMonths && item.rateType === product.rateType && item.insured === product.insured,
+      );
+      if (product.n >= PUBLIC_MIN_N) {
+        assert.ok(shown);
+        assert.ok(shown.n > 0);
+        assert.equal(shown.n, product.n);
+        assert.equal(shown.median, product.median);
+        assert.equal(formatRate(shown.median), formatRate(roundToNickel(shown.median)));
+      } else {
+        assert.equal(shown, undefined);
+      }
+    }
+
+    for (const distribution of communityRates.distributions) {
+      assert.ok(distribution.n > 0);
+      assert.equal(distribution.n, distribution.rates.length);
+    }
   });
 
   it("allows N of at least 5 on chart series only", () => {
@@ -83,14 +97,29 @@ describe("community rate publication rules", () => {
   });
 
   it("hides a bank comparison when the posted rate or sample is missing", () => {
-    const td = lenderBySlug("td");
-    const cibc = lenderBySlug("cibc");
-    const bmo = lenderBySlug("bmo");
-    assert.ok(td && cibc && bmo);
-    assert.ok(publicLenderProducts(td).some((product) => product.termMonths === 60 && product.rateType === "variable"));
-    assert.equal(chartLenderProducts(cibc).length, 0);
-    assert.equal(chartLenderProducts(bmo).length, 0);
-    assert.equal(publicLenderProducts(td).every((product) => product.n >= PUBLIC_MIN_N && product.postedRate != null), true);
+    assert.ok(communityRates.lenders.length > 0);
+    let lendersWithChart = 0;
+
+    for (const lender of communityRates.lenders) {
+      const chart = chartLenderProducts(lender);
+      const published = publicLenderProducts(lender);
+      if (chart.length > 0) lendersWithChart += 1;
+
+      for (const product of lender.products) {
+        assert.equal(product.n, product.rates.length);
+        const onChart = chart.some((item) => item.termMonths === product.termMonths && item.rateType === product.rateType);
+        const onTable = published.some((item) => item.termMonths === product.termMonths && item.rateType === product.rateType);
+        assert.equal(onChart, product.n >= CHART_MIN_N && product.postedRate != null);
+        assert.equal(onTable, product.n >= PUBLIC_MIN_N && product.postedRate != null);
+        if (onChart || onTable) assert.ok(product.n > 0);
+      }
+
+      assert.ok(chart.every((product) => product.n >= CHART_MIN_N && product.postedRate != null));
+      assert.ok(published.every((product) => product.n >= PUBLIC_MIN_N && product.postedRate != null));
+      assert.ok(published.every((product) => chart.some((item) => item.termMonths === product.termMonths && item.rateType === product.rateType)));
+    }
+
+    assert.ok(lendersWithChart > 0);
   });
 });
 
