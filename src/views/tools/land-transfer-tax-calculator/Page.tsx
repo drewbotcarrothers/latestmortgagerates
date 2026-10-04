@@ -6,9 +6,18 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import {
+  BC_PTT_FTHB_FULL_PROGRAM_FMV,
+  BC_PTT_FTHB_MAX_EXEMPTION,
+  BC_PTT_FTHB_PHASE_OUT_END_FMV,
+} from "@/lib/mortgageMath";
 
 
 export default function LandTransferTaxCalculatorPage() {
+  const bcFull = BC_PTT_FTHB_FULL_PROGRAM_FMV.toLocaleString("en-CA");
+  const bcPhaseOut = BC_PTT_FTHB_PHASE_OUT_END_FMV.toLocaleString("en-CA");
+  const bcMax = BC_PTT_FTHB_MAX_EXEMPTION.toLocaleString("en-CA");
+
   return (
     <>
       <HowToSchema
@@ -61,11 +70,10 @@ export default function LandTransferTaxCalculatorPage() {
                 <span>Land Transfer Tax Calculator</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Land Transfer Tax Calculator
+                Land Transfer Tax Calculator Canada
               </h1>
               <p className="text-xl text-slate-300">
-                Calculate provincial and municipal land transfer taxes for any Canadian province. 
-                Includes first-time homebuyer rebates and Toronto's municipal tax.
+                Ontario, Toronto, and B.C. first-time buyer rebates, plus provincial and municipal transfer tax for the rest of Canada.
               </p>
             </div>
           </div>
@@ -145,6 +153,40 @@ export default function LandTransferTaxCalculatorPage() {
                       <li>1.5% on amounts over $250,000</li>
                     </ul>
                   </div>
+                </div>
+              </section>
+
+              <section className="card-default p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  Ontario and Toronto first-time buyer rebates
+                </h2>
+                <div className="text-slate-600 space-y-4">
+                  <p>
+                    Ontario land transfer tax uses brackets published by the Ministry of Finance: 0.5% on the first $55,000, 1% from $55,000 to $250,000, 1.5% from $250,000 to $400,000, 2% from $400,000 to $2 million, and 2.5% above $2 million. Eligible first-time buyers can receive a refund of up to $4,000. That maximum fully offsets provincial tax only up to about $368,000 of price. On a typical Toronto or Ottawa purchase you still owe provincial tax after the refund.
+                  </p>
+                  <p>
+                    The City of Toronto charges municipal land transfer tax (MLTT) as well. Eligible first-time buyers can claim an MLTT rebate of up to $4,475, on top of Ontario’s $4,000 refund, for a combined maximum of $8,475. Mississauga, Ottawa, Hamilton, and other Ontario cities do not charge Toronto’s MLTT, so they do not get the $4,475 municipal rebate. Your lawyer usually claims both rebates at registration. If not, Ontario gives you 18 months to apply to the Ministry of Finance; confirm Toronto’s deadline with the City.
+                  </p>
+                  <p>
+                    Typical tests: you are at least 18, a Canadian citizen or permanent resident (Toronto allows a path to claim the municipal rebate if you become a citizen or permanent resident within 18 months — confirm with the City), you will occupy the home as your principal residence within nine months, and neither you nor your spouse owned a home anywhere while you were spouses. The calculator’s Toronto estimate applies a second tax on the provincial brackets. The City’s MLTT schedule is what is collected if the brackets differ.
+                  </p>
+                </div>
+              </section>
+
+              <section className="card-default p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  British Columbia first-time buyer property transfer tax
+                </h2>
+                <div className="text-slate-600 space-y-4">
+                  <p>
+                    British Columbia calls this property transfer tax, not land transfer tax. Standard PTT is 1% on the first $200,000 of fair market value, 2% from $200,000 to $2 million, 3% from $2 million to $3 million, and 5% above $3 million.
+                  </p>
+                  <p>
+                    {`For registrations on or after 1 April 2024, the first-time home buyers’ program exempts PTT on the first $500,000 of value (a maximum exemption of $${bcMax}). The full program applies when fair market value is at or below $${bcFull}. Between $${bcFull} and $${bcPhaseOut} the exemption phases out. At $${bcPhaseOut} and above it is $0. Those ceilings are the same constants the calculator uses.`}
+                  </p>
+                  <p>
+                    {`The exemption also expects a residential property you will live in, generally under 0.5 hectares, with the buyers meeting the province’s first-time and citizenship tests. Many Metro Vancouver purchases sit above $${bcPhaseOut}, so first-time status does not erase PTT. Additional property transfer tax on foreign entities in specified areas is separate and is not modelled here. Confirm the file with your notary and the current page on gov.bc.ca.`}
+                  </p>
                 </div>
               </section>
 

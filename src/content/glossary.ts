@@ -87,6 +87,20 @@ export const relatedToolsMap: Record<string, { href: string; label: string }[]> 
   ],
 };
 
+/** Terms featured at the top of /glossary/ for the "mortgage terms" query. */
+export const ESSENTIAL_MORTGAGE_TERM_SLUGS = [
+  "fixed-rate-mortgage",
+  "variable-rate-mortgage",
+  "mortgage-term",
+  "amortization-period",
+  "stress-test",
+  "posted-rate",
+  "heloc",
+  "gds-ratio",
+  "renewal",
+  "down-payment",
+] as const;
+
 export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Amortization Period",

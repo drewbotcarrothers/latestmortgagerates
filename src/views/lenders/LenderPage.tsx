@@ -4,7 +4,10 @@ import FAQSection from "@/components/FAQSection";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import TodaysLenderRates from "@/components/TodaysLenderRates";
 import { compareHref, comparisonsForLender } from "@/lib/compare";
+import { STRIKING_DISTANCE_SLUGS } from "@/lib/todaysRates";
+import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
 import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 
 // Force static generation for static export
@@ -30,6 +33,11 @@ interface LenderRelatedLink {
   label: string;
 }
 
+interface LenderExtraSection {
+  heading: string;
+  html: string;
+}
+
 interface LenderContent {
   name: string;
   tagline: string;
@@ -44,6 +52,7 @@ interface LenderContent {
   shoppingTips?: string[];
   faqs?: LenderFaq[];
   relatedLinks?: LenderRelatedLink[];
+  extraSections?: LenderExtraSection[];
 }
 
 // Get lender content by slug
@@ -94,7 +103,7 @@ function generateStructuredData(lenderName: string, rates: Rate[], slug: string)
     "@context": "https://schema.org",
     "@type": "FinancialProduct",
     name: `${lenderName} Mortgage`,
-    description: `Current ${lenderName} mortgage rates in Canada. Compare fixed and variable terms.`,
+    description: `Current ${lenderRatesKeyword(lenderName)} in Canada. Compare fixed and variable terms.`,
     url: pageUrl,
     provider: {
       "@type": "BankOrCreditUnion",
@@ -109,7 +118,7 @@ function generateStructuredData(lenderName: string, rates: Rate[], slug: string)
   };
 }
 
-export default function LenderPage({ slug }: { slug: string }) {
+export default function LenderPage({ slug, buildDateIso }: { slug: string; buildDateIso: string }) {
   const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
   
   if (lenderRates.length === 0) {
@@ -284,10 +293,10 @@ export default function LenderPage({ slug }: { slug: string }) {
               </div>
               <div className="min-w-0 flex-1">
                 <h1 className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl">
-                  {lenderName} Mortgage Rates
+                  {lenderRatesHeading(lenderName)}
                 </h1>
                 <p className="mt-1 text-slate-600">
-                  {content?.heroIntro || `Compare current ${lenderName} mortgage rates in Canada`}
+                  {content?.heroIntro || `Compare current ${lenderRatesKeyword(lenderName)} in Canada`}
                 </p>
                 {content?.tagline ? (
                   <p className="mt-1 text-sm font-medium text-teal-700">{content.tagline}</p>
@@ -302,6 +311,10 @@ export default function LenderPage({ slug }: { slug: string }) {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {(STRIKING_DISTANCE_SLUGS as readonly string[]).includes(slug) && (
+          <TodaysLenderRates lenderName={lenderName} rates={lenderRates} buildDateIso={buildDateIso} />
+        )}
+
         {/* Best Rates Hero — 4-card layout matching homepage */}
         <div className="hero-gradient rounded-2xl p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
@@ -676,7 +689,7 @@ export default function LenderPage({ slug }: { slug: string }) {
                         <div>
                           <p>{lenderName} is a Canadian mortgage lender offering competitive rates and flexible mortgage products. 
                           Their mortgage solutions cater to first-time homebuyers, renewals, refinances, and investment properties.</p>
-                          <p>Compare {lenderName} mortgage rates above to find the best option for your home financing needs. 
+                          <p>Compare {lenderRatesKeyword(lenderName)} above to find the best option for your home financing needs. 
                           Their product lineup includes fixed-rate and variable-rate mortgages with various term lengths.</p>
                         </div>
                       );
@@ -737,7 +750,8 @@ export default function LenderPage({ slug }: { slug: string }) {
             Boolean(content.howRatesCompare) ||
             Boolean(content.shoppingTips?.length) ||
             Boolean(content.faqs?.length) ||
-            Boolean(content.relatedLinks?.length);
+            Boolean(content.relatedLinks?.length) ||
+            Boolean(content.extraSections?.length);
           if (!hasDepth) return null;
 
           return (
@@ -791,6 +805,16 @@ export default function LenderPage({ slug }: { slug: string }) {
                   </ul>
                 </section>
               )}
+
+              {content.extraSections?.map((section) => (
+                <section key={section.heading} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-3">{section.heading}</h2>
+                  <div
+                    className="text-slate-600 leading-relaxed space-y-3 [&_a]:text-teal-600 [&_a]:font-medium [&_a]:hover:underline [&_p]:mb-3"
+                    dangerouslySetInnerHTML={{ __html: section.html }}
+                  />
+                </section>
+              ))}
 
               {content.faqs && content.faqs.length > 0 && (
                 <FAQSection faqs={content.faqs} />

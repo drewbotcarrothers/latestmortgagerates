@@ -48,9 +48,9 @@ export default function Header({
               />
             </a>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">
+              <p className="text-2xl font-bold text-slate-900">
                 Latest Mortgage Rates Canada
-              </h1>
+              </p>
               <p className="text-slate-500 text-sm max-w-xl">
                 Compare current rates from Canada&apos;s top lenders including Big 6 Banks and monoline lenders. Updated twice daily.
               </p>

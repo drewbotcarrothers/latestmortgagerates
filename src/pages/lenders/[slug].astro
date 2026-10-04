@@ -3,11 +3,16 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import LenderPage from "../../views/lenders/LenderPage";
 import ratesData from "../../../data/rates.json";
 import lenderContentData from "../../content/lenderContent.json";
+import { formatBuildMonthYear } from "../../lib/buildDate";
+import { lenderRatesKeyword, lenderSeoDescription, lenderSeoTitle, type LenderRateRow } from "../../lib/lenderSeo";
 
 interface Rate {
   lender_name: string;
   lender_slug: string;
+  term_months: number;
+  rate_type: string;
   rate: number;
+  mortgage_type?: string | null;
 }
 
 interface LenderContent {
@@ -26,21 +31,24 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const lenderRates = (ratesData as Rate[]).filter((r) => r.lender_slug === slug);
 const lenderName = lenderRates[0]?.lender_name || slug;
-const lowestRate = lenderRates.length ? Math.min(...lenderRates.map((r) => r.rate)) : 0;
 const content = (lenderContentData as Record<string, LenderContent>)[slug || ""] || {};
-const title = content.seoTitle || `${lenderName} Mortgage Rates | Latest Mortgage Rates Canada`;
-const description = content.seoDescription
-  ? content.seoDescription
-  : content.overview
-    ? `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. ${content.tagline || ""} Updated daily.`
-    : `Compare current ${lenderName} mortgage rates in Canada. Fixed and variable rates from ${lowestRate.toFixed(2)}%. Updated daily with the latest rates.`;
+const builtAt = new Date();
+const monthYear = formatBuildMonthYear(builtAt);
+const title = lenderSeoTitle(slug || "", lenderName, monthYear, content.seoTitle);
+const description = lenderSeoDescription({
+  slug: slug || "",
+  lenderName,
+  stored: content.seoDescription,
+  tagline: content.tagline,
+  rates: lenderRates as LenderRateRow[],
+});
 ---
 
 <BaseLayout
   title={title}
   description={description}
   canonical={`https://latestmortgagerates.ca/lenders/${slug}/`}
-  keywords={[`${lenderName} mortgage rates`, `${lenderName} rates`, "Canadian mortgage rates", ...(content.seoKeywords || [])].join(", ")}
+  keywords={[lenderRatesKeyword(lenderName), `${lenderName} rates`, "Canadian mortgage rates", ...(content.seoKeywords || [])].join(", ")}
 >
-  <LenderPage slug={slug!} client:load />
+  <LenderPage slug={slug!} buildDateIso={builtAt.toISOString()} client:load />
 </BaseLayout>
