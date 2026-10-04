@@ -7,10 +7,16 @@ import {
   productLabel,
   type ProductCell,
 } from "@/lib/communityRates";
+import { frameRateChart, layoutRateLabels, type RatePointLabel } from "@/lib/rateChartLabels";
+import ChartRateLabel, { useRateLabelFont } from "@/components/community/ChartRateLabel";
 
 const NAVY = "#0f172a";
 const TEAL = "#0f766e";
 const AMBER = "#c2410c";
+const CHART_W = 640;
+const PLOT_LEFT = 42;
+const PLOT_WIDTH = 556;
+const LINE_Y = 56;
 
 function finite(values: Array<number | null | undefined>): number[] {
   return values.filter((value): value is number => typeof value === "number" && Number.isFinite(value));
@@ -29,7 +35,8 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
     ticks.push(Math.round(tick * 100) / 100);
   }
 
-  const x = (value: number) => ((value - domainMin) / (domainMax - domainMin)) * 600 + 20;
+  const x = (value: number) => PLOT_LEFT + ((value - domainMin) / (domainMax - domainMin)) * PLOT_WIDTH;
+  const { ref: chartRef, fontSize } = useRateLabelFont(CHART_W);
 
   return (
     <figure>
@@ -51,7 +58,7 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
         </li>
       </ul>
       <div className="space-y-4">
-        {products.map((product) => {
+        {products.map((product, index) => {
           const points = finite([product.median, product.lowestPosted, product.big5PostedMedian]);
           const label = productLabel(product);
           const small = product.n < PUBLIC_MIN_N;
@@ -65,6 +72,43 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
               ? `Big-5 posted median ${formatRate(product.big5PostedMedian)}, reported median is ${formatSpread(product.spreadVsBig5Median)} it.`
               : "",
           ].join(" ");
+          const markers: Array<RatePointLabel & { tooltip: string; shape: "circle" | "diamond" }> = [];
+          if (product.big5PostedMedian != null) {
+            markers.push({
+              id: "big5",
+              x: x(product.big5PostedMedian),
+              text: formatRate(product.big5PostedMedian),
+              color: NAVY,
+              side: "above",
+              shape: "circle",
+              tooltip: `Big-5 posted median ${formatRate(product.big5PostedMedian)}`,
+            });
+          }
+          if (product.lowestPosted != null) {
+            markers.push({
+              id: "lowest",
+              x: x(product.lowestPosted),
+              text: formatRate(product.lowestPosted),
+              color: AMBER,
+              side: "above",
+              shape: "diamond",
+              tooltip: `Lowest posted ${formatRate(product.lowestPosted)}${product.lowestPostedLender ? ` at ${lenderName(product.lowestPostedLender)}` : ""}`,
+            });
+          }
+          markers.push({
+            id: "median",
+            x: x(product.median),
+            text: formatRate(product.median),
+            color: TEAL,
+            side: "below",
+            shape: "circle",
+            tooltip: `Reported median ${formatRate(product.median)}`,
+          });
+          const frame = frameRateChart(
+            layoutRateLabels(markers, { lineY: LINE_Y, fontSize, minX: 6, maxX: CHART_W - 6 }),
+            LINE_Y,
+          );
+          const lineY = frame.lineY;
           return (
             <div key={`${product.termMonths}-${product.rateType}-${product.insured}`} className="grid grid-cols-1 gap-1 sm:grid-cols-[minmax(11rem,15rem)_1fr] sm:items-center">
               <div>
@@ -74,38 +118,39 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
                   {small ? " · small sample" : ""}
                 </p>
               </div>
-              <div className="overflow-x-auto">
+              <div ref={index === 0 ? chartRef : undefined} className="overflow-x-auto">
                 <svg
-                  viewBox="0 0 640 72"
-                  className="h-[72px] min-w-[520px] w-full"
+                  viewBox={`0 0 ${CHART_W} ${frame.height}`}
+                  className="h-auto w-full"
                   role="img"
                   aria-label={description}
                 >
                   <title>{label}</title>
                   <desc>{description}</desc>
-                  <line x1={x(domainMin)} x2={x(domainMax)} y1={36} y2={36} stroke="#e2e8f0" strokeWidth={8} strokeLinecap="round" />
+                  <line x1={x(domainMin)} x2={x(domainMax)} y1={lineY} y2={lineY} stroke="#e2e8f0" strokeWidth={8} strokeLinecap="round" />
                   {points.length > 1 && (
                     <line
                       x1={x(Math.min(...points))}
                       x2={x(Math.max(...points))}
-                      y1={36}
-                      y2={36}
+                      y1={lineY}
+                      y2={lineY}
                       stroke="#cbd5e1"
                       strokeWidth={3}
                     />
                   )}
-                  {product.big5PostedMedian != null && (
-                    <circle cx={x(product.big5PostedMedian)} cy={36} r={7} fill={NAVY} />
-                  )}
-                  {product.lowestPosted != null && (
-                    <polygon
-                      points={diamond(x(product.lowestPosted), 36, 7)}
-                      fill="#fff"
-                      stroke={AMBER}
-                      strokeWidth={2}
-                    />
-                  )}
-                  <circle cx={x(product.median)} cy={36} r={7} fill={TEAL} />
+                  {markers.map((marker) => (
+                    <g key={marker.id}>
+                      <title>{marker.tooltip}</title>
+                      {marker.shape === "diamond" ? (
+                        <polygon points={diamond(marker.x, lineY, 7)} fill="#fff" stroke={marker.color} strokeWidth={2} />
+                      ) : (
+                        <circle cx={marker.x} cy={lineY} r={7} fill={marker.color} />
+                      )}
+                    </g>
+                  ))}
+                  {frame.labels.map((rateLabel) => (
+                    <ChartRateLabel key={rateLabel.id} label={rateLabel} />
+                  ))}
                 </svg>
               </div>
               <p className="text-xs leading-relaxed text-slate-600 sm:col-start-2">

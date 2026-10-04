@@ -9,9 +9,15 @@ import {
   termLabel,
   type LenderProduct,
 } from "@/lib/communityRates";
+import { frameRateChart, layoutRateLabels } from "@/lib/rateChartLabels";
+import ChartRateLabel, { useRateLabelFont } from "@/components/community/ChartRateLabel";
 
 const NAVY = "#0f172a";
 const TEAL = "#0f766e";
+const CHART_W = 600;
+const PLOT_LEFT = 40;
+const PLOT_WIDTH = 520;
+const LINE_Y = 52;
 
 export interface BankGapRow {
   lenderSlug: string;
@@ -49,13 +55,14 @@ export function omittedPostedNotes(): string[] {
 }
 
 export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapRow[] }) {
+  const { ref: chartRef, fontSize } = useRateLabelFont(CHART_W);
   if (rows.length === 0) return null;
   const values = rows.flatMap((row) => [row.product.reportedMedian, row.product.postedRate as number]);
   const min = Math.min(...values);
   const max = Math.max(...values);
   const domainMin = Math.floor((min - 0.2) * 4) / 4;
   const domainMax = Math.ceil((max + 0.2) * 4) / 4;
-  const x = (value: number) => ((value - domainMin) / (domainMax - domainMin)) * 560 + 16;
+  const x = (value: number) => PLOT_LEFT + ((value - domainMin) / (domainMax - domainMin)) * PLOT_WIDTH;
 
   return (
     <figure>
@@ -67,11 +74,34 @@ export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapR
         <li className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ background: NAVY }} /> Bank posted rate</li>
       </ul>
       <div className="space-y-4">
-        {rows.map(({ lenderSlug, product }) => {
+        {rows.map(({ lenderSlug, product }, index) => {
           const small = product.n < PUBLIC_MIN_N;
           const name = `${lenderName(lenderSlug)} · ${termLabel(product.termMonths)} ${product.rateType}`;
           const posted = product.postedRate as number;
           const description = `${name}, N = ${product.n}${small ? ", small sample" : ""}. Reported median ${formatRate(product.reportedMedian)}. Posted ${formatRate(posted)}. Reported median is ${formatSpread(product.spreadVsPosted)} the posted rate.`;
+          const markers = [
+            {
+              id: "posted",
+              x: x(posted),
+              text: formatRate(posted),
+              color: NAVY,
+              side: "above" as const,
+              tooltip: `Bank posted rate ${formatRate(posted)}`,
+            },
+            {
+              id: "median",
+              x: x(product.reportedMedian),
+              text: formatRate(product.reportedMedian),
+              color: TEAL,
+              side: "below" as const,
+              tooltip: `Reported median ${formatRate(product.reportedMedian)}`,
+            },
+          ];
+          const frame = frameRateChart(
+            layoutRateLabels(markers, { lineY: LINE_Y, fontSize, minX: 6, maxX: CHART_W - 6 }),
+            LINE_Y,
+          );
+          const lineY = frame.lineY;
           return (
             <div key={`${lenderSlug}-${product.termMonths}-${product.rateType}`}>
               <div className="grid grid-cols-1 gap-1 sm:grid-cols-[minmax(12rem,16rem)_1fr] sm:items-center">
@@ -79,14 +109,21 @@ export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapR
                   <p className="text-sm font-semibold text-slate-900">{name}</p>
                   <p className="text-xs text-slate-500">N = {product.n}{small ? " · small sample" : ""}</p>
                 </div>
-                <div className="overflow-x-auto">
-                  <svg viewBox="0 0 600 64" className="h-16 min-w-[480px] w-full" role="img" aria-label={description}>
+                <div ref={index === 0 ? chartRef : undefined} className="overflow-x-auto">
+                  <svg viewBox={`0 0 ${CHART_W} ${frame.height}`} className="h-auto w-full" role="img" aria-label={description}>
                     <title>{name}</title>
                     <desc>{description}</desc>
-                    <line x1={x(domainMin)} x2={x(domainMax)} y1={32} y2={32} stroke="#e2e8f0" strokeWidth={8} strokeLinecap="round" />
-                    <line x1={x(Math.min(product.reportedMedian, posted))} x2={x(Math.max(product.reportedMedian, posted))} y1={32} y2={32} stroke="#cbd5e1" strokeWidth={3} />
-                    <circle cx={x(posted)} cy={32} r={7} fill={NAVY} />
-                    <circle cx={x(product.reportedMedian)} cy={32} r={7} fill={TEAL} />
+                    <line x1={x(domainMin)} x2={x(domainMax)} y1={lineY} y2={lineY} stroke="#e2e8f0" strokeWidth={8} strokeLinecap="round" />
+                    <line x1={x(Math.min(product.reportedMedian, posted))} x2={x(Math.max(product.reportedMedian, posted))} y1={lineY} y2={lineY} stroke="#cbd5e1" strokeWidth={3} />
+                    {markers.map((marker) => (
+                      <g key={marker.id}>
+                        <title>{marker.tooltip}</title>
+                        <circle cx={marker.x} cy={lineY} r={7} fill={marker.color} />
+                      </g>
+                    ))}
+                    {frame.labels.map((rateLabel) => (
+                      <ChartRateLabel key={rateLabel.id} label={rateLabel} />
+                    ))}
                   </svg>
                 </div>
               </div>
