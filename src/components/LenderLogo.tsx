@@ -19,17 +19,23 @@ function Monogram({
   size: LogoSize;
   label: string;
 }) {
-  const height = size === "xs" ? 20 : size === "sm" ? 28 : size === "md" ? 32 : 40;
+  const box = logoBox(size);
+  const mark = box.height;
   const text =
     size === "xs" ? "text-[9px]" : size === "sm" ? "text-[10px]" : size === "lg" ? "text-sm" : "text-xs";
   return (
     <span
-      role="img"
-      aria-label={label}
-      className={`${text} inline-flex items-center justify-center rounded-md font-bold text-white shrink-0 shadow-sm`}
-      style={{ width: height, height, backgroundColor: color }}
+      className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-md bg-white ring-1 ring-inset ring-slate-200"
+      style={{ width: box.width, height: box.height }}
     >
-      {initials}
+      <span
+        role="img"
+        aria-label={label}
+        className={`${text} inline-flex items-center justify-center rounded font-bold text-white`}
+        style={{ width: mark, height: mark, backgroundColor: color }}
+      >
+        {initials}
+      </span>
     </span>
   );
 }
@@ -43,14 +49,12 @@ export default function LenderLogo({
   const record = lenderLogoRecord(lenderSlug);
   const name = record?.name || lenderSlug;
   const label = `${name} logo`;
-  const box = record && record.kind === "logo" && record.file
-    ? logoBox(record.width, record.height, size)
-    : null;
+  const box = logoBox(size);
 
   const mark =
-    record?.kind === "logo" && record.file && box ? (
+    record?.kind === "logo" && record.file ? (
       <span
-        className="inline-flex items-center justify-center shrink-0 overflow-hidden rounded-md border border-slate-200 bg-white p-0.5 box-border"
+        className="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-md bg-white ring-1 ring-inset ring-slate-200"
         style={{ width: box.width, height: box.height }}
       >
         <img
@@ -60,7 +64,8 @@ export default function LenderLogo({
           height={box.height}
           loading={loading}
           decoding="async"
-          className="max-h-full max-w-full object-contain"
+          className="block h-full w-full max-w-none object-contain"
+          style={{ width: box.width, height: box.height }}
         />
       </span>
     ) : (
@@ -73,9 +78,9 @@ export default function LenderLogo({
     );
 
   return (
-    <span className="inline-flex items-center gap-2 min-w-0">
+    <span className={`inline-flex items-center gap-2 ${showText ? "min-w-0 max-w-full" : "shrink-0"}`}>
       {mark}
-      {showText ? <span className="font-medium text-slate-900 truncate">{name}</span> : null}
+      {showText ? <span className="min-w-0 truncate font-medium text-slate-900">{name}</span> : null}
     </span>
   );
 }
