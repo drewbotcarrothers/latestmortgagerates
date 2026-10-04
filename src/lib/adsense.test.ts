@@ -66,6 +66,8 @@ const AD_FREE = [
   "src/views/widget/WidgetPage.tsx",
   "src/views/privacy/PrivacyPage.tsx",
   "src/views/terms/TermsPage.tsx",
+  "src/views/subscribe/ConfirmedPage.tsx",
+  "src/views/subscribe/ThankYouPage.tsx",
 ];
 
 describe("AdSense config", () => {

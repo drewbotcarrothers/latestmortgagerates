@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/subscribe/ConfirmedPage";
+---
+<BaseLayout
+  title="You're subscribed | Latest Mortgage Rates Canada"
+  description="You're subscribed to weekly Canadian mortgage rate updates, Bank of Canada decision recaps, and rate-drop alerts."
+  canonical="https://latestmortgagerates.ca/subscribe/confirmed/"
+  noIndex={true}
+  robots="noindex, follow"
+>
+  <Page client:load />
+</BaseLayout>

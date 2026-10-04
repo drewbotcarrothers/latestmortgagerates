@@ -144,6 +144,8 @@ function isIndexableSitemapUrl(page) {
   if (path.startsWith("/widget")) return false;
   if (path.startsWith("/unsubscribed")) return false;
   if (path.startsWith("/unsubscribe")) return false;
+  if (path.startsWith("/subscribe/confirmed")) return false;
+  if (path.startsWith("/subscribe/thank-you")) return false;
   if (path.startsWith("/api/")) return false;
   return true;
 }

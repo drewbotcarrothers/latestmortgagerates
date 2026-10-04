@@ -8,6 +8,8 @@ interface Props {
   keywords?: string;
   ogType?: string;
   noIndex?: boolean;
+  /** Replaces the default robots meta. Pass noIndex as well to keep AdSense off. */
+  robots?: string;
 }
 
 const {
@@ -17,7 +19,14 @@ const {
   keywords = "mortgage rates Canada, Canadian mortgage rates, fixed mortgage rates, variable mortgage rates, Big 5 banks, monoline lenders, best mortgage rates, compare mortgage rates",
   ogType = "website",
   noIndex = false,
+  robots,
 } = Astro.props;
+
+const robotsContent =
+  robots ??
+  (noIndex
+    ? "noindex, nofollow"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).toString();
 const ogImage = "https://latestmortgagerates.ca/logo.png";
@@ -38,11 +47,7 @@ const ogImage = "https://latestmortgagerates.ca/logo.png";
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
-    {noIndex ? (
-      <meta name="robots" content="noindex, nofollow" />
-    ) : (
-      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    )}
+    <meta name="robots" content={robotsContent} />
     <meta name="google-site-verification" content="Ig1eCo0oeTZP3easNZIpTQWufSfctB_5d5BwYSdkjWc" />
 
     <meta property="og:title" content={title} />
