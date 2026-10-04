@@ -18,7 +18,7 @@ export default function ConfirmedPage() {
             You&apos;re subscribed!
           </h1>
           <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300">
-            Thanks for confirming. You&apos;re on the Latest Mortgage Rates Canada list for Canadian mortgage rate updates.
+            Thanks for confirming. You&apos;re on the list for the monthly mortgage rate report.
           </p>
         </div>
 
@@ -37,7 +37,7 @@ export default function ConfirmedPage() {
               How often
             </h2>
             <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">
-              Weekly. One email a week covers the rate roundup, Bank of Canada decision recaps, and rate-drop alerts.
+              Monthly. One email a month covers the lowest posted rates, what Canadians report getting below posted, and Bank of Canada recaps.
             </p>
           </div>
           <InboxTip />

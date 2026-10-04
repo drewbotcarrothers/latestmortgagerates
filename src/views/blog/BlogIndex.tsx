@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import RateHubLinks from "@/components/RateHubLinks";
 import { blogPosts, categories, getFeaturedPosts, getRecentPosts } from "@/content/blog";
 
@@ -155,27 +156,8 @@ export default function BlogPage() {
           ))}
         </div>
 
-        <div className="mt-16 bg-white rounded-xl p-8 border border-slate-200">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Never Miss an Update</h3>
-              <p className="text-slate-600">Subscribe to our weekly mortgage rate roundup and market analysis.</p>
-            </div>
-            
-            <form className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 min-w-[280px]"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors whitespace-nowrap"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
+        <div className="mt-16">
+          <NewsletterSignup variant="card" />
         </div>
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">

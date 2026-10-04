@@ -117,9 +117,9 @@ export default function RateDropBanner() {
                   : `${drops.length} mortgage products dropped in rate today!`}
               </p>
               <p className="text-xs text-emerald-100 mt-0.5 hidden md:block">
-                Get notified when rates drop by signing up for our Rate Alert.{" "}
+                Get the monthly mortgage rate report.{" "}
                 <a href="#rate-alert" className="underline hover:text-white font-semibold">
-                  Sign up now
+                  Subscribe
                 </a>
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function RateDropBanner() {
               href="#rate-alert"
               className="text-xs bg-white text-emerald-700 font-semibold px-3 py-1.5 rounded-lg hover:bg-emerald-50 transition-colors whitespace-nowrap"
             >
-              Get Alerts
+              Subscribe
             </a>
             <button
               onClick={handleDismiss}

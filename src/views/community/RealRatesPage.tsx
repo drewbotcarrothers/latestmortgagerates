@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import AdUnit from "@/components/AdUnit";
 import FAQSection from "@/components/FAQSection";
 import GuideCTA from "@/components/GuideCTA";
@@ -175,6 +176,8 @@ export default function RealRatesPage() {
           <FAQSection faqs={faqs} title="Real mortgage rate questions" />
 
           <GuideCTA />
+
+          <NewsletterSignup variant="card" />
         </div>
         <Footer />
       </main>

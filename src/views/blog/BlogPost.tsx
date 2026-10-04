@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import RelatedArticles from "@/components/RelatedArticles";
 import RelatedTools from "@/components/RelatedTools";
 import GlossaryLink from "@/components/GlossaryLink";
@@ -298,6 +299,10 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             </div>
           )}
         </article>
+
+        <div className="mx-auto max-w-4xl px-4 pb-12">
+          <NewsletterSignup variant="card" />
+        </div>
 
         <Footer />
       </main>

@@ -1,5 +1,6 @@
 import LenderLogo from "@/components/LenderLogo";
 import Header from "@/components/Header";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import FAQSection from "@/components/FAQSection";
 import RateHubLinks from "@/components/RateHubLinks";
 import GuideCTA from "@/components/GuideCTA";
@@ -838,6 +839,10 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
             Compare All Rates
           </a>
         </section>
+
+        <div className="mt-8">
+          <NewsletterSignup variant="card" />
+        </div>
 
         {/* Footer */}
         <footer className="mt-8 text-center text-sm text-slate-500">
