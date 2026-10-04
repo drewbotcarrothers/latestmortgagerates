@@ -49,7 +49,7 @@ export default function Header({
               height={40}
               className="h-10 w-10 rounded-lg"
             />
-            <span className="hidden whitespace-nowrap text-sm font-semibold tracking-tight text-slate-900 sm:block dark:text-white">
+            <span className="whitespace-nowrap text-lg font-bold tracking-tight text-slate-900 lg:text-xl dark:text-white">
               Latest Mortgage Rates
             </span>
           </a>
