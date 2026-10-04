@@ -491,12 +491,13 @@ export default function Navigation({ currentPage }: NavigationProps) {
       <div
         id={mobilePanelId}
         hidden={!mobileOpen}
-        className={`absolute inset-x-0 top-full z-50 border-t border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900 lg:hidden ${
+        style={mobileOpen ? { maxHeight: "calc(100dvh - 100%)" } : undefined}
+        className={`absolute inset-x-0 top-full z-50 overflow-y-auto border-t border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900 lg:hidden ${
           mobileOpen ? "" : "hidden"
         }`}
         onKeyDown={onMobileKeyDown}
       >
-        <div className="mx-auto max-h-[calc(100vh-4.5rem)] max-w-7xl overflow-y-auto px-4 py-4">
+        <div className="mx-auto max-w-7xl px-4 py-4">
           <GuideCta current={section === "ebook"} className="w-full" />
           {MENUS.map((menu) => (
             <div key={menu.id} className="mt-4">

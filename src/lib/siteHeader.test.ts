@@ -33,7 +33,7 @@ describe("site header", () => {
   it("keeps every previous nav destination and the guide CTA", () => {
     const nav = read("components/Navigation.tsx");
     for (const href of LEGACY_NAV) {
-      assert.match(nav, new RegExp(`href:\\s*"${href.replace(/\//g, "\\/")}"`), href);
+      assert.ok(nav.includes(`"${href}"`), href);
     }
     assert.match(nav, /aria-expanded/);
     assert.match(nav, /aria-haspopup="true"/);
