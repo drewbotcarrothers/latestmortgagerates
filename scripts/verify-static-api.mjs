@@ -100,7 +100,14 @@ if (locs.length < 50) {
   fail(`sitemap.xml only has ${locs.length} URLs`);
 }
 
-const blockedPrefixes = ["/widget/", "/unsubscribed/", "/unsubscribe/", "/api/"];
+const blockedPrefixes = [
+  "/widget/",
+  "/unsubscribed/",
+  "/unsubscribe/",
+  "/subscribe/confirmed/",
+  "/subscribe/thank-you/",
+  "/api/",
+];
 for (const loc of locs) {
   if (!loc.startsWith("https://latestmortgagerates.ca")) {
     fail(`sitemap URL is not canonical host: ${loc}`);
