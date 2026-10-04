@@ -42,7 +42,7 @@ interface Rate {
 }
 
 // Import rates and metadata from JSON files
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import metadata from "@data/metadata.json";
 
 function formatLastUpdated(iso?: string): string {

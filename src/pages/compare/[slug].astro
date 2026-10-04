@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ComparePage from "../../views/compare/ComparePage";
 import { COMPARISONS, compareContext, seoDescription, type MortgageRate } from "../../lib/compare";
-import ratesData from "../../../data/rates.json";
+import { publishedRates as ratesData } from "../../lib/publishedRates";
 
 export function getStaticPaths() {
   return COMPARISONS.map((page) => ({ params: { slug: page.slug } }));

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Page from "../../../views/rates/FiveYearFixedPage";
-import ratesData from "../../../../data/rates.json";
+import { publishedRates as ratesData } from "../../../lib/publishedRates";
 import { lenderCountLabel } from "../../../lib/lenderCount";
 
 interface Rate {

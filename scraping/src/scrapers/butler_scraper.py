@@ -12,8 +12,10 @@ unrelated sample percentages and must be ignored.
 The previous parser scanned page text for a term, took the next percentage,
 and assigned that number to both fixed and variable. The fixed column comes
 first, so every variable row duplicated the fixed rate. mortgage_type was
-hard-coded uninsured. This page does not say insured, uninsured, high-ratio,
-or conventional, so mortgage_type stays unset.
+hard-coded uninsured. The rate table does not print insured or uninsured.
+Butler's advertised rates are high-ratio (default-insured), so a row with
+no explicit label is mortgage_type insured. A heading that says uninsured
+or conventional is kept.
 """
 
 from __future__ import annotations
@@ -29,6 +31,7 @@ from typing import List, Optional
 from loguru import logger
 
 sys.path.append(str(Path(__file__).parent.parent))
+from butler_labels import label_unlabeled_butler_rates_insured
 from models import MortgageType, RateType, RawRate
 
 try:
@@ -240,7 +243,7 @@ def parse_butler_html(
                 },
             )
         )
-    return rates
+    return label_unlabeled_butler_rates_insured(rates)
 
 
 if __name__ == "__main__":

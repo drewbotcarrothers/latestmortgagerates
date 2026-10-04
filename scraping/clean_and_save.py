@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 from loguru import logger
 from models import RawRate, RateType, MortgageType
 from deduplicator import RateDeduplicator
+from butler_labels import label_unlabeled_butler_rates_insured
 
 
 def load_rates_from_json(filepath: str) -> List[RawRate]:
@@ -122,6 +123,14 @@ def main():
     logger.info(f"Loading rates from {input_file}...")
     rates = load_rates_from_json(input_file)
     logger.info(f"Loaded {len(rates)} raw rates")
+    unlabeled_butler = sum(
+        1 for rate in rates if rate.lender_slug == "butlermortgage" and rate.mortgage_type is None
+    )
+    rates = label_unlabeled_butler_rates_insured(rates)
+    if unlabeled_butler:
+        logger.info(
+            f"Labeled {unlabeled_butler} unlabeled Butler Mortgage rows as insured (high-ratio)"
+        )
     
     logger.info("Running deduplication and validation...")
     deduplicator = RateDeduplicator()

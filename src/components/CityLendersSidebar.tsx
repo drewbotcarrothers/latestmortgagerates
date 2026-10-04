@@ -1,6 +1,6 @@
 
 // Import rates data
-import ratesData from "@data/rates.json";
+import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
 
 interface Rate {
