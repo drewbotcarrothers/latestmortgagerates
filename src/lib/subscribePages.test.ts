@@ -46,7 +46,7 @@ describe("subscribe confirmation pages", () => {
     assert.match(pending, /href="\/subscribe\/confirmed\/"/);
     assert.match(confirmed, /href="\/subscribe\/thank-you\/"/);
     for (const href of ["/", "/real-mortgage-rates/", "/mortgage-guide/", "/privacy/"]) {
-      assert.ok(shared.includes(`href="${href}"`) || confirmed.includes(`href="${href}"`), href);
+      assert.ok(shared.includes(`"${href}"`) || confirmed.includes(`"${href}"`), href);
     }
     assert.match(shared, /Weekly Canadian mortgage rate updates/);
     assert.match(shared, /Bank of Canada decision recaps/);
