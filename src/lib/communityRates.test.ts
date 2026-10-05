@@ -88,8 +88,8 @@ describe("community rate publication rules", () => {
   });
 
   it("always exposes the as-of date, prime, and attribution", () => {
-    assert.equal(communityRates.asOf, "2026-10-03");
-    assert.equal(formatAsOf(), "October 3, 2026");
+    assert.equal(communityRates.asOf, "2026-10-04");
+    assert.equal(formatAsOf(), "October 4, 2026");
     assert.equal(communityRates.prime, 4.45);
     assert.equal(communityRates.attribution, "self-reported by Canadian borrowers online");
     assert.match(communityRates.disclaimer, /unverified/i);
@@ -127,7 +127,7 @@ describe("offer scoring", () => {
   it("ranks an offer against the sorted reports", () => {
     const fixed = distributionFor(60, "fixed", "all");
     assert.ok(fixed);
-    assert.equal(fixed.n, 62);
+    assert.equal(fixed.n, 63);
     assert.equal(nearestRank(fixed.rates, 25), fixed.p25);
     assert.ok(fixed.p25 <= fixed.median);
     assert.ok(fixed.median <= fixed.p75);
