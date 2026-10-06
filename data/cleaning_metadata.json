@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-06T09:56:04.107922",
+  "generated_at": "2026-10-06T16:59:50.215257",
   "total_rates": 223,
   "cleaning_stats": {
-    "input_count": 345,
+    "input_count": 344,
     "removed_aggregator": 0,
     "removed_duplicates": 19,
     "removed_unrealistic": 0,
     "removed_no_metadata": 1,
-    "removed_inferior": 102,
+    "removed_inferior": 101,
     "flagged_suspicious": 10,
     "output_count": 223,
     "by_lender": {
