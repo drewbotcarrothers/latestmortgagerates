@@ -32,9 +32,9 @@ export default function CityLocalContent({ slug }: CityLocalContentProps) {
         <h2 className="text-2xl font-bold text-slate-900 mb-2">{content.lttHeadline}</h2>
         <p className="text-slate-700 mb-4">{content.lttBody}</p>
         <p className="text-sm text-slate-600 mb-3">
-          Tax rules change. Confirm with your lawyer or notary before you go firm. Figures here match
-          provincial/municipal programs we cite in the pull request notes—not an invented {content.name}{" "}
-          average price.
+          Tax rules change. Confirm the figures with your lawyer or notary before you waive conditions.
+          Amounts on this page follow the provincial and municipal programs described here. They are not
+          a {content.name} average sale price.
         </p>
         <a
           href={content.lttToolHref}

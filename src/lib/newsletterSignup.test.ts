@@ -20,7 +20,7 @@ describe("Hostinger Reach newsletter signup", () => {
     assert.match(source, /IntersectionObserver/);
     assert.match(source, /Get the monthly mortgage rate report/);
     assert.match(source, /what Canadians actually got below posted/);
-    assert.match(source, /mailto:privacy@latestmortgagerates\.ca/);
+    assert.match(source, /mailto:contact@latestmortgagerates\.ca/);
     assert.equal((source.match(/<h1[\s>]/g) || []).length, 0);
     assert.doesNotMatch(source, /localStorage/);
     assert.doesNotMatch(source, /0\.05%/);

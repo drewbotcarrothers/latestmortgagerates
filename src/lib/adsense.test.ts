@@ -92,8 +92,9 @@ describe("AdSense config", () => {
 });
 
 describe("AdUnit component", () => {
-  it("reserves height, labels ads, and pushes once per mount", () => {
+  it("renders nothing without a slot id, and reserves height only for a real slot", () => {
     const source = read(join(SRC, "components/AdUnit.tsx"));
+    assert.match(source, /if \(!configured\) return null/);
     assert.match(source, /Advertisement/);
     assert.match(source, /min-h-\[250px\]/);
     assert.match(source, /min-h-\[280px\]/);
@@ -155,7 +156,7 @@ describe("AdSense placements", () => {
   it("does not load the AdSense script on noindex pages", () => {
     const layout = read(join(SRC, "layouts/BaseLayout.astro"));
     assert.match(layout, /noIndex/);
-    assert.match(layout, /adsbygoogle\.js\?client=ca-pub-7909541570116920/);
+    assert.match(layout, /pagead\/js\/adsbygoogle\.js\?client=ca-pub-7909541570116920/);
     assert.match(layout, /!noIndex/);
   });
 });

@@ -7,6 +7,7 @@
  */
 import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { INDEXED_CITY_SLUGS, isIndexablePath } from "../src/lib/indexedCities.mjs";
 
 const dist = join(process.cwd(), "dist");
 const api = join(dist, "api");
@@ -100,14 +101,20 @@ if (locs.length < 50) {
   fail(`sitemap.xml only has ${locs.length} URLs`);
 }
 
-const blockedPrefixes = [
-  "/widget/",
-  "/unsubscribed/",
-  "/unsubscribe/",
-  "/subscribe/confirmed/",
-  "/subscribe/thank-you/",
-  "/api/",
+const required = [
+  "https://latestmortgagerates.ca/",
+  "https://latestmortgagerates.ca/about/",
+  "https://latestmortgagerates.ca/contact/",
+  "https://latestmortgagerates.ca/disclaimer/",
+  "https://latestmortgagerates.ca/privacy/",
+  "https://latestmortgagerates.ca/terms/",
+  "https://latestmortgagerates.ca/glossary/",
+  "https://latestmortgagerates.ca/cities/",
+  ...INDEXED_CITY_SLUGS.map((slug) => `https://latestmortgagerates.ca/cities/${slug}/`),
 ];
+for (const url of required) {
+  if (!locs.includes(url)) fail(`sitemap missing ${url}`);
+}
 for (const loc of locs) {
   if (!loc.startsWith("https://latestmortgagerates.ca")) {
     fail(`sitemap URL is not canonical host: ${loc}`);
@@ -116,7 +123,7 @@ for (const loc of locs) {
     fail(`sitemap URL must use trailing slash: ${loc}`);
   }
   const path = loc.slice("https://latestmortgagerates.ca".length);
-  if (blockedPrefixes.some((prefix) => path === prefix || path.startsWith(prefix))) {
+  if (!isIndexablePath(path)) {
     fail(`sitemap must not include noindex/utility URL: ${loc}`);
   }
 }

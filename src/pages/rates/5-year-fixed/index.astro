@@ -16,11 +16,12 @@ const bestUninsured = filtered.filter((r) => r.mortgage_type === "uninsured").so
 const bestInsured = filtered.filter((r) => r.mortgage_type === "insured").sort((a, b) => a.rate - b.rate)[0];
 const u = bestUninsured?.rate.toFixed(2) || "N/A";
 const i = bestInsured?.rate.toFixed(2) || "N/A";
+const buildDateIso = new Date().toISOString();
 ---
 <BaseLayout
   title="5-Year Fixed Mortgage Rates Canada | Best Rates & Comparison"
   description={`Compare the best 5-year fixed mortgage rates in Canada. Best uninsured: ${u}%, best insured: ${i}%. Updated daily from ${lenderCountLabel} lenders.`}
   canonical="https://latestmortgagerates.ca/rates/5-year-fixed/"
 >
-  <Page client:load />
+  <Page buildDateIso={buildDateIso} client:load />
 </BaseLayout>
