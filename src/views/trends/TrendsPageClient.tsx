@@ -6,8 +6,10 @@ import RateTrendsFull from "@/components/RateTrendsFull";
 import RateTrends from "@/components/RateTrends";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import historicalJson from "@data/historical_rates.json";
+import type { HistoricalDataPoint } from "@/components/RateTrendsChart";
 
-const historicalData = (historicalJson as { data?: unknown[] }).data || [];
+const historicalData =
+  (historicalJson as { data?: HistoricalDataPoint[] }).data ?? [];
 
 interface Rate {
   lender_name: string;
