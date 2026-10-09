@@ -3,8 +3,10 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Page from "../../../views/rates/FiveYearFixedPage";
 import { publishedRates as ratesData } from "../../../lib/publishedRates";
 import { lenderCountLabel } from "../../../lib/lenderCount";
+import { countsTowardUninsuredHeadline } from "../../../lib/uninsuredHeadline";
 
 interface Rate {
+  lender_slug?: string;
   rate: number;
   term_months: number;
   rate_type: string;
@@ -12,7 +14,7 @@ interface Rate {
 }
 
 const filtered = (ratesData as Rate[]).filter((r) => r.term_months === 60 && r.rate_type === "fixed");
-const bestUninsured = filtered.filter((r) => r.mortgage_type === "uninsured").sort((a, b) => a.rate - b.rate)[0];
+const bestUninsured = filtered.filter((r) => countsTowardUninsuredHeadline(r)).sort((a, b) => a.rate - b.rate)[0];
 const bestInsured = filtered.filter((r) => r.mortgage_type === "insured").sort((a, b) => a.rate - b.rate)[0];
 const u = bestUninsured?.rate.toFixed(2) || "N/A";
 const i = bestInsured?.rate.toFixed(2) || "N/A";
