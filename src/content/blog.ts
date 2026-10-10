@@ -1164,7 +1164,7 @@ export const blogPosts: BlogPost[] = [
       <span class="w-6 h-6 rounded-full bg-slate-400 text-white text-xs font-bold flex items-center justify-center">4</span>
       <strong class="font-semibold text-slate-800">Re-check qualification</strong>
     </div>
-    <p class="text-sm text-slate-600">Use the stress test even if you are only switching lenders at renewal</p>
+    <p class="text-sm text-slate-600">A straight uninsured switch at renewal does not bring OSFI’s stress test back; a refinance or extra funds still does</p>
   </div>
 </div>
 

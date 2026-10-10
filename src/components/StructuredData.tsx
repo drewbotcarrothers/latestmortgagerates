@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { lenderCountLabel } from "@/lib/lenderCount";
 import { PRIME_RATE } from "@/lib/primeRate";
+import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 
 interface Rate {
   lender_name: string;
@@ -32,11 +33,11 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
     
     // Get best rates for featured snippets
     const best5YearFixed = rates
-      .filter((r) => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured")
+      .filter((r) => r.term_months === 60 && r.rate_type === "fixed" && countsTowardUninsuredHeadline(r))
       .sort((a, b) => a.rate - b.rate)[0];
 
     const best5YearVariable = rates
-      .filter((r) => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured")
+      .filter((r) => r.term_months === 60 && r.rate_type === "variable" && countsTowardUninsuredHeadline(r))
       .sort((a, b) => a.rate - b.rate)[0];
 
     const uniqueLenders = [...new Set(rates.map((r) => r.lender_slug))];

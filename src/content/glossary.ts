@@ -322,7 +322,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Stress Test",
     slug: "stress-test",
     category: "Qualification",
-    definition: "A requirement that borrowers qualify at a higher interest rate than their contract rate. You must qualify at the greater of your rate + 2% or the Bank of Canada 5-year benchmark rate (currently ~5.25%).",
+    definition: "A requirement that borrowers qualify at a higher interest rate than their contract rate. For a new mortgage or refinance at a federally regulated lender, you qualify at the greater of your contract rate plus 2 percentage points or 5.25%. Since November 21, 2024, OSFI does not require that prescribed rate on an uninsured straight switch to another federally regulated lender at renewal when the loan amount and remaining amortization do not increase. Insured straight switches were already exempt. Adding funds or refinancing still triggers the test.",
   },
   {
     term: "TDS Ratio (Total Debt Service)",

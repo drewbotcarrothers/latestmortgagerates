@@ -9,6 +9,7 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import LenderLogo from "@/components/LenderLogo";
 
 
@@ -28,7 +29,7 @@ const filteredRates = (ratesData as Rate[]).filter(
 );
 
 const bestUninsured = filteredRates
-  .filter((r) => r.mortgage_type === "uninsured")
+  .filter((r) => countsTowardUninsuredHeadline(r))
   .sort((a, b) => a.rate - b.rate)[0];
 
 const bestInsured = filteredRates

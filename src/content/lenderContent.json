@@ -67,7 +67,7 @@
       },
       {
         "title": "Refinance and switch",
-        "description": "TD can refinance an existing mortgage (subject to qualification) or receive a switch. Switching in from another lender is a new origination for stress-test purposes. Run the refinance calculator before you pay a penalty to move."
+        "description": "TD can refinance an existing mortgage or receive a switch. A refinance, or a switch that adds funds or extends the amortization, is stress-tested. An uninsured straight switch at renewal, with the same amount and amortization, is not subject to OSFI’s prescribed stress test (November 21, 2024). Run the refinance calculator before you pay a penalty to move."
       }
     ],
     "howRatesCompare": "<p>TD's <strong>posted</strong> rates are not the rates most qualified borrowers pay. Special or discounted offers are what belong in a comparison. The cards and matrix at the top of this page are pulled from our rate feed—use those figures, not a round number from an old article.</p><p>On a vanilla 5-year closed mortgage, TD often sits with other large banks: convenient, relationship-priced, and frequently a bit higher than aggressive monolines. That gap can shrink if you have a strong TD relationship, a high-ratio insured deal, or a FlexLine structure the bank wants to book. Always compare the same term, insured vs uninsured, and the same prepayment rules. Start with <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> hubs, then check digital channels such as <a href=\"/lenders/wealthsimple/\">Wealthsimple mortgage rates</a> before you assume a bank special is the market low.</p>",
@@ -75,7 +75,7 @@
       "Ask for the discounted rate in writing (term, insured vs uninsured, and whether cash-back is attached). Posted rate is a starting point, not the deal.",
       "If you hold other TD products, ask whether relationship pricing applies—and what happens to the rate if you later move your chequing account.",
       "Map FlexLine fees, HELOC prime spread, and the split between the term mortgage and the line of credit before you choose it over a simple closed mortgage.",
-      "At renewal, get TD's offer first, then compare it to the live table on our homepage. Staying can skip a new stress test; switching usually cannot.",
+      "At renewal, get TD's offer first, then compare it to the live table on our homepage. Staying skips a new stress test. An uninsured straight switch to another federally regulated lender does too, since OSFI's November 21, 2024 change, if the amount and amortization do not increase. A refinance or added funds still triggers it.",
       "Confirm current prepayment privileges on the exact product (the widely cited 15% lump sum and 100% payment increase are not universal across every TD mortgage vintage).",
       "Run GDS/TDS yourself with the affordability calculator and stress test calculator using TD's offered contract rate, then compare the actual payment with the mortgage payment calculator."
     ],
@@ -102,11 +102,11 @@
       },
       {
         "question": "Should I renew with TD or switch lenders?",
-        "answer": "Renewing with TD usually avoids a new stress test. Switching to another lender generally means qualifying again at the qualifying rate. If you would pass the stress test and another lender's rate is meaningfully lower after penalties and fees, switching can pay. If you are tight on GDS/TDS, TD's renewal offer may be the practical path even if it is not the lowest advertised rate."
+        "answer": "Renewing with TD usually avoids a new stress test. Since November 21, 2024, OSFI also does not require the stress test on an uninsured straight switch to another federally regulated lender at renewal when the loan amount and remaining amortization do not increase. Insured straight switches were already exempt. A refinance or added funds still triggers the test. If another lender's rate is meaningfully lower after penalties and fees, a straight switch can pay even when you would not pass the stress test on a larger loan."
       },
       {
         "question": "What are TD bank refinance rates?",
-        "answer": "TD bank refinance rates are the discounted fixed and variable specials in the table at the top of this page, not TD's posted rate. A refinance or a switch to TD is a new loan: TD qualifies you at the federal stress-test rate, the greater of the contract rate plus 2 percentage points or the 5.25 floor. Renewing an existing TD mortgage with TD usually does not require a new stress test. Compare the live rows with the TD vs RBC page before you pay a penalty to move, and estimate the break cost with the penalty and refinance calculators."
+        "answer": "TD bank refinance rates are the discounted fixed and variable specials in the table at the top of this page, not TD's posted rate. A refinance, or a switch that adds funds or extends the amortization, is qualified at the federal stress-test rate: the greater of the contract rate plus 2 percentage points or the 5.25 floor. An uninsured straight switch into TD at renewal, with the same amount and amortization, is not — OSFI stopped requiring that prescribed rate on November 21, 2024. Insured straight switches were already exempt. Renewing an existing TD mortgage with TD usually does not require a new stress test. Compare the live rows with the TD vs RBC page before you pay a penalty to move, and estimate the break cost with the penalty and refinance calculators."
       },
       {
         "question": "Where can I check TD mortgage affordability?",
@@ -116,7 +116,7 @@
     "extraSections": [
       {
         "heading": "TD bank refinance rates",
-        "html": "<p>TD bank refinance rates are the fixed and variable specials in the table at the top of this page. Do not use TD's posted rate, and do not look for a refinance percentage written into this paragraph — if it is not in the scrape, we do not have it.</p><p>A refinance with TD pays out your current mortgage and starts a new one. If you are leaving another lender, or breaking a TD term early, a penalty may apply. TD will qualify the new balance at the federal stress-test rate: the greater of the contract rate plus 2 percentage points or the 5.25 floor. Switching into TD is a new origination for that test. Renewing an existing TD mortgage and staying at TD is different: you usually do not have to pass the stress test again just to stay.</p><p>Put the live TD row next to <a href=\"/compare/td-vs-rbc/\">TD vs RBC</a> and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub before you pay a penalty. Estimate the break cost with the <a href=\"/tools/mortgage-penalty-calculator/\">penalty calculator</a> and whether the new payment wins with the <a href=\"/tools/refinance-calculator/\">refinance calculator</a>.</p>"
+        "html": "<p>TD bank refinance rates are the fixed and variable specials in the table at the top of this page. Do not use TD's posted rate, and do not look for a refinance percentage written into this paragraph — if it is not in the scrape, we do not have it.</p><p>A refinance with TD pays out your current mortgage and starts a new one. If you are leaving another lender early, or breaking a TD term early, a penalty may apply. A refinance, or a switch that adds funds or extends the amortization, is qualified at the federal stress-test rate: the greater of the contract rate plus 2 percentage points or the 5.25 floor. An uninsured straight switch into TD at renewal, with the same amount and the remaining amortization not extended, is not: OSFI stopped requiring that prescribed rate on November 21, 2024. Insured straight switches were already exempt. Renewing an existing TD mortgage and staying at TD also skips a new stress test.</p><p>Put the live TD row next to <a href=\"/compare/td-vs-rbc/\">TD vs RBC</a> and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub before you pay a penalty. Estimate the break cost with the <a href=\"/tools/mortgage-penalty-calculator/\">penalty calculator</a> and whether the new payment wins with the <a href=\"/tools/refinance-calculator/\">refinance calculator</a>.</p>"
       }
     ],
     "relatedLinks": [
@@ -408,7 +408,7 @@
       },
       {
         "question": "Can I renew a mortgage through Wealthsimple?",
-        "answer": "Wealthsimple's cash-back promotion is aimed at new mortgages, not typical renewals. A renewal you keep at the current lender usually skips a new stress test; moving the mortgage to a Wealthsimple partner is a new origination and usually means qualifying again. Ask which partner would fund a switch and read the penalty on the mortgage you would leave."
+        "answer": "Wealthsimple's cash-back promotion is aimed at new mortgages, not typical renewals. A renewal you keep at the current lender usually skips a new stress test. An uninsured straight switch to a federally regulated partner at renewal, with the same amount and amortization, is not subject to OSFI's prescribed stress test as of November 21, 2024. Insured straight switches were already exempt. A refinance or added funds still triggers the test. Ask which partner would fund a switch and read the penalty on the mortgage you would leave."
       },
       {
         "question": "Does Wealthsimple offer mortgages?",
@@ -440,7 +440,7 @@
       },
       {
         "question": "Can I refinance or switch my mortgage through Wealthsimple?",
-        "answer": "Yes. Wealthsimple says it works with partners on purchases, refinances, and switches, including owner-occupied, second homes, and rentals, with a stated minimum mortgage of $150,000. Pre-approvals are available. Qualification, stress testing, and product features still follow the partner lender and, on high-ratio deals, the default insurer."
+        "answer": "Yes. Wealthsimple says it works with partners on purchases, refinances, and switches, including owner-occupied, second homes, and rentals, with a stated minimum mortgage of $150,000. Pre-approvals are available. Qualification and product features still follow the partner lender and, on high-ratio deals, the default insurer. An uninsured straight switch at renewal is not subject to OSFI's prescribed stress test as of November 21, 2024; a purchase, refinance, or added funds still is."
       }
     ],
     "relatedLinks": [
@@ -778,7 +778,7 @@
       },
       {
         "question": "What are Meridian mortgage renewal rates?",
-        "answer": "A Meridian renewal rate is the offer on your existing mortgage at the end of the term, which can differ from the new-business rates in today's table. Staying with Meridian usually avoids a new stress test. Switching lenders usually means qualifying again. Compare the live table with your renewal letter before you decide."
+        "answer": "A Meridian renewal rate is the offer on your existing mortgage at the end of the term, which can differ from the new-business rates in today's table. Staying with Meridian usually avoids a new stress test. An uninsured straight switch to a federally regulated lender at renewal, with the same amount and amortization, is not subject to OSFI's stress test as of November 21, 2024. Meridian is a provincial credit union, so a switch into Meridian follows Meridian's own policy. A refinance or added funds still has to qualify. Compare the live table with your renewal letter before you decide."
       },
       {
         "question": "Does Meridian offer a HELOC?",
@@ -892,7 +892,7 @@
       },
       {
         "question": "What are Vancity mortgage renewal rates?",
-        "answer": "A renewal rate is the offer on your existing Vancity mortgage when the term ends. It can differ from the new-business rates in today's table. Staying usually skips a new stress test; moving the mortgage usually does not. Compare the letter with the live table before you decide."
+        "answer": "A renewal rate is the offer on your existing Vancity mortgage when the term ends. It can differ from the new-business rates in today's table. Staying usually skips a new stress test. An uninsured straight switch to a federally regulated lender at renewal, with the same amount and amortization, is not subject to OSFI's stress test as of November 21, 2024. Vancity is a provincial credit union, so a switch into Vancity follows Vancity's own policy. A refinance or added funds still has to qualify. Compare the letter with the live table before you decide."
       },
       {
         "question": "What are current Vancity mortgage rates?",
@@ -1052,7 +1052,7 @@
       },
       {
         "question": "What are ATB mortgage renewal rates?",
-        "answer": "An ATB renewal rate is the offer on your existing ATB mortgage at the end of the term. It can differ from the new-business rates in today's table. Staying with ATB usually avoids a new stress test. Switching to a federally regulated lender usually means qualifying again."
+        "answer": "An ATB renewal rate is the offer on your existing ATB mortgage at the end of the term. It can differ from the new-business rates in today's table. Staying with ATB usually avoids a new stress test. An uninsured straight switch from ATB to a federally regulated lender at renewal, with the same amount and amortization, is not subject to OSFI's stress test as of November 21, 2024. A refinance or added funds still has to qualify."
       },
       {
         "question": "Does ATB offer a HELOC?",

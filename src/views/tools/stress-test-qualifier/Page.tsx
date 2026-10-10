@@ -7,6 +7,7 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
+import { STRAIGHT_SWITCH_STRESS_TEST_CITE } from "@/content/osfiStressTest";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -29,12 +30,12 @@ const faqs = [
   {
     question: "Does the stress test apply to all mortgages?",
     answer:
-      "It applies to new mortgages and refinances from OSFI-regulated lenders (the big banks, most Schedule I banks, and federally regulated trusts). Insured (high-ratio) mortgages must also meet insurer rules, which include a qualifying-rate test. Renewing with your current lender typically does not require a new stress test. Switching lenders at renewal usually does. Provincial credit unions and private lenders set their own policies; they may skip or modify the federal test and price for the extra risk.",
+      `It applies to new mortgages and refinances from OSFI-regulated lenders (the big banks, most Schedule I banks, and federally regulated trusts). Insured (high-ratio) mortgages must also meet insurer rules, which include a qualifying-rate test. Renewing with your current lender typically does not require a new stress test. ${STRAIGHT_SWITCH_STRESS_TEST_CITE} Provincial credit unions and private lenders set their own policies; they may skip or modify the federal test and price for the extra risk.`,
   },
   {
     question: "Do I have to pass the stress test when I renew?",
     answer:
-      "If you stay with the same federally regulated lender, you generally do not re-qualify under the stress test just to renew. If you move the mortgage to a new lender, that new lender will qualify you as a new origination, including the qualifying-rate test. That is why a slightly higher renewal offer from your current bank can still be cheaper than switching if you would not pass elsewhere.",
+      `If you stay with the same federally regulated lender, you generally do not re-qualify under the stress test just to renew. ${STRAIGHT_SWITCH_STRESS_TEST_CITE} A straight switch can still be the practical choice when the new rate is lower after fees; a refinance that adds funds cannot skip the test.`,
   },
   {
     question: "Is the qualifying rate the same as the Bank of Canada overnight rate?",
@@ -105,7 +106,7 @@ export default function StressTestPage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Mortgage Stress Test Calculator</h1>
               <p className="text-xl text-slate-300">
                 Check whether your income, debts, and mortgage amount pass Canada’s qualifying-rate rules before you make an offer.
-                This page is for buyers, refinancers, and anyone switching lenders who needs a GDS/TDS read at the stress-test rate—not the payment on the rate sheet.
+                This page is for buyers, refinancers, and homeowners adding funds who need a GDS/TDS read at the stress-test rate—not the payment on the rate sheet.
               </p>
             </div>
           </div>
@@ -123,7 +124,7 @@ export default function StressTestPage() {
                   Who this calculator is for
                 </h2>
                 <p className="text-slate-600 mb-4">
-                  Use it when you want a fast yes/no on the federal-style stress test: salaried buyers getting pre-approved, couples combining income, and homeowners who might refinance or switch at renewal.
+                  Use it when you want a fast yes/no on the federal-style stress test: salaried buyers getting pre-approved, couples combining income, and homeowners who might refinance or add funds at renewal.
                   It is not a credit decision. Lenders still verify employment, down-payment source, credit score, and property type.
                 </p>
                 <p className="text-slate-600">
@@ -208,7 +209,8 @@ export default function StressTestPage() {
                     <a href="/tools/cmhc-insurance-calculator/" className="text-teal-600 hover:underline font-medium">CMHC calculator</a>.
                   </li>
                   <li>
-                    <strong className="text-slate-800">Same-lender renewals</strong> usually skip a new stress test. Shopping the renewal to a new lender brings it back.
+                    <strong className="text-slate-800">Same-lender renewals</strong> usually skip a new stress test. Since November 21, 2024, so does an uninsured straight switch to another federally regulated lender when the amount and remaining amortization do not increase. Insured straight switches were already exempt. A refinance or added funds brings the test back.{" "}
+                    <a href="https://www.osfi-bsif.gc.ca/en/news/backgrounder-minimum-qualifying-rate-mqr" className="text-teal-600 hover:underline font-medium">OSFI’s November 21, 2024 backgrounder</a> states the exemption.
                   </li>
                   <li>
                     <strong className="text-slate-800">Some provincial credit unions and private lenders</strong> use different qualification.{" "}
