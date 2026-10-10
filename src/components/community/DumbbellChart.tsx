@@ -9,10 +9,14 @@ import {
 } from "@/lib/communityRates";
 import { frameRateChart, layoutRateLabels, type RatePointLabel } from "@/lib/rateChartLabels";
 import ChartRateLabel, { useRateLabelFont } from "@/components/community/ChartRateLabel";
+import {
+  MARKER_RADIUS,
+  MARKER_STROKE,
+  diamondPoints,
+  dumbbellLegendItems,
+  type MarkerLegendItem,
+} from "@/lib/chartLegend";
 
-const NAVY = "#0f172a";
-const TEAL = "#0f766e";
-const AMBER = "#c2410c";
 const CHART_W = 640;
 const PLOT_LEFT = 42;
 const PLOT_WIDTH = 556;
@@ -37,25 +41,21 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
 
   const x = (value: number) => PLOT_LEFT + ((value - domainMin) / (domainMax - domainMin)) * PLOT_WIDTH;
   const { ref: chartRef, fontSize } = useRateLabelFont(CHART_W);
+  const legend = dumbbellLegendItems(products);
+  const legendById = new Map(legend.map((item) => [item.id, item]));
 
   return (
     <figure>
       <figcaption className="mb-3 text-sm text-slate-600">
         Each row runs from the rate borrowers report to the Big-5 posted median. A hollow diamond is the lowest posted rate from any lender in the snapshot.
       </figcaption>
-      <ul className="mb-4 flex flex-wrap gap-4 text-xs font-medium text-slate-700" aria-hidden="true">
-        <li className="flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rounded-full" style={{ background: TEAL }} />
-          Reported median
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rotate-45 border-2 bg-white" style={{ borderColor: AMBER }} />
-          Lowest posted
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rounded-full" style={{ background: NAVY }} />
-          Big-5 posted median
-        </li>
+      <ul className="mb-4 flex flex-wrap gap-4 text-xs font-medium text-slate-700" aria-label="Chart legend">
+        {legend.map((item) => (
+          <li key={item.id} className="flex items-center gap-2">
+            <MarkerSwatch item={item} />
+            {item.label}
+          </li>
+        ))}
       </ul>
       <div className="space-y-4">
         {products.map((product, index) => {
@@ -73,37 +73,42 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
               : "",
           ].join(" ");
           const markers: Array<RatePointLabel & { tooltip: string; shape: "circle" | "diamond" }> = [];
-          if (product.big5PostedMedian != null) {
+          const big5 = legendById.get("big5");
+          const lowest = legendById.get("lowest");
+          const median = legendById.get("median");
+          if (big5 && product.big5PostedMedian != null) {
             markers.push({
               id: "big5",
               x: x(product.big5PostedMedian),
               text: formatRate(product.big5PostedMedian),
-              color: NAVY,
+              color: big5.color,
               side: "above",
-              shape: "circle",
-              tooltip: `Big-5 posted median ${formatRate(product.big5PostedMedian)}`,
+              shape: big5.shape,
+              tooltip: `${big5.label} ${formatRate(product.big5PostedMedian)}`,
             });
           }
-          if (product.lowestPosted != null) {
+          if (lowest && product.lowestPosted != null) {
             markers.push({
               id: "lowest",
               x: x(product.lowestPosted),
               text: formatRate(product.lowestPosted),
-              color: AMBER,
+              color: lowest.color,
               side: "above",
-              shape: "diamond",
-              tooltip: `Lowest posted ${formatRate(product.lowestPosted)}${product.lowestPostedLender ? ` at ${lenderName(product.lowestPostedLender)}` : ""}`,
+              shape: lowest.shape,
+              tooltip: `${lowest.label} ${formatRate(product.lowestPosted)}${product.lowestPostedLender ? ` at ${lenderName(product.lowestPostedLender)}` : ""}`,
             });
           }
-          markers.push({
-            id: "median",
-            x: x(product.median),
-            text: formatRate(product.median),
-            color: TEAL,
-            side: "below",
-            shape: "circle",
-            tooltip: `Reported median ${formatRate(product.median)}`,
-          });
+          if (median) {
+            markers.push({
+              id: "median",
+              x: x(product.median),
+              text: formatRate(product.median),
+              color: median.color,
+              side: "below",
+              shape: median.shape,
+              tooltip: `${median.label} ${formatRate(product.median)}`,
+            });
+          }
           const frame = frameRateChart(
             layoutRateLabels(markers, { lineY: LINE_Y, fontSize, minX: 6, maxX: CHART_W - 6 }),
             LINE_Y,
@@ -142,9 +147,9 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
                     <g key={marker.id}>
                       <title>{marker.tooltip}</title>
                       {marker.shape === "diamond" ? (
-                        <polygon points={diamond(marker.x, lineY, 7)} fill="#fff" stroke={marker.color} strokeWidth={2} />
+                        <polygon points={diamondPoints(marker.x, lineY, MARKER_RADIUS)} fill="#fff" stroke={marker.color} strokeWidth={MARKER_STROKE} />
                       ) : (
-                        <circle cx={marker.x} cy={lineY} r={7} fill={marker.color} />
+                        <circle cx={marker.x} cy={lineY} r={MARKER_RADIUS} fill={marker.color} />
                       )}
                     </g>
                   ))}
@@ -211,6 +216,16 @@ export default function DumbbellChart({ products }: { products: ProductCell[] })
   );
 }
 
-function diamond(cx: number, cy: number, r: number): string {
-  return `${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`;
+function MarkerSwatch({ item }: { item: MarkerLegendItem }) {
+  const size = MARKER_RADIUS * 2 + MARKER_STROKE * 2;
+  const center = size / 2;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true" focusable="false" className="shrink-0">
+      {item.shape === "diamond" ? (
+        <polygon points={diamondPoints(center, center, MARKER_RADIUS)} fill="#fff" stroke={item.color} strokeWidth={MARKER_STROKE} />
+      ) : (
+        <circle cx={center} cy={center} r={MARKER_RADIUS} fill={item.color} />
+      )}
+    </svg>
+  );
 }
