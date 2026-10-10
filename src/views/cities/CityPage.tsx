@@ -10,6 +10,7 @@ import { getCityContent } from "@/lib/cityContent";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import LenderLogo from "@/components/LenderLogo";
 import metadata from "@data/metadata.json";
+import EditorialByline, { CITY_SOURCES } from "@/components/EditorialByline";
 
 interface Rate {
   lender_name: string;
@@ -45,7 +46,7 @@ function formatUpdated(iso?: string): string {
   }).format(d);
 }
 
-export default function CityPage({ slug }: { slug: string }) {
+export default function CityPage({ slug, buildDateIso }: { slug: string; buildDateIso: string }) {
   const city = requireCity(slug);
   const content = getCityContent(slug);
   const bestFixed = bestRate(60, "fixed");
@@ -120,6 +121,7 @@ export default function CityPage({ slug }: { slug: string }) {
             )}
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900">{content.seo.h1}</h1>
             <p className="text-slate-600 text-lg">{content.heroTagline}</p>
+            <EditorialByline reviewedIso={buildDateIso} sources={CITY_SOURCES} />
           </div>
         </div>
       </header>
@@ -190,7 +192,7 @@ export default function CityPage({ slug }: { slug: string }) {
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
               <h3 className="font-bold text-slate-900 mb-2">{city.name} payment calculator</h3>
               <p className="text-slate-600 text-sm mb-4">
-                Model a monthly payment from your offer price—not from an invented city average.
+                Model a monthly payment from your offer price and the rate you were quoted.
               </p>
               <a
                 href="/tools/mortgage-calculator/"

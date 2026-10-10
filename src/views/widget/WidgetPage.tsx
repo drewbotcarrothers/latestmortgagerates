@@ -1,4 +1,5 @@
 import CopyButton from './CopyButton';
+import Footer from "@/components/Footer";
 
 
 export default function WidgetPage() {
@@ -124,6 +125,7 @@ export default function WidgetPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

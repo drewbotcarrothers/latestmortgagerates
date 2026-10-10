@@ -144,7 +144,7 @@ export default function NewsletterSignup({ variant = "card", anchorId }: Newslet
               or{" "}
               <a
                 className="font-semibold text-teal-700 underline decoration-teal-700/30 underline-offset-2 hover:text-teal-800"
-                href="mailto:privacy@latestmortgagerates.ca?subject=Monthly%20mortgage%20rate%20report"
+                href="mailto:contact@latestmortgagerates.ca?subject=Monthly%20mortgage%20rate%20report"
               >
                 email us to join the monthly report
               </a>
@@ -161,7 +161,7 @@ export default function NewsletterSignup({ variant = "card", anchorId }: Newslet
               JavaScript is required to show the signup form.{" "}
               <a
                 className="font-semibold text-teal-700 underline"
-                href="mailto:privacy@latestmortgagerates.ca?subject=Monthly%20mortgage%20rate%20report"
+                href="mailto:contact@latestmortgagerates.ca?subject=Monthly%20mortgage%20rate%20report"
               >
                 Email us to join the monthly report
               </a>

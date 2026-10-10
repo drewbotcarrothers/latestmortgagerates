@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { ESSENTIAL_MORTGAGE_TERM_SLUGS, glossaryTermsWithTools } from "@/content/glossary";
 
 // Force static generation for static export
@@ -170,6 +171,7 @@ export default function GlossaryPage() {
           </a>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

@@ -119,6 +119,8 @@ export function allCitySlugs(): string[] {
   return CITIES.map((c) => c.slug);
 }
 
+export { INDEXED_CITY_SLUGS, isIndexedCity, isIndexablePath } from "./indexedCities.mjs";
+
 export function citiesByProvince(): { province: ProvinceId; name: string; cities: CityRecord[] }[] {
   const order: ProvinceId[] = ["ON", "BC", "AB", "QC", "MB", "SK", "NS", "NB", "NL", "PE"];
   return order.map((province) => ({

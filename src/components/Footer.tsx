@@ -232,6 +232,21 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <h4 className="font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2.5">
               <li>
+                <a href="/about/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="/contact/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="/disclaimer/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
+                  Disclaimer
+                </a>
+              </li>
+              <li>
                 <a 
                   href="/privacy/" 
                   className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
@@ -262,6 +277,13 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <nav aria-label="Site information" className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
+              <a href="/about/" className="text-slate-400 hover:text-teal-400">About</a>
+              <a href="/contact/" className="text-slate-400 hover:text-teal-400">Contact</a>
+              <a href="/disclaimer/" className="text-slate-400 hover:text-teal-400">Disclaimer</a>
+              <a href="/privacy/" className="text-slate-400 hover:text-teal-400">Privacy</a>
+              <a href="/terms/" className="text-slate-400 hover:text-teal-400">Terms</a>
+            </nav>
             <p className="text-center text-sm text-slate-500">
               © {currentYear} LatestMortgageRates.ca - All rights reserved.
             </p>

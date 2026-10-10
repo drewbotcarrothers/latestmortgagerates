@@ -12,6 +12,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
+import { isIndexablePath } from "./src/lib/indexedCities.mjs";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
@@ -140,14 +141,7 @@ function jsonApiFiles() {
 }
 
 function isIndexableSitemapUrl(page) {
-  const path = new URL(page).pathname;
-  if (path.startsWith("/widget")) return false;
-  if (path.startsWith("/unsubscribed")) return false;
-  if (path.startsWith("/unsubscribe")) return false;
-  if (path.startsWith("/subscribe/confirmed")) return false;
-  if (path.startsWith("/subscribe/thank-you")) return false;
-  if (path.startsWith("/api/")) return false;
-  return true;
+  return isIndexablePath(new URL(page).pathname);
 }
 
 export default defineConfig({

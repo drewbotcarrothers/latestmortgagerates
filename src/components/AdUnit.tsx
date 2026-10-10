@@ -20,12 +20,14 @@ interface AdUnitProps {
  * Reserved min-height reduces CLS while the creative loads.
  */
 export default function AdUnit({ format = "display", slot, className = "" }: AdUnitProps) {
+  const resolvedSlot = slot ?? slotForFormat(format);
+  const configured = isConfiguredSlot(resolvedSlot);
   const insRef = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
-  const resolvedSlot = slot ?? slotForFormat(format);
   const minHeight = format === "sidebar" ? "min-h-[250px]" : "min-h-[280px]";
 
   useEffect(() => {
+    if (!configured) return;
     const el = insRef.current;
     if (!el || pushed.current) return;
     if (el.getAttribute("data-adsbygoogle-status")) return;
@@ -35,7 +37,9 @@ export default function AdUnit({ format = "display", slot, className = "" }: AdU
     } catch {
       // Script blocked, missing, or already processed this slot.
     }
-  }, []);
+  }, [configured]);
+
+  if (!configured) return null;
 
   const insProps: Record<string, string> = {
     className: "adsbygoogle",

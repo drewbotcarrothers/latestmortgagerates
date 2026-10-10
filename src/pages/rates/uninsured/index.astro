@@ -15,11 +15,12 @@ const bestFixed5yr = filtered.filter((r) => r.term_months === 60 && r.rate_type 
 const bestVariable5yr = filtered.filter((r) => r.term_months === 60 && r.rate_type === "variable").sort((a, b) => a.rate - b.rate)[0];
 const f = bestFixed5yr?.rate.toFixed(2) || "N/A";
 const v = bestVariable5yr?.rate.toFixed(2) || "N/A";
+const buildDateIso = new Date().toISOString();
 ---
 <BaseLayout
   title="Uninsured Mortgage Rates Canada | Conventional 20%+ Down"
   description={`Compare uninsured mortgage rates in Canada. Best 5-year fixed: ${f}%, best variable: ${v}%. For conventional mortgages with 20%+ down.`}
   canonical="https://latestmortgagerates.ca/rates/uninsured/"
 >
-  <Page client:load />
+  <Page buildDateIso={buildDateIso} client:load />
 </BaseLayout>
