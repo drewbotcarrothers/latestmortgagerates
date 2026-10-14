@@ -1,0 +1,190 @@
+---
+/**
+ * Click-to-load YouTube player.
+ * The iframe stays inside <template> until the visitor presses play,
+ * so the page does not open a connection to YouTube on load.
+ */
+interface Props {
+  videoId: string;
+  heading: string;
+  caption: string;
+  /** iframe title attribute */
+  title: string;
+  /** VideoObject name */
+  name: string;
+  uploadDate: string;
+  thumbnailUrl: string;
+  embedUrl?: string;
+  contentUrl?: string;
+  description?: string;
+  class?: string;
+}
+
+const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
+
+function requireText(value: string, label: string): string {
+  const text = value?.trim() ?? "";
+  if (!text) throw new Error(`YouTubeEmbed: ${label} is required`);
+  return text;
+}
+
+function requireHttps(value: string, label: string): string {
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error(`YouTubeEmbed: ${label} must be an absolute URL`);
+  }
+  if (url.protocol !== "https:") {
+    throw new Error(`YouTubeEmbed: ${label} must use https`);
+  }
+  return url.toString();
+}
+
+const {
+  videoId,
+  heading,
+  caption,
+  title,
+  name,
+  uploadDate,
+  thumbnailUrl,
+  description,
+  class: className = "",
+} = Astro.props;
+
+if (!VIDEO_ID.test(videoId)) {
+  throw new Error("YouTubeEmbed: videoId must be an 11-character YouTube id");
+}
+
+const embedUrl = Astro.props.embedUrl ?? `https://www.youtube-nocookie.com/embed/${videoId}`;
+const contentUrl = Astro.props.contentUrl ?? `https://www.youtube.com/watch?v=${videoId}`;
+const expectedEmbed = `https://www.youtube-nocookie.com/embed/${videoId}`;
+const expectedWatch = `https://www.youtube.com/watch?v=${videoId}`;
+
+if (embedUrl !== expectedEmbed) {
+  throw new Error(`YouTubeEmbed: embedUrl must be ${expectedEmbed}`);
+}
+if (contentUrl !== expectedWatch) {
+  throw new Error(`YouTubeEmbed: contentUrl must be ${expectedWatch}`);
+}
+if (!/^\d{4}-\d{2}-\d{2}(T.*)?$/.test(uploadDate) || Number.isNaN(Date.parse(uploadDate))) {
+  throw new Error("YouTubeEmbed: uploadDate must be an ISO date");
+}
+
+const safeHeading = requireText(heading, "heading");
+const safeCaption = requireText(caption, "caption");
+const safeTitle = requireText(title, "title");
+const safeName = requireText(name, "name");
+const safeThumbnail = requireHttps(thumbnailUrl, "thumbnailUrl");
+const safeDescription = requireText(description ?? safeCaption, "description");
+const fallbackThumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+const headingId = `youtube-${videoId}-heading`;
+const captionId = `youtube-${videoId}-caption`;
+const iframeSrc = `${embedUrl}?autoplay=1`;
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: safeName,
+  description: safeDescription,
+  thumbnailUrl: safeThumbnail,
+  uploadDate,
+  embedUrl,
+  contentUrl,
+}).replace(/</g, "\\u003c");
+---
+
+<section class:list={["youtube-embed", className]} aria-labelledby={headingId} data-youtube-root>
+  <script type="application/ld+json" set:html={schemaJson} />
+  <div class="card-default p-6">
+    <h2 id={headingId} class="text-2xl font-bold text-slate-900 mb-2">{safeHeading}</h2>
+    <p id={captionId} class="text-slate-600 mb-4">{safeCaption}</p>
+    <div class="relative aspect-video w-full overflow-hidden rounded-lg bg-slate-900" data-youtube-embed>
+      <button
+        type="button"
+        class="group absolute inset-0 h-full w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+        aria-describedby={captionId}
+      >
+        <span class="sr-only">Play video: {safeTitle}</span>
+        <img
+          src={safeThumbnail}
+          alt=""
+          width="1280"
+          height="720"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          data-fallback={fallbackThumbnail === safeThumbnail ? undefined : fallbackThumbnail}
+          class="h-full w-full object-cover"
+        />
+        <span class="pointer-events-none absolute inset-0 grid place-items-center bg-slate-900/25" aria-hidden="true">
+          <span class="inline-flex items-center gap-2 rounded-full bg-teal-600 px-5 py-3 text-base font-semibold text-white shadow-lg transition-colors group-hover:bg-teal-500">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            Play
+          </span>
+        </span>
+      </button>
+      <template>
+        <iframe
+          src={iframeSrc}
+          title={safeTitle}
+          width="560"
+          height="315"
+          loading="lazy"
+          class="absolute inset-0 h-full w-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </template>
+    </div>
+    <p class="mt-3 text-sm text-slate-500">The video stays unloaded until you press play.</p>
+    <noscript>
+      <p class="mt-2 text-sm">
+        <a class="link-default" href={contentUrl}>Watch this video on YouTube</a>
+      </p>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  const BOUND = "__lmrYouTubeEmbedBound";
+
+  function loadVideo(root: HTMLElement) {
+    if (root.dataset.loaded === "true") return;
+    const template = root.querySelector("template");
+    if (!(template instanceof HTMLTemplateElement)) return;
+    root.replaceChildren(template.content.cloneNode(true));
+    root.dataset.loaded = "true";
+  }
+
+  function onClick(event: Event) {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const root = target.closest("[data-youtube-embed]");
+    if (!(root instanceof HTMLElement)) return;
+    const button = target.closest("button");
+    if (!(button instanceof HTMLButtonElement) || !root.contains(button)) return;
+    loadVideo(root);
+  }
+
+  function onError(event: Event) {
+    const target = event.target;
+    if (!(target instanceof HTMLImageElement)) return;
+    if (!target.closest("[data-youtube-embed]")) return;
+    const fallback = target.dataset.fallback;
+    if (!fallback || target.dataset.fallbackApplied === "true") return;
+    target.dataset.fallbackApplied = "true";
+    target.src = fallback;
+  }
+
+  const host = window as Window & { [BOUND]?: boolean };
+  if (!host[BOUND]) {
+    host[BOUND] = true;
+    document.addEventListener("click", onClick);
+    document.addEventListener("error", onError, true);
+  }
+</script>
