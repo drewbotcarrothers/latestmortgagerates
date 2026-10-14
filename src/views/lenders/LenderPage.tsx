@@ -12,6 +12,8 @@ import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
 import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 import LenderRateOverview from "@/components/LenderRateOverview";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import Footer from "@/components/Footer";
+import EditorialByline, { LENDER_SOURCES } from "@/components/EditorialByline";
 
 // Import lender content data
 import lenderContentData from "@/content/lenderContent.json";
@@ -282,6 +284,7 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                 {content?.tagline ? (
                   <p className="mt-1 text-sm font-medium text-teal-700">{content.tagline}</p>
                 ) : null}
+                <EditorialByline reviewedIso={buildDateIso} sources={LENDER_SOURCES} />
               </div>
             </div>
           </div>
@@ -866,6 +869,8 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
             })()
           }
         </footer>
+
+        <Footer />
       </div>
     </main>
   );

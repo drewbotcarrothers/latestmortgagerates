@@ -61,10 +61,11 @@ describe("subscribe confirmation pages", () => {
 
   it("excludes both URLs from the sitemap", () => {
     const config = read("astro.config.mjs");
+    const filter = read("src/lib/indexedCities.mjs");
     const verify = read("scripts/verify-static-api.mjs");
-    assert.match(config, /\/subscribe\/confirmed/);
-    assert.match(config, /\/subscribe\/thank-you/);
-    assert.match(verify, /\/subscribe\/confirmed\//);
-    assert.match(verify, /\/subscribe\/thank-you\//);
+    assert.match(config, /isIndexablePath/);
+    assert.match(filter, /\/subscribe\/confirmed/);
+    assert.match(filter, /\/subscribe\/thank-you/);
+    assert.match(verify, /isIndexablePath/);
   });
 });
