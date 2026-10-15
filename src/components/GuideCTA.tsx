@@ -13,7 +13,7 @@ export default function GuideCTA({ variant = "full", className = "" }: GuideCTAP
           <div className="flex-1">
             <h4 className="font-bold text-slate-900 mb-1">Mortgage Negotiation Guide</h4>
             <p className="text-sm text-slate-600 mb-3">
-              Save $5,000-$25,000 with insider secrets banks don't want you to know.
+              Negotiating your rate could save thousands, depending on your mortgage.
             </p>
             <a
               href="/mortgage-guide/"
@@ -37,8 +37,7 @@ export default function GuideCTA({ variant = "full", className = "" }: GuideCTAP
         <div className="flex-1">
           <h3 className="text-lg font-bold mb-2">Get the Mortgage Negotiation Guide</h3>
           <p className="text-slate-300 text-sm mb-4">
-            Insider secrets to save $5,000-$25,000 on your mortgage. Learn how to negotiate rates, 
-            time the market, and avoid costly penalties. 10 chapters of actionable intel.
+            A practical guide to negotiating a mortgage rate. Shopping and negotiating could save thousands, depending on your mortgage.
           </p>
           <div className="flex flex-wrap gap-3">
             <a

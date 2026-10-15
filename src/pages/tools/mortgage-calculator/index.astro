@@ -1,11 +1,26 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import YouTubeEmbed from "../../../components/YouTubeEmbed.astro";
 import Page from "../../../views/tools/mortgage-calculator/Page";
+
+const videoTitle = "Mortgage Payment Calculator Demo: $600,000 Home, 20% Down (Canada)";
 ---
 <BaseLayout
   title="Mortgage Payment Calculator Canada | Calculate Monthly Payments"
   description="Free Canadian mortgage payment calculator. Calculate monthly payments, amortization schedule, total interest, and compare payment frequencies. Updated with current Canadian mortgage rates."
   canonical="https://latestmortgagerates.ca/tools/mortgage-calculator/"
 >
-  <Page client:load />
+  <Page client:load>
+    <YouTubeEmbed
+      videoId="OLVOwq72A7o"
+      heading="Watch: how to use the mortgage payment calculator"
+      caption="See a $600,000 home with 20% down turned into a monthly payment and amortization schedule."
+      title={videoTitle}
+      name={videoTitle}
+      uploadDate="2026-10-14"
+      thumbnailUrl="https://i.ytimg.com/vi/OLVOwq72A7o/maxresdefault.jpg"
+      embedUrl="https://www.youtube-nocookie.com/embed/OLVOwq72A7o"
+      contentUrl="https://www.youtube.com/watch?v=OLVOwq72A7o"
+    />
+  </Page>
 </BaseLayout>

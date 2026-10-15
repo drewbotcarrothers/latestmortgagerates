@@ -175,6 +175,8 @@ export default function NegotiateGuidePage() {
               </p>
             </section>
 
+            <AdUnit format="display" />
+
             <section>
               <h2 className="text-2xl font-bold text-slate-900">Broker vs bank</h2>
               <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -195,8 +197,13 @@ export default function NegotiateGuidePage() {
               </div>
             </section>
 
+            <section className="rounded-xl border border-slate-200 bg-white p-6">
+              <h2 className="text-2xl font-bold text-slate-900">The free steps and the paid guide</h2>
+              <p className="mt-3 text-slate-700">
+                The renewal steps on this page are free. The $29 PDF is a separate guide we write and sell. You can compare rates and use the calculators without buying it.
+              </p>
+            </section>
             <GuideCTA />
-            <AdUnit format="display" />
             <FAQSection faqs={faqs} title="Negotiation questions" />
           </div>
         </article>

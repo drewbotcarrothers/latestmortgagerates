@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 
 
@@ -167,8 +168,8 @@ export default function TermsPage() {
             <p className="text-slate-700 dark:text-slate-300 mb-4">If you have questions about these Terms of Service, please contact us:</p>
             <div className="bg-slate-50 dark:bg-gray-700 rounded-lg p-4">
               <p className="text-slate-700 dark:text-slate-300">Email:{' '}
-                <a href="mailto:legal@latestmortgagerates.ca" className="text-teal-600 dark:text-teal-400 hover:underline">
-                  legal@latestmortgagerates.ca
+                <a href="mailto:contact@latestmortgagerates.ca" className="text-teal-600 dark:text-teal-400 hover:underline">
+                  contact@latestmortgagerates.ca
                 </a>
               </p>
             </div>
@@ -185,18 +186,7 @@ export default function TermsPage() {
         </article>
       </div>
 
-      {/* Footer */}
-      <footer className="max-w-7xl mx-auto px-4 py-8 mt-8 border-t border-slate-200 dark:border-gray-700">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-center text-sm text-slate-500">
-            © 2026 LatestMortgageRates.ca - All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="/privacy/" className="text-teal-600 hover:underline">Privacy Policy</a>
-            <a href="/terms/" className="text-teal-600 hover:underline">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

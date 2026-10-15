@@ -18,8 +18,19 @@ RewriteBase /
 RewriteRule ^data/subscribers\.json$ - [F,L]
 
 # www is a duplicate host; canonical tags already point at the apex domain.
+# This rule runs first so http://www and https://www both land on the https apex in one hop.
 RewriteCond %{HTTP_HOST} ^www\.latestmortgagerates\.ca$ [NC]
 RewriteRule ^(.*)$ https://latestmortgagerates.ca/$1 [R=301,L]
+
+# HTTP on the apex (anything the www rule did not already send to https).
+# X-Forwarded-Proto skips the redirect when a proxy already terminated TLS.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://latestmortgagerates.ca/$1 [R=301,L]
+
+# /rates/ is a directory with no index document, so Apache returns 403.
+# Product hubs live at /rates/5-year-fixed/ and the other /rates/* pages.
+RewriteRule ^rates/?$ / [R=301,L]
 
 # Former calculator path (GSC 404; still linked as "payment calculator" in older content).
 RewriteRule ^tools/mortgage-payment-calculator/?$ /tools/mortgage-calculator/ [R=301,L]

@@ -7,8 +7,8 @@ export const ADSENSE_CLIENT = "ca-pub-7909541570116920";
  * PLACEHOLDERS — leave empty until Andrew creates units in the AdSense
  * dashboard (Ads → By ad unit) and pastes the numeric slot IDs here.
  *
- * Do not invent fake numeric IDs. Empty values omit `data-ad-slot` so the
- * unit still renders with `data-ad-client` + responsive format.
+ * Do not invent fake numeric IDs. Empty values mean AdUnit renders nothing
+ * (no placeholder box). Auto ads still load from the script in BaseLayout.
  */
 export const ADSENSE_SLOTS = {
   /** Responsive display — home, rate hubs, lenders, cities, blog, guide */

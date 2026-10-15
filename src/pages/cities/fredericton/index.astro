@@ -1,15 +1,4 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import CityPage from "../../../views/cities/CityPage";
-import { getCitySeo } from "../../../lib/cityContent";
-
-const seo = getCitySeo("fredericton");
+import CityLayout from "../../../layouts/CityLayout.astro";
 ---
-<BaseLayout
-  title={seo.title}
-  description={seo.description}
-  canonical={seo.canonical}
-  keywords={seo.keywords}
->
-  <CityPage slug="fredericton" client:load />
-</BaseLayout>
+<CityLayout slug="fredericton" />

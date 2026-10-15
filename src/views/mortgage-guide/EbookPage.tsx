@@ -8,8 +8,8 @@ import AdUnit from "@/components/AdUnit";
 const benefits = [
   {
     icon: "💰",
-    title: "Save $5,000-$25,000",
-    description: "Learn the exact negotiation tactics that can reduce your rate by 0.5-1%, saving thousands over your term.",
+    title: "Could save thousands",
+    description: "A lower rate can reduce the interest you pay. How much depends on your mortgage balance, term, and the rate you are offered.",
   },
   {
     icon: "⏰",
@@ -18,8 +18,8 @@ const benefits = [
   },
   {
     icon: "🏦",
-    title: "Bank Secrets Revealed",
-    description: "Understand posted vs contract rates, how brokers really get paid, and which lenders to target.",
+    title: "How lenders price rates",
+    description: "Posted rates, contract rates, and how a broker quote fits into a negotiation.",
   },
   {
     icon: "🛡️",
@@ -58,11 +58,11 @@ const faqs = [
   },
   {
     q: "How is this different from free online resources?",
-    a: "This guide compiles insider knowledge that is not publicly shared. Bank posted vs contract rates, broker commission structures, and negotiation scripts are not discussed openly.",
+    a: "This guide collects negotiation steps, posted versus contract rates, and how broker compensation works, in one PDF.",
   },
   {
-    q: "Can I really save thousands?",
-    a: "On a $500,000 mortgage, a 0.5% rate reduction saves approximately $2,500/year or $12,500 over a 5-year term.",
+    q: "How much could negotiating change the payment?",
+    a: "It depends on your mortgage. On a $500,000 balance, a 0.5 percentage point lower rate is roughly $2,500 a year, or about $12,500 over a 5-year term. A smaller balance or a shorter term saves less.",
   },
   {
     q: "What format is the ebook?",
@@ -83,7 +83,7 @@ export default function EbookLandingPage() {
     <>
       <HowToSchema
         name="How to Get the Best Mortgage Deal"
-        description="Learn insider strategies to negotiate better mortgage rates and save thousands"
+        description="Steps for comparing Canadian mortgage offers and negotiating a rate"
         steps={[
           { name: "Understand the Market", text: "Learn how posted vs contract rates work" },
           { name: "Time Your Application", text: "Use Bank of Canada cycles to lock in at optimal times" },
@@ -111,7 +111,7 @@ export default function EbookLandingPage() {
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
-                Insider secrets that banks do not want you to know. Save thousands by negotiating smarter.
+                A practical guide to negotiating a Canadian mortgage. Shopping around could save thousands, depending on your mortgage.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">

@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 
 
@@ -22,7 +23,7 @@ export default function PrivacyPage() {
                 Privacy Policy
               </h1>
               <p className="text-slate-600 dark:text-slate-300 mt-2">
-                Last updated: October 4, 2026
+                Last updated: October 9, 2026
               </p>
             </div>
           </div>
@@ -51,7 +52,6 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-2 mb-4">
               <li>Email addresses (if you sign up for the monthly mortgage rate report)</li>
-              <li>Contact information (if you use our contact forms)</li>
               <li>Mortgage preferences and location data</li>
             </ul>
 
@@ -79,6 +79,32 @@ export default function PrivacyPage() {
             </ul>
             <p className="text-slate-700 dark:text-slate-300">
               You can control cookies through your browser settings. However, disabling cookies may affect site functionality.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Advertising (Google AdSense)</h2>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              We use Google AdSense to display advertisements. Google, as a third-party vendor, and other third-party vendors use cookies to serve ads based on your prior visits to this website and other websites.
+            </p>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              Google&apos;s advertising cookies enable Google and its partners to serve ads to you based on your visit to this site and other sites on the Internet. Those cookies are what make personalized ads possible.
+            </p>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              You can opt out of personalized advertising by visiting{" "}
+              <a href="https://adssettings.google.com" className="text-teal-600 hover:underline">Google Ads Settings</a>
+              {" "}(<span>https://adssettings.google.com</span>),{" "}
+              <a href="https://youradchoices.ca" className="text-teal-600 hover:underline">Digital Advertising Alliance of Canada</a>
+              {" "}(<span>https://youradchoices.ca</span>), and{" "}
+              <a href="https://www.aboutads.info" className="text-teal-600 hover:underline">the Digital Advertising Alliance</a>
+              {" "}(<span>https://www.aboutads.info</span>).
+            </p>
+            <p className="text-slate-700 dark:text-slate-300">
+              Google explains how it uses information from sites that use its services, including this one, at{" "}
+              <a href="https://policies.google.com/technologies/partner-sites" className="text-teal-600 hover:underline">
+                https://policies.google.com/technologies/partner-sites
+              </a>
+              .
             </p>
           </section>
 
@@ -120,6 +146,17 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Canadian privacy law (PIPEDA)</h2>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              We handle personal information in line with the Personal Information Protection and Electronic Documents Act (PIPEDA). We collect, use, and disclose personal information only with your knowledge and consent, except where PIPEDA or another law allows or requires a use without consent.
+            </p>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              You have the right to request access to the personal information we hold about you, and to ask us to correct information that is inaccurate or incomplete. To make an access or correction request, email{" "}
+              <a href="mailto:contact@latestmortgagerates.ca" className="text-teal-600 hover:underline">contact@latestmortgagerates.ca</a>.
+            </p>
+          </section>
+
+          <section className="mb-8">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Your Rights</h2>
             <p className="text-slate-700 dark:text-slate-300 mb-4">Depending on your location, you may have the right to:</p>
             <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-2 mb-4">
@@ -130,7 +167,10 @@ export default function PrivacyPage() {
               <li>Withdraw consent for data processing</li>
             </ul>
             <p className="text-slate-700 dark:text-slate-300">
-              To exercise these rights, contact us at privacy@latestmortgagerates.ca
+              To exercise these rights, contact us at{" "}
+              <a href="mailto:contact@latestmortgagerates.ca" className="text-teal-600 hover:underline">
+                contact@latestmortgagerates.ca
+              </a>
             </p>
           </section>
 
@@ -152,8 +192,8 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Contact Us</h2>
             <p className="text-slate-700 dark:text-slate-300">
               If you have questions about this Privacy Policy, please contact us at:{' '}
-              <a href="mailto:privacy@latestmortgagerates.ca" className="text-teal-600 hover:underline">
-                privacy@latestmortgagerates.ca
+              <a href="mailto:contact@latestmortgagerates.ca" className="text-teal-600 hover:underline">
+                contact@latestmortgagerates.ca
               </a>
             </p>
           </section>
@@ -161,18 +201,7 @@ export default function PrivacyPage() {
         </article>
       </div>
 
-      {/* Footer */}
-      <footer className="max-w-7xl mx-auto px-4 py-8 mt-8 border-t border-slate-200 dark:border-gray-700">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-center text-sm text-slate-500">
-            © 2026 LatestMortgageRates.ca - All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="/privacy/" className="text-teal-600 hover:underline">Privacy Policy</a>
-            <a href="/terms/" className="text-teal-600 hover:underline">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

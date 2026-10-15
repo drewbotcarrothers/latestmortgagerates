@@ -170,15 +170,20 @@ describe("city local content", () => {
 });
 
 describe("city page wiring", () => {
-  it("uses the shared CityPage + getCitySeo on every city route", () => {
+  it("uses the shared CityLayout, CityPage, and getCitySeo on every city route", () => {
     const missing: string[] = [];
     for (const slug of allCitySlugs()) {
       const text = readFileSync(join(SRC, "pages/cities", slug, "index.astro"), "utf8");
-      if (!text.includes("CityPage") || !text.includes("getCitySeo") || !text.includes(`slug="${slug}"`)) {
+      if (!text.includes("CityLayout") || !text.includes(`slug="${slug}"`)) {
         missing.push(slug);
       }
     }
     assert.equal(missing.length, 0, missing.join(", "));
+    const layout = readFileSync(join(SRC, "layouts/CityLayout.astro"), "utf8");
+    assert.match(layout, /CityPage/);
+    assert.match(layout, /getCitySeo/);
+    assert.match(layout, /isIndexedCity/);
+    assert.match(layout, /noindex, follow/);
   });
 
   it("keeps GuideCTA and AdUnit on CityTools, not the city template", () => {

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MortgageCalculator from "@/components/MortgageCalculator";
@@ -11,8 +12,11 @@ import CalculatorGuide from "@/components/CalculatorGuide";
 import { lenderCountLabel } from "@/lib/lenderCount";
 import { mortgageCalculatorFaqs, mortgageCalculatorGuide } from "@/content/calculatorGuides";
 
+interface MortgageCalculatorPageProps {
+  children?: ReactNode;
+}
 
-export default function MortgageCalculatorPage() {
+export default function MortgageCalculatorPage({ children }: MortgageCalculatorPageProps) {
   return (
     <>
       <HowToSchema
@@ -187,6 +191,15 @@ export default function MortgageCalculatorPage() {
           </div>
         </div>
       </div>
+
+      {/* Below the guide, in the content column — not beside the sidebar ad. */}
+      {children != null ? (
+        <div className="max-w-7xl mx-auto px-4 pb-4" data-calculator-video>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">{children}</div>
+          </div>
+        </div>
+      ) : null}
 
       <CalculatorRelatedTools currentTool="/tools/mortgage-calculator" />
 
