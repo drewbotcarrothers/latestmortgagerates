@@ -93,13 +93,13 @@ export const blogPosts: BlogPost[] = [
   </table>
 </div>
 
-<p class="mb-4">Fourth place is a tie, so the table lists both lenders at 4.49% insured. Week over week versus our published week-41 best quote for each of these 24 lenders, no lender cut its 5-year fixed rate. Nine raised their best quote and the other 15 were unchanged. The average of those best-per-lender quotes moved from 4.72% to 4.80%. Week 41's published average was 4.73% across 25 lenders; 4.72% is that same table with National Bank removed, so the comparison uses the same 24 names. That is a modest drift upward in fixed quotes. Fixed quotes still move with bond yields.</p>
+<p class="mb-4">Fourth place is a tie, so the table lists both lenders at 4.49% insured. Week over week versus our published week-41 best quote for each of these 24 lenders, no lender cut its 5-year fixed rate. Eight raised their best quote and the other 16 were unchanged. The average of those best-per-lender quotes moved from 4.72% to 4.77%. Week 41's published average was 4.73% across 25 lenders; 4.72% is that same table with National Bank removed, so the comparison uses the same 24 names. That is a modest drift upward in fixed quotes. Fixed quotes still move with bond yields.</p>
 
-<p class="mb-4">Equitable Bank rose 0.70 percentage points, from 4.89% to 5.59% uninsured. ATB Financial rose 0.20 points, from 4.14% to 4.34% insured, and gave up last week's lowest quote. CIBC rose 0.20 points to 4.99% insured, and Simplii Financial rose 0.20 points to 5.34% uninsured. Butler Mortgage rose 0.15 points, from 4.29% to 4.44% insured. Bank of Montreal rose 0.15 points, from 4.84% to 4.99% insured. True North Mortgage rose 0.10 points, from 4.49% to 4.59% insured, and left last week's top five. Royal Bank of Canada rose 0.10 points, from 4.74% to 4.84% insured. Wealthsimple rose 0.05 points, from 4.44% to 4.49% insured. RFA Bank was unchanged at 4.29% uninsured and is the lowest quote. CMLS Financial was unchanged at 4.49% insured.</p>
+<p class="mb-4">ATB Financial rose 0.20 percentage points, from 4.14% to 4.34% insured, and gave up last week's lowest quote. CIBC rose 0.20 points to 4.99% insured, and Simplii Financial rose 0.20 points to 5.34% uninsured. Butler Mortgage rose 0.15 points, from 4.29% to 4.44% insured. Bank of Montreal rose 0.15 points, from 4.84% to 4.99% insured. True North Mortgage rose 0.10 points, from 4.49% to 4.59% insured, and left last week's top five. Royal Bank of Canada rose 0.10 points, from 4.74% to 4.84% insured. Wealthsimple rose 0.05 points, from 4.44% to 4.49% insured. RFA Bank was unchanged at 4.29% uninsured and is the lowest quote. CMLS Financial was unchanged at 4.49% insured, and Equitable Bank was unchanged at 4.89% uninsured.</p>
 
 <div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-200">
-  <p class="text-sm mb-2"><span class="font-semibold">5-year fixed range (24 lenders, best quote each):</span> 4.29% – 5.59%</p>
-  <p class="text-sm mb-2"><span class="font-semibold">Average of those best-per-lender quotes:</span> 4.80% (4.72% for these 24 lenders in week 41)</p>
+  <p class="text-sm mb-2"><span class="font-semibold">5-year fixed range (24 lenders, best quote each):</span> 4.29% – 5.34%</p>
+  <p class="text-sm mb-2"><span class="font-semibold">Average of those best-per-lender quotes:</span> 4.77% (4.72% for these 24 lenders in week 41)</p>
   <p class="text-sm"><span class="font-semibold">Posted rates in this scrape:</span> TD 6.09%, CIBC 6.49%, Manulife 5.39%</p>
 </div>
 
@@ -277,57 +277,57 @@ export const blogPosts: BlogPost[] = [
       </tr>
       <tr class="bg-slate-50">
         <td class="p-3 border-t border-slate-200">16</td>
-        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/scotiabank/" class="text-teal-600 hover:underline">Scotiabank</a></td>
-        <td class="p-3 border-t border-slate-200 font-semibold">4.90%</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/equitable/" class="text-teal-600 hover:underline">Equitable Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.89%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
       <tr>
         <td class="p-3 border-t border-slate-200">17</td>
-        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/bmo/" class="text-teal-600 hover:underline">Bank of Montreal</a></td>
-        <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
-        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/scotiabank/" class="text-teal-600 hover:underline">Scotiabank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.90%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
       <tr class="bg-slate-50">
         <td class="p-3 border-t border-slate-200">18</td>
-        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/cibc/" class="text-teal-600 hover:underline">Canadian Imperial Bank of Commerce</a></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/bmo/" class="text-teal-600 hover:underline">Bank of Montreal</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
       </tr>
       <tr>
         <td class="p-3 border-t border-slate-200">19</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/cibc/" class="text-teal-600 hover:underline">Canadian Imperial Bank of Commerce</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">20</td>
         <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/firstnational/" class="text-teal-600 hover:underline">First National</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
-      <tr class="bg-slate-50">
-        <td class="p-3 border-t border-slate-200">20</td>
+      <tr>
+        <td class="p-3 border-t border-slate-200">21</td>
         <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/hometrust/" class="text-teal-600 hover:underline">Home Trust</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
       </tr>
-      <tr>
-        <td class="p-3 border-t border-slate-200">21</td>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">22</td>
         <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/laurentian/" class="text-teal-600 hover:underline">Laurentian Bank</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">5.19%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
-      <tr class="bg-slate-50">
-        <td class="p-3 border-t border-slate-200">22</td>
+      <tr>
+        <td class="p-3 border-t border-slate-200">23</td>
         <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/simplii/" class="text-teal-600 hover:underline">Simplii Financial</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">5.34%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
-      <tr>
-        <td class="p-3 border-t border-slate-200">23</td>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">24</td>
         <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/td/" class="text-teal-600 hover:underline">TD Bank</a></td>
         <td class="p-3 border-t border-slate-200 font-semibold">5.34%</td>
         <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
-      </tr>
-      <tr class="bg-slate-50">
-        <td class="p-3 border-t border-slate-200">24</td>
-        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/equitable/" class="text-teal-600 hover:underline">Equitable Bank</a></td>
-        <td class="p-3 border-t border-slate-200 font-semibold">5.59%</td>
-        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
       </tr>
     </tbody>
   </table>
