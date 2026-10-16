@@ -93,7 +93,8 @@ export function bestRate(
       if (filter.rateType && rate.rate_type !== filter.rateType) return false;
       if (filter.mortgageType && rate.mortgage_type !== filter.mortgageType) return false;
       if (filter.lenderSlug && rate.lender_slug !== filter.lenderSlug) return false;
-      // Market-wide "lowest uninsured" skips RFA. A named lender's own row stays.
+      // Market-wide "lowest uninsured" skips unconfirmed RFA fallback rows.
+      // A named lender's own row stays, and a live RFA scrape still counts.
       if (
         filter.mortgageType === "uninsured" &&
         !filter.lenderSlug &&

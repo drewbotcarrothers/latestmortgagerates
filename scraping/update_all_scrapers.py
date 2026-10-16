@@ -35,7 +35,7 @@ LENDERS = {
     "mcap": ("MCAP", "https://www.mcap.com/mortgage-rates/"),
     "manulife": ("Manulife Bank", "https://www.manulifebank.ca/mortgages/mortgage-rates.html"),
     "laurentian": ("Laurentian Bank", "https://www.laurentianbank.ca/en/personal/rates/mortgage-rates"),
-    "rfa": ("RFA", "https://www.rfa.ca/mortgages/our-rates/"),
+    "rfa": ("RFA", "https://rfa.ca/prime"),
     "cmls": ("CMLS Financial", "https://www.cmls.ca/mortgage-rates/"),
     "merix": ("Merix Financial", "https://www.merixfinancial.com/mortgage-rates"),
     "lendwise": ("Lendwise", "https://www.lendwise.com/mortgage-rates/"),
