@@ -10,6 +10,7 @@ import AdUnit from "@/components/AdUnit";
 import EditorialByline, { RATE_HUB_SOURCES } from "@/components/EditorialByline";
 import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import LenderLogo from "@/components/LenderLogo";
 
 
@@ -24,11 +25,13 @@ interface Rate {
 
 const filteredRates = (ratesData as Rate[]).filter((r) => r.mortgage_type === "uninsured");
 
-const bestFixed5yr = filteredRates
+const headlineRates = filteredRates.filter((r) => countsTowardUninsuredHeadline(r));
+
+const bestFixed5yr = headlineRates
   .filter((r) => r.term_months === 60 && r.rate_type === "fixed")
   .sort((a, b) => a.rate - b.rate)[0];
 
-const bestVariable5yr = filteredRates
+const bestVariable5yr = headlineRates
   .filter((r) => r.term_months === 60 && r.rate_type === "variable")
   .sort((a, b) => a.rate - b.rate)[0];
 

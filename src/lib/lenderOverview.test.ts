@@ -55,6 +55,7 @@ describe("lender rate overview", () => {
     assert.match(html, /Fixed Insured/);
     assert.match(html, /Variable Insured/);
     assert.doesNotMatch(html, /not stated/i);
+    assert.doesNotMatch(html, /data-mortgage-type="uninsured"/);
     for (const row of butler) {
       const rate = row.rate.toFixed(2);
       assert.match(html, new RegExp(`data-overview-rate="${rate}"`));

@@ -42,6 +42,7 @@ interface Rate {
 
 // Import rates and metadata from JSON files
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import metadata from "@data/metadata.json";
 
 // Calculate market stats for a rate category
@@ -90,13 +91,13 @@ export default function Home() {
   // Get market stats for display
   const marketStats = useMemo(() => {
     const fixed5yrUninsured = (ratesData as Rate[])
-      .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured");
+      .filter(r => r.term_months === 60 && r.rate_type === "fixed" && countsTowardUninsuredHeadline(r));
     
     const fixed5yrInsured = (ratesData as Rate[])
       .filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "insured");
     
     const variable5yrUninsured = (ratesData as Rate[])
-      .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured");
+      .filter(r => r.term_months === 60 && r.rate_type === "variable" && countsTowardUninsuredHeadline(r));
 
     const variable5yrInsured = (ratesData as Rate[])
       .filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "insured");

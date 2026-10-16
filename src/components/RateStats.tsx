@@ -1,5 +1,7 @@
 "use client";
 
+import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
+
 interface Rate {
   lender_name: string;
   lender_slug: string;
@@ -27,7 +29,7 @@ export default function RateStats({ rates }: RateStatsProps) {
   // Calculate statistics
   const stats = {
     fixed5yrUninsured: {
-      rates: rates.filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "uninsured"),
+      rates: rates.filter(r => r.term_months === 60 && r.rate_type === "fixed" && countsTowardUninsuredHeadline(r)),
       label: "5-Year Fixed",
       icon: TrendingDownIcon,
       color: "emerald",
@@ -39,7 +41,7 @@ export default function RateStats({ rates }: RateStatsProps) {
       color: "teal",
     },
     variable5yrUninsured: {
-      rates: rates.filter(r => r.term_months === 60 && r.rate_type === "variable" && r.mortgage_type === "uninsured"),
+      rates: rates.filter(r => r.term_months === 60 && r.rate_type === "variable" && countsTowardUninsuredHeadline(r)),
       label: "5-Year Variable",
       icon: TrendingDownIcon,
       color: "cyan",

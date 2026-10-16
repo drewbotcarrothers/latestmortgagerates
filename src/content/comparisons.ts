@@ -226,7 +226,7 @@ export const COMPARISONS: ComparisonPage[] = [
       ],
       cons: [
         "Uninsured contract rates are often higher than insured specials for the same term",
-        "You still face the federal stress test on a regulated new origination",
+        "A new purchase or refinance at a federally regulated lender still faces the stress test",
         "A higher rate on a larger conventional loan can cost more than a premium on a smaller high-ratio loan — do the math",
       ],
     },

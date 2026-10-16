@@ -1,6 +1,7 @@
 import type { ComparisonPage, CompareFaq, CompareKind, CompareSide } from "@/content/comparisons";
 import { COMPARISONS } from "@/content/comparisons";
 import { COMPARE_INDEX_HREF } from "./siteLinks";
+import { countsTowardUninsuredHeadline } from "./uninsuredHeadline";
 
 export type { ComparisonPage, CompareFaq, CompareKind, CompareSide };
 export { COMPARISONS, COMPARE_INDEX_HREF };
@@ -92,6 +93,14 @@ export function bestRate(
       if (filter.rateType && rate.rate_type !== filter.rateType) return false;
       if (filter.mortgageType && rate.mortgage_type !== filter.mortgageType) return false;
       if (filter.lenderSlug && rate.lender_slug !== filter.lenderSlug) return false;
+      // Market-wide "lowest uninsured" skips RFA. A named lender's own row stays.
+      if (
+        filter.mortgageType === "uninsured" &&
+        !filter.lenderSlug &&
+        !countsTowardUninsuredHeadline(rate)
+      ) {
+        return false;
+      }
       return typeof rate.rate === "number" && !Number.isNaN(rate.rate);
     })
     .sort((a, b) => a.rate - b.rate)[0];
@@ -105,10 +114,10 @@ export function lenderSnapshot(rates: MortgageRate[], slug: string): LenderRateS
     slug,
     name,
     href: `/lenders/${slug}/`,
-    fixed5Insured: bestRate(rows, { termMonths: 60, rateType: "fixed", mortgageType: "insured" }),
-    fixed5Uninsured: bestRate(rows, { termMonths: 60, rateType: "fixed", mortgageType: "uninsured" }),
-    variable5Insured: bestRate(rows, { termMonths: 60, rateType: "variable", mortgageType: "insured" }),
-    variable5Uninsured: bestRate(rows, { termMonths: 60, rateType: "variable", mortgageType: "uninsured" }),
+    fixed5Insured: bestRate(rows, { termMonths: 60, rateType: "fixed", mortgageType: "insured", lenderSlug: slug }),
+    fixed5Uninsured: bestRate(rows, { termMonths: 60, rateType: "fixed", mortgageType: "uninsured", lenderSlug: slug }),
+    variable5Insured: bestRate(rows, { termMonths: 60, rateType: "variable", mortgageType: "insured", lenderSlug: slug }),
+    variable5Uninsured: bestRate(rows, { termMonths: 60, rateType: "variable", mortgageType: "uninsured", lenderSlug: slug }),
     lowest: bestRate(rows, {}),
   };
 }

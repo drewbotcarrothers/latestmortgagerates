@@ -296,7 +296,7 @@ export default function ToolsPage() {
           <div className="card-default p-6">
             <h3 className="font-semibold text-slate-900 mb-2">What's the mortgage stress test?</h3>
             <p className="text-slate-600">
-              Canadian lenders must qualify you at a higher rate (currently 5.25% or your contract rate + 2%, whichever is higher) to ensure you can handle rate increases. Check yours with the{" "}
+              Canadian lenders must qualify a new mortgage or refinance at a higher rate (currently 5.25% or your contract rate + 2%, whichever is higher). Since November 21, 2024, OSFI does not require that test on an uninsured straight switch at renewal when the amount and remaining amortization stay the same. A refinance or extra funds still does. Check a purchase or refinance with the{" "}
               <a href="/tools/stress-test-qualifier/" className="text-teal-600 hover:underline font-medium">stress test qualifier</a>.
             </p>
           </div>

@@ -7,6 +7,7 @@ import {
   calculateBcPttPayableAfterFthb,
   calculateMonthlyPayment,
 } from "../lib/mortgageMath";
+import { OSFI_MQR_BACKGROUNDER_URL, STRAIGHT_SWITCH_STRESS_TEST } from "./osfiStressTest";
 
 export interface GuideSection {
   heading: string;
@@ -125,7 +126,7 @@ export function stressTestGuide(): GuideSection[] {
         "Canada’s mortgage stress test checks whether you could still carry the loan if the interest rate were higher than the one on your offer. You make your payments at the contract rate. The higher rate is used only to calculate the payment that goes into your gross debt service (GDS) and total debt service (TDS) ratios.",
         "Federally regulated lenders — the big banks, most other Schedule I banks, and federally regulated trust and loan companies — must apply this test to new mortgages and to refinances. Insured mortgages (generally less than 20% down, covered by CMHC, Sagen, or Canada Guaranty) follow the same qualifying-rate idea through the insurer rules, even when the lender itself is not regulated by OSFI.",
         "Two ratios do the work. GDS is housing costs divided by gross monthly income. This calculator counts the qualifying mortgage payment, property tax, heating, and the full condo fee. Many lender worksheets count only half of condo fees, so a condo can look slightly harder here than on a bank form. TDS adds other monthly obligations: car loans, student loans, lines of credit, and credit-card minimums. The caps in this tool are 39% GDS and 44% TDS, which match the common insured-mortgage guidelines. Uninsured files at a bank are still stress-tested; the exact ratio ceiling is that lender’s policy and is often in the same neighbourhood.",
-        "Staying with your current lender at renewal usually does not require a new stress test. Switching lenders at renewal does, because the new lender treats it as a new origination. That is why a slightly higher renewal offer from your own bank can still be the practical choice if you would not qualify elsewhere.",
+        `Staying with your current lender at renewal usually does not require a new stress test. ${STRAIGHT_SWITCH_STRESS_TEST} <a href="${OSFI_MQR_BACKGROUNDER_URL}">OSFI’s November 21, 2024 backgrounder</a> states the exemption.`,
       ],
     },
     {
@@ -161,7 +162,7 @@ export const stressTestExtraFaqs: GuideFaq[] = [
   {
     question: "What are the mortgage stress test rules in Canada?",
     answer:
-      "For a new mortgage or refinance at a federally regulated lender, you qualify at the greater of your contract rate plus 2 percentage points or 5.25%. Insured mortgages use that same minimum qualifying rate through CMHC, Sagen, or Canada Guaranty. The payment at that rate, plus property tax, heating, and condo fees, must fit GDS, and other debts must fit TDS. This tool uses 39% GDS and 44% TDS. Renewing with the same lender usually skips a new test; switching lenders usually does not.",
+      `For a new mortgage or refinance at a federally regulated lender, you qualify at the greater of your contract rate plus 2 percentage points or 5.25%. Insured mortgages use that same minimum qualifying rate through CMHC, Sagen, or Canada Guaranty. The payment at that rate, plus property tax, heating, and condo fees, must fit GDS, and other debts must fit TDS. This tool uses 39% GDS and 44% TDS. Renewing with the same lender usually skips a new test. ${STRAIGHT_SWITCH_STRESS_TEST} OSFI’s November 21, 2024 backgrounder: ${OSFI_MQR_BACKGROUNDER_URL}`,
   },
   {
     question: "What is a mortgage pressure test?",
