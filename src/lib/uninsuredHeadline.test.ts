@@ -4,7 +4,7 @@ import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { compareContext, lenderSnapshot, type MortgageRate } from "./compare.ts";
-import { countsTowardUninsuredHeadline } from "./uninsuredHeadline.ts";
+import { countsTowardUninsuredHeadline, rfaRowIsUnconfirmed } from "./uninsuredHeadline.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const rates = JSON.parse(readFileSync(join(root, "data/rates.json"), "utf8")) as (MortgageRate & {
@@ -44,6 +44,53 @@ describe("lowest uninsured headlines", () => {
     const ctx = compareContext(rates);
     assert.equal(ctx.bestFixed5Uninsured?.lender_slug, "atb");
     assert.equal(ctx.bestFixed5Uninsured?.rate, 4.59);
+  });
+
+  it("counts a live RFA uninsured row and still drops fallback or stale rows", () => {
+    const live = {
+      lender_slug: "rfa",
+      mortgage_type: "uninsured",
+      raw_data: {
+        source: "rfa_live_scrape",
+        last_verified: "2026-10-16",
+        product: "5 Year Fixed",
+      },
+    };
+    assert.equal(rfaRowIsUnconfirmed(live), false);
+    assert.equal(countsTowardUninsuredHeadline(live), true);
+    assert.equal(
+      countsTowardUninsuredHeadline({ ...live, mortgage_type: "insured" }),
+      false
+    );
+    assert.equal(
+      countsTowardUninsuredHeadline({ ...live, mortgage_type: "insurable" }),
+      false
+    );
+
+    const fallback = {
+      lender_slug: "rfa",
+      mortgage_type: "uninsured",
+      raw_data: { source: "rfa_fallback_2026-09-14", last_verified: "2026-07-06", product: "5-Year Fixed" },
+    };
+    assert.equal(countsTowardUninsuredHeadline(fallback), false);
+
+    const stale = {
+      lender_slug: "rfa",
+      mortgage_type: "uninsured",
+      raw_data: { source: "rfa_cached", last_verified: "2020-01-01" },
+    };
+    assert.equal(countsTowardUninsuredHeadline(stale), false);
+
+    const unlabeled = { lender_slug: "rfa", mortgage_type: "uninsured" };
+    assert.equal(countsTowardUninsuredHeadline(unlabeled), false);
+
+    assert.equal(
+      countsTowardUninsuredHeadline({
+        lender_slug: "atb",
+        mortgage_type: "uninsured",
+      }),
+      true
+    );
   });
 
   it("keeps RFA in the full uninsured list and on RFA's own sheet", () => {
