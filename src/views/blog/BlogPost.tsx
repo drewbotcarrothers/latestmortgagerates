@@ -193,6 +193,16 @@ export default function BlogPostPage({ slug }: { slug: string }) {
             </div>
           </header>
 
+          {post.date.startsWith("2025") && (
+            <aside className="mb-8 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-amber-950" role="note">
+              <p className="font-semibold">This post is from 2025.</p>
+              <p className="mt-1 text-sm">
+                Mortgage rates have changed since it was published. See the{" "}
+                <a href="/" className="font-medium text-teal-800 underline">current rates</a>.
+              </p>
+            </aside>
+          )}
+
           <div className="aspect-video bg-slate-200 rounded-xl mb-8 relative overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-300 to-slate-400">
               <span className="text-slate-500 text-8xl">📰</span>

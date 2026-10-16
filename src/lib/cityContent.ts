@@ -605,7 +605,7 @@ const FEATURED: Record<string, CityOverride> = {
   vancouver: {
     seoTitle: "Vancouver Mortgage Rates | BC Property Transfer Tax",
     seoDescription:
-      "Compare live mortgage rates for Vancouver and Metro Vancouver. B.C. property transfer tax, first-time PTT exemption, Vancity, and closing-cost tools—no invented city average prices.",
+      "Compare live mortgage rates for Vancouver and Metro Vancouver. B.C. property transfer tax, first-time PTT exemption, Vancity, and closing-cost tools. We do not publish a city average sale price.",
     h1: "Mortgage Rates in Vancouver",
     heroTagline: "Live national rates with Metro Vancouver PTT, credit-union, and first-time exemption notes.",
     intro:
@@ -956,7 +956,7 @@ const FEATURED: Record<string, CityOverride> = {
   victoria: {
     seoTitle: "Victoria Mortgage Rates | BC PTT & Capital Region",
     seoDescription:
-      "Compare live mortgage rates for Victoria. B.C. property transfer tax, first-time PTT program, and Capital Regional District notes—no invented average prices.",
+      "Compare live mortgage rates for Victoria. B.C. property transfer tax, first-time PTT program, and Capital Regional District notes. We do not publish an average sale price.",
     h1: "Mortgage Rates in Victoria",
     heroTagline: "Live national rates with B.C. PTT notes for Victoria and the Capital Region.",
     intro:
@@ -1049,7 +1049,7 @@ const FEATURED: Record<string, CityOverride> = {
   "quebec-city": {
     seoTitle: "Quebec City Mortgage Rates | Welcome Tax",
     seoDescription:
-      "Compare live mortgage rates for Quebec City. Municipal welcome tax, notary closings, and Desjardins / National Bank comparisons—no invented average prices.",
+      "Compare live mortgage rates for Quebec City. Municipal welcome tax, notary closings, and Desjardins / National Bank comparisons. We do not publish an average sale price.",
     h1: "Mortgage Rates in Quebec City",
     heroTagline: "Live national rates with Capitale-Nationale welcome-tax and notary notes.",
     intro:

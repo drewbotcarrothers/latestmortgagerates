@@ -7,6 +7,7 @@ import RateHubLinks from "@/components/RateHubLinks";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import EditorialByline, { RATE_HUB_SOURCES } from "@/components/EditorialByline";
 import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
@@ -39,7 +40,7 @@ const avgRate = filteredRates.length > 0
   : "N/A";
 
 
-export default function UninsuredRatesPage() {
+export default function UninsuredRatesPage({ buildDateIso }: { buildDateIso: string }) {
   return (
     <>
       <BreadcrumbSchema
@@ -66,6 +67,7 @@ export default function UninsuredRatesPage() {
               <p className="text-xl text-slate-300">
                 Best rates for conventional mortgages with 20% or more down payment. No CMHC insurance required. Compare {new Set(filteredRates.map((r) => r.lender_slug)).size}+ lenders.
               </p>
+              <EditorialByline reviewedIso={buildDateIso} sources={RATE_HUB_SOURCES} tone="onDark" />
             </div>
           </div>
         </div>
