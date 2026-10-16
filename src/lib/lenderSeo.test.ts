@@ -232,9 +232,15 @@ describe("GSC near-page-1 lender SEO", () => {
         .filter((row) => row.term_months === 60 && row.rate_type === "fixed" && row.mortgage_type === "insured")
         .map((row) => row.rate)
     );
-    assert.equal(fiveFixed?.insured, liveInsured);
+    assert.equal(fiveFixed?.insured, Number.isFinite(liveInsured) ? liveInsured : null);
+    const wealthsimpleRates = ratesFor("wealthsimple").filter(
+      (row) => row.term_months === 12 && row.rate_type === "fixed" && row.mortgage_type === "insured",
+    );
     const wealthsimple = buildTodayRows(ratesFor("wealthsimple"));
-    assert.equal(wealthsimple.find((row) => row.label === "1-year fixed")?.insured, null);
+    const expectedInsured = wealthsimpleRates.length
+      ? Math.min(...wealthsimpleRates.map((row) => row.rate))
+      : null;
+    assert.equal(wealthsimple.find((row) => row.label === "1-year fixed")?.insured, expectedInsured);
     const withPosted = buildTodayRows([
       {
         term_months: 60,

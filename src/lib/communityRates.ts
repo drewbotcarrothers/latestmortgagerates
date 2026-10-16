@@ -179,17 +179,23 @@ export function productsFor(windowKey: WindowKey): ProductCell[] {
   return communityRates.windows[windowKey].products;
 }
 
-export function publicProducts(windowKey: WindowKey = "30d"): ProductCell[] {
-  return productsFor(windowKey)
-    .filter((product) => product.n >= PUBLIC_MIN_N)
-    .sort(compareProducts);
+export function selectPublicProducts(products: readonly ProductCell[]): ProductCell[] {
+  return products.filter((product) => product.n >= PUBLIC_MIN_N).sort(compareProducts);
 }
 
-export function chartProducts(windowKey: WindowKey = "30d"): ProductCell[] {
-  return productsFor(windowKey)
+export function selectChartProducts(products: readonly ProductCell[]): ProductCell[] {
+  return products
     .filter((product) => product.n >= CHART_MIN_N)
     .filter((product) => product.insured === "insured" || product.insured === "uninsured")
     .sort(compareProducts);
+}
+
+export function publicProducts(windowKey: WindowKey = "30d"): ProductCell[] {
+  return selectPublicProducts(productsFor(windowKey));
+}
+
+export function chartProducts(windowKey: WindowKey = "30d"): ProductCell[] {
+  return selectChartProducts(productsFor(windowKey));
 }
 
 function compareProducts(a: ProductCell, b: ProductCell): number {
@@ -199,14 +205,28 @@ function compareProducts(a: ProductCell, b: ProductCell): number {
   return a.insured === "uninsured" ? -1 : 1;
 }
 
+export interface OfferBook {
+  distributions: readonly Distribution[];
+  lenders: readonly LenderBlock[];
+}
+
+function distributionIn(
+  book: OfferBook,
+  termMonths: number,
+  rateType: RateType,
+  insured: InsuredStatus,
+): Distribution | undefined {
+  return book.distributions.find(
+    (row) => row.termMonths === termMonths && row.rateType === rateType && row.insured === insured,
+  );
+}
+
 export function distributionFor(
   termMonths: number,
   rateType: RateType,
   insured: InsuredStatus,
 ): Distribution | undefined {
-  return communityRates.distributions.find(
-    (row) => row.termMonths === termMonths && row.rateType === rateType && row.insured === insured,
-  );
+  return distributionIn(communityRates, termMonths, rateType, insured);
 }
 
 export function lenderBySlug(slug: string): LenderBlock | undefined {
@@ -217,16 +237,24 @@ export function isBig5(slug: string): boolean {
   return (BIG5_SLUGS as readonly string[]).includes(slug);
 }
 
-export function chartLenderProducts(lender: LenderBlock): LenderProduct[] {
-  return lender.products
+export function selectChartLenderProducts(products: readonly LenderProduct[]): LenderProduct[] {
+  return products
     .filter((product) => product.n >= CHART_MIN_N && product.postedRate != null)
     .sort(compareLenderProducts);
 }
 
-export function publicLenderProducts(lender: LenderBlock): LenderProduct[] {
-  return lender.products
+export function selectPublicLenderProducts(products: readonly LenderProduct[]): LenderProduct[] {
+  return products
     .filter((product) => product.n >= PUBLIC_MIN_N && product.postedRate != null)
     .sort(compareLenderProducts);
+}
+
+export function chartLenderProducts(lender: LenderBlock): LenderProduct[] {
+  return selectChartLenderProducts(lender.products);
+}
+
+export function publicLenderProducts(lender: LenderBlock): LenderProduct[] {
+  return selectPublicLenderProducts(lender.products);
 }
 
 function compareLenderProducts(a: LenderProduct, b: LenderProduct): number {
@@ -326,11 +354,11 @@ export interface ScoreResult {
   vsLowestPts: number | null;
 }
 
-export function scoreOffer(input: ScoreInput): ScoreResult {
+export function scoreOffer(input: ScoreInput, book: OfferBook = communityRates): ScoreResult {
   const exact = input.insured === "all"
     ? undefined
-    : distributionFor(input.termMonths, input.rateType, input.insured);
-  const all = distributionFor(input.termMonths, input.rateType, "all");
+    : distributionIn(book, input.termMonths, input.rateType, input.insured);
+  const all = distributionIn(book, input.termMonths, input.rateType, "all");
   let market: Distribution | undefined;
   let marketSample: ScoreResult["sample"] = "none";
   if (input.insured === "all") {
@@ -346,7 +374,7 @@ export function scoreOffer(input: ScoreInput): ScoreResult {
     marketSample = "all-statuses";
   }
 
-  const lender = input.lenderSlug ? lenderBySlug(input.lenderSlug) : undefined;
+  const lender = input.lenderSlug ? book.lenders.find((item) => item.slug === input.lenderSlug) : undefined;
   const bankProduct = lender?.products.find(
     (product) => product.termMonths === input.termMonths && product.rateType === input.rateType,
   );

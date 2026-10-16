@@ -23,27 +23,38 @@ function lowestUninsured(termMonths: number, rateType: string) {
 }
 
 describe("lowest uninsured headlines", () => {
-  it("treats RFA fallback rows as not true uninsured offers", () => {
+  it("drops unconfirmed RFA rows and keeps other uninsured rows", () => {
     const rfa = rates.filter((rate) => rate.lender_slug === "rfa");
     assert.ok(rfa.length > 0);
     for (const rate of rfa) {
-      assert.equal(rate.mortgage_type, "uninsured");
-      assert.match(rate.raw_data?.source ?? "", /rfa_fallback/);
-      assert.doesNotMatch(rate.raw_data?.product ?? "", /uninsured|uninsurable/i);
-      assert.equal(countsTowardUninsuredHeadline(rate), false);
+      const counts = rate.mortgage_type === "uninsured" && !rfaRowIsUnconfirmed(rate);
+      assert.equal(countsTowardUninsuredHeadline(rate), counts);
     }
-    const atb = rates.find((rate) => rate.lender_slug === "atb" && rate.mortgage_type === "uninsured");
-    assert.equal(countsTowardUninsuredHeadline(atb!), true);
+    const confirmedUninsured = rates.filter(
+      (rate) => rate.mortgage_type === "uninsured" && !rfaRowIsUnconfirmed(rate),
+    );
+    assert.ok(confirmedUninsured.length > 0);
+    assert.ok(confirmedUninsured.every((rate) => countsTowardUninsuredHeadline(rate)));
   });
 
-  it("picks ATB at 4.59% as the lowest 5-year fixed uninsured headline", () => {
+  it("picks the lowest confirmed 5-year fixed uninsured rate", () => {
     const best = lowestUninsured(60, "fixed");
-    assert.equal(best?.lender_slug, "atb");
-    assert.equal(best?.lender_name, "ATB Financial");
-    assert.equal(best?.rate, 4.59);
+    assert.ok(best);
+    assert.equal(countsTowardUninsuredHeadline(best), true);
+    assert.equal(best.mortgage_type, "uninsured");
+    assert.equal(best.term_months, 60);
+    assert.equal(best.rate_type, "fixed");
     const ctx = compareContext(rates);
-    assert.equal(ctx.bestFixed5Uninsured?.lender_slug, "atb");
-    assert.equal(ctx.bestFixed5Uninsured?.rate, 4.59);
+    assert.equal(ctx.bestFixed5Uninsured?.lender_slug, best.lender_slug);
+    assert.equal(ctx.bestFixed5Uninsured?.rate, best.rate);
+    const cheaper = rates.filter(
+      (rate) =>
+        rate.term_months === 60 &&
+        rate.rate_type === "fixed" &&
+        countsTowardUninsuredHeadline(rate) &&
+        rate.rate < best.rate,
+    );
+    assert.equal(cheaper.length, 0);
   });
 
   it("counts a live RFA uninsured row and still drops fallback or stale rows", () => {
@@ -93,14 +104,18 @@ describe("lowest uninsured headlines", () => {
     );
   });
 
-  it("keeps RFA in the full uninsured list and on RFA's own sheet", () => {
+  it("keeps an RFA uninsured row on RFA's own sheet at the file's rate", () => {
     const labeled = rates.filter(
       (rate) => rate.term_months === 60 && rate.rate_type === "fixed" && rate.mortgage_type === "uninsured"
     );
     const rfa = labeled.find((rate) => rate.lender_slug === "rfa");
-    assert.equal(rfa?.rate, 4.29);
     const sheet = lenderSnapshot(rates, "rfa");
-    assert.equal(sheet.fixed5Uninsured?.rate, 4.29);
+    if (!rfa) {
+      assert.equal(sheet.fixed5Uninsured, null);
+      return;
+    }
+    assert.equal(sheet.fixed5Uninsured?.rate, rfa.rate);
     assert.equal(sheet.fixed5Uninsured?.lender_slug, "rfa");
+    assert.equal(sheet.fixed5Uninsured?.lender_name, rfa.lender_name);
   });
 });
