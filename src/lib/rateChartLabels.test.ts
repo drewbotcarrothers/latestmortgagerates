@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { chartLenderProducts, chartProducts, communityRates, formatRate, lenderBySlug } from "./communityRates.ts";
+import { chartLenderProducts, chartProducts, communityRates, formatRate } from "./communityRates.ts";
 import {
   frameRateChart,
   layoutRateLabels,
@@ -159,24 +159,25 @@ describe("rate chart labels", () => {
   });
 
   it("labels every lender comparison the same way", () => {
-    const lender = lenderBySlug("td");
-    assert.ok(lender);
-    const rows = chartLenderProducts(lender);
-    assert.ok(rows.length > 0);
-    for (const product of rows) {
-      const posted = product.postedRate as number;
-      const labels = layoutRateLabels(
-        [
-          { id: "posted", x: 400, text: formatRate(posted), color: "#0f172a", side: "above" },
-          { id: "median", x: 220, text: formatRate(product.reportedMedian), color: "#0f766e", side: "below" },
-        ],
-        { lineY: 44, fontSize: 12, minX: 8, maxX: 592 },
-      );
-      assert.equal(labels.length, 2);
-      assert.ok(labels.every((label) => /^\d+\.\d{2}%$/.test(label.text)));
-      assert.ok(labels.find((label) => label.id === "posted")!.labelY < 44);
-      assert.ok(labels.find((label) => label.id === "median")!.labelY > 44);
-    }
     assert.ok(communityRates.lenders.length > 0);
+    let labeled = 0;
+    for (const lender of communityRates.lenders) {
+      for (const product of chartLenderProducts(lender)) {
+        const posted = product.postedRate as number;
+        const labels = layoutRateLabels(
+          [
+            { id: "posted", x: 400, text: formatRate(posted), color: "#0f172a", side: "above" },
+            { id: "median", x: 220, text: formatRate(product.reportedMedian), color: "#0f766e", side: "below" },
+          ],
+          { lineY: 44, fontSize: 12, minX: 8, maxX: 592 },
+        );
+        assert.equal(labels.length, 2, lender.slug);
+        assert.ok(labels.every((label) => /^\d+\.\d{2}%$/.test(label.text)));
+        assert.ok(labels.find((label) => label.id === "posted")!.labelY < 44);
+        assert.ok(labels.find((label) => label.id === "median")!.labelY > 44);
+        labeled += 1;
+      }
+    }
+    assert.ok(labeled > 0);
   });
 });
