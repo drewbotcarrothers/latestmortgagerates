@@ -16,8 +16,11 @@ import {
   formatSpread,
   nearestRank,
   negotiationTips,
+  offerComparisonHeadline,
+  ordinal,
   percentBetterThan,
   percentileAtOrBelow,
+  percentilePlacePhrase,
   publicProducts,
   roundToNickel,
   scoreOffer,
@@ -336,6 +339,131 @@ describe("community rate publication rules", () => {
       }
     }
     assert.ok(lendersWithChart > 0);
+  });
+});
+
+describe("offer comparison headline", () => {
+  const MID = [3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.2];
+  const NEAR_TOP = [3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.5];
+
+  it("describes an offer above every report without saying 0%", () => {
+    assert.equal(offerComparisonHeadline(MID, 4.5), "Higher than all 10 reported rates");
+    assert.equal(percentBetterThan(MID, 4.5), 0);
+    assert.equal(offerComparisonHeadline(MID, 4.2), "Higher than 90% of reported rates");
+    assert.equal(percentBetterThan(MID, 4.2), 0);
+    assert.doesNotMatch(offerComparisonHeadline(MID, 4.5), /Lower than 0%/);
+    assert.doesNotMatch(offerComparisonHeadline(MID, 4.2), /Lower than 0%/);
+  });
+
+  it("describes an offer below every report without saying 100%", () => {
+    assert.equal(offerComparisonHeadline(MID, 2.9), "Lower than every reported rate");
+    assert.equal(percentBetterThan(MID, 2.9), 100);
+    assert.equal(offerComparisonHeadline(MID, 3.1), "Lower than 90% of reported rates");
+    assert.equal(/100%/.test(offerComparisonHeadline(MID, 2.9)), false);
+  });
+
+  it("describes a near-top offer as higher than that share", () => {
+    assert.equal(offerComparisonHeadline(NEAR_TOP, 4.2), "Higher than 92% of reported rates");
+    assert.equal(Math.round(percentBetterThan(NEAR_TOP, 4.2)), 8);
+  });
+
+  it("describes the middle of a sample from the offer's side", () => {
+    assert.equal(offerComparisonHeadline(MID, 3.7), "Higher than 60% of reported rates");
+    assert.equal(offerComparisonHeadline(MID, 3.4), "Lower than 60% of reported rates");
+    assert.equal(offerComparisonHeadline([3, 4, 5, 6], 4.5), "Higher than 50% of reported rates");
+  });
+
+  it("reads naturally for a small sample, including a single report", () => {
+    assert.equal(offerComparisonHeadline([4.1, 4.4], 4.9), "Higher than all 2 reported rates");
+    assert.equal(offerComparisonHeadline([4.1, 4.4], 3.5), "Lower than every reported rate");
+    assert.equal(offerComparisonHeadline([4.1, 4.4], 4.2), "Higher than 50% of reported rates");
+    assert.equal(offerComparisonHeadline([4.1], 4.4), "Higher than the only reported rate");
+    assert.equal(offerComparisonHeadline([4.1], 3.8), "Lower than every reported rate");
+    assert.equal(offerComparisonHeadline([4.1], 4.1), "The same as the only reported rate");
+    assert.equal(offerComparisonHeadline([4, 4, 4, 4], 4), "The same as every reported rate");
+    assert.equal(offerComparisonHeadline([4, 4, 4, 4.5], 4), "The same as 75% of reported rates");
+    assert.equal(offerComparisonHeadline([], 4), "");
+  });
+
+  it("does not print a rounded 0% or 100% when the offer misses one report", () => {
+    const rates = Array.from({ length: 200 }, (_, index) => index);
+    assert.equal(offerComparisonHeadline(rates, 198.6), "Higher than 99% of reported rates");
+    assert.equal(offerComparisonHeadline(rates, 0.4), "Lower than 99% of reported rates");
+    assert.doesNotMatch(offerComparisonHeadline(rates, 198.6), /(?<!\d)(?:0|100)%/);
+    assert.doesNotMatch(offerComparisonHeadline(rates, 0.4), /(?<!\d)(?:0|100)%/);
+  });
+
+  it("never names a source site", () => {
+    for (const offer of [2.9, 3.4, 3.7, 4.2, 4.5]) {
+      assert.equal(FORBIDDEN.test(offerComparisonHeadline(MID, offer)), false);
+      assert.equal(FORBIDDEN.test(percentilePlacePhrase(percentBetterThan(MID, offer))), false);
+    }
+  });
+
+  it("keeps the percentile sentence for the middle and drops the 0th and 100th edges", () => {
+    assert.equal(ordinal(1), "1st");
+    assert.equal(ordinal(2), "2nd");
+    assert.equal(ordinal(3), "3rd");
+    assert.equal(ordinal(11), "11th");
+    assert.equal(ordinal(12), "12th");
+    assert.equal(ordinal(13), "13th");
+    assert.equal(ordinal(21), "21st");
+    assert.equal(ordinal(92), "92nd");
+    assert.equal(percentilePlacePhrase(0), "");
+    assert.equal(percentilePlacePhrase(100), "");
+    assert.equal(
+      percentilePlacePhrase(92),
+      "That is about the 92nd percentile. A lower percentile is a lower rate.",
+    );
+    assert.equal(
+      percentilePlacePhrase(1.2),
+      "That is about the 1st percentile. A lower percentile is a lower rate.",
+    );
+  });
+
+  it("attaches the headline from an inline book and leaves the verdict alone", () => {
+    const fixture = book([
+      distribution({
+        termMonths: 60,
+        rateType: "fixed",
+        insured: "uninsured",
+        rates: MID,
+        median: 3.55,
+      }),
+    ]);
+    const input = {
+      lenderSlug: null,
+      termMonths: 60 as const,
+      rateType: "fixed" as const,
+      insured: "uninsured" as const,
+    };
+
+    const above = scoreOffer({ ...input, offerRate: 4.5 }, fixture);
+    assert.equal(above.verdict, "negotiate");
+    assert.equal(above.percentBeating, 0);
+    assert.equal(above.comparisonHeadline, "Higher than all 10 reported rates");
+
+    const below = scoreOffer({ ...input, offerRate: 2.9 }, fixture);
+    assert.equal(below.verdict, "great");
+    assert.equal(below.comparisonHeadline, "Lower than every reported rate");
+
+    const middle = scoreOffer({ ...input, offerRate: 3.5 }, fixture);
+    assert.equal(middle.verdict, "fair");
+    assert.equal(middle.comparisonHeadline, "Lower than 50% of reported rates");
+
+    const small = distribution({
+      termMonths: 24,
+      rateType: "fixed",
+      insured: "all",
+      rates: [4.1, 4.2, 4.4],
+    });
+    const withheld = scoreOffer(
+      { lenderSlug: null, termMonths: 24, rateType: "fixed", insured: "all", offerRate: 5 },
+      book([small]),
+    );
+    assert.equal(withheld.verdict, "insufficient");
+    assert.equal(withheld.comparisonHeadline, null);
+    assert.equal(offerComparisonHeadline(small.rates, 5), "Higher than all 3 reported rates");
   });
 });
 
