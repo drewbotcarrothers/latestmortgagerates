@@ -289,6 +289,77 @@ export function percentBetterThan(rates: number[], offer: number): number {
   return (count / rates.length) * 100;
 }
 
+/**
+ * Headline for where an offer sits among reported rates.
+ * A high offer is described as higher, and a low offer as lower.
+ * Exact extremes avoid "0%" and "100%".
+ */
+export function offerComparisonHeadline(rates: number[], offer: number): string {
+  const n = rates.length;
+  if (n === 0) return "";
+
+  let higherThan = 0;
+  let lowerThan = 0;
+  for (const rate of rates) {
+    if (offer > rate) higherThan += 1;
+    else if (offer < rate) lowerThan += 1;
+  }
+  const sameAs = n - higherThan - lowerThan;
+
+  if (higherThan === n) {
+    return n === 1
+      ? "Higher than the only reported rate"
+      : `Higher than all ${n} reported rates`;
+  }
+  if (lowerThan === n) return "Lower than every reported rate";
+  if (sameAs === n) {
+    return n === 1
+      ? "The same as the only reported rate"
+      : "The same as every reported rate";
+  }
+  if (sameAs > higherThan && sameAs > lowerThan) {
+    return `The same as ${boundedSharePercent(sameAs, n)}% of reported rates`;
+  }
+  if (higherThan >= lowerThan) {
+    return `Higher than ${boundedSharePercent(higherThan, n)}% of reported rates`;
+  }
+  return `Lower than ${boundedSharePercent(lowerThan, n)}% of reported rates`;
+}
+
+/** Rounded share from 1 to 99, so a near-extreme percent never prints as 0% or 100%. */
+function boundedSharePercent(count: number, total: number): number {
+  const pct = Math.round((count / total) * 100);
+  if (pct <= 0) return 1;
+  if (pct >= 100) return 99;
+  return pct;
+}
+
+export function ordinal(value: number): string {
+  const rounded = Math.abs(Math.trunc(value));
+  const mod100 = rounded % 100;
+  const mod10 = rounded % 10;
+  const suffix = mod100 >= 11 && mod100 <= 13
+    ? "th"
+    : mod10 === 1
+      ? "st"
+      : mod10 === 2
+        ? "nd"
+        : mod10 === 3
+          ? "rd"
+          : "th";
+  return `${rounded}${suffix}`;
+}
+
+/**
+ * Sentence under the comparison headline.
+ * The 0 and 100 edges are left blank because the headline already states them.
+ */
+export function percentilePlacePhrase(percentile: number): string {
+  const rounded = Math.round(percentile);
+  if (rounded <= 0 || rounded >= 100) return "";
+  return `That is about the ${ordinal(rounded)} percentile. A lower percentile is a lower rate.`;
+}
+
 export interface RateBin {
   start: number;
   end: number;
@@ -340,6 +411,7 @@ export interface ScoreResult {
   p75: number | null;
   percentile: number | null;
   percentBeating: number | null;
+  comparisonHeadline: string | null;
   big5PostedMedian: number | null;
   lowestPosted: number | null;
   lowestPostedLender: string | null;
@@ -414,6 +486,9 @@ export function scoreOffer(input: ScoreInput, book: OfferBook = communityRates):
       : null,
     percentBeating: primaryRates && verdict !== "insufficient"
       ? percentBetterThan(primaryRates, input.offerRate)
+      : null,
+    comparisonHeadline: primaryRates && verdict !== "insufficient"
+      ? offerComparisonHeadline(primaryRates, input.offerRate) || null
       : null,
     big5PostedMedian: big5,
     lowestPosted: lowest,
