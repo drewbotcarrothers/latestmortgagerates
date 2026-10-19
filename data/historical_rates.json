@@ -1,31 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-10-18T15:12:26.461510",
+    "last_updated": "2026-10-19T10:57:08.495545",
     "total_days": 90,
     "prime_rate": 4.45
   },
   "data": [
-    {
-      "date": "2026-07-20",
-      "fixed_uninsured_best_rate": 3.74,
-      "fixed_uninsured_best_lender": "Wealthsimple",
-      "fixed_uninsured_avg_rate": 4.24,
-      "fixed_insured_best_rate": 3.59,
-      "fixed_insured_best_lender": "Equitable Bank",
-      "fixed_insured_avg_rate": 4.2,
-      "variable_uninsured_best_rate": 3.15,
-      "variable_uninsured_best_lender": "Equitable Bank",
-      "variable_uninsured_avg_rate": 3.65,
-      "variable_uninsured_spread_to_prime": 0.0,
-      "variable_insured_best_rate": 2.95,
-      "variable_insured_best_lender": "Equitable Bank",
-      "variable_insured_avg_rate": 3.66,
-      "variable_insured_spread_to_prime": 0.0,
-      "prime_rate": 4.45,
-      "lender_count": 33,
-      "total_rates": 240,
-      "created_at": "2026-07-20T13:05:08.297954"
-    },
     {
       "date": "2026-07-21",
       "fixed_uninsured_best_rate": 3.39,
@@ -1894,6 +1873,27 @@
       "lender_count": 25,
       "total_rates": 229,
       "created_at": "2026-10-18T14:39:02.617468"
+    },
+    {
+      "date": "2026-10-19",
+      "fixed_uninsured_best_rate": 4.59,
+      "fixed_uninsured_best_lender": "ATB Financial",
+      "fixed_uninsured_avg_rate": 5.13,
+      "fixed_insured_best_rate": 4.34,
+      "fixed_insured_best_lender": "ATB Financial",
+      "fixed_insured_avg_rate": 4.73,
+      "variable_uninsured_best_rate": 3.64,
+      "variable_uninsured_best_lender": "Meridian Credit Union",
+      "variable_uninsured_avg_rate": 4.08,
+      "variable_uninsured_spread_to_prime": 0.0,
+      "variable_insured_best_rate": 3.25,
+      "variable_insured_best_lender": "Butler Mortgage",
+      "variable_insured_avg_rate": 3.7,
+      "variable_insured_spread_to_prime": 0.0,
+      "prime_rate": 4.45,
+      "lender_count": 25,
+      "total_rates": 229,
+      "created_at": "2026-10-19T10:57:08.491079"
     }
   ]
 }
