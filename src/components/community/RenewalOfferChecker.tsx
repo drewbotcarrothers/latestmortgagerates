@@ -10,6 +10,7 @@ import {
   formatSpread,
   lenderName,
   negotiationTips,
+  percentilePlacePhrase,
   productLabel,
   scoreOffer,
   termLabel,
@@ -159,6 +160,7 @@ function Result({
 }) {
   const style = VERDICT_STYLE[score.verdict];
   const label = productLabel({ termMonths, rateType, insured });
+  const place = score.percentile == null ? "" : percentilePlacePhrase(score.percentile);
   const sampleNote = score.sample === "bank" && lenderSlug
     ? `Scored against rates people report from ${lenderName(lenderSlug)} for this term and type (all insured statuses, N = ${score.n}).`
     : score.sample === "all-statuses"
@@ -174,15 +176,17 @@ function Result({
         <p className="text-sm text-slate-500">Your offer {formatRate(offerRate)} · as of {formatAsOf()}</p>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-slate-700">{sampleNote}</p>
-      {score.verdict !== "insufficient" && score.percentile != null && score.percentBeating != null && score.median != null && (
+      {score.verdict !== "insufficient" && score.comparisonHeadline && score.median != null && (
         <>
           <p className="mt-4 text-2xl font-bold text-slate-900">
-            Lower than {Math.round(score.percentBeating)}% of these reports
+            {score.comparisonHeadline}
           </p>
           <p className="mt-1 text-sm text-slate-600">
-            That is about the {Math.round(score.percentile)}th percentile. A lower percentile is a lower rate. The median in this comparison is {formatRate(score.median)}
-            {score.p25 != null ? ` and the 25th percentile is ${formatRate(score.p25)}` : ""}.
-            Your offer is {formatSpread(score.median - offerRate)} that median.
+            {[
+              place,
+              `The median in this comparison is ${formatRate(score.median)}${score.p25 != null ? ` and the 25th percentile is ${formatRate(score.p25)}` : ""}.`,
+              `Your offer is ${formatSpread(score.median - offerRate)} that median.`,
+            ].filter(Boolean).join(" ")}
           </p>
         </>
       )}
