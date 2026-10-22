@@ -95,7 +95,8 @@ function generateStructuredData(post: typeof blogPosts[0]) {
     description: post.excerpt,
     author: {
       "@type": "Person",
-      name: post.author,
+      name: "Andrew",
+      url: "https://latestmortgagerates.ca/author/andrew/",
     },
     datePublished: post.date,
     dateModified: post.date,
@@ -176,7 +177,9 @@ export default function BlogPostPage({ slug }: { slug: string }) {
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-xl">👤</div>
                 <div>
-                  <p className="font-medium text-slate-900">{post.author}</p>
+                  <p className="font-medium text-slate-900">
+                    <a href="/author/andrew/" className="hover:text-teal-700 hover:underline">Andrew</a>
+                  </p>
                   <p className="text-sm text-slate-500">{post.authorTitle}</p>
                 </div>
               </div>

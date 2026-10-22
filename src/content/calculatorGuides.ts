@@ -1,3 +1,5 @@
+import { calculateCmhcPremium, CMHC_PREMIUM_TIERS, minimumDownPayment } from "../lib/cmhcPremium";
+import { calculateRentVsBuy } from "../lib/rentVsBuyMath";
 import {
   BC_PTT_FTHB_FULL_PROGRAM_FMV,
   BC_PTT_FTHB_MAX_EXEMPTION,
@@ -302,3 +304,180 @@ export const mortgageCalculatorFaqs: GuideFaq[] = [
       "No. The payment here is principal and interest only. Property tax, heating, and condo fees are housing costs for the stress test, which qualifies you at the greater of your contract rate plus 2 percentage points or 5.25%. Use the stress test calculator for that step and the closing costs calculator for cash due on closing.",
   },
 ];
+
+function faqWordCount(faqs: GuideFaq[]): number {
+  return guideWordCount(faqs.map((faq) => ({ heading: faq.question, paragraphs: [faq.answer] })));
+}
+
+export function explainerWordCount(sections: GuideSection[], faqs: GuideFaq[]): number {
+  return guideWordCount(sections) + faqWordCount(faqs);
+}
+
+/** $600,000 home with $60,000 down: 10% down, 90% loan-to-value, 85.01–90 band. */
+export function cmhcWorkedExample() {
+  const price = 600_000;
+  const down = 60_000;
+  return { price, down, minimum: minimumDownPayment(price), ...calculateCmhcPremium(price, down) };
+}
+
+export function cmhcInsuranceGuide(): GuideSection[] {
+  const example = cmhcWorkedExample();
+  const bands = CMHC_PREMIUM_TIERS.map(
+    (tier) => `${tier.ltvMin}–${tier.ltvMax}% at ${pct(tier.rate)}`,
+  ).join("; ");
+  return [
+    {
+      heading: "How this CMHC insurance calculator works",
+      paragraphs: [
+        "Default insurance is the premium a lender requires when your down payment is under 20% of the purchase price. The premium protects the lender, not you. This page estimates it from the price and down payment you type. It does not ask a province, and it does not add provincial sales tax. Ontario, Quebec, and Manitoba tax the premium; that tax is extra cash or an extra amount on the mortgage, and it is not in the figure here.",
+        `Loan-to-value is the mortgage divided by the price. The mortgage before the premium is price minus down payment. The tool then picks one band. The bands coded on this page are: ${bands}. If your down payment is 20% or more, the page says insurance is not required and hides the premium, even if a band would otherwise match. A price above $1,000,000 is treated as uninsurable: the minimum down payment becomes 20%.`,
+        `The premium amount is the mortgage before insurance times the band rate. That premium is added to the mortgage, which is why the loan-to-value after the premium is a bit higher than the loan-to-value you started with. You pay it back, with interest, over the amortization. It is not a cheque on closing unless you choose to pay it that way with the lender.`,
+      ],
+    },
+    {
+      heading: "A worked Canadian example",
+      paragraphs: [
+        `Take a $${example.price.toLocaleString("en-CA")} purchase with $${example.down.toLocaleString("en-CA")} down. That is ${example.downPaymentPercent.toFixed(1)}% down. The mortgage before insurance is $${example.mortgageAmount.toLocaleString("en-CA")}. Loan-to-value is ${example.ltv.toFixed(1)}%, which lands in the 85.01% to 90% band, so the rate on this tool is ${pct(example.premiumRate)}. The premium is $${Math.round(example.premiumAmount).toLocaleString("en-CA")}. Adding it makes the total mortgage $${Math.round(example.totalMortgage).toLocaleString("en-CA")}, and the loan-to-value including the premium is ${example.newLTV.toFixed(1)}%.`,
+        `The minimum down payment this tool uses on that price is $${Math.round(example.minimum).toLocaleString("en-CA")}: 5% of the first $500,000 ($25,000) plus 10% of the next $100,000 ($10,000). The $60,000 down payment is above that minimum and still under 20%, so the premium applies. Put 20% down ($120,000) and the same price shows no premium. These bands are the ones printed under the calculator. CMHC, Sagen, and Canada Guaranty publish their own schedules, and a commitment can differ. Confirm the premium, the tax, and whether the premium is added to the mortgage before you remove a condition.`,
+      ],
+    },
+    {
+      heading: "Rules that change the premium",
+      paragraphs: [
+        "Under 20% down from a federally regulated lender, default insurance is required when the purchase is still eligible. CMHC or a private insurer can write it. A 30-year amortization, a rental, or a price over the insurable cap can be ineligible even at 5% down. Insured contract rates are often lower than uninsured rates because the lender’s risk is covered. Compare that lower rate on the larger balance with a 20% down quote using the <a href=\"/tools/mortgage-calculator/\">payment calculator</a> and the <a href=\"/rates/insured/\">insured</a> and <a href=\"/rates/uninsured/\">uninsured</a> tables. The stress test still uses the greater of the contract rate plus two points or 5.25%, on the balance that includes the premium.",
+      ],
+    },
+  ];
+}
+
+export function cmhcInsuranceFaqs(): GuideFaq[] {
+  return [
+    {
+      question: "Why does the total mortgage go up by the premium?",
+      answer:
+        "The premium is added to the principal and repaid over the amortization. This tool does not add provincial sales tax.",
+    },
+    {
+      question: "What minimum down payment does the calculator use?",
+      answer:
+        "Five percent of the first $500,000, ten percent up to $1,000,000, and twenty percent above that. The premium stops at twenty percent down.",
+    },
+    {
+      question: "Are these the only CMHC rates in Canada?",
+      answer:
+        "No. These are the bands this tool applies. Confirm the insurer’s table and any provincial sales tax on the commitment.",
+    },
+  ];
+}
+
+export function renewalOfferGuide(): GuideSection[] {
+  return [
+    {
+      heading: "How the renewal offer checker calculates a verdict",
+      paragraphs: [
+        "The checker does not quote you a rate. You type the rate a bank already put in front of you, pick the lender, the term (one to five years), fixed or variable, and whether the mortgage is insured, uninsured, or you are not sure. The page then looks up rates self-reported by Canadian borrowers online and compares your number with that group.",
+        "It prefers reports from the bank you picked, for that term and fixed or variable, when that cell has at least 10 reports. If the bank cell is smaller than 10, it uses the wider set of reports for the same term and type. If you picked insured or uninsured and that slice is still under 10, it falls back to every insured status together. If no group reaches 10, the verdict is that there are not enough reports.",
+        "When the sample is large enough, your rate is placed on the ordered list. At or below the 25th percentile the label is a great offer. Above that and at or below the median, the label is fair. Above the median, the label is negotiate. A lower percentile is a lower rate. The page also shows your rate against that bank’s posted rate, the Big Five posted median, and the lowest posted rate in the snapshot, when those figures exist.",
+      ],
+    },
+    {
+      heading: "A worked example, using a made-up sample",
+      paragraphs: [
+        "Suppose twelve people report a five-year fixed uninsured rate from the same bank, the 25th percentile of those reports is 4.19%, and the median is 4.39%. An offer of 4.09% is at or under 4.19%, so the checker would call it a great offer. An offer of 4.29% is between the 25th percentile and the median, so the label would be fair. An offer of 4.59% is above the median, so the label would be negotiate. Those three rates illustrate the rule. They are not the medians in today’s file.",
+        "Switching insured status or clearing the bank changes the group, so the same offer can change labels. Read the sample size before you treat the label as a fact about the whole market. The reports are unverified. Your credit, equity, and the day you ask still change the rate a lender will sign.",
+      ],
+    },
+    {
+      heading: "What to do with the label",
+      paragraphs: [
+        "A negotiate label is a reason to ask, not a promise the bank will match the median. Get the term, fixed or variable, insured status, prepayment, and penalty method in writing. Take a second quote back to the bank. The steps are on the <a href=\"/guides/negotiate-mortgage-rate/\">negotiation guide</a>. Reported medians are rates self-reported by Canadian borrowers online. Posted rates on the homepage are scraped from lender sites. Do not average the two. Price a switch, including any penalty, with the <a href=\"/tools/mortgage-renewal-calculator/\">renewal calculator</a> before you leave over a tenth of a point.",
+      ],
+    },
+  ];
+}
+
+export function renewalOfferFaqs(): GuideFaq[] {
+  return [
+    {
+      question: "What do great, fair, and negotiate mean?",
+      answer:
+        "Great is at or below the 25th percentile. Fair is above that and at or below the median. Negotiate is above the median. Each label needs at least 10 reports.",
+    },
+    {
+      question: "Why does the checker say there are not enough reports?",
+      answer:
+        "The cutoff is 10 reports. If the bank cell and the wider market are both under 10, the offer is not scored. Try “not sure” for insured status, or use the posted tables.",
+    },
+    {
+      question: "Is a reported median the rate I will be offered?",
+      answer:
+        "No. Those rates were self-reported by Canadian borrowers online. They are unverified. Confirm the contract with the lender.",
+    },
+  ];
+}
+
+export function rentVsBuyWorkedExample() {
+  return calculateRentVsBuy({
+    monthlyRent: 2200,
+    homePrice: 500_000,
+    downPayment: 100_000,
+    interestRate: 5,
+    propertyTax: 300,
+    maintenance: 250,
+    homeInsurance: 100,
+    monthlyUtilities: 150,
+    annualAppreciation: 2,
+    investmentReturn: 5,
+    years: 5,
+  });
+}
+
+export function rentVsBuyGuide(): GuideSection[] {
+  const example = rentVsBuyWorkedExample();
+  const rentMonthlyCosts = 2200;
+  const ownMonthly =
+    example.monthlyMortgage + 300 + 250 + 100 + 150;
+  return [
+    {
+      heading: "How the rent versus buy calculator works",
+      paragraphs: [
+        "The calculator compares two piles of wealth after the years you choose. The buyer’s net worth is home value minus the remaining mortgage. That equity does not subtract commission, land transfer tax, or a penalty.",
+        "Renting: the down payment is treated as invested cash. Each year, rent is increased by 2.5%. If a year of owning costs more than that year’s rent, the difference is added to the investment. The investment grows at the return you enter. The renter’s net worth on the result is that investment balance. It is not reduced by the rent already paid. The break-even year uses a stricter comparison inside the loop (equity versus investment minus rent paid), so the year it names can disagree with a quick look at the two final balances. Read both numbers, and treat the winner as a worksheet, not a forecast.",
+        "The mortgage payment uses a monthly rate, annual rate divided by 12, over a 25-year amortization that stays 25 years no matter how many years you compare. Canadian fixed commitments usually compound semi-annually, so a lender’s payment can differ by a few dollars. Property tax, maintenance, insurance, and utilities are added every month and do not fall as you pay principal. Put tenant insurance into the rent figure yourself if you want it in the comparison.",
+      ],
+    },
+    {
+      heading: "A worked Canadian example",
+      paragraphs: [
+        `A $500,000 home, $100,000 down (20%, so no default-insurance premium), a 5.00% rate, and the 25-year amortization give a principal-and-interest payment of about ${cad(example.monthlyMortgage)} a month on this tool. Add $300 property tax, $250 maintenance, $100 insurance, and $150 utilities and owning costs about ${cad(ownMonthly)} a month before appreciation. Rent starts at ${cad(rentMonthlyCosts)} a month and rises 2.5% a year. Appreciation is 2% a year. The renter’s investment return is 5%. The comparison runs for five years.`,
+        `After those five years the worksheet shows a home worth about ${cad(example.homeValue)}, equity of about ${cad(example.equity)}, and a renter investment of about ${cad(example.netWorthRent)}. The buyer’s equity and the renter’s investment differ by about ${cad(example.difference)}, and the page calls the winner ${example.winner}. Rent paid over the five years totals about ${cad(example.rentTotal)}. Change the city by changing the price, the tax, and the rent. A $500,000 home is a plausible price in many Canadian markets and a low one in Toronto or Vancouver. The rate is an example, not a quote from the rate table.`,
+      ],
+    },
+    {
+      heading: "Rules and limits",
+      paragraphs: [
+        "The formula does not know your province, so land transfer tax and rent-control caps are outside it. Under 20% down, add the insurance premium with the <a href=\"/tools/cmhc-insurance-calculator/\">CMHC calculator</a> first. This form does not add that premium. A higher investment return favours renting. A higher appreciation rate favours buying. Selling costs are left out, so a short hold looks kinder to buying than a real move. Price a penalty with the <a href=\"/tools/mortgage-penalty-calculator/\">penalty calculator</a>, and start the rate from the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> or <a href=\"/rates/variable/\">variable</a> table when you want a posted quote rather than an example.",
+      ],
+    },
+  ];
+}
+
+export function rentVsBuyFaqs(): GuideFaq[] {
+  return [
+    {
+      question: "Does this rent versus buy calculator use semi-annual compounding?",
+      answer:
+        "No. It divides the annual rate by 12 over 25 years. A semi-annual Canadian disclosure can differ by a few dollars a month.",
+    },
+    {
+      question: "Why can the break-even year disagree with the two final balances?",
+      answer:
+        "The final renter figure is the investment account. The break-even check subtracts rent already paid. Treat the year as a rough crossing point.",
+    },
+    {
+      question: "Does the example include default insurance or closing costs?",
+      answer:
+        "No. The example uses 20% down, and the formula never subtracts land transfer tax or commission.",
+    },
+  ];
+}

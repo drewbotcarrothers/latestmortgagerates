@@ -7,7 +7,8 @@
  */
 import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { INDEXED_CITY_SLUGS, isIndexablePath } from "../src/lib/indexedCities.mjs";
+import { INDEXED_CITY_SLUGS } from "../src/lib/indexedCities.mjs";
+import { isIndexablePath } from "../src/lib/sitemapFilter.mjs";
 
 const dist = join(process.cwd(), "dist");
 const api = join(dist, "api");
@@ -90,6 +91,20 @@ if (!existsSync(htaccess) || !lstatSync(htaccess).isFile()) {
   fail("dist/.htaccess is required for Hostinger 301s (old GSC 404 URLs)");
 }
 
+const sitemapIndexPath = join(dist, "sitemap-index.xml");
+if (!existsSync(sitemapIndexPath) || !lstatSync(sitemapIndexPath).isFile()) {
+  fail("dist/sitemap-index.xml missing (Astro sitemap index)");
+}
+const sitemapIndex = readFileSync(sitemapIndexPath, "utf8");
+if (!sitemapIndex.includes("sitemap-0.xml")) {
+  fail("sitemap-index.xml must reference sitemap-0.xml");
+}
+
+const robots = readFileSync(join(dist, "robots.txt"), "utf8");
+if (!robots.includes("Sitemap: https://latestmortgagerates.ca/sitemap-index.xml")) {
+  fail("robots.txt must point at sitemap-index.xml");
+}
+
 const sitemapPath = join(dist, "sitemap.xml");
 if (!existsSync(sitemapPath) || !lstatSync(sitemapPath).isFile()) {
   fail("dist/sitemap.xml missing (copy sitemap-0.xml after Astro sitemap build)");
@@ -105,6 +120,9 @@ const required = [
   "https://latestmortgagerates.ca/",
   "https://latestmortgagerates.ca/about/",
   "https://latestmortgagerates.ca/contact/",
+  "https://latestmortgagerates.ca/author/andrew/",
+  "https://latestmortgagerates.ca/guides/",
+  "https://latestmortgagerates.ca/blog/best-5-year-fixed-rates-week-43-2026/",
   "https://latestmortgagerates.ca/disclaimer/",
   "https://latestmortgagerates.ca/privacy/",
   "https://latestmortgagerates.ca/terms/",

@@ -2,63 +2,18 @@
 
 import { useState, useMemo } from "react";
 
-interface PremiumTier {
-  ltvMin: number;
-  ltvMax: number;
-  rate: number;
-}
-
-const premiumTiers: PremiumTier[] = [
-  { ltvMin: 65.01, ltvMax: 80, rate: 2.25 },
-  { ltvMin: 80.01, ltvMax: 85, rate: 3.35 },
-  { ltvMin: 85.01, ltvMax: 90, rate: 4.25 },
-  { ltvMin: 90.01, ltvMax: 95, rate: 5.65 },
-  { ltvMin: 95.01, ltvMax: 97, rate: 6.75 },
-];
+import { calculateCmhcPremium, minimumDownPayment } from "@/lib/cmhcPremium";
 
 export default function CMHCCalculator() {
   const [homePrice, setHomePrice] = useState(600000);
   const [downPayment, setDownPayment] = useState(60000);
 
-  const results = useMemo(() => {
-    const mortgageAmount = homePrice - downPayment;
-    const downPaymentPercent = (downPayment / homePrice) * 100;
-    const ltv = ((homePrice - downPayment) / homePrice) * 100;
+  const results = useMemo(
+    () => calculateCmhcPremium(homePrice, downPayment),
+    [homePrice, downPayment],
+  );
 
-    // Find premium tier
-    const tier = premiumTiers.find(
-      (t) => ltv >= t.ltvMin && ltv <= t.ltvMax
-    );
-
-    const premiumRate = tier?.rate || 0;
-    const premiumAmount = (mortgageAmount * premiumRate) / 100;
-    const totalMortgage = mortgageAmount + premiumAmount;
-    const newLTV = (totalMortgage / homePrice) * 100;
-
-    return {
-      mortgageAmount,
-      downPaymentPercent,
-      ltv,
-      premiumRate,
-      premiumAmount,
-      totalMortgage,
-      newLTV,
-      isRequired: downPaymentPercent < 20,
-    };
-  }, [homePrice, downPayment]);
-
-  const minDownPayment = useMemo(() => {
-    // Canada minimum down payment rules:
-    // 5% on first $500K
-    // 10% on amount above $500K up to $1M
-    // 20% on amounts above $1M (no insurance available)
-    if (homePrice <= 500000) {
-      return homePrice * 0.05;
-    } else if (homePrice <= 1000000) {
-      return 500000 * 0.05 + (homePrice - 500000) * 0.10;
-    }
-    return homePrice * 0.20; // No CMHC allowed above $1M
-  }, [homePrice]);
+  const minDownPayment = useMemo(() => minimumDownPayment(homePrice), [homePrice]);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">

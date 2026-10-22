@@ -17,7 +17,7 @@ describe("AdSense approval pages", () => {
     for (const path of [
       "src/views/contact/ContactPage.tsx",
       "src/pages/contact/index.astro",
-      "src/views/about/AboutPage.tsx",
+      "src/content/editorialPages.ts",
       "src/views/disclaimer/DisclaimerPage.tsx",
       "src/views/privacy/PrivacyPage.tsx",
       "src/views/terms/TermsPage.tsx",
@@ -57,7 +57,11 @@ describe("AdSense approval pages", () => {
     assert.equal(isIndexedCity("toronto"), true);
     assert.equal(isIndexedCity("oshawa"), true);
     assert.equal(isIndexedCity("kelowna"), false);
-    assert.equal(INDEXED_CITY_SLUGS.length, 19);
+    assert.equal(INDEXED_CITY_SLUGS.length, 15);
+    assert.equal(isIndexedCity("winnipeg"), false);
+    assert.equal(isIndexedCity("halifax"), false);
+    assert.equal(isIndexedCity("saskatoon"), false);
+    assert.equal(isIndexedCity("regina"), false);
     for (const slug of allCitySlugs()) {
       const indexable = isIndexablePath(`/cities/${slug}/`);
       assert.equal(indexable, isIndexedCity(slug), slug);
@@ -107,7 +111,9 @@ describe("AdSense approval pages", () => {
       assert.match(source, /buildDateIso/, path);
     }
     const byline = read("src/components/EditorialByline.tsx");
-    assert.match(byline, /By Andrew/);
+    assert.match(byline, /By/);
+    assert.match(byline, /Andrew/);
+    assert.match(byline, /href="\/author\/andrew\/"/);
     assert.match(byline, /Last reviewed/);
   });
 });

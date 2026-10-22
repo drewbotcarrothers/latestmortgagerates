@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# Canonical sitemap (trailing-slash 200 URLs from the Astro build)
-Sitemap: https://latestmortgagerates.ca/sitemap.xml
+# Astro writes sitemap-index.xml (which points at sitemap-0.xml).
+Sitemap: https://latestmortgagerates.ca/sitemap-index.xml
 
 # Disallow admin/staging areas (none currently)
 

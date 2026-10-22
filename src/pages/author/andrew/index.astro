@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/author/AuthorPage";
+import { AUTHOR_BIO } from "../../../lib/author";
+---
+<BaseLayout
+  title="Andrew | Latest Mortgage Rates Canada"
+  description={AUTHOR_BIO}
+  canonical="https://latestmortgagerates.ca/author/andrew/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Andrew",
+    url: "https://latestmortgagerates.ca/author/andrew/",
+    description: AUTHOR_BIO,
+    homeLocation: {
+      "@type": "Place",
+      name: "Toronto, Canada",
+    },
+    worksFor: {
+      "@type": "Organization",
+      name: "Latest Mortgage Rates Canada",
+      url: "https://latestmortgagerates.ca/",
+    },
+  })} slot="head" />
+  <Page client:load />
+</BaseLayout>
