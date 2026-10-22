@@ -1,7 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EditorialSections from "@/components/EditorialSections";
 import { blogPosts } from "@/content/blog";
-import { AUTHOR_BIO, AUTHOR_FOCUS, AUTHOR_NAME } from "@/lib/author";
+import { authorAboutSection } from "@/content/editorialPages";
+import { AUTHOR_FOCUS, AUTHOR_NAME } from "@/lib/author";
 
 const articles = [...blogPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -27,11 +29,7 @@ export default function AuthorPage() {
 
       <div className="mx-auto max-w-4xl space-y-8 px-4 py-8">
         <article className="rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-3 text-2xl font-bold text-slate-900">Bio</h2>
-          <p className="leading-relaxed text-slate-700">{AUTHOR_BIO}</p>
-          <p className="mt-3 leading-relaxed text-slate-700">
-            Andrew runs LatestMortgageRates.ca, an independent site that compares Canadian mortgage rates and explains the math around a mortgage. He is not a bank, a broker, or a lender, and the pages here are not a rate offer. The editorial standard, including how posted rates are collected and how corrections are handled, is on the <a href="/about/" className="text-teal-700 hover:underline">about page</a>.
-          </p>
+          <EditorialSections sections={[authorAboutSection]} />
         </article>
 
         <section className="rounded-lg bg-white p-8 shadow-md">

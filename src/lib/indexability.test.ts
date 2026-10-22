@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { blogPosts } from "../content/blog.ts";
-import { AUTHOR_BIO, AUTHOR_NAME } from "./author.ts";
+import { AUTHOR_ABOUT_PARAGRAPHS, AUTHOR_BIO, AUTHOR_NAME, AUTHOR_RELATED_SITES } from "./author.ts";
 import { isIndexablePath } from "./sitemapFilter.mjs";
 import { blogPostRecords, latestWeeklySlug, noIndexLenderSlugs } from "./noindexPolicy.mjs";
 import {
@@ -114,6 +114,18 @@ describe("expanded page depth", () => {
     for (const post of blogPosts) {
       assert.equal(post.author, "Andrew", post.slug);
     }
+    const aboutAndrew = AUTHOR_ABOUT_PARAGRAPHS.join("\n");
+    assert.match(aboutAndrew, /Andrew runs Latest Mortgage Rates/);
+    assert.doesNotMatch(aboutAndrew, /Andrew runs Saving Optimizer/);
+    assert.doesNotMatch(aboutAndrew, /Andrew [A-Z]/);
+    for (const site of AUTHOR_RELATED_SITES) {
+      assert.match(aboutAndrew, /related Canadian sites/);
+      assert.equal(site.name.includes("LatestMortgageRates"), false);
+    }
+    const aboutSource = readFileSync(join(root, "src/content/editorialPages.ts"), "utf8");
+    const authorPage = readFileSync(join(root, "src/views/author/AuthorPage.tsx"), "utf8");
+    assert.match(aboutSource, /authorAboutSection/);
+    assert.match(authorPage, /authorAboutSection/);
     const aboutWords = editorialWordCount(aboutSections);
     const expertsWords = editorialWordCount(expertsSections);
     const trendsWords = editorialWordCount(trendsSections);
@@ -147,6 +159,7 @@ describe("expanded page depth", () => {
       "src/views/guides/GuidesIndex.tsx",
       "src/views/author/AuthorPage.tsx",
       "src/content/editorialPages.ts",
+      "src/lib/author.ts",
       "src/content/calculatorGuides.ts",
     ];
     for (const file of files) {

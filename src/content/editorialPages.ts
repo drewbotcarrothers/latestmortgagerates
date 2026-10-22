@@ -1,27 +1,40 @@
-import { AUTHOR_BIO } from "../lib/author";
+import {
+  AUTHOR_ABOUT_ITEMS,
+  AUTHOR_ABOUT_LIST_AFTER,
+  AUTHOR_ABOUT_PARAGRAPHS,
+} from "../lib/author";
 
 export interface EditorialSection {
   id?: string;
   heading: string;
   paragraphs: string[];
+  /** Bulleted HTML items, rendered after this paragraph index. */
+  listAfter?: number;
+  items?: string[];
 }
 
 export function editorialWordCount(sections: EditorialSection[]): number {
   const text = sections
-    .flatMap((section) => [section.heading, ...section.paragraphs])
+    .flatMap((section) => [section.heading, ...section.paragraphs, ...(section.items ?? [])])
     .join(" ")
     .replace(/<[^>]+>/g, " ");
   return text.split(/\s+/).filter(Boolean).length;
 }
 
+export const authorAboutSection: EditorialSection = {
+  id: "who",
+  heading: "About Andrew",
+  paragraphs: [...AUTHOR_ABOUT_PARAGRAPHS],
+  listAfter: AUTHOR_ABOUT_LIST_AFTER,
+  items: [...AUTHOR_ABOUT_ITEMS],
+};
+
 export const aboutSections: EditorialSection[] = [
   {
-    id: "who",
-    heading: "Who Andrew is",
+    ...authorAboutSection,
     paragraphs: [
-      AUTHOR_BIO,
-      "That is the person behind LatestMortgageRates.ca. Andrew researches Canadian mortgage rates, writes the guides, and reviews the comparison tables. The public byline on every article and guide is Andrew. A longer note, and the list of articles, is on the <a href=\"/author/andrew/\">author page</a>. This is an independent publishing project. It is not a bank, a mortgage brokerage, or a lender, and it does not take applications or negotiate a rate on your behalf.",
-      "Andrew lives in Toronto and writes for borrowers anywhere in Canada. The rate tables are national, because the lenders we track publish national grids. Provincial differences show up in the tax and program notes, not in a made-up city average rate. If a page names Andrew, it means he wrote or reviewed that explanation. It does not mean a lender approved the wording.",
+      ...AUTHOR_ABOUT_PARAGRAPHS,
+      "The public byline on every article and guide is Andrew. The list of articles is on the <a href=\"/author/andrew/\">author page</a>. This is an independent publishing project. It is not a bank, a mortgage brokerage, or a lender, and it does not take applications or negotiate a rate on your behalf.",
     ],
   },
   {
