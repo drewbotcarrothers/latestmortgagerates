@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import EditorialSections from "@/components/EditorialSections";
 import { blogPosts } from "@/content/blog";
 import { authorAboutSection } from "@/content/editorialPages";
+import { IN_DEPTH_GUIDES } from "@/content/inDepthGuides";
 import { AUTHOR_FOCUS, AUTHOR_NAME } from "@/lib/author";
 
 const articles = [...blogPosts].sort(
@@ -47,6 +48,14 @@ export default function AuthorPage() {
         <section className="rounded-lg bg-white p-8 shadow-md">
           <h2 className="mb-4 text-2xl font-bold text-slate-900">Guides</h2>
           <ul className="space-y-3">
+            {IN_DEPTH_GUIDES.map((guide) => (
+              <li key={guide.path}>
+                <a href={guide.path} className="font-medium text-teal-700 hover:underline">
+                  {guide.cardTitle}
+                </a>
+                <p className="text-sm text-slate-600">{guide.cardDescription}</p>
+              </li>
+            ))}
             <li>
               <a href="/guides/negotiate-mortgage-rate/" className="font-medium text-teal-700 hover:underline">
                 How much below posted can you negotiate?

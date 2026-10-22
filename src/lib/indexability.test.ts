@@ -92,6 +92,10 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/author/andrew/"), true);
     assert.equal(isIndexablePath("/guides/"), true);
     assert.equal(isIndexablePath("/guides/negotiate-mortgage-rate/"), true);
+    assert.equal(isIndexablePath("/guides/2026-mortgage-renewal-playbook/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-prepayment-penalties/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-stress-test/"), true);
+    assert.equal(isIndexablePath("/guides/banks-vs-monoline-lenders-vs-credit-unions/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
@@ -161,6 +165,13 @@ describe("expanded page depth", () => {
       "src/content/editorialPages.ts",
       "src/lib/author.ts",
       "src/content/calculatorGuides.ts",
+      "src/content/inDepthGuides.ts",
+      "src/content/guides/shared.ts",
+      "src/content/guides/renewalPlaybook.ts",
+      "src/content/guides/prepaymentPenalties.ts",
+      "src/content/guides/stressTestGuide.ts",
+      "src/content/guides/lenderTypes.ts",
+      "src/views/guides/InDepthGuidePage.tsx",
     ];
     for (const file of files) {
       assert.equal(forbidden.test(readFileSync(join(root, file), "utf8")), false, file);
