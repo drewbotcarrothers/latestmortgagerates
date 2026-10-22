@@ -7,6 +7,8 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { rentVsBuyFaqs, rentVsBuyGuide } from "@/content/calculatorGuides";
 
 
 export default function RentVsBuyPage() {
@@ -68,6 +70,10 @@ export default function RentVsBuyPage() {
           </div>
         </div>
 
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+          <CalculatorGuide sections={rentVsBuyGuide()} />
+        </div>
+
         <CalculatorRelatedTools currentTool="/tools/rent-vs-buy-calculator" />
 
         <div className="max-w-4xl mx-auto px-4 pt-4">
@@ -97,6 +103,7 @@ export default function RentVsBuyPage() {
                 question: "Can I build more wealth by renting and investing?",
                 answer: "Often yes, if you invest the difference between renting and owning costs. For example, if owning costs $3,500/month and renting costs $2,200, investing the $1,300 difference at 7% annually builds significant wealth. However, this requires financial discipline to actually invest the savings. Homeownership forces savings through equity buildup. Our calculator compares both scenarios with investment returns.",
               },
+              ...rentVsBuyFaqs(),
             ]}
           />
         </div>

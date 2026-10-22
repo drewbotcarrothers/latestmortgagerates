@@ -12,7 +12,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
-import { isIndexablePath } from "./src/lib/indexedCities.mjs";
+import { isIndexablePath } from "./src/lib/sitemapFilter.mjs";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
@@ -129,8 +129,8 @@ function jsonApiFiles() {
         copyFileSync(join(root, "data/rates.json"), join(out, "rates.json"));
         copyFileSync(join(root, "data/metadata.json"), join(out, "metadata.json"));
 
-        // GSC is submitted at /sitemap.xml. Astro emits sitemap-index.xml + sitemap-0.xml.
-        // Copy the chunk so robots.txt and the existing GSC submission stay valid.
+        // Astro emits sitemap-index.xml + sitemap-0.xml. robots.txt points at the index.
+        // Keep a sitemap.xml copy of the urlset for the existing Search Console submission.
         const sitemapChunk = join(out, "sitemap-0.xml");
         if (existsSync(sitemapChunk)) {
           copyFileSync(sitemapChunk, join(out, "sitemap.xml"));

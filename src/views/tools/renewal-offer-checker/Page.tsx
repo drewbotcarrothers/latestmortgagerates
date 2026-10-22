@@ -5,6 +5,9 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import CommunityDisclaimer from "@/components/community/CommunityDisclaimer";
 import RenewalOfferChecker from "@/components/community/RenewalOfferChecker";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import FAQSection from "@/components/FAQSection";
+import { renewalOfferFaqs, renewalOfferGuide } from "@/content/calculatorGuides";
 import { communityRates, formatAsOf } from "@/lib/communityRates";
 
 export default function RenewalOfferCheckerPage() {
@@ -37,6 +40,8 @@ export default function RenewalOfferCheckerPage() {
         <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
           <CommunityDisclaimer />
           <RenewalOfferChecker />
+          <CalculatorGuide sections={renewalOfferGuide()} />
+          <FAQSection faqs={renewalOfferFaqs()} title="Renewal offer questions" />
           <AdUnit format="display" />
           <CalculatorRelatedTools currentTool="/tools/renewal-offer-checker/" />
         </div>

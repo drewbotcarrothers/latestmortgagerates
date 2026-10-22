@@ -41,7 +41,6 @@ export default function SocialShare({
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-    reddit: `https://reddit.com/submit?title=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
     whatsapp: `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`,
     email: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description + "\n\n" + url)}`,
   };
@@ -101,18 +100,6 @@ export default function SocialShare({
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </button>
-
-      {/* Reddit */}
-      <button
-        onClick={() => openShare(shareLinks.reddit)}
-        className="p-2.5 bg-[#FF4500] hover:bg-[#e03f00] text-white rounded-full transition shadow-sm hover:shadow"
-        title="Share on Reddit"
-        aria-label="Share on Reddit"
-      >
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.492 1.207-1.029 2.925-1.619 4.743-1.622l.647-3.442a.225.225 0 0 1 .046-.09c.083-.076.209-.163.382-.163h1.688zm-8.08 9.32c.752 0 1.36.607 1.36 1.36 0 .752-.608 1.359-1.36 1.359-.753 0-1.36-.607-1.36-1.36 0-.753.607-1.36 1.36-1.36zm10.32 0c.753 0 1.36.607 1.36 1.36 0 .752-.607 1.359-1.36 1.359-.752 0-1.36-.607-1.36-1.36 0-.753.608-1.36 1.36-1.36z"/>
         </svg>
       </button>
 

@@ -122,6 +122,9 @@ export default function ComparePage({ slug }: { slug: string }) {
                 </span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">{page.h1}</h1>
+              <p className="mb-4 text-sm text-teal-100">
+                By <a href="/author/andrew/" className="font-medium text-white underline decoration-white/40 hover:decoration-white">Andrew</a>
+              </p>
               <p className="text-xl text-slate-300">{page.intro}</p>
             </div>
           </div>

@@ -2,6 +2,11 @@
  * Largest markets that stay indexable. Other /cities/* pages stay live
  * with noindex,follow and are omitted from the sitemap.
  * Laval is not in this list because the site has no Laval page.
+ * Winnipeg, Halifax, Saskatoon, and Regina stay live but noindexed until
+ * those pages are expanded. Add the slug back here to index them again.
+ *
+ * Blog posts and lender pages are filtered in sitemapFilter.mjs so this
+ * file stays free of filesystem reads (city pages import it in the browser).
  */
 export const INDEXED_CITY_SLUGS = [
   "toronto",
@@ -10,15 +15,11 @@ export const INDEXED_CITY_SLUGS = [
   "calgary",
   "edmonton",
   "ottawa",
-  "winnipeg",
   "quebec-city",
   "hamilton",
   "kitchener",
   "london",
-  "halifax",
   "victoria",
-  "saskatoon",
-  "regina",
   "mississauga",
   "brampton",
   "surrey",
@@ -31,7 +32,7 @@ export function isIndexedCity(slug) {
   return INDEXED.has(slug);
 }
 
-/** Sitemap and robots policy for a site path (leading slash, trailing slash). */
+/** Utility and city rules. Content flags are applied by sitemapFilter.mjs. */
 export function isIndexablePath(pathname) {
   const path = pathname.endsWith("/") ? pathname : `${pathname}/`;
   if (path.startsWith("/widget")) return false;

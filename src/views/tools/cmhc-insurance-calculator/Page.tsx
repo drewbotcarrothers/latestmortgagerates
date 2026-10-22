@@ -7,6 +7,8 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { cmhcInsuranceFaqs, cmhcInsuranceGuide } from "@/content/calculatorGuides";
 
 
 export default function CMHCCalculatorPage() {
@@ -75,6 +77,10 @@ export default function CMHCCalculatorPage() {
           </div>
         </div>
 
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+          <CalculatorGuide sections={cmhcInsuranceGuide()} />
+        </div>
+
         <CalculatorRelatedTools currentTool="/tools/cmhc-insurance-calculator" />
 
         <div className="max-w-4xl mx-auto px-4 pt-4">
@@ -90,7 +96,7 @@ export default function CMHCCalculatorPage() {
               },
               {
                 question: "How much does CMHC insurance cost?",
-                answer: "CMHC premiums range from 0.6% to 4.0% of your mortgage amount depending on your down payment. With 5% down, you pay 4.0%. With 10% down, 3.1%. With 15% down, 2.8%. The premium decreases as your down payment increases. Use our calculator to see your exact premium.",
+                answer: "On this calculator the premium rate depends on loan-to-value: 2.25% from 65.01% to 80%, 3.35% from 80.01% to 85%, 4.25% from 85.01% to 90%, 5.65% from 90.01% to 95%, and 6.75% from 95.01% to 97%. At 20% down or more the page charges no premium. Insurers publish their own schedules, and provincial sales tax can be added on top. Use the worked example under the calculator, then confirm the premium on the commitment.",
               },
               {
                 question: "Is CMHC insurance mandatory?",
@@ -104,6 +110,7 @@ export default function CMHCCalculatorPage() {
                 question: "Is CMHC insurance tax deductible?",
                 answer: "No, CMHC insurance premiums are not tax deductible. However, in some provinces (Ontario, Quebec, Manitoba), provincial sales tax on the CMHC premium may be eligible for rebates or credits. The premium itself is rolled into your mortgage and paid over time with interest.",
               },
+              ...cmhcInsuranceFaqs(),
             ]}
           />
         </div>

@@ -99,9 +99,11 @@ const MENUS: NavMenu[] = [
     label: "Guides",
     align: "right",
     links: [
+      { href: "/guides/", label: "All guides" },
       { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate your rate" },
       { href: "/compare/", label: "Compare mortgages" },
       { href: "/glossary/", label: "Glossary" },
+      { href: "/real-mortgage-rates/", label: "Real mortgage rates" },
       { href: "/experts/", label: "Experts" },
       { href: "/cities/", label: "Rates by city" },
       { href: "/methodology/", label: "Rate methodology" },

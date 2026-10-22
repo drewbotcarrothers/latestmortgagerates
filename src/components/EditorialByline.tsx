@@ -27,7 +27,9 @@ export default function EditorialByline({
 
   return (
     <p className={meta}>
-      <span className={name}>By Andrew</span>
+      <span className={name}>
+        By <a href="/author/andrew/" className="hover:underline">Andrew</a>
+      </span>
       {" · "}
       <time dateTime={reviewedIso.slice(0, 10)}>Last reviewed {reviewed}</time>
       <span className="mt-1 block">{sources}</span>

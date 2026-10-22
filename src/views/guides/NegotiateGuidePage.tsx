@@ -94,6 +94,9 @@ export default function NegotiateGuidePage() {
                 <span>Negotiate</span>
               </nav>
               <h1 className="max-w-3xl text-4xl font-bold tracking-tight">How much below posted can you negotiate?</h1>
+              <p className="mt-3 text-sm text-teal-100">
+                By <a href="/author/andrew/" className="font-medium text-white underline decoration-white/40 hover:decoration-white">Andrew</a>
+              </p>
               <p className="mt-4 max-w-3xl text-lg text-slate-200">
                 Big-bank posted rates are a shelf price. The rates {communityRates.attribution} show how far under that shelf recent approvals and renewals have landed. As of {formatAsOf()}.
               </p>

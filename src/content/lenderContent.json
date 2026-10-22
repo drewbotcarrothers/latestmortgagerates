@@ -134,6 +134,7 @@
     ]
   },
   "scotiabank": {
+    "noIndex": true,
     "name": "Scotiabank",
     "tagline": "Unlock your home's potential with the Scotia Total Equity Plan.",
     "overview": "<p>Scotiabank stands out in the Canadian mortgage market with its innovative <strong>Scotia Total Equity Plan (STEP)</strong>, allowing homeowners to combine a mortgage with a home equity line of credit and access up to 80% of their home's value. Scotiabank offers competitive fixed and variable mortgage rates, plus specialized products for newcomers, self-employed borrowers, and investors. Their eHOME platform enables a fully digital mortgage application experience, while Home Financing Advisors provide personalized support in-branch or virtually. Scotia Mortgage Protection offers optional insurance coverage for life, disability, critical illness, and job loss \u00e2\u20ac\u201d giving homeowners peace of mind.</p>",
@@ -209,6 +210,7 @@
     ]
   },
   "nationalbank": {
+    "noIndex": true,
     "name": "National Bank of Canada",
     "tagline": "Tailored mortgage solutions for Quebec and beyond.",
     "overview": "<p>National Bank of Canada is the sixth-largest bank in Canada and a major player in Quebec's mortgage market, with a growing presence nationwide. National Bank offers a full range of mortgage products including fixed-rate, variable-rate, and all-in-one banking solutions that combine mortgage and line of credit features. Their <strong>Flex Mortgage</strong> allows borrowers to split their mortgage between fixed and variable rates for balanced risk. With competitive rates, a strong digital platform, and dedicated mortgage advisors, National Bank serves first-time buyers, renewals, refinances, and investors with tailored financing solutions.</p>",
@@ -234,6 +236,7 @@
     ]
   },
   "nesto": {
+    "noIndex": true,
     "name": "nesto",
     "tagline": "Canada's digital mortgage lender with guaranteed low rates.",
     "overview": "<p>nesto is Canada's pioneering online mortgage lender, using AI-powered algorithms to deliver the lowest mortgage rates upfront — with no commissions and no bias. Since launching, nesto has helped over 450,000 Canadians secure financing through a fully digital, streamlined experience. Their <strong>Low Mortgage Rate Guarantee</strong> ensures you get the best possible rate from day one, backed by a team of 300+ licensed mortgage experts. nesto offers fixed and variable mortgages, 150-day rate holds, and an end-to-end online application process that eliminates paperwork and branch visits. For tech-savvy homebuyers seeking transparency and speed, nesto is a top choice.</p><p>Compare nesto on the same term and insured vs uninsured label as other digital channels, including <a href=\"/lenders/wealthsimple/\">Wealthsimple mortgage rates</a>, then check the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> hubs. Use the live table on this page as the number source.</p>",
@@ -260,6 +263,7 @@
     ]
   },
   "simplii": {
+    "noIndex": true,
     "name": "Simplii Financial",
     "tagline": "Simple, no-fee banking with competitive mortgage rates.",
     "overview": "<p>Simplii Financial, a division of CIBC, delivers a straightforward digital banking experience with competitive mortgage rates and no monthly account fees. Simplii offers both fixed-rate and variable-rate mortgages with special discounted rates for high-ratio insured mortgages. Borrowers benefit from the ability to convert variable rates to fixed at any time and make annual prepayments up to 20% without penalty. With dedicated CIBC mortgage specialists handling applications, Simplii combines the personal touch of a major bank with the convenience of online-only banking. Their mortgage calculators and educational resources help first-time buyers understand affordability and payment options.</p>",
@@ -286,6 +290,7 @@
     ]
   },
   "tangerine": {
+    "noIndex": true,
     "name": "Tangerine",
     "tagline": "Forward-thinking mortgages from Canada's original digital bank.",
     "overview": "<p>Tangerine, a subsidiary of Scotiabank, is one of Canada's most trusted digital banks, offering competitive fixed and variable mortgage rates with no hidden fees. Tangerine mortgages come with flexible features including annual prepayment options and the ability to increase regular payments. Their fully online mortgage application process is simple and fast, supported by a dedicated team of mortgage account managers. Tangerine is particularly popular among rate-conscious borrowers who appreciate transparent pricing and the backing of Scotiabank's financial strength. With mortgage rate specials, renewal offers, and a suite of digital tools, Tangerine makes home financing accessible and hassle-free.</p>",
@@ -459,6 +464,7 @@
     ]
   },
   "alterna": {
+    "noIndex": true,
     "name": "Alterna Savings",
     "tagline": "Member-owned banking with community-focused mortgage solutions.",
     "overview": "<p>Alterna Savings is one of Ontario's leading credit unions, offering member-owned banking with a strong focus on community and personalized service. Alterna provides a full range of mortgage products including fixed-rate, variable-rate, and home equity lines of credit, all with competitive rates and flexible terms. As a credit union, Alterna returns profits to members through better rates, lower fees, and community investment. Their mortgage specialists work closely with borrowers to find solutions tailored to individual needs, whether you're buying your first home, renewing, or refinancing. Alterna's digital banking platform makes managing your mortgage simple and convenient.</p>",
@@ -485,6 +491,7 @@
     ]
   },
   "firstnational": {
+    "noIndex": true,
     "name": "First National Financial",
     "tagline": "Canada's largest non-bank mortgage lender, exclusively through brokers.",
     "overview": "<p>First National Financial is Canada's largest non-bank mortgage lender, funding billions in residential mortgages annually exclusively through the mortgage broker channel. First National offers some of the most competitive fixed and variable mortgage rates in Canada, with flexible prepayment options and exceptional customer service. Their <strong>My Mortgage</strong> online portal lets borrowers manage payments, view statements, and access mortgage details 24/7. First National is also a leader in commercial mortgages and multi-unit residential financing. For borrowers working with a mortgage broker, First National consistently delivers low rates, fast approvals, and industry-leading technology.</p>",
@@ -602,6 +609,7 @@
     ]
   },
   "laurentian": {
+    "noIndex": true,
     "name": "Laurentian Bank",
     "tagline": "Bilingual service with flexible Quebec and Ontario mortgages.",
     "overview": "<p>Laurentian Bank is a Quebec-based financial institution with a strong presence in both Quebec and Ontario, offering bilingual mortgage services in English and French. Laurentian provides a comprehensive range of mortgage products including fixed-rate, variable-rate, and all-in-one solutions. Their mortgage specialists are known for personalized service and the ability to structure financing for complex situations, including self-employed borrowers and investment properties. Laurentian's digital tools and competitive rates make it a solid choice for homeowners in Eastern Canada looking for an alternative to the major banks.</p>",
@@ -628,6 +636,7 @@
     ]
   },
   "butlermortgage": {
+    "noIndex": true,
     "name": "Butler Mortgage",
     "tagline": "Ontario's trusted mortgage broker-turned-lender.",
     "overview": "<p>Butler Mortgage started as one of Ontario's most respected mortgage brokerages and has evolved to offer direct lending solutions alongside broker services. Butler provides competitive fixed and variable mortgage rates with a focus on transparent, honest advice. Their direct-to-consumer model, combined with deep broker expertise, gives borrowers the best of both worlds: low rates and expert guidance. Butler Mortgage is known for fast approvals, straightforward terms, and a commitment to helping Ontario homeowners find the right financing solution.</p>",
@@ -654,6 +663,7 @@
     ]
   },
   "cmls": {
+    "noIndex": true,
     "name": "CMLS Financial",
     "tagline": "Commercial and residential mortgage expertise since 1974.",
     "overview": "<p>CMLS Financial is one of Canada's oldest and most respected mortgage lenders, with over 50 years of experience in residential, commercial, and construction financing. CMLS offers competitive fixed and variable mortgage rates through the broker channel, backed by institutional-grade stability and service. Their residential mortgage products include conventional and high-ratio options, with flexible terms and prepayment privileges. CMLS is particularly strong in multi-unit residential and commercial lending, making them a preferred partner for investors and developers. Their long track record and conservative approach provide borrowers with confidence and reliability.</p>",
@@ -680,6 +690,7 @@
     ]
   },
   "rfa": {
+    "noIndex": true,
     "name": "RFA (Robinson Financial Advisory)",
     "tagline": "Alternative mortgage solutions for non-traditional borrowers.",
     "overview": "<p>RFA is a Canadian alternative mortgage lender specializing in residential mortgages for borrowers who need flexible solutions beyond what traditional banks offer. RFA provides first and second mortgages, home equity loans, and refinancing options with a focus on quick turnaround times and common-sense underwriting. They serve borrowers with bruised credit, self-employed income, or unique property types that may not fit bank guidelines. Through the broker channel, RFA offers personalized mortgage solutions with competitive alternative rates.</p>",
@@ -931,6 +942,7 @@
     ]
   },
   "desjardins": {
+    "noIndex": true,
     "name": "Desjardins",
     "tagline": "North America's largest federation of credit unions.",
     "overview": "<p>Desjardins is North America's largest federation of credit unions and Quebec's dominant financial institution, serving over 7 million members. Desjardins offers a comprehensive range of mortgage products including fixed-rate, variable-rate, and all-in-one mortgages through the <strong>DuoLine</strong> home equity line of credit. Their mortgage specialists provide bilingual service and deep expertise in Quebec's unique real estate market. Desjardins is known for competitive rates, flexible terms, and a strong commitment to member satisfaction. With extensive branch networks across Quebec and Ontario, Desjardins combines the personalized service of a credit union with the scale of a major financial institution.</p>",
@@ -957,6 +969,7 @@
     ]
   },
   "coastcapital": {
+    "noIndex": true,
     "name": "Coast Capital Savings",
     "tagline": "Member-owned banking with simple, straightforward mortgages.",
     "overview": "<p>Coast Capital Savings is Canada's largest federal credit union by membership, serving British Columbia with simple, member-focused banking and mortgage solutions. Coast Capital offers fixed-rate, variable-rate, and home equity line of credit mortgages with competitive rates and no hidden fees. Their mortgage specialists provide personalized advice with a focus on simplicity and transparency. Coast Capital is known for its community investment programs and straightforward approach to lending, making homeownership accessible for a wide range of borrowers across British Columbia.</p>",
@@ -1098,6 +1111,7 @@
     ]
   },
   "equitable": {
+    "noIndex": true,
     "name": "Equitable Bank",
     "tagline": "Canada's Challenger Bank with big bank alternatives.",
     "overview": "<p>Equitable Bank is Canada's seventh-largest bank by assets and the country's leading challenger bank, offering residential and commercial mortgage solutions outside the traditional banking model. Equitable provides conventional and alternative mortgages through the broker channel, including products for prime borrowers, near-prime borrowers, and those requiring specialized financing. Their <strong>EQ Bank</strong> digital platform offers some of Canada's best savings rates alongside mortgage products. Equitable is known for fast, flexible underwriting, competitive rates, and a tech-forward approach that challenges the status quo of Canadian mortgage lending.</p>",
@@ -1124,6 +1138,7 @@
     ]
   },
   "hometrust": {
+    "noIndex": true,
     "name": "Home Trust",
     "tagline": "Flexible mortgage solutions for Canadians who think outside the box.",
     "overview": "<p>Home Trust is one of Canada's leading alternative mortgage lenders, specializing in residential mortgages for borrowers who don't fit the traditional bank profile. Home Trust offers prime, near-prime, and alternative mortgage products, including first and second mortgages, with a focus on common-sense underwriting. They serve self-employed individuals, investors, newcomers to Canada, and those rebuilding credit. Home Trust's products are available exclusively through mortgage brokers, ensuring borrowers receive personalized advice alongside flexible financing solutions. With a long track record and strong capital position, Home Trust is a reliable alternative to conventional mortgage lending.</p>",
@@ -1150,6 +1165,7 @@
     ]
   },
   "truenorth": {
+    "noIndex": true,
     "name": "True North Mortgage",
     "tagline": "A national brokerage shopping bank, monoline, and credit union rates.",
     "overview": "<p>True North Mortgage is a high-volume Canadian mortgage brokerage with online and in-person service. It markets a <strong>Lowest Rate Guarantee</strong> and volume-based discounting. This page does not guarantee you the lowest rate in Canada, and it does not treat a short-term special as the 5-year rate. The table is our scrape of the fixed and variable quotes True North publishes. True North offers fixed-rate and variable-rate products from banks, monolines, and credit unions. Confirm the contract rate, term, and insured versus uninsured label with True North before you apply.</p>",

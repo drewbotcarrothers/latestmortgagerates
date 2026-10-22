@@ -1,33 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { calculateRentVsBuy, type RentVsBuyInput, type RentVsBuyResult } from "@/lib/rentVsBuyMath";
 
-interface RentVsBuyParams {
-  monthlyRent: number;
-  homePrice: number;
-  downPayment: number;
-  interestRate: number;
-  propertyTax: number;
-  maintenance: number;
-  homeInsurance: number;
-  monthlyUtilities: number;
-  annualAppreciation: number;
-  investmentReturn: number;
-  years: number;
-}
-
-interface RentVsBuyResult {
-  rentTotal: number;
-  buyTotal: number;
-  monthlyMortgage: number;
-  homeValue: number;
-  equity: number;
-  netWorthBuy: number;
-  netWorthRent: number;
-  winner: 'rent' | 'buy' | 'tie';
-  difference: number;
-  breakEvenYear: number | null;
-}
+type RentVsBuyParams = RentVsBuyInput;
 
 export default function RentVsBuyCalculator() {
   const [params, setParams] = useState<RentVsBuyParams>({
@@ -44,94 +20,7 @@ export default function RentVsBuyCalculator() {
     years: 10,
   });
 
-  const results = useMemo((): RentVsBuyResult => {
-    const mortgageAmount = params.homePrice - params.downPayment;
-    const monthlyRate = params.interestRate / 100 / 12;
-    const numPayments = 25 * 12; // Standard amortization
-    
-    // Monthly mortgage payment
-    const monthlyMortgage = mortgageAmount * 
-      (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
-      (Math.pow(1 + monthlyRate, numPayments) - 1);
-    
-    // Monthly costs for buying
-    const monthlyBuyCosts = monthlyMortgage + params.propertyTax + 
-      params.maintenance + params.homeInsurance + params.monthlyUtilities;
-    
-    // Initial opportunity cost of down payment
-    let downPaymentOpportunityCost = params.downPayment;
-    
-    // Calculate year by year
-    let rentTotal = 0;
-    let buyTotal = params.downPayment; // Initial investment
-    let homeValue = params.homePrice;
-    let mortgageBalance = mortgageAmount;
-    let investmentValue = params.downPayment; // What renter invests instead
-    
-    let breakEvenYear: number | null = null;
-    let previousNetDifference = 0;
-    
-    for (let year = 1; year <= params.years; year++) {
-      // Rent scenario
-      const yearlyRent = params.monthlyRent * 12 * Math.pow(1.025, year - 1); // 2.5% annual rent increase
-      rentTotal += yearlyRent;
-      
-      // Renter invests the difference (if buying costs more)
-      const yearlyBuyCosts = monthlyBuyCosts * 12;
-      const monthlyDifference = yearlyBuyCosts - yearlyRent;
-      
-      if (monthlyDifference > 0) {
-        // Renter saves money, invests it
-        investmentValue = investmentValue * (1 + params.investmentReturn / 100) + monthlyDifference;
-      } else {
-        // Buyer saves money, but already accounted for in home equity
-        investmentValue = investmentValue * (1 + params.investmentReturn / 100);
-      }
-      
-      // Buy scenario
-      buyTotal += yearlyBuyCosts;
-      homeValue = homeValue * (1 + params.annualAppreciation / 100);
-      
-      // Pay down mortgage
-      for (let month = 0; month < 12; month++) {
-        const interestPayment = mortgageBalance * monthlyRate;
-        const principalPayment = monthlyMortgage - interestPayment;
-        mortgageBalance = Math.max(0, mortgageBalance - principalPayment);
-      }
-      
-      // Check break-even
-      const equity = homeValue - mortgageBalance;
-      const netWorthBuy = equity;
-      const netWorthRent = investmentValue - rentTotal;
-      
-      if (breakEvenYear === null && netWorthBuy > netWorthRent && previousNetDifference <= 0) {
-        breakEvenYear = year;
-      }
-      previousNetDifference = netWorthBuy - netWorthRent;
-    }
-    
-    const finalEquity = homeValue - mortgageBalance;
-    const netWorthBuy = finalEquity;
-    const netWorthRent = investmentValue;
-    
-    const difference = Math.abs(netWorthBuy - netWorthRent);
-    let winner: 'rent' | 'buy' | 'tie' = 'tie';
-    if (netWorthBuy > netWorthRent + 1000) winner = 'buy';
-    else if (netWorthRent > netWorthBuy + 1000) winner = 'rent';
-    
-    return {
-      rentTotal: Math.round(rentTotal),
-      buyTotal: Math.round(buyTotal),
-      monthlyMortgage: Math.round(monthlyMortgage),
-      homeValue: Math.round(homeValue),
-      equity: Math.round(finalEquity),
-      netWorthBuy: Math.round(netWorthBuy),
-      netWorthRent: Math.round(netWorthRent),
-      winner,
-      difference: Math.round(difference),
-      breakEvenYear,
-    };
-  }, [params]);
+  const results = useMemo((): RentVsBuyResult => calculateRentVsBuy(params), [params]);
 
   const formatCurrency = (value: number) => 
     `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;

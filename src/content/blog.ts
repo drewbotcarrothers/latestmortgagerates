@@ -13,6 +13,8 @@ export interface BlogPost {
   readTime: number;
   featured: boolean;
   image: string;
+  /** Omit from the sitemap and send noindex,follow. Weekly roundups are also auto-noindexed except the latest week. */
+  noIndex?: boolean;
 }
 
 const octoberReport = october2026Report();
@@ -1971,6 +1973,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
     readTime: 5,
     featured: false,
+    noIndex: true,
     image: "/blog/boc-rate-hold.jpg"
   },
   {

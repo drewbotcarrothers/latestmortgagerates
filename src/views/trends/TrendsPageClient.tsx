@@ -2,6 +2,8 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EditorialSections from "@/components/EditorialSections";
+import { trendsSections } from "@/content/editorialPages";
 import RateTrendsFull from "@/components/RateTrendsFull";
 import RateTrends from "@/components/RateTrends";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
@@ -46,6 +48,10 @@ export default function TrendsPageClient() {
         </div>
 
         <RateTrendsFull historicalData={historicalData} />
+
+        <article className="mx-auto mt-16 max-w-3xl">
+          <EditorialSections sections={trendsSections} />
+        </article>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl p-8 border border-slate-200">

@@ -4,6 +4,7 @@ import LenderPage from "../../views/lenders/LenderPage";
 import ratesData from "../../../data/rates.json";
 import lenderContentData from "../../content/lenderContent.json";
 import { formatBuildMonthYear } from "../../lib/buildDate";
+import { isIndexablePath } from "../../lib/sitemapFilter.mjs";
 import { lenderRatesKeyword, lenderSeoDescription, lenderSeoTitle, type LenderRateRow } from "../../lib/lenderSeo";
 
 interface Rate {
@@ -42,6 +43,7 @@ const description = lenderSeoDescription({
   tagline: content.tagline,
   rates: lenderRates as LenderRateRow[],
 });
+const indexable = isIndexablePath(`/lenders/${slug}/`);
 ---
 
 <BaseLayout
@@ -49,6 +51,8 @@ const description = lenderSeoDescription({
   description={description}
   canonical={`https://latestmortgagerates.ca/lenders/${slug}/`}
   keywords={[lenderRatesKeyword(lenderName), `${lenderName} rates`, "Canadian mortgage rates", ...(content.seoKeywords || [])].join(", ")}
+  noIndex={!indexable}
+  robots={indexable ? undefined : "noindex, follow"}
 >
   <LenderPage slug={slug!} buildDateIso={builtAt.toISOString()} client:load />
 </BaseLayout>

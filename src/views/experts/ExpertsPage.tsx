@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EditorialSections from "@/components/EditorialSections";
+import { expertsSections } from "@/content/editorialPages";
 
 
 
@@ -132,6 +134,10 @@ export default function ExpertsPage() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-3xl px-4 py-12">
+          <EditorialSections sections={expertsSections} />
         </section>
 
         {/* Featured Experts */}
