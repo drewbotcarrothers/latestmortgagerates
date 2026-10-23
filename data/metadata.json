@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-10-22T15:43:47Z",
-  "total_rates": 344,
+  "last_updated": "2026-10-23T01:07:39Z",
+  "total_rates": 352,
   "total_lenders": 25,
-  "live_rates": 344,
+  "live_rates": 352,
   "fallback_rates": 0,
   "scrapers_run": 29,
   "scrapers_successful": 29,
@@ -39,203 +39,203 @@
       "lender": "rbc",
       "success": true,
       "rates_found": 29,
-      "duration": 4.8263280391693115,
+      "duration": 6.123879909515381,
       "error": null
     },
     {
       "lender": "td",
       "success": true,
       "rates_found": 24,
-      "duration": 1.003627061843872,
+      "duration": 1.0509371757507324,
       "error": null
     },
     {
       "lender": "bmo",
       "success": true,
       "rates_found": 13,
-      "duration": 1.1117520332336426,
+      "duration": 1.0407731533050537,
       "error": null
     },
     {
       "lender": "scotiabank",
       "success": true,
       "rates_found": 14,
-      "duration": 0.5899121761322021,
+      "duration": 0.986015796661377,
       "error": null
     },
     {
       "lender": "cibc",
       "success": true,
       "rates_found": 11,
-      "duration": 1.6946566104888916,
+      "duration": 2.688599109649658,
       "error": null
     },
     {
       "lender": "nationalbank",
       "success": true,
       "rates_found": 3,
-      "duration": 4.350967884063721,
+      "duration": 4.638876914978027,
       "error": null
     },
     {
       "lender": "nesto",
       "success": true,
       "rates_found": 4,
-      "duration": 3.2195210456848145,
+      "duration": 2.7480380535125732,
       "error": null
     },
     {
       "lender": "tangerine",
       "success": true,
       "rates_found": 16,
-      "duration": 4.117724895477295,
+      "duration": 4.672713994979858,
       "error": null
     },
     {
       "lender": "eqbank",
       "success": true,
       "rates_found": 0,
-      "duration": 0.10663294792175293,
+      "duration": 0.10713481903076172,
       "error": null
     },
     {
       "lender": "simplii",
       "success": true,
       "rates_found": 5,
-      "duration": 1.542654275894165,
+      "duration": 1.186406135559082,
       "error": null
     },
     {
       "lender": "alterna",
       "success": true,
       "rates_found": 16,
-      "duration": 0.8361990451812744,
+      "duration": 0.6800780296325684,
       "error": null
     },
     {
       "lender": "wealthsimple",
       "success": true,
       "rates_found": 2,
-      "duration": 3.844194173812866,
+      "duration": 3.9346349239349365,
       "error": null
     },
     {
       "lender": "meridian",
       "success": true,
       "rates_found": 15,
-      "duration": 0.6179430484771729,
+      "duration": 1.1813538074493408,
       "error": null
     },
     {
       "lender": "desjardins",
       "success": true,
       "rates_found": 19,
-      "duration": 0.6621441841125488,
+      "duration": 0.31197118759155273,
       "error": null
     },
     {
       "lender": "vancity",
       "success": true,
       "rates_found": 17,
-      "duration": 5.912670135498047,
+      "duration": 5.3550519943237305,
       "error": null
     },
     {
       "lender": "coastcapital",
       "success": true,
       "rates_found": 4,
-      "duration": 1.167060136795044,
+      "duration": 1.3174140453338623,
       "error": null
     },
     {
       "lender": "atb",
       "success": true,
       "rates_found": 26,
-      "duration": 0.9600830078125,
+      "duration": 0.9278659820556641,
       "error": null
     },
     {
       "lender": "firstnational",
       "success": true,
       "rates_found": 28,
-      "duration": 6.3401758670806885,
+      "duration": 5.218323230743408,
       "error": null
     },
     {
       "lender": "mcap",
       "success": true,
       "rates_found": 0,
-      "duration": 0.10066890716552734,
+      "duration": 0.10064482688903809,
       "error": null
     },
     {
       "lender": "laurentian",
       "success": true,
       "rates_found": 16,
-      "duration": 6.314941883087158,
+      "duration": 6.037149906158447,
       "error": null
     },
     {
       "lender": "manulife",
       "success": true,
       "rates_found": 12,
-      "duration": 0.7035059928894043,
+      "duration": 1.4855749607086182,
       "error": null
     },
     {
       "lender": "rfa",
       "success": true,
       "rates_found": 14,
-      "duration": 1.2767579555511475,
+      "duration": 1.8257691860198975,
       "error": null
     },
     {
       "lender": "cmls",
       "success": true,
       "rates_found": 16,
-      "duration": 0.7625460624694824,
+      "duration": 0.5999219417572021,
       "error": null
     },
     {
       "lender": "butlermortgage",
       "success": true,
       "rates_found": 9,
-      "duration": 0.8527159690856934,
+      "duration": 0.4303140640258789,
       "error": null
     },
     {
       "lender": "streetcapital",
       "success": true,
       "rates_found": 0,
-      "duration": 0.10810589790344238,
+      "duration": 0.10764598846435547,
       "error": null
     },
     {
       "lender": "centum",
       "success": true,
       "rates_found": 0,
-      "duration": 0.09701085090637207,
+      "duration": 0.09726786613464355,
       "error": null
     },
     {
       "lender": "truenorth",
       "success": true,
       "rates_found": 16,
-      "duration": 7.160115003585815,
+      "duration": 6.948932886123657,
       "error": null
     },
     {
       "lender": "equitable",
       "success": true,
-      "rates_found": 5,
-      "duration": 3.0763041973114014,
+      "rates_found": 13,
+      "duration": 3.043165922164917,
       "error": null
     },
     {
       "lender": "hometrust",
       "success": true,
       "rates_found": 10,
-      "duration": 1.6862008571624756,
+      "duration": 1.7271170616149902,
       "error": null
     }
   ]
