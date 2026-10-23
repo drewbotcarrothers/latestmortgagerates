@@ -100,6 +100,10 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/first-time-home-buyer-programs-canada/"), true);
     assert.equal(isIndexablePath("/guides/switching-mortgage-lenders-at-renewal/"), true);
     assert.equal(isIndexablePath("/guides/posted-vs-discounted-mortgage-rates/"), true);
+    assert.equal(isIndexablePath("/guides/cmhc-mortgage-insurance-canada/"), true);
+    assert.equal(isIndexablePath("/guides/30-year-amortization-canada/"), true);
+    assert.equal(isIndexablePath("/guides/bank-of-canada-rate-and-your-mortgage/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-renewal-vs-refinance-vs-heloc/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
@@ -175,6 +179,11 @@ describe("expanded page depth", () => {
       "src/content/guides/prepaymentPenalties.ts",
       "src/content/guides/stressTestGuide.ts",
       "src/content/guides/lenderTypes.ts",
+      "src/content/guides/cmhcMortgageInsurance.ts",
+      "src/content/guides/thirtyYearAmortization.ts",
+      "src/content/guides/bankOfCanadaMortgage.ts",
+      "src/content/guides/renewalVsRefinance.ts",
+      "src/content/guides/batch3Math.ts",
       "src/views/guides/InDepthGuidePage.tsx",
     ];
     for (const file of files) {

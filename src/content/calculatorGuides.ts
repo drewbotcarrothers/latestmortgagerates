@@ -1,4 +1,4 @@
-import { calculateCmhcPremium, CMHC_PREMIUM_TIERS, minimumDownPayment } from "../lib/cmhcPremium";
+import { calculateCmhcPremium, minimumDownPayment } from "../lib/cmhcPremium";
 import { calculateRentVsBuy } from "../lib/rentVsBuyMath";
 import {
   BC_PTT_FTHB_FULL_PROGRAM_FMV,
@@ -322,29 +322,26 @@ export function cmhcWorkedExample() {
 
 export function cmhcInsuranceGuide(): GuideSection[] {
   const example = cmhcWorkedExample();
-  const bands = CMHC_PREMIUM_TIERS.map(
-    (tier) => `${tier.ltvMin}–${tier.ltvMax}% at ${pct(tier.rate)}`,
-  ).join("; ");
   return [
     {
       heading: "How this CMHC insurance calculator works",
       paragraphs: [
-        "Default insurance is the premium a lender requires when your down payment is under 20% of the purchase price. The premium protects the lender, not you. This page estimates it from the price and down payment you type. It does not ask a province, and it does not add provincial sales tax. Ontario, Quebec, and Manitoba tax the premium; that tax is extra cash or an extra amount on the mortgage, and it is not in the figure here.",
-        `Loan-to-value is the mortgage divided by the price. The mortgage before the premium is price minus down payment. The tool then picks one band. The bands coded on this page are: ${bands}. If your down payment is 20% or more, the page says insurance is not required and hides the premium, even if a band would otherwise match. A price above $1,000,000 is treated as uninsurable: the minimum down payment becomes 20%.`,
-        `The premium amount is the mortgage before insurance times the band rate. That premium is added to the mortgage, which is why the loan-to-value after the premium is a bit higher than the loan-to-value you started with. You pay it back, with interest, over the amortization. It is not a cheque on closing unless you choose to pay it that way with the lender.`,
+        "Default insurance is the premium a lender requires when your down payment is under 20% and the purchase is still eligible. The premium protects the lender, not you. This page estimates it from the price and down payment you type. It does not ask a province, and it does not add provincial sales tax. Ontario, Quebec, and Saskatchewan tax the premium. That tax cannot be added to the loan, and it is not in the figure here.",
+        `Loan-to-value is the mortgage divided by the price. The tool uses CMHC's traditional schedule for an amortization of 25 years or less, from 0.60% to 4.00%. At 20% down or more it says insurance is not required. A price of $1,500,000 or more is outside default insurance: the minimum down payment is 20% and the premium is zero. The tool does not add the 0.20 point surcharge CMHC charges past 25 years. The <a href="/guides/cmhc-mortgage-insurance-canada/">CMHC insurance guide</a> covers the tiers, the tax, and insured versus insurable pricing.`,
+        "The premium amount is the mortgage before insurance times the band rate. That premium is added to the mortgage, which is why the loan-to-value after the premium is a bit higher than the loan-to-value you started with. You pay it back, with interest, over the amortization. It is not a cheque on closing unless you choose to pay it that way with the lender.",
       ],
     },
     {
       heading: "A worked Canadian example",
       paragraphs: [
         `Take a $${example.price.toLocaleString("en-CA")} purchase with $${example.down.toLocaleString("en-CA")} down. That is ${example.downPaymentPercent.toFixed(1)}% down. The mortgage before insurance is $${example.mortgageAmount.toLocaleString("en-CA")}. Loan-to-value is ${example.ltv.toFixed(1)}%, which lands in the 85.01% to 90% band, so the rate on this tool is ${pct(example.premiumRate)}. The premium is $${Math.round(example.premiumAmount).toLocaleString("en-CA")}. Adding it makes the total mortgage $${Math.round(example.totalMortgage).toLocaleString("en-CA")}, and the loan-to-value including the premium is ${example.newLTV.toFixed(1)}%.`,
-        `The minimum down payment this tool uses on that price is $${Math.round(example.minimum).toLocaleString("en-CA")}: 5% of the first $500,000 ($25,000) plus 10% of the next $100,000 ($10,000). The $60,000 down payment is above that minimum and still under 20%, so the premium applies. Put 20% down ($120,000) and the same price shows no premium. These bands are the ones printed under the calculator. CMHC, Sagen, and Canada Guaranty publish their own schedules, and a commitment can differ. Confirm the premium, the tax, and whether the premium is added to the mortgage before you remove a condition.`,
+        `The minimum down payment this tool uses on that price is $${Math.round(example.minimum).toLocaleString("en-CA")}: 5% of the first $500,000 ($25,000) plus 10% of the next $100,000 ($10,000). The same 5% then 10% schedule runs up to a price just under $1,500,000. The $60,000 down payment is above that minimum and still under 20%, so the premium applies. Put 20% down ($120,000) and the same price shows no premium. Confirm the premium, the tax, and whether the premium is added to the mortgage before you remove a condition.`,
       ],
     },
     {
       heading: "Rules that change the premium",
       paragraphs: [
-        "Under 20% down from a federally regulated lender, default insurance is required when the purchase is still eligible. CMHC or a private insurer can write it. A 30-year amortization, a rental, or a price over the insurable cap can be ineligible even at 5% down. Insured contract rates are often lower than uninsured rates because the lender’s risk is covered. Compare that lower rate on the larger balance with a 20% down quote using the <a href=\"/tools/mortgage-calculator/\">payment calculator</a> and the <a href=\"/rates/insured/\">insured</a> and <a href=\"/rates/uninsured/\">uninsured</a> tables. The stress test still uses the greater of the contract rate plus two points or 5.25%, on the balance that includes the premium.",
+        "Under 20% down from a federally regulated lender, default insurance is required when the purchase is still eligible. A 30-year amortization, a rental, or a price over the insurable cap can be ineligible even at 5% down. Insured contract rates are often lower than uninsured rates because the lender’s risk is covered. Compare that lower rate on the larger balance with a 20% down quote using the <a href=\"/tools/mortgage-calculator/\">payment calculator</a> and the <a href=\"/rates/insured/\">insured</a> and <a href=\"/rates/uninsured/\">uninsured</a> tables. The stress test still uses the greater of the contract rate plus two points or 5.25%, on the balance that includes the premium.",
       ],
     },
   ];
@@ -360,7 +357,7 @@ export function cmhcInsuranceFaqs(): GuideFaq[] {
     {
       question: "What minimum down payment does the calculator use?",
       answer:
-        "Five percent of the first $500,000, ten percent up to $1,000,000, and twenty percent above that. The premium stops at twenty percent down.",
+        "Five percent of the first $500,000 and ten percent of the rest, while the price is under $1,500,000. At $1,500,000 or more the minimum is 20% and the tool does not charge a premium. The premium also stops once the down payment reaches 20%.",
     },
     {
       question: "Are these the only CMHC rates in Canada?",

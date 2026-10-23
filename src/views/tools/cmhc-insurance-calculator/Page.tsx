@@ -25,15 +25,11 @@ export default function CMHCCalculatorPage() {
           },
           {
             name: "Enter Down Payment",
-            text: "Enter your down payment amount (must be at least 5% for CMHC insurance).",
-          },
-          {
-            name: "Select Province",
-            text: "Choose your province for applicable sales tax calculation.",
+            text: "Under $1,500,000 the minimum is 5% of the first $500,000 and 10% of the rest. At $1,500,000 or more the minimum is 20%, because default insurance is not available.",
           },
           {
             name: "Review Premium",
-            text: "See your CMHC premium, taxes, and total insurance cost added to your mortgage.",
+            text: "The premium uses CMHC's traditional homeowner bands for an amortization of 25 years or less. It does not include the 0.20 point surcharge for a longer amortization or provincial sales tax.",
           },
         ]}
       />
@@ -96,7 +92,7 @@ export default function CMHCCalculatorPage() {
               },
               {
                 question: "How much does CMHC insurance cost?",
-                answer: "On this calculator the premium rate depends on loan-to-value: 2.25% from 65.01% to 80%, 3.35% from 80.01% to 85%, 4.25% from 85.01% to 90%, 5.65% from 90.01% to 95%, and 6.75% from 95.01% to 97%. At 20% down or more the page charges no premium. Insurers publish their own schedules, and provincial sales tax can be added on top. Use the worked example under the calculator, then confirm the premium on the commitment.",
+                answer: "On this calculator the premium follows CMHC's traditional homeowner schedule for 25 years or less: 0.60% up to 65% loan-to-value, 1.70% to 75%, 2.40% to 80%, 2.80% to 85%, 3.10% to 90%, and 4.00% from 90.01% to 95%. At 20% down or more the page charges no premium. A price of $1,500,000 or more is not eligible. A longer amortization adds 0.20 points on CMHC's schedule, and this tool does not add it. Provincial sales tax can be extra. Confirm the premium on the commitment.",
               },
               {
                 question: "Is CMHC insurance mandatory?",
@@ -108,7 +104,7 @@ export default function CMHCCalculatorPage() {
               },
               {
                 question: "Is CMHC insurance tax deductible?",
-                answer: "No, CMHC insurance premiums are not tax deductible. However, in some provinces (Ontario, Quebec, Manitoba), provincial sales tax on the CMHC premium may be eligible for rebates or credits. The premium itself is rolled into your mortgage and paid over time with interest.",
+                answer: "The premium itself is not a personal tax deduction on a home you live in. Ontario (8% retail sales tax), Quebec (9% tax on insurance premiums, rising to 9.975% for premiums paid after December 31, 2026), and Saskatchewan (6% PST) tax the premium. CMHC says that provincial tax cannot be added to the loan. The calculator does not include it.",
               },
               ...cmhcInsuranceFaqs(),
             ]}
