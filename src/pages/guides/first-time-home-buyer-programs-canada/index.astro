@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/guides/InDepthGuidePage";
+import { guideBySlug } from "../../../content/inDepthGuides";
+
+const guide = guideBySlug("first-time-home-buyer-programs-canada");
+---
+<BaseLayout
+  title={guide.metaTitle}
+  description={guide.description}
+  canonical={`https://latestmortgagerates.ca${guide.path}`}
+  keywords={guide.keywords}
+>
+  <Page client:load slug={guide.slug} />
+</BaseLayout>

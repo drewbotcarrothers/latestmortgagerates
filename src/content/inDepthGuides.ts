@@ -1,7 +1,11 @@
+import { firstTimeBuyerPrograms } from "./guides/firstTimeBuyerPrograms";
+import { fixedVsVariable } from "./guides/fixedVsVariable";
 import { lenderTypes } from "./guides/lenderTypes";
+import { postedVsDiscounted } from "./guides/postedVsDiscounted";
 import { prepaymentPenalties } from "./guides/prepaymentPenalties";
 import { renewalPlaybook } from "./guides/renewalPlaybook";
 import { stressTestGuide } from "./guides/stressTestGuide";
+import { switchingLenders } from "./guides/switchingLenders";
 import type { InDepthGuide } from "./guides/shared";
 import { guideWordCount } from "./guides/shared";
 
@@ -14,6 +18,10 @@ export const IN_DEPTH_GUIDES: InDepthGuide[] = [
   prepaymentPenalties,
   stressTestGuide,
   lenderTypes,
+  fixedVsVariable,
+  firstTimeBuyerPrograms,
+  switchingLenders,
+  postedVsDiscounted,
 ];
 
 export function guideBySlug(slug: string): InDepthGuide {
