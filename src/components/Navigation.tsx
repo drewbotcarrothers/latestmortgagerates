@@ -98,8 +98,13 @@ const MENUS: NavMenu[] = [
     id: "guides",
     label: "Guides",
     align: "right",
+    columns: 2,
     links: [
       { href: "/guides/", label: "All guides" },
+      { href: "/guides/2026-mortgage-renewal-playbook/", label: "2026 renewal playbook" },
+      { href: "/guides/mortgage-prepayment-penalties/", label: "Prepayment penalties" },
+      { href: "/guides/mortgage-stress-test/", label: "Stress test" },
+      { href: "/guides/banks-vs-monoline-lenders-vs-credit-unions/", label: "Banks, monolines, credit unions" },
       { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate your rate" },
       { href: "/compare/", label: "Compare mortgages" },
       { href: "/glossary/", label: "Glossary" },

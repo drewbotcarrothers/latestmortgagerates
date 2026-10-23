@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getPostBySlug } from "@/content/blog";
+import { IN_DEPTH_GUIDES } from "@/content/inDepthGuides";
 import { COMPARE_PAGES } from "@/lib/siteLinks";
 
 const report = getPostBySlug("below-the-line-mortgage-rate-report-october-2026");
@@ -52,6 +53,18 @@ export default function GuidesIndex() {
       </header>
 
       <div className="mx-auto max-w-7xl space-y-10 px-4 py-8">
+        <section>
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">In-depth guides</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {IN_DEPTH_GUIDES.map((guide) => (
+              <a key={guide.path} href={guide.path} className="rounded-xl border border-slate-200 bg-white p-5 hover:border-teal-300">
+                <h3 className="text-lg font-semibold text-teal-800">{guide.cardTitle}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{guide.cardDescription}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <section>
           <h2 className="mb-4 text-2xl font-bold text-slate-900">Start here</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
