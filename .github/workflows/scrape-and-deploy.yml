@@ -78,6 +78,11 @@ jobs:
           python -m pip install loguru
           python historical_rates.py
 
+      - name: Record posted-rate changes and refresh Bank of Canada series
+        run: |
+          node scripts/append-rate-changes.mjs
+          node scripts/refresh-market-series.mjs
+
       # Step 3: Commit data changes FIRST (before email)
       - name: Commit and push data
         run: |

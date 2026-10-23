@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/data/BreakCostsPage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { breakFileDate, breakLead, buildBreakExamples } from "../../lib/breakCosts";
+import { formatLongDate } from "../../lib/dataFormat";
+import { publishedRates } from "../../lib/publishedRates";
+
+const examples = buildBreakExamples(publishedRates);
+const fileDate = breakFileDate(publishedRates) ?? "2026-10-23";
+const lead = breakLead(examples, formatLongDate(fileDate));
+const dataset = datasetJsonLd({
+  name: "What breaking a 5-year fixed costs at each Big 5 bank today",
+  description: lead,
+  url: "https://latestmortgagerates.ca/mortgage-break-costs/",
+  temporalCoverage: fileDate,
+  dateModified: fileDate,
+  variableMeasured: [
+    "Posted-rate interest rate differential",
+    "Three months' interest",
+    "Uninsured 5-year fixed special",
+    "3-year posted rate",
+  ],
+});
+---
+
+<BaseLayout
+  title="What breaking a 5-year fixed costs at each Big 5 bank today | Latest Mortgage Rates"
+  description={lead}
+  canonical="https://latestmortgagerates.ca/mortgage-break-costs/"
+  keywords="mortgage break penalty, interest rate differential, Big 5 posted rates"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page client:load />
+</BaseLayout>

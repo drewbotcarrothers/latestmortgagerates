@@ -45,6 +45,7 @@ const MENUS: NavMenu[] = [
     links: [
       { href: "/", label: "Today's rates" },
       { href: "/real-mortgage-rates/", label: "Real mortgage rates" },
+      { href: "/rate-data/", label: "Rate data" },
       { href: "/trends/", label: "Rate trends" },
       { href: "/rates/5-year-fixed/", label: "5-year fixed" },
       { href: "/rates/variable/", label: "Variable rates" },
@@ -164,7 +165,13 @@ function sectionFromPath(path: string): string | null {
     path === "/" ||
     path.startsWith("/rates") ||
     path.startsWith("/real-mortgage-rates") ||
-    path.startsWith("/trends")
+    path.startsWith("/trends") ||
+    path.startsWith("/rate-data") ||
+    path.startsWith("/prime-rate") ||
+    path.startsWith("/mortgage-break-costs") ||
+    path.startsWith("/rate-changes") ||
+    path.startsWith("/mortgage-rate-forecast") ||
+    path.startsWith("/reports/")
   ) {
     return "rates";
   }

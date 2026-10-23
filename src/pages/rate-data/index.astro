@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/data/RateDataPage";
+import { rateDataLead } from "../../views/data/RateDataPage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { latestScrapeDate } from "../../lib/dataFormat";
+import { publishedRates } from "../../lib/publishedRates";
+
+const asOf = latestScrapeDate(publishedRates) ?? "2026-10-23";
+const lead = rateDataLead();
+const dataset = datasetJsonLd({
+  name: "Canadian mortgage rate data",
+  description: lead,
+  url: "https://latestmortgagerates.ca/rate-data/",
+  temporalCoverage: asOf,
+  dateModified: asOf,
+  variableMeasured: [
+    "Prime rate",
+    "Posted mortgage rate",
+    "Advertised mortgage rate",
+    "Reported mortgage rate",
+  ],
+});
+---
+
+<BaseLayout
+  title="Rate data | Latest Mortgage Rates"
+  description={lead}
+  canonical="https://latestmortgagerates.ca/rate-data/"
+  keywords="Canadian mortgage rate data, prime rate, bond yield spread, rate changes"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page client:load />
+</BaseLayout>

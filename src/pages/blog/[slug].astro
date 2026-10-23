@@ -3,6 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPostPage from "../../views/blog/BlogPost";
 import { blogPosts, getPostBySlug } from "../../content/blog";
 import { isIndexablePath } from "../../lib/sitemapFilter.mjs";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { BOND_SLUG, bondYieldsBlogPost } from "../../lib/bondYieldArticle";
+import { loadBondSeries } from "../../lib/loadMarketSeries";
 
 export function getStaticPaths() {
   return blogPosts.map((post) => ({ params: { slug: post.slug } }));
@@ -10,11 +13,26 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const post = getPostBySlug(slug!);
+const bondLive = slug === BOND_SLUG ? bondYieldsBlogPost(await loadBondSeries()) : null;
 const title = post
-  ? `${post.title} | Latest Mortgage Rates Canada`
+  ? `${bondLive?.title || post.title} | Latest Mortgage Rates Canada`
   : "Post Not Found | Latest Mortgage Rates Canada";
-const description = post?.excerpt || "The requested article could not be found.";
+const description = bondLive?.excerpt || post?.excerpt || "The requested article could not be found.";
 const indexable = isIndexablePath(`/blog/${slug}/`);
+const dataset = bondLive
+  ? datasetJsonLd({
+      name: bondLive.title,
+      description: bondLive.excerpt,
+      url: `https://latestmortgagerates.ca/blog/${BOND_SLUG}/`,
+      temporalCoverage: `${bondLive.yieldDate ?? bondLive.date}/${bondLive.asOf ?? bondLive.date}`,
+      dateModified: bondLive.asOf ?? bondLive.date,
+      variableMeasured: [
+        "Government of Canada 5-year benchmark bond yield",
+        "Lowest 5-year fixed mortgage rate",
+        "Big Five median uninsured 5-year fixed mortgage rate",
+      ],
+    })
+  : null;
 ---
 
 <BaseLayout
@@ -26,5 +44,11 @@ const indexable = isIndexablePath(`/blog/${slug}/`);
   noIndex={!indexable}
   robots={indexable ? undefined : "noindex, follow"}
 >
-  <BlogPostPage slug={slug!} client:load />
+  {dataset ? <script type="application/ld+json" set:html={JSON.stringify(dataset)} /> : null}
+  <BlogPostPage
+    slug={slug!}
+    contentOverride={bondLive?.content}
+    excerptOverride={bondLive?.excerpt}
+    client:load
+  />
 </BaseLayout>
