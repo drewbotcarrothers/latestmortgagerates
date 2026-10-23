@@ -36,6 +36,16 @@ export default function MethodologyPage() {
 
           <div className="mt-8 space-y-8 text-slate-700 leading-relaxed">
             <section>
+              <h2 className="text-2xl font-bold text-slate-900">Where the two datasets come from</h2>
+              <p className="mt-3">
+                Posted rates come from the public rate pages of the lenders we track. They are not taken from a broker&apos;s rate sheet, and they are not taken from a borrower. The scrape runs twice a day, once in the morning and once in the evening, Eastern time. If a lender page fails or changes shape, that lender can be missing until the next successful read. The time on the homepage is the snapshot time. It is not a claim that every lender changed a rate that day.
+              </p>
+              <p className="mt-3">
+                The other dataset is rates {communityRates.attribution}. A row is kept when a public post states a rate, a term, and whether it is fixed or variable, and when it reads as an approval, a renewal, or an offer the person received. The published file does not include the original wording, account names, or a link back to the post. We do not name the website the post came from.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-2xl font-bold text-slate-900">How reports are collected</h2>
               <p className="mt-3">
                 We keep mortgage rates that Canadian borrowers describe in public online posts when they mention an approval, a renewal, or an offer they received.
@@ -75,6 +85,20 @@ export default function MethodologyPage() {
             </section>
 
             <section>
+              <h2 className="text-2xl font-bold text-slate-900">Rules for borrower-reported rates</h2>
+              <p className="mt-3">
+                N is shown on every published cell. N is the unrounded count of reports in that cell. A cell is published only when N is at least {communityRates.thresholds.publicMinN}. A chart may include a cell with N from {communityRates.thresholds.chartMinN} to {communityRates.thresholds.publicMinN - 1} when the label says the sample is small. Rates and gaps are rounded to the nearest 0.05 percentage point for display. The rates are {communityRates.attribution}. {communityRates.disclaimer}
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900">Outlier handling</h2>
+              <p className="mt-3">
+                We do not delete a report because the rate is high or low. The published figure is a median, so one extreme report does not set it the way an average would. The count is the other half of that handling: a cell stays off the public tables until N is at least {communityRates.thresholds.publicMinN}, so a single unusual story cannot be the number we publish. A small chart sample can still move. That is why N is printed beside the rate.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-2xl font-bold text-slate-900">What this is not</h2>
               <p className="mt-3">
                 {communityRates.disclaimer} The rates were {communityRates.attribution}. They are not a representative survey of every Canadian mortgage, they are not weighted by balance or province, and a single unusual report can move a small cell. That is why cells under N = {communityRates.thresholds.publicMinN} stay off the public tables.
@@ -85,6 +109,8 @@ export default function MethodologyPage() {
           <CommunityDisclaimer className="mt-8" />
           <p className="mt-6 text-sm">
             <a href="/real-mortgage-rates/" className="font-semibold text-teal-700 hover:underline">Back to real mortgage rates</a>
+            {" · "}
+            <a href="/editorial-policy/" className="font-semibold text-teal-700 hover:underline">Editorial policy</a>
           </p>
           <AdUnit format="display" className="mt-8" />
         </article>

@@ -90,9 +90,9 @@ describe("glossary mortgage terms", () => {
   it("features an essential mortgage terms section and a matching title", () => {
     const page = readFileSync(join(root, "src/pages/glossary/index.astro"), "utf8");
     const view = readFileSync(join(root, "src/views/glossary/GlossaryIndex.tsx"), "utf8");
-    assert.match(page, /Mortgage Terms/);
+    assert.match(page, /Mortgage Terms Glossary \(Canada\)/);
     assert.match(view, /Essential mortgage terms/);
-    assert.match(view, /<h1[^>]*>\s*Mortgage Terms\s*<\/h1>/);
+    assert.match(view, /<h1[^>]*>\s*Mortgage Terms Glossary \(Canada\)\s*<\/h1>/);
     const slugs = new Set(glossaryTerms.map((term) => term.slug));
     for (const slug of ESSENTIAL_MORTGAGE_TERM_SLUGS) {
       assert.ok(slugs.has(slug), slug);

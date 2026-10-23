@@ -169,11 +169,24 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/big-5-bank-mortgages-compared/"), true);
     assert.equal(isIndexablePath("/guides/blend-and-extend-mortgage/"), true);
     assert.equal(isIndexablePath("/guides/mortgage-rate-hold-canada/"), true);
+    assert.equal(isIndexablePath("/prime-rate/"), true);
+    assert.equal(isIndexablePath("/rate-changes/"), true);
+    assert.equal(isIndexablePath("/mortgage-break-costs/"), true);
+    assert.equal(isIndexablePath("/mortgage-rate-forecast-2027/"), true);
+    assert.equal(isIndexablePath("/reports/discount-by-bank/"), true);
+    assert.equal(isIndexablePath("/rate-data/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
     const robots = readFileSync(join(root, "public/robots.txt"), "utf8");
     assert.match(robots, /Sitemap: https:\/\/latestmortgagerates\.ca\/sitemap-index\.xml/);
+    assert.doesNotMatch(robots, /Crawl-delay/i);
+    assert.match(robots, /User-agent: \*\nAllow: \//);
+    for (const bot of ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "Google-Extended"]) {
+      assert.match(robots, new RegExp(`User-agent: ${bot}\\nAllow: /`), bot);
+    }
+    assert.equal(isIndexablePath("/editorial-policy/"), true);
+    assert.equal(isIndexablePath("/llms.txt"), true);
     const share = readFileSync(join(root, "src/components/SocialShare.tsx"), "utf8");
     assert.doesNotMatch(share, /reddit/i);
     const htaccess = readFileSync(join(root, "public/.htaccess"), "utf8");
@@ -259,6 +272,13 @@ describe("expanded page depth", () => {
       "src/content/guides/blendAndExtend.ts",
       "src/content/guides/rateHold.ts",
       "src/views/guides/InDepthGuidePage.tsx",
+      "src/views/editorial/EditorialPolicyPage.tsx",
+      "src/views/community/MethodologyPage.tsx",
+      "src/lib/llmsTxt.ts",
+      "src/lib/articleSchema.ts",
+      "src/lib/datasetSchema.ts",
+      "src/lib/homeMeta.ts",
+      "src/content/guides/negotiateMeta.ts",
       "src/content/lenderContent.json",
     ];
     for (const file of files) {

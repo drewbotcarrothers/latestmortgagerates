@@ -27,8 +27,11 @@ export default function GlossaryPage() {
           </nav>
           
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Mortgage Terms</h1>
+            <h1 className="text-3xl font-bold text-slate-900">Mortgage Terms Glossary (Canada)</h1>
             <p className="text-slate-600 mt-2">Essential mortgage terms and the rest of the Canadian glossary, in plain language</p>
+            <p className="mt-4 max-w-3xl leading-relaxed text-slate-700">
+              This glossary defines mortgage terms the way they are used in Canada, including amortization, the stress test, insured and uninsured mortgages, and posted versus discounted rates. Each entry is plain language, not legal or lending advice. Rates on this site come from our lender scrape and from rates self-reported by Canadian borrowers online, not from these definitions.
+            </p>
           </div>
         </div>
       </div>

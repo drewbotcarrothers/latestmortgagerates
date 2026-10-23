@@ -7,13 +7,25 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import EditorialByline from "@/components/EditorialByline";
 import EditorialSections from "@/components/EditorialSections";
+import JsonLd from "@/components/JsonLd";
 import { guideBySlug } from "@/content/inDepthGuides";
+import { articleJsonLd, guideDates } from "@/lib/articleSchema";
 
 export default function InDepthGuidePage({ slug }: { slug: string }) {
   const guide = guideBySlug(slug);
+  const dates = guideDates(guide);
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          headline: guide.h1,
+          description: guide.description,
+          datePublished: dates.datePublished,
+          dateModified: dates.dateModified,
+          url: `https://latestmortgagerates.ca${guide.path}`,
+        })}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: "/" },
@@ -42,7 +54,12 @@ export default function InDepthGuidePage({ slug }: { slug: string }) {
                 <span>{guide.cardTitle}</span>
               </nav>
               <h1 className="text-4xl font-bold tracking-tight">{guide.h1}</h1>
-              <EditorialByline reviewedIso={guide.reviewedIso} sources={guide.sourcesLine} tone="onDark" />
+              <EditorialByline
+                reviewedIso={guide.reviewedIso}
+                updatedIso={guide.updatedDate ?? guide.reviewedIso}
+                sources={guide.sourcesLine}
+                tone="onDark"
+              />
               <p className="mt-4 text-lg text-slate-200">{guide.dek}</p>
             </div>
           </section>

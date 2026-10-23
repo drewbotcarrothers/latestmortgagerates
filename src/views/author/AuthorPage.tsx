@@ -4,7 +4,7 @@ import EditorialSections from "@/components/EditorialSections";
 import { blogPosts } from "@/content/blog";
 import { authorAboutSection } from "@/content/editorialPages";
 import { IN_DEPTH_GUIDES } from "@/content/inDepthGuides";
-import { AUTHOR_FOCUS, AUTHOR_NAME } from "@/lib/author";
+import { AUTHOR_COVERAGE, AUTHOR_EDITORIAL, AUTHOR_FOCUS, AUTHOR_NAME } from "@/lib/author";
 
 const articles = [...blogPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -24,7 +24,10 @@ export default function AuthorPage() {
             </ol>
           </nav>
           <h1 className="text-3xl font-bold text-slate-900">{AUTHOR_NAME}</h1>
-          <p className="mt-2 text-slate-600">Author at LatestMortgageRates.ca</p>
+          <p className="mt-2 text-slate-600">
+            Author at LatestMortgageRates.ca.{" "}
+            <a href="/editorial-policy/" className="font-medium text-teal-700 hover:underline">Editorial policy</a>
+          </p>
         </div>
       </header>
 
@@ -34,7 +37,7 @@ export default function AuthorPage() {
         </article>
 
         <section className="rounded-lg bg-white p-8 shadow-md">
-          <h2 className="mb-4 text-2xl font-bold text-slate-900">Focus areas</h2>
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">Expertise</h2>
           <ul className="space-y-4">
             {AUTHOR_FOCUS.map((item) => (
               <li key={item.title}>
@@ -46,7 +49,17 @@ export default function AuthorPage() {
         </section>
 
         <section className="rounded-lg bg-white p-8 shadow-md">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">What Andrew covers on this site</h2>
+          <div className="space-y-3 leading-relaxed text-slate-700">
+            {AUTHOR_COVERAGE.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-lg bg-white p-8 shadow-md">
           <h2 className="mb-4 text-2xl font-bold text-slate-900">Guides</h2>
+          <p className="mb-4 text-slate-700">These guides are generated from the guides published on the site.</p>
           <ul className="space-y-3">
             {IN_DEPTH_GUIDES.map((guide) => (
               <li key={guide.path}>
@@ -67,6 +80,15 @@ export default function AuthorPage() {
               <p className="text-sm text-slate-600">The hub for comparisons, the glossary, and the below-the-line report.</p>
             </li>
           </ul>
+        </section>
+
+        <section className="rounded-lg bg-white p-8 shadow-md">
+          <h2 className="mb-4 text-2xl font-bold text-slate-900">Editorial approach</h2>
+          <div className="space-y-3 leading-relaxed text-slate-700 [&_a]:text-teal-700 [&_a]:hover:underline">
+            {AUTHOR_EDITORIAL.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)} dangerouslySetInnerHTML={{ __html: paragraph }} />
+            ))}
+          </div>
         </section>
 
         <section className="rounded-lg bg-white p-8 shadow-md">
