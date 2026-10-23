@@ -21,6 +21,35 @@ export default function EditorialSections({ sections }: { sections: EditorialSec
                     ))}
                   </ul>
                 ) : null}
+                {section.table && index === section.paragraphs.length - 1 ? (
+                  <div className="mt-4 overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <caption className="mb-2 text-left font-medium text-slate-800">{section.table.caption}</caption>
+                      <thead>
+                        <tr>
+                          {section.table.headers.map((header) => (
+                            <th key={header} className="border border-slate-200 bg-slate-50 px-2 py-2 text-left font-semibold text-slate-900">
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {section.table.rows.map((row, rowIndex) => (
+                          <tr key={`${rowIndex}-${row[0]}`}>
+                            {row.map((cell, cellIndex) => (
+                              <td
+                                key={`${rowIndex}-${cellIndex}`}
+                                className="border border-slate-200 px-2 py-2 align-top text-slate-700"
+                                dangerouslySetInnerHTML={{ __html: cell }}
+                              />
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>

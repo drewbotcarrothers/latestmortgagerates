@@ -55,6 +55,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
   const navItems = [
     { href: "/", label: "Current Rates", icon: HomeIcon },
     { href: "/real-mortgage-rates/", label: "Real Mortgage Rates", icon: TrendIcon },
+    { href: "/rate-data/", label: "Rate data", icon: TrendIcon },
     { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate Your Rate", icon: BookOpenIcon },
     { href: "/tools/renewal-offer-checker/", label: "Renewal Offer Checker", icon: CalculatorIcon },
     { href: "/compare/", label: "Compare Mortgages", icon: ScaleIcon },

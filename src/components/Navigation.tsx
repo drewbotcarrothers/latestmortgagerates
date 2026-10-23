@@ -45,6 +45,7 @@ const MENUS: NavMenu[] = [
     links: [
       { href: "/", label: "Today's rates" },
       { href: "/real-mortgage-rates/", label: "Real mortgage rates" },
+      { href: "/rate-data/", label: "Rate data" },
       { href: "/trends/", label: "Rate trends" },
       { href: "/rates/5-year-fixed/", label: "5-year fixed" },
       { href: "/rates/variable/", label: "Variable rates" },
@@ -102,17 +103,25 @@ const MENUS: NavMenu[] = [
     links: [
       { href: "/guides/", label: "All guides" },
       { href: "/guides/2026-mortgage-renewal-playbook/", label: "2026 renewal playbook" },
-      { href: "/guides/mortgage-prepayment-penalties/", label: "Prepayment penalties" },
-      { href: "/guides/mortgage-stress-test/", label: "Stress test" },
-      { href: "/guides/banks-vs-monoline-lenders-vs-credit-unions/", label: "Banks, monolines, credit unions" },
-      { href: "/guides/fixed-vs-variable-mortgage-2026/", label: "Fixed vs variable" },
-      { href: "/guides/first-time-home-buyer-programs-canada/", label: "First-time buyer programs" },
+      { href: "/guides/2027-mortgage-renewal-wave/", label: "The 2027 renewal wave" },
       { href: "/guides/switching-mortgage-lenders-at-renewal/", label: "Switch lenders at renewal" },
-      { href: "/guides/posted-vs-discounted-mortgage-rates/", label: "Posted vs discounted rates" },
-      { href: "/guides/closing-costs-canada-by-province/", label: "Closing costs by province" },
-      { href: "/guides/big-5-bank-mortgages-compared/", label: "Big 5 banks compared" },
+      { href: "/guides/mortgage-renewal-vs-refinance-vs-heloc/", label: "Renewal, refinance, or HELOC" },
+      { href: "/guides/porting-mortgage-canada/", label: "Porting a mortgage" },
       { href: "/guides/blend-and-extend-mortgage/", label: "Blend-and-extend" },
       { href: "/guides/mortgage-rate-hold-canada/", label: "Rate holds" },
+      { href: "/guides/mortgage-prepayment-penalties/", label: "Prepayment penalties" },
+      { href: "/guides/fixed-vs-variable-mortgage-2026/", label: "Fixed vs variable" },
+      { href: "/guides/should-i-lock-in-variable-rate/", label: "Locking in a variable rate" },
+      { href: "/guides/posted-vs-discounted-mortgage-rates/", label: "Posted vs discounted rates" },
+      { href: "/guides/bank-of-canada-rate-and-your-mortgage/", label: "Bank of Canada and your mortgage" },
+      { href: "/guides/big-5-bank-mortgages-compared/", label: "Big 5 banks compared" },
+      { href: "/guides/banks-vs-monoline-lenders-vs-credit-unions/", label: "Banks, monolines, credit unions" },
+      { href: "/guides/heloc-rates-canada/", label: "HELOC rates" },
+      { href: "/guides/first-time-home-buyer-programs-canada/", label: "First-time buyer programs" },
+      { href: "/guides/closing-costs-canada-by-province/", label: "Closing costs by province" },
+      { href: "/guides/cmhc-mortgage-insurance-canada/", label: "CMHC mortgage insurance" },
+      { href: "/guides/mortgage-stress-test/", label: "Stress test" },
+      { href: "/guides/30-year-amortization-canada/", label: "30-year amortizations" },
       { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate your rate" },
       { href: "/compare/", label: "Compare mortgages" },
       { href: "/glossary/", label: "Glossary" },
@@ -160,7 +169,13 @@ function sectionFromPath(path: string): string | null {
     path === "/" ||
     path.startsWith("/rates") ||
     path.startsWith("/real-mortgage-rates") ||
-    path.startsWith("/trends")
+    path.startsWith("/trends") ||
+    path.startsWith("/rate-data") ||
+    path.startsWith("/prime-rate") ||
+    path.startsWith("/mortgage-break-costs") ||
+    path.startsWith("/rate-changes") ||
+    path.startsWith("/mortgage-rate-forecast") ||
+    path.startsWith("/reports/")
   ) {
     return "rates";
   }

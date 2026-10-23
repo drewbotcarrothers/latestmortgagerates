@@ -4,6 +4,12 @@ import {
   AUTHOR_ABOUT_PARAGRAPHS,
 } from "../lib/author";
 
+export interface EditorialTable {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+}
+
 export interface EditorialSection {
   id?: string;
   heading: string;
@@ -11,11 +17,19 @@ export interface EditorialSection {
   /** Bulleted HTML items, rendered after this paragraph index. */
   listAfter?: number;
   items?: string[];
+  table?: EditorialTable;
 }
 
 export function editorialWordCount(sections: EditorialSection[]): number {
   const text = sections
-    .flatMap((section) => [section.heading, ...section.paragraphs, ...(section.items ?? [])])
+    .flatMap((section) => [
+      section.heading,
+      ...section.paragraphs,
+      ...(section.items ?? []),
+      section.table?.caption ?? "",
+      ...(section.table?.headers ?? []),
+      ...(section.table?.rows.flat() ?? []),
+    ])
     .join(" ")
     .replace(/<[^>]+>/g, " ");
   return text.split(/\s+/).filter(Boolean).length;

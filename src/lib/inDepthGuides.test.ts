@@ -20,22 +20,29 @@ const REQUIRED_LINKS = [
 ];
 
 describe("in-depth guides", () => {
-  it("publishes twelve guides inside the word-count range", () => {
-    assert.equal(IN_DEPTH_GUIDES.length, 12);
-    const counts = IN_DEPTH_GUIDES.map((guide) => [guide.slug, guideWordCount(guide)] as const);
-    for (const [slug, words] of counts) {
-      assert.ok(words >= 1800 && words <= 2700, `${slug} is ${words} words`);
-    }
+  it("publishes twenty guides inside the word-count range", () => {
+    const batch3 = new Set([
+      "cmhc-mortgage-insurance-canada",
+      "30-year-amortization-canada",
+      "bank-of-canada-rate-and-your-mortgage",
+      "mortgage-renewal-vs-refinance-vs-heloc",
+    ]);
     const longform = new Set([
+      "porting-mortgage-canada",
+      "should-i-lock-in-variable-rate",
+      "2027-mortgage-renewal-wave",
+      "heloc-rates-canada",
       "closing-costs-canada-by-province",
       "big-5-bank-mortgages-compared",
       "blend-and-extend-mortgage",
       "mortgage-rate-hold-canada",
     ]);
-    for (const [slug, words] of counts) {
-      if (longform.has(slug)) {
-        assert.ok(words >= 2200 && words <= 2600, `${slug} is ${words} words`);
-      }
+    assert.equal(IN_DEPTH_GUIDES.length, 20);
+    for (const guide of IN_DEPTH_GUIDES) {
+      const words = guideWordCount(guide);
+      const min = batch3.has(guide.slug) || longform.has(guide.slug) ? 2200 : 1800;
+      const max = longform.has(guide.slug) ? 2600 : 2500;
+      assert.ok(words >= min && words <= max, `${guide.slug} is ${words} words`);
     }
   });
 

@@ -1,0 +1,83 @@
+{
+  "compiled": "2026-10-23",
+  "note": "Figures are copied from the cited publication. A null means that publication does not state the figure. This file is not a forecast by Latest Mortgage Rates.",
+  "forecasts": [
+    {
+      "institution": "RBC",
+      "publication": "Monthly forecast update, interest rate outlook",
+      "published": "2026-10-13",
+      "url": "https://www.rbc.com/en/economics/wp-content/uploads/sites/23/2026/10/MFU-PDF_OCT_NEW.pdf",
+      "policyRate": 3.25,
+      "policyBasis": "Canada overnight rate, end of Q4 2027",
+      "fiveYearYield": 3.55,
+      "yieldBasis": "Canada 5-year government bond yield, end of Q4 2027",
+      "note": "RBC Economics' October 13, 2026 table also has the overnight rate at 2.25% at the end of Q4 2026, then 2.50%, 2.75%, and 3.00% through the first three quarters of 2027."
+    },
+    {
+      "institution": "TD",
+      "publication": "TD Economics forecast tables, interest rate outlook",
+      "published": "2026-09",
+      "url": "https://economics.td.com/ca-forecast-tables",
+      "policyRate": 2.25,
+      "policyBasis": "Canada overnight target rate, end of Q4 2027",
+      "fiveYearYield": 3.05,
+      "yieldBasis": "Canada 5-year government bond yield, end of Q4 2027",
+      "note": "The page dates the forecast to September 2026 and says the figures are end-of-period. TD holds the overnight target at 2.25% through the 2027 quarters in that table."
+    },
+    {
+      "institution": "Scotiabank",
+      "publication": "Forecast Snapshot",
+      "published": "2026-10-13",
+      "url": "https://www.scotiabank.com/ca/en/about/economics/forecast-snapshot.html",
+      "policyRate": 3.25,
+      "policyBasis": "Canada policy rate, end of 2027",
+      "fiveYearYield": null,
+      "yieldBasis": null,
+      "note": "The October 13, 2026 snapshot publishes an end-of-period policy rate and does not publish a Canada 5-year yield. The same table has the end-2026 Canada policy rate at 2.50%."
+    },
+    {
+      "institution": "BMO",
+      "publication": "BMO Capital Markets Rates Scenario",
+      "published": "2026-10-13",
+      "url": "https://nesbittburns.bmo.com/delegate/services/file/892172/content",
+      "policyRate": 2.25,
+      "policyBasis": "Canada overnight target, end of Q4 2027",
+      "fiveYearYield": 3.35,
+      "yieldBasis": "Canada 5-year bond, Q4 2027 average",
+      "note": "Douglas Porter's October 13, 2026 Rates Scenario marks the overnight target as end of period and the bond yields in that block as averages. The overnight target stays at 2.25% through the 2027 columns in the table."
+    },
+    {
+      "institution": "CIBC",
+      "publication": "CIBC Economics forecast update",
+      "published": "2026-06-24",
+      "url": "https://economics.cibccm.com/cds?flag=E&id=866cd25f-59bc-4cbe-9df2-8abcd322b81e",
+      "policyRate": 2.75,
+      "policyBasis": "Canada overnight target rate, end of December 2027",
+      "fiveYearYield": 3.45,
+      "yieldBasis": "Canada 5-year government bond, end of December 2027",
+      "note": "This is the June 24, 2026 forecast update. A later CIBC economics note checked on October 23, 2026 did not replace this table with a newer end-2027 overnight rate, so the June table is the figure shown, with its date."
+    },
+    {
+      "institution": "Desjardins",
+      "publication": "Economic and Financial Outlook",
+      "published": "2026-10-22",
+      "url": "https://www.desjardins.com/en/savings-investment/economic-studies/economic-financial-outlook-october-2026.html",
+      "policyRate": null,
+      "policyBasis": null,
+      "fiveYearYield": null,
+      "yieldBasis": null,
+      "note": "The October 22, 2026 outlook says Desjardins expects a first Bank of Canada increase at the October 2026 decision and another in January 2027. It does not state the size of those increases, an end-2027 policy rate, or a 5-year yield."
+    },
+    {
+      "institution": "National Bank",
+      "publication": "Monthly Fixed Income Monitor",
+      "published": "2026-10-13",
+      "url": "https://www.nbc.ca/content/dam/bnc/taux-analyses/analyse-eco/mensuel/monthly-fixed-income-monitor.pdf",
+      "policyRate": 3.0,
+      "policyBasis": "Canada overnight target, Q4 2027",
+      "fiveYearYield": 3.5,
+      "yieldBasis": "Canada 5-year yield, Q4 2027",
+      "note": "The October 2026 monitor's quarterly path has the target at 2.50% in Q4 2026, 2.75% in Q1 2027, and 3.00% from Q2 2027 through Q4 2027. The spot column is dated October 13, 2026, with the target at 2.25%."
+    }
+  ]
+}
