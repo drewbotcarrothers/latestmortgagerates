@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/data/DiscountByBankPage";
+import { discountLead } from "../../../views/data/DiscountByBankPage";
+import { communityRates } from "../../../lib/communityRates";
+import { datasetJsonLd } from "../../../lib/datasetSchema";
+import { quarterLabel } from "../../../lib/discountByBank";
+
+const quarter = quarterLabel(communityRates.asOf);
+const lead = discountLead();
+const dataset = datasetJsonLd({
+  name: `How far below posted rates Canadians report getting, by bank, ${quarter}`,
+  description: `${lead} Rates are self-reported by Canadian borrowers online, unverified, and not a mortgage offer.`,
+  url: "https://latestmortgagerates.ca/reports/discount-by-bank/",
+  temporalCoverage: communityRates.asOf,
+  dateModified: communityRates.asOf,
+  variableMeasured: [
+    "Median reported 5-year fixed rate",
+    "Median reported 5-year variable rate",
+    "Points below the lender's posted rate",
+    "Sample size",
+  ],
+});
+---
+
+<BaseLayout
+  title={`How far below posted rates Canadians report getting, by bank (${quarter}) | Latest Mortgage Rates`}
+  description={lead}
+  canonical="https://latestmortgagerates.ca/reports/discount-by-bank/"
+  keywords="mortgage discount below posted, reported mortgage rates by bank"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page client:load />
+</BaseLayout>

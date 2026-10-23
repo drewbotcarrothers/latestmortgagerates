@@ -105,8 +105,23 @@ function generateStructuredData(post: typeof blogPosts[0]) {
   };
 }
 
-export default function BlogPostPage({ slug }: { slug: string }) {
-  const post = getPostBySlug(slug);
+export default function BlogPostPage({
+  slug,
+  contentOverride,
+  excerptOverride,
+}: {
+  slug: string;
+  contentOverride?: string;
+  excerptOverride?: string;
+}) {
+  const found = getPostBySlug(slug);
+  const post = found
+    ? {
+        ...found,
+        content: contentOverride ?? found.content,
+        excerpt: excerptOverride ?? found.excerpt,
+      }
+    : undefined;
   const recentPosts = getRecentPosts(3).filter(p => p.slug !== slug);
   
   if (!post) {

@@ -26,7 +26,7 @@ import {
 
 const root = fileURLToPath(new URL("../..", import.meta.url));
 
-const THIN_LENDERS = [
+const REINDEXED_LENDERS = [
   "coastcapital",
   "nationalbank",
   "equitable",
@@ -44,6 +44,42 @@ const THIN_LENDERS = [
   "desjardins",
   "cmls",
 ];
+
+function lenderPlainText(value: unknown): string {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map(lenderPlainText).join(" ");
+  if (typeof value === "object") return Object.values(value).map(lenderPlainText).join(" ");
+  return "";
+}
+
+function wordCount(value: unknown): number {
+  return lenderPlainText(value)
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z#0-9]+;/gi, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+function shingles(value: unknown, n: number): Set<string> {
+  const words = lenderPlainText(value)
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z#0-9]+;/gi, " ")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+  const set = new Set<string>();
+  for (let i = 0; i <= words.length - n; i++) set.add(words.slice(i, i + n).join(" "));
+  return set;
+}
+
+function overlapCoefficient(a: Set<string>, b: Set<string>): number {
+  let shared = 0;
+  const [smaller, larger] = a.size < b.size ? [a, b] : [b, a];
+  for (const gram of smaller) if (larger.has(gram)) shared++;
+  return smaller.size ? shared / smaller.size : 0;
+}
 
 describe("indexability", () => {
   it("keeps only the latest weekly roundup indexable, including a future week", () => {
@@ -71,15 +107,36 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/blog/below-the-line-mortgage-rate-report-october-2026/"), true);
   });
 
-  it("noindexes thin lender pages from the data flag and can index them again by clearing it", () => {
+  it("indexes the expanded lender pages and still honours a noIndex flag", () => {
+    const lenderContent = JSON.parse(readFileSync(join(root, "src/content/lenderContent.json"), "utf8"));
     const flagged = new Set(noIndexLenderSlugs());
-    for (const slug of THIN_LENDERS) {
-      assert.equal(flagged.has(slug), true, slug);
-      assert.equal(isIndexablePath(`/lenders/${slug}/`), false, slug);
+    assert.equal(flagged.size, 0);
+    let worstOverlap = 0;
+    let overlapSum = 0;
+    let overlapPairs = 0;
+    const bags = new Map(REINDEXED_LENDERS.map((slug) => [slug, shingles(lenderContent[slug], 5)]));
+    for (const slug of REINDEXED_LENDERS) {
+      assert.equal(flagged.has(slug), false, slug);
+      assert.equal(isIndexablePath(`/lenders/${slug}/`), true, slug);
+      const words = wordCount(lenderContent[slug]);
+      assert.ok(words >= 800, `${slug} is ${words} words`);
+      assert.ok((lenderContent[slug].faqs || []).length >= 4, slug);
+      assert.equal(lenderContent[slug].noIndex, undefined, slug);
     }
+    for (let i = 0; i < REINDEXED_LENDERS.length; i++) {
+      for (let j = i + 1; j < REINDEXED_LENDERS.length; j++) {
+        const overlap = overlapCoefficient(bags.get(REINDEXED_LENDERS[i]), bags.get(REINDEXED_LENDERS[j]));
+        worstOverlap = Math.max(worstOverlap, overlap);
+        overlapSum += overlap;
+        overlapPairs++;
+      }
+    }
+    assert.ok(worstOverlap < 0.2, `max 5-shingle overlap is ${worstOverlap}`);
+    assert.ok(overlapSum / overlapPairs < 0.05, `average 5-shingle overlap is ${overlapSum / overlapPairs}`);
     assert.equal(isIndexablePath("/lenders/td/"), true);
     assert.equal(isIndexablePath("/lenders/rbc/"), true);
     assert.equal(isIndexablePath("/lenders/bmo/"), true);
+    assert.deepEqual(noIndexLenderSlugs({ coastcapital: { noIndex: true }, td: {} }), ["coastcapital"]);
     const cleared = noIndexLenderSlugs({ coastcapital: { noIndex: false }, td: {} });
     assert.deepEqual(cleared, []);
   });
@@ -100,6 +157,20 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/first-time-home-buyer-programs-canada/"), true);
     assert.equal(isIndexablePath("/guides/switching-mortgage-lenders-at-renewal/"), true);
     assert.equal(isIndexablePath("/guides/posted-vs-discounted-mortgage-rates/"), true);
+    assert.equal(isIndexablePath("/guides/cmhc-mortgage-insurance-canada/"), true);
+    assert.equal(isIndexablePath("/guides/30-year-amortization-canada/"), true);
+    assert.equal(isIndexablePath("/guides/bank-of-canada-rate-and-your-mortgage/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-renewal-vs-refinance-vs-heloc/"), true);
+    assert.equal(isIndexablePath("/guides/porting-mortgage-canada/"), true);
+    assert.equal(isIndexablePath("/guides/should-i-lock-in-variable-rate/"), true);
+    assert.equal(isIndexablePath("/guides/2027-mortgage-renewal-wave/"), true);
+    assert.equal(isIndexablePath("/guides/heloc-rates-canada/"), true);
+    assert.equal(isIndexablePath("/prime-rate/"), true);
+    assert.equal(isIndexablePath("/rate-changes/"), true);
+    assert.equal(isIndexablePath("/mortgage-break-costs/"), true);
+    assert.equal(isIndexablePath("/mortgage-rate-forecast-2027/"), true);
+    assert.equal(isIndexablePath("/reports/discount-by-bank/"), true);
+    assert.equal(isIndexablePath("/rate-data/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
@@ -182,6 +253,16 @@ describe("expanded page depth", () => {
       "src/content/guides/prepaymentPenalties.ts",
       "src/content/guides/stressTestGuide.ts",
       "src/content/guides/lenderTypes.ts",
+      "src/content/guides/cmhcMortgageInsurance.ts",
+      "src/content/guides/thirtyYearAmortization.ts",
+      "src/content/guides/bankOfCanadaMortgage.ts",
+      "src/content/guides/renewalVsRefinance.ts",
+      "src/content/guides/batch3Math.ts",
+      "src/content/guides/portingMortgage.ts",
+      "src/content/guides/lockInVariable.ts",
+      "src/content/guides/renewalWave2027.ts",
+      "src/content/guides/helocRates.ts",
+      "src/content/guides/batch4Math.ts",
       "src/views/guides/InDepthGuidePage.tsx",
       "src/views/editorial/EditorialPolicyPage.tsx",
       "src/views/community/MethodologyPage.tsx",
@@ -190,6 +271,7 @@ describe("expanded page depth", () => {
       "src/lib/datasetSchema.ts",
       "src/lib/homeMeta.ts",
       "src/content/guides/negotiateMeta.ts",
+      "src/content/lenderContent.json",
     ];
     for (const file of files) {
       assert.equal(forbidden.test(readFileSync(join(root, file), "utf8")), false, file);

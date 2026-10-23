@@ -1,9 +1,20 @@
+import ratesData from "../../data/rates.json";
 import { blogPosts } from "../content/blog";
+import lenderContentData from "../content/lenderContent.json";
 import { negotiateGuide } from "../content/guides/negotiateMeta";
 import { IN_DEPTH_GUIDES } from "../content/inDepthGuides";
 import { communityRates, PUBLIC_MIN_N } from "./communityRates";
 import { lenderCountLabel } from "./lenderCount";
 import { COMPARE_PAGES, RATE_HUBS, TOOL_LINKS } from "./siteLinks";
+
+interface RateRow {
+  lender_name?: string;
+  lender_slug?: string;
+}
+
+interface LenderContentName {
+  name?: string;
+}
 
 const ORIGIN = "https://latestmortgagerates.ca";
 
@@ -34,8 +45,23 @@ export function buildLlmsTxt(): string {
   const reports = blogPosts
     .filter((post) => post.slug.startsWith("below-the-line-mortgage-rate-report-"))
     .map((post) => link(`/blog/${post.slug}/`, post.title, post.excerpt));
+  const contentNames = lenderContentData as Record<string, LenderContentName>;
+  const lenderNames = new Map<string, string>();
+  for (const row of ratesData as RateRow[]) {
+    if (!row.lender_slug || lenderNames.has(row.lender_slug)) continue;
+    lenderNames.set(row.lender_slug, contentNames[row.lender_slug]?.name || row.lender_name || row.lender_slug);
+  }
+  const lenders = [...lenderNames.entries()]
+    .sort((a, b) => a[1].localeCompare(b[1], "en-CA"))
+    .map(([slug, name]) => link(`/lenders/${slug}/`, name, "Posted rates from this lender"));
   const data = [
     link("/real-mortgage-rates/", "Real mortgage rates", "Medians of rates self-reported by Canadian borrowers online, next to posted rates"),
+    link("/prime-rate/", "Prime rate in Canada today", "Lender prime next to the Bank of Canada policy rate"),
+    link("/rate-changes/", "Mortgage rate-change tracker", "How posted rates moved in the daily scrape"),
+    link("/mortgage-break-costs/", "Mortgage break costs", "What breaking a 5-year fixed costs at each Big Five bank"),
+    link("/mortgage-rate-forecast-2027/", "Canadian mortgage rate forecast 2027", "Published forecasts from Canadian institutions"),
+    link("/reports/discount-by-bank/", "Discount by bank", "How far rates self-reported by Canadian borrowers online sit below each bank's posted rate"),
+    link("/rate-data/", "Rate data", "The posted-rate file behind the tables"),
     link("/methodology/", "Methodology", "How posted rates and borrower-reported rates are compiled"),
     link("/trends/", "Rate trends", "Posted-rate history from the daily scrape"),
     ...reports,
@@ -52,6 +78,8 @@ export function buildLlmsTxt(): string {
     "",
     link("/", "Current rates", "Posted fixed and variable rates"),
     link("/real-mortgage-rates/", "Real mortgage rates", "What borrowers report versus posted rates"),
+    link("/prime-rate/", "Prime rate", "Policy rate and lender prime"),
+    link("/rate-data/", "Rate data", "Posted rates, changes, break costs, and forecasts"),
     link("/guides/", "Guides", "Renewals, penalties, the stress test, and fixed versus variable"),
     link("/tools/", "Calculators", "Payments, qualification, penalties, and closing costs"),
     link("/rates/5-year-fixed/", "Rate hubs", "5-year fixed, variable, insured, and uninsured"),
@@ -83,6 +111,11 @@ export function buildLlmsTxt(): string {
     "## Data",
     "",
     ...data,
+    "",
+    "## Lenders",
+    "",
+    link("/lenders/", "All lenders", "Posted rates for each lender we track"),
+    ...lenders,
     "",
     "## Data methodology",
     "",

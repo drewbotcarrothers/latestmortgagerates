@@ -1,0 +1,90 @@
+{
+  "series": "V39079",
+  "label": "Target for the overnight rate (business daily)",
+  "description": "Also called the policy interest rate, the average rate that the Bank of Canada wants to see in the market for overnight money market financing. (V39079)",
+  "source": "https://www.bankofcanada.ca/valet/observations/V39079/json?start_date=2022-01-01",
+  "observationsThrough": "2026-10-22",
+  "changes": [
+    {
+      "date": "2022-01-04",
+      "rate": 0.25
+    },
+    {
+      "date": "2022-03-03",
+      "rate": 0.5
+    },
+    {
+      "date": "2022-04-14",
+      "rate": 1
+    },
+    {
+      "date": "2022-06-02",
+      "rate": 1.5
+    },
+    {
+      "date": "2022-07-14",
+      "rate": 2.5
+    },
+    {
+      "date": "2022-09-08",
+      "rate": 3.25
+    },
+    {
+      "date": "2022-10-27",
+      "rate": 3.75
+    },
+    {
+      "date": "2022-12-08",
+      "rate": 4.25
+    },
+    {
+      "date": "2023-01-26",
+      "rate": 4.5
+    },
+    {
+      "date": "2023-06-08",
+      "rate": 4.75
+    },
+    {
+      "date": "2023-07-13",
+      "rate": 5
+    },
+    {
+      "date": "2024-06-06",
+      "rate": 4.75
+    },
+    {
+      "date": "2024-07-25",
+      "rate": 4.5
+    },
+    {
+      "date": "2024-09-05",
+      "rate": 4.25
+    },
+    {
+      "date": "2024-10-24",
+      "rate": 3.75
+    },
+    {
+      "date": "2024-12-12",
+      "rate": 3.25
+    },
+    {
+      "date": "2025-01-30",
+      "rate": 3
+    },
+    {
+      "date": "2025-03-13",
+      "rate": 2.75
+    },
+    {
+      "date": "2025-09-18",
+      "rate": 2.5
+    },
+    {
+      "date": "2025-10-30",
+      "rate": 2.25
+    }
+  ],
+  "fetchedAt": "2026-10-23T16:55:40.099Z"
+}

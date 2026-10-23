@@ -13,7 +13,9 @@ import {
   articleJsonLd,
   blogDateModified,
   guideDates,
+  isMonthlyRateReport,
 } from "./articleSchema.ts";
+import { BOND_SLUG } from "./bondYieldArticle.ts";
 import { communityRates } from "./communityRates.ts";
 import {
   MEASUREMENT_TECHNIQUE,
@@ -97,6 +99,19 @@ describe("trust pages and search metadata", () => {
       assert.ok(text.includes(guide.path), guide.path);
     }
     assert.ok(text.includes(negotiateGuide.path));
+    for (const path of [
+      "/prime-rate/",
+      "/rate-changes/",
+      "/mortgage-break-costs/",
+      "/mortgage-rate-forecast-2027/",
+      "/reports/discount-by-bank/",
+      "/rate-data/",
+      "/lenders/",
+      "/lenders/td/",
+      "/lenders/rbc/",
+    ]) {
+      assert.ok(text.includes(path), path);
+    }
     assert.equal(forbidden.test(text), false);
     assert.match(read("astro.config.mjs"), /latestmortgagerates\.ca\/llms\.txt/);
     assert.match(read("astro.config.mjs"), /editorial-policy/);
@@ -146,6 +161,19 @@ describe("trust pages and search metadata", () => {
 
     assert.match(read("src/views/guides/InDepthGuidePage.tsx"), /articleJsonLd/);
     assert.match(read("src/views/guides/InDepthGuidePage.tsx"), /updatedIso/);
+    assert.equal(IN_DEPTH_GUIDES.length, 16);
+    assert.match(read("src/views/author/AuthorPage.tsx"), /IN_DEPTH_GUIDES\.map/);
+    for (const slug of [
+      "porting-mortgage-canada",
+      "should-i-lock-in-variable-rate",
+      "2027-mortgage-renewal-wave",
+      "heloc-rates-canada",
+    ]) {
+      const page = read(`src/pages/guides/${slug}/index.astro`);
+      assert.match(page, /InDepthGuidePage/, slug);
+      assert.match(page, new RegExp(slug), slug);
+      assert.ok(IN_DEPTH_GUIDES.some((guide) => guide.slug === slug), slug);
+    }
     assert.match(read("src/views/guides/NegotiateGuidePage.tsx"), /Updated /);
     assert.match(read("src/views/blog/BlogPost.tsx"), /Updated /);
     assert.match(read("src/components/EditorialByline.tsx"), /Updated /);
@@ -172,6 +200,34 @@ describe("trust pages and search metadata", () => {
     assert.equal(report.dateModified, communityRates.asOf);
     assert.match(read("src/views/community/RealRatesPage.tsx"), /realRatesDatasetJsonLd/);
     assert.match(read("src/views/blog/BlogPost.tsx"), /monthlyReportDatasetJsonLd/);
+    assert.match(read("src/views/blog/BlogPost.tsx"), /isMonthlyRateReport\(post\.slug\)/);
+    assert.equal(isMonthlyRateReport(BOND_SLUG), false);
     assert.equal(forbidden.test(JSON.stringify(dataset)), false);
+
+    const datasetPages = [
+      "src/pages/prime-rate/index.astro",
+      "src/pages/rate-changes/index.astro",
+      "src/pages/mortgage-break-costs/index.astro",
+      "src/pages/mortgage-rate-forecast-2027/index.astro",
+      "src/pages/reports/discount-by-bank/index.astro",
+      "src/pages/rate-data/index.astro",
+      "src/pages/blog/[slug].astro",
+    ];
+    for (const path of datasetPages) {
+      const source = read(path);
+      assert.equal((source.match(/datasetJsonLd\(/g) || []).length, 1, path);
+      assert.equal((source.match(/application\/ld\+json/g) || []).length, 1, path);
+      assert.doesNotMatch(source, /realRatesDatasetJsonLd|monthlyReportDatasetJsonLd|communityDatasetJsonLd/, path);
+    }
+    for (const view of [
+      "src/views/data/PrimeRatePage.tsx",
+      "src/views/data/RateChangesPage.tsx",
+      "src/views/data/BreakCostsPage.tsx",
+      "src/views/data/ForecastPage.tsx",
+      "src/views/data/DiscountByBankPage.tsx",
+      "src/views/data/RateDataPage.tsx",
+    ]) {
+      assert.doesNotMatch(read(view), /datasetJsonLd|application\/ld\+json|realRatesDatasetJsonLd/, view);
+    }
   });
 });

@@ -45,6 +45,7 @@ const MENUS: NavMenu[] = [
     links: [
       { href: "/", label: "Today's rates" },
       { href: "/real-mortgage-rates/", label: "Real mortgage rates" },
+      { href: "/rate-data/", label: "Rate data" },
       { href: "/trends/", label: "Rate trends" },
       { href: "/rates/5-year-fixed/", label: "5-year fixed" },
       { href: "/rates/variable/", label: "Variable rates" },
@@ -109,6 +110,14 @@ const MENUS: NavMenu[] = [
       { href: "/guides/first-time-home-buyer-programs-canada/", label: "First-time buyer programs" },
       { href: "/guides/switching-mortgage-lenders-at-renewal/", label: "Switch lenders at renewal" },
       { href: "/guides/posted-vs-discounted-mortgage-rates/", label: "Posted vs discounted rates" },
+      { href: "/guides/cmhc-mortgage-insurance-canada/", label: "CMHC mortgage insurance" },
+      { href: "/guides/30-year-amortization-canada/", label: "30-year amortizations" },
+      { href: "/guides/bank-of-canada-rate-and-your-mortgage/", label: "Bank of Canada and your mortgage" },
+      { href: "/guides/mortgage-renewal-vs-refinance-vs-heloc/", label: "Renewal, refinance, or HELOC" },
+      { href: "/guides/porting-mortgage-canada/", label: "Porting a mortgage" },
+      { href: "/guides/should-i-lock-in-variable-rate/", label: "Locking in a variable rate" },
+      { href: "/guides/2027-mortgage-renewal-wave/", label: "The 2027 renewal wave" },
+      { href: "/guides/heloc-rates-canada/", label: "HELOC rates" },
       { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate your rate" },
       { href: "/compare/", label: "Compare mortgages" },
       { href: "/glossary/", label: "Glossary" },
@@ -156,7 +165,13 @@ function sectionFromPath(path: string): string | null {
     path === "/" ||
     path.startsWith("/rates") ||
     path.startsWith("/real-mortgage-rates") ||
-    path.startsWith("/trends")
+    path.startsWith("/trends") ||
+    path.startsWith("/rate-data") ||
+    path.startsWith("/prime-rate") ||
+    path.startsWith("/mortgage-break-costs") ||
+    path.startsWith("/rate-changes") ||
+    path.startsWith("/mortgage-rate-forecast") ||
+    path.startsWith("/reports/")
   ) {
     return "rates";
   }

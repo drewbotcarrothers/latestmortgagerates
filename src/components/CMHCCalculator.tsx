@@ -2,7 +2,13 @@
 
 import { useState, useMemo } from "react";
 
-import { calculateCmhcPremium, minimumDownPayment } from "@/lib/cmhcPremium";
+import {
+  calculateCmhcPremium,
+  CMHC_LONG_AMORTIZATION_SURCHARGE,
+  CMHC_PREMIUM_TIERS,
+  INSURED_PRICE_LIMIT,
+  minimumDownPayment,
+} from "@/lib/cmhcPremium";
 
 export default function CMHCCalculator() {
   const [homePrice, setHomePrice] = useState(600000);
@@ -54,7 +60,7 @@ export default function CMHCCalculator() {
           </div>
           {minDownPayment < homePrice * 0.2 && (
             <p className="text-xs text-amber-600 mt-1">
-              Minimum required: ${minDownPayment.toLocaleString(undefined, {maximumFractionDigits: 0})} ({(minDownPayment/homePrice*100).toFixed(0)}%)
+              Minimum for this price: ${minDownPayment.toLocaleString(undefined, {maximumFractionDigits: 0})} ({(minDownPayment / homePrice * 100).toFixed(1)}%). That is 5% of the first $500,000 and 10% of the rest.
             </p>
           )}
         </div>
@@ -83,14 +89,21 @@ export default function CMHCCalculator() {
 
       {/* Results */}
       <div className="mt-6 space-y-4">
-        {!results.isRequired ? (
+        {results.aboveInsuredCap && results.downPaymentPercent < 20 ? (
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+            <p className="font-semibold text-amber-900">Default insurance is not available at this price</p>
+            <p className="text-sm text-amber-800 mt-2">
+              Insured mortgages are for a purchase price under ${INSURED_PRICE_LIMIT.toLocaleString("en-CA")}. At $1,500,000 or more, the minimum down payment is 20% (${minDownPayment.toLocaleString("en-CA", { maximumFractionDigits: 0 })} on this price).
+            </p>
+          </div>
+        ) : !results.isRequired ? (
           <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
             <div className="flex items-center gap-3">
               <span className="text-2xl">✅</span>
               <div>
                 <p className="font-semibold text-green-900">No CMHC Insurance Required</p>
                 <p className="text-sm text-green-700">
-                  With {results.downPaymentPercent.toFixed(0)}% down, you have a conventional mortgage.
+                  With {results.downPaymentPercent.toFixed(1)}% down, you have a conventional mortgage.
                 </p>
               </div>
             </div>
@@ -113,7 +126,7 @@ export default function CMHCCalculator() {
             <div className="bg-white rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center">
                 <span className="text-slate-600">Premium Rate</span>
-                <span className="font-semibold text-slate-900">{results.premiumRate}%</span>
+                <span className="font-semibold text-slate-900">{results.premiumRate.toFixed(2)}%</span>
               </div>
               <div className="flex justify-between items-center mt-2 pt-2 border-t border-slate-200">
                 <span className="text-slate-900 font-medium">Premium Amount</span>
@@ -136,15 +149,17 @@ export default function CMHCCalculator() {
       </div>
 
       <div className="mt-4 text-xs text-slate-500">
-        <p><strong>CMHC Premium Rates (2026):</strong></p>
+        <p><strong>CMHC traditional homeowner premiums, 25 years or less:</strong></p>
         <ul className="mt-1 space-y-1">
-          <li>65% - 80% LTV: 2.25%</li>
-          <li>80% - 85% LTV: 3.35%</li>
-          <li>85% - 90% LTV: 4.25%</li>
-          <li>90% - 95% LTV: 5.65%</li>
-          <li>95% - 97% LTV: 6.75%</li>
+          {CMHC_PREMIUM_TIERS.map((tier) => (
+            <li key={tier.ltvMax}>
+              {tier.ltvMin === 0 ? "Up to" : `${tier.ltvMin.toFixed(2)}% to`} {tier.ltvMax}% LTV: {tier.rate.toFixed(2)}%
+            </li>
+          ))}
         </ul>
-        <p className="mt-2">Provincial sales tax (HST/QST) may apply on top of the premium.</p>
+        <p className="mt-2">
+          An amortization longer than 25 years adds {CMHC_LONG_AMORTIZATION_SURCHARGE.toFixed(2)} points on CMHC&apos;s schedule. This tool does not add that surcharge, and it does not add provincial sales tax. Ontario, Quebec, and Saskatchewan tax the premium. That tax cannot be added to the loan. A non-traditional down payment in the top band is higher. Purchases of $1,500,000 or more are not eligible.
+        </p>
       </div>
     </div>
   );
