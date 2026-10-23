@@ -225,7 +225,7 @@ export default function LandTransferTaxCalculatorPage() {
                     <strong className="text-slate-900">Alberta.</strong> There is no land transfer tax. The Land Titles fee on the transfer, for submissions on or after 1 October 2026, is $50 plus $5 per $5,000 or part, which is {money(albertaFee)} on this price. A mortgage registration is a separate instrument.
                   </p>
                   <p>
-                    <strong className="text-slate-900">Quebec, outside Montreal.</strong> The calculator’s planning brackets are 0.5% on the first $55,500, 1% to $255,000, and 1.5% above that, which is {money(quebecTax)} here. The optional $5,000 first-time reduction in the tool is not Revenu Québec’s credit. That credit maxes at $5,875 and phases out above $750,000. Montreal’s higher municipal slices are not in the formula.
+                    <strong className="text-slate-900">Quebec, 2026 baseline.</strong> The brackets are 0.5% to $62,900, 1% to $315,000, and 1.5% above that, which is {money(quebecTax)} here. Check Montreal in the calculator for the higher brackets. The city’s $700,000 example is $9,349. The optional $5,000 first-time reduction in the tool is not Revenu Québec’s credit. That credit maxes at $5,875 and phases out above $750,000.
                   </p>
                 </div>
               </section>

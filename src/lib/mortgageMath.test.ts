@@ -4,10 +4,15 @@ import {
   calculateBcFthbExemption,
   calculateBcPropertyTransferTax,
   calculateBcPttPayableAfterFthb,
+  albertaLandTitlesFee,
   calculateMonthlyPayment,
   calculateMortgagePenalty,
   calculateRefinance,
   calculateRenewalComparison,
+  montrealWelcomeTax,
+  quebecWelcomeTaxOutsideMontreal,
+  saskatchewanMortgageRegistrationFee,
+  saskatchewanTitleTransferFee,
   threeMonthInterestOnBalance,
 } from "./mortgageMath.ts";
 
@@ -189,6 +194,26 @@ describe("BC first-time home buyers' exemption (on or after 1 April 2024)", () =
   it("charges full PTT with $0 exemption at $860,000 and above", () => {
     assertBcFthbRow(860_000, 15_200, 0, 15_200);
     assertBcFthbRow(1_000_000, 18_000, 0, 18_000);
+  });
+
+  it("uses the 2026 Quebec, Montreal, Alberta, and Saskatchewan schedules", () => {
+    // Old Quebec brackets (0.5% to $55,500, 1% to $255,000, 1.5% above) charged $5,947.50 on $500,000.
+    assert.equal(quebecWelcomeTaxOutsideMontreal(500_000), 5_610.5);
+    assert.equal(quebecWelcomeTaxOutsideMontreal(800_000), 10_110.5);
+    assert.equal(montrealWelcomeTax(700_000), 9_349);
+    assert.equal(montrealWelcomeTax(500_000), quebecWelcomeTaxOutsideMontreal(500_000));
+    // Alberta, submissions on or after 1 October 2026: $50 + $5 per $5,000 or part, twice.
+    assert.equal(albertaLandTitlesFee(500_000), 550);
+    assert.equal(albertaLandTitlesFee(400_000), 450);
+    assert.equal(albertaLandTitlesFee(800_000), 850);
+    assert.equal(albertaLandTitlesFee(640_000), 690);
+    // Saskatchewan ISC, effective 15 April 2026.
+    assert.equal(saskatchewanTitleTransferFee(500_000), 2_000);
+    assert.equal(saskatchewanTitleTransferFee(800_000), 3_200);
+    assert.equal(saskatchewanMortgageRegistrationFee(400_000), 275);
+    assert.equal(saskatchewanMortgageRegistrationFee(640_000), 525);
+    assert.equal(saskatchewanTitleTransferFee(500), 0);
+    assert.equal(saskatchewanTitleTransferFee(6_300), 25);
   });
 
   it("does not use the retired $500k / $525k phase-out as the current program", () => {

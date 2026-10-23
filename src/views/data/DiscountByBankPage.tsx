@@ -1,14 +1,19 @@
 import DataArticle from "@/views/data/DataArticle";
 import { communityRates, formatAsOf } from "@/lib/communityRates";
-import { DISCOUNT_MIN_N, discountRows, quarterLabel, widestPublishedGap } from "@/lib/discountByBank";
+import { DISCOUNT_MIN_N, discountRows, quarterLabel, widestPublishedGap, withSnapshotPostedRates } from "@/lib/discountByBank";
+import { publishedRates } from "@/lib/publishedRates";
 import { formatPct } from "@/lib/dataFormat";
+
+function discountLenders() {
+  return withSnapshotPostedRates(communityRates.lenders, publishedRates);
+}
 
 function points(value: number): string {
   return `${value.toFixed(2)} percentage points`;
 }
 
 export function discountLead(): string {
-  const rows = discountRows(communityRates.lenders, communityRates.lenderNames);
+  const rows = discountRows(discountLenders(), communityRates.lenderNames);
   const quarter = quarterLabel(communityRates.asOf);
   const best = widestPublishedGap(rows);
   const fixedPublished = rows.some((row) => row.fixed);
@@ -22,7 +27,7 @@ export function discountLead(): string {
 }
 
 export default function DiscountByBankPage() {
-  const rows = discountRows(communityRates.lenders, communityRates.lenderNames);
+  const rows = discountRows(discountLenders(), communityRates.lenderNames);
   const quarter = quarterLabel(communityRates.asOf);
   const asOf = formatAsOf(communityRates.asOf);
 

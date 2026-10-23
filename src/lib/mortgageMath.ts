@@ -392,14 +392,49 @@ export function ontarioFirstTimeRebates(provincialTax: number, municipalTax: num
 }
 
 /**
- * Quebec welcome-tax brackets used by the calculators outside Montreal.
- * This is a planning estimate, not Revenu Québec’s first-home credit.
+ * Quebec baseline welcome tax (droits de mutation) for 2026, indexed 2.3438%.
+ * 0.5% to $62,900, 1% to $315,000, and 1.5% above that.
+ * The statutory base is the highest of the price, the deed, and the assessment
+ * times that year's comparative factor. This uses the price as that base.
+ * Not Revenu Québec’s first-home credit.
+ * Source: https://www.quebec.ca/gouvernement/gestion-municipale/finances-fiscalite-municipales/fiscalite/droits-mutations-immobilieres
  */
 export function quebecWelcomeTaxOutsideMontreal(price: number): number {
   if (price <= 0) return 0;
-  if (price <= 55_500) return price * 0.005;
-  if (price <= 255_000) return 55_500 * 0.005 + (price - 55_500) * 0.01;
-  return 55_500 * 0.005 + 199_500 * 0.01 + (price - 255_000) * 0.015;
+  const first = 62_900;
+  const second = 315_000;
+  if (price <= first) return price * 0.005;
+  if (price <= second) return first * 0.005 + (price - first) * 0.01;
+  return first * 0.005 + (second - first) * 0.01 + (price - second) * 0.015;
+}
+
+/**
+ * Montreal property transfer duties for 2026, comparative factor 1.00.
+ * Matches the provincial baseline until $552,300, then 2% to $1,104,700,
+ * 2.5% to $2,136,500, 3.5% to $3,113,000, and 4% above that.
+ * The city's $700,000 example is $9,349.
+ * Source: https://montreal.ca/en/articles/how-property-transfer-duties-are-calculated-9279
+ */
+export function montrealWelcomeTax(price: number): number {
+  if (price <= 0) return 0;
+  const bands: [number, number][] = [
+    [62_900, 0.005],
+    [315_000, 0.01],
+    [552_300, 0.015],
+    [1_104_700, 0.02],
+    [2_136_500, 0.025],
+    [3_113_000, 0.035],
+    [Number.POSITIVE_INFINITY, 0.04],
+  ];
+  let tax = 0;
+  let previous = 0;
+  for (const [cap, rate] of bands) {
+    const slice = Math.min(price, cap) - previous;
+    if (slice > 0) tax += slice * rate;
+    if (price <= cap) break;
+    previous = cap;
+  }
+  return tax;
 }
 
 /** Manitoba land transfer tax as modelled in the closing-costs calculator. */
@@ -420,10 +455,37 @@ export function peiTransferTax(price: number): number {
 /**
  * Alberta Land Titles registration fee for submissions on or after 1 October 2026:
  * $50 plus $5 per $5,000 or part. A mortgage is a separate instrument.
+ * Source: https://www.alberta.ca/system/files/sartr-land-titles-and-surveys-common-documents-fee-schedule.pdf
  */
 export function albertaLandTitlesFee(amount: number): number {
   if (amount <= 0) return 0;
   return 50 + 5 * Math.ceil(amount / 5_000);
+}
+
+/**
+ * Saskatchewan ISC title transfer, effective April 15, 2026.
+ * $0 at or under $500, $25 through $6,300, otherwise 0.4% of value.
+ * Sources: https://www.saskregistries.ca/fees/landtitlesfees
+ * https://www.saskregistries.ca/hubfs/Land-Title-Fees-Table-04-2026.pdf
+ */
+export function saskatchewanTitleTransferFee(value: number): number {
+  if (value <= 500) return 0;
+  if (value <= 6_300) return 25;
+  return value * 0.004;
+}
+
+/**
+ * Saskatchewan ISC mortgage registration, effective April 15, 2026.
+ * The stepped fee covers the first four titles or interests.
+ * Source: https://www.saskregistries.ca/hubfs/Land-Title-Fees-Table-04-2026.pdf
+ */
+export function saskatchewanMortgageRegistrationFee(amount: number): number {
+  if (amount <= 0) return 0;
+  if (amount <= 249_999.99) return 200;
+  if (amount <= 500_000) return 275;
+  if (amount <= 750_000) return 525;
+  if (amount <= 1_000_000) return 775;
+  return 1_000;
 }
 
 /** Newfoundland and Labrador registration-style fee used by the closing-costs calculator. */

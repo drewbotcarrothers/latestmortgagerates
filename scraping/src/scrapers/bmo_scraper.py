@@ -131,6 +131,94 @@ def parse_specials_payload(payload: Any) -> List[Tuple[str, Decimal, Dict[str, A
     return found
 
 
+def build_bmo_rates(
+    specials: Any,
+    posted: Any,
+    scraped_at: datetime,
+    source_url: str,
+    extraction_method: str,
+) -> List[RawRate]:
+    """
+    Attach the closed posted shelf onto each special. Shelf-only terms
+    (no special for that term and type) keep rate and posted_rate equal.
+    Insured 5-year specials use the same conventional 5-year posted shelf.
+    """
+    posted_rows = parse_posted_payload(posted)
+    if not posted_rows:
+        logger.warning(
+            "BMO posted payload empty; posted_rate left unset so a previous shelf can be kept"
+        )
+    shelves: Dict[Tuple[int, RateType], Decimal] = {}
+    shelf_meta: Dict[Tuple[int, RateType], Tuple[str, str]] = {}
+    for key, term_months, rate_type, rate, product in posted_rows:
+        shelves[(term_months, rate_type)] = rate
+        shelf_meta[(term_months, rate_type)] = (key, product)
+
+    rates: List[RawRate] = []
+    covered = set()
+    for key, rate, meta in parse_specials_payload(specials):
+        shelf = shelves.get((meta["term"], meta["rate_type"]))
+        section = "special" if shelf and rate < shelf else "posted" if shelf else "special"
+        rates.append(
+            RawRate(
+                lender_slug="bmo",
+                lender_name="Bank of Montreal",
+                term_months=meta["term"],
+                rate_type=meta["rate_type"],
+                mortgage_type=meta["mortgage_type"],
+                rate=rate,
+                posted_rate=shelf,
+                source_url=source_url,
+                scraped_at=scraped_at,
+                raw_data={
+                    "source": "bmo_live_scrape",
+                    "extraction_method": extraction_method,
+                    "api": "bmo-ca-mortgages-rates",
+                    "datacode": key,
+                    "product": meta["product"],
+                    "section": section,
+                    "featured": meta["featured"],
+                    "is_open": False,
+                },
+            )
+        )
+        covered.add((meta["term"], meta["rate_type"]))
+
+    for (term_months, rate_type), shelf in shelves.items():
+        if (term_months, rate_type) in covered:
+            continue
+        product_key, product = shelf_meta[(term_months, rate_type)]
+        rates.append(
+            RawRate(
+                lender_slug="bmo",
+                lender_name="Bank of Montreal",
+                term_months=term_months,
+                rate_type=rate_type,
+                mortgage_type=MortgageType.UNINSURED,
+                rate=shelf,
+                posted_rate=shelf,
+                source_url=source_url,
+                scraped_at=scraped_at,
+                raw_data={
+                    "source": "bmo_live_scrape",
+                    "extraction_method": extraction_method,
+                    "api": "bmo-epm-mortgage",
+                    "product_key": product_key,
+                    "product": product,
+                    "section": "posted",
+                    "featured": False,
+                    "is_open": False,
+                },
+            )
+        )
+    if rates:
+        logger.info(
+            f"BMO JSON parsed {len(parse_specials_payload(specials))} specials + "
+            f"{len(posted_rows)} posted -> {len(rates)} rates via {extraction_method}"
+        )
+    return rates
+
+
 def parse_posted_payload(payload: Any) -> List[Tuple[str, int, RateType, Decimal, str]]:
     """Return (key, term_months, rate_type, rate, product) for posted closed rates."""
     if not isinstance(payload, dict):
@@ -226,9 +314,9 @@ class BMOScraper:
 
         logger.warning(
             "BMO live scrape blocked or empty. "
-            "Using verified public special/posted rates from 2026-09-14."
+            "Returning no rates so existing BMO rows are kept."
         )
-        return self._get_fallback_rates()
+        return []
 
     def _looks_like_mortgage_rate(self, rate: RawRate) -> bool:
         if "RDS%" in (rate.raw_data or {}).get("context", ""):
@@ -260,68 +348,13 @@ class BMOScraper:
         posted: Any,
         extraction_method: str,
     ) -> List[RawRate]:
-        rates: List[RawRate] = []
-        seen = set()
-
-        for key, rate, meta in parse_specials_payload(specials):
-            dedupe = (meta["term"], meta["rate_type"], meta["mortgage_type"], str(rate))
-            if dedupe in seen:
-                continue
-            seen.add(dedupe)
-            rates.append(
-                RawRate(
-                    lender_slug=self.LENDER_SLUG,
-                    lender_name=self.LENDER_NAME,
-                    term_months=meta["term"],
-                    rate_type=meta["rate_type"],
-                    mortgage_type=meta["mortgage_type"],
-                    rate=rate,
-                    source_url=self.RATE_URL,
-                    scraped_at=self.scraped_at,
-                    raw_data={
-                        "source": "bmo_live_scrape",
-                        "extraction_method": extraction_method,
-                        "api": "bmo-ca-mortgages-rates",
-                        "datacode": key,
-                        "product": meta["product"],
-                        "featured": meta["featured"],
-                    },
-                )
-            )
-
-        for key, term_months, rate_type, rate, product in parse_posted_payload(posted):
-            dedupe = (term_months, rate_type, MortgageType.UNINSURED, str(rate))
-            if dedupe in seen:
-                continue
-            seen.add(dedupe)
-            rates.append(
-                RawRate(
-                    lender_slug=self.LENDER_SLUG,
-                    lender_name=self.LENDER_NAME,
-                    term_months=term_months,
-                    rate_type=rate_type,
-                    mortgage_type=MortgageType.UNINSURED,
-                    rate=rate,
-                    source_url=self.RATE_URL,
-                    scraped_at=self.scraped_at,
-                    raw_data={
-                        "source": "bmo_live_scrape",
-                        "extraction_method": extraction_method,
-                        "api": "bmo-epm-mortgage",
-                        "product_key": key,
-                        "product": product,
-                        "featured": False,
-                    },
-                )
-            )
-
-        if rates:
-            logger.info(
-                f"BMO JSON parsed {len(parse_specials_payload(specials))} specials + "
-                f"{len(parse_posted_payload(posted))} posted -> {len(rates)} rates "
-                f"via {extraction_method}"
-            )
-        return rates
+        return build_bmo_rates(
+            specials,
+            posted,
+            self.scraped_at,
+            self.RATE_URL,
+            extraction_method,
+        )
 
     def _playwright_engines(self, playwright) -> List[str]:
         """WebKit first (Safari-like TLS), then Chromium."""

@@ -4,10 +4,10 @@ Uses Playwright for live scraping with fallback to captured rates.
 Updated: July 19, 2026
 """
 
+import html as html_lib
 import re
-import json
 from decimal import Decimal
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from datetime import datetime
 from pathlib import Path
 
@@ -27,6 +27,221 @@ except ImportError:
     from proxy_config import log_proxy_status, playwright_proxy
 
 
+# Closed terms the rate file keeps. Open mortgages and 25-year shelves are skipped.
+RBC_STANDARD_TERMS = {6, 12, 24, 36, 48, 60, 72, 84, 120}
+
+
+def _strip_tags(fragment: str) -> str:
+    text = re.sub(r"<br\s*/?>", " ", fragment, flags=re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html_lib.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _rbc_term_months(label: str) -> Optional[int]:
+    if re.search(r"\bopen\b", label, re.IGNORECASE):
+        return None
+    month = re.search(r"(\d+)\s*month", label, re.IGNORECASE)
+    if month:
+        months = int(month.group(1))
+        return months if months in RBC_STANDARD_TERMS else None
+    year = re.search(r"(\d+)\s*year", label, re.IGNORECASE)
+    if year:
+        months = int(year.group(1)) * 12
+        return months if months in RBC_STANDARD_TERMS else None
+    return None
+
+
+def _first_percent(text: str) -> Optional[Decimal]:
+    match = re.search(r"(\d+\.\d+)\s*%", text)
+    if not match:
+        return None
+    rate = Decimal(match.group(1))
+    if rate < Decimal("1.50") or rate > Decimal("12.00"):
+        return None
+    return rate
+
+
+def _rbc_cell_rate(rate_text: str, apr_text: str) -> Optional[Decimal]:
+    """Prefer the parenthetical contract rate. Prime rows use the APR column."""
+    paren = re.search(r"\((\d+\.\d+)\s*%\)", rate_text)
+    if paren:
+        rate = Decimal(paren.group(1))
+        if Decimal("1.50") <= rate <= Decimal("12.00"):
+            return rate
+    if re.search(r"prime", rate_text, re.IGNORECASE):
+        return _first_percent(apr_text)
+    return _first_percent(rate_text)
+
+
+def _classify_rbc_heading(heading: str) -> Optional[Dict[str, Any]]:
+    text = heading.lower()
+    if "high ratio" in text:
+        return {"section": "special", "mortgage_type": MortgageType.INSURED}
+    if "posted" in text and "variable" in text:
+        return {"section": "posted", "mortgage_type": MortgageType.UNINSURED}
+    if "posted" in text and "fixed" in text:
+        return {"section": "posted", "mortgage_type": MortgageType.UNINSURED}
+    if "special" in text and ("variable" in text or "fixed" in text):
+        return {"section": "special", "mortgage_type": MortgageType.UNINSURED}
+    if "fixed and variable" in text:
+        return {"section": "special", "mortgage_type": MortgageType.UNINSURED}
+    return None
+
+
+def parse_rbc_rate_tables(html: str) -> List[Dict[str, Any]]:
+    """First table after each rate heading. That table is the ≤25-year shelf."""
+    rows: List[Dict[str, Any]] = []
+    parts = re.split(r"<h3\b[^>]*>", html, flags=re.IGNORECASE)
+    for part in parts[1:]:
+        heading_html, _, rest = part.partition("</h3>")
+        kind = _classify_rbc_heading(_strip_tags(heading_html))
+        if not kind:
+            continue
+        table = re.search(r"<table\b[^>]*>(.*?)</table>", rest, flags=re.IGNORECASE | re.DOTALL)
+        if not table:
+            continue
+        for tr in re.findall(r"<tr\b[^>]*>(.*?)</tr>", table.group(1), flags=re.IGNORECASE | re.DOTALL):
+            cells = re.findall(r"<t[dh]\b[^>]*>(.*?)</t[dh]>", tr, flags=re.IGNORECASE | re.DOTALL)
+            if len(cells) < 2:
+                continue
+            label = _strip_tags(cells[0])
+            if not label or label.lower() in {"term", "rate", "product"}:
+                continue
+            term_months = _rbc_term_months(label)
+            if not term_months:
+                continue
+            rate_text = _strip_tags(cells[1])
+            apr_text = _strip_tags(cells[2]) if len(cells) > 2 else ""
+            rate = _rbc_cell_rate(rate_text, apr_text)
+            if rate is None:
+                continue
+            is_variable = (
+                "variable" in label.lower() or "prime" in rate_text.lower()
+            )
+            rows.append(
+                {
+                    "term_months": term_months,
+                    "rate": rate,
+                    "rate_type": RateType.VARIABLE if is_variable else RateType.FIXED,
+                    "mortgage_type": kind["mortgage_type"],
+                    "section": kind["section"],
+                    "label": label,
+                    "apr": str(_first_percent(apr_text)) if _first_percent(apr_text) else None,
+                }
+            )
+    return rows
+
+
+def build_rbc_rates(
+    html: str,
+    scraped_at: datetime,
+    source_url: str,
+    extraction_method: str,
+) -> List[RawRate]:
+    """
+    One row per product. rate is the special when RBC publishes one, otherwise
+    the posted shelf. posted_rate is the ≤25-year posted shelf for that term.
+    Insured specials use the same conventional posted shelf as uninsured.
+    """
+    parsed = parse_rbc_rate_tables(html)
+    posted: Dict[tuple, Dict[str, Any]] = {}
+    specials: List[Dict[str, Any]] = []
+    for row in parsed:
+        if row["section"] == "posted":
+            posted[(row["term_months"], row["rate_type"])] = row
+        else:
+            specials.append(row)
+
+    rates: List[RawRate] = []
+    seen = set()
+    covered = set()
+    for row in specials:
+        key = (row["term_months"], row["rate_type"], row["mortgage_type"])
+        if key in seen:
+            continue
+        seen.add(key)
+        shelf = posted.get((row["term_months"], row["rate_type"]))
+        posted_rate = shelf["rate"] if shelf else None
+        section = "special" if posted_rate and row["rate"] < posted_rate else "special"
+        if posted_rate and row["rate"] >= posted_rate:
+            section = "posted"
+        rates.append(
+            _rbc_raw(
+                row,
+                posted_rate,
+                section,
+                scraped_at,
+                source_url,
+                extraction_method,
+            )
+        )
+        covered.add((row["term_months"], row["rate_type"]))
+
+    for key, shelf in posted.items():
+        if key in covered:
+            continue
+        rates.append(
+            _rbc_raw(
+                shelf,
+                shelf["rate"],
+                "posted",
+                scraped_at,
+                source_url,
+                extraction_method,
+            )
+        )
+
+    fixed_posted = {
+        r.term_months
+        for r in rates
+        if r.rate_type == RateType.FIXED and r.posted_rate and r.term_months in (36, 60)
+    }
+    if fixed_posted != {36, 60}:
+        logger.warning(
+            "RBC HTML is missing a 3-year or 5-year fixed posted shelf "
+            f"(found {sorted(fixed_posted)}). Posted rates will not be blanked over."
+        )
+    else:
+        logger.info(
+            f"RBC static HTML parsed {len(rates)} rates with 3-year and 5-year posted shelves"
+        )
+    return rates
+
+
+def _rbc_raw(row, posted_rate, section, scraped_at, source_url, extraction_method) -> RawRate:
+    return RawRate(
+        lender_slug="rbc",
+        lender_name="Royal Bank of Canada",
+        term_months=row["term_months"],
+        rate_type=row["rate_type"],
+        mortgage_type=row["mortgage_type"],
+        rate=row["rate"],
+        posted_rate=posted_rate,
+        source_url=source_url,
+        scraped_at=scraped_at,
+        raw_data={
+            "source": "rbc_live_scrape",
+            "extraction_method": extraction_method,
+            "section": section,
+            "product": row["label"],
+            "term_text": row["label"],
+            "apr": row.get("apr"),
+            "is_open": False,
+            "featured": section == "special" and row["term_months"] in (36, 60),
+        },
+    )
+
+
+def rbc_has_core_posted(rates: List[RawRate]) -> bool:
+    found = {
+        rate.term_months
+        for rate in rates
+        if rate.rate_type == RateType.FIXED and rate.posted_rate and rate.term_months in (36, 60)
+    }
+    return found == {36, 60}
+
+
 class RBCScraper:
     """Scraper for RBC Royal Bank mortgage rates."""
     
@@ -38,30 +253,42 @@ class RBCScraper:
         self.scraped_at = datetime.utcnow()
     
     def scrape(self) -> List[RawRate]:
-        """Scrape RBC mortgage rates."""
+        """Scrape RBC mortgage rates from the public HTML tables.
+
+        The posted and special tables are in the HTML, including the collapsed
+        panels. Static HTML is the primary source. Playwright is only a
+        fallback when that HTML is missing the 3-year and 5-year posted shelves.
+        A total failure returns no rows so a previous good file is kept.
+        """
         logger.info("Fetching RBC rate page...")
         log_proxy_status("RBC")
 
         try:
-            rates = self._scrape_with_playwright()
-            if rates:
-                logger.success(f"Successfully scraped {len(rates)} live rates from RBC")
-                return rates
+            html = fetch_html(self.RATE_URL, timeout=25.0)
+            if html:
+                rates = build_rbc_rates(html, self.scraped_at, self.RATE_URL, "static_html")
+                if rbc_has_core_posted(rates):
+                    logger.success(f"RBC static HTML returned {len(rates)} live rates")
+                    return rates
+                logger.warning("RBC static HTML did not include the 3-year and 5-year posted shelves")
+        except Exception as e:
+            logger.warning(f"RBC HTTP scrape failed: {e}")
+
+        try:
+            html = self._playwright_page_html()
+            if html:
+                rates = build_rbc_rates(html, self.scraped_at, self.RATE_URL, "playwright_html")
+                if rbc_has_core_posted(rates):
+                    logger.success(f"RBC Playwright HTML returned {len(rates)} live rates")
+                    return rates
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
 
-        try:
-            html = fetch_html(self.RATE_URL, timeout=20.0)
-            if html:
-                rates = self._rates_from_html(html, "http_html")
-                if rates:
-                    logger.success(f"RBC HTTP HTML returned {len(rates)} live rates")
-                    return rates
-        except Exception as e:
-            logger.warning(f"RBC HTTP scrape failed: {e}")
-        
-        logger.info("Using fallback rates from RBC website")
-        return self._get_fallback_rates()
+        logger.warning(
+            "RBC live scrape failed or did not include posted shelves. "
+            "Returning no rates so existing RBC rows are kept."
+        )
+        return []
 
     def _rates_from_html(self, html: str, extraction_method: str) -> List[RawRate]:
         rates = extract_rates_from_html(
@@ -75,6 +302,38 @@ class RBCScraper:
         )
         return [r for r in rates if Decimal("1.50") <= r.rate <= Decimal("12.00")]
     
+    def _playwright_page_html(self) -> str:
+        """Return the rendered page HTML. Tables stay in the DOM when collapsed."""
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            logger.warning("Playwright not available")
+            return ""
+        browser = None
+        try:
+            with sync_playwright() as p:
+                launch_kwargs = {"headless": True, "timeout": 8000}
+                proxy = playwright_proxy()
+                if proxy:
+                    launch_kwargs["proxy"] = proxy
+                browser = p.chromium.launch(**launch_kwargs)
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                )
+                page = context.new_page()
+                page.goto(self.RATE_URL, wait_until="domcontentloaded", timeout=8000)
+                page.wait_for_timeout(1000)
+                return page.content()
+        except Exception as e:
+            logger.error(f"Playwright error: {e}")
+            return ""
+        finally:
+            if browser:
+                try:
+                    browser.close()
+                except Exception:
+                    pass
+
     def _scrape_with_playwright(self) -> List[RawRate]:
         """Use Playwright to scrape live rates from all sections including Other Rates.
         

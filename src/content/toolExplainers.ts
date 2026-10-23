@@ -9,6 +9,8 @@ import {
   ontarioProvincialLandTransferTax,
   peiTransferTax,
   quebecWelcomeTaxOutsideMontreal,
+  saskatchewanMortgageRegistrationFee,
+  saskatchewanTitleTransferFee,
 } from "../lib/mortgageMath";
 
 function cad(amount: number): string {
@@ -159,7 +161,10 @@ export function closingProvinceGuide(): GuideSection[] {
   const quebec = quebecWelcomeTaxOutsideMontreal(price);
   const manitoba = manitobaLandTransferTax(price);
   const pei = peiTransferTax(price);
-  const alberta = albertaLandTitlesFee(price);
+  const albertaTransfer = albertaLandTitlesFee(price);
+  const albertaMortgage = albertaLandTitlesFee(price * 0.8);
+  const saskatchewanTransfer = saskatchewanTitleTransferFee(price);
+  const saskatchewanMortgage = saskatchewanMortgageRegistrationFee(price * 0.8);
   const ns = price * 0.015;
   const nb = price * 0.01;
   const nl = newfoundlandRegistrationFee(price);
@@ -172,8 +177,8 @@ export function closingProvinceGuide(): GuideSection[] {
         `Ontario land transfer tax on ${cad(price)} is ${cad(ontario)}. The brackets are 0.5% on the first $55,000, 1% to $250,000, 1.5% to $400,000, 2% to $2 million, and 2.5% above that. A qualifying first-time buyer gets a refund of up to $4,000, so ${cad(ontarioRebate.total)} comes off and ${cad(ontario - ontarioRebate.total)} of provincial tax remains. The refund clears the tax only up to roughly $368,000 of price. Outside Toronto there is no municipal land transfer tax.`,
         `Inside the City of Toronto the municipal tax on this price matches the provincial tax, another ${cad(ontario)}. A qualifying first-time buyer can claim up to $4,475 of that municipal tax as well as the $4,000 provincial refund, ${cad(torontoRebate.total)} combined. Tax still due is ${cad(ontario * 2 - torontoRebate.total)}. Mississauga, Ottawa, Hamilton, and the rest of Ontario do not charge Toronto’s municipal tax and do not get the $4,475 rebate. You generally have to be 18, a citizen or permanent resident, and occupy the home as a principal residence. Ontario and Toronto both ask that you and your spouse have not owned a home before.`,
         `British Columbia property transfer tax on a ${cad(price)} fair market value is ${cad(bc)}: 1% on the first $200,000 and 2% on the rest up to $2 million. A qualifying first-time buyer at this price is under the $835,000 full-program ceiling, so the exemption is ${cad(bcExempt)} and the net tax is ${cad(bc - bcExempt)}. The exemption is the tax on the first $500,000, capped at $8,000, through $835,000, then it phases out and is zero at $860,000. Many Vancouver-area prices sit above $860,000, so first-time status does not erase the tax. Foreign-buyer additional tax is not in this calculator.`,
-        `Alberta has no land transfer tax. Land Titles, for submissions on or after 1 October 2026, charges $50 plus $5 per $5,000 of value or part of that value. On a ${cad(price)} transfer that registration fee is ${cad(alberta)}. Registering the mortgage is a separate instrument at the same tariff. Saskatchewan is also a registration-fee province rather than a land-transfer-tax province. Budget the legal bill either way.`,
-        `Quebec’s calculator line is the welcome-tax brackets outside Montreal: 0.5% on the first $55,500, 1% to $255,000, and 1.5% above that, which is ${cad(quebec)} on this price. Montreal’s higher slices are not included. The tool’s optional $5,000 first-time reduction is a planning cap, not Revenu Québec’s credit. That credit, for a qualifying first home acquired after 2025, is 100% of the first $5,000 of duties plus 25% of the next $3,500, a maximum of $5,875, and it phases out above $750,000. You pay the municipality, then claim the credit.`,
+        `Alberta has no land transfer tax. Land Titles, for submissions on or after 1 October 2026, charges $50 plus $5 per $5,000 of value or part of that value, on the transfer and again on the mortgage. On a ${cad(price)} transfer that fee is ${cad(albertaTransfer)}. With 20% down the mortgage registration is ${cad(albertaMortgage)}. Saskatchewan’s ISC schedule, effective 15 April 2026, charges 0.4% of title value above $6,300, ${cad(saskatchewanTransfer)} here, and a stepped mortgage fee, ${cad(saskatchewanMortgage)} on the same 20% down payment. The closing-costs calculator adds both registrations.`,
+        `Quebec’s 2026 baseline welcome tax is 0.5% to $62,900, 1% to $315,000, and 1.5% above that, which is ${cad(quebec)} on this price. Turn on the Montreal checkbox for the higher brackets. The city’s $700,000 example is $9,349. The land-transfer tool’s optional $5,000 first-time reduction is a planning cap, not Revenu Québec’s credit. That credit, for a qualifying first home acquired after 2025, is 100% of the first $5,000 of duties plus 25% of the next $3,500, a maximum of $5,875, and it phases out above $750,000. You pay the municipality, then claim the credit.`,
         `Manitoba’s provincial tax on ${cad(price)}, using the calculator’s brackets, is ${cad(manitoba)}. There is no Ontario-style first-time refund. Nova Scotia deed-transfer tax is municipal. This tool uses 1.5% as a planning average because Halifax and many other municipalities charge 1.5%, which is ${cad(ns)} here. Confirm the local rate. New Brunswick is modelled at 1% of value, ${cad(nb)}. Newfoundland and Labrador is a registration-style fee in the tool, ${cad(nl)} on this price, not a bracket tax.`,
         `Prince Edward Island’s calculator charges 1% once the price is above $30,000, so ${cad(pei)} on this home. A qualifying first-time buyer who will occupy the home gets a full waiver. The province’s page states no price cap. The old $200,000 ceiling is not the rule. The tax comes back if you do not occupy the home for 183 consecutive days. The waiver is larger than the legal bill, and the legal bill is still cash.`,
       ],
