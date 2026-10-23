@@ -50,6 +50,9 @@ export const GUIDE_REVIEWED_ISO = "2026-10-22T12:00:00Z";
 /** Noon Eastern on October 23. The batch-2 pages were checked against the sources that day. */
 export const GUIDE_REVIEWED_ISO_BATCH2 = "2026-10-23T16:00:00Z";
 
+/** Late afternoon Eastern on October 23. The batch-3 pages were checked against the sources that day. */
+export const GUIDE_REVIEWED_ISO_BATCH3 = "2026-10-23T20:00:00Z";
+
 export function cad(amount: number): string {
   return `$${Math.round(amount).toLocaleString("en-CA")}`;
 }
@@ -697,4 +700,19 @@ export const SOURCES = {
   peiTransfer: "https://princeedwardisland.ca/en/information/finance/real-property-transfer-tax-first-time-home-buyers-exemption",
   quebecCredit: "https://www.revenuquebec.ca/en/press-room/tax-news/details/2026-04-21/introduction-of-a-refundable-tax-credit-for-access-to-homeownership/",
   albertaFees: "https://www.alberta.ca/system/files/sartr-land-titles-and-surveys-common-documents-fee-schedule.pdf",
+  financeParameters: "https://www.canada.ca/en/department-finance/news/2024/09/delivering-the-boldest-mortgage-reforms-in-decades.html",
+  insurableRegs: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2012-282/FullText.html",
+  financeStraightSwitch: "https://www.canada.ca/en/department-finance/news/2024/12/straight-switches-and-portfolio-insurance.html",
+  osfiHeloc: "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/clarification-treatment-innovative-real-estate-secured-lending-products-under-guideline-b-20",
+  bocSchedule: "https://www.bankofcanada.ca/2025/08/bank-canada-publishes-2026-schedule-policy-interest-rate-announcements-other-major-publications/",
+  fcacTrigger: "https://www.canada.ca/en/financial-consumer-agency/services/interest-rates-rise.html",
+  fcacRenew: "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/renew-mortgage.html",
+  fcacHeloc: "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/home-equity-line-credit.html",
+  fcacVariableBox: "https://www.canada.ca/en/financial-consumer-agency/services/rights-responsibilities/rights-mortgages/applying-for-mortgage.html",
+  ontarioRst: "https://www.ontario.ca/document/retail-sales-tax",
+  quebecPremiumTax: "https://www.revenuquebec.ca/en/citizens/consumption-taxes/taxable-zero-rated-or-tax-exempt-goods-and-services/tax-on-insurance-premiums/",
+  quebecPremiumTax2027: "https://www.revenuquebec.ca/en/press-room/tax-news/details/2026-04-09/harmonization-of-the-insurance-premiums-tax-rate-with-the-qst-rate/",
+  saskatchewanPst: "https://www.saskatchewan.ca/business/taxes-licensing-and-reporting/provincial-taxes-policies-and-bulletins",
+  cmhcPurchase: "https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/mortgage-loan-insurance-homeownership-programs/purchase",
+  cmhcExplained: "https://www.cmhc-schl.gc.ca/observer/2025/cmhc-mortgage-loan-insurance-explained",
 } as const;
