@@ -109,6 +109,12 @@ export default function GlossaryTermPage({ slug }: { slug: string }) {
             <p className="text-lg text-slate-700 leading-relaxed">
               {term.definition}
             </p>
+            {term.slug === "prime-rate" ? (
+              <p className="mt-4 text-slate-700 leading-relaxed">
+                The current Bank of Canada policy rate, big-bank prime, and how this site uses them are on the{" "}
+                <a href="/prime-rate/" className="font-medium text-teal-700 hover:underline">prime rate page</a>.
+              </p>
+            ) : null}
           </div>
 
           {/* Related Tools */}

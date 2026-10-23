@@ -7,6 +7,9 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import BankGapChart, { bankGapRows, omittedPostedNotes } from "@/components/community/BankGapChart";
 import CommunityDisclaimer from "@/components/community/CommunityDisclaimer";
+import JsonLd from "@/components/JsonLd";
+import { negotiateGuide } from "@/content/guides/negotiateMeta";
+import { articleJsonLd } from "@/lib/articleSchema";
 import {
   BIG5_SLUGS,
   communityRates,
@@ -71,6 +74,15 @@ export default function NegotiateGuidePage() {
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          headline: negotiateGuide.headline,
+          description: negotiateGuide.description,
+          datePublished: negotiateGuide.publishedIso,
+          dateModified: negotiateGuide.updatedDate,
+          url: `https://latestmortgagerates.ca${negotiateGuide.path}`,
+        })}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: "/" },
@@ -96,6 +108,9 @@ export default function NegotiateGuidePage() {
               <h1 className="max-w-3xl text-4xl font-bold tracking-tight">How much below posted can you negotiate?</h1>
               <p className="mt-3 text-sm text-teal-100">
                 By <a href="/author/andrew/" className="font-medium text-white underline decoration-white/40 hover:decoration-white">Andrew</a>
+                <span className="mt-1 block">
+                  <time dateTime={negotiateGuide.updatedDate}>{`Updated ${formatAsOf(negotiateGuide.updatedDate)}`}</time>
+                </span>
               </p>
               <p className="mt-4 max-w-3xl text-lg text-slate-200">
                 Big-bank posted rates are a shelf price. The rates {communityRates.attribution} show how far under that shelf recent approvals and renewals have landed. As of {formatAsOf()}.

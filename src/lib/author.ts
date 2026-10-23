@@ -61,6 +61,17 @@ export const AUTHOR_ABOUT_ITEMS = AUTHOR_RELATED_SITES.map(
   (site) => `<a href="${site.href}">${site.name}</a>: ${site.detail}`,
 );
 
+export const AUTHOR_COVERAGE = [
+  "On this site Andrew covers the posted-rate tables, the rates self-reported by Canadian borrowers online, the calculators, the glossary, and the guides listed below.",
+  "The calculators cover payments, the stress test, default-insurance premiums, penalties, renewals, refinancing, closing costs, and rent versus buy. The glossary is the plain-language list of the terms those pages use.",
+  "He does not quote a rate for your file, take an application, or negotiate with a lender on your behalf.",
+];
+
+export const AUTHOR_EDITORIAL = [
+  "Guides are researched and drafted with AI assistance, then checked against official Canadian sources before they are published. Example figures are labelled as examples.",
+  'The rules for that check, for how often pages are updated, for corrections, and for advertising are on the <a href="/editorial-policy/">editorial policy</a>. How the reported-rate file is built is on the <a href="/methodology/">methodology</a>.',
+];
+
 export const AUTHOR_FOCUS = [
   {
     title: "Posted mortgage rates",

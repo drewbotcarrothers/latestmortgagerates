@@ -15,7 +15,10 @@ import DistributionChart from "@/components/community/DistributionChart";
 import DumbbellChart from "@/components/community/DumbbellChart";
 import WeeklyTrendChart from "@/components/community/WeeklyTrendChart";
 import BankGapChart from "@/components/community/BankGapChart";
-import { chartProducts } from "@/lib/communityRates";
+import { chartProducts, formatAsOf } from "@/lib/communityRates";
+import { articleJsonLd, blogDateModified, isMonthlyRateReport } from "@/lib/articleSchema";
+import { monthlyReportDatasetJsonLd } from "@/lib/datasetSchema";
+import JsonLd from "@/components/JsonLd";
 
 // Tool mapping for contextual sidebar links
 const toolMapping: Record<string, { href: string; icon: string; title: string; description: string }[]> = {
@@ -89,25 +92,14 @@ function BlogBody({ content }: { content: string }) {
 
 function generateStructuredData(post: typeof blogPosts[0]) {
   return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    author: {
-      "@type": "Person",
-      name: "Andrew",
-      url: "https://latestmortgagerates.ca/author/andrew/",
-    },
-    datePublished: post.date,
-    dateModified: post.date,
-    publisher: {
-      "@type": "Organization",
-      name: "Latest Mortgage Rates Canada",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://latestmortgagerates.ca/logo.png",
-      },
-    },
+    ...articleJsonLd({
+      type: "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      datePublished: post.date,
+      dateModified: blogDateModified(post),
+      url: `https://latestmortgagerates.ca/blog/${post.slug}/`,
+    }),
     articleSection: categories[post.category].label,
     keywords: post.tags.join(", "),
   };
@@ -140,12 +132,16 @@ export default function BlogPostPage({ slug }: { slug: string }) {
   
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateStructuredData(post)),
-        }}
-      />
+      <JsonLd data={generateStructuredData(post)} />
+      {isMonthlyRateReport(post.slug) ? (
+        <JsonLd
+          data={monthlyReportDatasetJsonLd({
+            slug: post.slug,
+            name: post.title,
+            description: post.excerpt,
+          })}
+        />
+      ) : null}
       
       <main className="min-h-screen bg-slate-50">
         <Header currentPage="blog" />
@@ -185,13 +181,12 @@ export default function BlogPostPage({ slug }: { slug: string }) {
               </div>
               
               <div className="ml-auto text-right">
-                <time dateTime={post.date} className="text-slate-600">
-                  {new Date(post.date).toLocaleDateString('en-CA', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                <time dateTime={post.date.slice(0, 10)} className="text-slate-600">
+                  {formatAsOf(post.date)}
                 </time>
+                <p className="text-sm text-slate-500">
+                  <time dateTime={blogDateModified(post)}>{`Updated ${formatAsOf(blogDateModified(post))}`}</time>
+                </p>
               </div>
             </div>
           </header>

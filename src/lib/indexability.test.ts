@@ -105,6 +105,13 @@ describe("indexability", () => {
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
     const robots = readFileSync(join(root, "public/robots.txt"), "utf8");
     assert.match(robots, /Sitemap: https:\/\/latestmortgagerates\.ca\/sitemap-index\.xml/);
+    assert.doesNotMatch(robots, /Crawl-delay/i);
+    assert.match(robots, /User-agent: \*\nAllow: \//);
+    for (const bot of ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "Google-Extended"]) {
+      assert.match(robots, new RegExp(`User-agent: ${bot}\\nAllow: /`), bot);
+    }
+    assert.equal(isIndexablePath("/editorial-policy/"), true);
+    assert.equal(isIndexablePath("/llms.txt"), true);
     const share = readFileSync(join(root, "src/components/SocialShare.tsx"), "utf8");
     assert.doesNotMatch(share, /reddit/i);
     const htaccess = readFileSync(join(root, "public/.htaccess"), "utf8");
@@ -176,6 +183,13 @@ describe("expanded page depth", () => {
       "src/content/guides/stressTestGuide.ts",
       "src/content/guides/lenderTypes.ts",
       "src/views/guides/InDepthGuidePage.tsx",
+      "src/views/editorial/EditorialPolicyPage.tsx",
+      "src/views/community/MethodologyPage.tsx",
+      "src/lib/llmsTxt.ts",
+      "src/lib/articleSchema.ts",
+      "src/lib/datasetSchema.ts",
+      "src/lib/homeMeta.ts",
+      "src/content/guides/negotiateMeta.ts",
     ];
     for (const file of files) {
       assert.equal(forbidden.test(readFileSync(join(root, file), "utf8")), false, file);

@@ -87,7 +87,7 @@ export const aboutSections: EditorialSection[] = [
     heading: "Corrections",
     paragraphs: [
       "If a rate, a tax figure, a calculator result, or an explanation is wrong, email <a href=\"mailto:contact@latestmortgagerates.ca\">contact@latestmortgagerates.ca</a> with the page address and what you think is off. Andrew reads that mailbox. We check the lender page, the statute, or the calculator formula, and we correct the standing page when the source shows we were wrong. Say what you expected to see and where you saw the other figure. A screenshot of the lender’s page, or a link to the statute, makes the check faster.",
-      "We do not quietly change a historical weekly article so that it matches a later scrape. That article describes the scrape it names. A correction to a standing page, such as a tax rule or a step in the methodology, is made on that page. We also correct a byline, a broken calculator, or a link that points at the wrong lender. We cannot quote a personal mortgage rate, approve an application, or act as your broker. For a rate on your file, ask the lender or a licensed broker, and use this site to prepare the questions. The same address and the same corrections standard are repeated on the <a href=\"/contact/\">contact page</a>.",
+      "We do not quietly change a historical weekly article so that it matches a later scrape. That article describes the scrape it names. A correction to a standing page, such as a tax rule or a step in the methodology, is made on that page. We also correct a byline, a broken calculator, or a link that points at the wrong lender. We cannot quote a personal mortgage rate, approve an application, or act as your broker. For a rate on your file, ask the lender or a licensed broker, and use this site to prepare the questions. The same address and the same corrections standard are repeated on the <a href=\"/contact/\">contact page</a>. How guides are researched, how often pages are updated, and how advertising is handled are on the <a href=\"/editorial-policy/\">editorial policy</a>.",
     ],
   },
 ];
@@ -165,6 +165,57 @@ export const trendsSections: EditorialSection[] = [
     paragraphs: [
       "A falling 30-day line means the lowest posted quote we stored is lower than it was at the start of the window. It does not mean your renewal letter will match that low, and it does not mean next month continues the slope. Posted rates are shelf prices. Rates self-reported by Canadian borrowers online, on the <a href=\"/real-mortgage-rates/\">real mortgage rates</a> page, are a different series and are not drawn here. If you want to place one offer on that other series, use the <a href=\"/tools/renewal-offer-checker/\">renewal offer checker</a>. If you want the weekly written version of the posted 5-year fixed grid, read the latest roundup on the <a href=\"/blog/\">blog</a>. Older weekly roundups stay up for the link, and the latest one is the current write-up.",
       "Before you lock a term because a line moved, name the product. Fixed or variable, insured or uninsured, and the term. Then read the penalty and the prepayment, because a tenth of a point the wrong way on a break fee dominates a small move on this chart. The <a href=\"/compare/fixed-vs-variable/\">fixed versus variable</a> guide and the <a href=\"/guides/negotiate-mortgage-rate/\">negotiation guide</a> are the pages for that decision. The chart is the backdrop. The lender’s current page is the quote. Andrew reviews the explanation on this page; the points themselves come from the daily scrape.",
+    ],
+  },
+];
+
+export const editorialPolicySections: EditorialSection[] = [
+  {
+    id: "independence",
+    heading: "Independence",
+    paragraphs: [
+      "LatestMortgageRates.ca is an independent publishing project run by Andrew. It is not a bank, a credit union, a mortgage brokerage, or a lender. It does not take applications, approve borrowers, or negotiate a rate with a lender on your behalf.",
+      "Lenders do not pay for a place in the tables, for a higher rank, or for a kinder sentence. Order in a rate table follows the rates in the snapshot, lowest first. A request to move a lender, hide a rate, or add a badge is declined. When the site earns money, the sections below say how, and that money does not change the order of the rates.",
+    ],
+  },
+  {
+    id: "research",
+    heading: "How guides are researched",
+    paragraphs: [
+      "Andrew researches each guide against official Canadian sources before it is published. Those sources are the lender’s own rate page when a guide cites a posted rate, plus the Bank of Canada, OSFI, CMHC, the Canada Revenue Agency, canada.ca, provincial and municipal government sites, and FCAC when the point is a rule rather than a price. A figure that comes from the reported-rate file is checked against that file, and the page says so.",
+      "Guides are drafted with AI assistance and then checked by Andrew against those sources. Example payments and balances are labelled as examples. They are not a quote from a lender and they are not your numbers. A guide is education. It is not mortgage, financial, tax, legal, or insurance advice.",
+    ],
+  },
+  {
+    id: "fact-check",
+    heading: "Fact-checking",
+    paragraphs: [
+      "A rule in a guide, such as the stress test, a default-insurance premium, or a land-transfer rebate, is checked against the official page that sets the rule. A posted rate is checked against the lender’s public rate page or against the snapshot copied from those pages. A median from the borrower-reported file is checked against that file. We do not invent a statistic to fill a gap.",
+      "If a source and the page disagree, the source wins and the page is corrected. The <a href=\"/methodology/\">methodology</a> is the standing description of how posted rates and rates self-reported by Canadian borrowers online are compiled. The <a href=\"/author/andrew/\">author page</a> lists the guides.",
+    ],
+  },
+  {
+    id: "cadence",
+    heading: "Update cadence",
+    paragraphs: [
+      "Posted rates are scraped twice a day, once in the morning and once in the evening, Eastern time, from each lender’s public rate pages. The “last updated” time on the homepage is the time of that snapshot. It is not a claim that every lender changed a rate that day. If a scrape fails, that lender can be missing until the next successful read.",
+      "The borrower-reported file is replaced when a new file is published. The as-of date on <a href=\"/real-mortgage-rates/\">real mortgage rates</a> and on the monthly rate report is the date of the data, not the day the article was first posted. Guides are updated when a rule or a cited figure changes, not on a fixed weekday. A weekly 5-year fixed roundup describes one scrape. When a new weekly roundup is published, older weekly roundups stay up for anyone who has the link, and only the latest one is the current write-up. Lender, city, and rate-hub pages show a “Last reviewed” date. That date is the build date of the page.",
+    ],
+  },
+  {
+    id: "corrections",
+    heading: "Corrections",
+    paragraphs: [
+      "If a rate, a tax figure, a calculator result, or an explanation is wrong, email <a href=\"mailto:contact@latestmortgagerates.ca\">contact@latestmortgagerates.ca</a> with the page address, the figure you saw, and the figure you expected. That is the only address. Andrew reads the mailbox and aims to reply within three business days. Weekends and Canadian statutory holidays are not business days.",
+      "We check the lender’s public page, the statute, or the calculator formula. If we were wrong, we change the standing page. We do not rewrite a dated weekly article so that an old scrape matches this week’s rates. That article is a record of the scrape it names. We do not publish a separate corrections log. The updated page is the correction. Please do not send a social insurance number, account numbers, or a mortgage application.",
+    ],
+  },
+  {
+    id: "advertising",
+    heading: "Advertising and affiliate disclosure",
+    paragraphs: [
+      "The site runs Google AdSense, including Auto ads, on pages that are open to search engines. Google labels its ads. An ad is not an endorsement of the advertiser, and a lender’s ad, if one appears, does not move that lender’s row. Pages we ask search engines not to index do not load the AdSense script. The <a href=\"/privacy/\">privacy policy</a> explains cookies and AdSense.",
+      "Some pages link to a $29 mortgage guide, a PDF we write and sell. It is optional and it is labelled as ours. The rate tables, the city notes, and the calculators stay free if you never buy it. We also link to <a href=\"https://canadiancreditcardfinder.com/\">Canadian Credit Card Finder</a> as a cross-promotion. A click does not change a mortgage rate on this site. Affiliate and advertising relationships are not a way to buy rank. The <a href=\"/disclaimer/\">disclaimer</a> and the <a href=\"/about/\">about</a> page repeat this.",
     ],
   },
 ];

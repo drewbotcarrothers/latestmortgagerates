@@ -8,6 +8,8 @@ export interface BlogPost {
   author: string;
   authorTitle: string;
   date: string;
+  /** Last substantive update. Monthly rate reports use the data as-of date. */
+  updatedDate?: string;
   category: 'rates' | 'news' | 'guides' | 'market';
   tags: string[];
   readTime: number;
@@ -28,6 +30,7 @@ export const blogPosts: BlogPost[] = [
     author: octoberReport.author,
     authorTitle: octoberReport.authorTitle,
     date: octoberReport.date,
+    updatedDate: octoberReport.updatedDate,
     category: octoberReport.category,
     tags: octoberReport.tags,
     readTime: octoberReport.readTime,

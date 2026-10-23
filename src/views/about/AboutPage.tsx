@@ -18,6 +18,9 @@ export default function AboutPage() {
           </nav>
           <h1 className="text-3xl font-bold text-slate-900">About LatestMortgageRates.ca</h1>
           <p className="text-slate-600 mt-2">Who runs this site, what it is for, and how the rate tables are built.</p>
+          <p className="mt-3">
+            <a href="/editorial-policy/" className="font-medium text-teal-700 hover:underline">Editorial policy</a>
+          </p>
         </div>
       </header>
 

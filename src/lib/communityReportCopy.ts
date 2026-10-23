@@ -51,6 +51,7 @@ ${CHART_MARKER}
     author: "Andrew",
     authorTitle: "Rate Analyst",
     date: "2026-10-03",
+    updatedDate: communityRates.asOf,
     category: "rates" as const,
     tags: ["real mortgage rates", "below posted", "renewal", "rate report", "October 2026"],
     readTime: 7,

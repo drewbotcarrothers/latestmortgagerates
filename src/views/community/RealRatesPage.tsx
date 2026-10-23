@@ -21,6 +21,8 @@ import {
   productLabel,
   publicProducts,
 } from "@/lib/communityRates";
+import { realRatesDatasetJsonLd } from "@/lib/datasetSchema";
+import JsonLd from "@/components/JsonLd";
 
 export default function RealRatesPage() {
   const takeaways = buildTakeaways();
@@ -32,6 +34,7 @@ export default function RealRatesPage() {
 
   return (
     <>
+      <JsonLd data={realRatesDatasetJsonLd()} />
       <BreadcrumbSchema
         items={[
           { name: "Home", url: "/" },

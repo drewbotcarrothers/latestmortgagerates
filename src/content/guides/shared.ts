@@ -39,6 +39,10 @@ export interface InDepthGuide {
   dek: string;
   sourcesLine: string;
   reviewedIso: string;
+  /** First publication date. Falls back to reviewedIso when omitted. */
+  publishedIso?: string;
+  /** Last substantive update. Falls back to reviewedIso when omitted. Shown as "Updated". */
+  updatedDate?: string;
   sections: EditorialSection[];
   faqs: GuideFaq[];
   howTo?: GuideHowTo;
