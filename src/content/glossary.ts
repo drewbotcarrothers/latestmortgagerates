@@ -70,6 +70,9 @@ export const relatedToolsMap: Record<string, { href: string; label: string }[]> 
   "open-mortgage": [
     { href: "/tools/mortgage-penalty-calculator/", label: "Penalty Calculator" },
   ],
+  "prime-rate": [
+    { href: "/prime-rate/", label: "Prime rate in Canada today" },
+  ],
   "refinancing": [
     { href: "/tools/refinance-calculator/", label: "Refinance Calculator" },
   ],

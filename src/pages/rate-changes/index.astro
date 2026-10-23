@@ -1,0 +1,64 @@
+---
+import { readFileSync } from "node:fs";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/data/RateChangesPage";
+import { rateChangeLead, type RateChangeRow } from "../../views/data/RateChangesPage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { latestScrapeDate } from "../../lib/dataFormat";
+import { publishedRates } from "../../lib/publishedRates";
+import { summarizeFiveYearFixed } from "../../lib/rateChanges.mjs";
+
+const history = JSON.parse(
+  readFileSync(new URL("../../../data/rate-changes.json", import.meta.url), "utf8"),
+) as {
+  changes: RateChangeRow[];
+  changeCount: number;
+  backfilledFrom: string;
+  backfilledTo: string;
+};
+
+const asOf = latestScrapeDate(publishedRates) ?? history.backfilledTo;
+const summary = summarizeFiveYearFixed(history.changes, asOf);
+const fiveYearRows = history.changes
+  .filter(
+    (change) =>
+      change.field === "rate" &&
+      change.term_months === 60 &&
+      change.rate_type === "fixed" &&
+      change.date >= summary.from &&
+      change.date <= summary.to,
+  )
+  .slice()
+  .reverse();
+const recentRows = history.changes.slice(-25).reverse();
+const lead = rateChangeLead(summary);
+const dataset = datasetJsonLd({
+  name: "Mortgage rate-change tracker",
+  description: lead,
+  url: "https://latestmortgagerates.ca/rate-changes/",
+  temporalCoverage: `${history.backfilledFrom}/${history.backfilledTo}`,
+  dateModified: asOf,
+  variableMeasured: [
+    "Advertised mortgage rate",
+    "Posted mortgage rate",
+    "5-year fixed rate change",
+  ],
+});
+---
+
+<BaseLayout
+  title="Mortgage rate-change tracker | Latest Mortgage Rates"
+  description={lead}
+  canonical="https://latestmortgagerates.ca/rate-changes/"
+  keywords="mortgage rate changes Canada, posted rate tracker, 5-year fixed"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page
+    summary={summary}
+    fiveYearRows={fiveYearRows}
+    recentRows={recentRows}
+    totalCount={history.changeCount}
+    backfilledFrom={history.backfilledFrom}
+    client:load
+  />
+</BaseLayout>

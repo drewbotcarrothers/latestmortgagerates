@@ -1,0 +1,42 @@
+---
+import { readFileSync } from "node:fs";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/data/ForecastPage";
+import { forecastLead } from "../../views/data/ForecastPage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { latestScrapeDate } from "../../lib/dataFormat";
+import { forecastsCompiled } from "../../lib/forecast2027";
+import { loadBondSeries } from "../../lib/loadMarketSeries";
+import { publishedRates } from "../../lib/publishedRates";
+import { summarizeFiveYearFixed } from "../../lib/rateChanges.mjs";
+
+const history = JSON.parse(
+  readFileSync(new URL("../../../data/rate-changes.json", import.meta.url), "utf8"),
+) as { changes: { date: string; field: string; term_months: number; rate_type: string }[] };
+
+const bond = await loadBondSeries();
+const asOf = latestScrapeDate(publishedRates) ?? forecastsCompiled;
+const fiveYearSummary = summarizeFiveYearFixed(history.changes, asOf);
+const lead = forecastLead();
+const dataset = datasetJsonLd({
+  name: "Canadian mortgage rate forecast 2027",
+  description: lead,
+  url: "https://latestmortgagerates.ca/mortgage-rate-forecast-2027/",
+  temporalCoverage: `2026-06-24/2027-12-31`,
+  dateModified: forecastsCompiled,
+  variableMeasured: [
+    "Bank of Canada overnight target forecast",
+    "Canada 5-year government bond yield forecast",
+  ],
+});
+---
+
+<BaseLayout
+  title="Canadian mortgage rate forecast 2027 | Latest Mortgage Rates"
+  description={lead}
+  canonical="https://latestmortgagerates.ca/mortgage-rate-forecast-2027/"
+  keywords="mortgage rate forecast 2027, Bank of Canada forecast, 5-year bond yield"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page bond={bond} fiveYearSummary={fiveYearSummary} client:load />
+</BaseLayout>

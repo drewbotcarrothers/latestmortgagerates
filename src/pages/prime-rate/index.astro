@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/data/PrimeRatePage";
+import { primeLead } from "../../views/data/PrimeRatePage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { formatLongDate } from "../../lib/dataFormat";
+import { loadPolicySeries } from "../../lib/loadMarketSeries";
+import { primeFileFacts } from "../../lib/primeData";
+import { publishedRates } from "../../lib/publishedRates";
+
+const policy = await loadPolicySeries();
+const facts = primeFileFacts(publishedRates);
+const asOf = facts.asOf ?? policy.observationsThrough ?? "2026-10-23";
+const lead = primeLead(publishedRates, formatLongDate(asOf));
+const dataset = datasetJsonLd({
+  name: "Prime rate in Canada today",
+  description: lead,
+  url: "https://latestmortgagerates.ca/prime-rate/",
+  temporalCoverage: `2022-01-04/${policy.observationsThrough ?? asOf}`,
+  dateModified: asOf,
+  variableMeasured: [
+    "Lender prime rate",
+    "Bank of Canada target for the overnight rate",
+  ],
+});
+---
+
+<BaseLayout
+  title="Prime rate in Canada today | Latest Mortgage Rates"
+  description={lead}
+  canonical="https://latestmortgagerates.ca/prime-rate/"
+  keywords="prime rate Canada, Bank of Canada policy rate, variable mortgage, HELOC"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page policy={policy} client:load />
+</BaseLayout>

@@ -1,4 +1,5 @@
 import { october2026Report } from "../lib/communityReportCopy";
+import { bondYieldsBlogPost } from "../lib/bondYieldArticle";
 
 export interface BlogPost {
   slug: string;
@@ -18,6 +19,7 @@ export interface BlogPost {
 }
 
 const octoberReport = october2026Report();
+const bondPost = bondYieldsBlogPost();
 
 export const blogPosts: BlogPost[] = [
   {
@@ -1833,6 +1835,8 @@ export const blogPosts: BlogPost[] = [
 
 <p class="mb-4"><strong>Variable-rate mortgages</strong> are priced off lender prime, which typically moves with the overnight rate. A hold means variable payments should not change solely because of this announcement. Compare live <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a> before you assume a discount to prime will last through October.</p>
 
+<p class="mb-4">Prime, the policy-rate history, and the next decision dates are on the <a href="/prime-rate/" class="text-teal-600 hover:underline font-medium">prime rate in Canada</a> page.</p>
+
 <p class="mb-4"><strong>Fixed-rate mortgages</strong> are priced off bond yields, not the overnight rate. The Bank explicitly noted that long-term yields have moved up since July. A policy-rate hold does not freeze 5-year fixed quotes. Shop the live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed hub</a> rather than treating 2.25% as your mortgage rate.</p>
 
 <div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
@@ -2460,317 +2464,17 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "bond-yields-mortgage-rates-explained",
-    title: "How Bond Yields Affect Your Mortgage Rate (Simple Explanation)",
-    excerpt: "Understanding why fixed mortgage rates move even when the Bank of Canada doesn't change rates. This simple explainer covers the bond market connection.",
-    content: `Ever wonder why your fixed mortgage rate can change daily, even when the Bank of Canada hasn't touched the overnight rate in months? The answer lies in the bond market.
-
-## The Simple Version
-
-Fixed mortgage rates in Canada are closely tied to Government of Canada bond yields. When bonds become more expensive (yields drop), mortgage rates usually follow. When bonds get cheaper (yields rise), mortgage rates tend to increase.
-
-**Think of it like this:**
-- Banks borrow money cheaply in bond markets
-- They lend it to you as a mortgage at a slightly higher rate
-- When their borrowing costs change, your mortgage rate changes too
-
-## Why Bonds Specifically?
-
-Mortgages and bonds share key characteristics:
-- Both have fixed terms (5 years most common)
-- Both involve lending money with interest
-- Both carry long-term interest rate risk for lenders
-
-This makes government bonds the perfect benchmark for mortgage pricing.
-
-## Recent Example
-
-In early 2025:
-- Government of Canada 5-year bond yields fell from ~3.5% to ~2.8%
-- Banks' borrowing costs decreased
-- 5-year fixed mortgage rates dropped from ~4.5% to ~3.9%
-
-**Bond yield change: -0.70%**
-**Mortgage rate change: -0.60%**
-
-The small gap (~0.10%) represents the bank's profit margin and risk premium.
-
-## What Moves Bond Yields?
-
-**Bond yields change based on:**
-
-1. **Economic Expectations**
-   - Slow growth = lower yields (rates likely to fall)
-   - Strong growth = higher yields (rates likely to rise)
-
-2. **Inflation Outlook**
-   - Low inflation = lower yields
-   - High inflation = higher yields
-
-3. **Bank of Canada Policy**
-   - Expected rate cuts = lower yields
-   - Expected rate hikes = higher yields
-
-4. **Global Factors**
-   - US Federal Reserve decisions
-   - International economic conditions
-   - Geopolitical events
-
-## Does This Mean Variable Isn't Linked to Bonds?
-
-Variable rates are different. They move directly with the Bank of Canada's overnight rate, not bond yields. This is why:
-
-- **Variable rates** = Bank of Canada overnight rate + lender margin
-- **Fixed rates** = Bond yields + lender margin + risk premium
-
-## What Should You Watch?
-
-If you're waiting to lock in a rate, keep an eye on:
-
-1. **Government of Canada 5-year bond yield**
-   - Currently around 2.8%
-   - Found on Bank of Canada website
-
-2. **Economic headlines**
-   - Recession fears → yields down → mortgage rates drop
-   - Growth concerns → yields up → mortgage rates rise
-
-3. **Bank of Canada announcements**
-   - Rate-cut expectations pull yields (and fixed rates) down
-   - Even before actual cuts happen
-
-## The Bottom Line
-
-Fixed mortgage rates predict where the economy is heading, based on bond market expectations. Variable rates react to where we actually are, based on Bank of Canada decisions.
-
-Historically, variable rates have saved money over 5-year terms about 60% of the time. But fixed rates offer payment certainty that many homeowners value.
-
-**Neither is "better" - it depends on your risk tolerance and financial situation.**
-
-<p class="mt-6">Compare live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rates</a> and <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a>, then model payments with the <a href="/tools/mortgage-calculator/" class="text-teal-600 hover:underline font-medium">payment calculator</a>.</p>`,
-    author: "Andrew",
-    authorTitle: "Senior Financial Analyst",
-    date: "2025-03-01",
-    category: "guides",
-    tags: ["bond yields", "fixed rates", "explainer", "mortgage rates"],
-    readTime: 7,
-    featured: false,
-    image: "/blog/bond-yields.jpg"
-  },
-  {
-    slug: "spring-2026-housing-market-outlook",
-    title: "Spring 2026 Housing Market Outlook: What Buyers and Sellers Should Know",
-    excerpt: "Our analysis of the spring 2026 Canadian housing market. Lower rates, changing inventory, and what it means for buyers entering the market this season.",
-    content: `<p class="mb-4">Spring is traditionally the busiest season in Canadian real estate. As we enter spring 2026, here's what buyers and sellers need to know about the current market conditions.</p>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Interest Rate Environment</h2>
-
-<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
-  <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">The Good News</h3>
-  <p class="mb-3">Mortgage rates have improved significantly from 2025 highs. The average 5-year fixed rate has fallen from <span class="font-semibold">~5.5%</span> to <span class="font-semibold">~4.2%</span>, representing meaningful savings for buyers.</p>
-</div>
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
-    <p class="text-sm text-slate-500 mb-1">Best 5-Yr Fixed</p>
-    <p class="text-2xl font-bold text-emerald-600">3.64%</p>
-  </div>
-  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
-    <p class="text-sm text-slate-500 mb-1">Avg 5-Yr Fixed</p>
-    <p class="text-2xl font-bold text-slate-700">4.24%</p>
-  </div>
-  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
-    <p class="text-sm text-slate-500 mb-1">Best Variable</p>
-    <p class="text-2xl font-bold text-teal-600">3.40%</p>
-  </div>
-  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-center">
-    <p class="text-sm text-slate-500 mb-1">Prime Rate</p>
-    <p class="text-2xl font-bold text-slate-700">4.95%</p>
-  </div>
-</div>
-
-<p class="mb-4">These rates make homeownership more accessible than at any point in the past two years. Shop the live tables for <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed</a> and <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable</a> rates, then check qualification with the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test calculator</a>.</p>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Inventory and Competition</h2>
-
-<p class="mb-4">After tight inventory levels in 2025, spring 2026 is showing increased listings in most major markets:</p>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-2xl">🏙️</span>
-      <h3 class="font-semibold text-slate-900">Toronto</h3>
-    </div>
-    <ul class="space-y-2 text-sm">
-      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>New listings up <strong>15%</strong></span></li>
-      <li class="flex items-center gap-2"><span class="text-amber-500">⏱️</span><span>Days on market: <strong>28</strong> (was 18)</span></li>
-      <li class="flex items-center gap-2"><span class="text-blue-500">⚖️</span><span>More balanced conditions</span></li>
-    </ul>
-  </div>
-
-  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-2xl">🌲</span>
-      <h3 class="font-semibold text-slate-900">Vancouver</h3>
-    </div>
-    <ul class="space-y-2 text-sm">
-      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>Inventory up <strong>12%</strong></span></li>
-      <li class="flex items-center gap-2"><span class="text-blue-500">📊</span><span>Growth moderating</span></li>
-      <li class="flex items-center gap-2"><span class="text-emerald-500">✓</span><span>Better selection for buyers</span></li>
-    </ul>
-  </div>
-
-  <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm">
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-2xl">🏔️</span>
-      <h3 class="font-semibold text-slate-900">Calgary</h3>
-    </div>
-    <ul class="space-y-2 text-sm">
-      <li class="flex items-center gap-2"><span class="text-amber-500">🔥</span><span>Still tight inventory</span></li>
-      <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">↑</span><span>Prices rising slower</span></li>
-      <li class="flex items-center gap-2"><span class="text-teal-500">💪</span><span>Strong demand</span></li>
-    </ul>
-  </div>
-</div>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Buyer Sentiment</h2>
-
-<p class="mb-4">Our analysis of search trends and application data shows:</p>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-  <div class="flex items-center gap-4 bg-emerald-50 rounded-lg p-4 border border-emerald-100">
-    <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xl">📈</div>
-    <div>
-      <p class="font-semibold text-emerald-800">+25% Pre-approvals</p>
-      <p class="text-sm text-emerald-600">vs. winter 2024</p>
-    </div>
-  </div>
-  <div class="flex items-center gap-4 bg-teal-50 rounded-lg p-4 border border-teal-100">
-    <div class="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center text-white text-xl">🏠</div>
-    <div>
-      <p class="font-semibold text-teal-800">First-time buyers returning</p>
-      <p class="text-sm text-teal-600">Activity increasing</p>
-    </div>
-  </div>
-</div>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Price Expectations</h2>
-
-<div class="bg-slate-50 rounded-lg p-6 mb-6 border border-slate-200">
-  <h3 class="font-semibold text-slate-800 mb-4">National Outlook</h3>
-  <div class="mb-4">
-    <div class="flex justify-between mb-2">
-      <span class="text-slate-600">2026 Forecast</span>
-      <span class="font-semibold text-emerald-600">+2-4% growth</span>
-    </div>
-    <div class="w-full bg-slate-200 rounded-full h-3"><div class="bg-emerald-500 h-3 rounded-full" style="width: 50%"></div></div>
-  </div>
-  <p class="text-sm text-slate-600">More modest gains than 2021-2022. Regional variation significant.</p>
-</div>
-
-<h3 class="text-lg font-semibold text-slate-800 mb-3">Regional Forecasts</h3>
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
-    <p class="text-2xl mb-1">🔥</p>
-    <p class="font-semibold text-slate-900 text-sm">Calgary/Edmonton</p>
-    <p class="text-emerald-600 font-bold">+5-7%</p>
-  </div>
-  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
-    <p class="text-2xl mb-1">🏙️</p>
-    <p class="font-semibold text-slate-900 text-sm">Toronto</p>
-    <p class="text-emerald-600 font-bold">+2-4%</p>
-  </div>
-  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
-    <p class="text-2xl mb-1">🌲</p>
-    <p class="font-semibold text-slate-900 text-sm">Vancouver</p>
-    <p class="text-teal-600 font-bold">+1-3%</p>
-  </div>
-  <div class="bg-white p-4 rounded-lg border border-slate-200 text-center">
-    <p class="text-2xl mb-1">🌊</p>
-    <p class="font-semibold text-slate-900 text-sm">Atlantic Canada</p>
-    <p class="text-emerald-600 font-bold">+3-5%</p>
-  </div>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-  <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
-    <h3 class="font-semibold text-emerald-800 mb-3 flex items-center gap-2">✓ Advice for Buyers</h3>
-    <ul class="space-y-2 text-sm">
-      <li><strong>Get pre-approved early</strong> — Rates can be held for 90-120 days</li>
-      <li><strong>Shop around for rates</strong> — Big bank rates lag market rates</li>
-      <li><strong>Don't rush</strong> — Inventory improving</li>
-      <li><strong>Budget for all costs</strong> — Closing costs run 1.5-4%</li>
-    </ul>
-  </div>
-
-  <div class="bg-amber-50 rounded-lg p-5 border border-amber-100">
-    <h3 class="font-semibold text-amber-800 mb-3">⚠️ Advice for Sellers</h3>
-    <ul class="space-y-2 text-sm">
-      <li><strong>Price competitively</strong> — Overpriced listings sit longer</li>
-      <li><strong>Presentation matters</strong> — Staging can increase offers</li>
-      <li><strong>Be flexible on closing</strong> — Accommodate buyer timelines</li>
-      <li><strong>Plan your next purchase</strong> — You'll be a buyer too</li>
-    </ul>
-  </div>
-</div>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Buy Now or Wait?</h2>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-  <div class="bg-white rounded-lg p-5 border-2 border-emerald-200">
-    <h3 class="font-semibold text-emerald-700 mb-3">✓ Buy Now</h3>
-    <ul class="space-y-2 text-sm text-slate-600">
-      <li>Rates favorable vs. recent years</li>
-      <li>More inventory = better selection</li>
-      <li>Prices relatively stable</li>
-      <li>Predictable payments with fixed rates</li>
-    </ul>
-  </div>
-
-  <div class="bg-slate-50 rounded-lg p-5 border border-slate-200">
-    <h3 class="font-semibold text-slate-700 mb-3">⊙ Wait</h3>
-    <ul class="space-y-2 text-sm text-slate-600">
-      <li>Rates may drift lower later in year</li>
-      <li>Inventory improving further</li>
-      <li>Economic uncertainty remains</li>
-      <li>Wait for personal financial readiness</li>
-    </ul>
-  </div>
-</div>
-
-<div class="bg-blue-50 rounded-lg p-6 border border-blue-100 mb-6">
-  <p class="font-medium text-slate-800 mb-2">The reality:</p>
-  <p class="text-slate-600">Timing the market perfectly is impossible. The best time to buy is when you're financially ready and find a home that meets your needs at a price you can afford.</p>
-</div>
-
-<p class="mb-4"><span class="font-semibold">Spring 2026</span> offers a notably improved environment for Canadian homebuyers compared to the past two years. Lower rates, better inventory, and moderating prices create opportunities—but success requires preparation, patience, and smart mortgage planning.</p>
-
-<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Data Sources &amp; Methodology</h2>
-
-<div class="bg-slate-50 rounded-lg p-6 border border-slate-200 mb-6">
-  <p class="text-sm text-slate-600 mb-4">This analysis is based on the following data sources and methodologies:</p>
-  
-  <ul class="space-y-3 text-sm text-slate-600">
-    <li><strong>Rate Data:</strong> Daily rate monitoring from <a href="/" class="text-teal-600 hover:underline">LatestMortgageRates.ca</a> database covering 34+ direct lenders across Canada.</li>
-    <li><strong>Inventory Data:</strong> Monthly MLS sales and listing statistics from the Canadian Real Estate Association (CREA) and regional real estate boards (TRREB, REBGV, CREB).</li>
-    <li><strong>Price Trends:</strong> Home Price Index data from CREA and local board reports published March 2026.</li>
-    <li><strong>Search Trends:</strong> Aggregated application data from mortgage brokers and digital lending platforms.</li>
-    <li><strong>Bank of Canada:</strong> Policy interest rate announcements and Monetary Policy Reports (bankofcanada.ca).</li>
-    <li><strong>Economic Forecasts:</strong> Consensus estimates from major Canadian banks and economic research firms.</li>
-  </ul>
-  
-  <p class="text-xs text-slate-500 mt-4 pt-4 border-t border-slate-200">Data current as of March 23, 2026. Past performance does not guarantee future results. Local market conditions may vary significantly from national trends.</p>
-</div>
-
-<p class="text-slate-600 italic">Happy house hunting! 🏠</p>`,
-    author: "Andrew",
-    authorTitle: "Market Analyst",
-    date: "2026-03-23",
-    category: "market",
-    tags: ["spring market", "housing outlook", "2026", "market analysis", "buying", "selling"],
-    readTime: 10,
-    featured: true,
-    image: "/blog/spring-market-2026.jpg"
+    title: bondPost.title,
+    excerpt: bondPost.excerpt,
+    content: bondPost.content,
+    author: bondPost.author,
+    authorTitle: bondPost.authorTitle,
+    date: bondPost.date,
+    category: bondPost.category,
+    tags: bondPost.tags,
+    readTime: bondPost.readTime,
+    featured: bondPost.featured,
+    image: bondPost.image,
   },
 ];
 
