@@ -26,7 +26,7 @@ on:
           - monthly_poll
           - blog_amplify
       blog_slug:
-        description: 'Blog slug to amplify (blog_amplify only). Leave empty for the newest unpublished post.'
+        description: 'Blog slug to amplify (blog_amplify only). Leave empty for the newest unpublished post, or latest for the newest post.'
         required: false
         type: string
       force_repost:

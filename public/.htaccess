@@ -1,5 +1,8 @@
 # Hostinger Apache (static Astro export). Copied to dist/ on build.
 # 301s for old Next.js / SEO-generator URLs that still 404 in Google Search Console.
+# hCDN 404s a URL that has no file before these rules run. Exact rules are also
+# Astro redirects in src/lib/legacyRedirects.mjs so each path has an index.html.
+# /blog/category/ stays a prefix here; known category paths have static files too.
 
 DirectorySlash On
 

@@ -11,6 +11,7 @@ import {
   hashtagsFor,
   loadPostedState,
   savePostedState,
+  LATEST_BLOG_SLUG,
   selectPostsToAmplify,
   SITE_ORIGIN,
   TWITTER_CHAR_LIMIT,
@@ -132,6 +133,36 @@ describe("selectPostsToAmplify", () => {
     assert.throws(
       () => selectPostsToAmplify([newer], new Set(), { slug: "missing-post" }),
       /Unknown blog slug: missing-post/,
+    );
+  });
+
+  it("resolves latest to the newest post and still honours force repost", () => {
+    assert.equal(LATEST_BLOG_SLUG, "latest");
+    assert.deepEqual(
+      selectPostsToAmplify([older, newer], new Set(["newer-post"]), { slug: "latest" }).map((p) => p.slug),
+      [],
+    );
+    assert.deepEqual(
+      selectPostsToAmplify([older, newer], new Set(["newer-post"]), {
+        slug: "latest",
+        forceRepost: true,
+      }).map((p) => p.slug),
+      ["newer-post"],
+    );
+    assert.deepEqual(
+      selectPostsToAmplify(
+        [newer, fakePost({ slug: "same-day-a", date: "2026-09-15" })],
+        new Set(),
+        { slug: "latest", forceRepost: true },
+      ).map((p) => p.slug),
+      ["newer-post"],
+    );
+  });
+
+  it("throws when latest is requested and the blog is empty", () => {
+    assert.throws(
+      () => selectPostsToAmplify([], new Set(), { slug: "latest" }),
+      /No blog posts to amplify/,
     );
   });
 });
