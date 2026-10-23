@@ -100,6 +100,10 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/first-time-home-buyer-programs-canada/"), true);
     assert.equal(isIndexablePath("/guides/switching-mortgage-lenders-at-renewal/"), true);
     assert.equal(isIndexablePath("/guides/posted-vs-discounted-mortgage-rates/"), true);
+    assert.equal(isIndexablePath("/guides/closing-costs-canada-by-province/"), true);
+    assert.equal(isIndexablePath("/guides/big-5-bank-mortgages-compared/"), true);
+    assert.equal(isIndexablePath("/guides/blend-and-extend-mortgage/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-rate-hold-canada/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
@@ -175,6 +179,10 @@ describe("expanded page depth", () => {
       "src/content/guides/prepaymentPenalties.ts",
       "src/content/guides/stressTestGuide.ts",
       "src/content/guides/lenderTypes.ts",
+      "src/content/guides/closingCosts.ts",
+      "src/content/guides/bigFiveBanks.ts",
+      "src/content/guides/blendAndExtend.ts",
+      "src/content/guides/rateHold.ts",
       "src/views/guides/InDepthGuidePage.tsx",
     ];
     for (const file of files) {

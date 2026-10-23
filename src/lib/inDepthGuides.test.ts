@@ -20,11 +20,22 @@ const REQUIRED_LINKS = [
 ];
 
 describe("in-depth guides", () => {
-  it("publishes eight guides inside the word-count range", () => {
-    assert.equal(IN_DEPTH_GUIDES.length, 8);
-    const counts = IN_DEPTH_GUIDES.map((guide) => [guide.slug, guideWordCount(guide)]);
+  it("publishes twelve guides inside the word-count range", () => {
+    assert.equal(IN_DEPTH_GUIDES.length, 12);
+    const counts = IN_DEPTH_GUIDES.map((guide) => [guide.slug, guideWordCount(guide)] as const);
     for (const [slug, words] of counts) {
-      assert.ok(words >= 1800 && words <= 2500, `${slug} is ${words} words`);
+      assert.ok(words >= 1800 && words <= 2700, `${slug} is ${words} words`);
+    }
+    const longform = new Set([
+      "closing-costs-canada-by-province",
+      "big-5-bank-mortgages-compared",
+      "blend-and-extend-mortgage",
+      "mortgage-rate-hold-canada",
+    ]);
+    for (const [slug, words] of counts) {
+      if (longform.has(slug)) {
+        assert.ok(words >= 2200 && words <= 2600, `${slug} is ${words} words`);
+      }
     }
   });
 
