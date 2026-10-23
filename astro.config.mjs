@@ -12,6 +12,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
+import { legacyRedirects } from "./src/lib/legacyRedirects.mjs";
 import { isIndexablePath } from "./src/lib/sitemapFilter.mjs";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
@@ -160,6 +161,8 @@ export default defineConfig({
   output: "static",
   outDir: "dist",
   trailingSlash: "always",
+  // Static HTML so Hostinger hCDN has a file. See src/lib/legacyRedirects.mjs.
+  redirects: legacyRedirects,
   integrations: [
     react(),
     sitemap({

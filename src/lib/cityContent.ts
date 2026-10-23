@@ -499,7 +499,7 @@ const PROVINCES: Record<ProvinceId, ProvinceLayer> = {
     heroTagline: "National mortgage rates and Prince Edward Island transfer-tax notes for {city}.",
     lttHeadline: "P.E.I. land transfer tax",
     lttBody:
-      "Prince Edward Island charges provincial land transfer tax (commonly 1% above a small exempt slice). Eligible first-time buyers may be exempt on homes at or below $200,000 under the program modelled on our closing-costs calculator—confirm current eligibility with your lawyer. {city} purchases still need legal fees and the usual closing extras.",
+      "Prince Edward Island charges provincial land transfer tax (commonly 1% above a small exempt slice). Eligible first-time buyers can have the transfer tax waived with no price cap if they occupy the home—confirm current eligibility with your lawyer. {city} purchases still need legal fees and the usual closing extras.",
     lttHasProvincialTax: true,
     lttToolHref: CLOSING_HREF,
     lttToolLabel: "P.E.I. closing costs calculator",
@@ -508,7 +508,7 @@ const PROVINCES: Record<ProvinceId, ProvinceLayer> = {
     firstTimePoints: [
       {
         heading: "P.E.I. first-time exemption",
-        body: "The province has offered a first-time exemption on lower-priced eligible homes (our calculator models a full exemption at or below $200,000). Rules and thresholds change—verify before you waive conditions.",
+        body: "The province waives the transfer tax for an eligible first-time buyer and states no price cap. The tax can return if you do not occupy the home for 183 consecutive days. Verify before you waive conditions.",
       },
       ...FEDERAL_FTB,
     ],
@@ -598,7 +598,7 @@ const FEATURED: Record<string, CityOverride> = {
       },
     ],
     extraLinks: [
-      { href: "/blog/first-time-buyer-guide-2026/", label: "First-time buyer guide" },
+      { href: "/guides/first-time-home-buyer-programs-canada/", label: "First-time buyer guide" },
       { href: "/lenders/meridian/", label: "Meridian Credit Union rates" },
     ],
   },
@@ -1206,7 +1206,7 @@ function relatedFor(city: CityRecord, layer: ProvinceLayer, extra: CityLink[] = 
     { href: "/tools/mortgage-renewal-calculator/", label: "Renewal calculator" },
     { href: "/rates/5-year-fixed/", label: "5-year fixed rates" },
     { href: "/rates/variable/", label: "Variable rates" },
-    { href: "/blog/first-time-buyer-guide-2026/", label: "First-time buyer guide" },
+    { href: "/guides/first-time-home-buyer-programs-canada/", label: "First-time buyer guide" },
     ...extra,
   ];
   const seen = new Set<string>();

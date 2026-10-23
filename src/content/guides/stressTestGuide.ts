@@ -21,7 +21,7 @@ function caseParagraphs(): string[] {
 export const stressTestGuide: InDepthGuide = {
   slug: "mortgage-stress-test",
   path: "/guides/mortgage-stress-test/",
-  metaTitle: "Mortgage Stress Test Explained for Canada | Latest Mortgage Rates",
+  metaTitle: "Mortgage Stress Test 2026: Qualifying Rate, GDS and TDS",
   description:
     "How Canada's mortgage stress test works in 2026: the minimum qualifying rate, GDS and TDS, worked examples at three incomes, and the renewals and switches that skip it.",
   keywords:

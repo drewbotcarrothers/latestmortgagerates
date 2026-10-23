@@ -6,10 +6,17 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
+import FAQSection from "@/components/FAQSection";
 import {
+  albertaLandTitlesFee,
   BC_PTT_FTHB_FULL_PROGRAM_FMV,
   BC_PTT_FTHB_MAX_EXEMPTION,
   BC_PTT_FTHB_PHASE_OUT_END_FMV,
+  calculateBcFthbExemption,
+  calculateBcPropertyTransferTax,
+  ontarioFirstTimeRebates,
+  ontarioProvincialLandTransferTax,
+  quebecWelcomeTaxOutsideMontreal,
 } from "@/lib/mortgageMath";
 
 
@@ -17,6 +24,16 @@ export default function LandTransferTaxCalculatorPage() {
   const bcFull = BC_PTT_FTHB_FULL_PROGRAM_FMV.toLocaleString("en-CA");
   const bcPhaseOut = BC_PTT_FTHB_PHASE_OUT_END_FMV.toLocaleString("en-CA");
   const bcMax = BC_PTT_FTHB_MAX_EXEMPTION.toLocaleString("en-CA");
+  const examplePrice = 600_000;
+  const ontarioTax = ontarioProvincialLandTransferTax(examplePrice);
+  const ontarioRebate = ontarioFirstTimeRebates(ontarioTax, 0).total;
+  const torontoRebate = ontarioFirstTimeRebates(ontarioTax, ontarioTax).total;
+  const bcTax = calculateBcPropertyTransferTax(examplePrice);
+  const bcExemption = calculateBcFthbExemption(examplePrice);
+  const quebecTax = quebecWelcomeTaxOutsideMontreal(examplePrice);
+  const albertaFee = albertaLandTitlesFee(examplePrice);
+  const money = (amount: number) =>
+    amount.toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
 
   return (
     <>
@@ -73,7 +90,7 @@ export default function LandTransferTaxCalculatorPage() {
                 Land Transfer Tax Calculator Canada
               </h1>
               <p className="text-xl text-slate-300">
-                Ontario, Toronto, and B.C. first-time buyer rebates, plus provincial and municipal transfer tax for the rest of Canada.
+                Ontario refunds up to $4,000 of provincial land transfer tax, Toronto adds a municipal rebate of up to $4,475, and British Columbia’s first-time buyer exemption covers the property transfer tax on the first $500,000 through an $835,000 home. The formulas and a $600,000 worked example for each of those are under the calculator.
               </p>
             </div>
           </div>
@@ -192,6 +209,29 @@ export default function LandTransferTaxCalculatorPage() {
 
               <section className="card-default p-6">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  Formulas at {money(examplePrice)}
+                </h2>
+                <div className="space-y-4 text-slate-600">
+                  <p>
+                    <strong className="text-slate-900">Ontario.</strong> 0.5% on the first $55,000, 1% to $250,000, 1.5% to $400,000, 2% to $2 million, and 2.5% above $2 million. On {money(examplePrice)} the provincial tax is {money(ontarioTax)}. A first-time refund of up to $4,000 leaves {money(ontarioTax - ontarioRebate)}.
+                  </p>
+                  <p>
+                    <strong className="text-slate-900">Toronto.</strong> Municipal land transfer tax uses the same brackets, so the municipal tax is also {money(ontarioTax)}. The first-time municipal rebate is up to $4,475, on top of the provincial $4,000, {money(torontoRebate)} combined. Tax still due is {money(ontarioTax * 2 - torontoRebate)}. Other Ontario cities do not pay this second tax.
+                  </p>
+                  <p>
+                    <strong className="text-slate-900">British Columbia property transfer tax, first-time buyers.</strong> 1% on the first $200,000, 2% to $2 million, 3% to $3 million, and 5% above $3 million. On {money(examplePrice)} the tax is {money(bcTax)}. The first-time exemption for registrations on or after 1 April 2024 is {money(bcExemption)} at this price, so {money(bcTax - bcExemption)} remains. The exemption is the tax on the first $500,000, capped at ${bcMax}, while fair market value is at or under ${bcFull}. It phases out and is $0 at ${bcPhaseOut}.
+                  </p>
+                  <p>
+                    <strong className="text-slate-900">Alberta.</strong> There is no land transfer tax. The Land Titles fee on the transfer, for submissions on or after 1 October 2026, is $50 plus $5 per $5,000 or part, which is {money(albertaFee)} on this price. A mortgage registration is a separate instrument.
+                  </p>
+                  <p>
+                    <strong className="text-slate-900">Quebec, outside Montreal.</strong> The calculator’s planning brackets are 0.5% on the first $55,500, 1% to $255,000, and 1.5% above that, which is {money(quebecTax)} here. The optional $5,000 first-time reduction in the tool is not Revenu Québec’s credit. That credit maxes at $5,875 and phases out above $750,000. Montreal’s higher municipal slices are not in the formula.
+                  </p>
+                </div>
+              </section>
+
+              <section className="card-default p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
                   First-Time Homebuyer Rebates
                 </h2>
                 <div className="prose prose-slate max-w-none">
@@ -218,8 +258,8 @@ export default function LandTransferTaxCalculatorPage() {
                     </div>
                     <div className="bg-slate-50 p-4 rounded-lg">
                       <h3 className="font-semibold text-slate-900 mb-2">Prince Edward Island</h3>
-                      <p className="text-sm text-slate-600"><strong>Maximum Rebate:</strong> $2,000</p>
-                      <p className="text-sm text-slate-600 mt-1">Full rebate on homes up to $200,000</p>
+                      <p className="text-sm text-slate-600"><strong>Waiver:</strong> the full transfer tax</p>
+                      <p className="text-sm text-slate-600 mt-1">No price cap. You must occupy the home, or the tax comes back after 183 days.</p>
                     </div>
                   </div>
 
@@ -234,32 +274,35 @@ export default function LandTransferTaxCalculatorPage() {
                 </div>
               </section>
 
-              <section className="card-default p-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-2">When do I pay land transfer tax?</h3>
-                    <p className="text-slate-600">
-                      Land transfer tax is paid on closing day when the property title is transferred to your name. 
-                      Your lawyer will handle the payment as part of the closing process.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-2">Can I add land transfer tax to my mortgage?</h3>
-                    <p className="text-slate-600">
-                      No, land transfer tax cannot be added to your mortgage. It must be paid upfront as part of your closing costs. 
-                      Make sure to budget for this expense when saving for your down payment.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-2">Do I pay land transfer tax when refinancing?</h3>
-                    <p className="text-slate-600">
-                      Generally, no. Land transfer tax is only paid when the property ownership changes. 
-                      Refinancing with the same owner typically doesn't trigger land transfer tax.
-                    </p>
-                  </div>
-                </div>
-              </section>
+              <FAQSection
+                faqs={[
+                  {
+                    question: "When do I pay land transfer tax?",
+                    answer:
+                      "Land transfer tax is paid on closing day, when title transfers. Your lawyer or notary collects it with the other closing funds. It is not added to the mortgage.",
+                  },
+                  {
+                    question: "What first-time buyer rebates does this calculator apply?",
+                    answer:
+                      "Ontario refunds up to $4,000 of provincial land transfer tax. Toronto adds a municipal rebate of up to $4,475, for a combined maximum of $8,475. British Columbia’s first-time buyer exemption, for registrations on or after 1 April 2024, covers property transfer tax on the first $500,000 (maximum $8,000) through a fair market value of $835,000, then phases out to zero at $860,000. Prince Edward Island waives the transfer tax for a qualifying first-time buyer with no price cap, if you occupy the home.",
+                  },
+                  {
+                    question: "Can I add land transfer tax to my mortgage?",
+                    answer:
+                      "No. Land transfer tax is cash due on closing. Mortgage default insurance is a different cost and can be added to the loan when the down payment is under 20%. It does not pay the transfer tax.",
+                  },
+                  {
+                    question: "Do I pay land transfer tax when refinancing?",
+                    answer:
+                      "Generally no. Transfer tax is charged when ownership changes. A refinance that keeps the same owner does not trigger it. Confirm with your lawyer if someone is being added to or removed from title.",
+                  },
+                  {
+                    question: "Does Alberta charge land transfer tax?",
+                    answer:
+                      "No. Alberta charges a Land Titles registration fee. For submissions on or after 1 October 2026 the tariff is $50 plus $5 per $5,000 of value, or part of $5,000. The mortgage is registered separately.",
+                  },
+                ]}
+              />
             </div>
 
             {/* Sidebar */}

@@ -7,6 +7,8 @@ import type { BlogPost } from "../src/content/blog.ts";
 export const SITE_ORIGIN = "https://latestmortgagerates.ca";
 export const TWITTER_CHAR_LIMIT = 260;
 export const FACEBOOK_GRAPH_VERSION = "v21.0";
+/** BLOG_SLUG value that means the newest post currently in blogPosts. */
+export const LATEST_BLOG_SLUG = "latest";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -160,17 +162,40 @@ export function savePostedState(state: PostedState, filePath = postedBlogsPath()
   fs.writeFileSync(filePath, `${JSON.stringify(state, null, 2)}\n`);
 }
 
+function comparePostsNewestFirst(a: BlogPost, b: BlogPost): number {
+  const byDate = b.date.localeCompare(a.date);
+  if (byDate !== 0) return byDate;
+  return a.slug.localeCompare(b.slug);
+}
+
+/** Newest post by date, then slug. Undefined when the blog is empty. */
+export function newestBlogPost(posts: BlogPost[]): BlogPost | undefined {
+  return [...posts].sort(comparePostsNewestFirst)[0];
+}
+
 export function selectPostsToAmplify(
   posts: BlogPost[],
   postedSlugs: Set<string>,
   options: AmplifyOptions = {},
 ): BlogPost[] {
   const maxPosts = options.maxPosts ?? 1;
+  const requested = options.slug?.trim();
 
-  if (options.slug) {
-    const match = posts.find((post) => post.slug === options.slug);
+  if (requested === LATEST_BLOG_SLUG) {
+    const newest = newestBlogPost(posts);
+    if (!newest) {
+      throw new Error("No blog posts to amplify");
+    }
+    if (postedSlugs.has(newest.slug) && !options.forceRepost) {
+      return [];
+    }
+    return [newest];
+  }
+
+  if (requested) {
+    const match = posts.find((post) => post.slug === requested);
     if (!match) {
-      throw new Error(`Unknown blog slug: ${options.slug}`);
+      throw new Error(`Unknown blog slug: ${requested}`);
     }
     if (postedSlugs.has(match.slug) && !options.forceRepost) {
       return [];
@@ -180,11 +205,7 @@ export function selectPostsToAmplify(
 
   return [...posts]
     .filter((post) => !postedSlugs.has(post.slug))
-    .sort((a, b) => {
-      const byDate = b.date.localeCompare(a.date);
-      if (byDate !== 0) return byDate;
-      return a.slug.localeCompare(b.slug);
-    })
+    .sort(comparePostsNewestFirst)
     .slice(0, maxPosts);
 }
 

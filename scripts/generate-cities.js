@@ -28,7 +28,7 @@ const cities = [
   { slug: 'red-deer', name: 'Red Deer', province: 'Alberta', pop: '105,000', detached: '$400,000', semi: '$320,000', townhome: '$280,000', condo: '$200,000', ltt: 'Alberta has no land transfer tax. Registration fees are approximately $300-$500.', near: ['calgary', 'edmonton'] },
   { slug: 'lethbridge', name: 'Lethbridge', province: 'Alberta', pop: '100,000', detached: '$380,000', semi: '$300,000', townhome: '$260,000', condo: '$190,000', ltt: 'Alberta has no land transfer tax. Registration fees are approximately $300-$500.', near: ['calgary', 'red-deer'] },
   { slug: 'medicine-hat', name: 'Medicine Hat', province: 'Alberta', pop: '65,000', detached: '$320,000', semi: '$260,000', townhome: '$220,000', condo: '$170,000', ltt: 'Alberta has no land transfer tax. Registration fees are approximately $300-$500.', near: ['calgary', 'lethbridge'] },
-  { slug: 'charlottetown', name: 'Charlottetown', province: 'Prince Edward Island', pop: '40,000', detached: '$350,000', semi: '$280,000', townhome: '$250,000', condo: '$200,000', ltt: 'PEI Real Property Transfer Tax: 1% of purchase price or assessed value (whichever is greater). First-time buyers exempt if property under $200,000.', near: ['halifax', 'moncton'] },
+  { slug: 'charlottetown', name: 'Charlottetown', province: 'Prince Edward Island', pop: '40,000', detached: '$350,000', semi: '$280,000', townhome: '$250,000', condo: '$200,000', ltt: 'PEI Real Property Transfer Tax: 1% of the greater of purchase price and assessed value. A qualifying first-time buyer can have the tax waived with no price cap if they occupy the home.', near: ['halifax', 'moncton'] },
   { slug: 'saint-john', name: 'Saint John', province: 'New Brunswick', pop: '70,000', detached: '$280,000', semi: '$230,000', townhome: '$200,000', condo: '$160,000', ltt: 'New Brunswick Real Property Transfer Tax: 1% of assessed value or purchase price (whichever is greater).', near: ['moncton', 'fredericton'] },
   { slug: 'cape-breton', name: 'Cape Breton', province: 'Nova Scotia', pop: '95,000', detached: '$220,000', semi: '$180,000', townhome: '$160,000', condo: '$130,000', ltt: 'Nova Scotia Deed Transfer Tax varies by municipality (0.5% to 1.5% of purchase price).', near: ['halifax', 'moncton'] },
   // Tier 3
@@ -268,7 +268,7 @@ export default function ${city.name.replace(/[^a-zA-Z]/g, '')}Page() {
               <h3 className="font-bold text-slate-900 mb-4">Related ${city.name} Resources</h3>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/tools/closing-costs-calculator/" className="text-teal-600 hover:underline">Closing Costs Guide</Link></li>
-                <li><Link href="/blog/first-time-buyer-guide-2026/" className="text-teal-600 hover:underline">First-Time Buyer Guide</Link></li>
+                <li><Link href="/guides/first-time-home-buyer-programs-canada/" className="text-teal-600 hover:underline">First-Time Buyer Guide</Link></li>
                 <li><Link href="/cities/${city.near[0]}/" className="text-teal-600 hover:underline">Compare: ${city.near[0].charAt(0).toUpperCase() + city.near[0].slice(1).replace(/-/g, ' ')}</Link></li>
                 <li><Link href="/cities/${city.near[1]}/" className="text-teal-600 hover:underline">Compare: ${city.near[1].charAt(0).toUpperCase() + city.near[1].slice(1).replace(/-/g, ' ')}</Link></li>
               </ul>

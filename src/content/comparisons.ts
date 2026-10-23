@@ -405,10 +405,10 @@ export const COMPARISONS: ComparisonPage[] = [
   {
     slug: "td-vs-rbc",
     kind: "lender",
-    h1: "TD vs RBC Mortgage Rates",
-    title: "TD vs RBC Mortgage Rates Canada | Compare",
+    h1: "TD vs RBC: FlexLine, Homeline, and Rate Holds",
+    title: "TD vs RBC: FlexLine, Homeline and Rate Holds",
     seoDescription:
-      "Compare TD vs RBC mortgages in Canada: FlexLine vs Homeline, branch banking, and live 5-year fixed and variable rates from both banks.",
+      "TD FlexLine versus RBC Homeline, 120-day fixed rate holds, and why a renewal quote is not the purchase special.",
     keywords:
       "TD vs RBC mortgage, RBC vs TD mortgage rates, TD mortgage rates vs Royal Bank, Big 5 mortgage comparison Canada",
     intro:
@@ -493,12 +493,17 @@ export const COMPARISONS: ComparisonPage[] = [
       {
         question: "What is the difference between TD FlexLine and RBC Homeline?",
         answer:
-          "Both are readvanceable-style packages: a mortgage portion plus a revolving equity line, subject to combined loan-to-value rules. Names, caps, and how principal readvances differ by bank. Confirm the current product sheet. If you only need a closed 5-year, you may not need either structure.",
+          "TD says a Home Equity FlexLine with a term portion can access up to 80% of the home's value, subject to credit criteria. The revolving portion alone is capped at 65% on TD's equity page, runs at a variable rate based on TD Prime, and can be paid with a minimum monthly interest payment. A closed term portion allows a lump-sum prepayment of up to 15% a year. RBC says the Homeline Plan can borrow up to 80% of the home's value, and the revolving Royal Credit Line increases as the mortgage is paid down, up to 65% of appraised value. Both are equity products. Confirm the current sheet before you choose one over a plain 5-year.",
       },
       {
-        question: "Should I stay with my current Big 5 bank at renewal?",
+        question: "How long do TD and RBC hold a mortgage rate?",
         answer:
-          "Only after you price an external switch. Use the renewal calculator and a live 5-year from this table or the rate hubs. Loyalty specials exist; they are not guaranteed to match a monoline or brokered insured quote.",
+          "TD says a pre-approval holds a fixed rate for up to 120 days, subject to conditions, and that you can ask to adjust if the rate falls. TD also says a rate hold applies to fixed rates because a variable rate fluctuates. RBC says a pre-approval rate is guaranteed for up to 120 days. RBC's online pre-approval terms say the confirmation letter's rate hold lasts 120 days, or another period the letter specifies, and that a pre-approval is not a mortgage approval. Neither hold is a renewal rate.",
+      },
+      {
+        question: "Are TD and RBC renewal rates the same as today's purchase specials?",
+        answer:
+          "No. TD does not publish a separate public renewal-rate grid. Renewal is offered in EasyWeb or the TD app, and TD says a lender may let you renew up to 120 days before maturity without a prepayment charge. RBC's public specials are labelled for purchase and switch, not as a renewal grid. Ask each bank for the renewal number in writing, then compare it with a straight-switch quote. The live cells on this page are purchase and switch specials from our scrape.",
       },
       {
         question: "Do TD and RBC use the same stress test?",

@@ -53,7 +53,7 @@ export const firstTimeBuyerPrograms: InDepthGuide = {
       heading: "Four programs, four definitions",
       paragraphs: [
         "A first home is several tests. The FHSA and the Home Buyers' Plan ask whether you lived in a home you or your spouse owned in the withdrawal year and the four calendar years before it. Ontario's land transfer refund asks whether you have ever owned a home anywhere. British Columbia asks about a registered principal residence and adds a residency test. The GST/HST rebate is only for a new or substantially renovated home, with an agreement on or after March 20, 2025. Passing one test is not a pass on the others.",
-        "They also pay different things. The FHSA and the Home Buyers' Plan move savings into the down payment. The GST rebate reduces tax on a new build. A land transfer refund reduces tax due on closing. The home buyers' amount is a non-refundable credit. A 30-year insured amortization stretches the loan. It does not hand you cash. Write each program on its own line, then add only the lines you qualify for.",
+        "They also pay different things. The FHSA and the Home Buyers' Plan move savings into the down payment. The GST rebate reduces tax on a new build. A land transfer refund reduces tax due on closing. The home buyers' amount is a non-refundable credit. A 30-year insured amortization stretches the loan.",
         `The rate on the loan is a separate stack. In the reported-rate file dated ${REPORTED.asOf}, the rounded 5-year fixed median, insured status not stated, is ${REPORTED.fixedMedian}, and the rounded 5-year variable median is ${REPORTED.variableMedian}. Those figures are self-reported by Canadian borrowers online. They are not a first-time discount. Compare live shelves on the <a href="/rates/5-year-fixed/">5-year fixed</a>, <a href="/rates/variable/">variable</a>, <a href="/rates/insured/">insured</a>, and <a href="/rates/uninsured/">uninsured</a> pages, and the distribution on <a href="/real-mortgage-rates/">real mortgage rates</a>. The <a href="/guides/fixed-vs-variable-mortgage-2026/">fixed versus variable guide</a> is the term choice. The <a href="/guides/mortgage-stress-test/">stress test guide</a> is the qualifying math.`,
       ],
     },
@@ -62,8 +62,8 @@ export const firstTimeBuyerPrograms: InDepthGuide = {
       heading: "The First Home Savings Account",
       paragraphs: [
         `<a href="${SOURCES.fhsaRoom}">The CRA</a> sets FHSA participation room at $8,000 in the year you open your first account. Room does not accumulate for the years before that. Each later year adds another $8,000, up to a lifetime limit of $40,000. Unused room carries forward, and the carryforward itself is capped at $8,000, so a year you skip can make the next contribution as large as $16,000 and no larger. Five years of the full $8,000 uses the lifetime limit. Income inside the account does not consume room. A transfer from an RRSP uses the same room, and it is not deducted a second time. More than one FHSA does not create more room.`,
-        `Contributions are deductible. On a labelled 30% combined marginal rate, an illustration and not a 2026 bracket, $8,000 of contributions reduces tax by ${cad(b.fhsaDeductionIllustration)}. <a href="${SOURCES.fhsaWithdraw}">A qualifying withdrawal</a> is not taxed and is not repaid. Nothing has to sit in the account for a minimum number of days. You need a written agreement to buy or build, with completion before October 1 of the year after the withdrawal, and you need to occupy the home as your principal residence within a year. You cannot cancel the withdrawal. Putting the money back is a new contribution.`,
-        `Each buyer withdraws from their own FHSA. Five years at the maximum, before investment growth, is ${cad(b.fhsaLifetime)} per person and ${cad(b.coupleFhsa)} for a couple. Growth can come out tax-free on a qualifying withdrawal. A withdrawal that misses the test is taxable. The account ends at 15 years, at age 71, or the year after the first qualifying withdrawal. Leftover money can move to an RRSP or a RRIF.`,
+        `Contributions are deductible. On a labelled 30% combined marginal rate, an illustration and not a 2026 bracket, $8,000 of contributions reduces tax by ${cad(b.fhsaDeductionIllustration)}. <a href="${SOURCES.fhsaWithdraw}">A qualifying withdrawal</a> is not taxed and is not repaid. Nothing has to sit in the account for a minimum number of days. You need a written agreement to buy or build, with completion before October 1 of the year after the withdrawal, and you need to occupy the home as your principal residence within a year. You cannot cancel the withdrawal.`,
+        `Each buyer withdraws from their own FHSA. Five years at the maximum, before investment growth, is ${cad(b.fhsaLifetime)} per person and ${cad(b.coupleFhsa)} for a couple. Growth can come out tax-free on a qualifying withdrawal. A withdrawal that misses the test is taxable. The account ends at 15 years, at age 71, or the year after the first qualifying withdrawal.`,
       ],
     },
     {
@@ -122,7 +122,7 @@ export const firstTimeBuyerPrograms: InDepthGuide = {
       id: "sources",
       heading: "Sources",
       paragraphs: [
-        "Program names change less often than dollar caps. Confirm the cap on the page linked here before you waive a condition.",
+        "CRA pages checked in October 2026 still use FHSA room of $8,000 a year and $40,000 lifetime in the 2026 and 2027 examples, and a Home Buyers' Plan limit of $60,000 with no higher 2027 cap published. A pre-approval usually needs pay stubs, T4s, a notice of assessment, an employment letter, bank statements, and photo ID. Keep financing and inspection conditions.",
       ],
       listAfter: 0,
       items: [

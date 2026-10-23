@@ -9,6 +9,7 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { cmhcInsuranceFaqs, cmhcInsuranceGuide } from "@/content/calculatorGuides";
+import { cmhcExtra } from "@/content/toolExplainers";
 
 
 export default function CMHCCalculatorPage() {
@@ -59,7 +60,7 @@ export default function CMHCCalculatorPage() {
                 CMHC Mortgage Insurance Calculator
               </h1>
               <p className="text-xl text-slate-300">
-                Calculate your mortgage default insurance premium.
+                Default insurance applies when the down payment is under 20% and the price is below $1.5 million. At $1.5 million or more this calculator charges no premium and the minimum down payment is 20%.
               </p>
             </div>
           </div>
@@ -75,6 +76,7 @@ export default function CMHCCalculatorPage() {
 
         <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
           <CalculatorGuide sections={cmhcInsuranceGuide()} />
+          <CalculatorGuide sections={cmhcExtra()} />
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/cmhc-insurance-calculator" />

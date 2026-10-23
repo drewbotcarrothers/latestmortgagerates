@@ -358,3 +358,133 @@ export function calculateBcPttPayableAfterFthb(fairMarketValue: number): number 
     calculateBcPropertyTransferTax(fairMarketValue) - calculateBcFthbExemption(fairMarketValue)
   );
 }
+
+/** Ontario provincial land transfer tax. Toronto MLTT is a second pass of the same brackets. */
+export function ontarioProvincialLandTransferTax(price: number): number {
+  if (price <= 0) return 0;
+  if (price <= 55_000) return price * 0.005;
+  if (price <= 250_000) return 55_000 * 0.005 + (price - 55_000) * 0.01;
+  if (price <= 400_000) return 55_000 * 0.005 + 195_000 * 0.01 + (price - 250_000) * 0.015;
+  if (price <= 2_000_000) {
+    return 55_000 * 0.005 + 195_000 * 0.01 + 150_000 * 0.015 + (price - 400_000) * 0.02;
+  }
+  return (
+    55_000 * 0.005 +
+    195_000 * 0.01 +
+    150_000 * 0.015 +
+    1_600_000 * 0.02 +
+    (price - 2_000_000) * 0.025
+  );
+}
+
+export const ONTARIO_FTB_REBATE_CAP = 4_000;
+export const TORONTO_FTB_REBATE_CAP = 4_475;
+
+/** Provincial refund up to $4,000 plus, in Toronto only, a municipal refund up to $4,475. */
+export function ontarioFirstTimeRebates(provincialTax: number, municipalTax: number): {
+  provincial: number;
+  municipal: number;
+  total: number;
+} {
+  const provincial = Math.min(ONTARIO_FTB_REBATE_CAP, Math.max(0, provincialTax));
+  const municipal = Math.min(TORONTO_FTB_REBATE_CAP, Math.max(0, municipalTax));
+  return { provincial, municipal, total: provincial + municipal };
+}
+
+/**
+ * Quebec welcome-tax brackets used by the calculators outside Montreal.
+ * This is a planning estimate, not Revenu Québec’s first-home credit.
+ */
+export function quebecWelcomeTaxOutsideMontreal(price: number): number {
+  if (price <= 0) return 0;
+  if (price <= 55_500) return price * 0.005;
+  if (price <= 255_000) return 55_500 * 0.005 + (price - 55_500) * 0.01;
+  return 55_500 * 0.005 + 199_500 * 0.01 + (price - 255_000) * 0.015;
+}
+
+/** Manitoba land transfer tax as modelled in the closing-costs calculator. */
+export function manitobaLandTransferTax(price: number): number {
+  if (price <= 30_000) return 0;
+  if (price <= 90_000) return (price - 30_000) * 0.005;
+  if (price <= 150_000) return 300 + (price - 90_000) * 0.01;
+  if (price <= 200_000) return 900 + (price - 150_000) * 0.015;
+  return 1_650 + (price - 200_000) * 0.02;
+}
+
+/** P.E.I. model in the closing-costs calculator: no tax at or below $30,000, then 1%. */
+export function peiTransferTax(price: number): number {
+  if (price <= 30_000) return 0;
+  return price * 0.01;
+}
+
+/**
+ * Alberta Land Titles registration fee for submissions on or after 1 October 2026:
+ * $50 plus $5 per $5,000 or part. A mortgage is a separate instrument.
+ */
+export function albertaLandTitlesFee(amount: number): number {
+  if (amount <= 0) return 0;
+  return 50 + 5 * Math.ceil(amount / 5_000);
+}
+
+/** Newfoundland and Labrador registration-style fee used by the closing-costs calculator. */
+export function newfoundlandRegistrationFee(price: number): number {
+  if (price <= 0) return 0;
+  return 100 + (price > 500 ? (price - 500) * 0.004 : 0);
+}
+
+/** Equivalent monthly rate when a Canadian fixed rate compounds semi-annually. */
+export function semiAnnualMonthlyRate(annualRatePercent: number): number {
+  const semi = annualRatePercent / 100 / 2;
+  return Math.pow(1 + semi, 1 / 6) - 1;
+}
+
+export function calculateMonthlyPaymentSemiAnnual(
+  principal: number,
+  annualRatePercent: number,
+  amortizationYears: number
+): number {
+  if (principal <= 0 || amortizationYears <= 0) return 0;
+  const n = amortizationYears * 12;
+  const r = semiAnnualMonthlyRate(annualRatePercent);
+  if (r === 0) return principal / n;
+  const factor = Math.pow(1 + r, n);
+  return (principal * r * factor) / (factor - 1);
+}
+
+export interface AmortizationYearRow {
+  year: number;
+  interest: number;
+  principalPaid: number;
+  balance: number;
+}
+
+/**
+ * Year-by-year principal and interest using the same monthly rate as
+ * calculateMonthlyPayment (annual rate ÷ 12), which is what the calculator uses.
+ */
+export function amortizationByYear(
+  principal: number,
+  annualRatePercent: number,
+  amortizationYears: number,
+  yearsToShow = 5
+): AmortizationYearRow[] {
+  if (principal <= 0 || amortizationYears <= 0) return [];
+  const payment = calculateMonthlyPayment(principal, annualRatePercent, amortizationYears);
+  const r = monthlyInterestRate(annualRatePercent);
+  let balance = principal;
+  const rows: AmortizationYearRow[] = [];
+  const show = Math.min(yearsToShow, amortizationYears);
+  for (let year = 1; year <= show; year++) {
+    let interest = 0;
+    let principalPaid = 0;
+    for (let month = 0; month < 12 && balance > 0.005; month++) {
+      const monthInterest = balance * r;
+      const principalPart = Math.min(balance, Math.max(0, payment - monthInterest));
+      interest += monthInterest;
+      principalPaid += principalPart;
+      balance = Math.max(0, balance - principalPart);
+    }
+    rows.push({ year, interest, principalPaid, balance });
+  }
+  return rows;
+}

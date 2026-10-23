@@ -7,6 +7,8 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { affordabilityGuide } from "@/content/toolExplainers";
 import { lenderCountLabel } from "@/lib/lenderCount";
 
 
@@ -66,8 +68,7 @@ export default function AffordabilityCalculatorPage() {
               Mortgage Affordability Calculator
             </h1>
             <p className="text-xl text-slate-300">
-              Find out how much house you can afford based on your income, debts, and down payment.
-              Uses the same GDS/TDS and stress-test rules TD and other Canadian banks apply.
+              This estimate sizes a mortgage at the qualifying rate you type, defaulting to 5.25%, then caps housing at 39% of gross income and housing plus debts at 44%. It does not add 2% to a contract rate for you, and it does not enforce the $1.5 million insured price cap.
             </p>
           </div>
         </div>
@@ -153,18 +154,19 @@ export default function AffordabilityCalculatorPage() {
                   </p>
                 </div>
                 <p className="text-slate-600">
-                  For example, if you're offered a 4.5% mortgage rate, you must qualify at 6.5% (4.5% + 2%). 
-                  This reduces the amount you can borrow but protects you from future rate increases.
+                  If a lender offers a 4.50% contract and the stress test applies, the qualifying rate is 6.50% because 4.50 plus 2 is above the 5.25% floor. Type 6.50 into this calculator. It does not add the 2 points on its own.
                 </p>
               </div>
             </section>
+
+            <CalculatorGuide sections={affordabilityGuide()} />
 
             <FAQSection
               faqs={[
                 {
                   question: "Does this calculator include the stress test?",
                   answer:
-                    "Yes. It applies Canadian mortgage stress-test rules using the current qualifying rate of 5.25% or your entered rate + 2%, whichever is higher.",
+                    "It uses the qualifying rate you type. The field defaults to 5.25% and does not automatically add 2 percentage points to a contract rate. If the stress test applies, enter the greater of the contract rate plus 2 points and 5.25% yourself. Condo fees are counted at 50%.",
                 },
                 {
                   question: "Can I use this as a TD mortgage affordability calculator?",

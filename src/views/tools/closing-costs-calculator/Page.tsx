@@ -7,6 +7,7 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { closingCostsGuide } from "@/content/calculatorGuides";
+import { closingProvinceGuide } from "@/content/toolExplainers";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -24,7 +25,7 @@ const faqs = [
   {
     question: "Do first-time buyers get closing cost rebates?",
     answer:
-      "Several provinces reduce land transfer tax for eligible first-time buyers. Ontario refunds up to $4,000 of provincial land transfer tax. Toronto adds a municipal rebate of up to $4,475, so a qualifying Toronto first-time buyer can receive up to $8,475 combined. This calculator models B.C.’s first-time buyer exemption for registrations on or after 1 April 2024: full exemption on the first $500,000 of fair market value (max $8,000), the $8,000 cap through $835,000, and a proportional phase-out between $835,000 and $860,000. P.E.I. is modelled as a full exemption on homes at or below $200,000. Programs and eligibility rules change, so confirm with your lawyer before you firm up an offer.",
+      "Several provinces reduce land transfer tax for eligible first-time buyers. Ontario refunds up to $4,000 of provincial land transfer tax. Toronto adds a municipal rebate of up to $4,475, so a qualifying Toronto first-time buyer can receive up to $8,475 combined. This calculator models B.C.’s first-time buyer exemption for registrations on or after 1 April 2024: full exemption on the first $500,000 of fair market value (max $8,000), the $8,000 cap through $835,000, and a proportional phase-out between $835,000 and $860,000. Prince Edward Island waives its transfer tax for a qualifying first-time buyer with no price cap, as long as you occupy the home. Programs and eligibility rules change, so confirm with your lawyer before you firm up an offer.",
   },
   {
     question: "Are closing costs different in each province?",
@@ -109,8 +110,7 @@ export default function ClosingCostsPage() {
                 Closing Costs Calculator
               </h1>
               <p className="text-xl text-slate-300">
-                Estimate land transfer tax, legal fees, and cash to close for a home purchase in Canada.
-                Built for buyers who already have a price in mind and need a realistic closing-day budget—not just a down-payment number.
+                Closing costs in Canada are the cash you need on top of the down payment, and the largest piece is usually provincial transfer tax. This calculator applies each province’s formula, including Ontario, Toronto, and B.C. first-time buyer relief, so the total matches the rules below.
               </p>
             </div>
           </div>
@@ -241,6 +241,8 @@ export default function ClosingCostsPage() {
                   </div>
                 </div>
               </section>
+
+              <CalculatorGuide sections={closingProvinceGuide()} />
 
               <CalculatorGuide sections={closingCostsGuide()} />
 

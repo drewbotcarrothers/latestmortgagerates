@@ -4,6 +4,12 @@ import { useState, useMemo } from "react";
 import {
   calculateBcFthbExemption,
   calculateBcPropertyTransferTax,
+  manitobaLandTransferTax,
+  newfoundlandRegistrationFee,
+  ontarioFirstTimeRebates,
+  ontarioProvincialLandTransferTax,
+  peiTransferTax,
+  quebecWelcomeTaxOutsideMontreal,
 } from "@/lib/mortgageMath";
 
 interface ClosingCostsParams {
@@ -67,82 +73,39 @@ export default function ClosingCostsCalculator() {
     let landTransferTax = 0;
     const price = params.homePrice;
     
+    let ontarioProvincial = 0;
+    let ontarioMunicipal = 0;
     if (params.province === "ontario") {
-      // Ontario LTT
-      if (price <= 55000) {
-        landTransferTax = price * 0.005;
-      } else if (price <= 250000) {
-        landTransferTax = 55000 * 0.005 + (price - 55000) * 0.01;
-      } else if (price <= 400000) {
-        landTransferTax = 55000 * 0.005 + 195000 * 0.01 + (price - 250000) * 0.015;
-      } else if (price <= 2000000) {
-        landTransferTax = 55000 * 0.005 + 195000 * 0.01 + 150000 * 0.015 + (price - 400000) * 0.02;
-      } else {
-        landTransferTax = 55000 * 0.005 + 195000 * 0.01 + 150000 * 0.015 + 1600000 * 0.02 + (price - 2000000) * 0.025;
-      }
-      
-      // Toronto municipal tax
-      if (params.isToronto) {
-        landTransferTax *= 2; // Municipal + Provincial
-      }
+      ontarioProvincial = ontarioProvincialLandTransferTax(price);
+      ontarioMunicipal = params.isToronto ? ontarioProvincial : 0;
+      landTransferTax = ontarioProvincial + ontarioMunicipal;
     } else if (params.province === "british_columbia") {
       landTransferTax = calculateBcPropertyTransferTax(price);
     } else if (params.province === "quebec") {
-      // Quebec (outside Montreal)
-      if (price <= 55500) {
-        landTransferTax = price * 0.005;
-      } else if (price <= 255000) {
-        landTransferTax = 55500 * 0.005 + (price - 55500) * 0.01;
-      } else {
-        landTransferTax = 55500 * 0.005 + 199500 * 0.01 + (price - 255000) * 0.015;
-      }
+      landTransferTax = quebecWelcomeTaxOutsideMontreal(price);
     } else if (params.province === "manitoba") {
-      // Manitoba
-      if (price <= 30000) {
-        landTransferTax = 0;
-      } else if (price <= 90000) {
-        landTransferTax = (price - 30000) * 0.005;
-      } else if (price <= 150000) {
-        landTransferTax = 300 + (price - 90000) * 0.01;
-      } else if (price <= 200000) {
-        landTransferTax = 900 + (price - 150000) * 0.015;
-      } else {
-        landTransferTax = 1650 + (price - 200000) * 0.02;
-      }
+      landTransferTax = manitobaLandTransferTax(price);
     } else if (params.province === "nova_scotia") {
-      // Nova Scotia - varies by municipality, using average
-      landTransferTax = price * 0.015; // Approximate
+      // Municipal deed-transfer tax. 1.5% is a planning average, not a provincial statute.
+      landTransferTax = price * 0.015;
     } else if (params.province === "new_brunswick") {
-      // New Brunswick
-      landTransferTax = price * 0.01; // 1% of assessed value
+      landTransferTax = price * 0.01;
     } else if (params.province === "newfoundland") {
-      // Newfoundland
-      landTransferTax = 100 + (price > 500 ? (price - 500) * 0.004 : 0);
+      landTransferTax = newfoundlandRegistrationFee(price);
     } else if (params.province === "pei") {
-      // PEI
-      if (price <= 30000) {
-        landTransferTax = 0;
-      } else {
-        landTransferTax = price * 0.01;
-      }
+      landTransferTax = peiTransferTax(price);
     }
-    // Alberta and Saskatchewan have only registration fees (minimal)
+    // Alberta and Saskatchewan have no provincial land transfer tax.
     
-    // Calculate rebate
     let rebate = 0;
     if (params.isFirstTimeBuyer) {
       if (params.province === "ontario") {
-        rebate = Math.min(4000, landTransferTax / (params.isToronto ? 2 : 1));
-        if (params.isToronto) {
-          rebate = Math.min(4475, landTransferTax); // Toronto has additional municipal rebate
-        }
+        rebate = ontarioFirstTimeRebates(ontarioProvincial, ontarioMunicipal).total;
       } else if (params.province === "british_columbia") {
         rebate = calculateBcFthbExemption(price);
       } else if (params.province === "pei") {
-        // Full exemption
-        if (price <= 200000) {
-          rebate = landTransferTax;
-        }
+        // P.E.I. waives the transfer tax for a qualifying first-time buyer with no price cap.
+        rebate = landTransferTax;
       }
     }
     

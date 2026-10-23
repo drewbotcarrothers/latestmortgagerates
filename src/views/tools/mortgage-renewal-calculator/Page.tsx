@@ -6,6 +6,9 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { renewalCalculatorGuide } from "@/content/toolExplainers";
 
 
 // FAQ for structured data
@@ -16,7 +19,7 @@ const faqs = [
   },
   {
     question: "How much could I save by switching mortgage lenders?",
-    answer: "Savings depend on your mortgage balance and rate difference. For example, on a $400,000 balance, negotiating from 4.89% to 3.64% could save approximately $5,000 per year or $25,000 over a 5-year term. Use our calculator to see your exact potential savings.",
+    answer: "Savings are the difference in payments over the term you enter, minus the switching costs you type. Use the two rates you were actually quoted. A published pair of old rates is not your file, and a small gap on a small balance can be smaller than the legal bill of moving.",
   },
   {
     question: "What are the costs of switching mortgage lenders?",
@@ -35,25 +38,6 @@ const faqs = [
 export default function MortgageRenewalCalculatorPage() {
   return (
     <>
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs.map((faq) => ({
-              "@type": "Question",
-              name: faq.question,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
-
       <HowToSchema
         name="How to Compare Mortgage Renewal Options"
         description="Calculate savings from renewing with your current lender versus switching to a new lender"
@@ -124,8 +108,7 @@ export default function MortgageRenewalCalculatorPage() {
                 Mortgage Renewal Calculator
               </h1>
               <p className="text-xl text-slate-300">
-                Should you stay with your current lender or shop around? Calculate your potential savings 
-                when renewing your Canadian mortgage. Compare rates and see your break-even analysis.
+                At maturity the break fee is normally zero, so the comparison is your lender’s renewal offer against a competing quote, minus any real switching costs. A straight switch that does not add money or years is not the same transaction as a refinance.
               </p>
             </div>
           </div>
@@ -139,26 +122,9 @@ export default function MortgageRenewalCalculatorPage() {
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">
-            Frequently Asked Questions About Mortgage Renewals
-          </h2>
-
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                    {faq.question}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="max-w-4xl mx-auto px-4 py-12 space-y-6">
+          <CalculatorGuide sections={renewalCalculatorGuide()} />
+          <FAQSection faqs={faqs} title="Frequently Asked Questions About Mortgage Renewals" />
         </div>
 
         <div className="max-w-4xl mx-auto px-4">
