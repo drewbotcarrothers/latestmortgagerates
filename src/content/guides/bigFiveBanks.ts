@@ -93,6 +93,17 @@ const rateRows = order.map((slug) => [
   showPosted(pick(slug, "variable", "insured")),
 ]);
 
+const uninsuredFixed = order.map((slug) => ({ slug, row: pick(slug, "fixed", "uninsured") }));
+const notStored = uninsuredFixed.filter(({ row }) => row && row.posted_rate == null).map(({ slug }) => labels[slug]);
+const postedLead =
+  notStored.length === 0
+    ? "RBC, TD, Scotiabank, BMO, and CIBC all publish a 5-year price you can see, and the scrape stores a higher posted rate beside each uninsured 5-year fixed special, which is the shelf a fixed-rate penalty may use later."
+    : `RBC, TD, Scotiabank, BMO, and CIBC all publish a 5-year price you can see. ${notStored.join(", ")} ${notStored.length === 1 ? "has" : "have"} a special stored with no posted figure. That posted figure, where the scrape has it, is the shelf a fixed-rate penalty may use later.`;
+const storedNote =
+  notStored.length === 0
+    ? "None of the five uninsured 5-year fixed rows are in that second group."
+    : `${notStored.join(" and ")} ${notStored.length === 1 ? "is" : "are"} in that second group.`;
+
 const rateTable = guideTable(
   [
     "Bank",
@@ -180,8 +191,8 @@ export const bigFiveBanks: InDepthGuide = {
       id: "answer",
       heading: "What actually differs",
       paragraphs: [
-        "RBC, TD, Scotiabank, BMO, and CIBC all publish a 5-year price you can see, and TD and CIBC also store a higher posted rate beside it in this site's scrape, which is the shelf a fixed-rate penalty may use later. A discount below that shelf shows up in the borrower-reported file only for a product with at least 10 reports and a posted rate stored beside them, and on the current file that test is failed by every Big Five 5-year fixed cell.",
-        `The table was scraped on ${scrapedAt}. "Not in the scrape" means that row was missing. "Not stored" means a special was captured with no posted figure. RBC is in that second group. Do not fill the blank, and do not treat the special as the penalty's comparison rate.`,
+        `${postedLead} A discount below that shelf shows up in the borrower-reported file only for a product with at least 10 reports and a posted rate stored beside them, and on the current file that test is failed by every Big Five 5-year fixed cell.`,
+        `The table was scraped on ${scrapedAt}. "Not in the scrape" means that row was missing. "Not stored" means a special was captured with no posted figure. ${storedNote} Do not fill a blank, and do not treat the special as the penalty's comparison rate.`,
         rateTable,
         `Insured and uninsured are different products. A high-ratio mortgage, under 20% down, is the insured column and usually carries a premium you can price in the <a href="/tools/cmhc-insurance-calculator/">CMHC calculator</a>. At 20% down or more, read the uninsured column and the <a href="/rates/uninsured/">uninsured shelf</a>. The <a href="/rates/insured/">insured shelf</a> is the other one. Side-by-side lender pages already on this site are <a href="/compare/td-vs-rbc/">TD versus RBC</a>, <a href="/compare/bmo-vs-cibc/">BMO versus CIBC</a>, and <a href="/compare/wealthsimple-vs-td/">Wealthsimple versus TD</a>. The bank pages are <a href="/lenders/rbc/">RBC</a>, <a href="/lenders/td/">TD</a>, <a href="/lenders/scotiabank/">Scotiabank</a>, <a href="/lenders/bmo/">BMO</a>, and <a href="/lenders/cibc/">CIBC</a>.`,
       ],

@@ -1,0 +1,126 @@
+{
+  "mortgageRates": {
+    "fixed": {
+      "6MonthConvertible": {
+        "en": "6 month (convertible)",
+        "fr": "6 mois (convertible)",
+        "value": "5.490",
+        "term_months": "6"
+      },
+      "6MonthOpen": {
+        "en": "6 month (open)",
+        "fr": "6 mois (ouvert)",
+        "value": "9.950",
+        "term_months": "6"
+      },
+      "1YearClosed": {
+        "en": "1 year (closed)",
+        "fr": "1 an (ferm\u00e9)",
+        "value": "5.490",
+        "term_months": "12"
+      },
+      "1YearOpen": {
+        "en": "1 year (open)",
+        "fr": "1 an (ouvert)",
+        "value": "9.950",
+        "term_months": "12"
+      },
+      "2YearClosed": {
+        "en": "2 year (closed)",
+        "fr": "2 ans (ferm\u00e9)",
+        "value": "4.940",
+        "term_months": "24"
+      },
+      "3YearClosed": {
+        "en": "3 year (closed)",
+        "fr": "3 ans (ferm\u00e9)",
+        "value": "6.050",
+        "term_months": "36"
+      },
+      "4YearClosed": {
+        "en": "4 year (closed)",
+        "fr": "4 ans (ferm\u00e9)",
+        "value": "5.990",
+        "term_months": "48"
+      },
+      "5YearClosed": {
+        "en": "5 year (closed)",
+        "fr": "5 ans (ferm\u00e9)",
+        "value": "6.090",
+        "term_months": "60"
+      },
+      "6YearClosed": {
+        "en": "6 year (closed)",
+        "fr": "6 ans (ferm\u00e9)",
+        "value": "6.290",
+        "term_months": "72"
+      },
+      "7YearClosed": {
+        "en": "7 year (closed)",
+        "fr": "7 ans (ferm\u00e9)",
+        "value": "6.400",
+        "term_months": "84"
+      },
+      "10Yearclosed": {
+        "en": "10 year(closed)",
+        "fr": "10 ans (ferm\u00e9)",
+        "value": "6.800",
+        "term_months": "120"
+      },
+      "18YearOpen": {
+        "en": "18 year (open)",
+        "fr": "18 ans (ouvert)",
+        "value": "8.500",
+        "term_months": "216"
+      }
+    },
+    "variable": {
+      "12VariableLimited": {
+        "en": "012 VARIABLE LIMITED",
+        "fr": "VARIABLE LIMITEE",
+        "value": "2.750",
+        "term_months": "12"
+      },
+      "12VariableOpen": {
+        "en": "012 VARIABLE OPEN",
+        "fr": "VARIABLE OUVERT",
+        "value": "2.750",
+        "term_months": "12"
+      },
+      "3YearOpen": {
+        "en": "3 year (open)",
+        "fr": "3 ans (ouvert)",
+        "value": "7.750",
+        "term_months": "36"
+      },
+      "5YearClosed": {
+        "en": "5 year (closed)",
+        "fr": "5 ans (ferm\u00e9)",
+        "value": "4.450",
+        "term_months": "60"
+      }
+    },
+    "fixedEcoSmartRate": {
+      "5YearBmoEcoSmartMortgageTmClosed": {
+        "en": "5 year (BMO Eco Smart Mortgage (TM) closed)",
+        "fr": "5 ans (Hypoth\u00e8que \u00c9nergie Plus BMO (MC) ferm\u00e9)",
+        "value": "5.340",
+        "term_months": "60"
+      }
+    },
+    "fixedLowRate": {
+      "5YearLowRateClosed": {
+        "en": "5 year low rate (closed)",
+        "fr": "5 ans - petit taux (ferm\u00e9)",
+        "value": "5.990",
+        "term_months": "60"
+      },
+      "10YearLowRateClosed": {
+        "en": "10 year low rate (closed)",
+        "fr": "10 ans - petit taux (ferm\u00e9)",
+        "value": "6.700",
+        "term_months": "120"
+      }
+    }
+  }
+}

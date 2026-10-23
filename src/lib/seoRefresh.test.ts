@@ -65,7 +65,11 @@ describe("SEO refresh", () => {
       assert.equal(typeof bank.posted, "number");
       assert.ok(bank.posted > 0);
     }
-    assert.ok(snap.fixed.big5Posted.missing.length > 0);
+    assert.deepEqual(
+      snap.fixed.big5Posted.banks.map((bank) => bank.slug).sort(),
+      ["bmo", "cibc", "rbc", "scotiabank", "td"],
+    );
+    assert.equal(snap.fixed.big5Posted.missing.length, 0);
     const answer = read("src/components/RateAnswer.tsx");
     assert.match(answer, /\/cities\/vancouver\//);
     assert.match(answer, /\/cities\/victoria\//);

@@ -41,6 +41,54 @@ function publishCell(product: LenderProduct | undefined): DiscountCell | null {
   };
 }
 
+export interface SnapshotPostedRate {
+  lender_slug: string;
+  term_months: number;
+  rate_type: string;
+  mortgage_type?: string | null;
+  posted_rate?: number | null;
+}
+
+/** Uninsured 5-year posted shelf from the rate file, when that file has a number. */
+export function postedShelfFromRows(
+  rows: readonly SnapshotPostedRate[],
+  slug: string,
+  rateType: "fixed" | "variable",
+): number | null {
+  const matches = rows.filter(
+    (row) =>
+      row.lender_slug === slug &&
+      row.term_months === 60 &&
+      row.rate_type === rateType &&
+      typeof row.posted_rate === "number" &&
+      row.posted_rate > 0,
+  );
+  if (matches.length === 0) return null;
+  const uninsured = matches.filter((row) => row.mortgage_type === "uninsured");
+  const pool = uninsured.length > 0 ? uninsured : matches;
+  return Math.min(...pool.map((row) => row.posted_rate as number));
+}
+
+/**
+ * The reported-rate file stores the advertised special beside many Big Five
+ * cells. Where the live scrape has a posted shelf, use that shelf for the gap.
+ * A missing shelf leaves the community value, including null, unchanged.
+ */
+export function withSnapshotPostedRates(
+  lenders: readonly LenderBlock[],
+  rows: readonly SnapshotPostedRate[],
+): LenderBlock[] {
+  return lenders.map((lender) => ({
+    ...lender,
+    products: lender.products.map((product) => {
+      if (product.termMonths !== 60) return product;
+      const shelf = postedShelfFromRows(rows, lender.slug, product.rateType);
+      if (shelf == null) return product;
+      return { ...product, postedRate: shelf };
+    }),
+  }));
+}
+
 export function discountRows(
   lenders: readonly LenderBlock[],
   names: Record<string, string>,

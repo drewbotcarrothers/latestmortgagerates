@@ -221,6 +221,18 @@ def scrape_all_lenders():
             ))
             status = "TIMEOUT" if "TIMEOUT" in error else "FAILED"
             print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} {status:8} {error[:40]}")
+        elif not rates:
+            message = "Scraper returned no rates; previous rows will be kept"
+            logger.warning(f"{scraper.LENDER_SLUG}: {message}")
+            results.append(ScrapingResult(
+                lender_slug=scraper.LENDER_SLUG,
+                success=False,
+                rates_found=0,
+                error_message=message,
+                scraped_at=scraped_at,
+                duration_seconds=duration
+            ))
+            print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} FAILED   {message}")
         else:
             all_rates.extend(rates)
             results.append(ScrapingResult(
@@ -412,6 +424,23 @@ def scrape_all_lenders():
         import json
         from datetime import datetime
         
+        output_path = Path(__file__).parent.parent / "data" / "rates.json"
+        previous_items = []
+        if output_path.exists():
+            try:
+                with open(output_path, "r") as prev_file:
+                    loaded = json.load(prev_file)
+                if isinstance(loaded, list):
+                    previous_items = loaded
+            except Exception as e:
+                logger.warning(f"Could not read previous rates.json before export: {e}")
+        try:
+            from src.preserve_posted import preserve_posted_rates
+            preserved = preserve_posted_rates(valid_rates, previous_items)
+            print(f"Preserved {preserved} posted rate(s) that this scrape left blank")
+        except Exception as e:
+            logger.warning(f"Could not preserve previous posted rates: {e}")
+
         export_data = []
         for rate in valid_rates:
             export_data.append({
@@ -428,7 +457,6 @@ def scrape_all_lenders():
             })
         
         # Save to rates.json
-        output_path = Path(__file__).parent.parent / "data" / "rates.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
         with open(output_path, 'w') as f:

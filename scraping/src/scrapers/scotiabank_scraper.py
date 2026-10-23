@@ -55,12 +55,189 @@ PROMO_PRODUCTS = {
     },
 }
 
-SKIP_POSTED_PRODUCTS = {
-    "N.H.A. RESIDENTIAL, ETC",
-    "CONVENTIONAL COTTAGE/LEISURE - TYPE B",
-    "ULTIMATE VARIABLE RATE CAP (MAXIMUM)",
-    "RIGHT RATE MORTGAGE",
-}
+CONVENTIONAL_PRODUCT = "CONVENTIONAL RESIDENTIAL, ETC"
+STANDARD_TERMS = (12, 24, 36, 48, 60, 72, 84, 120)
+
+
+def _term_months(value, unit) -> Optional[int]:
+    try:
+        amount = int(str(value))
+    except (TypeError, ValueError):
+        return None
+    unit = (unit or "Y").upper()
+    if unit.startswith("M"):
+        return amount if amount in (6, 12, 18, 24) else None
+    if 1 <= amount <= 10:
+        return amount * 12
+    return None
+
+
+def _as_rate(value) -> Optional[Decimal]:
+    try:
+        rate = Decimal(str(value))
+    except (InvalidOperation, ValueError, TypeError):
+        return None
+    if Decimal("1.50") <= rate <= Decimal("15.00"):
+        return rate
+    return None
+
+
+def _scotia_row(
+    term_months: int,
+    rate_type: RateType,
+    rate: Decimal,
+    posted_rate: Optional[Decimal],
+    section: str,
+    product: str,
+    extraction_method: str,
+    as_of,
+    scraped_at: datetime,
+    source_url: str,
+    featured: bool,
+) -> RawRate:
+    return RawRate(
+        lender_slug="scotiabank",
+        lender_name="Scotiabank",
+        term_months=term_months,
+        rate_type=rate_type,
+        mortgage_type=MortgageType.UNINSURED,
+        rate=rate,
+        posted_rate=posted_rate,
+        source_url=source_url,
+        scraped_at=scraped_at,
+        raw_data={
+            "source": "scotiabank_live_scrape",
+            "extraction_method": extraction_method,
+            "product": product,
+            "section": section,
+            "posted": section == "posted",
+            "is_open": False,
+            "as_of": as_of,
+            "featured": featured,
+        },
+    )
+
+
+def build_scotia_rates(
+    posted_payload: dict,
+    promo_payload: dict,
+    scraped_at: datetime,
+    source_url: str,
+) -> List[RawRate]:
+    """
+    Conventional closed fixed terms are the posted shelf. The 5-year flex
+    special (varmortgage promotional 1) keeps that shelf on posted_rate.
+    Other fixed terms are shelf-only. The public 3-year variable column is
+    labelled Posted Rate and is fed by promotional 2, so that rate is stored
+    as both rate and posted_rate.
+
+    The nonspecial feed also has ULTIMATE VARIABLE RATE at prime. That number
+    is not on the rendered mortgages-rates widgets, so it is not published.
+    """
+    posted_as_of = None
+    shelves: dict = {}
+    if isinstance(posted_payload, dict) and posted_payload.get("success"):
+        posted_as_of = posted_payload.get("update_time") or posted_payload.get("run_date")
+        for product in posted_payload.get("data") or []:
+            name = (product.get("PRODUCT") or "").strip()
+            if name == "ULTIMATE VARIABLE RATE":
+                for term in product.get("TERMS") or []:
+                    logger.info(
+                        "Scotiabank nonspecial ULTIMATE VARIABLE RATE "
+                        f"{term.get('RATE')}% is not the public posted column. "
+                        "mortgages-rates.html labels promotional 2 as Posted Rate."
+                    )
+                continue
+            if name != CONVENTIONAL_PRODUCT:
+                continue
+            for term in product.get("TERMS") or []:
+                months = _term_months(term.get("TERM_VALUE"), term.get("TERM_UNIT"))
+                rate = _as_rate(term.get("RATE"))
+                if months not in STANDARD_TERMS or rate is None:
+                    continue
+                shelves[(months, RateType.FIXED)] = rate
+
+    promo_as_of = None
+    promos = []
+    if isinstance(promo_payload, dict) and promo_payload.get("success"):
+        promo_as_of = promo_payload.get("update_time") or promo_payload.get("run_date")
+        for product in promo_payload.get("data") or []:
+            name = (product.get("PRODUCT") or "").strip()
+            meta = PROMO_PRODUCTS.get(name)
+            rate = _as_rate(product.get("RATE"))
+            if not meta or rate is None:
+                continue
+            if meta["is_open"]:
+                logger.info(f"Skipping open Scotiabank promo {name} at {rate}%")
+                continue
+            promos.append((meta, rate))
+
+    rates: List[RawRate] = []
+    covered = set()
+    for meta, rate in promos:
+        key = (meta["term"], meta["type"])
+        if meta["type"] == RateType.VARIABLE:
+            rates.append(
+                _scotia_row(
+                    meta["term"],
+                    meta["type"],
+                    rate,
+                    rate,
+                    "posted",
+                    meta["product"],
+                    "dmtsms_varmortgage",
+                    promo_as_of,
+                    scraped_at,
+                    source_url,
+                    False,
+                )
+            )
+            covered.add(key)
+            continue
+        shelf = shelves.get(key)
+        section = "special" if shelf and rate < shelf else "posted"
+        rates.append(
+            _scotia_row(
+                meta["term"],
+                meta["type"],
+                rate,
+                shelf if shelf else rate,
+                section,
+                meta["product"],
+                "dmtsms_varmortgage",
+                promo_as_of,
+                scraped_at,
+                source_url,
+                meta["term"] == 60,
+            )
+        )
+        covered.add(key)
+
+    for (months, rate_type), shelf in shelves.items():
+        if (months, rate_type) in covered:
+            continue
+        years = months // 12
+        rates.append(
+            _scotia_row(
+                months,
+                rate_type,
+                shelf,
+                shelf,
+                "posted",
+                f"{years} Year Fixed Posted",
+                "dmtsms_nonspecialmortgage",
+                posted_as_of,
+                scraped_at,
+                source_url,
+                False,
+            )
+        )
+    if not shelves:
+        logger.warning(
+            "Scotiabank conventional posted shelf was empty; "
+            "posted_rate left unset where no previous shelf can be copied"
+        )
+    return rates
 
 
 class ScotiabankScraper:
@@ -87,136 +264,32 @@ class ScotiabankScraper:
 
         try:
             rates = self._scrape_with_playwright()
-            if rates:
+            has_five_year_posted = any(
+                rate.posted_rate and rate.term_months == 60 and rate.rate_type == RateType.FIXED
+                for rate in rates
+            )
+            if rates and has_five_year_posted:
                 logger.success(f"Successfully scraped {len(rates)} live rates from Scotiabank")
                 return rates
+            if rates:
+                logger.warning(
+                    "Scotiabank Playwright rows had no 5-year posted shelf. "
+                    "Discarding them so existing rows are kept."
+                )
         except Exception as e:
             logger.warning(f"Playwright scraping failed: {e}")
 
-        logger.info("Using fallback rates from Scotiabank website (Jul 19, 2026)")
-        return self._get_fallback_rates()
+        logger.warning(
+            "Scotiabank live scrape failed or returned no rates. "
+            "Returning no rates so existing Scotiabank rows are kept."
+        )
+        return []
 
     def _scrape_from_api(self) -> List[RawRate]:
-        posted = fetch_json(
-            POSTED_API,
-            timeout=15.0,
-            headers={"Referer": self.RATE_URL, "Origin": "https://www.scotiabank.com"},
-        )
-        promo = fetch_json(
-            PROMO_API,
-            timeout=15.0,
-            headers={"Referer": self.RATE_URL, "Origin": "https://www.scotiabank.com"},
-        )
-        rates: List[RawRate] = []
-        if isinstance(posted, dict) and posted.get("success"):
-            rates.extend(self._parse_posted(posted))
-        if isinstance(promo, dict) and promo.get("success"):
-            rates.extend(self._parse_promo(promo))
-        return rates
-
-    def _parse_posted(self, payload: dict) -> List[RawRate]:
-        as_of = payload.get("update_time") or payload.get("run_date")
-        rates: List[RawRate] = []
-        seen = set()
-        for product in payload.get("data") or []:
-            name = (product.get("PRODUCT") or "").strip()
-            if name in SKIP_POSTED_PRODUCTS:
-                continue
-            is_open = name == "OPEN"
-            is_variable = "VARIABLE" in name.upper()
-            terms = product.get("TERMS") or []
-            if not terms and product.get("RATE") is not None:
-                terms = [{"TERM_VALUE": "5", "TERM_UNIT": "Y", "RATE": product["RATE"]}]
-            for term in terms:
-                term_months = self._term_months(term.get("TERM_VALUE"), term.get("TERM_UNIT"))
-                rate = self._as_rate(term.get("RATE"))
-                if not term_months or rate is None:
-                    continue
-                # 3% "Right Rate" style program values are not advertised mortgage rates
-                if rate < Decimal("3.50"):
-                    continue
-                rate_type = RateType.VARIABLE if is_variable else RateType.FIXED
-                key = (term_months, rate_type, is_open, str(rate), name)
-                if key in seen:
-                    continue
-                seen.add(key)
-                rates.append(
-                    RawRate(
-                        lender_slug=self.LENDER_SLUG,
-                        lender_name=self.LENDER_NAME,
-                        term_months=term_months,
-                        rate_type=rate_type,
-                        mortgage_type=MortgageType.UNINSURED,
-                        rate=rate,
-                        source_url=self.RATE_URL,
-                        scraped_at=self.scraped_at,
-                        raw_data={
-                            "source": "scotiabank_live_scrape",
-                            "extraction_method": "dmtsms_nonspecialmortgage",
-                            "product": name,
-                            "section": "posted",
-                            "posted": True,
-                            "is_open": is_open,
-                            "as_of": as_of,
-                            "featured": False,
-                        },
-                    )
-                )
-        return rates
-
-    def _parse_promo(self, payload: dict) -> List[RawRate]:
-        as_of = payload.get("update_time") or payload.get("run_date")
-        rates: List[RawRate] = []
-        for product in payload.get("data") or []:
-            name = (product.get("PRODUCT") or "").strip()
-            meta = PROMO_PRODUCTS.get(name)
-            rate = self._as_rate(product.get("RATE"))
-            if not meta or rate is None:
-                continue
-            rates.append(
-                RawRate(
-                    lender_slug=self.LENDER_SLUG,
-                    lender_name=self.LENDER_NAME,
-                    term_months=meta["term"],
-                    rate_type=meta["type"],
-                    mortgage_type=MortgageType.UNINSURED,
-                    rate=rate,
-                    source_url=self.RATE_URL,
-                    scraped_at=self.scraped_at,
-                    raw_data={
-                        "source": "scotiabank_live_scrape",
-                        "extraction_method": "dmtsms_varmortgage",
-                        "product": meta["product"],
-                        "section": "special",
-                        "posted": False,
-                        "is_open": meta["is_open"],
-                        "as_of": as_of,
-                        "featured": meta["term"] == 60 and not meta["is_open"],
-                    },
-                )
-            )
-        return rates
-
-    def _term_months(self, value, unit) -> Optional[int]:
-        try:
-            amount = int(str(value))
-        except (TypeError, ValueError):
-            return None
-        unit = (unit or "Y").upper()
-        if unit.startswith("M"):
-            return amount if amount in (6, 12, 18, 24) else None
-        if 1 <= amount <= 10:
-            return amount * 12
-        return None
-
-    def _as_rate(self, value) -> Optional[Decimal]:
-        try:
-            rate = Decimal(str(value))
-        except (InvalidOperation, ValueError, TypeError):
-            return None
-        if Decimal("1.50") <= rate <= Decimal("15.00"):
-            return rate
-        return None
+        headers = {"Referer": self.RATE_URL, "Origin": "https://www.scotiabank.com"}
+        posted = fetch_json(POSTED_API, timeout=15.0, headers=headers)
+        promo = fetch_json(PROMO_API, timeout=15.0, headers=headers)
+        return build_scotia_rates(posted or {}, promo or {}, self.scraped_at, self.RATE_URL)
 
     def _scrape_with_playwright(self) -> List[RawRate]:
         try:

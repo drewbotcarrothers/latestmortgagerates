@@ -7,6 +7,7 @@ import {
   calculateBcPropertyTransferTax,
   ontarioFirstTimeRebates,
   ontarioProvincialLandTransferTax,
+  montrealWelcomeTax,
   quebecWelcomeTaxOutsideMontreal,
 } from "@/lib/mortgageMath";
 
@@ -66,7 +67,7 @@ const provinces: Record<string, ProvinceRates> = {
       return {
         provincial: quebecWelcomeTaxOutsideMontreal(price),
         municipal: 0,
-        explanation: "Quebec outside Montreal, planning estimate: 0.5% on first $55.5K, 1% on $55.5K-$255K, 1.5% above $255K. Not the Revenu Québec credit.",
+        explanation: "Quebec 2026 baseline, indexed 2.3438%: 0.5% to $62,900, 1% to $315,000, 1.5% above. Check Montreal for the higher brackets. Not the Revenu Québec credit.",
       };
     },
     firstTimeRebate: (price) => {
@@ -82,11 +83,19 @@ export default function LandTransferTaxCalculator() {
   const [homePrice, setHomePrice] = useState(600000);
   const [province, setProvince] = useState("ontario");
   const [isToronto, setIsToronto] = useState(false);
+  const [isMontreal, setIsMontreal] = useState(false);
   const [isFirstTimeBuyer, setIsFirstTimeBuyer] = useState(false);
 
   const results = useMemo(() => {
     const provData = provinces[province];
-    const { provincial, municipal: baseMunicipal, explanation } = provData.calculate(homePrice);
+    const calculated = provData.calculate(homePrice);
+    const provincial =
+      province === "quebec" && isMontreal ? montrealWelcomeTax(homePrice) : calculated.provincial;
+    const baseMunicipal = calculated.municipal;
+    const explanation =
+      province === "quebec" && isMontreal
+        ? "Montreal 2026 duties: baseline until $552,300, then 2% to $1,104,700, 2.5% to $2,136,500, 3.5% to $3,113,000, and 4% above. The city's $700,000 example is $9,349."
+        : calculated.explanation;
     
     // For Ontario, Toronto has additional municipal tax
     let totalMunicipal = baseMunicipal;
@@ -112,7 +121,7 @@ export default function LandTransferTaxCalculator() {
       finalAmount: Math.max(0, total - totalRebate),
       explanation,
     };
-  }, [homePrice, province, isToronto, isFirstTimeBuyer]);
+  }, [homePrice, province, isToronto, isMontreal, isFirstTimeBuyer]);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -128,6 +137,7 @@ export default function LandTransferTaxCalculator() {
             onChange={(e) => {
               setProvince(e.target.value);
               if (e.target.value !== "ontario") setIsToronto(false);
+              if (e.target.value !== "quebec") setIsMontreal(false);
             }}
             className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
           >
@@ -136,6 +146,21 @@ export default function LandTransferTaxCalculator() {
             ))}
           </select>
         </div>
+
+        {province === "quebec" && (
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="montreal"
+              checked={isMontreal}
+              onChange={(e) => setIsMontreal(e.target.checked)}
+              className="w-4 h-4 text-teal-600 rounded border-slate-300"
+            />
+            <label htmlFor="montreal" className="text-sm text-slate-700">
+              Purchasing in Montreal (higher welcome-tax brackets)
+            </label>
+          </div>
+        )}
 
         {province === "ontario" && (
           <div className="flex items-center gap-2">

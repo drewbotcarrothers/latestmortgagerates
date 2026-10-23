@@ -2,20 +2,25 @@
 
 import { useState, useMemo } from "react";
 import {
+  albertaLandTitlesFee,
   calculateBcFthbExemption,
   calculateBcPropertyTransferTax,
   manitobaLandTransferTax,
   newfoundlandRegistrationFee,
   ontarioFirstTimeRebates,
   ontarioProvincialLandTransferTax,
+  montrealWelcomeTax,
   peiTransferTax,
   quebecWelcomeTaxOutsideMontreal,
+  saskatchewanMortgageRegistrationFee,
+  saskatchewanTitleTransferFee,
 } from "@/lib/mortgageMath";
 
 interface ClosingCostsParams {
   homePrice: number;
   province: string;
   isToronto: boolean;
+  isMontreal: boolean;
   isFirstTimeBuyer: boolean;
   downPayment: number;
   legalFees: number;
@@ -55,6 +60,7 @@ export default function ClosingCostsCalculator() {
     homePrice: 800000,
     province: "ontario",
     isToronto: false,
+    isMontreal: false,
     isFirstTimeBuyer: false,
     downPayment: 20,
     legalFees: 1500,
@@ -68,8 +74,9 @@ export default function ClosingCostsCalculator() {
   const results = useMemo((): ClosingCostsResult => {
     // Calculate down payment
     const downPaymentAmount = params.homePrice * (params.downPayment / 100);
+    const mortgageAmount = Math.max(0, params.homePrice - downPaymentAmount);
     
-    // Calculate land transfer tax
+    // Calculate land transfer tax or land-titles registration
     let landTransferTax = 0;
     const price = params.homePrice;
     
@@ -82,7 +89,15 @@ export default function ClosingCostsCalculator() {
     } else if (params.province === "british_columbia") {
       landTransferTax = calculateBcPropertyTransferTax(price);
     } else if (params.province === "quebec") {
-      landTransferTax = quebecWelcomeTaxOutsideMontreal(price);
+      // 2026 indexed baseline, or Montreal's higher brackets when that box is on.
+      landTransferTax = params.isMontreal ? montrealWelcomeTax(price) : quebecWelcomeTaxOutsideMontreal(price);
+    } else if (params.province === "alberta") {
+      // Transfer and mortgage are separate instruments on the October 1, 2026 schedule.
+      landTransferTax = albertaLandTitlesFee(price) + albertaLandTitlesFee(mortgageAmount);
+    } else if (params.province === "saskatchewan") {
+      // ISC title transfer plus mortgage registration, effective April 15, 2026.
+      landTransferTax =
+        saskatchewanTitleTransferFee(price) + saskatchewanMortgageRegistrationFee(mortgageAmount);
     } else if (params.province === "manitoba") {
       landTransferTax = manitobaLandTransferTax(price);
     } else if (params.province === "nova_scotia") {
@@ -95,8 +110,6 @@ export default function ClosingCostsCalculator() {
     } else if (params.province === "pei") {
       landTransferTax = peiTransferTax(price);
     }
-    // Alberta and Saskatchewan have no provincial land transfer tax.
-    
     let rebate = 0;
     if (params.isFirstTimeBuyer) {
       if (params.province === "ontario") {
@@ -166,7 +179,8 @@ export default function ClosingCostsCalculator() {
                     setParams({ 
                       ...params, 
                       province: newProvince,
-                      isToronto: newProvince !== 'ontario' ? false : params.isToronto
+                      isToronto: newProvince !== 'ontario' ? false : params.isToronto,
+                      isMontreal: newProvince !== 'quebec' ? false : params.isMontreal,
                     });
                   }}
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-500"
@@ -177,6 +191,21 @@ export default function ClosingCostsCalculator() {
                 </select>
               </div>
               
+              {params.province === "quebec" && (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="montreal"
+                    checked={params.isMontreal}
+                    onChange={(e) => setParams({ ...params, isMontreal: e.target.checked })}
+                    className="w-4 h-4 text-teal-600 rounded border-slate-300"
+                  />
+                  <label htmlFor="montreal" className="text-sm text-slate-700">
+                    Purchasing in Montreal (higher welcome-tax brackets)
+                  </label>
+                </div>
+              )}
+
               {params.province === "ontario" && (
                 <div className="flex items-center gap-2">
                   <input
@@ -347,7 +376,13 @@ export default function ClosingCostsCalculator() {
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-              <p className="text-sm text-slate-300 mb-1">Land Transfer Tax</p>
+              <p className="text-sm text-slate-300 mb-1">
+                {params.province === "quebec"
+                  ? "Welcome tax"
+                  : params.province === "alberta" || params.province === "saskatchewan"
+                    ? "Land titles fees"
+                    : "Land Transfer Tax"}
+              </p>
               <p className="text-xl font-bold">{formatCurrency(results.landTransferTax)}</p>
               {results.rebate > 0 && (
                 <p className="text-xs text-emerald-400">

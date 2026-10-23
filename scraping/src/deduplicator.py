@@ -212,6 +212,19 @@ class RateDeduplicator:
                 
                 rates_sorted = sorted(rates, key=sort_key)
                 best = rates_sorted[0]
+                shelves = [
+                    value
+                    for value in (self._shelf_value(r) for r in rates)
+                    if value is not None and value >= best.rate
+                ]
+                if shelves:
+                    shelf = max(shelves)
+                    if best.posted_rate is None or shelf > best.posted_rate:
+                        logger.info(
+                            f"Attached posted shelf {shelf}% to {best.lender_slug} "
+                            f"{best.term_months}mo {best.rate_type.value} at {best.rate}%"
+                        )
+                        best.posted_rate = shelf
                 
                 # Count how many were posted rates that got removed
                 removed_posted = sum(1 for r in rates if r.raw_data and r.raw_data.get("section") == "posted")
@@ -244,17 +257,28 @@ class RateDeduplicator:
             big6 = {'rbc', 'td', 'bmo', 'scotiabank', 'cibc', 'nationalbank'}
             is_big6 = rate.lender_slug in big6
             
-            # If explicitly posted, remove it
+            # Open posted rows are not a closed shelf. Closed posted rows are
+            # the shelf itself when no special won the group, so they stay.
             if is_explicitly_posted:
-                stats["removed_inferior"] += 1
-                logger.warning(
-                    f"Posted rate removed (explicit): {rate.lender_name} "
+                if rate.raw_data and rate.raw_data.get("is_open"):
+                    stats["removed_inferior"] += 1
+                    logger.warning(
+                        f"Open posted rate removed: {rate.lender_name} "
+                        f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}%"
+                    )
+                    continue
+                if rate.posted_rate is None:
+                    rate.posted_rate = rate.rate
+                logger.info(
+                    f"Kept posted shelf: {rate.lender_name} "
                     f"{rate.term_months}mo {rate.rate_type.value} = {rate.rate}%"
                 )
+                non_posted.append(rate)
                 continue
             
-            # Heuristic: if Big 6 and rate is >1.5% above median for same product
-            if is_big6:
+            # Heuristic: if Big 6 and rate is >1.5% above median for same product.
+            # A row that already carries posted_rate is a special with its shelf, not junk.
+            if is_big6 and not self._has_posted_field(rate):
                 same_product = [r for r in clean_rates 
                                if r.term_months == rate.term_months 
                                and r.rate_type == rate.rate_type
@@ -271,9 +295,9 @@ class RateDeduplicator:
                         )
                         continue
             
-            # Special case: Scotiabank only publishes posted rates
-            # If no special rate exists for this term, remove the posted rate
-            if rate.lender_slug == 'scotiabank':
+            # A closed Scotiabank shelf (posted_rate set) is intentional.
+            # Drop only a high rate that has no shelf and no cheaper special.
+            if rate.lender_slug == 'scotiabank' and not self._has_posted_field(rate):
                 # Check if there's a special rate for same term
                 has_special = any(
                     r.lender_slug == 'scotiabank' 
@@ -341,6 +365,26 @@ class RateDeduplicator:
         )
         
         return clean_rates, stats
+
+    def _shelf_value(self, rate: RawRate) -> Optional[Decimal]:
+        """Posted shelf on a row, including a sibling whose rate IS the shelf."""
+        raw = rate.raw_data or {}
+        if raw.get("is_open"):
+            return None
+        if rate.posted_rate is not None and rate.posted_rate > 0:
+            return rate.posted_rate
+        text = f"{raw.get('product', '')} {raw.get('term_text', '')}".lower()
+        explicit = (
+            raw.get("section") == "posted"
+            or raw.get("posted") is True
+            or "posted" in text
+        )
+        if explicit and rate.rate > 0:
+            return rate.rate
+        return None
+
+    def _has_posted_field(self, rate: RawRate) -> bool:
+        return rate.posted_rate is not None and rate.posted_rate > 0
     
     def get_lender_summary(self, rates: List[RawRate]) -> Dict[str, Dict]:
         """Get summary of rates per lender for display."""

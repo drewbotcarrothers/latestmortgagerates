@@ -6,7 +6,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from src.scrapers.bmo_scraper import parse_posted_payload, parse_specials_payload
+from src.scrapers.bmo_scraper import build_bmo_rates, parse_posted_payload, parse_specials_payload
 from src.models import MortgageType, RateType
 
 
@@ -70,6 +70,35 @@ def test_parse_posted_skips_open_and_junk():
     assert variable[0][3] == Decimal("4.450")
 
 
+def test_build_attaches_posted_shelf_to_specials():
+    from datetime import datetime, timezone
+
+    rates = build_bmo_rates(
+        SPECIALS_FIXTURE,
+        POSTED_FIXTURE,
+        datetime(2026, 10, 23, tzinfo=timezone.utc),
+        "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
+        "fixture",
+    )
+    by_key = {
+        (rate.term_months, rate.rate_type, rate.mortgage_type): rate
+        for rate in rates
+    }
+    three = by_key[(36, RateType.FIXED, MortgageType.UNINSURED)]
+    assert three.rate == Decimal("4.64")
+    assert three.posted_rate == Decimal("6.050")
+    five = by_key[(60, RateType.FIXED, MortgageType.UNINSURED)]
+    assert five.posted_rate == Decimal("6.090")
+    insured = by_key[(60, RateType.FIXED, MortgageType.INSURED)]
+    assert insured.rate == Decimal("4.74")
+    assert insured.posted_rate == Decimal("6.090")
+    variable = by_key[(60, RateType.VARIABLE, MortgageType.UNINSURED)]
+    assert variable.posted_rate == Decimal("4.450")
+    one_year = by_key[(12, RateType.FIXED, MortgageType.UNINSURED)]
+    assert one_year.posted_rate == one_year.rate
+    assert len([rate for rate in rates if rate.term_months == 36]) == 1
+
+
 def test_empty_payloads():
     assert parse_specials_payload(None) == []
     assert parse_specials_payload({}) == []
@@ -79,5 +108,6 @@ def test_empty_payloads():
 if __name__ == "__main__":
     test_parse_specials_maps_page_cards()
     test_parse_posted_skips_open_and_junk()
+    test_build_attaches_posted_shelf_to_specials()
     test_empty_payloads()
     print("ok")

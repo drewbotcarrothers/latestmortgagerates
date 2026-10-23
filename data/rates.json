@@ -6,19 +6,21 @@
     "rate_type": "fixed",
     "rate": 4.99,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.030",
+    "posted_rate": 6.25,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "3 Year Fixed Closed",
       "term_text": "3 Year Fixed Closed",
-      "rate_text": "4.990%",
+      "apr": "5.030",
       "is_open": false,
-      "featured": false
+      "featured": true
     }
   },
   {
@@ -28,19 +30,21 @@
     "rate_type": "fixed",
     "rate": 5.14,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.170",
+    "posted_rate": 6.19,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "5 Year Fixed Closed",
       "term_text": "5 Year Fixed Closed",
-      "rate_text": "5.140%",
+      "apr": "5.170",
       "is_open": false,
-      "featured": false
+      "featured": true
     }
   },
   {
@@ -50,19 +54,21 @@
     "rate_type": "variable",
     "rate": 4.15,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "4.180",
+    "posted_rate": 4.48,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "5 Year Variable Closed",
       "term_text": "5 Year Variable Closed",
-      "rate_text": "RBC Prime Rate -0.300% (4.150%)",
+      "apr": "4.180",
       "is_open": false,
-      "featured": false
+      "featured": true
     }
   },
   {
@@ -72,19 +78,21 @@
     "rate_type": "fixed",
     "rate": 4.84,
     "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "4.870",
+    "posted_rate": 6.19,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
-      "term_text": "5 Year Fixed\nHigh Ratio Closed",
-      "rate_text": "4.840%",
+      "product": "5 Year Fixed High Ratio Closed",
+      "term_text": "5 Year Fixed High Ratio Closed",
+      "apr": "4.870",
       "is_open": false,
-      "featured": false
+      "featured": true
     }
   },
   {
@@ -94,19 +102,21 @@
     "rate_type": "variable",
     "rate": 3.85,
     "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "3.880",
+    "posted_rate": 4.48,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
-      "term_text": "5 Year Variable\nHigh Ratio Closed",
-      "rate_text": "RBC Prime Rate -0.600% (3.850%)",
+      "product": "5 Year Variable High Ratio Closed",
+      "term_text": "5 Year Variable High Ratio Closed",
+      "apr": "3.880",
       "is_open": false,
-      "featured": false
+      "featured": true
     }
   },
   {
@@ -116,17 +126,19 @@
     "rate_type": "fixed",
     "rate": 5.14,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.270",
+    "posted_rate": 5.74,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "1 Year Closed",
       "term_text": "1 Year Closed",
-      "rate_text": "5.140%",
+      "apr": "5.270",
       "is_open": false,
       "featured": false
     }
@@ -138,17 +150,19 @@
     "rate_type": "fixed",
     "rate": 5.14,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.200",
+    "posted_rate": 5.74,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "2 Year Closed",
       "term_text": "2 Year Closed",
-      "rate_text": "5.140%",
+      "apr": "5.200",
       "is_open": false,
       "featured": false
     }
@@ -160,17 +174,19 @@
     "rate_type": "fixed",
     "rate": 5.04,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.070",
+    "posted_rate": 6.09,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "4 Year Closed",
       "term_text": "4 Year Closed",
-      "rate_text": "5.040%",
+      "apr": "5.070",
       "is_open": false,
       "featured": false
     }
@@ -182,17 +198,19 @@
     "rate_type": "fixed",
     "rate": 5.25,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.270",
+    "posted_rate": 6.5,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
+      "extraction_method": "static_html",
       "section": "special",
+      "product": "7 Year Closed",
       "term_text": "7 Year Closed",
-      "rate_text": "5.250%",
+      "apr": "5.270",
       "is_open": false,
       "featured": false
     }
@@ -204,17 +222,19 @@
     "rate_type": "fixed",
     "rate": 5.74,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "5.990",
+    "posted_rate": 5.74,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
-      "section": "special",
+      "extraction_method": "static_html",
+      "section": "posted",
+      "product": "6 Month Convertible",
       "term_text": "6 Month Convertible",
-      "rate_text": "5.740%",
+      "apr": "5.990",
       "is_open": false,
       "featured": false
     }
@@ -226,17 +246,19 @@
     "rate_type": "fixed",
     "rate": 6.9,
     "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
+    "apr": "6.910",
+    "posted_rate": 6.9,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:29.549012",
+    "scraped_at": "2026-10-23T18:18:12.711218",
     "raw_data": {
       "source": "rbc_live_scrape",
-      "section": "special",
+      "extraction_method": "static_html",
+      "section": "posted",
+      "product": "10 Year Closed",
       "term_text": "10 Year Closed",
-      "rate_text": "6.900%",
+      "apr": "6.910",
       "is_open": false,
       "featured": false
     }
@@ -561,18 +583,20 @@
     "rate": 4.94,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.05,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-ca-mortgages-rates",
       "datacode": "fixed3YearClosedSpecial",
       "product": "3-Year Fixed Special",
-      "featured": true
+      "section": "special",
+      "featured": true,
+      "is_open": false
     }
   },
   {
@@ -583,18 +607,20 @@
     "rate": 4.99,
     "mortgage_type": "insured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.09,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-ca-mortgages-rates",
       "datacode": "smartFixed5YearClosedHighRatioSpecial",
       "product": "5-Year Smart Fixed (Insured)",
-      "featured": true
+      "section": "special",
+      "featured": true,
+      "is_open": false
     }
   },
   {
@@ -605,18 +631,20 @@
     "rate": 5.14,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.09,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-ca-mortgages-rates",
       "datacode": "smartFixed5YearClosedSpecial",
       "product": "5-Year Smart Fixed (Uninsured)",
-      "featured": true
+      "section": "special",
+      "featured": true,
+      "is_open": false
     }
   },
   {
@@ -627,18 +655,20 @@
     "rate": 4.1,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 4.45,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-ca-mortgages-rates",
       "datacode": "variable5YearClosedSpecial",
       "product": "5-Year Variable Special",
-      "featured": true
+      "section": "special",
+      "featured": true,
+      "is_open": false
     }
   },
   {
@@ -649,18 +679,20 @@
     "rate": 5.49,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 5.49,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "1YearClosed",
       "product": "1 year (closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -671,18 +703,20 @@
     "rate": 4.94,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 4.94,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "2YearClosed",
       "product": "2 year (closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -693,18 +727,20 @@
     "rate": 5.99,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 5.99,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "4YearClosed",
       "product": "4 year (closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -715,18 +751,20 @@
     "rate": 6.29,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.29,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "6YearClosed",
       "product": "6 year (closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -737,18 +775,20 @@
     "rate": 6.4,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.4,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "7YearClosed",
       "product": "7 year (closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -759,18 +799,20 @@
     "rate": 6.8,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.8,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:33.969624+00:00",
+    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
       "api": "bmo-epm-mortgage",
       "product_key": "10Yearclosed",
       "product": "10 year(closed) Posted Closed",
-      "featured": false
+      "section": "posted",
+      "featured": false,
+      "is_open": false
     }
   },
   {
@@ -781,11 +823,11 @@
     "rate": 4.9,
     "mortgage_type": "uninsured",
     "apr": null,
-    "posted_rate": null,
+    "posted_rate": 6.19,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.030217+00:00",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_varmortgage",
@@ -795,6 +837,174 @@
       "is_open": false,
       "as_of": "2026-10-23",
       "featured": true
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 36,
+    "rate_type": "variable",
+    "rate": 5.95,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 5.95,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_varmortgage",
+      "product": "Scotia Ultimate Variable Rate Mortgage - 3 Year Closed Term",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 12,
+    "rate_type": "fixed",
+    "rate": 5.49,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 5.49,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "1 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 24,
+    "rate_type": "fixed",
+    "rate": 5.24,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 5.24,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "2 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 36,
+    "rate_type": "fixed",
+    "rate": 6.05,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 6.05,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "3 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 48,
+    "rate_type": "fixed",
+    "rate": 6.09,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 6.09,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "4 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 84,
+    "rate_type": "fixed",
+    "rate": 6.4,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 6.4,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "7 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Scotiabank",
+    "lender_slug": "scotiabank",
+    "term_months": 120,
+    "rate_type": "fixed",
+    "rate": 6.8,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 6.8,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
+    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "raw_data": {
+      "source": "scotiabank_live_scrape",
+      "extraction_method": "dmtsms_nonspecialmortgage",
+      "product": "10 Year Fixed Posted",
+      "section": "posted",
+      "posted": true,
+      "is_open": false,
+      "as_of": "2026-10-23",
+      "featured": false
     }
   },
   {

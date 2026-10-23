@@ -14,7 +14,7 @@ import {
 import { fiveYearFixedBenchmarks, median, spreadOverYield } from "./bondSpread.ts";
 import { communityRates, type LenderBlock } from "./communityRates.ts";
 import { datasetJsonLd } from "./datasetSchema.ts";
-import { discountRows, quarterLabel } from "./discountByBank.ts";
+import { discountRows, postedShelfFromRows, quarterLabel, withSnapshotPostedRates } from "./discountByBank.ts";
 import { publishedForecasts } from "./forecast2027.ts";
 import { latestBondYield, parseBondYieldPayload } from "./marketSeries.mjs";
 import { canonicalRates, diffRates, summarizeFiveYearFixed } from "./rateChanges.mjs";
@@ -224,6 +224,49 @@ describe("reported discount by bank", () => {
     assert.equal(td?.fixed, null);
     assert.equal(scotia?.variable, null);
     assert.deepEqual(scotia?.omitted, [{ rateType: "variable", n: 21 }]);
+  });
+
+  it("uses a rate-file posted shelf when the reported file has none", () => {
+    const lenders = withSnapshotPostedRates(
+      [
+        {
+          slug: "scotiabank",
+          matchedN: 21,
+          medianSpreadVsOwnPosted: null,
+          products: [
+            {
+              termMonths: 60,
+              rateType: "variable",
+              n: 21,
+              reportedMedian: 3.55,
+              postedRate: null,
+              spreadVsPosted: null,
+              rates: [],
+            },
+          ],
+        },
+      ],
+      [
+        {
+          lender_slug: "scotiabank",
+          term_months: 60,
+          rate_type: "variable",
+          mortgage_type: "uninsured",
+          posted_rate: 5.95,
+        },
+      ],
+    );
+    const rows = discountRows(lenders, { scotiabank: "Scotiabank" });
+    assert.equal(rows[0]?.variable?.postedRate, 5.95);
+    assert.equal(rows[0]?.omitted.length, 0);
+    assert.equal(
+      postedShelfFromRows(
+        [{ lender_slug: "td", term_months: 60, rate_type: "fixed", mortgage_type: "uninsured", posted_rate: null }],
+        "td",
+        "fixed",
+      ),
+      null,
+    );
   });
 
   it("labels October 2026 as the fourth quarter", () => {
