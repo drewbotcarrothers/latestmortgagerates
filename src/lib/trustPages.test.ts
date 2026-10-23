@@ -161,13 +161,17 @@ describe("trust pages and search metadata", () => {
 
     assert.match(read("src/views/guides/InDepthGuidePage.tsx"), /articleJsonLd/);
     assert.match(read("src/views/guides/InDepthGuidePage.tsx"), /updatedIso/);
-    assert.equal(IN_DEPTH_GUIDES.length, 16);
+    assert.equal(IN_DEPTH_GUIDES.length, 20);
     assert.match(read("src/views/author/AuthorPage.tsx"), /IN_DEPTH_GUIDES\.map/);
     for (const slug of [
       "porting-mortgage-canada",
       "should-i-lock-in-variable-rate",
       "2027-mortgage-renewal-wave",
       "heloc-rates-canada",
+      "closing-costs-canada-by-province",
+      "big-5-bank-mortgages-compared",
+      "blend-and-extend-mortgage",
+      "mortgage-rate-hold-canada",
     ]) {
       const page = read(`src/pages/guides/${slug}/index.astro`);
       assert.match(page, /InDepthGuidePage/, slug);

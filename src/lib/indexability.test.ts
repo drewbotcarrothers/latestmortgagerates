@@ -165,6 +165,10 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/should-i-lock-in-variable-rate/"), true);
     assert.equal(isIndexablePath("/guides/2027-mortgage-renewal-wave/"), true);
     assert.equal(isIndexablePath("/guides/heloc-rates-canada/"), true);
+    assert.equal(isIndexablePath("/guides/closing-costs-canada-by-province/"), true);
+    assert.equal(isIndexablePath("/guides/big-5-bank-mortgages-compared/"), true);
+    assert.equal(isIndexablePath("/guides/blend-and-extend-mortgage/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-rate-hold-canada/"), true);
     assert.equal(isIndexablePath("/prime-rate/"), true);
     assert.equal(isIndexablePath("/rate-changes/"), true);
     assert.equal(isIndexablePath("/mortgage-break-costs/"), true);
@@ -263,6 +267,10 @@ describe("expanded page depth", () => {
       "src/content/guides/renewalWave2027.ts",
       "src/content/guides/helocRates.ts",
       "src/content/guides/batch4Math.ts",
+      "src/content/guides/closingCosts.ts",
+      "src/content/guides/bigFiveBanks.ts",
+      "src/content/guides/blendAndExtend.ts",
+      "src/content/guides/rateHold.ts",
       "src/views/guides/InDepthGuidePage.tsx",
       "src/views/editorial/EditorialPolicyPage.tsx",
       "src/views/community/MethodologyPage.tsx",
