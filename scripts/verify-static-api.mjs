@@ -127,6 +127,8 @@ const required = [
   "https://latestmortgagerates.ca/privacy/",
   "https://latestmortgagerates.ca/terms/",
   "https://latestmortgagerates.ca/glossary/",
+  "https://latestmortgagerates.ca/editorial-policy/",
+  "https://latestmortgagerates.ca/llms.txt",
   "https://latestmortgagerates.ca/cities/",
   ...INDEXED_CITY_SLUGS.map((slug) => `https://latestmortgagerates.ca/cities/${slug}/`),
 ];
@@ -137,10 +139,12 @@ for (const loc of locs) {
   if (!loc.startsWith("https://latestmortgagerates.ca")) {
     fail(`sitemap URL is not canonical host: ${loc}`);
   }
-  if (!loc.endsWith("/")) {
+  const path = loc.slice("https://latestmortgagerates.ca".length);
+  // HTML routes use a trailing slash. A file URL such as /llms.txt does not.
+  const extensionUrl = /\.[a-z0-9]+$/i.test(path);
+  if (!loc.endsWith("/") && !extensionUrl) {
     fail(`sitemap URL must use trailing slash: ${loc}`);
   }
-  const path = loc.slice("https://latestmortgagerates.ca".length);
   if (!isIndexablePath(path)) {
     fail(`sitemap must not include noindex/utility URL: ${loc}`);
   }

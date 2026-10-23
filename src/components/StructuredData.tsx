@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { lenderCountLabel } from "@/lib/lenderCount";
+import { HOME_TITLE } from "@/lib/homeMeta";
 import { PRIME_RATE } from "@/lib/primeRate";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 
@@ -100,7 +101,7 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
       "@type": "WebPage",
       "@id": pageUrl,
       url: pageUrl,
-      name: "Latest Mortgage Rates Canada",
+      name: HOME_TITLE,
       description: `Current best rates: 5-year fixed at ${best5YearFixed?.rate.toFixed(2) || "N/A"}% from ${best5YearFixed?.lender_name || "various lenders"}, 5-year variable at ${best5YearVariable?.rate.toFixed(2) || "N/A"}% from ${best5YearVariable?.lender_name || "various lenders"}. Compare ${uniqueLenders.length}+ Canadian lenders.`,
       dateModified: lastUpdated,
       datePublished: "2025-01-01",

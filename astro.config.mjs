@@ -136,6 +136,17 @@ function jsonApiFiles() {
         if (existsSync(sitemapChunk)) {
           copyFileSync(sitemapChunk, join(out, "sitemap.xml"));
         }
+
+        // trailingSlash: always can emit llms.txt/index.html. The public URL is /llms.txt.
+        const llmsPath = join(out, "llms.txt");
+        if (existsSync(llmsPath) && lstatSync(llmsPath).isDirectory()) {
+          const indexHtml = join(llmsPath, "index.html");
+          if (existsSync(indexHtml)) {
+            const body = readFileSync(indexHtml);
+            rmSync(llmsPath, { recursive: true, force: true });
+            writeFileSync(llmsPath, body);
+          }
+        }
       },
     },
   };
@@ -157,6 +168,10 @@ export default defineConfig({
     sitemap({
       lastmod: new Date(),
       filter: isIndexableSitemapUrl,
+      customPages: [
+        "https://latestmortgagerates.ca/llms.txt",
+        "https://latestmortgagerates.ca/editorial-policy/",
+      ],
     }),
     jsonApiFiles(),
   ],

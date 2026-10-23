@@ -1,10 +1,24 @@
 User-agent: *
 Allow: /
 
+# AI and search crawlers are allowed, including the bots named below.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 # Astro writes sitemap-index.xml (which points at sitemap-0.xml).
 Sitemap: https://latestmortgagerates.ca/sitemap-index.xml
-
-# Disallow admin/staging areas (none currently)
-
-# Crawl rate - allow search engines to crawl freely
-Crawl-delay: 1

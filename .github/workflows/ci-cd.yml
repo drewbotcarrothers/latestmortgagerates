@@ -68,6 +68,9 @@ jobs:
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
+      - name: Checkout source for IndexNow
+        uses: actions/checkout@v4
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -87,3 +90,9 @@ jobs:
           local-dir: ./dist/
           server-dir: ./
           timeout: 60000
+
+      # Non-fatal: a failed ping must not fail a deploy that already uploaded.
+      - name: Submit URLs to IndexNow
+        if: success()
+        continue-on-error: true
+        run: node scripts/indexnow.mjs --dist dist

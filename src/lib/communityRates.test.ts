@@ -713,6 +713,8 @@ describe("generated copy", () => {
     const post = october2026Report();
     assert.equal(post.author, "Andrew");
     assert.equal(post.slug, "below-the-line-mortgage-rate-report-october-2026");
+    assert.equal(post.date, "2026-10-03");
+    assert.equal(post.updatedDate, communityRates.asOf);
     assert.match(post.content, /self-reported by Canadian borrowers online/);
     assert.match(post.content, /<!--COMMUNITY_CHARTS-->/);
     assert.equal(FORBIDDEN.test(`${post.title} ${post.excerpt} ${post.content}`), false);

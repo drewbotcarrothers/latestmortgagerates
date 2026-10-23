@@ -27,7 +27,11 @@ This directory contains all GitHub Actions workflows for the LatestMortgageRates
 **Jobs**:
 1. **Lint & Type Check**: Runs ESLint and TypeScript checks
 2. **Build**: Builds the Astro static site and uploads artifacts
-3. **Deploy**: Deploys to Hostinger via FTP (only on push to master)
+3. **Deploy**: Deploys to Hostinger via FTP (only on push to master), then notifies IndexNow
+
+**IndexNow** (`scripts/indexnow.mjs`): After the FTP upload succeeds on `master`, the deploy job POSTs URLs to `https://api.indexnow.org/indexnow`. The JSON body is `host` (`latestmortgagerates.ca`), `key`, `keyLocation`, and `urlList`. The public key file is `public/f0956c5fe15867d30a585c942ef7d5be.txt` (the file name and the file body are the same 32-character hex key). Astro copies it to the site root, so the live key URL is `https://latestmortgagerates.ca/f0956c5fe15867d30a585c942ef7d5be.txt`.
+
+By default the script submits every URL in the built sitemap (`dist/sitemap-index.xml` and the urlset it points at). Pass `--changed urls.txt` (one absolute URL per line) to submit that list instead. Each request holds at most 10,000 URLs; longer lists are split. The step uses `continue-on-error`, so a failed notification does not fail a deploy that already uploaded. `--dry-run` prints the count and does not call the API.
 
 **Concurrency**: Cancels in-progress runs for the same branch
 

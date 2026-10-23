@@ -11,17 +11,26 @@ export const RATE_HUB_SOURCES =
 
 interface EditorialBylineProps {
   reviewedIso: string;
+  /** When set, a visible "Updated <date>" line is shown next to the byline. */
+  updatedIso?: string;
   sources: string;
   /** Dark heroes need light text. */
   tone?: "default" | "onDark";
 }
 
+/** Noon UTC keeps a date-only value on the same calendar day in Toronto. */
+function dateForDisplay(iso: string): Date {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) return new Date(`${iso}T12:00:00Z`);
+  return new Date(iso);
+}
+
 export default function EditorialByline({
   reviewedIso,
+  updatedIso,
   sources,
   tone = "default",
 }: EditorialBylineProps) {
-  const reviewed = formatBuildDateLong(new Date(reviewedIso));
+  const reviewed = formatBuildDateLong(dateForDisplay(reviewedIso));
   const name = tone === "onDark" ? "font-medium text-white" : "font-medium text-slate-700";
   const meta = tone === "onDark" ? "mt-3 text-sm text-slate-300" : "mt-3 text-sm text-slate-500";
 
@@ -32,6 +41,11 @@ export default function EditorialByline({
       </span>
       {" · "}
       <time dateTime={reviewedIso.slice(0, 10)}>Last reviewed {reviewed}</time>
+      {updatedIso ? (
+        <span className="mt-1 block">
+          <time dateTime={updatedIso.slice(0, 10)}>{`Updated ${formatBuildDateLong(dateForDisplay(updatedIso))}`}</time>
+        </span>
+      ) : null}
       <span className="mt-1 block">{sources}</span>
     </p>
   );

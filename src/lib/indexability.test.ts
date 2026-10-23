@@ -161,11 +161,32 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/30-year-amortization-canada/"), true);
     assert.equal(isIndexablePath("/guides/bank-of-canada-rate-and-your-mortgage/"), true);
     assert.equal(isIndexablePath("/guides/mortgage-renewal-vs-refinance-vs-heloc/"), true);
+    assert.equal(isIndexablePath("/guides/porting-mortgage-canada/"), true);
+    assert.equal(isIndexablePath("/guides/should-i-lock-in-variable-rate/"), true);
+    assert.equal(isIndexablePath("/guides/2027-mortgage-renewal-wave/"), true);
+    assert.equal(isIndexablePath("/guides/heloc-rates-canada/"), true);
+    assert.equal(isIndexablePath("/guides/closing-costs-canada-by-province/"), true);
+    assert.equal(isIndexablePath("/guides/big-5-bank-mortgages-compared/"), true);
+    assert.equal(isIndexablePath("/guides/blend-and-extend-mortgage/"), true);
+    assert.equal(isIndexablePath("/guides/mortgage-rate-hold-canada/"), true);
+    assert.equal(isIndexablePath("/prime-rate/"), true);
+    assert.equal(isIndexablePath("/rate-changes/"), true);
+    assert.equal(isIndexablePath("/mortgage-break-costs/"), true);
+    assert.equal(isIndexablePath("/mortgage-rate-forecast-2027/"), true);
+    assert.equal(isIndexablePath("/reports/discount-by-bank/"), true);
+    assert.equal(isIndexablePath("/rate-data/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
     const robots = readFileSync(join(root, "public/robots.txt"), "utf8");
     assert.match(robots, /Sitemap: https:\/\/latestmortgagerates\.ca\/sitemap-index\.xml/);
+    assert.doesNotMatch(robots, /Crawl-delay/i);
+    assert.match(robots, /User-agent: \*\nAllow: \//);
+    for (const bot of ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "Google-Extended"]) {
+      assert.match(robots, new RegExp(`User-agent: ${bot}\\nAllow: /`), bot);
+    }
+    assert.equal(isIndexablePath("/editorial-policy/"), true);
+    assert.equal(isIndexablePath("/llms.txt"), true);
     const share = readFileSync(join(root, "src/components/SocialShare.tsx"), "utf8");
     assert.doesNotMatch(share, /reddit/i);
     const htaccess = readFileSync(join(root, "public/.htaccess"), "utf8");
@@ -246,7 +267,18 @@ describe("expanded page depth", () => {
       "src/content/guides/renewalWave2027.ts",
       "src/content/guides/helocRates.ts",
       "src/content/guides/batch4Math.ts",
+      "src/content/guides/closingCosts.ts",
+      "src/content/guides/bigFiveBanks.ts",
+      "src/content/guides/blendAndExtend.ts",
+      "src/content/guides/rateHold.ts",
       "src/views/guides/InDepthGuidePage.tsx",
+      "src/views/editorial/EditorialPolicyPage.tsx",
+      "src/views/community/MethodologyPage.tsx",
+      "src/lib/llmsTxt.ts",
+      "src/lib/articleSchema.ts",
+      "src/lib/datasetSchema.ts",
+      "src/lib/homeMeta.ts",
+      "src/content/guides/negotiateMeta.ts",
       "src/content/lenderContent.json",
     ];
     for (const file of files) {

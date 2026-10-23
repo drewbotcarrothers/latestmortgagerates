@@ -239,6 +239,11 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 </a>
               </li>
               <li>
+                <a href="/editorial-policy/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
+                  Editorial policy
+                </a>
+              </li>
+              <li>
                 <a href="/contact/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
                   Contact
                 </a>
@@ -281,6 +286,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <nav aria-label="Site information" className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
               <a href="/about/" className="text-slate-400 hover:text-teal-400">About</a>
+              <a href="/editorial-policy/" className="text-slate-400 hover:text-teal-400">Editorial policy</a>
               <a href="/contact/" className="text-slate-400 hover:text-teal-400">Contact</a>
               <a href="/disclaimer/" className="text-slate-400 hover:text-teal-400">Disclaimer</a>
               <a href="/privacy/" className="text-slate-400 hover:text-teal-400">Privacy</a>
