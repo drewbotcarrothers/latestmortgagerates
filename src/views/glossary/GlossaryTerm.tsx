@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
-import { glossaryTerms } from "@/content/glossary";
+import { glossaryTermsWithTools as glossaryTerms } from "@/content/glossary";
 
 // Force static generation
 

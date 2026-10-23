@@ -1,0 +1,21 @@
+{
+  "source": "https://www.bankofcanada.ca/2026/07/bank-canada-publishes-2027-schedule-policy-interest-rate-announcements-other-major-publications/",
+  "sourceTitle": "Bank of Canada schedule release, July 27, 2026",
+  "keyRatePage": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+  "announcementTime": "09:45 ET",
+  "mprNote": "The Monetary Policy Report is published with the January, April, July, and October announcements.",
+  "remaining2026": [
+    { "date": "2026-10-28", "monetaryPolicyReport": true },
+    { "date": "2026-12-09", "monetaryPolicyReport": false }
+  ],
+  "year2027": [
+    { "date": "2027-01-27", "monetaryPolicyReport": true },
+    { "date": "2027-03-03", "monetaryPolicyReport": false },
+    { "date": "2027-04-28", "monetaryPolicyReport": true },
+    { "date": "2027-06-02", "monetaryPolicyReport": false },
+    { "date": "2027-07-21", "monetaryPolicyReport": true },
+    { "date": "2027-09-08", "monetaryPolicyReport": false },
+    { "date": "2027-10-27", "monetaryPolicyReport": true },
+    { "date": "2027-12-08", "monetaryPolicyReport": false }
+  ]
+}
