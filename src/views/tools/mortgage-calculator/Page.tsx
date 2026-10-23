@@ -10,13 +10,20 @@ import AdUnit from "@/components/AdUnit";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { lenderCountLabel } from "@/lib/lenderCount";
-import { mortgageCalculatorFaqs, mortgageCalculatorGuide } from "@/content/calculatorGuides";
+import { mortgageCalculatorFaqs, mortgageCalculatorGuide, paymentExample } from "@/content/calculatorGuides";
+import { amortizationByYear } from "@/lib/mortgageMath";
 
 interface MortgageCalculatorPageProps {
   children?: ReactNode;
 }
 
 export default function MortgageCalculatorPage({ children }: MortgageCalculatorPageProps) {
+  const example = paymentExample();
+  const schedule = amortizationByYear(example.principal, example.annualRate, example.years, 5);
+  const money = (amount: number) => `$${Math.round(amount).toLocaleString("en-CA")}`;
+  const monthly = example.monthlyCompounded;
+  const plainBiweekly = (monthly * 12) / 26;
+  const acceleratedBiweekly = monthly / 2;
   return (
     <>
       <HowToSchema
@@ -72,7 +79,7 @@ export default function MortgageCalculatorPage({ children }: MortgageCalculatorP
               Mortgage Payment Calculator
             </h1>
             <p className="text-xl text-slate-300">
-              Calculate your monthly mortgage payments, amortization schedule, and see how much interest you'll pay over the life of your loan.
+              A Canadian fixed mortgage payment compounds semi-annually, even though this calculator’s payment uses a simpler monthly rate. The worked example below shows both formulas, then monthly payments next to accelerated bi-weekly.
             </p>
           </div>
         </div>
@@ -137,6 +144,38 @@ export default function MortgageCalculatorPage({ children }: MortgageCalculatorP
                     <p className="text-sm text-slate-600">52 payments per year. Lowest individual payment amount.</p>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            <section className="card-default p-6">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Semi-annual compounding and a five-year snapshot</h2>
+              <p className="text-slate-600 mb-4">
+                The equivalent monthly rate on a Canadian fixed mortgage is (1 + annual rate ÷ 2) raised to the power of 1/6, minus 1. The calculator on this page uses annual rate ÷ 12 instead. On {money(example.principal)} at {example.annualRate.toFixed(2)}% over {example.years} years, an illustration and not a live quote, the page’s formula is {money(example.monthlyCompounded)} a month and the semi-annual convention is {money(example.semiAnnualCompounded)} a month.
+              </p>
+              <p className="text-slate-600 mb-4">
+                Plain bi-weekly is that monthly payment times 12, divided by 26, about {money(plainBiweekly)} here. Accelerated bi-weekly is half the monthly payment, about {money(acceleratedBiweekly)}, taken 26 times a year, which is one extra monthly payment a year and shortens the amortization. The table uses the calculator’s monthly formula, not the semi-annual one.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-sm text-left">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-slate-500">
+                      <th className="py-2 pr-4 font-medium">Year</th>
+                      <th className="py-2 pr-4 font-medium">Interest</th>
+                      <th className="py-2 pr-4 font-medium">Principal</th>
+                      <th className="py-2 font-medium">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {schedule.map((row) => (
+                      <tr key={row.year} className="border-b border-slate-100">
+                        <td className="py-2 pr-4">{row.year}</td>
+                        <td className="py-2 pr-4">{money(row.interest)}</td>
+                        <td className="py-2 pr-4">{money(row.principalPaid)}</td>
+                        <td className="py-2">{money(row.balance)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </section>
 

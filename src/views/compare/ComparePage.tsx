@@ -136,18 +136,27 @@ export default function ComparePage({ slug }: { slug: string }) {
             scrape — we do not invent a current rate. Always confirm with the lender.
           </p>
 
-          {slug === "td-vs-rbc" && (
-            <p className="text-slate-700 mb-6">
-              For the full TD sheet, including refinance specials, see{" "}
-              <a href="/lenders/td/" className="text-teal-700 font-medium hover:underline">
-                TD mortgage rates
-              </a>
-              . The other side of this comparison is{" "}
-              <a href="/lenders/rbc/" className="text-teal-700 font-medium hover:underline">
-                RBC mortgage rates
-              </a>
-              .
-            </p>
+          {slug === "td-vs-rbc" && ctx.leftLender && ctx.rightLender && (
+            <div className="bg-white border border-slate-200 rounded-xl p-5 mb-6">
+              <h2 className="text-lg font-bold text-slate-900 mb-2">Verdict on today’s rates</h2>
+              <p className="text-slate-700 leading-relaxed">
+                On today’s published 5-year fixed specials, {lowerToday(ctx.leftLender.fixed5Uninsured, ctx.rightLender.fixed5Uninsured)} is lower on the uninsured cell
+                {" "}({page.left.shortName} {formatPct(ctx.leftLender.fixed5Uninsured)}, {page.right.shortName} {formatPct(ctx.rightLender.fixed5Uninsured)})
+                and {lowerToday(ctx.leftLender.fixed5Insured, ctx.rightLender.fixed5Insured)} is lower on the insured cell
+                {" "}({page.left.shortName} {formatPct(ctx.leftLender.fixed5Insured)}, {page.right.shortName} {formatPct(ctx.rightLender.fixed5Insured)}).
+                Pick the insurance label that matches your down payment before you treat either bank as cheaper.
+                TD’s Home Equity FlexLine and RBC’s Homeline Plan both advertise borrowing up to 80% of the home’s value, and a written pre-approval at either bank can hold a fixed rate for up to 120 days.
+                A renewal quote is a different number: neither bank publishes a public renewal-rate grid, so do not read a purchase special as the rate you will be offered at maturity.
+              </p>
+              <p className="text-sm text-slate-600 mt-3">
+                Sheets:{" "}
+                <a href="/lenders/td/" className="text-teal-700 font-medium hover:underline">TD mortgage rates</a>
+                {" "}and{" "}
+                <a href="/lenders/rbc/" className="text-teal-700 font-medium hover:underline">RBC mortgage rates</a>
+                . How the rest of the Big Five compare is in the{" "}
+                <a href="/guides/big-5-bank-mortgages-compared/" className="text-teal-700 font-medium hover:underline">Big Five mortgage comparison</a>.
+              </p>
+            </div>
           )}
 
           <StrikingDistanceLenderLinks className="mb-8" />

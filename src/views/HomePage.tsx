@@ -17,6 +17,7 @@ import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
+import RateAnswer from "@/components/RateAnswer";
 
 interface FilterState {
   term: string;
@@ -285,6 +286,7 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8 pb-12">
+        <RateAnswer focus="hub" />
         {/* Filters */}
         <div className="mb-6">
           <RateFilters 

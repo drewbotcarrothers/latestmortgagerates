@@ -45,8 +45,9 @@ RewriteRule ^unsubscribe/?$ /unsubscribed/ [R=301,L]
 
 # Dead blog URLs still linked from city sidebars and the March 2026 sitemap fallbacks.
 RewriteRule ^blog/closing-costs-canada/?$ /tools/closing-costs-calculator/ [R=301,L]
-RewriteRule ^blog/first-time-home-buyer-guide-canada/?$ /blog/first-time-buyer-guide-2026/ [R=301,L]
-RewriteRule ^blog/first-time-buyer-guide-2025/?$ /blog/first-time-buyer-guide-2026/ [R=301,L]
+RewriteRule ^blog/first-time-home-buyer-guide-canada/?$ /guides/first-time-home-buyer-programs-canada/ [R=301,L]
+RewriteRule ^blog/first-time-buyer-guide-2025/?$ /guides/first-time-home-buyer-programs-canada/ [R=301,L]
+RewriteRule ^blog/first-time-buyer-guide-2026/?$ /guides/first-time-home-buyer-programs-canada/ [R=301,L]
 RewriteRule ^blog/best-mortgage-rates-vancouver/?$ /cities/vancouver/ [R=301,L]
 RewriteRule ^blog/best-mortgage-rates-toronto/?$ /cities/toronto/ [R=301,L]
 RewriteRule ^blog/bank-of-canada-rate-hold-january-2025/?$ /blog/bank-of-canada-holds-rate-march-2025/ [R=301,L]

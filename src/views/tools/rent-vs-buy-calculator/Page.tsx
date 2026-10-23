@@ -9,6 +9,7 @@ import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { rentVsBuyFaqs, rentVsBuyGuide } from "@/content/calculatorGuides";
+import { rentVsBuyExtra } from "@/content/toolExplainers";
 
 
 export default function RentVsBuyPage() {
@@ -58,7 +59,7 @@ export default function RentVsBuyPage() {
                 <span>Rent vs Buy Calculator</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Rent vs Buy Calculator</h1>
-              <p className="text-xl text-slate-300">Compare the financial impact of renting vs buying a home.</p>
+              <p className="text-xl text-slate-300">Renting versus buying is a comparison of two piles of wealth at the end of the period you choose, using the appreciation and investment return you type. It is not a forecast, and it does not check whether you qualify for the mortgage.</p>
             </div>
           </div>
         </div>
@@ -72,6 +73,7 @@ export default function RentVsBuyPage() {
 
         <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
           <CalculatorGuide sections={rentVsBuyGuide()} />
+          <CalculatorGuide sections={rentVsBuyExtra()} />
         </div>
 
         <CalculatorRelatedTools currentTool="/tools/rent-vs-buy-calculator" />

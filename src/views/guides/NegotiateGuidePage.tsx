@@ -98,13 +98,49 @@ export default function NegotiateGuidePage() {
                 By <a href="/author/andrew/" className="font-medium text-white underline decoration-white/40 hover:decoration-white">Andrew</a>
               </p>
               <p className="mt-4 max-w-3xl text-lg text-slate-200">
-                Big-bank posted rates are a shelf price. The rates {communityRates.attribution} show how far under that shelf recent approvals and renewals have landed. As of {formatAsOf()}.
+                The discount to ask for is the median gap between a bank’s own posted rate and the rate borrowers report receiving from that bank, published only when at least {communityRates.thresholds.publicMinN} reports exist. As of {formatAsOf()}, those gaps are {communityRates.attribution}, and they are a benchmark for the conversation rather than a rate the bank has to match.
               </p>
             </div>
           </section>
 
           <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
             <CommunityDisclaimer />
+
+            <section className="rounded-xl border border-slate-200 bg-white p-4">
+              <h2 className="text-2xl font-bold text-slate-900">Discount below each bank’s posted rate</h2>
+              <p className="mt-3 text-slate-700 leading-relaxed">
+                Each row is one bank. The points are that bank’s posted rate minus the median rate people report receiving from the same bank. A positive number is below posted. N is the number of matched reports. Banks under {communityRates.thresholds.publicMinN} reports are left off.
+              </p>
+              <div className="mt-4 overflow-x-auto">
+                <table className="min-w-full text-sm text-left">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-slate-500">
+                      <th className="py-2 pr-4 font-medium">Bank</th>
+                      <th className="py-2 pr-4 font-medium">Median points versus its posted rate</th>
+                      <th className="py-2 font-medium">N</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {communityRates.lenders
+                      .filter((lender) => lender.matchedN >= communityRates.thresholds.publicMinN && lender.medianSpreadVsOwnPosted != null)
+                      .sort((a, b) => (b.medianSpreadVsOwnPosted ?? 0) - (a.medianSpreadVsOwnPosted ?? 0))
+                      .map((lender) => {
+                        const spread = lender.medianSpreadVsOwnPosted as number;
+                        const points = `${Math.abs(spread).toFixed(2)} points ${spread >= 0 ? "below" : "above"} posted`;
+                        return (
+                          <tr key={lender.slug} className="border-b border-slate-100">
+                            <td className="py-2 pr-4 font-medium text-slate-900">
+                              <a href={`/lenders/${lender.slug}/`} className="text-teal-700 hover:underline">{lenderName(lender.slug)}</a>
+                            </td>
+                            <td className="py-2 pr-4 text-slate-700">{points}</td>
+                            <td className="py-2 text-slate-700">{lender.matchedN}</td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </section>
 
             <section>
               <h2 className="text-2xl font-bold text-slate-900">Posted vs what people at that bank report</h2>

@@ -5,6 +5,8 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { refinanceGuide } from "@/content/toolExplainers";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -62,7 +64,7 @@ export default function RefinancePage() {
                 Refinance Calculator
               </h1>
               <p className="text-xl text-slate-300">
-                Calculate if refinancing your mortgage makes sense.
+                A refinance replaces the loan, often to take cash out or to stretch the amortization, and it brings the stress test back. Compare the new payment with the penalty and fees before you treat a lower rate as a saving.
               </p>
             </div>
           </div>
@@ -82,7 +84,8 @@ export default function RefinancePage() {
           <AdUnit format="display" />
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+          <CalculatorGuide sections={refinanceGuide()} />
           <FAQSection
             faqs={[
               {

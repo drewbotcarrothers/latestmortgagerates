@@ -2,8 +2,12 @@
 
 import { useState, useMemo } from "react";
 import {
+  albertaLandTitlesFee,
   calculateBcFthbExemption,
   calculateBcPropertyTransferTax,
+  ontarioFirstTimeRebates,
+  ontarioProvincialLandTransferTax,
+  quebecWelcomeTaxOutsideMontreal,
 } from "@/lib/mortgageMath";
 
 interface LandTransferTax {
@@ -25,33 +29,12 @@ const provinces: Record<string, ProvinceRates> = {
   ontario: {
     name: "Ontario",
     calculate: (price) => {
-      let provincial = 0;
-      // Ontario LTT rates
-      if (price <= 55000) {
-        provincial = price * 0.005;
-      } else if (price <= 250000) {
-        provincial = 55000 * 0.005 + (price - 55000) * 0.01;
-      } else if (price <= 400000) {
-        provincial = 55000 * 0.005 + 195000 * 0.01 + (price - 250000) * 0.015;
-      } else if (price <= 2000000) {
-        provincial = 55000 * 0.005 + 195000 * 0.01 + 150000 * 0.015 + (price - 400000) * 0.02;
-      } else {
-        provincial = 55000 * 0.005 + 195000 * 0.01 + 150000 * 0.015 + 1600000 * 0.02 + (price - 2000000) * 0.025;
-      }
-
-      // Toronto Municipal LTT (same rates)
-      let municipal = provincial; // Toronto rates mirror provincial exactly
-
+      const provincial = ontarioProvincialLandTransferTax(price);
       const explanation = `Ontario: 0.5% on first $55K, 1% on $55K-$250K, 1.5% on $250K-$400K, 2% on $400K-$2M, 2.5% above $2M`;
-      
-      return { provincial, municipal, explanation };
+      return { provincial, municipal: 0, explanation };
     },
     firstTimeRebate: (price) => {
-      // Ontario max rebate $4,000
-      // Toronto max rebate $4,475 (provincial + municipal)
-      // For simplicity, we'll calculate Ontario provincial rebate
-      const provincialTax = provinces.ontario.calculate(price).provincial;
-      return Math.min(4000, provincialTax);
+      return ontarioFirstTimeRebates(ontarioProvincialLandTransferTax(price), 0).provincial;
     },
   },
   british_columbia: {
@@ -68,13 +51,11 @@ const provinces: Record<string, ProvinceRates> = {
   alberta: {
     name: "Alberta",
     calculate: (price) => {
-      // Alberta has land transfer registration fees only, not a true LTT
-      const registrationFee = Math.min(price * 0.002, 500) + 50; // Base + additional
-      const mortgageFee = 50; // Simplified
-      return { 
-        provincial: registrationFee + mortgageFee, 
-        municipal: 0, 
-        explanation: "Alberta: Registration fees only (~$100-$600 total)" 
+      const registrationFee = albertaLandTitlesFee(price);
+      return {
+        provincial: registrationFee,
+        municipal: 0,
+        explanation: "Alberta has no land transfer tax. This is the Land Titles fee on the transfer for submissions on or after 1 October 2026: $50 plus $5 per $5,000 or part. A mortgage registration is a separate instrument.",
       };
     },
     firstTimeRebate: () => 0, // No FTHB rebate
@@ -82,18 +63,10 @@ const provinces: Record<string, ProvinceRates> = {
   quebec: {
     name: "Quebec (Without Montreal)",
     calculate: (price) => {
-      let tax = 0;
-      if (price <= 55500) {
-        tax = price * 0.005;
-      } else if (price <= 255000) {
-        tax = 55500 * 0.005 + (price - 55500) * 0.01;
-      } else {
-        tax = 55500 * 0.005 + 199500 * 0.01 + (price - 255000) * 0.015;
-      }
-      return { 
-        provincial: tax, 
-        municipal: 0, 
-        explanation: "Quebec: 0.5% on first $55.5K, 1% on $55.5K-$255K, 1.5% above $255K" 
+      return {
+        provincial: quebecWelcomeTaxOutsideMontreal(price),
+        municipal: 0,
+        explanation: "Quebec outside Montreal, planning estimate: 0.5% on first $55.5K, 1% on $55.5K-$255K, 1.5% above $255K. Not the Revenu Québec credit.",
       };
     },
     firstTimeRebate: (price) => {
@@ -125,8 +98,8 @@ export default function LandTransferTaxCalculator() {
     const rebate = isFirstTimeBuyer ? provData.firstTimeRebate(homePrice) : 0;
     
     // Toronto adds municipal rebate
-    const torontoMunicipalRebate = (province === "ontario" && isToronto && isFirstTimeBuyer) 
-      ? Math.min(4475 - 4000, totalMunicipal) 
+    const torontoMunicipalRebate = (province === "ontario" && isToronto && isFirstTimeBuyer)
+      ? ontarioFirstTimeRebates(0, totalMunicipal).municipal
       : 0;
     
     const totalRebate = rebate + torontoMunicipalRebate;
@@ -243,8 +216,7 @@ export default function LandTransferTaxCalculator() {
         
         {province === "ontario" && isToronto && (
           <p className="mt-2">
-            <strong>Toronto Municipal Rebate:</strong> First-time buyers can receive up to $4,475 total rebate 
-            ($4,000 provincial + up to $4,475 municipal).
+            <strong>Toronto rebates:</strong> A qualifying first-time buyer can receive up to $4,000 of the provincial tax and up to $4,475 of the municipal tax, $8,475 combined. The municipal rebate does not replace the provincial one.
           </p>
         )}
 

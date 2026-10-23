@@ -7,6 +7,7 @@ import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
 import { stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
+import { STRESS } from "@/content/guides/shared";
 import { STRAIGHT_SWITCH_STRESS_TEST_CITE } from "@/content/osfiStressTest";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
@@ -15,7 +16,7 @@ const faqs = [
   {
     question: "What is the mortgage stress test in Canada?",
     answer:
-      "Federally regulated lenders must qualify you at a higher interest rate than the contract rate on the mortgage. This calculator uses the same rule of thumb as OSFI Guideline B-20: the qualifying rate is the greater of the Bank of Canada five-year conventional mortgage rate (this tool uses a 5.25% floor) or your contract rate plus 2%. You still make payments at the contract rate; the higher rate is only used to test whether the loan is affordable if rates rise.",
+      "Federally regulated lenders qualify most new mortgages at a higher rate than the contract rate. OSFI’s minimum qualifying rate, as stated on its page in October 2026, is the greater of the contract rate plus 2 percentage points or 5.25%. The 5.25% floor is not the Bank of Canada overnight rate and it is not the five-year conventional mortgage rate. You still pay the contract rate. The higher rate is only the test. The full walk-through is in the mortgage stress test guide linked on this page.",
   },
   {
     question: "What are GDS and TDS ratios?",
@@ -40,7 +41,7 @@ const faqs = [
   {
     question: "Is the qualifying rate the same as the Bank of Canada overnight rate?",
     answer:
-      "No. The overnight rate is the policy rate that influences prime and variable mortgages. The stress-test floor used here is the Bank of Canada five-year conventional mortgage rate (also called the qualifying rate), a different published series. Variable-rate borrowers still qualify at the greater of that floor or contract rate plus 2%, even if prime later moves.",
+      "No. The overnight rate is the policy rate that influences prime and variable mortgages. OSFI’s qualifying-rate floor is a separate 5.25% figure, used when it is higher than the contract rate plus 2 percentage points. Variable-rate borrowers are tested the same way, even if prime later moves. OSFI says the floor and the buffer are reviewed at least annually.",
   },
   {
     question: "How can I improve my chances of passing?",
@@ -105,8 +106,7 @@ export default function StressTestPage() {
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Mortgage Stress Test Calculator</h1>
               <p className="text-xl text-slate-300">
-                Check whether your income, debts, and mortgage amount pass Canada’s qualifying-rate rules before you make an offer.
-                This page is for buyers, refinancers, and homeowners adding funds who need a GDS/TDS read at the stress-test rate—not the payment on the rate sheet.
+                The qualifying rate is the greater of your contract rate plus 2 percentage points or 5.25%, and this tool then checks that payment against 39% GDS and 44% TDS. An uninsured straight switch at renewal can be exempt when the balance and amortization do not increase. The mortgage stress test guide has the longer version.
               </p>
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function StressTestPage() {
                     <strong className="text-slate-800">Contract rate + 2 percentage points</strong>, or
                   </li>
                   <li>
-                    <strong className="text-slate-800">the Bank of Canada five-year conventional mortgage rate</strong> (this calculator’s floor is 5.25%).
+                    <strong className="text-slate-800">5.25%</strong>, the floor on OSFI’s current minimum qualifying rate page, which is not the Bank of Canada overnight rate.
                   </li>
                 </ul>
                 <p className="text-slate-600 mb-4">
@@ -218,6 +218,37 @@ export default function StressTestPage() {
                     {" "}is Alberta-based and provincially regulated; insured deals still have to meet insurer rules.
                   </li>
                 </ul>
+              </section>
+
+              <section className="card-default p-6">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">The same mortgage at three incomes</h2>
+                <p className="text-slate-600 mb-4">
+                  Mortgage {STRESS.mortgage.toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 })}, {STRESS.years} years, contract rate {STRESS.contract.toFixed(2)}% (the rounded borrower-reported 5-year fixed median, not a lender quote). The qualifying rate is {STRESS.qualifying.toFixed(2)}%, the greater of that contract plus 2 points and the {STRESS.floor.toFixed(2)}% floor. Property tax is $350 a month, heat is $150, and other debts are $450. No condo fee is included. The 39% and 44% ceilings are CMHC’s insured caps. OSFI does not publish them as a universal uninsured limit. Read the{" "}
+                  <a href="/guides/mortgage-stress-test/" className="text-teal-700 font-medium hover:underline">Mortgage Stress Test 2026 guide</a>{" "}
+                  for the straight-switch exemption and the same three incomes in prose.
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-sm text-left">
+                    <thead>
+                      <tr className="border-b border-slate-200 text-slate-500">
+                        <th className="py-2 pr-4 font-medium">Gross income</th>
+                        <th className="py-2 pr-4 font-medium">GDS</th>
+                        <th className="py-2 pr-4 font-medium">TDS</th>
+                        <th className="py-2 font-medium">At 39% and 44%</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {STRESS.cases.map((row) => (
+                        <tr key={row.income} className="border-b border-slate-100">
+                          <td className="py-2 pr-4">${row.income.toLocaleString("en-CA")}</td>
+                          <td className="py-2 pr-4">{row.gds.toFixed(1)}%</td>
+                          <td className="py-2 pr-4">{row.tds.toFixed(1)}%</td>
+                          <td className="py-2">{row.passes ? "Clears both" : "Misses"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </section>
 
               <CalculatorGuide sections={stressTestGuide()} />

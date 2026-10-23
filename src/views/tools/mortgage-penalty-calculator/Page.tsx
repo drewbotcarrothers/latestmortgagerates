@@ -5,6 +5,8 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
+import CalculatorGuide from "@/components/CalculatorGuide";
+import { penaltyGuide } from "@/content/toolExplainers";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
 
@@ -56,7 +58,7 @@ export default function MortgagePenaltyPage() {
                 <span>Penalty Calculator</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Mortgage Penalty Calculator</h1>
-              <p className="text-xl text-slate-300">Calculate your mortgage penalty for breaking early.</p>
+              <p className="text-xl text-slate-300">A closed mortgage penalty is the greater of three months’ interest on the balance and the interest-rate differential. This estimate uses those two formulas and keeps the larger one. It is not a payout statement from your lender.</p>
             </div>
           </div>
         </div>
@@ -74,7 +76,8 @@ export default function MortgagePenaltyPage() {
           <AdUnit format="display" />
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+          <CalculatorGuide sections={penaltyGuide()} />
           <FAQSection
             faqs={[
               {
