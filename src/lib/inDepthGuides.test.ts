@@ -20,8 +20,8 @@ const REQUIRED_LINKS = [
 ];
 
 describe("in-depth guides", () => {
-  it("publishes four guides inside the word-count range", () => {
-    assert.equal(IN_DEPTH_GUIDES.length, 4);
+  it("publishes eight guides inside the word-count range", () => {
+    assert.equal(IN_DEPTH_GUIDES.length, 8);
     const counts = IN_DEPTH_GUIDES.map((guide) => [guide.slug, guideWordCount(guide)]);
     for (const [slug, words] of counts) {
       assert.ok(words >= 1800 && words <= 2500, `${slug} is ${words} words`);

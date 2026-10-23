@@ -96,6 +96,10 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/mortgage-prepayment-penalties/"), true);
     assert.equal(isIndexablePath("/guides/mortgage-stress-test/"), true);
     assert.equal(isIndexablePath("/guides/banks-vs-monoline-lenders-vs-credit-unions/"), true);
+    assert.equal(isIndexablePath("/guides/fixed-vs-variable-mortgage-2026/"), true);
+    assert.equal(isIndexablePath("/guides/first-time-home-buyer-programs-canada/"), true);
+    assert.equal(isIndexablePath("/guides/switching-mortgage-lenders-at-renewal/"), true);
+    assert.equal(isIndexablePath("/guides/posted-vs-discounted-mortgage-rates/"), true);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {
