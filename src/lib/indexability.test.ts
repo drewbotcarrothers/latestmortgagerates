@@ -241,6 +241,11 @@ describe("expanded page depth", () => {
       "src/content/guides/bankOfCanadaMortgage.ts",
       "src/content/guides/renewalVsRefinance.ts",
       "src/content/guides/batch3Math.ts",
+      "src/content/guides/portingMortgage.ts",
+      "src/content/guides/lockInVariable.ts",
+      "src/content/guides/renewalWave2027.ts",
+      "src/content/guides/helocRates.ts",
+      "src/content/guides/batch4Math.ts",
       "src/views/guides/InDepthGuidePage.tsx",
       "src/content/lenderContent.json",
     ];

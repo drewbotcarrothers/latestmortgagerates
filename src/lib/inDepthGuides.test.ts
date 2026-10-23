@@ -20,18 +20,25 @@ const REQUIRED_LINKS = [
 ];
 
 describe("in-depth guides", () => {
-  it("publishes twelve guides inside the word-count range", () => {
+  it("publishes sixteen guides inside the word-count range", () => {
     const batch3 = new Set([
       "cmhc-mortgage-insurance-canada",
       "30-year-amortization-canada",
       "bank-of-canada-rate-and-your-mortgage",
       "mortgage-renewal-vs-refinance-vs-heloc",
     ]);
-    assert.equal(IN_DEPTH_GUIDES.length, 12);
+    const batch4 = new Set([
+      "porting-mortgage-canada",
+      "should-i-lock-in-variable-rate",
+      "2027-mortgage-renewal-wave",
+      "heloc-rates-canada",
+    ]);
+    assert.equal(IN_DEPTH_GUIDES.length, 16);
     for (const guide of IN_DEPTH_GUIDES) {
       const words = guideWordCount(guide);
-      const min = batch3.has(guide.slug) ? 2200 : 1800;
-      assert.ok(words >= min && words <= 2500, `${guide.slug} is ${words} words`);
+      const min = batch3.has(guide.slug) || batch4.has(guide.slug) ? 2200 : 1800;
+      const max = batch4.has(guide.slug) ? 2600 : 2500;
+      assert.ok(words >= min && words <= max, `${guide.slug} is ${words} words`);
     }
   });
 

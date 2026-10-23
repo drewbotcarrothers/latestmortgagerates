@@ -7,6 +7,10 @@ import { postedVsDiscounted } from "./guides/postedVsDiscounted";
 import { prepaymentPenalties } from "./guides/prepaymentPenalties";
 import { renewalPlaybook } from "./guides/renewalPlaybook";
 import { renewalVsRefinance } from "./guides/renewalVsRefinance";
+import { helocRates } from "./guides/helocRates";
+import { lockInVariable } from "./guides/lockInVariable";
+import { portingMortgage } from "./guides/portingMortgage";
+import { renewalWave2027 } from "./guides/renewalWave2027";
 import { stressTestGuide } from "./guides/stressTestGuide";
 import { switchingLenders } from "./guides/switchingLenders";
 import { thirtyYearAmortization } from "./guides/thirtyYearAmortization";
@@ -30,6 +34,10 @@ export const IN_DEPTH_GUIDES: InDepthGuide[] = [
   thirtyYearAmortization,
   bankOfCanadaMortgage,
   renewalVsRefinance,
+  portingMortgage,
+  lockInVariable,
+  renewalWave2027,
+  helocRates,
 ];
 
 export function guideBySlug(slug: string): InDepthGuide {
