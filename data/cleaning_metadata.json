@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-10-23T15:32:32.244328",
-  "total_rates": 229,
+  "generated_at": "2026-10-24T01:16:02.518716",
+  "total_rates": 241,
   "cleaning_stats": {
-    "input_count": 344,
+    "input_count": 320,
     "removed_aggregator": 0,
-    "removed_duplicates": 18,
+    "removed_duplicates": 19,
     "removed_unrealistic": 0,
-    "removed_no_metadata": 1,
-    "removed_inferior": 96,
-    "flagged_suspicious": 10,
-    "output_count": 229,
+    "removed_no_metadata": 0,
+    "removed_inferior": 60,
+    "flagged_suspicious": 5,
+    "output_count": 241,
     "by_lender": {
       "rbc": 11,
-      "td": 13,
+      "td": 20,
       "bmo": 10,
-      "scotiabank": 1,
-      "cibc": 10,
+      "scotiabank": 8,
+      "cibc": 11,
       "nationalbank": 3,
       "nesto": 4,
       "tangerine": 8,
@@ -34,15 +34,15 @@
       "cmls": 15,
       "butlermortgage": 9,
       "truenorth": 14,
-      "equitable": 5,
-      "hometrust": 10
+      "equitable": 7,
+      "hometrust": 5
     },
     "sources_used": {
       "rbc_live_scrape": 11,
-      "td_live_scrape": 13,
+      "td_live_scrape": 20,
       "bmo_live_scrape": 10,
-      "scotiabank_live_scrape": 1,
-      "cibc_live_scrape": 10,
+      "scotiabank_live_scrape": 8,
+      "cibc_live_scrape": 11,
       "nationalbank_live_scrape": 3,
       "nesto_live_scrape": 4,
       "tangerine_live_scrape": 8,
@@ -61,8 +61,8 @@
       "cmls_live_scrape": 15,
       "butlermortgage_live_scrape": 9,
       "truenorth_live_scrape": 14,
-      "equitable_live_scrape": 5,
-      "hometrust_live_scrape": 10
+      "equitable_live_scrape": 7,
+      "hometrust_fallback_2026-09-14": 5
     }
   },
   "data_quality": "deduplicated_and_validated"

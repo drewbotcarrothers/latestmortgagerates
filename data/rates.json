@@ -11,7 +11,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -35,7 +35,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -59,7 +59,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -83,7 +83,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -107,7 +107,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -131,7 +131,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -155,7 +155,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -179,7 +179,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -203,7 +203,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -227,7 +227,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -251,7 +251,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
-    "scraped_at": "2026-10-23T18:18:12.711218",
+    "scraped_at": "2026-10-24T01:14:50.726146",
     "raw_data": {
       "source": "rbc_live_scrape",
       "extraction_method": "static_html",
@@ -275,7 +275,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -299,7 +299,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -323,7 +323,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -347,7 +347,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -371,7 +371,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -395,7 +395,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -419,7 +419,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -443,7 +443,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -458,6 +458,78 @@
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
+    "term_months": 12,
+    "rate_type": "fixed",
+    "rate": 5.69,
+    "mortgage_type": "insured",
+    "apr": "6.530",
+    "posted_rate": 5.69,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF012C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "6.530",
+      "featured": false,
+      "product": "1 Year Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
+    "term_months": 12,
+    "rate_type": "fixed",
+    "rate": 5.69,
+    "mortgage_type": "uninsured",
+    "apr": "5.790",
+    "posted_rate": 5.69,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF012C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "5.790",
+      "featured": false,
+      "product": "1 Year Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
+    "term_months": 24,
+    "rate_type": "fixed",
+    "rate": 5.39,
+    "mortgage_type": "insured",
+    "apr": "5.921",
+    "posted_rate": 5.39,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF024C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "5.921",
+      "featured": false,
+      "product": "2 Year Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
     "term_months": 24,
     "rate_type": "fixed",
     "rate": 5.21,
@@ -467,7 +539,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -484,6 +556,30 @@
     "lender_slug": "td",
     "term_months": 36,
     "rate_type": "fixed",
+    "rate": 6.15,
+    "mortgage_type": "insured",
+    "apr": "6.334",
+    "posted_rate": 6.15,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF036C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "6.334",
+      "featured": false,
+      "product": "3 Year Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
+    "term_months": 36,
+    "rate_type": "fixed",
     "rate": 5.24,
     "mortgage_type": "uninsured",
     "apr": "5.274",
@@ -491,7 +587,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -515,7 +611,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -539,7 +635,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -554,6 +650,78 @@
   {
     "lender_name": "TD Bank",
     "lender_slug": "td",
+    "term_months": 6,
+    "rate_type": "fixed",
+    "rate": 5.54,
+    "mortgage_type": "insured",
+    "apr": "6.225",
+    "posted_rate": 5.54,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF006C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "6.225",
+      "featured": false,
+      "product": "6 Month Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
+    "term_months": 6,
+    "rate_type": "fixed",
+    "rate": 5.54,
+    "mortgage_type": "uninsured",
+    "apr": "5.735",
+    "posted_rate": 5.54,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGF006C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "5.735",
+      "featured": false,
+      "product": "6 Month Fixed Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 4.6,
+    "mortgage_type": "insured",
+    "apr": "5.071",
+    "posted_rate": 4.6,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
+    "raw_data": {
+      "source": "td_live_scrape",
+      "extraction_method": "psservice_getrates",
+      "product_code": "MTGV060C",
+      "section": "posted",
+      "is_open": false,
+      "apr": "5.071",
+      "featured": false,
+      "product": "5 Year Variable Closed"
+    }
+  },
+  {
+    "lender_name": "TD Bank",
+    "lender_slug": "td",
     "term_months": 60,
     "rate_type": "variable",
     "rate": 4.29,
@@ -563,7 +731,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://td.com/ca/en/personal-banking/products/mortgages/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:32.990300+00:00",
+    "scraped_at": "2026-10-24T01:14:53.357737+00:00",
     "raw_data": {
       "source": "td_live_scrape",
       "extraction_method": "psservice_getrates",
@@ -587,7 +755,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -611,7 +779,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -635,7 +803,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -659,7 +827,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -683,7 +851,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -707,7 +875,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -731,7 +899,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -755,7 +923,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -779,7 +947,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -803,7 +971,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.bmo.com/en-ca/main/personal/mortgages/mortgage-rates/",
-    "scraped_at": "2026-10-23T18:18:12.883731+00:00",
+    "scraped_at": "2026-10-24T01:14:54.395034+00:00",
     "raw_data": {
       "source": "bmo_live_scrape",
       "extraction_method": "public_data_api",
@@ -827,7 +995,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_varmortgage",
@@ -835,7 +1003,7 @@
       "section": "special",
       "posted": false,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": true
     }
   },
@@ -851,7 +1019,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_varmortgage",
@@ -859,7 +1027,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -875,7 +1043,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -883,7 +1051,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -899,7 +1067,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -907,7 +1075,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -923,7 +1091,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -931,7 +1099,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -947,7 +1115,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -955,7 +1123,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -971,7 +1139,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -979,7 +1147,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -995,7 +1163,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.scotiabank.com/ca/en/personal/rates-prices/mortgages-rates.html",
-    "scraped_at": "2026-10-23T18:18:13.269596+00:00",
+    "scraped_at": "2026-10-24T01:14:55.834360+00:00",
     "raw_data": {
       "source": "scotiabank_live_scrape",
       "extraction_method": "dmtsms_nonspecialmortgage",
@@ -1003,7 +1171,7 @@
       "section": "posted",
       "posted": true,
       "is_open": false,
-      "as_of": "2026-10-23",
+      "as_of": "2026-10-24",
       "featured": false
     }
   },
@@ -1019,7 +1187,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1043,7 +1211,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1067,7 +1235,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1082,6 +1250,30 @@
   {
     "lender_name": "Canadian Imperial Bank of Commerce",
     "lender_slug": "cibc",
+    "term_months": 120,
+    "rate_type": "fixed",
+    "rate": 6.79,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": 6.79,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
+    "raw_data": {
+      "source": "cibc_live_scrape",
+      "extraction_method": "product_rates_api",
+      "product_code": "FRCM",
+      "term_key": "10_null_null_Years_T",
+      "section": "posted",
+      "product": "Fixed closed",
+      "published_at": "Fri Oct 09 00:00:00 EDT 2026",
+      "featured": false
+    }
+  },
+  {
+    "lender_name": "Canadian Imperial Bank of Commerce",
+    "lender_slug": "cibc",
     "term_months": 84,
     "rate_type": "fixed",
     "rate": 5.54,
@@ -1091,7 +1283,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1115,7 +1307,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1139,7 +1331,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1163,7 +1355,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1187,7 +1379,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1211,7 +1403,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1235,7 +1427,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cibc.com/en/interest-rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:35.769348+00:00",
+    "scraped_at": "2026-10-24T01:14:57.343154+00:00",
     "raw_data": {
       "source": "cibc_live_scrape",
       "extraction_method": "product_rates_api",
@@ -1259,7 +1451,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-10-23T15:31:36.897787",
+    "scraped_at": "2026-10-24T01:14:58.346556",
     "raw_data": {
       "source": "nationalbank_live_scrape",
       "years": 3
@@ -1277,7 +1469,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-10-23T15:31:36.897787",
+    "scraped_at": "2026-10-24T01:14:58.346556",
     "raw_data": {
       "source": "nationalbank_live_scrape",
       "years": 5
@@ -1295,7 +1487,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.nbc.ca/personal/mortgages.html",
-    "scraped_at": "2026-10-23T15:31:36.897787",
+    "scraped_at": "2026-10-24T01:14:58.346556",
     "raw_data": {
       "source": "nationalbank_live_scrape",
       "years": 5
@@ -1313,7 +1505,7 @@
     "ltv_tier": "0-65%",
     "spread_to_prime": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:41.062992",
+    "scraped_at": "2026-10-24T01:15:04.742057",
     "raw_data": {
       "source": "nesto_live_scrape",
       "years": 5,
@@ -1334,7 +1526,7 @@
     "ltv_tier": "65-80%",
     "spread_to_prime": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:41.062992",
+    "scraped_at": "2026-10-24T01:15:04.742057",
     "raw_data": {
       "source": "nesto_live_scrape",
       "years": 5,
@@ -1355,7 +1547,7 @@
     "ltv_tier": "0-65%",
     "spread_to_prime": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:41.062992",
+    "scraped_at": "2026-10-24T01:15:04.742057",
     "raw_data": {
       "source": "nesto_live_scrape",
       "years": 5,
@@ -1376,7 +1568,7 @@
     "ltv_tier": "65-80%",
     "spread_to_prime": null,
     "source_url": "https://www.nesto.ca/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:31:41.062992",
+    "scraped_at": "2026-10-24T01:15:04.742057",
     "raw_data": {
       "source": "nesto_live_scrape",
       "years": 5,
@@ -1397,7 +1589,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "5 Year Variable Mortgage",
@@ -1416,7 +1608,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "1 Year Fixed Mortgage",
@@ -1435,7 +1627,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "2 Year Fixed Mortgage",
@@ -1454,7 +1646,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "3 Year Fixed Mortgage",
@@ -1473,7 +1665,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "4 Year Fixed Mortgage",
@@ -1492,7 +1684,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "5 Year Fixed Mortgage",
@@ -1511,7 +1703,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "7 Year Fixed Mortgage",
@@ -1530,7 +1722,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.tangerine.ca/en/rates/mortgage-rates",
-    "scraped_at": "2026-10-23T15:31:44.170356",
+    "scraped_at": "2026-10-24T01:15:07.819785",
     "raw_data": {
       "source": "tangerine_live_scrape",
       "term_text": "10 Year Fixed Mortgage",
@@ -1549,7 +1741,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.simplii.com/en/rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:48.098157+00:00",
+    "scraped_at": "2026-10-24T01:15:12.317891+00:00",
     "raw_data": {
       "source": "simplii_live_scrape",
       "extraction_method": "rds_product_rates_api",
@@ -1573,7 +1765,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.simplii.com/en/rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:48.098157+00:00",
+    "scraped_at": "2026-10-24T01:15:12.317891+00:00",
     "raw_data": {
       "source": "simplii_live_scrape",
       "extraction_method": "rds_product_rates_api",
@@ -1597,7 +1789,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.simplii.com/en/rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:48.098157+00:00",
+    "scraped_at": "2026-10-24T01:15:12.317891+00:00",
     "raw_data": {
       "source": "simplii_live_scrape",
       "extraction_method": "rds_product_rates_api",
@@ -1621,7 +1813,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.simplii.com/en/rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:48.098157+00:00",
+    "scraped_at": "2026-10-24T01:15:12.317891+00:00",
     "raw_data": {
       "source": "simplii_live_scrape",
       "extraction_method": "rds_product_rates_api",
@@ -1645,7 +1837,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.simplii.com/en/rates/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:48.098157+00:00",
+    "scraped_at": "2026-10-24T01:15:12.317891+00:00",
     "raw_data": {
       "source": "simplii_live_scrape",
       "extraction_method": "rds_product_rates_api",
@@ -1669,7 +1861,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1688,7 +1880,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1707,7 +1899,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1726,7 +1918,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1745,7 +1937,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1764,7 +1956,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1783,7 +1975,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1802,7 +1994,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1821,7 +2013,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1840,7 +2032,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1859,7 +2051,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.alternabank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:49.699736+00:00",
+    "scraped_at": "2026-10-24T01:15:14.047708+00:00",
     "raw_data": {
       "source": "alterna_live_scrape",
       "extraction_method": "http_html",
@@ -1878,7 +2070,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.wealthsimple.com/en-ca/mortgages",
-    "scraped_at": "2026-10-23T16:31:50.411319+01:00",
+    "scraped_at": "2026-10-24T02:15:14.949049+01:00",
     "raw_data": {
       "source": "wealthsimple_live_scrape",
       "years": 5,
@@ -1898,7 +2090,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.wealthsimple.com/en-ca/mortgages",
-    "scraped_at": "2026-10-23T16:31:50.411319+01:00",
+    "scraped_at": "2026-10-24T02:15:14.949049+01:00",
     "raw_data": {
       "source": "wealthsimple_live_scrape",
       "years": 5,
@@ -1918,7 +2110,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -1937,7 +2129,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -1956,7 +2148,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -1975,7 +2167,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -1994,7 +2186,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2013,7 +2205,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2032,7 +2224,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2051,7 +2243,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2070,7 +2262,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2089,7 +2281,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2108,7 +2300,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2127,7 +2319,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.meridiancu.ca/personal/rates-and-fees/mortgage-and-borrowing-rates",
-    "scraped_at": "2026-10-23T15:31:54.347209+00:00",
+    "scraped_at": "2026-10-24T01:15:19.080004+00:00",
     "raw_data": {
       "source": "meridian_live_scrape",
       "extraction_method": "http_html",
@@ -2146,7 +2338,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2165,7 +2357,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2184,7 +2376,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2203,7 +2395,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2222,7 +2414,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2241,7 +2433,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2260,7 +2452,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2279,7 +2471,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2298,7 +2490,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2317,7 +2509,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2336,7 +2528,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2355,7 +2547,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.desjardins.com/en/mortgage/mortgage-rates.html",
-    "scraped_at": "2026-10-23T15:31:54.915878+00:00",
+    "scraped_at": "2026-10-24T01:15:19.749235+00:00",
     "raw_data": {
       "source": "desjardins_live_scrape",
       "extraction_method": "http_html",
@@ -2374,7 +2566,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2393,7 +2585,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2412,7 +2604,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2431,7 +2623,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2450,7 +2642,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2469,7 +2661,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2488,7 +2680,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2507,7 +2699,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2526,7 +2718,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2545,7 +2737,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2564,7 +2756,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2583,7 +2775,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2602,7 +2794,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2621,7 +2813,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.vancity.com/rates/mortgages",
-    "scraped_at": "2026-10-23T15:31:55.448992+00:00",
+    "scraped_at": "2026-10-24T01:15:20.147018+00:00",
     "raw_data": {
       "source": "vancity_live_scrape",
       "extraction_method": "http_html",
@@ -2640,7 +2832,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.coastcapitalsavings.com/mortgages",
-    "scraped_at": "2026-10-23T15:32:00.219097+00:00",
+    "scraped_at": "2026-10-24T01:15:25.903375+00:00",
     "raw_data": {
       "source": "coastcapital_live_scrape",
       "extraction_method": "safari_tls",
@@ -2661,7 +2853,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.coastcapitalsavings.com/mortgages",
-    "scraped_at": "2026-10-23T15:32:00.219097+00:00",
+    "scraped_at": "2026-10-24T01:15:25.903375+00:00",
     "raw_data": {
       "source": "coastcapital_live_scrape",
       "extraction_method": "safari_tls",
@@ -2682,7 +2874,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.coastcapitalsavings.com/mortgages",
-    "scraped_at": "2026-10-23T15:32:00.219097+00:00",
+    "scraped_at": "2026-10-24T01:15:25.903375+00:00",
     "raw_data": {
       "source": "coastcapital_live_scrape",
       "extraction_method": "safari_tls",
@@ -2703,7 +2895,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.coastcapitalsavings.com/mortgages",
-    "scraped_at": "2026-10-23T15:32:00.219097+00:00",
+    "scraped_at": "2026-10-24T01:15:25.903375+00:00",
     "raw_data": {
       "source": "coastcapital_live_scrape",
       "extraction_method": "safari_tls",
@@ -2724,7 +2916,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2743,7 +2935,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2762,7 +2954,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2781,7 +2973,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2800,7 +2992,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2819,7 +3011,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2838,7 +3030,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2857,7 +3049,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2876,7 +3068,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2895,7 +3087,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2914,7 +3106,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2933,7 +3125,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2952,7 +3144,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.atb.com/resources/rates/mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:01.529011+00:00",
+    "scraped_at": "2026-10-24T01:15:27.358954+00:00",
     "raw_data": {
       "source": "atb_live_scrape",
       "extraction_method": "http_html",
@@ -2971,7 +3163,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 2,
@@ -2991,7 +3183,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 3,
@@ -3011,7 +3203,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 4,
@@ -3031,7 +3223,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 5,
@@ -3051,7 +3243,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 7,
@@ -3071,7 +3263,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.firstnational.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:01.964370+00:00",
+    "scraped_at": "2026-10-24T01:15:28.456737+00:00",
     "raw_data": {
       "source": "firstnational_live_scrape",
       "years": 10,
@@ -3091,7 +3283,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "6 months",
@@ -3110,7 +3302,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "1 year",
@@ -3129,7 +3321,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "18 months",
@@ -3148,7 +3340,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "2 years",
@@ -3167,7 +3359,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "3 years",
@@ -3186,7 +3378,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "4 years",
@@ -3205,7 +3397,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "Promotional rate - 5 years",
@@ -3224,7 +3416,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "6 years",
@@ -3243,7 +3435,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "7 years",
@@ -3262,7 +3454,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "8 years",
@@ -3281,7 +3473,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "9 years",
@@ -3300,7 +3492,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.laurentianbank.ca/en/personal/rates/mortgages",
-    "scraped_at": "2026-10-23T15:32:08.304242+00:00",
+    "scraped_at": "2026-10-24T01:15:35.803208+00:00",
     "raw_data": {
       "source": "laurentian_live_scrape",
       "term_text": "10 years",
@@ -3319,7 +3511,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Preferred Rate Mortgage 6-month closed",
@@ -3341,7 +3533,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 1-year closed",
@@ -3363,7 +3555,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 2-year closed",
@@ -3385,7 +3577,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 3-year closed",
@@ -3407,7 +3599,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 4-year closed",
@@ -3429,7 +3621,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife Bank Select Mortgage (New clients only) 5-year closed fixed-rate",
@@ -3451,7 +3643,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife Bank Select High Ratio mortgage 5-year closed fixed-rate",
@@ -3473,7 +3665,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One (New clients only) 5-year closed fixed-rate",
@@ -3495,7 +3687,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife Bank Select 5-year closed (Manulife Bank prime + 0.00%)",
@@ -3517,7 +3709,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 7-year closed",
@@ -3539,7 +3731,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.manulifebank.ca/current-rates.html",
-    "scraped_at": "2026-10-23T15:32:14.233393+00:00",
+    "scraped_at": "2026-10-24T01:15:42.293760+00:00",
     "raw_data": {
       "source": "manulife_live_scrape",
       "product": "Manulife One 10-year closed",
@@ -3561,14 +3753,14 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "1 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3587,14 +3779,14 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "2 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3613,14 +3805,14 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "3 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3639,14 +3831,14 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "4 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3665,14 +3857,14 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year Fixed",
       "section": "Standard Rates",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3691,14 +3883,14 @@
     "ltv_tier": null,
     "spread_to_prime": "Prime - 0.75%",
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year ARM",
       "section": "Standard Rates",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": null,
@@ -3717,14 +3909,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "1 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3749,14 +3941,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "2 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3781,14 +3973,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "3 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3813,14 +4005,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "4 Year Fixed",
       "section": "Standard Rates",
       "featured": false,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3845,14 +4037,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year Fixed",
       "section": "Standard Rates",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3877,14 +4069,14 @@
     "ltv_tier": "\u2264 65%",
     "spread_to_prime": "Prime - 0.75%",
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year ARM",
       "section": "Standard Rates",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 65%",
@@ -3909,14 +4101,14 @@
     "ltv_tier": "\u2264 80%",
     "spread_to_prime": null,
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year Fixed",
       "section": "Uninsurable",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 80%",
@@ -3938,14 +4130,14 @@
     "ltv_tier": "\u2264 80%",
     "spread_to_prime": "Prime - 0.35%",
     "source_url": "https://rfa.ca/prime",
-    "scraped_at": "2026-10-23T15:32:15.035132+00:00",
+    "scraped_at": "2026-10-24T01:15:43.581422+00:00",
     "raw_data": {
       "source": "rfa_live_scrape",
       "extraction_method": "rfa_prime_rate_table",
       "product": "5 Year ARM",
       "section": "Uninsurable",
       "featured": true,
-      "last_verified": "2026-10-23",
+      "last_verified": "2026-10-24",
       "rates_effective": "2026-10-06",
       "prime_rate": "4.45",
       "ltv_tier": "\u2264 80%",
@@ -3967,7 +4159,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -3989,7 +4181,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4011,7 +4203,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4033,7 +4225,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4055,7 +4247,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4077,7 +4269,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4099,7 +4291,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4121,7 +4313,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4143,7 +4335,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4165,7 +4357,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4187,7 +4379,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4209,7 +4401,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4231,7 +4423,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4253,7 +4445,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4275,7 +4467,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.cmls.ca/what-we-do/cmls-residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:17.396605+00:00",
+    "scraped_at": "2026-10-24T01:15:45.745695+00:00",
     "raw_data": {
       "source": "cmls_live_scrape",
       "extraction_method": "embedded_mortgage_rates",
@@ -4297,7 +4489,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "6-MTH/FIXED",
@@ -4316,7 +4508,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "2-YEAR/FIXED",
@@ -4335,7 +4527,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "3-YEAR/FIXED",
@@ -4354,7 +4546,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "3-YEAR/VARIABLE",
@@ -4373,7 +4565,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "4-YEAR/FIXED",
@@ -4392,7 +4584,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "5-YEAR/FIXED",
@@ -4411,7 +4603,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "5-YEAR/VARIABLE",
@@ -4430,7 +4622,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "7-YEAR/FIXED",
@@ -4449,7 +4641,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.butlermortgage.ca/low-mortgage-rates/",
-    "scraped_at": "2026-10-23T15:32:18.075646+00:00",
+    "scraped_at": "2026-10-24T01:15:46.451310+00:00",
     "raw_data": {
       "source": "butlermortgage_live_scrape",
       "product": "10-YEAR/FIXED",
@@ -4468,7 +4660,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4489,7 +4681,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4511,7 +4703,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4532,7 +4724,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4554,7 +4746,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4575,7 +4767,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4597,7 +4789,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4618,7 +4810,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4640,7 +4832,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4661,7 +4853,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4683,7 +4875,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4704,7 +4896,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4726,7 +4918,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4747,7 +4939,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.truenorthmortgage.ca/rates/ontario",
-    "scraped_at": "2026-10-23T15:32:18.800212",
+    "scraped_at": "2026-10-24T01:15:47.155224",
     "raw_data": {
       "source": "truenorth_live_scrape",
       "province": "ontario",
@@ -4769,7 +4961,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:25.565360+00:00",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
     "raw_data": {
       "source": "equitable_live_scrape",
       "extraction_method": "eqbank_rate_table",
@@ -4792,7 +4984,7 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:25.565360+00:00",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
     "raw_data": {
       "source": "equitable_live_scrape",
       "extraction_method": "eqbank_rate_table",
@@ -4808,18 +5000,18 @@
     "lender_slug": "equitable",
     "term_months": 36,
     "rate_type": "fixed",
-    "rate": 5.49,
+    "rate": 4.94,
     "mortgage_type": "uninsured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:25.565360+00:00",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
     "raw_data": {
       "source": "equitable_live_scrape",
       "extraction_method": "eqbank_rate_table",
-      "product": "Standard Mortgage Rate (Closed)",
+      "product": "EQB Evolution Suite \u2122",
       "spread_to_prime": null,
       "prime_rate": "4.45",
       "conditional": false,
@@ -4831,18 +5023,18 @@
     "lender_slug": "equitable",
     "term_months": 48,
     "rate_type": "fixed",
-    "rate": 6.44,
+    "rate": 5.09,
     "mortgage_type": "uninsured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:25.565360+00:00",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
     "raw_data": {
       "source": "equitable_live_scrape",
       "extraction_method": "eqbank_rate_table",
-      "product": "Standard Mortgage Rate (Closed)",
+      "product": "EQB Evolution Suite \u2122",
       "spread_to_prime": null,
       "prime_rate": "4.45",
       "conditional": false,
@@ -4854,112 +5046,74 @@
     "lender_slug": "equitable",
     "term_months": 60,
     "rate_type": "fixed",
-    "rate": 5.59,
+    "rate": 4.89,
     "mortgage_type": "uninsured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
-    "scraped_at": "2026-10-23T15:32:25.565360+00:00",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
     "raw_data": {
       "source": "equitable_live_scrape",
       "extraction_method": "eqbank_rate_table",
-      "product": "Standard Mortgage Rate (Closed)",
+      "product": "EQB Evolution Suite \u2122",
       "spread_to_prime": null,
       "prime_rate": "4.45",
       "conditional": false,
       "featured": true
+    }
+  },
+  {
+    "lender_name": "Equitable Bank",
+    "lender_slug": "equitable",
+    "term_months": 60,
+    "rate_type": "variable",
+    "rate": 3.6,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": "Prime - 0.85%",
+    "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
+    "raw_data": {
+      "source": "equitable_live_scrape",
+      "extraction_method": "eqbank_rate_table",
+      "product": "EQB Evolution Suite \u2122",
+      "spread_to_prime": "Prime - 0.85%",
+      "prime_rate": "4.45",
+      "conditional": false,
+      "featured": true
+    }
+  },
+  {
+    "lender_name": "Equitable Bank",
+    "lender_slug": "equitable",
+    "term_months": 6,
+    "rate_type": "fixed",
+    "rate": 7.54,
+    "mortgage_type": "uninsured",
+    "apr": null,
+    "posted_rate": null,
+    "ltv_tier": null,
+    "spread_to_prime": null,
+    "source_url": "https://www.eqbank.ca/residential/mortgage-rates",
+    "scraped_at": "2026-10-24T01:15:55.634614+00:00",
+    "raw_data": {
+      "source": "equitable_live_scrape",
+      "extraction_method": "eqbank_rate_table",
+      "product": "EQB Evolution Suite \u2122",
+      "spread_to_prime": null,
+      "prime_rate": "4.45",
+      "conditional": false,
+      "featured": false
     }
   },
   {
     "lender_name": "Home Trust",
     "lender_slug": "hometrust",
     "term_months": 12,
-    "rate_type": "fixed",
-    "rate": 5.9,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
-    "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Accelerator 1-Year Fixed",
-      "effective": "2026-10-19",
-      "featured": false
-    }
-  },
-  {
-    "lender_name": "Home Trust",
-    "lender_slug": "hometrust",
-    "term_months": 24,
-    "rate_type": "fixed",
-    "rate": 5.17,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
-    "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Accelerator 2-Year Fixed",
-      "effective": "2026-10-19",
-      "featured": false
-    }
-  },
-  {
-    "lender_name": "Home Trust",
-    "lender_slug": "hometrust",
-    "term_months": 36,
-    "rate_type": "fixed",
-    "rate": 5.12,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
-    "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Accelerator 3-Year Fixed",
-      "effective": "2026-10-19",
-      "featured": true
-    }
-  },
-  {
-    "lender_name": "Home Trust",
-    "lender_slug": "hometrust",
-    "term_months": 48,
-    "rate_type": "fixed",
-    "rate": 5.44,
-    "mortgage_type": "insured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
-    "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Accelerator 4-Year Fixed",
-      "effective": "2026-10-19",
-      "featured": false
-    }
-  },
-  {
-    "lender_name": "Home Trust",
-    "lender_slug": "hometrust",
-    "term_months": 60,
     "rate_type": "fixed",
     "rate": 4.99,
     "mortgage_type": "insured",
@@ -4968,34 +5122,12 @@
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
+    "scraped_at": "2026-10-24T01:15:59.732378+00:00",
     "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Accelerator 5-Year Fixed",
-      "effective": "2026-10-19",
-      "featured": true
-    }
-  },
-  {
-    "lender_name": "Home Trust",
-    "lender_slug": "hometrust",
-    "term_months": 12,
-    "rate_type": "fixed",
-    "rate": 5.29,
-    "mortgage_type": "uninsured",
-    "apr": null,
-    "posted_rate": null,
-    "ltv_tier": null,
-    "spread_to_prime": null,
-    "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
-    "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Classic 1-Year Fixed",
-      "effective": "2026-10-06",
-      "featured": false
+      "source": "hometrust_fallback_2026-09-14",
+      "product": "Accelerator 1-Year Fixed",
+      "featured": false,
+      "last_verified": "2026-08-13"
     }
   },
   {
@@ -5003,20 +5135,19 @@
     "lender_slug": "hometrust",
     "term_months": 24,
     "rate_type": "fixed",
-    "rate": 5.39,
-    "mortgage_type": "uninsured",
+    "rate": 4.44,
+    "mortgage_type": "insured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
+    "scraped_at": "2026-10-24T01:15:59.732378+00:00",
     "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Classic 2-Year Fixed",
-      "effective": "2026-10-06",
-      "featured": false
+      "source": "hometrust_fallback_2026-09-14",
+      "product": "Accelerator 2-Year Fixed",
+      "featured": false,
+      "last_verified": "2026-08-13"
     }
   },
   {
@@ -5024,20 +5155,19 @@
     "lender_slug": "hometrust",
     "term_months": 36,
     "rate_type": "fixed",
-    "rate": 5.49,
-    "mortgage_type": "uninsured",
+    "rate": 4.34,
+    "mortgage_type": "insured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
+    "scraped_at": "2026-10-24T01:15:59.732378+00:00",
     "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Classic 3-Year Fixed",
-      "effective": "2026-10-06",
-      "featured": false
+      "source": "hometrust_fallback_2026-09-14",
+      "product": "Accelerator 3-Year Fixed",
+      "featured": true,
+      "last_verified": "2026-08-13"
     }
   },
   {
@@ -5045,20 +5175,19 @@
     "lender_slug": "hometrust",
     "term_months": 48,
     "rate_type": "fixed",
-    "rate": 6.46,
-    "mortgage_type": "uninsured",
+    "rate": 4.39,
+    "mortgage_type": "insured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
+    "scraped_at": "2026-10-24T01:15:59.732378+00:00",
     "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Classic 4-Year Fixed",
-      "effective": "2026-10-06",
-      "featured": false
+      "source": "hometrust_fallback_2026-09-14",
+      "product": "Accelerator 4-Year Fixed",
+      "featured": false,
+      "last_verified": "2026-08-13"
     }
   },
   {
@@ -5066,20 +5195,19 @@
     "lender_slug": "hometrust",
     "term_months": 60,
     "rate_type": "fixed",
-    "rate": 6.51,
-    "mortgage_type": "uninsured",
+    "rate": 4.49,
+    "mortgage_type": "insured",
     "apr": null,
     "posted_rate": null,
     "ltv_tier": null,
     "spread_to_prime": null,
     "source_url": "https://www.hometrust.ca/mortgages/rates/",
-    "scraped_at": "2026-10-23T15:32:28.969549+00:00",
+    "scraped_at": "2026-10-24T01:15:59.732378+00:00",
     "raw_data": {
-      "source": "hometrust_live_scrape",
-      "extraction_method": "inline_mortgage_rates",
-      "product": "Classic 5-Year Fixed",
-      "effective": "2026-10-06",
-      "featured": false
+      "source": "hometrust_fallback_2026-09-14",
+      "product": "Accelerator 5-Year Fixed",
+      "featured": true,
+      "last_verified": "2026-08-13"
     }
   }
 ]
