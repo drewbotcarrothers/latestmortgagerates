@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-24T14:10:30.937272",
-  "total_rates": 239,
+  "generated_at": "2026-10-25T16:53:36.918532",
+  "total_rates": 244,
   "cleaning_stats": {
-    "input_count": 312,
+    "input_count": 317,
     "removed_aggregator": 0,
     "removed_duplicates": 18,
     "removed_unrealistic": 0,
     "removed_no_metadata": 0,
     "removed_inferior": 55,
     "flagged_suspicious": 5,
-    "output_count": 239,
+    "output_count": 244,
     "by_lender": {
       "rbc": 11,
       "td": 20,
@@ -35,7 +35,7 @@
       "butlermortgage": 9,
       "truenorth": 14,
       "equitable": 5,
-      "hometrust": 5
+      "hometrust": 10
     },
     "sources_used": {
       "rbc_live_scrape": 11,
@@ -62,7 +62,7 @@
       "butlermortgage_live_scrape": 9,
       "truenorth_live_scrape": 14,
       "equitable_live_scrape": 5,
-      "hometrust_fallback_2026-09-14": 5
+      "hometrust_live_scrape": 10
     }
   },
   "data_quality": "deduplicated_and_validated"
