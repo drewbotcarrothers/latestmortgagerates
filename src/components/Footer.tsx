@@ -49,6 +49,28 @@ const ScaleIcon = () => (
   </svg>
 );
 
+const YouTubeIcon = () => (
+  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.8zM9.75 15.57V8.43L15.84 12l-6.09 3.57z" />
+  </svg>
+);
+
+/** Sibling portfolio sites. This site is omitted so the footer does not link to itself. */
+const portfolioSites = [
+  { href: "https://canadianoptimizer.com/", label: "Canadian Optimizer" },
+  { href: "https://canadiancreditcardfinder.com/", label: "Canadian Credit Card Finder" },
+  { href: "https://canadiandatainsights.com/", label: "Canadian Data Insights" },
+  { href: "https://makemoneyoptimizer.com/", label: "Make Money Optimizer" },
+  { href: "https://savingoptimizer.com/", label: "Saving Optimizer" },
+  { href: "https://aitoolsoptimizer.com/", label: "AI Tools Optimizer" },
+  { href: "https://stocksummarizer.com/", label: "Stock Summarizer" },
+] as const;
+
+const youtubeChannel = {
+  href: "https://www.youtube.com/@LatestMortgageRates",
+  label: "YouTube",
+} as const;
+
 export default function Footer({ showDisclaimer = true }: FooterProps) {
   const currentYear = new Date().getFullYear();
   
@@ -130,11 +152,20 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <p className="text-sm text-slate-400 mb-4">
               Compare mortgage rates from Canada's top lenders. Making home financing transparent and accessible since 2025.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
                 <MapPinIcon />
                 Canada
               </span>
+              <a
+                href={youtubeChannel.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-teal-400 transition-colors"
+              >
+                <YouTubeIcon />
+                {youtubeChannel.label}
+              </a>
             </div>
           </div>
           
@@ -218,14 +249,18 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white mb-4">More Canadian tools</h4>
             <ul className="space-y-2.5">
-              <li>
-                <a
-                  href="https://canadiancreditcardfinder.com/"
-                  className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                >
-                  Canadian Credit Card Finder
-                </a>
-              </li>
+              {portfolioSites.map((site) => (
+                <li key={site.href}>
+                  <a
+                    href={site.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
+                  >
+                    {site.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           
