@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import YouTubeEmbed from "../../../components/YouTubeEmbed.astro";
 import Page from "../../../views/guides/NegotiateGuidePage";
 import { negotiateGuide } from "../../../content/guides/negotiateMeta";
+import { NEGOTIATE_RATE_VIDEO, negotiateRateVideoId } from "../../../content/guides/negotiateVideo";
+
+const videoId = negotiateRateVideoId();
 ---
 <BaseLayout
   title="How Much Below Posted Can You Negotiate? | Mortgage Rate Guide"
@@ -9,5 +13,19 @@ import { negotiateGuide } from "../../../content/guides/negotiateMeta";
   canonical="https://latestmortgagerates.ca/guides/negotiate-mortgage-rate/"
   keywords="negotiate mortgage rate Canada, below posted mortgage rate, mortgage renewal negotiation, broker vs bank mortgage"
 >
-  <Page client:load />
+  <Page client:load>
+    {videoId ? (
+      <YouTubeEmbed
+        videoId={videoId}
+        heading={NEGOTIATE_RATE_VIDEO.heading}
+        caption={NEGOTIATE_RATE_VIDEO.caption}
+        title={NEGOTIATE_RATE_VIDEO.title}
+        name={NEGOTIATE_RATE_VIDEO.name}
+        uploadDate={NEGOTIATE_RATE_VIDEO.uploadDate}
+        thumbnailUrl={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+        embedUrl={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        contentUrl={`https://www.youtube.com/watch?v=${videoId}`}
+      />
+    ) : null}
+  </Page>
 </BaseLayout>

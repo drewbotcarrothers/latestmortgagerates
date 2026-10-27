@@ -84,7 +84,11 @@ export function withSnapshotPostedRates(
       if (product.termMonths !== 60) return product;
       const shelf = postedShelfFromRows(rows, lender.slug, product.rateType);
       if (shelf == null) return product;
-      return { ...product, postedRate: shelf };
+      return {
+        ...product,
+        postedRate: shelf,
+        spreadVsPosted: roundToNickel(shelf - product.reportedMedian),
+      };
     }),
   }));
 }
