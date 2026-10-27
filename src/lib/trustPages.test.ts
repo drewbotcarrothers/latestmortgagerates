@@ -178,7 +178,8 @@ describe("trust pages and search metadata", () => {
       assert.match(page, new RegExp(slug), slug);
       assert.ok(IN_DEPTH_GUIDES.some((guide) => guide.slug === slug), slug);
     }
-    assert.match(read("src/views/guides/NegotiateGuidePage.tsx"), /Updated /);
+    assert.match(read("src/views/guides/NegotiateGuidePage.tsx"), /EditorialByline/);
+    assert.match(read("src/views/guides/NegotiateGuidePage.tsx"), /updatedIso/);
     assert.match(read("src/views/blog/BlogPost.tsx"), /Updated /);
     assert.match(read("src/components/EditorialByline.tsx"), /Updated /);
   });

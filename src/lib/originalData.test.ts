@@ -259,6 +259,7 @@ describe("reported discount by bank", () => {
     const rows = discountRows(lenders, { scotiabank: "Scotiabank" });
     assert.equal(rows[0]?.variable?.postedRate, 5.95);
     assert.equal(rows[0]?.omitted.length, 0);
+    assert.equal(lenders[0]?.products[0]?.spreadVsPosted, 2.4);
     assert.equal(
       postedShelfFromRows(
         [{ lender_slug: "td", term_months: 60, rate_type: "fixed", mortgage_type: "uninsured", posted_rate: null }],

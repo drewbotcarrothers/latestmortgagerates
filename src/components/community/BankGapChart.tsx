@@ -7,8 +7,11 @@ import {
   lenderName,
   omittedForMissingPosted,
   termLabel,
+  type LenderBlock,
   type LenderProduct,
 } from "@/lib/communityRates";
+import { withSnapshotPostedRates } from "@/lib/discountByBank";
+import { publishedRates } from "@/lib/publishedRates";
 import { frameRateChart, layoutRateLabels } from "@/lib/rateChartLabels";
 import ChartRateLabel, { useRateLabelFont } from "@/components/community/ChartRateLabel";
 
@@ -24,9 +27,14 @@ export interface BankGapRow {
   product: LenderProduct;
 }
 
+/** Same posted shelf the discount-by-bank report uses for 5-year rows. */
+export function gapLenders(): LenderBlock[] {
+  return withSnapshotPostedRates(communityRates.lenders, publishedRates);
+}
+
 export function bankGapRows(): BankGapRow[] {
   const rows: BankGapRow[] = [];
-  for (const lender of communityRates.lenders) {
+  for (const lender of gapLenders()) {
     for (const product of lender.products) {
       if (product.n >= CHART_MIN_N && product.postedRate != null) {
         rows.push({ lenderSlug: lender.slug, product });
@@ -44,7 +52,7 @@ export function bankGapRows(): BankGapRow[] {
 
 export function omittedPostedNotes(): string[] {
   const notes: string[] = [];
-  for (const lender of communityRates.lenders) {
+  for (const lender of gapLenders()) {
     for (const product of omittedForMissingPosted(lender)) {
       notes.push(
         `${lenderName(lender.slug)} ${termLabel(product.termMonths)} ${product.rateType} (N = ${product.n}) has no posted rate in this snapshot.`,
@@ -67,7 +75,7 @@ export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapR
   return (
     <figure>
       <figcaption className="mb-3 text-sm text-slate-600">
-        The bank&apos;s own posted rate (uninsured product in the current snapshot) versus the median rate {communityRates.attribution} from that bank. All insured statuses are combined.
+        Teal is the median rate {communityRates.attribution} from that bank, with insured statuses combined. Navy on a 5-year row is the uninsured posted shelf from the rate snapshot when that shelf exists. On a shorter term, navy is the posted figure stored in the reported-rate file.
       </figcaption>
       <ul className="mb-4 flex flex-wrap gap-4 text-xs font-medium text-slate-700" aria-hidden="true">
         <li className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ background: TEAL }} /> Reported median</li>
