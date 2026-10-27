@@ -122,7 +122,7 @@ const required = [
   "https://latestmortgagerates.ca/contact/",
   "https://latestmortgagerates.ca/author/andrew/",
   "https://latestmortgagerates.ca/guides/",
-  "https://latestmortgagerates.ca/blog/best-5-year-fixed-rates-week-43-2026/",
+  "https://latestmortgagerates.ca/blog/best-5-year-fixed-rates-week-44-2026/",
   "https://latestmortgagerates.ca/disclaimer/",
   "https://latestmortgagerates.ca/privacy/",
   "https://latestmortgagerates.ca/terms/",

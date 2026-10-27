@@ -113,7 +113,7 @@ export const lockInVariable: InDepthGuide = {
       id: "sources",
       heading: "Sources",
       paragraphs: [
-        "The spread and the payments come from this site's rate file. The overnight rate is the Bank's September 2, 2026 decision. The 15% figure is the May 2026 stability report, labelled there as a market expectation, and it is not a forecast adopted here.",
+        "The spread and the payments come from this rate file. The overnight rate is the Bank's September 2, 2026 decision. The 15% figure is the May 2026 stability report, labelled there as a market expectation, and it is not a forecast adopted here.",
       ],
       listAfter: 0,
       items: [
