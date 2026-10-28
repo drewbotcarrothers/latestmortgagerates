@@ -11,7 +11,7 @@ import {
   pct,
   reportedRatesParagraph,
 } from "./shared";
-import { PRIME_SPREAD } from "../../lib/primeRate";
+import { BOC_POLICY_RATE } from "../../lib/primeRate";
 
 export const postedVsDiscounted: InDepthGuide = {
   slug: "posted-vs-discounted-mortgage-rates",
@@ -76,7 +76,7 @@ export const postedVsDiscounted: InDepthGuide = {
       heading: "A variable discount is a discount off prime",
       paragraphs: [
         `A fixed discount is a number of points off a posted fixed rate, frozen at funding. A variable discount is a number of points off prime, and prime moves. In the reported file the median prime discount on the 5-year variable cell, insured status not stated, is 0.90 points. Big-bank prime on this site is ${pct(SPREAD.prime)}. Prime minus 0.90 is ${pct(SPREAD.variableMedian)}, which is the rounded median itself. The discount stays. The rate moves when prime moves. The <a href="/guides/fixed-vs-variable-mortgage-2026/">fixed versus variable guide</a> prices what that movement does to a payment.`,
-        `Which prime is the whole argument. The headline prime on this site is the big-bank prime of ${pct(SPREAD.prime)}, the Bank of Canada policy rate plus ${pct(PRIME_SPREAD)}. TD publishes its own mortgage prime, higher than that headline. A contract that says "prime minus 0.90" at TD is not the same rate as "prime minus 0.90" at a bank that uses the lower prime. RBC's variable specials above are already effective rates, ${pct(sheet.rbcVariable)} uninsured and ${pct(sheet.rbcVariableInsured)} insured, not a discount you still have to subtract. When a sheet shows both "P − 1.00" and an effective rate, trust the effective rate only after you confirm the P. The <a href="/rates/variable/">variable rate page</a> is the shelf. The commitment is the prime.`,
+        `Which prime is the whole argument. The headline prime on this site is the big-bank prime of ${pct(SPREAD.prime)}. The overnight target is ${pct(BOC_POLICY_RATE)}. TD publishes its own mortgage prime, higher than that headline. A contract that says "prime minus 0.90" at TD is not the same rate as "prime minus 0.90" at a bank that uses the lower prime. RBC's variable specials above are already effective rates, ${pct(sheet.rbcVariable)} uninsured and ${pct(sheet.rbcVariableInsured)} insured, not a discount you still have to subtract. When a sheet shows both "P − 1.00" and an effective rate, trust the effective rate only after you confirm the P. The <a href="/rates/variable/">variable rate page</a> is the shelf. The commitment is the prime.`,
       ],
     },
     {

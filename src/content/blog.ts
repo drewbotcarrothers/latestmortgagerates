@@ -25,6 +25,91 @@ const bondPost = bondYieldsBlogPost();
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "bank-of-canada-raises-rate-october-2026",
+    title: "Bank of Canada Raises Rate to 2.50%: What It Means for Mortgage Renewals",
+    excerpt: "The Bank of Canada raised its target for the overnight rate by 25 basis points to 2.50% on October 28, 2026. Here is what that decision means for variable, adjustable, and fixed mortgages, and for renewals.",
+    content: `<p class="mb-4">The Bank of Canada announced on October 28, 2026 that it is raising its target for the overnight rate by 25 basis points to 2.50%. The Bank Rate is 2.75% and the deposit rate is 2.45%. The previous target was 2.25%, which the Bank had held on September 2, 2026. The next scheduled announcement is December 9, 2026. The next Monetary Policy Report will be released on January 27, 2027.</p>
+
+<p class="mb-4 text-sm text-slate-600">Source: <a href="https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/" class="text-teal-600 hover:underline font-medium">Bank of Canada press release, October 28, 2026</a>. This article explains that release. It is not a mortgage offer and not a recommendation to choose a fixed or variable rate.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Why the Bank Raised Rates</h2>
+
+<p class="mb-4">Governing Council said inflation is higher and more persistent than in the July Monetary Policy Report. It raised the policy rate to reduce the risk that continuing high energy prices spread broadly to the prices of other goods and services. The Bank said there could be a need to increase the policy rate further, but that given uncertainties it will proceed carefully. It also said it remains committed to maintaining Canadians' confidence in price stability.</p>
+
+<p class="mb-3 font-semibold text-slate-800">Key points from the official release:</p>
+
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>CPI inflation has been around 3% since April and is expected to rise to about 3.5% by the end of the year</li>
+  <li>Excluding gasoline, inflation was 2.2% in September, and measures of core inflation remain close to 2%</li>
+  <li>CPI inflation is expected to average 3% in 2027, a percentage point above the July projection, then come down to 2% in the middle of 2028</li>
+  <li>The conflict in the Middle East is in its eighth month. The Bank pointed to higher-for-longer energy prices and increased cost pass-through</li>
+  <li>Businesses have mostly absorbed higher input costs so far. Bank surveys suggest cost pass-through will increase over the next year</li>
+  <li>Near-term household and business inflation expectations have risen. Longer-term inflation expectations remain well anchored</li>
+  <li>GDP growth was 3.3% in the second quarter, and recent indicators point to growth of about 2% in the third quarter, stronger than the July Report</li>
+  <li>The Canadian economy is expected to grow 1% in 2026 and 2% in 2027 and 2028. Growth is expected to slow in the fourth quarter of 2026 because of new US tariffs, then pick up in 2027</li>
+  <li>Consumption growth is expected to moderate, and housing is expected to remain relatively weak</li>
+  <li>The unemployment rate has been around 6.5% for several months. The Bank said a broad set of indicators still points to some excess supply</li>
+  <li>Advanced-economy sovereign bond yields are higher than in July. Global financial conditions have tightened since the July Report</li>
+</ul>
+
+<p class="mb-4">On September 2 the Bank left the target at 2.25%. The <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-600 hover:underline font-medium">September 2026 hold recap</a> is that earlier decision. Today's announcement is the first change since that hold.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Impact on Mortgage Rates</h2>
+
+<p class="mb-4"><strong>Variable-rate and adjustable-rate mortgages</strong> are priced off a lender's prime rate. Lenders' prime rates typically move with the overnight rate, often by the same amount, but the lender sets prime and the effective date. This article does not state a new prime rate or a date when a payment will change. Lenders are expected to adjust prime after an overnight-rate increase. Check the announcement from your own lender, and the rule in your contract, before you assume a payment has changed. On many variable-rate mortgages the regular payment stays the same and more of it goes to interest. On an adjustable-rate mortgage the payment itself is usually recalculated. Compare live <a href="/rates/variable/" class="text-teal-600 hover:underline font-medium">variable rates</a>, and read how prime is tracked on the <a href="/prime-rate/" class="text-teal-600 hover:underline font-medium">prime rate in Canada</a> page.</p>
+
+<p class="mb-4"><strong>Fixed-rate mortgages</strong> follow bond yields, not the overnight rate directly. The release says advanced-economy sovereign bond yields are higher than in July. A higher policy rate does not, by itself, set the five-year fixed quote a lender will offer. Shop the live <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed hub</a> rather than treating 2.50% as a mortgage rate.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">What Should Renewers Do?</h2>
+
+<p class="mb-4">Homeowners renewing in the coming months are pricing a new term, not reliving the September hold. A variable or adjustable renewal will reflect prime once the lender has adjusted it. A fixed renewal is priced off the lender's funding costs, which track the bond market and can move between Bank of Canada dates. Start with the <a href="/tools/mortgage-renewal-calculator/" class="text-teal-600 hover:underline font-medium">renewal calculator</a> and the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test qualifier</a> if the new loan has to be qualified again:</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+      <strong class="font-semibold text-slate-800">Name the product</strong>
+    </div>
+    <p class="text-sm text-slate-600">A fixed-payment variable mortgage and an adjustable-rate mortgage do not respond to prime the same way</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-teal-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+      <strong class="font-semibold text-slate-800">Ask the lender about prime</strong>
+    </div>
+    <p class="text-sm text-slate-600">The overnight rate is 2.50%. Your prime, and the day it changes, come from the lender</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+      <strong class="font-semibold text-slate-800">Price fixed quotes separately</strong>
+    </div>
+    <p class="text-sm text-slate-600">Fixed rates follow bond yields. The Bank said those yields are higher</p>
+  </div>
+  <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="w-6 h-6 rounded-full bg-slate-400 text-white text-xs font-bold flex items-center justify-center">4</span>
+      <strong class="font-semibold text-slate-800">Re-check qualification</strong>
+    </div>
+    <p class="text-sm text-slate-600">A straight uninsured switch at renewal does not bring OSFI's stress test back; a refinance or extra funds still does</p>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Looking Ahead</h2>
+
+<p class="mb-4">The Bank said there could be a need to raise the policy rate further, and that given the uncertainties it will proceed carefully. It named the Middle East conflict, businesses' responses to cost pressures, and Canada-US trade as sources of uncertainty around the forecast. The next decision date is December 9, 2026. The next Monetary Policy Report is January 27, 2027.</p>
+
+<p class="mb-4">Until a lender publishes a prime change, treat a variable or adjustable payment as unchanged. Treat a fixed quote as a live price that can move with bonds. For product choice, qualification, and closing costs, see the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a>.</p>`,
+    author: "Andrew",
+    authorTitle: "Mortgage Market Analyst",
+    date: "2026-10-28",
+    category: "news",
+    tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
+    readTime: 6,
+    featured: true,
+    image: "/blog/boc-rate-hike-october-2026.jpg"
+  },
+  {
     slug: octoberReport.slug,
     title: octoberReport.title,
     excerpt: octoberReport.excerpt,
@@ -2253,7 +2338,7 @@ export const blogPosts: BlogPost[] = [
     category: "news",
     tags: ["Bank of Canada", "interest rates", "renewals", "mortgage rates"],
     readTime: 5,
-    featured: true,
+    featured: false,
     image: "/blog/boc-rate-hold-september-2026.jpg"
   },
   {

@@ -133,7 +133,7 @@ export const switchingLenders: InDepthGuide = {
         `<a href="${SOURCES.fcacDischarge}">FCAC, discharging a mortgage</a>. Discharge fees typically from $0 to $400 where unregulated, professional fees typically $400 to $2,500.`,
         `<a href="${SOURCES.fcacBreak}">FCAC, breaking a mortgage contract</a>. Ask whether the new lender will pay some or all of the fees.`,
         `<a href="${SOURCES.fcacPenalty}">FCAC, prepayment penalties</a>. Why maturity is the cheap day to leave.`,
-        `<a href="${SOURCES.boc}">Bank of Canada, September 2, 2026</a>. Overnight target held at 2.25%. Next announcement October 28, 2026.`,
+        `<a href="${SOURCES.bocOct}">Bank of Canada, October 28, 2026</a>. Overnight target raised to 2.50%. Next announcement December 9, 2026.`,
       ],
     },
   ],

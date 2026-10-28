@@ -188,9 +188,11 @@ export default function RateTrends({ rates, trendData }: RateTrendsProps) {
           Market Insight
         </h3>
         <p className="text-sm text-slate-600 leading-relaxed">
-          Fixed mortgage rates have been declining over the past month as bond yields have softened. 
-          Variable rates have stabilized following the Bank of Canada&apos;s recent hold on the overnight rate. 
-          This may be an opportune time to compare fixed-rate options if you prefer payment certainty.
+          On October 28, 2026 the Bank of Canada raised its overnight target by 25 basis points to 2.50%.
+          Variable and adjustable mortgages are priced off lender prime, which typically moves with that target.
+          Lenders are expected to adjust prime; check your lender before assuming a new prime or an effective date.
+          Fixed quotes follow bond yields, not the overnight rate directly. The Bank said advanced-economy bond yields are higher.
+          The next scheduled decision is December 9, 2026.
         </p>
         <div className="mt-3 flex items-center gap-4 text-xs text-slate-500">
           <span>Last updated: {new Date().toLocaleDateString('en-CA')}</span>

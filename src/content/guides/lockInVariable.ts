@@ -1,7 +1,7 @@
 import type { InDepthGuide } from "./shared";
 import { REPORTED, SOURCES, cad, pct } from "./shared";
 import { GUIDE_REVIEWED_ISO_BATCH4, LOCK as k, RATE_FILE_AS_OF, SPREAD as s, SPREAD_TABLE, points } from "./batch4Math";
-import { BOC_POLICY_RATE, PRIME_RATE, PRIME_SPREAD } from "../../lib/primeRate";
+import { BOC_POLICY_RATE, PRIME_RATE } from "../../lib/primeRate";
 
 const rbcFixedVariable = "https://www.rbcroyalbank.com/mortgages/fixed-vs-variable-rates.html";
 const rbcQuestions = "https://www.rbcroyalbank.com/en-ca/my-money-matters/goals-aspirations/buying-a-home/buying-your-first-home/top-burning-mortgage-questions-canadians-are-asking/";
@@ -58,7 +58,7 @@ export const lockInVariable: InDepthGuide = {
       paragraphs: [
         `Locking in means converting the variable mortgage you have into a fixed term with the same lender, usually for a term at least as long as the time left, at the fixed rate that lender is offering that day. Whether that is worth doing depends on the gap between your variable rate and that fixed offer, and on a payment you can still carry if prime rises, not on a guess about the next Bank of Canada announcement.`,
         `The gap is not a national constant. In the rate file scraped ${RATE_FILE_AS_OF}, ${s.pairCount} lenders have both a 5-year fixed and a 5-year variable in the same insured status. The fixed rate is higher in almost every pair. The median uninsured gap is ${points(s.medianUninsuredSpread)}. The widest is ${s.widest.name}, ${s.widest.mortgageType}, at ${points(s.widest.spread)}. The narrowest is ${s.narrowest.name}, ${s.narrowest.mortgageType}, at ${points(s.narrowest.spread)}, so fixed is the cheaper of the two in that row.`,
-        `<a href="${SOURCES.boc}">On September 2, 2026</a> the Bank of Canada held the target for the overnight rate at ${pct(BOC_POLICY_RATE)}. The next scheduled announcement is October 28, 2026. This page was reviewed on October 23, so that decision had not been published. Big-bank prime on this site is ${pct(PRIME_RATE)}. A hold, a cut, or a rise on October 28 is a fact only after the Bank prints it. The <a href="/guides/bank-of-canada-rate-and-your-mortgage/">Bank of Canada guide</a> separates the overnight rate, prime, and a fixed quote. The <a href="/guides/fixed-vs-variable-mortgage-2026/">fixed versus variable guide</a> is the choice at the start of a term. This page is the choice in the middle of one.`,
+        `<a href="${SOURCES.bocOct}">On October 28, 2026</a> the Bank of Canada raised the target for the overnight rate to 2.50%. The next scheduled announcement is December 9, 2026. The September 2, 2026 decision had held the target at 2.25%. Big-bank prime on this site is still ${pct(PRIME_RATE)}. Lenders are expected to adjust prime; this page does not state a new one. The <a href="/guides/bank-of-canada-rate-and-your-mortgage/">Bank of Canada guide</a> separates the overnight rate, prime, and a fixed quote. The <a href="/guides/fixed-vs-variable-mortgage-2026/">fixed versus variable guide</a> is the choice at the start of a term. This page is the choice in the middle of one.`,
       ],
     },
     {
@@ -95,7 +95,7 @@ export const lockInVariable: InDepthGuide = {
       id: "outlook",
       heading: "What the Bank has said, and what it has not",
       paragraphs: [
-        `The target is ${pct(BOC_POLICY_RATE)}. The Bank Rate is ${pct(BOC_POLICY_RATE + 0.25)} and the deposit rate is ${pct(Math.round((BOC_POLICY_RATE - 0.05) * 100) / 100)}. Prime on this site is ${pct(PRIME_RATE)}, the target plus ${points(PRIME_SPREAD)}. TD's mortgage prime in the rate file is a different number. The September 2, 2026 release said the Bank was prepared to adjust policy as needed. That sentence is not a path for your payment.`,
+        `The target is ${pct(BOC_POLICY_RATE)}. The Bank Rate is ${pct(BOC_POLICY_RATE + 0.25)} and the deposit rate is ${pct(Math.round((BOC_POLICY_RATE - 0.05) * 100) / 100)}. Prime on this site is still ${pct(PRIME_RATE)} until lenders publish a change. TD's mortgage prime in the rate file is a different number. The October 28 release said the Bank may need to raise further and will proceed carefully. That is not a path for your payment.`,
         `<a href="${fsrHouseholds}">The 2026 Financial Stability Report</a> estimated renewal payments with market expectations as they stood on May 19, 2026. It says the last of the five-year fixed-payment mortgages from the pandemic years, about 12% of outstanding mortgages, would see payments rise by about 15% on average over the following twelve months, and that by the second half of 2027 nearly all of the mortgages facing large payment increases will have renewed. Those sentences are about renewals. They use a path the Bank labelled as a market expectation. They are not a promise about prime on the morning you convert. This page does not adopt that path as a forecast.`,
         `If years remain, the October 28 announcement changes your variable rate only if your lender changes prime, and only by that amount. It does not reprice a fixed rate you have already locked. It can reprice the fixed special offered on October 29, because fixed specials follow funding costs, not the overnight rate one for one. Get the conversion quote in writing, with an expiry. The <a href="/tools/cmhc-insurance-calculator/">CMHC calculator</a> does not belong on a conversion that leaves the loan amount and the house alone.`,
       ],
@@ -113,14 +113,14 @@ export const lockInVariable: InDepthGuide = {
       id: "sources",
       heading: "Sources",
       paragraphs: [
-        "The spread and the payments come from this rate file. The overnight rate is the Bank's September 2, 2026 decision. The 15% figure is the May 2026 stability report, labelled there as a market expectation, and it is not a forecast adopted here.",
+        "The spread and the payments come from this rate file. The overnight rate is the Bank's October 28, 2026 decision. The 15% figure is the May 2026 stability report, labelled there as a market expectation, and it is not a forecast adopted here.",
       ],
       listAfter: 0,
       items: [
         `<a href="${rbcFixedVariable}">RBC, fixed versus variable</a> and <a href="${rbcQuestions}">converting mid-term</a>. Equal or longer, at the rate then offered, no prepayment charge.`,
         `<a href="${tdFixed}">TD fixed-rate mortgages</a>. Minimum term is the lesser of three years and the time left. <a href="${tdPrime}">TD Prime</a> was 4.45% on October 30, 2025.`,
         `<a href="${fcacInterest}">FCAC on convertibility</a>, <a href="${fcacChoose}">adjustable payments</a>, and <a href="${SOURCES.fcacTrigger}">trigger rates</a>.`,
-        `<a href="${SOURCES.boc}">Bank of Canada, September 2, 2026</a>. Target ${pct(BOC_POLICY_RATE)}. Next announcement October 28, 2026.`,
+        `<a href="${SOURCES.bocOct}">Bank of Canada, October 28, 2026</a>. Target 2.50%. Next announcement December 9, 2026.`,
         `<a href="${fsrHouseholds}">Financial Stability Report 2026, households</a>. Expectations as at May 19, 2026.`,
       ],
     },
@@ -140,9 +140,9 @@ export const lockInVariable: InDepthGuide = {
       answer: `On RBC's uninsured specials in the ${RATE_FILE_AS_OF} file, the 5-year fixed rate is ${points(s.rbcUninsured.spread)} above the variable rate, if the discount stays put. A rise late in the term costs less than a rise now. The table prices an immediate rise, not a forecast.`,
     },
     {
-      question: "Should I lock in before the October 28, 2026 announcement?",
+      question: "Should I lock in before the December 9, 2026 announcement?",
       answer:
-        `Only if today's fixed offer is a rate you want even if the Bank holds. The September 2 decision held the target at ${pct(BOC_POLICY_RATE)}. This page does not call October 28. A hold does not freeze a fixed special. Get the quote and its expiry in writing.`,
+        `Only if today's fixed offer is a rate you want even if the Bank holds on December 9. The October 28 decision raised the target to 2.50%. This page does not call the next meeting. A hike does not freeze a fixed special. Get the quote and its expiry in writing.`,
     },
     {
       question: "What is the difference between a VRM and an ARM?",

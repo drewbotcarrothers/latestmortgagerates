@@ -1,8 +1,8 @@
 {
   "prime_rate": 4.45,
-  "boc_policy_rate": 2.25,
+  "boc_policy_rate": 2.5,
   "spread_over_policy": 2.20,
   "effective": "2025-10-30",
-  "source": "RBC Royal Bank prime rate 4.450% (https://www.rbcroyalbank.com/mortgages/mortgage-rates.html, checked 2026-09-27). Bank of Canada target for the overnight rate held at 2.25% on 2026-09-02 (https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/). Valet series V39079 was 2.25 on 2026-09-24. Big 5 prime = policy rate + 2.20.",
-  "note": "Big 5 prime = BoC policy rate + 2.20. TD publishes a separate mortgage prime of 4.60%; the headline Big 5 prime used here is 4.45%. Update this file when the Bank of Canada changes the policy rate and the major banks follow. scraping/src/historical_rates.py refreshes the value from the BoC Valet API (policy series V39079 plus spread_over_policy) when that series is recent. The chartered-bank prime series V122495 is stale (last observations in 2019) and is used only if it is recent and prime − policy ≈ 2.20. Do not hard-code 5.45."
+  "source": "Bank of Canada raised the target for the overnight rate to 2.50% on 2026-10-28, Bank Rate 2.75%, deposit rate 2.45% (https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/). The previous target, 2.25%, was held on 2026-09-02. Big-bank prime in this file remains 4.45%, last confirmed on RBC's mortgage rates page (https://www.rbcroyalbank.com/mortgages/mortgage-rates.html, checked 2026-09-27). The 2.20 spread is the usual gap once lenders follow a decision. This file does not set a new prime until a lender publishes one.",
+  "note": "Big 5 prime has usually been the BoC policy rate plus 2.20. TD publishes a separate mortgage prime of 4.60%; the headline Big 5 prime stored here is still 4.45%. boc_policy_rate is the October 28, 2026 target. prime_rate stays at the last confirmed lender figure until the major banks publish a change. scraping/src/historical_rates.py refreshes the value from the BoC Valet API (policy series V39079 plus spread_over_policy) when that series is recent. The chartered-bank prime series V122495 is stale (last observations in 2019) and is used only if it is recent and prime − policy ≈ 2.20. Do not hard-code 5.45."
 }

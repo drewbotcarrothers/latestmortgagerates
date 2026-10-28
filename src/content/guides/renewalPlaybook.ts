@@ -57,7 +57,7 @@ export const renewalPlaybook: InDepthGuide = {
       heading: "Why 2026 is a renewal year",
       paragraphs: [
         "A five-year term funded in 2021 matures in 2026. The amortization keeps running, so a 25-year loan started then has about 20 years left. The renewal resets the rate, the term, and the privileges. Many of those 2021 contracts were discounted far below the posted shelf. The new contract rate is higher. That payment shock is not a reason to accept the first letter. At maturity the penalty for leaving is usually zero, which is why the letter is negotiable.",
-        `${RATE_CONTEXT} Fixed mortgage rates follow the bond market more than they follow that overnight decision one for one. A variable-rate payment, or the rate on an adjustable mortgage, moves when prime moves. The <a href="${SOURCES.boc}">September 2, 2026 rate announcement</a> is the source for the policy rate. Nothing on this page predicts the October 28 decision.`,
+        `${RATE_CONTEXT} Fixed mortgage rates follow the bond market more than they follow that overnight decision one for one. A variable-rate payment, or the rate on an adjustable mortgage, moves when prime moves. The <a href="${SOURCES.bocOct}">October 28, 2026 rate announcement</a> is the source for the policy rate. Nothing on this page predicts the December 9 decision.`,
         reportedRatesParagraph(),
         "Use the medians as a reference, then confirm a live quote. The <a href=\"/real-mortgage-rates/\">real mortgage rates</a> page has the distribution. The <a href=\"/tools/renewal-offer-checker/\">renewal offer checker</a> places one number on it. The <a href=\"/guides/negotiate-mortgage-rate/\">negotiation guide</a> shows each bank's posted-versus-reported gap.",
       ],
@@ -134,7 +134,7 @@ export const renewalPlaybook: InDepthGuide = {
       ],
       listAfter: 0,
       items: [
-        `<a href="${SOURCES.boc}">Bank of Canada, September 2, 2026 rate announcement</a>. Target overnight rate held at 2.25%. Next announcement October 28, 2026.`,
+        `<a href="${SOURCES.bocOct}">Bank of Canada, October 28, 2026 rate announcement</a>. Target raised to 2.50%. Next announcement December 9, 2026.`,
         `<a href="${SOURCES.osfiMqr}">OSFI, minimum qualifying rate for uninsured mortgages</a>. Greater of the contract rate plus 2% or 5.25%, with no set minimum qualifying rate on an uninsured straight switch.`,
         `<a href="${SOURCES.osfiSwitch}">OSFI backgrounder, November 21, 2024</a>. Straight-switch conditions: no increase in loan amount or amortization.`,
         `<a href="${SOURCES.financeReforms}">Department of Finance Canada, September 16, 2024</a>. Insured price cap, 30-year amortizations, and the Mortgage Charter switch statement.`,
@@ -165,9 +165,9 @@ export const renewalPlaybook: InDepthGuide = {
         "Treat the letter as an opening number. Put it through the renewal offer checker, get a second quote on the same term and insured status, and ask the bank to revise it. Reported medians are self-reported by Canadian borrowers online. They are unverified and they are not a rate you will be given. Compare the penalty and the prepayment before you leave over a small gap.",
     },
     {
-      question: "Does the Bank of Canada decision on October 28, 2026 set my renewal rate?",
+      question: "Does the Bank of Canada decision on December 9, 2026 set my renewal rate?",
       answer:
-        "It sets the overnight rate, which prime follows, which a variable mortgage follows. A fixed renewal is priced off funding costs and the bond market, so it can move before that meeting. The September 2, 2026 decision left the target at 2.25%. Your contract is the rate the lender offers on the day you lock it.",
+        "It sets the overnight rate, which prime follows, which a variable mortgage follows. A fixed renewal is priced off funding costs and the bond market, so it can move before that meeting. The October 28, 2026 decision raised the target to 2.50%. Your contract is the rate the lender offers on the day you lock it.",
     },
   ],
 };
