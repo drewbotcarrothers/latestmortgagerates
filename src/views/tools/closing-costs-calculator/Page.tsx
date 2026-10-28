@@ -334,7 +334,7 @@ export default function ClosingCostsPage() {
                 </a>
               </div>
 
-              <GuideCTA variant="compact" />
+              <GuideCTA variant="compact" context="buyer" utmMedium="cta_compact" utmContent="tool_closing-costs-calculator" />
             </div>
           </div>
         </div>

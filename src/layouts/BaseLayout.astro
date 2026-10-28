@@ -7,7 +7,11 @@ interface Props {
   canonical?: string;
   keywords?: string;
   ogType?: string;
+  /** Social title when it should differ from the document title. */
+  ogTitle?: string;
   noIndex?: boolean;
+  /** Skip the AdSense script without noindexing the page. */
+  noAds?: boolean;
   /** Replaces the default robots meta. Pass noIndex as well to keep AdSense off. */
   robots?: string;
 }
@@ -18,9 +22,14 @@ const {
   canonical,
   keywords = "mortgage rates Canada, Canadian mortgage rates, fixed mortgage rates, variable mortgage rates, Big 5 banks, monoline lenders, best mortgage rates, compare mortgage rates",
   ogType = "website",
+  ogTitle,
   noIndex = false,
+  noAds = false,
   robots,
 } = Astro.props;
+
+const socialTitle = ogTitle || title;
+const showAds = !noIndex && !noAds;
 
 const robotsContent =
   robots ??
@@ -50,7 +59,7 @@ const ogImage = "https://latestmortgagerates.ca/logo.png";
     <meta name="robots" content={robotsContent} />
     <meta name="google-site-verification" content="Ig1eCo0oeTZP3easNZIpTQWufSfctB_5d5BwYSdkjWc" />
 
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="Latest Mortgage Rates Canada" />
@@ -62,14 +71,18 @@ const ogImage = "https://latestmortgagerates.ca/logo.png";
     <meta property="og:image:alt" content="Latest Mortgage Rates Canada - Compare Rates from Top Lenders" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content="@latestmortgage" />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+    {showAds && (
+      <>
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+      </>
+    )}
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
     <script is:inline>
@@ -110,7 +123,7 @@ const ogImage = "https://latestmortgagerates.ca/logo.png";
       },
     })} />
 
-    {!noIndex && (
+    {showAds && (
       <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7909541570116920"

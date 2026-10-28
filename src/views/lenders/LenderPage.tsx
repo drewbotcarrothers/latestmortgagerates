@@ -508,7 +508,12 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
         )}
 
         <div className="mb-8">
-          <GuideCTA variant="compact" />
+          <GuideCTA
+            variant="compact"
+            lenderName={lenderName}
+            utmMedium="cta_compact"
+            utmContent={`lender_${slug}`}
+          />
         </div>
 
         <AdUnit format="display" className="mt-12 mb-10" />

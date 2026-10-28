@@ -130,7 +130,7 @@
       { "href": "/tools/refinance-calculator/", "label": "Refinance calculator" },
       { "href": "/lenders/wealthsimple/", "label": "Wealthsimple mortgage rates" },
       { "href": "/cities/toronto/", "label": "Toronto mortgage rates" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "scotiabank": {
@@ -967,7 +967,7 @@
       { "href": "/tools/affordability-calculator/", "label": "Mortgage affordability calculator" },
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
       { "href": "/cities/toronto/", "label": "Toronto mortgage rates" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "alterna": {
@@ -1302,7 +1302,7 @@
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
       { "href": "/tools/refinance-calculator/", "label": "Refinance calculator" },
       { "href": "/glossary/heloc/", "label": "HELOC glossary" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "laurentian": {
@@ -1908,7 +1908,7 @@
       { "href": "/lenders/td/", "label": "TD mortgage rates" },
       { "href": "/lenders/wealthsimple/", "label": "Wealthsimple mortgage rates" },
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "vancity": {
@@ -2019,7 +2019,7 @@
       { "href": "/lenders/coastcapital/", "label": "Coast Capital mortgage rates" },
       { "href": "/lenders/wealthsimple/", "label": "Wealthsimple mortgage rates" },
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "desjardins": {
@@ -2394,7 +2394,7 @@
       { "href": "/tools/land-transfer-tax-calculator/", "label": "Land transfer tax calculator" },
       { "href": "/rates/5-year-fixed/", "label": "Compare 5-year fixed rates" },
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
-      { "href": "/mortgage-guide/", "label": "Mortgage negotiation guide" }
+      { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
   "equitable": {

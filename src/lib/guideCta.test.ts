@@ -55,12 +55,19 @@ const REQUIRED_PLACEMENTS = [
 ];
 
 describe("GuideCTA placements", () => {
-  it("keeps Stripe buy link and mortgage-guide learn-more on the shared component", () => {
+  it("keeps a priced Stripe buy link and a what's-inside link on the shared component", () => {
     const source = read(join(SRC, "components/GuideCTA.tsx"));
-    assert.match(source, /https:\/\/buy\.stripe\.com\/7sY4gz8ZtbAqg2s8nw9oc00/);
-    assert.match(source, /href="\/mortgage-guide\/"/);
-    assert.match(source, /Buy Now — \$29/);
-    assert.match(source, /Learn More/);
+    const offer = read(join(SRC, "lib/guide.ts"));
+    assert.match(source, /buildGuideBuyUrl/);
+    assert.match(source, /buildGuidePageUrl/);
+    assert.match(source, /GUIDE_BUY_LABEL_FULL/);
+    assert.match(source, /GUIDE_BUY_LABEL_COMPACT/);
+    assert.match(offer, /Buy the Toolkit — \$29 CAD/);
+    assert.match(offer, /Get the Toolkit — \$29/);
+    assert.match(source, /See what's inside/);
+    assert.match(source, /What's inside →/);
+    assert.doesNotMatch(source, /7sY4gz8ZtbAqg2s8nw9oc00/);
+    assert.doesNotMatch(source, /Mortgage Negotiation Guide/);
   });
 
   it("appears on high-intent surfaces (tools, rate hubs, lenders, cities, home, blog)", () => {
@@ -105,7 +112,9 @@ describe("GuideCTA placements", () => {
   it("covers every lender page via LenderPage", () => {
     const lenderPage = read(join(SRC, "views/lenders/LenderPage.tsx"));
     assert.match(lenderPage, GUIDE_IMPORT);
-    assert.match(lenderPage, /<GuideCTA variant="compact"/);
+    assert.match(lenderPage, /<GuideCTA[\s\S]*variant="compact"/);
+    assert.match(lenderPage, /lenderName=\{lenderName\}/);
+    assert.match(lenderPage, /utmContent=\{`lender_\$\{slug\}`\}/);
     const slugPage = read(join(SRC, "pages/lenders/[slug].astro"));
     assert.match(slugPage, /LenderPage/);
   });

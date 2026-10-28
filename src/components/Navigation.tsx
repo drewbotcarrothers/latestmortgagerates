@@ -35,7 +35,8 @@ interface NavMenu {
   links: NavLink[];
 }
 
-const GUIDE_HREF = "/mortgage-guide/";
+const GUIDE_HREF =
+  "/mortgage-guide/?utm_source=site&utm_medium=nav&utm_campaign=mortgage_guide&utm_content=header";
 
 const MENUS: NavMenu[] = [
   {
@@ -151,6 +152,7 @@ const SECTION_FOR_PAGE: Record<SitePage, string> = {
 };
 
 function sectionFromPath(path: string): string | null {
+  if (path.startsWith("/mortgage-guide/thank-you")) return null;
   if (path.startsWith("/mortgage-guide")) return "ebook";
   if (path.startsWith("/lenders")) return "lenders";
   if (path.startsWith("/tools")) return "tools";
@@ -235,15 +237,24 @@ function GuideIcon() {
 const ctaClass =
   "inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 dark:ring-offset-slate-900";
 
-function GuideCta({ current, className = "" }: { current: boolean; className?: string }) {
+function GuideCta({
+  current,
+  className = "",
+  label,
+}: {
+  current: boolean;
+  className?: string;
+  label: string;
+}) {
   return (
     <a
       href={GUIDE_HREF}
       className={`${ctaClass} ${current ? "ring-2 ring-teal-700 ring-offset-2" : ""} ${className}`}
       aria-current={current ? "page" : undefined}
+      aria-label="Mortgage Guide and Renewal Toolkit, $29 CAD"
     >
       <GuideIcon />
-      Mortgage Guide
+      {label}
     </a>
   );
 }
@@ -485,7 +496,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
         >
           {BLOG.label}
         </a>
-        <GuideCta current={section === "ebook"} className="ml-2" />
+        <GuideCta current={section === "ebook"} className="ml-2" label="$29 Toolkit" />
       </div>
 
       <button
@@ -531,7 +542,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
         onKeyDown={onMobileKeyDown}
       >
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <GuideCta current={section === "ebook"} className="w-full" />
+          <GuideCta current={section === "ebook"} className="w-full" label="Mortgage Toolkit — $29" />
           {MENUS.map((menu) => (
             <div key={menu.id} className="mt-4">
               <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">{menu.label}</p>

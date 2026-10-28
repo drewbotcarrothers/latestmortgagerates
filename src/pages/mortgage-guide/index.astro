@@ -1,10 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Page from "../../views/mortgage-guide/EbookPage";
+import { SALES_DESCRIPTION, SALES_OG_TITLE, SALES_TITLE } from "../../lib/guide";
 ---
 <BaseLayout
-  title="Guide to Getting the Best Deal on Your Next Mortgage | $29"
-  description="A practical Canadian mortgage guide on negotiating rates and comparing offers. Shopping around could save thousands, depending on your mortgage. Instant PDF download."
+  title={SALES_TITLE}
+  description={SALES_DESCRIPTION}
+  ogTitle={SALES_OG_TITLE}
+  noAds={true}
   canonical="https://latestmortgagerates.ca/mortgage-guide/"
 >
   <Page client:load />

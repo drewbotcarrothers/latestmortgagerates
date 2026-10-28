@@ -135,7 +135,7 @@ export default function RenewalOfferChecker() {
         {score && (
           <Result score={score} offerRate={offerRate} lenderSlug={lenderSlug || null} termMonths={termMonths} rateType={rateType} insured={insured} tips={tips} />
         )}
-        <GuideCTA variant="compact" />
+        <GuideCTA variant="compact" context="renewal" utmMedium="cta_compact" utmContent="tool_renewal-offer-checker" />
       </div>
     </div>
   );

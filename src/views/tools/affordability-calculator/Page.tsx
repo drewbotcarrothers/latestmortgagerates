@@ -247,7 +247,7 @@ export default function AffordabilityCalculatorPage() {
               </a>
             </div>
 
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" context="buyer" utmMedium="cta_compact" utmContent="tool_affordability-calculator" />
           </div>
         </div>
       </div>

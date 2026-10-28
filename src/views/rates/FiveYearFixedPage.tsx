@@ -167,7 +167,7 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
           </div>
 
           <div className="mb-8">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="rate_5-year-fixed" />
           </div>
 
           <CommunityCallout className="mb-8" />

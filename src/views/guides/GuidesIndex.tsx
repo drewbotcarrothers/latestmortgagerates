@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getPostBySlug } from "@/content/blog";
 import { IN_DEPTH_GUIDES } from "@/content/inDepthGuides";
+import { buildGuidePageUrl } from "@/lib/guide";
 import { COMPARE_PAGES } from "@/lib/siteLinks";
 
 const report = getPostBySlug("below-the-line-mortgage-rate-report-october-2026");
@@ -53,6 +54,21 @@ export default function GuidesIndex() {
       </header>
 
       <div className="mx-auto max-w-7xl space-y-10 px-4 py-8">
+        <section>
+          <a
+            href={buildGuidePageUrl({ medium: "cta_full", content: "guides_index" })}
+            className="block rounded-xl border border-teal-200 bg-white p-6 shadow-sm hover:border-teal-400"
+          >
+            <span className="inline-flex rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-800">
+              Paid · $29 CAD
+            </span>
+            <h2 className="mt-3 text-2xl font-bold text-slate-900">Mortgage Guide + Renewal Toolkit ($29)</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+              The paid companion to these free guides: 7 negotiation scripts, 8 printable worksheets, a 180-day checklist and a 50-page Renewal Playbook. Instant PDF, 30-day refund.
+            </p>
+          </a>
+        </section>
+
         <section>
           <h2 className="mb-4 text-2xl font-bold text-slate-900">In-depth guides</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

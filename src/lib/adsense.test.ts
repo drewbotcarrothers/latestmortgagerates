@@ -38,7 +38,6 @@ const REQUIRED_PLACEMENTS = [
   "src/views/blog/BlogPost.tsx",
   "src/views/lenders/LenderPage.tsx",
   "src/components/CityTools.tsx",
-  "src/views/mortgage-guide/EbookPage.tsx",
   "src/views/tools/mortgage-calculator/Page.tsx",
   "src/views/tools/affordability-calculator/Page.tsx",
   "src/views/tools/land-transfer-tax-calculator/Page.tsx",
@@ -62,6 +61,8 @@ const REQUIRED_PLACEMENTS = [
 ];
 
 const AD_FREE = [
+  "src/views/mortgage-guide/EbookPage.tsx",
+  "src/views/mortgage-guide/ThankYouPage.tsx",
   "src/views/unsubscribed/UnsubscribedPage.tsx",
   "src/views/widget/WidgetPage.tsx",
   "src/views/privacy/PrivacyPage.tsx",
@@ -158,5 +159,6 @@ describe("AdSense placements", () => {
     assert.match(layout, /noIndex/);
     assert.match(layout, /pagead\/js\/adsbygoogle\.js\?client=ca-pub-7909541570116920/);
     assert.match(layout, /!noIndex/);
+    assert.match(layout, /showAds/);
   });
 });

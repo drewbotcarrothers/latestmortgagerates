@@ -324,7 +324,7 @@ export default function ComparePage({ slug }: { slug: string }) {
           </section>
 
           <div className="mb-8">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent={`compare_${slug}`} />
           </div>
 
           <AdUnit format="display" className="mt-12 mb-10" />
@@ -359,7 +359,7 @@ export default function ComparePage({ slug }: { slug: string }) {
               </li>
               <li>
                 <a href="/mortgage-guide/" className="text-teal-600 hover:underline font-medium text-sm">
-                  Mortgage negotiation guide
+                  Mortgage Toolkit ($29)
                 </a>
               </li>
               {isLender && page.left.lenderSlug && (

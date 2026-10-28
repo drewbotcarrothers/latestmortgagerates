@@ -155,7 +155,7 @@ export default function UninsuredRatesPage({ buildDateIso }: { buildDateIso: str
           </div>
 
           <div className="mb-8">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="rate_uninsured" />
           </div>
 
           <CommunityCallout className="mb-8" />

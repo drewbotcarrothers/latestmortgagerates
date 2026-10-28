@@ -178,7 +178,7 @@ export default function RealRatesPage() {
 
           <FAQSection faqs={faqs} title="Real mortgage rate questions" />
 
-          <GuideCTA />
+          <GuideCTA utmMedium="cta_full" utmContent="real_mortgage_rates" />
 
           <NewsletterSignup variant="card" />
         </div>

@@ -88,13 +88,15 @@ describe("AdSense approval pages", () => {
     assert.match(post, /This post is from 2025/);
     assert.match(post, /href="\/"/);
     const guide = read("src/views/guides/NegotiateGuidePage.tsx");
-    const buy = guide.indexOf("<GuideCTA />");
+    const buy = guide.indexOf("<GuideCTA");
     const ad = guide.indexOf("<AdUnit");
     assert.ok(ad !== -1 && buy !== -1 && ad < buy);
     assert.ok(guide.slice(ad, buy).includes("<h2"));
     const cta = read("src/components/GuideCTA.tsx");
-    assert.match(cta, /could save thousands, depending on your mortgage/i);
-    assert.doesNotMatch(cta, /Insider secrets|\$5,000/);
+    const offer = read("src/lib/guide.ts");
+    assert.match(offer, /7 word-for-word negotiation scripts/);
+    assert.match(cta, /GUIDE_FULL_BODY/);
+    assert.doesNotMatch(cta + offer, /Insider secrets|\$5,000–\$25,000|could save thousands/i);
   });
 
   it("adds a byline, review date, and sources line on lender, city, and rate hubs", () => {
