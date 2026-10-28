@@ -5,26 +5,47 @@ import {
   formatWeekLabel,
   lenderName,
 } from "@/lib/communityRates";
+import {
+  WEEKLY_DASHARRAY,
+  WEEKLY_DASHED_WIDTH,
+  WEEKLY_SOLID_WIDTH,
+  weekSeriesDrawn,
+  weeklyLegendItems,
+} from "@/lib/chartLegend";
 
-const NAVY = "#0f172a";
-const TEAL = "#0f766e";
+function LineSwatch({ color, dashed }: { color: string; dashed: boolean }) {
+  return (
+    <svg width="28" height="14" viewBox="0 0 28 14" aria-hidden="true" focusable="false" className="shrink-0">
+      <line
+        x1="1"
+        y1="7"
+        x2="27"
+        y2="7"
+        stroke={color}
+        strokeWidth={dashed ? WEEKLY_DASHED_WIDTH : WEEKLY_SOLID_WIDTH}
+        strokeDasharray={dashed ? WEEKLY_DASHARRAY : undefined}
+      />
+      {!dashed && <circle cx="14" cy="7" r="3" fill={color} />}
+    </svg>
+  );
+}
 
 export default function WeeklyTrendChart() {
   const { weeks, benchmarks } = communityRates.weekly;
-  const plotted = weeks.filter((week) => week.fixed.n >= CHART_MIN_N || week.variable.n >= CHART_MIN_N);
-  if (plotted.length === 0) return null;
+  const legend = weeklyLegendItems(weeks, benchmarks);
+  const plotted = weeks.filter((week) => weekSeriesDrawn(week.fixed) || weekSeriesDrawn(week.variable));
+  if (plotted.length === 0 || legend.length === 0) return null;
+
+  const guides = legend.filter((item): item is typeof item & { value: number } => item.style === "dashed" && item.value != null);
+  const fixedItem = legend.find((item) => item.id === "fixed-median");
+  const variableItem = legend.find((item) => item.id === "variable-median");
 
   const seriesValues = plotted.flatMap((week) =>
     [week.fixed, week.variable]
-      .filter((series) => series.n >= CHART_MIN_N && series.median != null)
+      .filter((series) => weekSeriesDrawn(series))
       .map((series) => series.median as number),
   );
-  const benchmarkValues = [
-    benchmarks.fixed.big5PostedMedian,
-    benchmarks.fixed.lowestPosted,
-    benchmarks.variable.big5PostedMedian,
-    benchmarks.variable.lowestPosted,
-  ].filter((value): value is number => value != null);
+  const benchmarkValues = guides.map((guide) => guide.value);
   const min = Math.min(...seriesValues, ...benchmarkValues);
   const max = Math.max(...seriesValues, ...benchmarkValues);
   const yMin = Math.floor((min - 0.15) * 4) / 4;
@@ -43,11 +64,11 @@ export default function WeeklyTrendChart() {
     let open = false;
     plotted.forEach((week, index) => {
       const series = week[kind];
-      if (series.n < CHART_MIN_N || series.median == null) {
+      if (!weekSeriesDrawn(series)) {
         open = false;
         return;
       }
-      d += `${open ? "L" : "M"} ${x(index).toFixed(1)} ${y(series.median).toFixed(1)} `;
+      d += `${open ? "L" : "M"} ${x(index).toFixed(1)} ${y(series.median as number).toFixed(1)} `;
       open = true;
     });
     return d.trim();
@@ -58,22 +79,16 @@ export default function WeeklyTrendChart() {
     yTicks.push(Math.round(tick * 100) / 100);
   }
 
-  const guides = [
-    { value: benchmarks.fixed.big5PostedMedian, color: NAVY, label: `Big-5 5-yr fixed ${formatRate(benchmarks.fixed.big5PostedMedian)}` },
-    { value: benchmarks.fixed.lowestPosted, color: "#c2410c", label: `Lowest 5-yr fixed ${formatRate(benchmarks.fixed.lowestPosted)}` },
-    { value: benchmarks.variable.big5PostedMedian, color: TEAL, label: `Big-5 5-yr variable ${formatRate(benchmarks.variable.big5PostedMedian)}` },
-    { value: benchmarks.variable.lowestPosted, color: "#0e7490", label: `Lowest 5-yr variable ${formatRate(benchmarks.variable.lowestPosted)}` },
-  ].filter((guide) => guide.value != null);
-
   const caption = `Weekly median of 5-year rates ${communityRates.attribution}, weeks with N at least ${CHART_MIN_N}. ${communityRates.weekly.from} to ${communityRates.weekly.to}.`;
+  const described = `${caption} Series: ${legend.map((item) => item.label).join(", ")}.`;
 
   return (
     <figure>
       <figcaption className="mb-3 text-sm text-slate-600">{caption}</figcaption>
       <div className="overflow-x-auto">
-        <svg viewBox={`0 0 ${width} ${height}`} className="h-auto min-w-[640px] w-full" role="img" aria-label={caption}>
+        <svg viewBox={`0 0 ${width} ${height}`} className="h-auto min-w-[640px] w-full" role="img" aria-label={described}>
           <title>Weekly reported 5-year rates</title>
-          <desc>{caption}</desc>
+          <desc>{described}</desc>
           {yTicks.map((tick) => (
             <g key={tick}>
               <line x1={pad.l} x2={width - pad.r} y1={y(tick)} y2={y(tick)} stroke="#e2e8f0" />
@@ -84,28 +99,38 @@ export default function WeeklyTrendChart() {
           ))}
           {guides.map((guide) => (
             <line
-              key={guide.label}
+              key={guide.id}
               x1={pad.l}
               x2={width - pad.r}
-              y1={y(guide.value as number)}
-              y2={y(guide.value as number)}
+              y1={y(guide.value)}
+              y2={y(guide.value)}
               stroke={guide.color}
-              strokeDasharray="5 4"
-              strokeWidth={1.25}
-            />
+              strokeDasharray={WEEKLY_DASHARRAY}
+              strokeWidth={WEEKLY_DASHED_WIDTH}
+            >
+              <title>{guide.label}</title>
+            </line>
           ))}
-          <path d={pathFor("fixed")} fill="none" stroke={NAVY} strokeWidth={2.5} />
-          <path d={pathFor("variable")} fill="none" stroke={TEAL} strokeWidth={2.5} />
+          {fixedItem && (
+            <path d={pathFor("fixed")} fill="none" stroke={fixedItem.color} strokeWidth={WEEKLY_SOLID_WIDTH}>
+              <title>{fixedItem.label}</title>
+            </path>
+          )}
+          {variableItem && (
+            <path d={pathFor("variable")} fill="none" stroke={variableItem.color} strokeWidth={WEEKLY_SOLID_WIDTH}>
+              <title>{variableItem.label}</title>
+            </path>
+          )}
           {plotted.map((week, index) => (
             <g key={week.weekStarting}>
-              {week.fixed.n >= CHART_MIN_N && week.fixed.median != null && (
-                <circle cx={x(index)} cy={y(week.fixed.median)} r={4} fill={NAVY}>
-                  <title>{`${formatWeekLabel(week.weekStarting)} 5-year fixed median ${formatRate(week.fixed.median)}, N = ${week.fixed.n}`}</title>
+              {fixedItem && weekSeriesDrawn(week.fixed) && (
+                <circle cx={x(index)} cy={y(week.fixed.median as number)} r={4} fill={fixedItem.color}>
+                  <title>{`${formatWeekLabel(week.weekStarting)} ${fixedItem.label} ${formatRate(week.fixed.median)}, N = ${week.fixed.n}`}</title>
                 </circle>
               )}
-              {week.variable.n >= CHART_MIN_N && week.variable.median != null && (
-                <circle cx={x(index)} cy={y(week.variable.median)} r={4} fill={TEAL}>
-                  <title>{`${formatWeekLabel(week.weekStarting)} 5-year variable median ${formatRate(week.variable.median)}, N = ${week.variable.n}`}</title>
+              {variableItem && weekSeriesDrawn(week.variable) && (
+                <circle cx={x(index)} cy={y(week.variable.median as number)} r={4} fill={variableItem.color}>
+                  <title>{`${formatWeekLabel(week.weekStarting)} ${variableItem.label} ${formatRate(week.variable.median)}, N = ${week.variable.n}`}</title>
                 </circle>
               )}
               <text x={x(index)} y={height - 16} textAnchor="middle" fontSize={11} fill="#64748b">
@@ -115,13 +140,11 @@ export default function WeeklyTrendChart() {
           ))}
         </svg>
       </div>
-      <ul className="mt-3 grid grid-cols-1 gap-1 text-xs text-slate-700 sm:grid-cols-2">
-        <li className="flex items-center gap-2"><span className="inline-block h-2.5 w-6 rounded" style={{ background: NAVY }} /> 5-year fixed reported median</li>
-        <li className="flex items-center gap-2"><span className="inline-block h-2.5 w-6 rounded" style={{ background: TEAL }} /> 5-year variable reported median</li>
-        {guides.map((guide) => (
-          <li key={guide.label} className="flex items-center gap-2">
-            <span className="inline-block h-0.5 w-6" style={{ background: guide.color }} />
-            {guide.label}
+      <ul className="mt-3 grid grid-cols-1 gap-1 text-xs text-slate-700 sm:grid-cols-2" aria-label="Chart legend">
+        {legend.map((item) => (
+          <li key={item.id} className="flex items-center gap-2">
+            <LineSwatch color={item.color} dashed={item.style === "dashed"} />
+            {item.label}
           </li>
         ))}
       </ul>
