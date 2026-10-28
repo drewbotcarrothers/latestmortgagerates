@@ -73,6 +73,8 @@ Pushes to `master` run `.github/workflows/ci-cd.yml` (GitHub-hosted Ubuntu): ins
 
 The scrape workflow (`.github/workflows/scrape-and-deploy.yml`) runs on `[self-hosted, macOS, lmr-home]`. It uses Homebrew Python/Node (`.github/scripts/setup-self-hosted-macos.sh`) — **do not** use `actions/setup-python` or `actions/setup-node` on that Mac (`/Users/runner` toolcache). After scraping it runs `npm ci` + `npm run build` (Astro) and FTPs `dist/`.
 
+Those two production `npm run build` steps pass `PUBLIC_GUIDE_FOLDER_URL` and `PUBLIC_GUIDE_DOWNLOAD_URL` from GitHub Actions repository variables. Hostinger Node environment variables do not apply to this static FTP deploy. Keep the variables set (values stay out of the repo; see `.env.example`). A `master` rebuild is required after they change before `/mortgage-guide/thank-you/` shows the download links.
+
 After merging an Astro/FTP path change, re-run **Scrape Rates & Deploy** on `master` (`RUNNER.md`). FTP attempt 1 should complete green; the 2-minute retry is skipped unless attempt 1 actually failed.
 
 ### 2. Add GitHub Secrets

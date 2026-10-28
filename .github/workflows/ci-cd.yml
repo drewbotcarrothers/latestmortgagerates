@@ -54,6 +54,11 @@ jobs:
 
       - name: Build Astro site
         run: npm run build
+        env:
+          # GitHub Actions repository variables. Hostinger Node env does not
+          # apply to this static FTP deploy. Do not put the URLs in the repo.
+          PUBLIC_GUIDE_FOLDER_URL: ${{ vars.PUBLIC_GUIDE_FOLDER_URL }}
+          PUBLIC_GUIDE_DOWNLOAD_URL: ${{ vars.PUBLIC_GUIDE_DOWNLOAD_URL }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
