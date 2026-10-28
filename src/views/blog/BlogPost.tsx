@@ -294,7 +294,7 @@ export default function BlogPostPage({
           </div>
 
           <div className="mt-8">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent={`blog_${slug}`} />
           </div>
 
           {recentPosts.length > 0 && (

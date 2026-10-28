@@ -67,7 +67,7 @@ export default function RentVsBuyPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <RentVsBuyCalculator />
           <div className="mt-8 max-w-xl">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="tool_rent-vs-buy-calculator" />
           </div>
         </div>
 

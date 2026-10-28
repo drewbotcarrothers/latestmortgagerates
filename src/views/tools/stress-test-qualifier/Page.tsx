@@ -322,7 +322,7 @@ export default function StressTestPage() {
                   </li>
                   <li>
                     <a href="/mortgage-guide/" className="text-teal-600 hover:underline font-medium">
-                      Mortgage negotiation guide
+                      Mortgage Toolkit ($29)
                     </a>
                   </li>
                 </ul>
@@ -341,7 +341,7 @@ export default function StressTestPage() {
                 </a>
               </div>
 
-              <GuideCTA variant="compact" />
+              <GuideCTA variant="compact" context="switch" utmMedium="cta_compact" utmContent="tool_stress-test-qualifier" />
             </div>
           </div>
         </div>

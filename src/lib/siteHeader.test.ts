@@ -33,8 +33,19 @@ describe("site header", () => {
   it("keeps every previous nav destination and the guide CTA", () => {
     const nav = read("components/Navigation.tsx");
     for (const href of LEGACY_NAV) {
+      if (href === "/mortgage-guide/") {
+        assert.match(
+          nav,
+          /\/mortgage-guide\/\?utm_source=site&utm_medium=nav&utm_campaign=mortgage_guide&utm_content=header/,
+        );
+        continue;
+      }
       assert.ok(nav.includes(`"${href}"`), href);
     }
+    assert.match(nav, /\$29 Toolkit/);
+    assert.match(nav, /Mortgage Toolkit — \$29/);
+    assert.match(nav, /aria-label="Mortgage Guide and Renewal Toolkit, \$29 CAD"/);
+    assert.match(nav, /mortgage-guide\/thank-you/);
     assert.match(nav, /aria-expanded/);
     assert.match(nav, /aria-haspopup="true"/);
     assert.match(nav, /aria-controls/);

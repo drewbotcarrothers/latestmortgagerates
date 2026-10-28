@@ -226,7 +226,7 @@ export default function MortgageCalculatorPage({ children }: MortgageCalculatorP
               </div>
             </div>
 
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="tool_mortgage-calculator" />
           </div>
         </div>
       </div>

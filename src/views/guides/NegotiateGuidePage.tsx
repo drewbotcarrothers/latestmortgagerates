@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AdUnit from "@/components/AdUnit";
 import GuideCTA from "@/components/GuideCTA";
+import { GuideInlineTeaser, PaidGuideNote } from "@/components/PaidGuideNote";
 import FAQSection from "@/components/FAQSection";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
@@ -251,13 +252,9 @@ export default function NegotiateGuidePage() {
               </div>
             </section>
 
-            <section className="rounded-xl border border-slate-200 bg-white p-6">
-              <h2 className="text-2xl font-bold text-slate-900">The free steps and the paid guide</h2>
-              <p className="mt-3 text-slate-700">
-                The renewal steps on this page are free. The $29 PDF is a separate guide we write and sell. You can compare rates and use the calculators without buying it.
-              </p>
-            </section>
-            <GuideCTA />
+            <GuideInlineTeaser slug="negotiate-mortgage-rate" />
+            <PaidGuideNote />
+            <GuideCTA utmMedium="cta_full" utmContent="guide_negotiate-mortgage-rate" />
             <FAQSection faqs={faqs} title="Negotiation questions" />
           </div>
         </article>

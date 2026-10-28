@@ -118,7 +118,7 @@ export default function MortgageRenewalCalculatorPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <MortgageRenewalCalculator />
           <div className="mt-8 max-w-xl">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" context="renewal" utmMedium="cta_compact" utmContent="tool_mortgage-renewal-calculator" />
           </div>
         </div>
 

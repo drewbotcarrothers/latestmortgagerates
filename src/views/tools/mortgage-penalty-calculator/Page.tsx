@@ -66,7 +66,7 @@ export default function MortgagePenaltyPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <MortgagePenaltyCalculator />
           <div className="mt-8 max-w-xl">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" context="penalty" utmMedium="cta_compact" utmContent="tool_mortgage-penalty-calculator" />
           </div>
         </div>
 

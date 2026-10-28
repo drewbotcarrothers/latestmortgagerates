@@ -234,7 +234,7 @@ export default function CityPage({ slug, buildDateIso }: { slug: string; buildDa
         </div>
       </div>
 
-      <CityTools cityName={city.name} province={content.provinceName} />
+      <CityTools cityName={city.name} province={content.provinceName} citySlug={slug} />
       <Footer />
     </main>
   );

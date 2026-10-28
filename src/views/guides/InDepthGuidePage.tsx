@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AdUnit from "@/components/AdUnit";
 import GuideCTA from "@/components/GuideCTA";
+import { GuideInlineTeaser, PaidGuideNote } from "@/components/PaidGuideNote";
+import { guideContextForSlug, guideHasInlineTeaser } from "@/lib/guide";
 import FAQSection from "@/components/FAQSection";
 import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
@@ -67,13 +69,9 @@ export default function InDepthGuidePage({ slug }: { slug: string }) {
           <div className="mx-auto max-w-3xl space-y-8 px-4 py-8">
             <EditorialSections sections={guide.sections} />
             <AdUnit format="display" />
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900">A note on the paid guide</h2>
-              <p className="mt-3 leading-relaxed text-slate-700">
-                The explanation on this page is free. The $29 PDF is a separate guide we write and sell. You can use the calculators and the rate tables without buying it.
-              </p>
-            </section>
-            <GuideCTA />
+            {guideHasInlineTeaser(slug) ? <GuideInlineTeaser slug={slug} /> : null}
+            <PaidGuideNote />
+            <GuideCTA utmMedium="cta_full" utmContent={`guide_${slug}`} context={guideContextForSlug(slug)} />
             <FAQSection faqs={guide.faqs} title="Questions" />
           </div>
         </article>

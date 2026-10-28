@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/mortgage-guide/ThankYouPage";
+
+const env = import.meta.env as {
+  PUBLIC_GUIDE_DOWNLOAD_URL?: string;
+  PUBLIC_GUIDE_FOLDER_URL?: string;
+};
+const downloadUrl = env.PUBLIC_GUIDE_DOWNLOAD_URL ?? "";
+const folderUrl = env.PUBLIC_GUIDE_FOLDER_URL ?? "";
+---
+<BaseLayout
+  title="Download your Mortgage Guide files | Latest Mortgage Rates"
+  description="Download the Mortgage Guide and Renewal Toolkit after checkout."
+  canonical="https://latestmortgagerates.ca/mortgage-guide/thank-you/"
+  noIndex={true}
+  robots="noindex, nofollow"
+>
+  <Page client:load downloadUrl={downloadUrl} folderUrl={folderUrl} />
+</BaseLayout>

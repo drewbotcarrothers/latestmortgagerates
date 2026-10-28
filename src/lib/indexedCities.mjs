@@ -40,6 +40,7 @@ export function isIndexablePath(pathname) {
   if (path.startsWith("/unsubscribe")) return false;
   if (path.startsWith("/subscribe/confirmed")) return false;
   if (path.startsWith("/subscribe/thank-you")) return false;
+  if (path.startsWith("/mortgage-guide/thank-you")) return false;
   if (path.startsWith("/api/")) return false;
   if (path.startsWith("/glossary/") && path !== "/glossary/") return false;
   if (path.startsWith("/cities/") && path !== "/cities/") {

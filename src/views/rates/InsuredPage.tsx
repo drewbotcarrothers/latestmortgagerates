@@ -152,7 +152,7 @@ export default function InsuredRatesPage({ buildDateIso }: { buildDateIso: strin
           </div>
 
           <div className="mb-8">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="rate_insured" />
           </div>
 
           <CommunityCallout className="mb-8" />

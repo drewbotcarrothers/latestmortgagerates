@@ -6,9 +6,10 @@ import { TOOLS_INDEX_HREF } from "@/lib/siteLinks";
 interface CityToolsProps {
   cityName: string;
   province: string;
+  citySlug: string;
 }
 
-export default function CityTools({ cityName, province }: CityToolsProps) {
+export default function CityTools({ cityName, province, citySlug }: CityToolsProps) {
   const isOntario = province === "Ontario";
   const isQuebec = province === "Quebec";
   const isBC = province === "British Columbia";
@@ -66,7 +67,7 @@ export default function CityTools({ cityName, province }: CityToolsProps) {
         title={`Compare ${place} mortgage rates`}
         description={`National rate hubs for shoppers in ${place} — then compare lenders on each page.`}
       />
-      <GuideCTA variant="compact" />
+      <GuideCTA variant="compact" utmMedium="cta_compact" utmContent={`city_${citySlug}`} />
     </div>
   );
 }

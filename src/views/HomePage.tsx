@@ -425,7 +425,7 @@ export default function Home() {
           </div>
         </div>
 
-        <GuideCTA variant="full" className="mt-8" />
+        <GuideCTA variant="full" className="mt-8" utmMedium="cta_full" utmContent="home" />
       </div>
 
       <NewsletterSignup variant="band" anchorId="rate-alert" />

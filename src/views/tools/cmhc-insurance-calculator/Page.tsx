@@ -70,7 +70,7 @@ export default function CMHCCalculatorPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <CMHCCalculator />
           <div className="mt-8 max-w-md mx-auto">
-            <GuideCTA variant="compact" />
+            <GuideCTA variant="compact" context="buyer" utmMedium="cta_compact" utmContent="tool_cmhc-insurance-calculator" />
           </div>
         </div>
 

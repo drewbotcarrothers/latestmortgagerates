@@ -32,9 +32,9 @@ const NEXT_STEPS = [
   },
   {
     href: "/mortgage-guide/",
-    title: "Mortgage Guide ebook",
-    body: "A practical guide to negotiating a better deal on your next mortgage.",
-    cta: "Open the Mortgage Guide",
+    title: "Mortgage Guide + Renewal Toolkit",
+    body: "Scripts, worksheets and a 180-day checklist for your renewal. $29 CAD.",
+    cta: "See the Toolkit",
   },
 ];
 

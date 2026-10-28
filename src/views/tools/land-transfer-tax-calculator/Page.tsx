@@ -352,7 +352,7 @@ export default function LandTransferTaxCalculatorPage() {
                 </div>
               </div>
 
-              <GuideCTA variant="compact" />
+              <GuideCTA variant="compact" utmMedium="cta_compact" utmContent="tool_land-transfer-tax-calculator" />
             </div>
           </div>
         </div>

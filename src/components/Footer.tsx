@@ -227,10 +227,9 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 { href: "/compare/insured-vs-uninsured/", label: "Insured vs Uninsured" },
                 { href: "/tools/", label: "Calculators" },
                 { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
-                { href: "/blog/", label: "Mortgage Guides" },
-                { href: "/glossary/", label: "Rate Glossary" },
-                { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
-                { href: "/blog/", label: "Mortgage Guides" },
+                { href: "/blog/", label: "Blog" },
+                { href: "/guides/", label: "Free Guides" },
+                { href: "/mortgage-guide/?utm_source=site&utm_medium=footer&utm_campaign=mortgage_guide&utm_content=footer", label: "Mortgage Toolkit ($29)" },
                 { href: "/glossary/", label: "Rate Glossary" },
               ].map((item) => (
                 <li key={item.href}>
