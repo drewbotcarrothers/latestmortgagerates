@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-10-29T02:17:00.690911",
-  "total_rates": 243,
+  "generated_at": "2026-10-29T09:59:47.881601",
+  "total_rates": 244,
   "cleaning_stats": {
-    "input_count": 316,
+    "input_count": 317,
     "removed_aggregator": 0,
     "removed_duplicates": 18,
     "removed_unrealistic": 0,
     "removed_no_metadata": 0,
     "removed_inferior": 55,
     "flagged_suspicious": 5,
-    "output_count": 243,
+    "output_count": 244,
     "by_lender": {
       "rbc": 11,
       "td": 20,
-      "bmo": 9,
+      "bmo": 10,
       "scotiabank": 8,
       "cibc": 11,
       "nationalbank": 3,
@@ -40,7 +40,7 @@
     "sources_used": {
       "rbc_live_scrape": 11,
       "td_live_scrape": 20,
-      "bmo_live_scrape": 9,
+      "bmo_live_scrape": 10,
       "scotiabank_live_scrape": 8,
       "cibc_live_scrape": 11,
       "nationalbank_live_scrape": 3,
