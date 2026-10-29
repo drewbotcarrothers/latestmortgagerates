@@ -130,7 +130,7 @@ export const rateHold: InDepthGuide = {
       id: "decision-week",
       heading: "A hold through a Bank of Canada decision",
       paragraphs: [
-        `<a href="${SOURCES.boc}">The Bank of Canada</a> held the overnight rate on 2 September 2026. The next scheduled announcement is 28 October 2026. A fixed hold taken before that meeting keeps the named fixed quote through it. It does not freeze prime or a variable special. TD will not hold a variable. The rounded five-year variable median in the reported file is ${REPORTED.variableMedian} (N = ${REPORTED.variableN}). It is not a hold. Live shelves are <a href="/rates/5-year-fixed/">five-year fixed</a>, <a href="/rates/variable/">variable</a>, <a href="/rates/insured/">insured</a>, and <a href="/rates/uninsured/">uninsured</a>.`,
+        `<a href="${SOURCES.bocOct}">The Bank of Canada</a> raised the overnight rate on 28 October 2026. The next scheduled announcement is 9 December 2026. A fixed hold taken before that meeting keeps the named fixed quote through it. It does not freeze prime or a variable special. TD will not hold a variable. The rounded five-year variable median in the reported file is ${REPORTED.variableMedian} (N = ${REPORTED.variableN}). It is not a hold. Live shelves are <a href="/rates/5-year-fixed/">five-year fixed</a>, <a href="/rates/variable/">variable</a>, <a href="/rates/insured/">insured</a>, and <a href="/rates/uninsured/">uninsured</a>.`,
         "If specials drop after the announcement, RBC's clause moves you to the lower fixed rate. TD's clause waits until you ask. Send that request the day the new special is posted, and keep the reply.",
       ],
     },

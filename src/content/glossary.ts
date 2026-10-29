@@ -289,7 +289,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "Prime Rate",
     slug: "prime-rate",
     category: "Rates",
-    definition: `The interest rate banks charge their best customers. Big 5 prime is the Bank of Canada policy rate plus ${PRIME_SPREAD.toFixed(2)} percentage points (currently ${PRIME_RATE.toFixed(2)}%, with the policy rate at ${BOC_POLICY_RATE.toFixed(2)}%). Variable mortgage rates are expressed as Prime minus or plus a certain percentage.`,
+    definition: `The interest rate banks charge their best customers. On this site, big-bank prime is ${PRIME_RATE.toFixed(2)}% and the Bank of Canada policy rate is ${BOC_POLICY_RATE.toFixed(2)}% after the October 28, 2026 increase. Lenders often set prime ${PRIME_SPREAD.toFixed(2)} percentage points above the policy rate once they follow a decision. The ${PRIME_RATE.toFixed(2)}% figure has not been replaced with a new prime. Variable mortgage rates are expressed as prime minus or plus a percentage.`,
   },
   {
     term: "Property Tax",

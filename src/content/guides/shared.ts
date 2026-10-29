@@ -111,7 +111,7 @@ export const REPORTED = {
   disclaimer: communityRates.disclaimer,
 };
 
-export const RATE_CONTEXT = `The Bank of Canada held its target for the overnight rate at ${pct(BOC_POLICY_RATE)} on September 2, 2026. The Bank Rate is 2.50% and the deposit rate is 2.20%. The next scheduled announcement is October 28, 2026. Big-bank prime on this site is ${pct(PRIME_RATE)}, which is the policy rate plus ${pct(PRIME_SPREAD)}. TD publishes its own mortgage prime, so a variable discount off "prime" is only meaningful once you know which prime the contract uses.`;
+export const RATE_CONTEXT = `The Bank of Canada raised its target for the overnight rate to ${pct(BOC_POLICY_RATE)} on October 28, 2026. The Bank Rate is 2.75% and the deposit rate is 2.45%. The next scheduled announcement is December 9, 2026. Big-bank prime on this site is still ${pct(PRIME_RATE)} until a lender publishes a change. TD publishes its own mortgage prime, so a variable discount off "prime" is only meaningful once you know which prime the contract uses.`;
 
 export function reportedRatesParagraph(): string {
   return `In the reported-rate file dated ${REPORTED.asOf}, covering ${REPORTED.from} to ${REPORTED.to} (${REPORTED.records.toLocaleString("en-CA")} usable reports), the 30-day median 5-year fixed rate where insured status was not stated is ${REPORTED.fixedMedian} after rounding to the nearest 0.05 (N = ${REPORTED.fixedN}). The Big Five posted median beside that cell is ${REPORTED.fixedBig5}. The 5-year variable median in the same window, insured status not stated, is ${REPORTED.variableMedian} (N = ${REPORTED.variableN}), against a Big Five posted median of ${REPORTED.variableBig5}. A separate uninsured 5-year fixed cell, where people stated that status, is ${REPORTED.fixedUninsuredMedian} (N = ${REPORTED.fixedUninsuredN}). These figures are ${REPORTED.attribution}. ${REPORTED.disclaimer} Posted rates on the <a href="/">homepage</a>, the <a href="/rates/5-year-fixed/">5-year fixed</a> page, and the <a href="/rates/variable/">variable</a> page are a different dataset. Do not average them together.`;
@@ -683,6 +683,7 @@ export const SOURCES = {
   fhsaRoom: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/contributing-your-fhsa.html",
   fhsaAct: "https://laws-lois.justice.gc.ca/eng/acts/I-3.3/section-146.6.html",
   boc: "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+  bocOct: "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
   bocPolicy: "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
   cdic: "https://www.cdic.ca/depositors/whats-covered/",
   osfiStraightSwitch: "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/osfi-exempts-uninsured-mortgage-straight-switches-prescribed-mqr-implements-portfolio-lti-limits",

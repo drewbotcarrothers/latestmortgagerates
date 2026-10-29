@@ -5,7 +5,6 @@
   "announcementTime": "09:45 ET",
   "mprNote": "The Monetary Policy Report is published with the January, April, July, and October announcements.",
   "remaining2026": [
-    { "date": "2026-10-28", "monetaryPolicyReport": true },
     { "date": "2026-12-09", "monetaryPolicyReport": false }
   ],
   "year2027": [

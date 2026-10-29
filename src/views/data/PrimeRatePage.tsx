@@ -17,7 +17,7 @@ export function primeLead(rows: readonly PrimeRateRow[], asOfLabel: string): str
   const scrapedSentence = facts.scraped.length
     ? `The rate file records a scraped prime of ${scraped}.`
     : "The rate file does not record a scraped prime for any lender.";
-  return `The big-bank consensus prime is ${money(facts.prime)} as of ${asOfLabel}, ${facts.spread.toFixed(2)} percentage points above the Bank of Canada overnight target of ${money(facts.policyRate)}. ${scrapedSentence}`;
+  return `The big-bank prime in this site's config is ${money(facts.prime)} as of ${asOfLabel}. The Bank of Canada overnight target is ${money(facts.policyRate)} after the October 28, 2026 increase. The config spread of ${facts.spread.toFixed(2)} percentage points is the usual gap once lenders follow a decision. It is not a new prime, and this page does not publish one until a lender announcement is recorded. ${scrapedSentence}`;
 }
 
 export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
@@ -45,8 +45,9 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
         <h2 className="text-2xl font-bold text-slate-900">Lender prime rates</h2>
         <p className="mt-3">
           The daily rate file covers {facts.lenderCount} lenders. Only rows that store a prime field are listed as scraped primes.
-          The big-bank figure is the consensus in the site config: the overnight target plus {facts.spread.toFixed(2)} percentage points.
-          It is the prime used for RBC, TD, Scotiabank, BMO, CIBC, and National Bank on this page, except where a scraped number is different.
+          The big-bank figure in the site config is {money(facts.prime)}, last tied to a {facts.spread.toFixed(2)} point spread over the previous 2.25% target.
+          The overnight target is now {money(facts.policyRate)}. This page does not replace {money(facts.prime)} until a lender publishes a new prime.
+          The config figure is what this table shows for RBC, TD, Scotiabank, BMO, CIBC, and National Bank, except where a scraped number is different.
         </p>
         <div className="mt-4 overflow-x-auto rounded-lg border border-slate-200 bg-white">
           <table className="min-w-full text-sm">
@@ -62,7 +63,7 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
                 <tr key={bank.slug} className="border-t border-slate-200">
                   <td className="p-3">{bank.name}</td>
                   <td className="p-3">{money(facts.prime)}</td>
-                  <td className="p-3">Consensus: policy rate plus {facts.spread.toFixed(2)}</td>
+                  <td className="p-3">Config prime, unchanged until a lender publishes a new rate</td>
                 </tr>
               ))}
               {facts.scraped.map((row) => (
@@ -98,7 +99,7 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
         <p className="mt-3">
           The chart and table are Bank of Canada Valet series {policy.series}, the target for the overnight rate.
           Each row is the first date the series prints a new target, except the opening row, which is the rate already in force at the start of the window.
-          A hold, including the September 2, 2026 hold at {money(facts.policyRate)}, does not add a row because the target did not change.
+          A hold does not add a row, because the target did not change. The September 2, 2026 hold left the target at 2.25%. The October 28, 2026 decision raised it to {money(facts.policyRate)}. The cached series on this page may still end at the previous target.
           Observations in the cached series run through {policy.observationsThrough ? formatLongDate(policy.observationsThrough) : "the latest fetch"}.
         </p>
         <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3" dangerouslySetInnerHTML={{ __html: chart }} />
@@ -174,8 +175,10 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
           None of these are offers, and the contract, not this page, decides which rule applies.
         </p>
         <p className="mt-3">
-          The September 2, 2026 hold is written up in the{" "}
-          <a href="/blog/bank-of-canada-holds-rate-september-2026/" className="text-teal-700 hover:underline">Bank of Canada hold note</a>.
+          The October 28, 2026 increase is written up in the{" "}
+          <a href="/blog/bank-of-canada-raises-rate-october-2026/" className="text-teal-700 hover:underline">Bank of Canada rate note</a>.
+          The September 2, 2026 hold is in the{" "}
+          <a href="/blog/bank-of-canada-holds-rate-september-2026/" className="text-teal-700 hover:underline">September hold note</a>.
           The glossary entry is{" "}
           <a href="/glossary/prime-rate/" className="text-teal-700 hover:underline">prime rate</a>.
           Fixed rates, which follow bond yields rather than prime, are on the{" "}
