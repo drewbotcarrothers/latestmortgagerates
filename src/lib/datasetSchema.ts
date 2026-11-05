@@ -77,10 +77,21 @@ export function realRatesDatasetJsonLd() {
   });
 }
 
-export function monthlyReportDatasetJsonLd(input: { slug: string; name: string; description: string }) {
-  return communityDatasetJsonLd({
+export function monthlyReportDatasetJsonLd(input: {
+  slug: string;
+  name: string;
+  description: string;
+  /** Data as-of date. Omit to use the live borrower-reported file. */
+  dateModified?: string;
+  /** ISO interval. Omit to use the live 30-day window. */
+  temporalCoverage?: string;
+}) {
+  const dataset = communityDatasetJsonLd({
     name: input.name,
     description: input.description,
     url: `${SITE_ORIGIN}/blog/${input.slug}/`,
   });
+  if (input.dateModified) dataset.dateModified = input.dateModified;
+  if (input.temporalCoverage) dataset.temporalCoverage = input.temporalCoverage;
+  return dataset;
 }

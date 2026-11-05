@@ -98,7 +98,9 @@ export default function DiscountByBankPage() {
         <p className="mt-3">
           The quarter label follows the as-of date on the reported-rate file, {asOf}. The medians are the ones already stored for each lender and product.
           The published gap is rounded to the nearest 0.05.
-          Compare the same file on <a href="/real-mortgage-rates/" className="text-teal-700 hover:underline">real mortgage rates</a> and in the{" "}
+          Compare the same file on <a href="/real-mortgage-rates/" className="text-teal-700 hover:underline">real mortgage rates</a>, in the{" "}
+          <a href="/blog/below-the-line-mortgage-rate-report-november-2026/" className="text-teal-700 hover:underline">November 2026 rate report</a>
+          {" "}(October's numbers), and in the{" "}
           <a href="/blog/below-the-line-mortgage-rate-report-october-2026/" className="text-teal-700 hover:underline">October 2026 rate report</a>.
           The extraction rules are on the <a href="/methodology/" className="text-teal-700 hover:underline">methodology</a> page.
         </p>
