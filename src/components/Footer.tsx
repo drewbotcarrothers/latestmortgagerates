@@ -1,51 +1,18 @@
-
 import { lenderCountLabel } from "@/lib/lenderCount";
 
 interface FooterProps {
   showDisclaimer?: boolean;
 }
 
-// Inline SVG icons
-const HomeIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-  </svg>
-);
-
-const BookOpenIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-  </svg>
-);
-
-const TrendIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-  </svg>
-);
-
-const LibraryIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-  </svg>
-);
-
-const CalculatorIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-  </svg>
-);
+interface FooterLink {
+  href: string;
+  label: string;
+}
 
 const MapPinIcon = () => (
-  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-);
-
-const ScaleIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h6l3 10 3-10h6M5 13h4m6 0h4" />
   </svg>
 );
 
@@ -71,88 +38,105 @@ const youtubeChannel = {
   label: "YouTube",
 } as const;
 
+const toolkitHref =
+  "/mortgage-guide/?utm_source=site&utm_medium=footer&utm_campaign=mortgage_guide&utm_content=footer";
+
+const rateLinks: FooterLink[] = [
+  { href: "/", label: "Current rates" },
+  { href: "/real-mortgage-rates/", label: "Real mortgage rates" },
+  { href: "/rate-data/", label: "Rate data" },
+  { href: "/trends/", label: "Rate trends" },
+  { href: "/rates/5-year-fixed/", label: "5-year fixed" },
+  { href: "/rates/variable/", label: "Variable rates" },
+  { href: "/rates/insured/", label: "Insured rates" },
+  { href: "/rates/uninsured/", label: "Uninsured rates" },
+];
+
+const guideLinks: FooterLink[] = [
+  { href: "/compare/", label: "Compare mortgages" },
+  { href: "/compare/fixed-vs-variable/", label: "Fixed vs variable" },
+  { href: "/tools/", label: "Calculators" },
+  { href: "/tools/renewal-offer-checker/", label: "Renewal offer checker" },
+  { href: "/tools/stress-test-qualifier/", label: "Stress test" },
+  { href: "/guides/", label: "Guides" },
+  { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate your rate" },
+  { href: "/glossary/", label: "Glossary" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/methodology/", label: "Rate methodology" },
+];
+
+const lenderLinks: FooterLink[] = [
+  { href: "/lenders/rbc/", label: "RBC Royal Bank" },
+  { href: "/lenders/td/", label: "TD Bank" },
+  { href: "/lenders/scotiabank/", label: "Scotiabank" },
+  { href: "/lenders/bmo/", label: "BMO" },
+  { href: "/lenders/cibc/", label: "CIBC" },
+  { href: "/lenders/nesto/", label: "nesto" },
+  { href: "/lenders/wealthsimple/", label: "Wealthsimple" },
+  { href: "/lenders/truenorth/", label: "True North Mortgage" },
+];
+
+const textLinkClass = "text-sm text-slate-400 transition-colors hover:text-teal-400";
+
+function LinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
+  return (
+    <div>
+      <h4 className="mb-3 font-semibold text-white">{title}</h4>
+      <ul className="space-y-2">
+        {links.map((item) => (
+          <li key={item.href}>
+            <a href={item.href} className={textLinkClass}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Footer({ showDisclaimer = true }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  
-  const navItems = [
-    { href: "/", label: "Current Rates", icon: HomeIcon },
-    { href: "/real-mortgage-rates/", label: "Real Mortgage Rates", icon: TrendIcon },
-    { href: "/rate-data/", label: "Rate data", icon: TrendIcon },
-    { href: "/guides/negotiate-mortgage-rate/", label: "Negotiate Your Rate", icon: BookOpenIcon },
-    { href: "/tools/renewal-offer-checker/", label: "Renewal Offer Checker", icon: CalculatorIcon },
-    { href: "/compare/", label: "Compare Mortgages", icon: ScaleIcon },
-    { href: "/trends/", label: "Rate Trends", icon: TrendIcon },
-    { href: "/guides/", label: "Guides", icon: BookOpenIcon },
-    { href: "/blog/", label: "News", icon: BookOpenIcon },
-    { href: "/glossary/", label: "Glossary", icon: LibraryIcon },
-    { href: "/tools/", label: "Calculators", icon: CalculatorIcon },
-    { href: "/methodology/", label: "Rate Methodology", icon: LibraryIcon },
-  ];
 
   return (
     <footer className="bg-slate-900 text-slate-300">
-      {/* Trust Banner */}
-      <div className="bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+      <div className="border-b border-slate-800 bg-gradient-to-r from-slate-800 to-slate-900">
+        <div className="mx-auto max-w-7xl px-4 py-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+              <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
               <span className="text-slate-400">{lenderCountLabel} Lenders Compared</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+              <div className="h-2 w-2 rounded-full bg-teal-500"></div>
               <span className="text-slate-400">Updated Twice Daily</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+              <div className="h-2 w-2 rounded-full bg-amber-500"></div>
               <span className="text-slate-400">100% Free & Independent</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Disclaimer */}
-        {showDisclaimer && (
-          <div className="mb-10 p-5 bg-amber-500/10 rounded-xl border border-amber-500/20">
-            <div className="flex items-start gap-3">
-              <div className="p-1.5 bg-amber-500/20 rounded-lg mt-0.5">
-                <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-semibold text-amber-200 mb-1">Important Disclaimer</h4>
-                <p className="text-sm text-amber-200/80 leading-relaxed">
-                  The information on this website is for educational purposes only and does not constitute financial advice. 
-                  Rates are subject to change without notice. Always verify current rates with lenders and consult with a qualified 
-                  mortgage professional before making financial decisions.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
+      <div className="mx-auto max-w-7xl px-4 py-8 md:py-10">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <div className="mb-3 flex items-center gap-3">
               <img
                 src="/logo.png"
                 alt="Latest Mortgage Rates Canada"
-                width={50}
-                height={50}
+                width={48}
+                height={48}
                 loading="lazy"
-                className="rounded-lg"
+                className="h-12 w-12 rounded-lg"
               />
-              <div>
-                <h3 className="font-bold text-white text-lg">LatestMortgageRates.ca</h3>
-              </div>
+              <h3 className="text-lg font-bold text-white">LatestMortgageRates.ca</h3>
             </div>
-            <p className="text-sm text-slate-400 mb-4">
+            <p className="max-w-xl text-sm text-slate-400">
               Compare mortgage rates from Canada's top lenders. Making home financing transparent and accessible since 2025.
             </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
               <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
                 <MapPinIcon />
                 Canada
@@ -161,180 +145,87 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 href={youtubeChannel.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-teal-400 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs text-slate-400 transition-colors hover:text-teal-400"
               >
                 <YouTubeIcon />
                 {youtubeChannel.label}
               </a>
             </div>
           </div>
-          
-          {/* Navigation */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2.5">
-              {navItems.map((item) => (
-                <li key={item.label}>
-                  <a 
-                    href={item.href} 
-                    className="group flex items-center gap-2 text-slate-400 hover:text-teal-400 transition-all duration-200 text-sm"
-                  >
-                    <span className="text-slate-500 group-hover:text-teal-400 transition-colors"><item.icon /></span>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Popular Lenders */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Top Lenders</h4>
-            <ul className="space-y-2.5">
-              {[
-                { href: "/lenders/rbc/", label: "RBC Royal Bank" },
-                { href: "/lenders/td/", label: "TD Bank" },
-                { href: "/lenders/scotiabank/", label: "Scotiabank" },
-                { href: "/lenders/bmo/", label: "BMO" },
-                { href: "/lenders/cibc/", label: "CIBC" },
-                { href: "/lenders/nesto/", label: "nesto" },
-                { href: "/lenders/wealthsimple/", label: "Wealthsimple" },
-                { href: "/lenders/truenorth/", label: "True North Mortgage" },
-              ].map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Resources */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Resources</h4>
-            <ul className="space-y-2.5">
-              {[
-                { href: "/rates/5-year-fixed/", label: "5-Year Fixed Rates" },
-                { href: "/rates/variable/", label: "Variable Rates" },
-                { href: "/rates/insured/", label: "Insured Rates" },
-                { href: "/rates/uninsured/", label: "Uninsured Rates" },
-                { href: "/compare/", label: "Compare Mortgages" },
-                { href: "/compare/fixed-vs-variable/", label: "Fixed vs Variable" },
-                { href: "/compare/insured-vs-uninsured/", label: "Insured vs Uninsured" },
-                { href: "/tools/", label: "Calculators" },
-                { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
-                { href: "/blog/", label: "Blog" },
-                { href: "/guides/", label: "Free Guides" },
-                { href: "/mortgage-guide/?utm_source=site&utm_medium=footer&utm_campaign=mortgage_guide&utm_content=footer", label: "Mortgage Toolkit ($29)" },
-                { href: "/glossary/", label: "Rate Glossary" },
-              ].map((item) => (
-                <li key={item.href}>
-                  <a 
-                    href={item.href} 
-                    className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* More Canadian tools */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">More Canadian tools</h4>
-            <ul className="space-y-2.5">
-              {portfolioSites.map((site) => (
-                <li key={site.href}>
-                  <a
-                    href={site.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                  >
-                    {site.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Legal */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Legal</h4>
-            <ul className="space-y-2.5">
-              <li>
-                <a href="/about/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/editorial-policy/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
-                  Editorial policy
-                </a>
-              </li>
-              <li>
-                <a href="/contact/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="/disclaimer/" className="text-slate-400 hover:text-teal-400 transition-colors text-sm">
-                  Disclaimer
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/privacy/" 
-                  className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                >
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/terms/" 
-                  className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                >
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/unsubscribed/" 
-                  className="text-slate-400 hover:text-teal-400 transition-colors text-sm"
-                >
-                  Unsubscribe
-                </a>
-              </li>
-            </ul>
-          </div>
+          <a
+            href={toolkitHref}
+            className="inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-lg bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 sm:w-auto"
+          >
+            Mortgage Toolkit ($29)
+          </a>
         </div>
-        
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <nav aria-label="Site information" className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
-              <a href="/about/" className="text-slate-400 hover:text-teal-400">About</a>
-              <a href="/editorial-policy/" className="text-slate-400 hover:text-teal-400">Editorial policy</a>
-              <a href="/contact/" className="text-slate-400 hover:text-teal-400">Contact</a>
-              <a href="/disclaimer/" className="text-slate-400 hover:text-teal-400">Disclaimer</a>
-              <a href="/privacy/" className="text-slate-400 hover:text-teal-400">Privacy</a>
-              <a href="/terms/" className="text-slate-400 hover:text-teal-400">Terms</a>
-            </nav>
-            <p className="text-center text-sm text-slate-500">
-              © {currentYear} LatestMortgageRates.ca - All rights reserved.
-            </p>
-            <p className="text-center text-xs text-slate-600 max-w-xl">
-              Not affiliated with any bank or mortgage lender. Rates are for comparison purposes only.
-              Lender names and logos are trademarks of their respective owners, used for identification only.
-              No endorsement is implied.
-            </p>
-          </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <LinkColumn title="Rates" links={rateLinks} />
+          <LinkColumn title="Guides & tools" links={guideLinks} />
+          <LinkColumn title="Lenders" links={lenderLinks} />
+        </div>
+
+        <section className="mt-8 border-t border-slate-800 pt-6" aria-labelledby="footer-portfolio">
+          <h4 id="footer-portfolio" className="mb-3 font-semibold text-white">
+            More Canadian tools
+          </h4>
+          <ul className="flex flex-wrap gap-x-4 gap-y-2">
+            {portfolioSites.map((site) => (
+              <li key={site.href}>
+                <a
+                  href={site.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={textLinkClass}
+                >
+                  {site.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <div className="mt-8 space-y-4 border-t border-slate-800 pt-6">
+          {showDisclaimer && (
+            <div className="max-w-3xl">
+              <h4 className="text-sm font-semibold text-amber-200">Important disclaimer</h4>
+              <p className="mt-1 text-xs leading-relaxed text-slate-400">
+                Educational information only, not financial advice. Rates can change without notice. Verify current
+                rates with the lender and consult a qualified mortgage professional before you decide.
+              </p>
+            </div>
+          )}
+          <nav aria-label="Site information" className="flex flex-wrap gap-x-4 gap-y-2">
+            <a href="/about/" className={textLinkClass}>
+              About
+            </a>
+            <a href="/editorial-policy/" className={textLinkClass}>
+              Editorial policy
+            </a>
+            <a href="/contact/" className={textLinkClass}>
+              Contact
+            </a>
+            <a href="/disclaimer/" className={textLinkClass}>
+              Disclaimer
+            </a>
+            <a href="/privacy/" className={textLinkClass}>
+              Privacy
+            </a>
+            <a href="/terms/" className={textLinkClass}>
+              Terms
+            </a>
+            <a href="/unsubscribed/" className={textLinkClass}>
+              Unsubscribe
+            </a>
+          </nav>
+          <p className="text-sm text-slate-500">
+            © {currentYear} LatestMortgageRates.ca - All rights reserved.
+          </p>
+          <p className="max-w-3xl text-xs leading-relaxed text-slate-600">
+            Not affiliated with any bank or mortgage lender. Rates are for comparison purposes only. Lender names and
+            logos are trademarks of their respective owners, used for identification only. No endorsement is implied.
+          </p>
         </div>
       </div>
     </footer>
