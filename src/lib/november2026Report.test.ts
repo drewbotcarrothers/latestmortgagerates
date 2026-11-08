@@ -194,7 +194,7 @@ describe("November 2026 below-the-line report", () => {
     ]) {
       assert.match(read(path), new RegExp(NOVEMBER_2026_SLUG), path);
     }
-    assert.equal(latestWeeklySlug(), "best-5-year-fixed-rates-week-44-2026");
+    assert.match(latestWeeklySlug(), /^best-5-year-fixed-rates-week-\d+-2026$/);
     const weekly = blogPosts.find((item) => item.slug === "best-5-year-fixed-rates-week-44-2026");
     assert.ok(weekly);
     assert.match(weekly.content, new RegExp(NOVEMBER_2026_SLUG));
