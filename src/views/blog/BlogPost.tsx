@@ -15,7 +15,9 @@ import DistributionChart from "@/components/community/DistributionChart";
 import DumbbellChart from "@/components/community/DumbbellChart";
 import WeeklyTrendChart from "@/components/community/WeeklyTrendChart";
 import BankGapChart from "@/components/community/BankGapChart";
+import NovemberReportCharts from "@/components/community/NovemberReportCharts";
 import { chartProducts, formatAsOf } from "@/lib/communityRates";
+import { datasetFieldsForMonthlyReport, NOVEMBER_CHART_MARKER } from "@/lib/november2026Report";
 import { articleJsonLd, blogDateModified, isMonthlyRateReport } from "@/lib/articleSchema";
 import { monthlyReportDatasetJsonLd } from "@/lib/datasetSchema";
 import JsonLd from "@/components/JsonLd";
@@ -68,22 +70,33 @@ function getRelatedTools(post: typeof blogPosts[0]) {
 
 function BlogBody({ content }: { content: string }) {
   const prose = "prose prose-base max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-h2:text-xl prose-h3:text-lg prose-p:text-slate-600 prose-p:mb-4 prose-p:leading-relaxed prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-strong:font-semibold prose-strong:text-slate-800 prose-li:text-slate-600 prose-table:border-collapse prose-table:w-full prose-th:bg-slate-100 prose-th:p-3 prose-th:text-left prose-th:text-sm prose-th:font-semibold prose-td:p-3 prose-td:text-sm prose-td:border-t prose-td:border-slate-200 prose-blockquote:border-l-4 prose-blockquote:border-teal-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-slate-600";
-  if (!content.includes(COMMUNITY_CHART_MARKER)) {
+  const marker = content.includes(NOVEMBER_CHART_MARKER)
+    ? NOVEMBER_CHART_MARKER
+    : content.includes(COMMUNITY_CHART_MARKER)
+      ? COMMUNITY_CHART_MARKER
+      : null;
+  if (!marker) {
     return <div id="blog-content" className={prose} dangerouslySetInnerHTML={{ __html: content }} />;
   }
-  const [before, after] = content.split(COMMUNITY_CHART_MARKER);
+  const [before, after] = content.split(marker);
   return (
     <div id="blog-content">
       <div className={prose} dangerouslySetInnerHTML={{ __html: before }} />
       <div className="my-8 space-y-8 rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
-        <h2 className="text-xl font-semibold text-slate-900">Reported rates versus posted rates</h2>
-        <DumbbellChart products={chartProducts("30d")} />
-        <h2 className="text-xl font-semibold text-slate-900">Where 5-year reports land</h2>
-        <DistributionChart />
-        <h2 className="text-xl font-semibold text-slate-900">Week by week</h2>
-        <WeeklyTrendChart />
-        <h2 className="text-xl font-semibold text-slate-900">By big bank</h2>
-        <BankGapChart />
+        {marker === NOVEMBER_CHART_MARKER ? (
+          <NovemberReportCharts />
+        ) : (
+          <>
+            <h2 className="text-xl font-semibold text-slate-900">Reported rates versus posted rates</h2>
+            <DumbbellChart products={chartProducts("30d")} />
+            <h2 className="text-xl font-semibold text-slate-900">Where 5-year reports land</h2>
+            <DistributionChart />
+            <h2 className="text-xl font-semibold text-slate-900">Week by week</h2>
+            <WeeklyTrendChart />
+            <h2 className="text-xl font-semibold text-slate-900">By big bank</h2>
+            <BankGapChart />
+          </>
+        )}
       </div>
       <div className={prose} dangerouslySetInnerHTML={{ __html: after }} />
     </div>
@@ -154,6 +167,7 @@ export default function BlogPostPage({
             slug: post.slug,
             name: post.title,
             description: post.excerpt,
+            ...datasetFieldsForMonthlyReport(post.slug),
           })}
         />
       ) : null}

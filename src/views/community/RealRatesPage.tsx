@@ -60,6 +60,13 @@ export default function RealRatesPage() {
             <p className="mt-4 text-sm text-teal-100">
               As of {formatAsOf()} · {window30.from} to {window30.to} · {window30.usableRecords} reports · prime {formatRate(communityRates.prime)}
             </p>
+            <p className="mt-3 text-sm text-teal-100">
+              The monthly write-up of October 2026 is the{" "}
+              <a href="/blog/below-the-line-mortgage-rate-report-november-2026/" className="font-medium text-white underline">
+                November 2026 below-the-line report
+              </a>
+              . This page is the current file.
+            </p>
           </div>
         </section>
 

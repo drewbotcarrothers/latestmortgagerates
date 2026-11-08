@@ -11,7 +11,7 @@ export type WindowKey = "7d" | "30d";
 export interface ProductCell {
   termMonths: number;
   rateType: RateType;
-  insured: Exclude<InsuredStatus, "all">;
+  insured: InsuredStatus;
   n: number;
   median: number;
   min: number;

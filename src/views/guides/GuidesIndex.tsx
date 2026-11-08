@@ -5,7 +5,7 @@ import { IN_DEPTH_GUIDES } from "@/content/inDepthGuides";
 import { buildGuidePageUrl } from "@/lib/guide";
 import { COMPARE_PAGES } from "@/lib/siteLinks";
 
-const report = getPostBySlug("below-the-line-mortgage-rate-report-october-2026");
+const report = getPostBySlug("below-the-line-mortgage-rate-report-november-2026");
 
 const featured = [
   {

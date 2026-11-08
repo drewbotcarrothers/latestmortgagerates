@@ -42,9 +42,14 @@ export const DATA_LINKS: DataLink[] = [
     description: "Median rates self-reported by Canadian borrowers online, versus posted rates",
   },
   {
+    href: "/blog/below-the-line-mortgage-rate-report-november-2026/",
+    title: "November 2026 rate report",
+    description: "October 2026 rates self-reported by Canadian borrowers online, versus posted rates",
+  },
+  {
     href: "/blog/below-the-line-mortgage-rate-report-october-2026/",
     title: "October 2026 rate report",
-    description: "The monthly written report on reported rates versus posted rates",
+    description: "The earlier monthly report on reported rates versus posted rates",
   },
 ];
 

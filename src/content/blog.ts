@@ -1,4 +1,5 @@
 import { october2026Report } from "../lib/communityReportCopy";
+import { november2026Report } from "../lib/november2026Report";
 import { bondYieldsBlogPost } from "../lib/bondYieldArticle";
 
 export interface BlogPost {
@@ -20,10 +21,26 @@ export interface BlogPost {
   noIndex?: boolean;
 }
 
+const novemberReport = november2026Report();
 const octoberReport = october2026Report();
 const bondPost = bondYieldsBlogPost();
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: novemberReport.slug,
+    title: novemberReport.title,
+    excerpt: novemberReport.excerpt,
+    content: novemberReport.content,
+    author: novemberReport.author,
+    authorTitle: novemberReport.authorTitle,
+    date: novemberReport.date,
+    updatedDate: novemberReport.updatedDate,
+    category: novemberReport.category,
+    tags: novemberReport.tags,
+    readTime: novemberReport.readTime,
+    featured: novemberReport.featured,
+    image: novemberReport.image,
+  },
   {
     slug: octoberReport.slug,
     title: octoberReport.title,
@@ -746,7 +763,7 @@ export const blogPosts: BlogPost[] = [
   <li>Don't forget to negotiate - even published rates often have room</li>
 </ol>
 
-<p class="mb-4">More context: the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a> covers product choice, qualification, and closing costs alongside these weekly numbers. If a renewal is coming up, the <a href="/guides/2026-mortgage-renewal-playbook/" class="text-teal-600 hover:underline font-medium">2026 mortgage renewal playbook</a> walks through the timeline. Rates self-reported by Canadian borrowers online are aggregated on the <a href="/real-mortgage-rates/" class="text-teal-600 hover:underline font-medium">real mortgage rates</a> page. To place one renewal offer on that distribution, use the <a href="/tools/renewal-offer-checker/" class="text-teal-600 hover:underline font-medium">renewal offer checker</a>.</p>`,
+<p class="mb-4">More context: the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a> covers product choice, qualification, and closing costs alongside these weekly numbers. If a renewal is coming up, the <a href="/guides/2026-mortgage-renewal-playbook/" class="text-teal-600 hover:underline font-medium">2026 mortgage renewal playbook</a> walks through the timeline. Rates self-reported by Canadian borrowers online are aggregated on the <a href="/real-mortgage-rates/" class="text-teal-600 hover:underline font-medium">real mortgage rates</a> page. The <a href="/blog/below-the-line-mortgage-rate-report-november-2026/" class="text-teal-600 hover:underline font-medium">November 2026 below-the-line report</a> covers those reported rates for October 2026. To place one renewal offer on the current distribution, use the <a href="/tools/renewal-offer-checker/" class="text-teal-600 hover:underline font-medium">renewal offer checker</a>.</p>`,
     author: "Andrew",
     authorTitle: "Rate Analyst",
     date: "2026-10-26",
