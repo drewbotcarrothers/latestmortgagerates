@@ -3,7 +3,7 @@
   "label": "Target for the overnight rate (business daily)",
   "description": "Also called the policy interest rate, the average rate that the Bank of Canada wants to see in the market for overnight money market financing. (V39079)",
   "source": "https://www.bankofcanada.ca/valet/observations/V39079/json?start_date=2022-01-01",
-  "observationsThrough": "2026-11-02",
+  "observationsThrough": "2026-11-05",
   "changes": [
     {
       "date": "2022-01-04",
@@ -90,5 +90,5 @@
       "rate": 2.5
     }
   ],
-  "fetchedAt": "2026-11-04T11:01:53.507Z"
+  "fetchedAt": "2026-11-08T14:48:49.739Z"
 }
