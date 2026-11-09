@@ -247,8 +247,8 @@ const exampleShortfall = monthInterest(vrmBalance, exampleNowRate) - exampleOldP
 
 export const DECISION = {
   policy: BOC_POLICY_RATE,
-  bankRate: 2.5,
-  depositRate: 2.2,
+  bankRate: 2.75,
+  depositRate: 2.45,
   prime: PRIME_RATE,
   spread: PRIME_SPREAD,
   balance: vrmBalance,
