@@ -54,7 +54,13 @@ export function omittedPostedNotes(): string[] {
   return notes;
 }
 
-export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapRow[] }) {
+export default function BankGapChart({
+  rows = bankGapRows(),
+  caption,
+}: {
+  rows?: BankGapRow[];
+  caption?: string;
+}) {
   const { ref: chartRef, fontSize } = useRateLabelFont(CHART_W);
   if (rows.length === 0) return null;
   const values = rows.flatMap((row) => [row.product.reportedMedian, row.product.postedRate as number]);
@@ -67,7 +73,8 @@ export default function BankGapChart({ rows = bankGapRows() }: { rows?: BankGapR
   return (
     <figure>
       <figcaption className="mb-3 text-sm text-slate-600">
-        The bank&apos;s own posted rate (uninsured product in the current snapshot) versus the median rate {communityRates.attribution} from that bank. All insured statuses are combined.
+        {caption ??
+          `The bank's own posted rate (uninsured product in the current snapshot) versus the median rate ${communityRates.attribution} from that bank. All insured statuses are combined.`}
       </figcaption>
       <ul className="mb-4 flex flex-wrap gap-4 text-xs font-medium text-slate-700" aria-hidden="true">
         <li className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ background: TEAL }} /> Reported median</li>
