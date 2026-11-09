@@ -98,7 +98,7 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
         <p className="mt-3">
           The chart and table are Bank of Canada Valet series {policy.series}, the target for the overnight rate.
           Each row is the first date the series prints a new target, except the opening row, which is the rate already in force at the start of the window.
-          A hold, including the September 2, 2026 hold at {money(facts.policyRate)}, does not add a row because the target did not change.
+          A hold does not add a row, because the target did not change. The September 2, 2026 hold left the target at 2.25%. The October 28, 2026 decision raised it by 0.25 percentage points to 2.50%. The series prints that new target on the next business day, October 29, 2026.
           Observations in the cached series run through {policy.observationsThrough ? formatLongDate(policy.observationsThrough) : "the latest fetch"}.
         </p>
         <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3" dangerouslySetInnerHTML={{ __html: chart }} />
@@ -174,8 +174,10 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
           None of these are offers, and the contract, not this page, decides which rule applies.
         </p>
         <p className="mt-3">
-          The September 2, 2026 hold is written up in the{" "}
-          <a href="/blog/bank-of-canada-holds-rate-september-2026/" className="text-teal-700 hover:underline">Bank of Canada hold note</a>.
+          The October 28, 2026 increase, to an overnight target of 2.50%, is written up in the{" "}
+          <a href="/blog/bank-of-canada-raises-rate-october-2026/" className="text-teal-700 hover:underline">October rate recap</a>.
+          The September 2, 2026 hold, at 2.25%, is in the{" "}
+          <a href="/blog/bank-of-canada-holds-rate-september-2026/" className="text-teal-700 hover:underline">September hold note</a>.
           The glossary entry is{" "}
           <a href="/glossary/prime-rate/" className="text-teal-700 hover:underline">prime rate</a>.
           Fixed rates, which follow bond yields rather than prime, are on the{" "}

@@ -103,7 +103,7 @@ export const lenderTypes: InDepthGuide = {
         `<a href="${SOURCES.cmhcQualify}">CMHC, homeowner insurance requirements</a>.`,
         `<a href="${SOURCES.financeReforms}">Department of Finance Canada, September 16, 2024</a>.`,
         `<a href="${SOURCES.interestAct}">Interest Act, section 10</a>.`,
-        `<a href="${SOURCES.boc}">Bank of Canada, September 2, 2026</a>. Overnight rate 2.25%.`,
+        `<a href="${SOURCES.boc}">Bank of Canada, September 2, 2026</a>. Overnight target held at 2.25%. <a href="${SOURCES.bocOct}">October 28, 2026</a> raised it to 2.50%. Next announcement December 9, 2026.`,
       ],
     },
   ],

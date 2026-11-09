@@ -99,7 +99,7 @@ All settings below come from real files and pages. Nothing is invented. Where so
 | Existing LMR pipeline | Repo `origin/master` @ `88f0594` (2026-09-26): `video-pipeline/openmontage/README.md`, `VIDEO-RULES.md` (retired by this document, D13), `build_top5_by_term.py`, `project.example.json`, `.gitignore` |
 | Rates data + schema | Repo `data/rates.json` (230 rows, 25 lenders, scraped 2026-09-26), `data/historical_rates.json` |
 | Insured-label audit (§13.1) | Repo `scraping/src/scrapers/*.py` + `rate_parse.py` at `88f0594` (read-only), cross-checked against each lender's `raw_data` in `data/rates.json` |
-| Prime rate | Big 5 prime 4.45% since Oct 30, 2025 (RBC press release 2025-10-29; Ratehub/WOWA bank tables Sep 2026). Equitable's own rate table reports `prime_rate: 4.45` in the 2026-09-26 scrape. BoC policy rate 2.25%, held Sep 2, 2026 |
+| Prime rate | BoC overnight target 2.50% after the Oct 28, 2026 increase (Bank Rate 2.75%, deposit rate 2.45%). Next announcement Dec 9, 2026. Site big-bank prime is 4.70%, policy plus 2.20, resolved 2026-10-30 as policy-plus-spread, not a new lender press release. Last lender figure in the prime config was RBC 4.45% checked 2026-09-27. Re-confirm prime on a bank page before any script. |
 | YouTube Data API | developers.google.com/youtube/v3 (`videos.insert`, `status.publishAt`, quota costs, API Services audit). Re-check quota numbers at build time |
 | Scrape schedule + runner | `.github/workflows/scrape-and-deploy.yml`, `RUNNER.md` |
 | Blog cadence | `CONTENT_CADENCE.md`, `SOCIAL.md` |
@@ -488,7 +488,7 @@ All numbers are filled from the week's rankings JSON. Examples use the 2026-09-2
 4. **Audience call-out:** "Renewing before Christmas? These are the rates your bank has to beat this week."
 5. **Contrarian:** "Putting 20% down can actually get you a *higher* rate. This week's insured vs uninsured spread shows why."
 6. **Open-loop countdown:** "Ten categories, and one lender that makes the top 5 in {k} of them. Stick around to see which." (Use the week's real section count and k.)
-7. **Event tie-in:** "The Bank of Canada decides on October 28. Here's where fixed and variable rates sit going in."
+7. **Event tie-in:** "The Bank of Canada decides on December 9. Here's where fixed and variable rates sit going in." The October 28, 2026 decision already raised the overnight target to 2.50%.
 8. **Streak / trend:** "Five-year fixed rates have now fallen three weeks in a row. Here's this week's top 5."
 
 Hook structure (≈ 15-25 s): **promise line → one proof number (stat card) → roadmap + open loop**. It follows StockSummarizer's anti-repeat rule: don't read the full 5-yr table in the hook if Section 1 will show it.
@@ -612,12 +612,12 @@ Vertical cards show at most **3-4 rows**, 72px+ rate text, and keep captions at 
 | Wed Jun 10 | past | Wed Jun 2 | |
 | Wed Jul 15 (MPR) | past | Wed Jul 21 (MPR) | |
 | Wed Sep 2 | past | Wed Sep 8 | |
-| **Wed Oct 28 (MPR)** | **next** | Wed Oct 27 (MPR) | |
-| **Wed Dec 9** | | Wed Dec 8 | |
+| **Wed Oct 28 (MPR)** | done: target raised to 2.50% | Wed Oct 27 (MPR) | |
+| **Wed Dec 9** | **next** | Wed Dec 8 | |
 
 Sources: BoC press release of 2025-08-06 (2026 schedule) and BoC press release of July 2026 (2027 schedule, which also reconfirms Sep 2 / Oct 28 / Dec 9, 2026). The Oct 28 and Dec 9 dates match the existing routines. Other BoC dates worth a Short: **Summary of Deliberations** (13:30 ET, two weeks after each decision), **Business Outlook Survey / Consumer Expectations** (2026: Oct 19; 2027: Jan 18, Apr 19, Jul 12, Oct 18), **Financial Stability Report** (2027: Tue May 18).
 
-The BoC policy rate is **2.25%** (held Sep 2, 2026, the seventh straight hold), and Big 5 prime has been **4.45%** since Oct 30, 2025 (RBC release 2025-10-29; bank prime tables checked Sep 2026). **Re-confirm both on bankofcanada.ca and a bank prime page before any script.** Never take prime from the repo until the D14 fix lands (§13 item 6).
+The BoC policy rate is **2.50%** after the October 28, 2026 increase of 25 basis points (Bank Rate 2.75%, deposit rate 2.45%). September 2, 2026 held the target at 2.25%. The next announcement is December 9, 2026. Site big-bank prime is 4.70% as policy plus 2.20, resolved October 30, 2026. That prime is not a Bank of Canada figure and was not re-confirmed on a lender page for this note. **Re-confirm prime on a bank page before any script.**
 
 ### 6.2 Turnaround SLA
 
@@ -1163,7 +1163,7 @@ Output in the first 4 weeks: 4 weekly + 4 tool demos (8 long-form) + 8 Shorts.
 3. **One `insurable` row** (Manulife 5-yr fixed). **Excluded from the video (D4).**
 4. **Schema fields mostly null:** `apr`, `posted_rate`, `ltv_tier`, `spread_to_prime` were null in most rows (Equitable and RFA carry a spread in `raw_data`). "Variable = prime − x" is computed in the F segment from the best variable and this week's confirmed prime, not from the field. Open/closed status is only in `raw_data.is_open` for some lenders.
 5. **No per-term history file.** `data/historical_rates.json` stores daily best/avg by fixed/variable × insured/uninsured **without term**, for 90 days. WoW and the 8-week trend come from git history of `data/rates.json` (works, but slower). Recommend a small `data/weekly_snapshots/{date}.json` written by the scrape on Mondays.
-6. **Stale prime rate (D14, being fixed in the PR that adds this document).** `data/historical_rates.json` stores `"prime_rate": 5.45` in its metadata and daily entries. The value is hard-coded in `scraping/src/historical_rates.py` (`prime_rate = 5.45`, plus a `DEFAULT 5.45` column), and also appears in `scraping/src/seed_historical.py`, `scraping/src/scrapers/nesto_scraper.py`, `scripts/fix-historical-gap.ts`, `src/components/RateTrendsFull.tsx` (fallback), `src/components/StructuredData.tsx` (FAQ text), `src/views/rates/VariablePage.tsx` and `src/content/glossary.ts`. **Correct value: Big 5 prime 4.45%** (since Oct 30, 2025; BoC policy rate 2.25%, held Sep 2, 2026). Equitable's own rate table reported `prime_rate: 4.45` in the 2026-09-26 scrape. TD uses a separate 4.60% mortgage prime. Until the fix is merged, never quote prime from the repo.
+6. **Stale prime rate (D14, being fixed in the PR that adds this document).** `data/historical_rates.json` stores `"prime_rate": 5.45` in its metadata and daily entries. The value is hard-coded in `scraping/src/historical_rates.py` (`prime_rate = 5.45`, plus a `DEFAULT 5.45` column), and also appears in `scraping/src/seed_historical.py`, `scraping/src/scrapers/nesto_scraper.py`, `scripts/fix-historical-gap.ts`, `src/components/RateTrendsFull.tsx` (fallback), `src/components/StructuredData.tsx` (FAQ text), `src/views/rates/VariablePage.tsx` and `src/content/glossary.ts`. **Policy rate: 2.50% as of October 28, 2026.** Do not quote 2.25% as the current target. Big-bank prime in `config/prime_rate.json` is 4.70%, policy plus 2.20, and is not a lender press release confirmed for this note. The previous lender figure in that file was RBC 4.45% checked September 27, 2026. Equitable's own rate table reported `prime_rate: 4.45` in the 2026-09-26 scrape. TD uses a separate 4.60% mortgage prime. Until the fix is merged, never quote prime from the repo.
 7. **Mixed timestamp formats** in `scraped_at` (offset-aware ET and UTC). Normalise before display.
 8. **Lender-count copy (D14, being fixed in the same PR).** The site says "30+ Lenders Compared" (`Footer.tsx`), "30+ Canadian lenders" (`StructuredData.tsx`) and "31+ Canadian lenders" (tool pages), but the data has **25** lenders. The copy changes to "25+ lenders" (or a count derived from the data at build time). The video always says "the {N} lenders we track".
 9. **OpenMontage portability:** the LMR `data_table` cut, `CompanyLogo`, and caption letter-spacing live only in the box's **uncommitted** OpenMontage edits. No `styles/latestmortgagerates.yaml` exists, even though props reference `playbook: latestmortgagerates`.

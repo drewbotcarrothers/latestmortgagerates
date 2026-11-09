@@ -137,7 +137,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same November 2 scrape is <strong>3.45%</strong> insured at <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a>, unchanged from the week-44 post. Next are <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a> at <strong>3.50%</strong> insured (3.25% in that post), <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> at <strong>3.66%</strong> insured (3.41%), and <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.69%</strong> insured (3.44%). Those three increases are 0.25 percentage points. The lowest uninsured 5-year variable in this scrape is <strong>3.89%</strong> at Meridian, up from 3.64% in the week-44 post. The <a href="/rate-changes/" class="text-teal-700 hover:underline font-medium">rate-change tracker</a> records those four variable moves on October 29 and October 30. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026. The October 28, 2026 announcement, still ahead when the week-44 post was written, was a rate hike. This roundup does not restate the new overnight target. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a> and the <a href="https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/" class="text-teal-700 hover:underline font-medium">October 28 press release</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026. The October 28, 2026 announcement, still ahead when the week-44 post was written, raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-700 hover:underline font-medium">October 2026 recap</a> and the <a href="https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/" class="text-teal-700 hover:underline font-medium">October 28 press release</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
@@ -397,7 +397,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The October 28, 2026 Bank of Canada decision has been announced, and the next one is December 9, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.45% insured at Wealthsimple; Butler Mortgage 3.50% insured; nesto 3.66% insured), but they will move if prime moves after a future overnight-rate change. The <a href="/guides/fixed-vs-variable-mortgage-2026/" class="text-teal-600 hover:underline font-medium">fixed versus variable guide</a> walks through that choice. The <a href="/guides/bank-of-canada-rate-and-your-mortgage/" class="text-teal-600 hover:underline font-medium">Bank of Canada and your mortgage</a> guide separates the overnight rate, prime, and a fixed quote.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The October 28, 2026 Bank of Canada decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 5-year variable 3.45% insured at Wealthsimple; Butler Mortgage 3.50% insured; nesto 3.66% insured), but they will move if prime moves after a future overnight-rate change. The <a href="/guides/fixed-vs-variable-mortgage-2026/" class="text-teal-600 hover:underline font-medium">fixed versus variable guide</a> walks through that choice. The <a href="/guides/bank-of-canada-rate-and-your-mortgage/" class="text-teal-600 hover:underline font-medium">Bank of Canada and your mortgage</a> guide separates the overnight rate, prime, and a fixed quote.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -492,7 +492,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same October 26 scrape is <strong>3.25%</strong> insured at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>, with <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> at <strong>3.41%</strong> insured, <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.44%</strong> insured, and <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. Those four insured quotes match the week-43 post. The lowest uninsured 5-year variable in this scrape is <strong>3.64%</strong> at Meridian, the same uninsured low cited in that post. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. The Bank of Canada announces a rate decision on Wednesday, October 28, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. When this roundup was published, the Bank of Canada was scheduled to announce on Wednesday, October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
@@ -752,7 +752,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The Bank of Canada announces a rate decision on Wednesday, October 28, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured; Meridian 3.44% insured), but they will move if prime moves after a future overnight-rate change. The <a href="/guides/fixed-vs-variable-mortgage-2026/" class="text-teal-600 hover:underline font-medium">fixed versus variable guide</a> walks through that choice.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the Bank of Canada was scheduled to announce on Wednesday, October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured; Meridian 3.44% insured), but they will move if prime moves after a future overnight-rate change. The <a href="/guides/fixed-vs-variable-mortgage-2026/" class="text-teal-600 hover:underline font-medium">fixed versus variable guide</a> walks through that choice.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -849,7 +849,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same October 19 scrape is <strong>3.25%</strong> insured at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>, with <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> at <strong>3.41%</strong> insured, <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.44%</strong> insured, and <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. Those four insured quotes match the week-42 post. The lowest uninsured 5-year variable in this scrape is <strong>3.64%</strong> at Meridian. The October 12 daily snapshot also lists Meridian at 3.64% as that uninsured low. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. The next decision is October 28, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. When this roundup was published, the next decision was October 28, 2026. That decision raised the overnight target to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
@@ -1109,7 +1109,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -1206,7 +1206,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same October 12 scrape is <strong>3.25%</strong> insured at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>, with <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> at <strong>3.41%</strong> insured, <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.44%</strong> insured, and <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. The next decision is October 28, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. When this roundup was published, the next decision was October 28, 2026. That decision raised the overnight target to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
@@ -1462,7 +1462,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; nesto 3.41% insured), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -1562,7 +1562,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same October 5 scrape is <strong>3.25%</strong> insured at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>, with <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.44%</strong> insured and <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> / <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. The next decision is October 28, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. When this roundup was published, the next decision was October 28, 2026. That decision raised the overnight target to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
@@ -1822,7 +1822,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; Meridian 3.44% insured), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 5-year variable 3.25% insured at Butler Mortgage; Meridian 3.44% insured), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -1913,7 +1913,7 @@ export const blogPosts: BlogPost[] = [
 <div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
   <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
   <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same September 28 scrape is <strong>3.25%</strong> at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>, with <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> at <strong>3.44%</strong> insured and <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> / <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.45%</strong> insured. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a>.</p>
-  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. The next decision is October 28, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
+  <p class="text-sm text-slate-600">The Bank of Canada held the overnight rate at 2.25% on September 2, 2026, so variable payments should not reprice from that decision alone. Fixed quotes still move with bond yields. When this roundup was published, the next decision was October 28, 2026. That decision raised the overnight target to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-holds-rate-september-2026/" class="text-teal-700 hover:underline font-medium">September 2026 BoC hold recap</a>.</p>
 </div>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">All 25 lenders this week</h2>
@@ -2112,7 +2112,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best labeled insured variable 3.44% at Meridian; Butler 3.25% unlabeled), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best labeled insured variable 3.44% at Meridian; Butler 3.25% unlabeled), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -2402,7 +2402,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 3.44%), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 3.44%), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -2521,7 +2521,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
 
-<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The next Bank of Canada decision is October 28, 2026. Variable rates remain lower in this scrape (best 3.44%), but they will move if prime moves after a future overnight-rate change.</p>
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. When this roundup was published, the next Bank of Canada decision was October 28, 2026. That decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. See the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 3.44%), but they will move if prime moves after a future overnight-rate change.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
 
@@ -2546,7 +2546,9 @@ export const blogPosts: BlogPost[] = [
     slug: "bank-of-canada-holds-rate-september-2026",
     title: "Bank of Canada Holds Rate at 2.25%: What It Means for Mortgage Renewals",
     excerpt: "The Bank of Canada kept its overnight rate unchanged at 2.25% on September 2, 2026. Here's what that hold means for variable vs fixed mortgages and homeowners facing renewals.",
-    content: `<p class="mb-4">The Bank of Canada announced on September 2, 2026 that it is holding its target for the overnight rate at 2.25%, with the Bank Rate at 2.5% and the deposit rate at 2.20%. The next scheduled announcement is October 28, 2026. This decision has direct implications for variable-rate payments and for anyone shopping a fixed term or renewal.</p>
+    content: `<p class="mb-4">The Bank of Canada announced on September 2, 2026 that it is holding its target for the overnight rate at 2.25%, with the Bank Rate at 2.5% and the deposit rate at 2.20%. The next scheduled announcement, as of this decision, was October 28, 2026. This decision has direct implications for variable-rate payments and for anyone shopping a fixed term or renewal.</p>
+
+<p class="mb-4">Update, November 9, 2026: On October 28, 2026 the Bank raised the target by 25 basis points to 2.50%, with the Bank Rate at 2.75% and the deposit rate at 2.45%. The next scheduled announcement is December 9, 2026. The <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 2026 recap</a> covers that decision.</p>
 
 <p class="mb-4 text-sm text-slate-600">Source: <a href="https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/" class="text-teal-600 hover:underline font-medium">Bank of Canada press release, September 2, 2026</a>.</p>
 
@@ -2566,7 +2568,7 @@ export const blogPosts: BlogPost[] = [
   <li>Financial conditions have tightened since July, with long-term bond yields up globally, including in Canada</li>
 </ul>
 
-<p class="mb-4">Governing Council said it will assess the sustainability of the economic rebound and the outlook for inflation, and is prepared to adjust monetary policy as needed. The next Monetary Policy Report will be published with the October 28 decision.</p>
+<p class="mb-4">Governing Council said it will assess the sustainability of the economic rebound and the outlook for inflation, and is prepared to adjust monetary policy as needed. The next Monetary Policy Report, as of this decision, was scheduled for October 28. It was published with that day's increase.</p>
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Impact on Mortgage Rates</h2>
 
@@ -2588,7 +2590,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">What Should Renewers Do?</h2>
 
-<p class="mb-4">If you're renewing before the October 28 decision, start with our <a href="/tools/mortgage-renewal-calculator/" class="text-teal-600 hover:underline font-medium">renewal calculator</a> and confirm you still pass the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test qualifier</a> at the contract rate plus the buffer:</p>
+<p class="mb-4">If you were renewing before the October 28 decision, the shopping steps below were the ones that applied then. Start with the <a href="/tools/mortgage-renewal-calculator/" class="text-teal-600 hover:underline font-medium">renewal calculator</a> and confirm you still pass the <a href="/tools/stress-test-qualifier/" class="text-teal-600 hover:underline font-medium">stress test qualifier</a> at the contract rate plus the buffer:</p>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
   <div class="bg-slate-50 rounded-lg p-4 border border-slate-200">
@@ -2625,7 +2627,7 @@ export const blogPosts: BlogPost[] = [
 
 <p class="mb-4">The Bank did not signal a cut or a hike. It said upside risks to inflation have increased — from still-high oil prices, elevated refinery margins, and new US and Canadian tariffs that could feed into consumer prices over time — while the recovery's sustainability is less certain. Governing Council is prepared to adjust the policy rate as needed.</p>
 
-<p class="mb-4">Until October 28, treat variable as stable versus this hold, and treat fixed as a live quote. For product choice, qualification, and closing costs, see the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a>.</p>`,
+<p class="mb-4">As of September 2, the advice was to treat variable as stable versus that hold until October 28, and to treat fixed as a live quote. October 28 has since raised the target to 2.50%. For product choice, qualification, and closing costs, see the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a>.</p>`,
     author: "Andrew",
     authorTitle: "Mortgage Market Analyst",
     date: "2026-09-02",

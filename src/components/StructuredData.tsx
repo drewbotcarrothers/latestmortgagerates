@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { lenderCountLabel } from "@/lib/lenderCount";
 import { HOME_TITLE } from "@/lib/homeMeta";
-import { PRIME_RATE } from "@/lib/primeRate";
+import { BOC_POLICY_RATE, PRIME_RATE } from "@/lib/primeRate";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 
 interface Rate {
@@ -184,10 +184,10 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
         },
         {
           "@type": "Question",
-          name: "What is the Bank of Canada prime rate and how does it affect mortgages?",
+          name: "What is the Bank of Canada policy rate and how does it affect mortgages?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: `The Bank of Canada prime rate is currently ${PRIME_RATE.toFixed(2)}%. Variable mortgage rates are quoted as 'prime minus X%' or 'prime plus X%'. When the Bank of Canada changes its overnight rate, lenders typically adjust their prime rate accordingly, which directly affects variable mortgage payments. Fixed rates are more influenced by government bond yields than the prime rate.`,
+            text: `The Bank of Canada overnight target is ${BOC_POLICY_RATE.toFixed(2)}% after the October 28, 2026 increase. The Bank does not publish a prime rate. Big-bank prime on this site is ${PRIME_RATE.toFixed(2)}%, the target plus 2.20 percentage points. Variable mortgage rates are quoted as prime minus or plus a margin. When the overnight target changes, lenders typically adjust prime, which affects variable payments. Fixed rates follow bond yields more than the overnight rate.`,
           },
         },
         {
