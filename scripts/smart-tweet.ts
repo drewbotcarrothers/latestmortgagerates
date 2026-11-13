@@ -1,6 +1,9 @@
 import { TwitterApi } from 'twitter-api-v2';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 interface RawRate {
   lender_name: string;
@@ -32,7 +35,7 @@ const rateTypes = [
   { type: '2-Year Fixed', icon: '🎯' },       // Saturday
 ];
 
-const PREVIOUS_DATA_FILE = path.join(__dirname, '..', 'data', 'twitter-previous-data.json');
+const PREVIOUS_DATA_FILE = path.join(SCRIPT_DIR, '..', 'data', 'twitter-previous-data.json');
 
 interface PreviousData {
   date: string;
@@ -44,7 +47,7 @@ interface PreviousData {
 }
 
 function loadRates(): RawRate[] {
-  const dataPath = path.join(__dirname, '..', 'data', 'rates.json');
+  const dataPath = path.join(SCRIPT_DIR, '..', 'data', 'rates.json');
   
   if (!fs.existsSync(dataPath)) {
     console.error(`❌ Rates file not found at ${dataPath}`);
@@ -386,8 +389,15 @@ async function postSmartTweet() {
   }
 }
 
+function isExecutedDirectly(): boolean {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  const thisFile = fileURLToPath(import.meta.url);
+  return path.resolve(entry) === thisFile || /^smart-tweet\.(ts|js|mts|cts)$/.test(path.basename(entry));
+}
+
 // Run if called directly
-if (require.main === module) {
+if (isExecutedDirectly()) {
   postSmartTweet();
 }
 

@@ -1,21 +1,27 @@
 """
 Home Trust mortgage rate scraper.
 
-https://www.hometrust.ca/mortgages/rates/ publishes Accelerator (insured)
-and Classic posted rates in an inline script:
+https://www.hometrust.ca/mortgages/rates/ (redirects to /en/mortgages/rates)
+publishes Accelerator (insured) and Classic posted rates in hometrust-card
+`aem-data` JSON. The description field is an HTML table:
 
-    var accEffDate = "YYYY-MM-DD";
-    var classicEffDate = "YYYY-MM-DD";
+    Posted rates* (effective MM/DD/YYYY)
+    1 year fixed ... 5 year fixed
+    5.90% ...
+
+Older pages used an inline script instead:
+
     var mortgageRates={"acc":[1yr, 2yr, 3yr, 4yr, 5yr],"classic":[...]};
 
-Plain httpx is intercepted by a Radware captcha. A Safari TLS fingerprint
-receives the real page. The empty table cells are filled in that array
-order (1-year through 5-year) for each product.
+Plain httpx is often intercepted by Radware. A Safari TLS fingerprint
+receives the real page. The Radware bot-manager script (perfdrive.com)
+is also present on that real page and is not itself a block.
 """
 
 import json
 import re
 from decimal import Decimal, InvalidOperation
+from html import unescape
 from typing import List, Optional
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,17 +34,22 @@ from models import RawRate, RateType, MortgageType
 
 try:
     from .http_fetch import fetch_html
-    from .rate_parse import fallback_rows_to_rates
+    from .rate_parse import fallback_rows_to_rates, parse_term_months
     from .safari_fetch import fetch_html_safari
 except ImportError:
     from http_fetch import fetch_html
-    from rate_parse import fallback_rows_to_rates
+    from rate_parse import fallback_rows_to_rates, parse_term_months
     from safari_fetch import fetch_html_safari
 
 
 RATES_RE = re.compile(r"var\s+mortgageRates\s*=\s*(\{.*?\})\s*;", re.DOTALL)
 ACC_DATE_RE = re.compile(r'var\s+accEffDate\s*=\s*"(\d{4}-\d{2}-\d{2})"')
 CLASSIC_DATE_RE = re.compile(r'var\s+classicEffDate\s*=\s*"(\d{4}-\d{2}-\d{2})"')
+AEM_RE = re.compile(r'\baem-data="([^"]*)"', re.IGNORECASE)
+EFFECTIVE_RE = re.compile(
+    r"effective\s+(\d{1,2})/(\d{1,2})/(\d{4})",
+    re.IGNORECASE,
+)
 TERMS = (12, 24, 36, 48, 60)
 PRODUCTS = (
     ("acc", MortgageType.INSURED, "Accelerator", ACC_DATE_RE),
@@ -47,11 +58,21 @@ PRODUCTS = (
 
 
 def _is_block_page(html: str) -> bool:
-    """Radware interstitial. A real rates page may still mention perfdrive."""
+    """True for a Radware captcha interstitial.
+
+    The normal rates page loads a bot-manager script from perfdrive.com.
+    That script alone is not a block. A block page is the captcha itself,
+    or a perfdrive response that never includes the rate content.
+    """
     lowered = (html or "").lower()
-    if "varmortgagerates" in lowered.replace(" ", ""):
+    if "radware captcha" in lowered:
+        return True
+    if "perfdrive.com" not in lowered:
         return False
-    return "radware captcha" in lowered or "perfdrive.com" in lowered
+    compact = re.sub(r"\s+", "", lowered)
+    if "varmortgagerates" in compact or "posted rates" in lowered or "hometrust-card" in lowered:
+        return False
+    return True
 
 
 def _parse_rate(value) -> Optional[Decimal]:
@@ -64,17 +85,103 @@ def _parse_rate(value) -> Optional[Decimal]:
     return rate
 
 
-def parse_hometrust_html(
-    html: str,
-    *,
-    lender_slug: str,
-    lender_name: str,
-    source_url: str,
-    scraped_at,
-) -> List[RawRate]:
-    if not html or _is_block_page(html):
-        return []
-    match = RATES_RE.search(html)
+def _html_rows(fragment: str) -> List[List[str]]:
+    rows = []
+    for row_html in re.findall(r"<tr\b[^>]*>(.*?)</tr>", fragment or "", flags=re.I | re.S):
+        cells = re.findall(r"<t[dh]\b[^>]*>(.*?)</t[dh]>", row_html, flags=re.I | re.S)
+        cleaned = []
+        for cell in cells:
+            text = re.sub(r"<[^>]+>", " ", unescape(cell))
+            text = re.sub(r"\s+", " ", text).strip()
+            cleaned.append(text)
+        if any(cleaned):
+            rows.append(cleaned)
+    return rows
+
+
+def _effective_date(text: str) -> Optional[str]:
+    match = EFFECTIVE_RE.search(text or "")
+    if not match:
+        return None
+    month, day, year = (int(part) for part in match.groups())
+    try:
+        return datetime(year, month, day).date().isoformat()
+    except ValueError:
+        return None
+
+
+def _product_from_card(payload: dict) -> Optional[tuple]:
+    headline = str(payload.get("headline") or "")
+    description = str(payload.get("description") or "")
+    blob = f"{headline} {description}".lower()
+    if "accelerator" in blob:
+        return MortgageType.INSURED, "Accelerator"
+    if "classic" in blob:
+        return MortgageType.UNINSURED, "Classic"
+    return None
+
+
+def _rates_from_aem_cards(html: str, **common) -> List[RawRate]:
+    rates: List[RawRate] = []
+    for match in AEM_RE.finditer(html or ""):
+        try:
+            payload = json.loads(unescape(match.group(1)))
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(payload, dict):
+            continue
+        product = _product_from_card(payload)
+        if product is None:
+            continue
+        mortgage_type, name = product
+        description = str(payload.get("description") or "")
+        # aem-data JSON stores the table as real HTML after json.loads.
+        # Some fixtures keep the \\u003c escapes one level too shallow.
+        if "\\u003c" in description:
+            try:
+                description = json.loads(f'"{description}"')
+            except json.JSONDecodeError:
+                description = description.encode("utf-8").decode("unicode_escape")
+        rows = _html_rows(description)
+        if len(rows) < 2:
+            continue
+        headers = rows[0][1:]
+        values = None
+        for row in rows[1:]:
+            if row and "posted" in row[0].lower():
+                values = row[1:]
+                break
+        if values is None:
+            values = rows[-1][1:]
+        effective = _effective_date(unescape(description))
+        for header, raw_rate in zip(headers, values):
+            term_months = parse_term_months(header)
+            rate = _parse_rate(str(raw_rate).replace("%", "").strip())
+            if term_months is None or rate is None:
+                continue
+            years = term_months // 12
+            rates.append(RawRate(
+                lender_slug=common["lender_slug"],
+                lender_name=common["lender_name"],
+                term_months=term_months,
+                rate_type=RateType.FIXED,
+                mortgage_type=mortgage_type,
+                rate=rate,
+                source_url=common["source_url"],
+                scraped_at=common["scraped_at"],
+                raw_data={
+                    "source": "hometrust_live_scrape",
+                    "extraction_method": "aem_card_table",
+                    "product": f"{name} {years}-Year Fixed",
+                    "effective": effective,
+                    "featured": name == "Accelerator" and term_months in (36, 60),
+                },
+            ))
+    return rates
+
+
+def _rates_from_inline_script(html: str, **common) -> List[RawRate]:
+    match = RATES_RE.search(html or "")
     if not match:
         return []
     try:
@@ -96,14 +203,14 @@ def parse_hometrust_html(
             years = term_months // 12
             rates.append(
                 RawRate(
-                    lender_slug=lender_slug,
-                    lender_name=lender_name,
+                    lender_slug=common["lender_slug"],
+                    lender_name=common["lender_name"],
                     term_months=term_months,
                     rate_type=RateType.FIXED,
                     mortgage_type=mortgage_type,
                     rate=rate,
-                    source_url=source_url,
-                    scraped_at=scraped_at,
+                    source_url=common["source_url"],
+                    scraped_at=common["scraped_at"],
                     raw_data={
                         "source": "hometrust_live_scrape",
                         "extraction_method": "inline_mortgage_rates",
@@ -114,6 +221,28 @@ def parse_hometrust_html(
                 )
             )
     return rates
+
+
+def parse_hometrust_html(
+    html: str,
+    *,
+    lender_slug: str,
+    lender_name: str,
+    source_url: str,
+    scraped_at,
+) -> List[RawRate]:
+    if not html or _is_block_page(html):
+        return []
+    common = dict(
+        lender_slug=lender_slug,
+        lender_name=lender_name,
+        source_url=source_url,
+        scraped_at=scraped_at,
+    )
+    rates = _rates_from_aem_cards(html, **common)
+    if rates:
+        return rates
+    return _rates_from_inline_script(html, **common)
 
 
 class HomeTrustScraper:
@@ -142,7 +271,7 @@ class HomeTrustScraper:
         if rates:
             logger.success(f"Successfully scraped {len(rates)} live rates from Home Trust")
             return rates
-        logger.warning("Home Trust HTML did not contain mortgageRates")
+        logger.warning("Home Trust HTML did not contain Accelerator or Classic posted rates")
         return self._get_fallback_rates()
 
     def _get_fallback_rates(self) -> List[RawRate]:

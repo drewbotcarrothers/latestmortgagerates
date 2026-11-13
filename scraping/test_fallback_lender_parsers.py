@@ -7,10 +7,15 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+import ast
+import json
+from html import escape
+
 from scrapers.cmls_scraper import parse_cmls_html
 from scrapers.coastcapital_scraper import parse_coastcapital_html
 from scrapers.equitable_scraper import parse_equitable_html
 from scrapers.hometrust_scraper import parse_hometrust_html
+from scrapers.laurentian_scraper import parse_laurentian_html
 from scrapers.simplii_scraper import rates_from_page_and_api
 from models import MortgageType, RateType
 
@@ -247,10 +252,217 @@ def test_simplii_uses_category_18_not_apr():
     ) == []
 
 
+def _aem_card(headline: str, description: str) -> str:
+    payload = json.dumps({"headline": headline, "description": description})
+    return f'<hometrust-card aem-data="{escape(payload, quote=True)}"></hometrust-card>'
+
+
+def test_hometrust_aem_cards_ignore_perfdrive_script():
+    accelerator = (
+        "<p>Posted rates* (effective 10/19/2026):</p>"
+        "<table><tr><th>Mortgage term (insured)</th><th>1 year fixed</th>"
+        "<th>2 year fixed</th><th>3 year fixed</th><th>4 year fixed</th><th>5 year fixed</th></tr>"
+        "<tr><td>Posted rates</td><td>5.90%</td><td>5.17%</td><td>5.12%</td>"
+        "<td>5.44%</td><td>4.99%</td></tr></table>"
+    )
+    classic = (
+        "<p>Posted rates* (effective 10/06/2026):</p>"
+        "<table><tr><th>Mortgage term</th><th>1 year fixed</th><th>5 year fixed</th></tr>"
+        "<tr><td>Posted rates</td><td>5.29%</td><td>6.51%</td></tr></table>"
+    )
+    html = (
+        '<script src="https://validate.perfdrive.com/bot.js"></script>'
+        + _aem_card("Accelerator Mortgage", accelerator)
+        + _aem_card("Classic Mortgage", classic)
+    )
+    rates = parse_hometrust_html(
+        html,
+        lender_slug="hometrust",
+        lender_name="Home Trust",
+        source_url="https://www.hometrust.ca/mortgages/rates/",
+        scraped_at=NOW,
+    )
+    assert len(rates) == 7
+    acc_5 = _by(rates, 60, RateType.FIXED, MortgageType.INSURED)[0]
+    classic_5 = _by(rates, 60, RateType.FIXED, MortgageType.UNINSURED)[0]
+    assert acc_5.rate == Decimal("4.99")
+    assert acc_5.raw_data["effective"] == "2026-10-19"
+    assert acc_5.raw_data["extraction_method"] == "aem_card_table"
+    assert classic_5.rate == Decimal("6.51")
+    assert classic_5.raw_data["effective"] == "2026-10-06"
+    assert parse_hometrust_html(
+        '<script src="https://validate.perfdrive.com/captcha.js"></script><p>checking your browser</p>',
+        lender_slug="hometrust",
+        lender_name="Home Trust",
+        source_url="https://www.hometrust.ca/mortgages/rates/",
+        scraped_at=NOW,
+    ) == []
+
+
+def _rich_text_table(rows):
+    def cell(text, header=False):
+        return {
+            "nodeType": "table-header-cell" if header else "table-cell",
+            "data": {},
+            "content": [{
+                "nodeType": "paragraph",
+                "data": {},
+                "content": [{"nodeType": "text", "value": text, "marks": [], "data": {}}],
+            }],
+        }
+
+    return {
+        "nodeType": "table",
+        "data": {},
+        "content": [
+            {
+                "nodeType": "table-row",
+                "data": {},
+                "content": [cell(text, header=(index == 0)) for text in row],
+            }
+            for index, row in enumerate(rows)
+        ],
+    }
+
+
+def _paragraph(text):
+    return {
+        "nodeType": "paragraph",
+        "data": {},
+        "content": [{"nodeType": "text", "value": text, "marks": [], "data": {}}],
+    }
+
+
+def _laurentian_document(modules):
+    payload = {"props": {"pageProps": {"modules": modules}}, "page": "/en/personal/rates/mortgages"}
+    return '<script id="__NEXT_DATA__" type="application/json">' + json.dumps(payload) + "</script>"
+
+
+def test_laurentian_reads_embedded_rate_grids_not_august_hardcode():
+    html = _laurentian_document([
+        {
+            "__typename": "AccountFeaturesTable",
+            "header": "Fixed-rate mortgage.",
+            "table": {"json": {"content": [
+                _paragraph("Closed (1 to 4 units)"),
+                _rich_text_table([
+                    ["Term", "Fixed rate (%)"],
+                    ["5 years", "6.290"],
+                    ["Promotional rate - 5 years", "5.190"],
+                    ["3 years", "6.090"],
+                ]),
+            ]}},
+        },
+        {
+            "__typename": "AccountFeaturesTable",
+            "header": "Variable-rate mortgage.",
+            "table": {"json": {"content": [
+                _rich_text_table([
+                    ["Type", "Details", "Convertible closed term", "Variable rate (%)"],
+                    ["Variable-rate mortgage - 1 to 4 units", "Prime rate -0.50%", "5 years", "4.050"],
+                ]),
+            ]}},
+        },
+        {
+            "__typename": "AccountFeaturesTable",
+            "header": "High-ratio fixed rate mortgage (APR).",
+            "table": {"json": {"content": [
+                _rich_text_table([
+                    ["Type", "Fixed rate (%)"],
+                    ["5-year closed term", "4.29"],
+                ]),
+            ]}},
+        },
+        {
+            "__typename": "AccountFeaturesTable",
+            "header": "Equity line of credit.",
+            "table": {"json": {"content": [
+                _rich_text_table([
+                    ["Type", "Minimum rate (%)"],
+                    ["Equity line of credit (1 to 4 units)", "4.950"],
+                ]),
+            ]}},
+        },
+    ])
+    rates = parse_laurentian_html(
+        html,
+        lender_slug="laurentian",
+        lender_name="Laurentian Bank",
+        source_url="https://www.laurentianbank.ca/en/personal/rates/mortgages",
+        scraped_at=NOW,
+    )
+    promo = [
+        rate for rate in rates
+        if rate.term_months == 60 and rate.rate_type == RateType.FIXED and rate.mortgage_type == MortgageType.UNINSURED
+        and rate.raw_data["is_promotional"]
+    ]
+    posted = [
+        rate for rate in rates
+        if rate.term_months == 60 and rate.rate_type == RateType.FIXED and rate.mortgage_type == MortgageType.UNINSURED
+        and not rate.raw_data["is_promotional"]
+    ]
+    assert len(promo) == 1 and promo[0].rate == Decimal("5.190")
+    assert len(posted) == 1 and posted[0].rate == Decimal("6.290")
+    assert promo[0].rate != Decimal("4.79")
+    assert _by(rates, 60, RateType.VARIABLE, MortgageType.UNINSURED)[0].rate == Decimal("4.050")
+    assert _by(rates, 60, RateType.FIXED, MortgageType.INSURED)[0].rate == Decimal("4.29")
+    assert all(rate.raw_data["source"] == "laurentian_live_scrape" for rate in rates)
+    assert all("equity" not in (rate.raw_data.get("product") or "").lower() for rate in rates)
+
+
+def test_laurentian_text_grid_without_tables_and_error_page():
+    html = """
+    <h2>Fixed-rate mortgage.</h2>
+    <p>Closed (1 to 4 units)</p>
+    <div>5 years</div><div>6.290</div>
+    <div>Promotional rate - 5 years</div><div>5.190</div>
+    <h2>High-ratio fixed rate mortgage (APR).</h2>
+    <div>5-year closed term</div><div>4.290</div>
+    """
+    rates = parse_laurentian_html(
+        html,
+        lender_slug="laurentian",
+        lender_name="Laurentian Bank",
+        source_url="https://www.laurentianbank.ca/en/personal/rates/mortgages",
+        scraped_at=NOW,
+    )
+    uninsured = _by(rates, 60, RateType.FIXED, MortgageType.UNINSURED)
+    assert {rate.rate for rate in uninsured} == {Decimal("6.290"), Decimal("5.190")}
+    assert [rate for rate in uninsured if rate.raw_data["is_promotional"]][0].rate == Decimal("5.190")
+    assert _by(rates, 60, RateType.FIXED, MortgageType.INSURED)[0].rate == Decimal("4.290")
+    error = """
+    <title>Page not found | Laurentian Bank</title>
+    <h1>Where did it go?</h1>
+    <script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"modules":[{"__typename":"ModuleErrorInfo","header":"Where did it go?"}]}}, "page":"/error"}</script>
+    <p>Personal and SME banking activities have exited.</p>
+    """
+    assert parse_laurentian_html(
+        error,
+        lender_slug="laurentian",
+        lender_name="Laurentian Bank",
+        source_url="https://www.laurentianbank.ca/en/personal/rates/mortgages",
+        scraped_at=NOW,
+    ) == []
+
+
+def test_backfill_does_not_shadow_json_module():
+    source = Path(__file__).with_name("test_all_lenders_v2.py").read_text()
+    tree = ast.parse(source)
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef) and node.name == "scrape_all_lenders":
+            for child in ast.walk(node):
+                if isinstance(child, ast.Import):
+                    assert "json" not in [alias.name for alias in child.names]
+
+
 if __name__ == "__main__":
     test_coast_cards_use_product_title_not_tooltip()
     test_hometrust_inline_grid_and_block_page()
+    test_hometrust_aem_cards_ignore_perfdrive_script()
     test_cmls_maps_term_codes_and_skips_prime()
     test_equitable_table_skips_apr_and_reverse_and_prices_spreads()
     test_simplii_uses_category_18_not_apr()
+    test_laurentian_reads_embedded_rate_grids_not_august_hardcode()
+    test_laurentian_text_grid_without_tables_and_error_page()
+    test_backfill_does_not_shadow_json_module()
     print("ok")
