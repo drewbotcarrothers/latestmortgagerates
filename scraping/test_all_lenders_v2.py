@@ -82,6 +82,31 @@ APPROVED_LENDERS = {
 # Default timeout per scraper (seconds)
 SCRAPER_TIMEOUT = 300  # 5 minutes per scraper
 
+# These lenders are still in the run list but intentionally publish nothing.
+# An empty result is expected and must not be counted as a scrape failure
+# or backfilled from stale rows.
+EXPECTED_EMPTY_SLUGS = {
+    "eqbank": "skipped: EQ Bank no longer publishes direct mortgage rates",
+    "mcap": "skipped: MCAP does not publish public consumer mortgage rates",
+    "streetcapital": "skipped: Street Capital no longer publishes rates",
+    "centum": "skipped: Centum is a brokerage, not a direct lender",
+}
+
+
+def _is_skipped(result) -> bool:
+    return (result.error_message or "").startswith("skipped:")
+
+
+def _carry_forward_previous(item) -> bool:
+    """Keep a previous live row. Drop the Laurentian August 2026 hardcode."""
+    raw = item.get("raw_data") if isinstance(item, dict) else None
+    source = ""
+    if isinstance(raw, dict):
+        source = str(raw.get("source") or "")
+    if source == "laurentian_fallback":
+        return False
+    return True
+
 
 class ScraperTimeout(Exception):
     """Raised when a scraper exceeds its timeout."""
@@ -221,6 +246,18 @@ def scrape_all_lenders():
             ))
             status = "TIMEOUT" if "TIMEOUT" in error else "FAILED"
             print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} {status:8} {error[:40]}")
+        elif not rates and scraper.LENDER_SLUG in EXPECTED_EMPTY_SLUGS:
+            message = EXPECTED_EMPTY_SLUGS[scraper.LENDER_SLUG]
+            logger.info(f"{scraper.LENDER_SLUG}: {message}")
+            results.append(ScrapingResult(
+                lender_slug=scraper.LENDER_SLUG,
+                success=True,
+                rates_found=0,
+                error_message=message,
+                scraped_at=scraped_at,
+                duration_seconds=duration
+            ))
+            print(f"\n[{i:2}/{len(scraper_classes)}] {scraper.LENDER_NAME:25} SKIPPED  {message}")
         elif not rates:
             message = "Scraper returned no rates; previous rows will be kept"
             logger.warning(f"{scraper.LENDER_SLUG}: {message}")
@@ -249,11 +286,18 @@ def scrape_all_lenders():
     print("SCRAPING SUMMARY")
     print("="*80)
     
-    successful = [r for r in results if r.success]
+    skipped = [r for r in results if _is_skipped(r)]
+    successful = [r for r in results if r.success and not _is_skipped(r)]
     failed = [r for r in results if not r.success]
     
     print(f"\nSuccessful: {len(successful)}/{len(scraper_classes)}")
+    print(f"Skipped:    {len(skipped)}/{len(scraper_classes)}")
     print(f"Failed:     {len(failed)}/{len(scraper_classes)}")
+    
+    if skipped:
+        print("\nSkipped (expected empty):")
+        for r in skipped:
+            print(f"  - {r.lender_slug:20} {(r.error_message or '')[:70]}")
     
     if failed:
         print("\nFailed scrapers:")
@@ -336,10 +380,18 @@ def scrape_all_lenders():
                 with open(prev_path, 'r') as f:
                     prev_data = json.load(f)
                 
-                # Get previous rates for failed lenders
+                # Get previous live rates for failed lenders. Skip the
+                # Laurentian August 2026 hardcode so a failed scrape cannot
+                # republish the stale 4.79% 5-year promo.
                 prev_rates_for_failed = []
                 for item in prev_data:
                     if isinstance(item, dict) and item.get("lender_slug") in failed_slugs:
+                        if not _carry_forward_previous(item):
+                            logger.info(
+                                f"Not carrying forward hardcoded {item.get('lender_slug')} row "
+                                f"({(item.get('raw_data') or {}).get('source')})"
+                            )
+                            continue
                         prev_rates_for_failed.append(item)
                         backfilled += 1
                 
@@ -421,7 +473,6 @@ def scrape_all_lenders():
     print("="*80)
     
     try:
-        import json
         from datetime import datetime
         
         output_path = Path(__file__).parent.parent / "data" / "rates.json"
@@ -482,6 +533,7 @@ def scrape_all_lenders():
             "fallback_rates": fallback_count,
             "scrapers_run": len(scraper_classes),
             "scrapers_successful": len(successful),
+            "scrapers_skipped": len(skipped),
             "scrapers_failed": len(failed),
             "lenders": sorted(lender_counts.keys()),
             "scraper_results": [
@@ -554,6 +606,7 @@ def scrape_all_lenders():
     print("="*80)
     print(f"Total scrapers:     {len(scraper_classes)}")
     print(f"Successful:           {len(successful)}")
+    print(f"Skipped (expected):   {len(skipped)}")
     print(f"Failed/Timeout:       {len(failed)}")
     print(f"Total rates scraped:  {len(all_rates)}")
     print(f"Valid rates:          {len(valid_rates)}")
@@ -581,7 +634,14 @@ if __name__ == "__main__":
     print("-"*80)
     
     for r in results:
-        status = "OK" if r.success else ("TIMEOUT" if "TIMEOUT" in (r.error_message or "") else "FAILED")
+        if _is_skipped(r):
+            status = "SKIPPED"
+        elif r.success:
+            status = "OK"
+        elif "TIMEOUT" in (r.error_message or ""):
+            status = "TIMEOUT"
+        else:
+            status = "FAILED"
         error = r.error_message[:30] if r.error_message else ""
         print(f"{r.lender_slug:<25} {status:<10} {r.rates_found:<8} {r.duration_seconds:<10.1f} {error}")
     

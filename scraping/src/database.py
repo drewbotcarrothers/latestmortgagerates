@@ -218,7 +218,10 @@ class Database:
             ))
             conn.commit()
         
-        if result.success:
+        message = result.error_message or ""
+        if message.startswith("skipped:"):
+            logger.info(f"Skipped {result.lender_slug}: {message}")
+        elif result.success:
             logger.success(f"Scraped {result.lender_slug}: {result.rates_found} rates in {result.duration_seconds:.1f}s")
         else:
             logger.error(f"Failed to scrape {result.lender_slug}: {result.error_message}")

@@ -1,6 +1,9 @@
 import { TwitterApi } from 'twitter-api-v2';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 interface RawRate {
   lender_name: string;
@@ -10,7 +13,7 @@ interface RawRate {
 }
 
 function loadRates(): RawRate[] {
-  const dataPath = path.join(__dirname, '..', 'data', 'rates.json');
+  const dataPath = path.join(SCRIPT_DIR, '..', 'data', 'rates.json');
   console.log(`📂 Loading rates from: ${dataPath}`);
   
   if (!fs.existsSync(dataPath)) {
@@ -101,8 +104,15 @@ async function postMonthlyPoll() {
   }
 }
 
+function isExecutedDirectly(): boolean {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  const thisFile = fileURLToPath(import.meta.url);
+  return path.resolve(entry) === thisFile || /^monthly-poll\.(ts|js|mts|cts)$/.test(path.basename(entry));
+}
+
 // Run if called directly
-if (require.main === module) {
+if (isExecutedDirectly()) {
   postMonthlyPoll();
 }
 
