@@ -41,7 +41,8 @@ describe("in-depth guides", () => {
     for (const guide of IN_DEPTH_GUIDES) {
       const words = guideWordCount(guide);
       const min = batch3.has(guide.slug) || longform.has(guide.slug) ? 2200 : 1800;
-      const max = longform.has(guide.slug) ? 2600 : 2500;
+      // The Big Five comparison adds a verdict and standalone comparison FAQs on top of the sourced body.
+      const max = guide.slug === "big-5-bank-mortgages-compared" ? 3600 : longform.has(guide.slug) ? 2600 : 2500;
       assert.ok(words >= min && words <= max, `${guide.slug} is ${words} words`);
     }
   });
@@ -64,6 +65,26 @@ describe("in-depth guides", () => {
       const astro = readFileSync(join(root, "src/pages/guides", guide.slug, "index.astro"), "utf8");
       assert.match(astro, new RegExp(guide.slug));
       assert.equal(isIndexablePath(guide.path), true, guide.path);
+    }
+  });
+
+  it("keeps the Big Five comparison inside the search-result limits", () => {
+    const guide = IN_DEPTH_GUIDES.find((item) => item.slug === "big-5-bank-mortgages-compared");
+    assert.ok(guide);
+    assert.ok(guide.metaTitle.length <= 60, `${guide.metaTitle} (${guide.metaTitle.length})`);
+    assert.ok(guide.description.length <= 155, `${guide.description} (${guide.description.length})`);
+    assert.match(guide.metaTitle, /2026/);
+    assert.match(guide.description, /2026/);
+    assert.equal(guide.sections[0]?.heading, "Quick verdict");
+    assert.match(guide.reviewedIso, /^2026-11-09/);
+    const questions = guide.faqs.map((faq) => faq.question);
+    for (const question of [
+      "How does an RBC mortgage compare with CIBC?",
+      "How does an RBC mortgage compare with Scotiabank?",
+      "How does an RBC mortgage compare with BMO?",
+      "Which Big Five rate-hold guarantee is better?",
+    ]) {
+      assert.ok(questions.includes(question), question);
     }
   });
 
