@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-13T09:47:57.768285",
-  "total_rates": 223,
+  "generated_at": "2026-11-13T10:20:20.166772",
+  "total_rates": 218,
   "cleaning_stats": {
-    "input_count": 290,
+    "input_count": 284,
     "removed_aggregator": 0,
     "removed_duplicates": 18,
     "removed_unrealistic": 0,
     "removed_no_metadata": 0,
-    "removed_inferior": 49,
+    "removed_inferior": 48,
     "flagged_suspicious": 3,
-    "output_count": 223,
+    "output_count": 218,
     "by_lender": {
       "rbc": 11,
       "td": 20,
@@ -28,14 +28,13 @@
       "coastcapital": 4,
       "atb": 13,
       "firstnational": 6,
-      "laurentian": 10,
       "manulife": 11,
       "rfa": 11,
       "cmls": 15,
       "butlermortgage": 9,
       "truenorth": 14,
       "equitable": 5,
-      "hometrust": 5
+      "hometrust": 10
     },
     "sources_used": {
       "rbc_live_scrape": 11,
@@ -55,14 +54,13 @@
       "coastcapital_live_scrape": 4,
       "atb_live_scrape": 13,
       "firstnational_live_scrape": 6,
-      "laurentian_fallback": 10,
       "manulife_live_scrape": 11,
       "rfa_live_scrape": 11,
       "cmls_live_scrape": 15,
       "butlermortgage_live_scrape": 9,
       "truenorth_live_scrape": 14,
       "equitable_live_scrape": 5,
-      "hometrust_fallback_2026-09-14": 5
+      "hometrust_live_scrape": 10
     }
   },
   "data_quality": "deduplicated_and_validated"
