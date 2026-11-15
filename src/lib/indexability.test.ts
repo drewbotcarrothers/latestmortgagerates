@@ -83,9 +83,9 @@ function overlapCoefficient(a: Set<string>, b: Set<string>): number {
 
 describe("indexability", () => {
   it("keeps only the latest weekly roundup indexable, including a future week", () => {
-    assert.equal(latestWeeklySlug(), "best-5-year-fixed-rates-week-45-2026");
-    assert.equal(isIndexablePath("/blog/best-5-year-fixed-rates-week-45-2026/"), true);
-    for (const week of [38, 39, 40, 41, 42, 43, 44]) {
+    assert.equal(latestWeeklySlug(), "best-5-year-fixed-rates-week-46-2026");
+    assert.equal(isIndexablePath("/blog/best-5-year-fixed-rates-week-46-2026/"), true);
+    for (const week of [38, 39, 40, 41, 42, 43, 44, 45]) {
       assert.equal(isIndexablePath(`/blog/best-5-year-fixed-rates-week-${week}-2026/`), false, String(week));
     }
     assert.equal(isIndexablePath("/blog/best-5-year-fixed-rates-week-12-2025/"), false);
