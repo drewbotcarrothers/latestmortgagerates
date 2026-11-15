@@ -1,5 +1,5 @@
 import type { InDepthGuide } from "./shared";
-import { REPORTED, SOURCES, pct } from "./shared";
+import { GUIDE_REVIEWED_ISO_BATCH3, REPORTED, SOURCES, pct } from "./shared";
 import { PRIME_RATE } from "../../lib/primeRate";
 import {
   BIG5_SLUGS,
@@ -15,7 +15,7 @@ import {
 import rawRatesFile from "../../../data/rates.json";
 import { guideTable } from "./guideTable";
 
-const REVIEWED = "2026-10-23T20:00:00Z";
+const REVIEWED = "2026-11-09T17:00:00Z";
 
 const RBC_HOLD = "https://www.rbcroyalbank.com/services/mortgages/mortgage-rates-s-or.html";
 const RBC_PENALTY = "https://www.rbcroyalbank.com/mortgages/understanding-mortgage-prepayment-charges.html";
@@ -150,9 +150,9 @@ if (!fiveYearFixedPublished) {
 export const bigFiveBanks: InDepthGuide = {
   slug: "big-5-bank-mortgages-compared",
   path: "/guides/big-5-bank-mortgages-compared/",
-  metaTitle: "Big 5 Bank Mortgages Compared (2026) | Latest Mortgage Rates",
+  metaTitle: "RBC vs TD vs BMO vs Scotiabank vs CIBC: 2026 Verdict",
   description:
-    "RBC, TD, Scotiabank, BMO, and CIBC compared on the 5-year rates in our scrape, borrower-reported discounts where N is at least 10, posted-rate penalties, prepayments, rate holds, and readvanceable lines.",
+    "2026 mortgage verdict: which Big 5 bank wins on rates, prepayment, penalties, HELOC plans, and rate holds. RBC vs TD vs BMO vs Scotiabank vs CIBC.",
   keywords:
     "Big 5 bank mortgages compared, RBC vs TD vs Scotiabank vs BMO vs CIBC, Homeline FlexLine STEP ReadiLine Home Power Plan, collateral charge, posted rate IRD",
   cardTitle: "Big 5 banks compared",
@@ -163,6 +163,8 @@ export const bigFiveBanks: InDepthGuide = {
   sourcesLine:
     "Sources: each bank's own pages, FCAC, the daily rate scrape, and the reported-rate file. The commitment controls your file.",
   reviewedIso: REVIEWED,
+  publishedIso: GUIDE_REVIEWED_ISO_BATCH3,
+  updatedDate: "2026-11-09",
   howTo: {
     name: "How to compare a Big Five mortgage offer",
     description:
@@ -187,6 +189,22 @@ export const bigFiveBanks: InDepthGuide = {
     ],
   },
   sections: [
+    {
+      id: "quick-verdict",
+      heading: "Quick verdict",
+      paragraphs: [
+        "The 2026 verdict depends on the column. Where the bank pages do not name a winner, the line says tie or depends.",
+        `Brokers and monolines usually beat all five on rate. A bank retention offer can still match a written quote. Compare the live shelf on the <a href="/rates/5-year-fixed/">5-year fixed</a> page.`,
+      ],
+      listAfter: 0,
+      items: [
+        "<strong>Prepayment privileges: depends</strong> on the product. TD allows a 15% annual lump sum and up to a 100% payment increase. A BMO smart fixed closed mortgage allows a 10% payment increase and a 10% lump sum. Other BMO closed mortgages, and a ReadiLine instalment that is not a smart fixed, allow a 20% payment increase and a 20% lump sum. CIBC allows 10% a year on a fixed closed mortgage and 20% on Variable Flex. Scotiabank Flex Value allows 15% of the original principal and a 15% payment increase. Other Scotia options are 10% or 20%. RBC publishes no single percentage.",
+        "<strong>Penalty calculation: depends.</strong> RBC and TD use posted rate minus your discount on a closed fixed mortgage. RBC then present-values the charge, which it says reduces it. CIBC's Alberta terms use that differential and can also add the discount to three months' interest. BMO and Scotiabank publish a differential and do not spell the comparison rate, so they are not ranked.",
+        "<strong>Rate hold length:</strong> BMO states 130 days on a selected fixed rate. RBC and TD state up to 120 days on a fixed purchase. RBC applies a lower rate automatically if rates fall. TD makes you ask, and does not hold a variable. Scotiabank and CIBC state no length. BMO's footnote calling 130 days the longest guarantee is dated September 15, 2025, so that ranking is not repeated.",
+        "<strong>Readvanceable plans: a tie</strong> on the charge. Homeline, FlexLine, STEP, ReadiLine, and Home Power Plan each pair a mortgage with a revolving line. TD, BMO, and CIBC publish an 80% cap. RBC requires 20% equity. STEP states no cap. Registration is a collateral charge, or is described that way in CIBC's solicitor instructions.",
+        "<strong>Switching and renewal:</strong> TD publishes a penalty-free early renewal up to 120 days before maturity. RBC and TD publish porting, with a blend when the new loan is larger. CIBC's Alberta terms use 60 days and do not carry Variable Flex at the old rate. BMO and Scotiabank port windows were not on the pages checked.",
+      ],
+    },
     {
       id: "answer",
       heading: "What actually differs",
@@ -274,6 +292,26 @@ export const bigFiveBanks: InDepthGuide = {
     },
   ],
   faqs: [
+    {
+      question: "How does an RBC mortgage compare with CIBC?",
+      answer:
+        "RBC holds a fixed purchase rate for up to 120 days and applies a lower rate if rates fall. CIBC does not state a hold length on the pages checked. Both use a posted-rate differential on a closed fixed break. CIBC's Alberta terms can also add the discount to three months' interest. CIBC allows 10% a year on a fixed closed mortgage and 20% on Variable Flex. RBC does not publish one prepayment percentage for every mortgage. Home Power Plan goes to 80% and CIBC's solicitor instructions register it as a collateral mortgage. Homeline requires 20% equity. CIBC's Alberta port window is 60 days, and Variable Flex is not transferred at the old rate. RBC publishes porting, with a blend when the new loan is larger. Neither bank has a 5-year fixed discount quoted on this page.",
+    },
+    {
+      question: "How does an RBC mortgage compare with Scotiabank?",
+      answer:
+        "RBC holds a fixed rate for up to 120 days and applies a lower rate if rates fall. Scotiabank does not state a hold length. RBC's closed fixed penalty is the posted rate minus your discount, then present-valued, which RBC says reduces the charge. Scotiabank says a fixed payout is typically the greater of three months' interest and a differential, and does not spell the comparison rate, so the two are not ranked. Flex Value allows 15% of the original principal and a 15% payment increase. Other Scotia options are 10% or 20%. RBC does not publish one percentage. Homeline requires 20% equity. STEP does not state a loan-to-value cap and can hold up to three mortgage parts plus a line of credit. RBC publishes porting. Scotiabank's port window was not on the pages checked, and Scotiabank has no insured 5-year row in the scrape.",
+    },
+    {
+      question: "How does an RBC mortgage compare with BMO?",
+      answer:
+        "BMO guarantees a selected fixed rate for 130 days. RBC's fixed hold is up to 120 days, and RBC applies a lower rate if rates fall. BMO's footnote calling 130 days the longest guarantee is dated September 15, 2025, so this page does not repeat that ranking. RBC's closed fixed penalty uses the posted rate minus your discount and then present-values the charge. BMO uses the higher of three months' interest and an interest-rate differential and does not spell the comparison rate as posted minus discount. A BMO smart fixed closed mortgage allows 10% and 10%. Other BMO closed mortgages allow 20% and 20%. RBC does not publish one percentage. ReadiLine goes to 80%. Homeline requires 20% equity. RBC publishes porting. BMO's port window was not on the pages checked.",
+    },
+    {
+      question: "Which Big Five rate-hold guarantee is better?",
+      answer:
+        "Of the lengths that are published, BMO states 130 days on a selected fixed rate and RBC and TD state up to 120 days on a fixed purchase. RBC applies the lowest rate during the hold without a separate request. TD keeps the held rate if rates rise and makes you ask if they fall, and a variable rate is not held. Scotiabank and CIBC do not state a length, so they are not ranked. A closing more than 120 days out can use the 130-day window BMO states. The footnote that called 130 days the longest guarantee is dated September 15, 2025, and the ranking is not repeated.",
+    },
     {
       question: "Which Big Five bank has the lowest 5-year rate?",
       answer:
