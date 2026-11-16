@@ -35,7 +35,7 @@ const lenderName = lenderRates[0]?.lender_name || slug;
 const content = (lenderContentData as Record<string, LenderContent>)[slug || ""] || {};
 const builtAt = new Date();
 const monthYear = formatBuildMonthYear(builtAt);
-const title = lenderSeoTitle(slug || "", lenderName, monthYear, content.seoTitle);
+const title = lenderSeoTitle(slug || "", lenderName, monthYear, content.seoTitle, lenderRates as LenderRateRow[]);
 const description = lenderSeoDescription({
   slug: slug || "",
   lenderName,

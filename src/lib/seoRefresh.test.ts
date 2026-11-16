@@ -29,7 +29,7 @@ describe("SEO refresh", () => {
   it("sets the closing-cost and mortgage calculator titles", () => {
     const closing = read("src/pages/tools/closing-costs-calculator/index.astro");
     const mortgage = read("src/pages/tools/mortgage-calculator/index.astro");
-    assert.match(closing, /Closing Costs Calculator Canada \(2026\): By Province/);
+    assert.match(closing, /Closing Costs Calculator Canada: Toronto LTT Included/);
     assert.match(mortgage, /Mortgage Calculator Canada: Payments with Semi-Annual Compounding/);
     assert.match(read("src/content/guides/stressTestGuide.ts"), /Mortgage Stress Test 2026/);
     assert.match(stressTestGuide.metaTitle, /Mortgage Stress Test 2026/);

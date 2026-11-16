@@ -6,17 +6,22 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
-import { stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
+import { stressTestExample, stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
 import { STRESS } from "@/content/guides/shared";
-import { STRAIGHT_SWITCH_STRESS_TEST_CITE } from "@/content/osfiStressTest";
+import { OSFI_MQR_BACKGROUNDER_URL, STRAIGHT_SWITCH_STRESS_TEST_CITE } from "@/content/osfiStressTest";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+
+const OSFI_MQR_URL =
+  "https://www.osfi-bsif.gc.ca/en/supervision/financial-institutions/banks/minimum-qualifying-rate-uninsured-mortgages";
+
+const worked = stressTestExample();
 
 const faqs = [
   {
     question: "What is the mortgage stress test in Canada?",
     answer:
-      "Federally regulated lenders qualify most new mortgages at a higher rate than the contract rate. OSFI’s minimum qualifying rate, as stated on its page in October 2026, is the greater of the contract rate plus 2 percentage points or 5.25%. The 5.25% floor is not the Bank of Canada overnight rate and it is not the five-year conventional mortgage rate. You still pay the contract rate. The higher rate is only the test. The full walk-through is in the mortgage stress test guide linked on this page.",
+      "Federally regulated lenders qualify most new mortgages at a higher rate than the contract rate. OSFI’s current minimum qualifying rate for uninsured mortgages is the greater of the contract rate plus 2 percentage points or 5.25%. The 5.25% floor is not the Bank of Canada overnight rate and it is not the five-year conventional mortgage rate. You still pay the contract rate. The higher rate is only the test. The full walk-through is in the mortgage stress test guide linked on this page.",
   },
   {
     question: "What are GDS and TDS ratios?",
@@ -104,12 +109,42 @@ export default function StressTestPage() {
                 <span>/</span>
                 <span>Stress Test Calculator</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Mortgage Stress Test Calculator</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Canada Mortgage Stress Test Calculator</h1>
               <p className="text-xl text-slate-300">
                 The qualifying rate is the greater of your contract rate plus 2 percentage points or 5.25%, and this tool then checks that payment against 39% GDS and 44% TDS. An uninsured straight switch at renewal can be exempt when the balance and amortization do not increase. The mortgage stress test guide has the longer version.
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 pt-8">
+          <section className="bg-white rounded-xl border border-slate-200 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">How the 2026 stress test works</h2>
+            <p className="text-slate-600 mb-3 leading-relaxed">
+              You still pay the contract rate. OSFI, the federal banking regulator, requires federally regulated lenders to qualify an uninsured mortgage at a higher rate, then check that payment against gross debt service and total debt service. The form below does that arithmetic. It is not a credit decision.
+            </p>
+            <p className="text-slate-600 mb-3 leading-relaxed">
+              The qualifying rate is the greater of the contract rate plus 2 percentage points, or 5.25%. OSFI calls 2% the buffer and 5.25% the floor, and it reviews both at least annually. That rule is on{" "}
+              <a href={OSFI_MQR_URL} className="text-teal-700 font-medium hover:underline">OSFI’s minimum qualifying rate page</a>.
+              OSFI’s June 2021 amendment note says the Minister of Finance applied the same test to insured mortgages. The 5.25% floor is not the Bank of Canada overnight rate and it is not prime.{" "}
+              <a href="https://www.osfi-bsif.gc.ca/en/news/amendments-minimum-qualifying-rate-uninsured-mortgages" className="text-teal-700 font-medium hover:underline">OSFI, June 2021</a>.
+            </p>
+            <p className="text-slate-600 mb-3 leading-relaxed">
+              Worked example, using the same payment formula as the form: a ${worked.mortgage.toLocaleString("en-CA")} mortgage over {worked.amortizationYears} years at a {worked.contractRate.toFixed(2)}% contract rate. The contract payment is about ${worked.contractPayment.toLocaleString("en-CA")} a month. Because {worked.contractRate.toFixed(2)}% + 2 is above the floor, the test uses {worked.qualifyingRate.toFixed(2)}% and a payment of about ${worked.qualifyingPayment.toLocaleString("en-CA")}. With the sample tax, heat, and other debts, GDS is {worked.gds.toFixed(1)}% and TDS is {worked.tds.toFixed(1)}%. The 4.50% contract rate is an illustration, not a scraped lender quote. The longer walk-through is under the tool.
+            </p>
+            <p className="text-slate-600 leading-relaxed">
+              Staying with your lender, or an uninsured straight switch that does not add money or years, can skip a new test.{" "}
+              <a href={OSFI_MQR_BACKGROUNDER_URL} className="text-teal-700 font-medium hover:underline">OSFI’s November 21, 2024 backgrounder</a>{" "}
+              states that exemption. Provincial credit unions can set their own test on uninsured files. Compare a real contract rate on the{" "}
+              <a href="/rates/5-year-fixed/" className="text-teal-700 font-medium hover:underline">5-year fixed</a>{" "}
+              or{" "}
+              <a href="/rates/variable/" className="text-teal-700 font-medium hover:underline">variable</a>{" "}
+              tables, then read the{" "}
+              <a href="/guides/mortgage-stress-test/" className="text-teal-700 font-medium hover:underline">mortgage stress test guide</a>.
+              Cash due at the lawyer is a separate problem: the{" "}
+              <a href="/tools/closing-costs-calculator/" className="text-teal-700 font-medium hover:underline">closing costs calculator</a>.
+            </p>
+          </section>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">

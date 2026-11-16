@@ -9,6 +9,7 @@ import {
   newfoundlandRegistrationFee,
   ontarioFirstTimeRebates,
   ontarioProvincialLandTransferTax,
+  torontoMunicipalLandTransferTax,
   montrealWelcomeTax,
   peiTransferTax,
   quebecWelcomeTaxOutsideMontreal,
@@ -84,7 +85,7 @@ export default function ClosingCostsCalculator() {
     let ontarioMunicipal = 0;
     if (params.province === "ontario") {
       ontarioProvincial = ontarioProvincialLandTransferTax(price);
-      ontarioMunicipal = params.isToronto ? ontarioProvincial : 0;
+      ontarioMunicipal = params.isToronto ? torontoMunicipalLandTransferTax(price) : 0;
       landTransferTax = ontarioProvincial + ontarioMunicipal;
     } else if (params.province === "british_columbia") {
       landTransferTax = calculateBcPropertyTransferTax(price);

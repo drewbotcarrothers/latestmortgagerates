@@ -192,12 +192,15 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
             <h4 className="font-semibold text-white mb-4">Top Lenders</h4>
             <ul className="space-y-2.5">
               {[
+                { href: "/lenders/", label: "All lenders" },
                 { href: "/lenders/rbc/", label: "RBC Royal Bank" },
                 { href: "/lenders/td/", label: "TD Bank" },
                 { href: "/lenders/scotiabank/", label: "Scotiabank" },
                 { href: "/lenders/bmo/", label: "BMO" },
                 { href: "/lenders/cibc/", label: "CIBC" },
+                { href: "/lenders/simplii/", label: "Simplii" },
                 { href: "/lenders/nesto/", label: "nesto" },
+                { href: "/lenders/cmls/", label: "CMLS" },
                 { href: "/lenders/wealthsimple/", label: "Wealthsimple" },
                 { href: "/lenders/truenorth/", label: "True North Mortgage" },
               ].map((item) => (
@@ -229,6 +232,7 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
                 { href: "/tools/stress-test-qualifier/", label: "Stress Test" },
                 { href: "/blog/", label: "Blog" },
                 { href: "/guides/", label: "Free Guides" },
+                { href: "/guides/heloc-rates-canada/", label: "HELOC rates" },
                 { href: "/mortgage-guide/?utm_source=site&utm_medium=footer&utm_campaign=mortgage_guide&utm_content=footer", label: "Mortgage Toolkit ($29)" },
                 { href: "/glossary/", label: "Rate Glossary" },
               ].map((item) => (

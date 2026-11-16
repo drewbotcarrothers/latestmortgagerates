@@ -45,12 +45,13 @@ export default function StressTestQualifier() {
     `$${value.toLocaleString('en-CA', { maximumFractionDigits: 0 })}`;
 
   const results = useMemo((): StressTestResult => {
-    // Bank of Canada benchmark rate (as of 2026)
-    const benchmarkRate = 5.25;
-    
-    // Stress test rate is the higher of: benchmark rate OR contract rate + 2%
+    // OSFI minimum qualifying rate floor. Not the Bank of Canada overnight rate.
+    // https://www.osfi-bsif.gc.ca/en/supervision/financial-institutions/banks/minimum-qualifying-rate-uninsured-mortgages
+    const qualifyingFloor = 5.25;
+
+    // Greater of the contract rate plus 2 percentage points, or the 5.25% floor.
     const contractPlusTwo = params.contractRate + 2;
-    const stressTestRate = Math.max(benchmarkRate, contractPlusTwo);
+    const stressTestRate = Math.max(qualifyingFloor, contractPlusTwo);
     
     // Calculate monthly payment at stress test rate
     const monthlyRate = stressTestRate / 100 / 12;
@@ -311,6 +312,7 @@ export default function StressTestQualifier() {
               <div className="text-center">
                 <p className="text-sm text-slate-600">Stress Test Rate</p>
                 <p className="text-2xl font-bold text-slate-900">{results.stressTestRate}%</p>
+                <p className="text-xs text-slate-500 mt-1 max-w-[14rem]">Greater of the contract rate + 2 points or the 5.25% OSFI floor.</p>
               </div>
               <div className="text-center">
                 <p className="text-sm text-slate-600">Monthly Payment</p>

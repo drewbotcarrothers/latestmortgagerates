@@ -39,13 +39,15 @@ function ratesFor(slug: string) {
   return rates.filter((row) => row.lender_slug === slug);
 }
 
+function lowestFiveYear(slug: string, type: "fixed" | "variable"): number {
+  const rows = ratesFor(slug).filter((row) => row.term_months === 60 && row.rate_type === type);
+  assert.ok(rows.length, `${slug} ${type}`);
+  return Math.min(...rows.map((row) => row.rate));
+}
+
 describe("GSC near-page-1 lender SEO", () => {
-  it("builds Wealthsimple, ATB, Vancity, and Meridian titles from the build month", () => {
+  it("builds ATB and Vancity titles from the build month and keeps CTR titles under 60 characters", () => {
     assert.equal(monthYear, "Oct 2026");
-    assert.equal(
-      lenderSeoTitle("wealthsimple", "Wealthsimple", monthYear),
-      "Wealthsimple Mortgage Rates Today (Oct 2026): Fixed & Variable vs Big 5"
-    );
     assert.equal(
       lenderSeoTitle("atb", "ATB Financial", monthYear),
       "ATB Mortgage Rates Today (Oct 2026) – ATB Financial Fixed, Variable & HELOC"
@@ -54,13 +56,9 @@ describe("GSC near-page-1 lender SEO", () => {
       lenderSeoTitle("vancity", "Vancity", monthYear),
       "Vancity Mortgage Rates Today (Oct 2026) – BC Fixed & Variable vs Banks"
     );
-    assert.equal(
-      lenderSeoTitle("meridian", "Meridian Credit Union", monthYear),
-      "Meridian Credit Union Mortgage Rates Today (Oct 2026) – Ontario Fixed, Variable & HELOC"
-    );
     const january = formatBuildMonthYear(new Date("2027-01-15T16:00:00Z"));
     assert.equal(january, "Jan 2027");
-    assert.match(lenderSeoTitle("wealthsimple", "Wealthsimple", january), /\(Jan 2027\)/);
+    assert.match(lenderSeoTitle("atb", "ATB Financial", january), /\(Jan 2027\)/);
     assert.doesNotMatch(
       readFileSync(join(root, "src/lib/lenderSeo.ts"), "utf8"),
       /Oct 2026/
@@ -69,17 +67,32 @@ describe("GSC near-page-1 lender SEO", () => {
       readFileSync(join(root, "src/pages/lenders/[slug].astro"), "utf8"),
       /formatBuildMonthYear/
     );
+    for (const slug of ["manulife", "coastcapital", "meridian", "wealthsimple"]) {
+      const title = lenderSeoTitle(slug, String(asRecord(slug).name), monthYear, undefined, ratesFor(slug));
+      assert.ok(title.length <= 60, `${slug} title is ${title.length}: ${title}`);
+      assert.match(title, /Mortgage Rates/);
+      assert.match(title, new RegExp(lowestFiveYear(slug, "fixed").toFixed(2)));
+      assert.match(title, new RegExp(lowestFiveYear(slug, "variable").toFixed(2)));
+      const description = lenderSeoDescription({
+        slug,
+        lenderName: String(asRecord(slug).name),
+        stored: String(asRecord(slug).seoDescription ?? ""),
+        rates: ratesFor(slug),
+      });
+      assert.match(description, new RegExp(lowestFiveYear(slug, "fixed").toFixed(2)));
+      assert.doesNotMatch(description, /guaranteed/i);
+    }
   });
 
   it("optimizes Wealthsimple for the mortgage-rates query cluster", () => {
     const ws = asRecord("wealthsimple");
-    const title = lenderSeoTitle("wealthsimple", "Wealthsimple", monthYear);
+    const title = lenderSeoTitle("wealthsimple", "Wealthsimple", monthYear, undefined, ratesFor("wealthsimple"));
     const description = String(ws.seoDescription);
     const faqs = ws.faqs as { question: string; answer: string }[];
     const questions = faqs.map((faq) => faq.question.toLowerCase());
 
-    assert.match(title, /Wealthsimple Mortgage Rates Today/i);
-    assert.match(title, /Big 5/i);
+    assert.match(title, /Wealthsimple Mortgage Rates/i);
+    assert.ok(title.length <= 60, title);
     assert.match(description, /Does Wealthsimple offer mortgages/i);
     assert.match(String(ws.heroIntro), /Wealthsimple mortgage rates/i);
     assert.match(String(ws.overview), /Does Wealthsimple offer mortgages/);
@@ -101,10 +114,15 @@ describe("GSC near-page-1 lender SEO", () => {
     const vancity = asRecord("vancity");
     const meridian = asRecord("meridian");
     assert.match(lenderSeoTitle("vancity", "Vancity", monthYear), /Vancity Mortgage Rates Today/i);
-    assert.match(
-      lenderSeoTitle("meridian", "Meridian Credit Union", monthYear),
-      /Meridian Credit Union Mortgage Rates Today/i
+    const meridianTitle = lenderSeoTitle(
+      "meridian",
+      "Meridian Credit Union",
+      monthYear,
+      undefined,
+      ratesFor("meridian"),
     );
+    assert.match(meridianTitle, /Meridian Mortgage Rates/i);
+    assert.ok(meridianTitle.length <= 60, meridianTitle);
     const vancityQuestions = (vancity.faqs as { question: string }[]).map((faq) => faq.question.toLowerCase());
     const meridianQuestions = (meridian.faqs as { question: string }[]).map((faq) => faq.question.toLowerCase());
     assert.ok(vancityQuestions.some((question) => question.includes("van city")));

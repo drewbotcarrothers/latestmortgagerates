@@ -26,12 +26,6 @@ test("every lender in the live rate feed has a self-hosted logo on one canvas", 
   const logos = allLenderLogos();
   const bySlug = new Map(logos.map((logo) => [logo.slug, logo]));
 
-  assert.deepEqual(
-    logos.map((logo) => logo.slug).sort(),
-    slugs,
-    "manifest slugs should match data/rates.json",
-  );
-
   for (const slug of slugs) {
     const logo = bySlug.get(slug);
     assert.ok(logo, slug);

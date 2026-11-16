@@ -258,7 +258,7 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                 <span className="text-slate-400">/</span>
               </li>
               <li>
-                <a href="/#lenders" className="hover:text-teal-600 transition">
+                <a href="/lenders/" className="hover:text-teal-600 transition">
                   Lenders
                 </a>
               </li>
