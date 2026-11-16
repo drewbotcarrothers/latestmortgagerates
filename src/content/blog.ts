@@ -27,6 +27,356 @@ const bondPost = bondYieldsBlogPost();
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "best-5-year-fixed-rates-week-47-2026",
+    title: "Best 5-Year Fixed Mortgage Rates This Week: Nov 16–22, 2026",
+    excerpt: "The lowest 5-year fixed quotes among 23 Canadian lenders this week start at 4.34% (ATB Financial), from our November 16, 2026 scrape.",
+    content: `<p class="mb-4">Every week, we analyze mortgage rates from Canada's lenders to find you the best deals. Here's your weekly roundup of the best 5-year fixed mortgage rates for November 16 - November 22, 2026 (ISO week 47). Figures below come from our November 16, 2026 scrape (<code>rates.json</code> on the site; last updated 2026-11-16 10:54 UTC; 218 rates, 24 lenders). The rate rows match <code>data/rates.json</code> in the site repository. For the live table, see our <a href="/rates/5-year-fixed/" class="text-teal-600 hover:underline font-medium">5-year fixed rate hub</a> and split <a href="/rates/insured/" class="text-teal-600 hover:underline">insured</a> vs <a href="/rates/uninsured/" class="text-teal-600 hover:underline">uninsured</a> products.</p>
+
+<p class="mb-4">Twenty-three lenders have a 5-year fixed quote in this scrape, and those 23 are the ranking below. Comparisons are against the figures in the <a href="/blog/best-5-year-fixed-rates-week-45-2026/" class="text-teal-600 hover:underline font-medium">week-45 post</a> (November 2 scrape). That post ranked 25 lenders. Laurentian Bank, listed there at 5.19% uninsured, has no rows in this scrape. Vancity is in this scrape and has no 5-year fixed row; the week-45 post ranked Vancity at 4.79% insured. Those two lenders are left out of this week's average and out of the raised, cut, and unchanged counts. National Bank of Canada's 5-year fixed row is unchanged at 5.14% uninsured versus that post. Its 5-year variable row in this scrape is 4.35% uninsured, the same figure the week-45 post cited. RFA Bank's 5-year fixed rows are 4.74% insured, 4.74% insurable (LTV ≤ 65%), and 5.29% uninsured. The ranking uses the insured 4.74% quote. The week-45 post ranked RFA Bank on the insured 4.89% quote. The uninsured 5.29% quote is unchanged.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">This Week's Top 5 Rates</h2>
+
+<div class="overflow-x-auto mb-6">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rank</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Lender</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rate</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Type</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-emerald-500 text-white text-xs font-bold rounded-full">1</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/atb/" class="text-teal-600 hover:underline">ATB Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.34%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Alberta financial</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-teal-500 text-white text-xs font-bold rounded-full">2</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/truenorth/" class="text-teal-600 hover:underline">True North Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.39%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Broker channel</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-cyan-500 text-white text-xs font-bold rounded-full">3</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/butlermortgage/" class="text-teal-600 hover:underline">Butler Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.44%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Tied for third</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-cyan-500 text-white text-xs font-bold rounded-full">3</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/nesto/" class="text-teal-600 hover:underline">nesto</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.44%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Tied for third</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">5</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/cmls/" class="text-teal-600 hover:underline">CMLS Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.49%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Tied for fifth</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200"><span class="inline-flex items-center justify-center w-6 h-6 bg-slate-400 text-white text-xs font-bold rounded-full">5</span></td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/wealthsimple/" class="text-teal-600 hover:underline">Wealthsimple</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold text-emerald-600">4.49%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+        <td class="p-3 border-t border-slate-200 text-slate-500">Tied for fifth</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="mb-4">Third place is a two-way tie, so the table lists both lenders at 4.44% insured. Alphabetical order is Butler Mortgage, then nesto. Fifth place is a two-way tie at 4.49% insured, so the table also lists CMLS Financial and Wealthsimple rather than stopping at five names. Alphabetical order is CMLS Financial, then Wealthsimple. Coast Capital Savings is the next quote, at 4.53% insured. Week over week versus the 23 lenders that have a 5-year fixed quote both here and in the <a href="/blog/best-5-year-fixed-rates-week-45-2026/" class="text-teal-600 hover:underline font-medium">week-45 post</a> (November 2 scrape), four raised their best 5-year fixed quote, six cut, and the other 13 were unchanged. The average of this week's 23 best-per-lender quotes is 4.84%. The week-45 post reported 4.86% across its 25 lenders. The average of the week-45 quotes for these same 23 lenders is 4.85%.</p>
+
+<p class="mb-4">ATB Financial is unchanged at 4.34% insured and still has the lowest quote. True North Mortgage fell 0.10 percentage points, from 4.49% to 4.39% insured. Butler Mortgage is unchanged at 4.44% insured. nesto fell 0.15 points, from 4.59% to 4.44% insured. CMLS Financial and Wealthsimple are unchanged at 4.49% insured. Coast Capital Savings fell 0.09 points, from 4.62% to 4.53% insured. Home Trust rose 0.35 points, from 4.49% to 4.84% insured. Meridian Credit Union rose 0.10 points, from 4.59% to 4.69% insured. RFA Bank's insured quote fell 0.15 points, from 4.89% to 4.74%. First National fell 0.15 points, from 4.99% to 4.84% uninsured. Manulife Bank rose 0.10 points, from 4.89% to 4.99% insured. Desjardins rose 0.10 points, from 4.99% to 5.09% uninsured. TD Bank fell 0.10 points, from 5.39% to 5.29% insured. Manulife's posted 5-year fixed in this scrape is 5.59%, TD's posted 5-year fixed is 6.14%, and CIBC's is 6.49%, the same posted figures cited in the week-45 post.</p>
+
+<div class="bg-slate-50 rounded-lg p-4 mb-6 border border-slate-200">
+  <p class="text-sm mb-2"><span class="font-semibold">5-year fixed range (23 lenders, best quote each):</span> 4.34% – 5.59%</p>
+  <p class="text-sm mb-2"><span class="font-semibold">Average of those best-per-lender quotes:</span> 4.84% (4.86% across 25 lenders in the week-45 post; 4.85% for these same 23 lenders in that post)</p>
+  <p class="text-sm"><span class="font-semibold">Posted rates in this scrape:</span> TD 6.14%, CIBC 6.49%, Manulife 5.59%</p>
+</div>
+
+<div class="bg-teal-50 rounded-lg p-6 mb-6 border border-teal-100">
+  <h3 class="font-semibold text-teal-800 mb-3">Best 5-year variable this week</h3>
+  <p class="text-sm mb-3">If you are comparing against a fixed quote, the lowest 5-year variable in the same November 16 scrape is <strong>3.60%</strong> insured at <a href="/lenders/butlermortgage/" class="text-teal-700 hover:underline font-medium">Butler Mortgage</a>. The <a href="/blog/best-5-year-fixed-rates-week-45-2026/" class="text-teal-700 hover:underline font-medium">week-45 post</a> (November 2 scrape) listed Butler Mortgage at 3.50% insured. Next are <a href="/lenders/nesto/" class="text-teal-700 hover:underline font-medium">nesto</a> at <strong>3.66%</strong> insured, the same figure as that post, <a href="/lenders/wealthsimple/" class="text-teal-700 hover:underline font-medium">Wealthsimple</a> at <strong>3.70%</strong> insured (3.45% in that post, which was the lowest 5-year variable then), and <a href="/lenders/truenorth/" class="text-teal-700 hover:underline font-medium">True North Mortgage</a> at <strong>3.74%</strong> insured. <a href="/lenders/meridian/" class="text-teal-700 hover:underline font-medium">Meridian</a> is <strong>3.79%</strong> insured; the week-45 post listed Meridian at 3.69% insured. The lowest uninsured 5-year variable in this scrape is <strong>3.94%</strong> at True North Mortgage. Meridian's uninsured 5-year variable is 3.99%, compared with 3.89% in the week-45 post, where that 3.89% quote was the lowest uninsured 5-year variable. See the full <a href="/rates/variable/" class="text-teal-700 hover:underline font-medium">variable rate hub</a> and the <a href="/rate-changes/" class="text-teal-700 hover:underline font-medium">rate-change tracker</a>.</p>
+  <p class="text-sm text-slate-600">The October 28, 2026 announcement raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-700 hover:underline font-medium">October 2026 recap</a> and the <a href="https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/" class="text-teal-700 hover:underline font-medium">October 28 press release</a>.</p>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Lowest fixed quote by term</h2>
+
+<p class="mb-4">Lowest fixed quote in the same November 16 scrape for each common term. The 5-year row is the same ATB Financial quote as above. The 3-year, 4-year, 5-year, and 10-year lows match the <a href="/blog/best-5-year-fixed-rates-week-45-2026/" class="text-teal-600 hover:underline font-medium">week-45 post</a> term table (November 2 scrape): ATB Financial at 4.29% insured, TD Bank at 4.25% uninsured, ATB Financial at 4.34% insured, and Tangerine at 5.19% uninsured. The 2-year low is Butler Mortgage at 4.44% insured; that post listed Butler Mortgage at 4.34% insured. The 1-year low is True North Mortgage at 4.49% insured. That post listed Vancity at 4.35% insured, and Vancity has no 1-year fixed row in this scrape. The 7-year low is Tangerine at 5.14% uninsured. That post listed Vancity at 4.97% uninsured, and Vancity has no 7-year fixed row in this scrape.</p>
+
+<div class="overflow-x-auto mb-6">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Term</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Lender</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rate</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3 border-t border-slate-200">1-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/truenorth/" class="text-teal-600 hover:underline">True North Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.49%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">2-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/butlermortgage/" class="text-teal-600 hover:underline">Butler Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.44%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">3-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/atb/" class="text-teal-600 hover:underline">ATB Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.29%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">4-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/td/" class="text-teal-600 hover:underline">TD Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.25%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">5-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/atb/" class="text-teal-600 hover:underline">ATB Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.34%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">7-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/tangerine/" class="text-teal-600 hover:underline">Tangerine</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.14%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">10-year</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/tangerine/" class="text-teal-600 hover:underline">Tangerine</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.19%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">All 23 lenders this week</h2>
+
+<p class="mb-4">Best 5-year fixed quote per lender from the same November 16 scrape. The ranking uses the lowest quote per lender. Where insured and another label share that low, the table shows insured. Type is the product in that row (insured or uninsured). Equal rates keep alphabetical order: Butler Mortgage and nesto share 4.44%; CMLS Financial and Wealthsimple share 4.49%; Alterna Bank and Meridian Credit Union share 4.69%; First National, Home Trust, and Royal Bank of Canada share 4.84%; Bank of Montreal, Canadian Imperial Bank of Commerce, and Manulife Bank share 4.99%. TD Bank's insured and uninsured rows are both 5.29%; the table shows insured. Butler Mortgage rates in this scrape are labeled insured. nesto's 4.44% row is labeled insured, with an LTV of 0-65%. RFA Bank's insured and insurable rows are both 4.74%; the table shows insured.</p>
+
+<div class="overflow-x-auto mb-6">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rank</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Lender</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Rate</th>
+        <th class="p-3 text-left font-semibold border-b border-slate-200">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3 border-t border-slate-200">1</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/atb/" class="text-teal-600 hover:underline">ATB Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.34%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">2</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/truenorth/" class="text-teal-600 hover:underline">True North Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.39%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">3</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/butlermortgage/" class="text-teal-600 hover:underline">Butler Mortgage</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.44%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">4</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/nesto/" class="text-teal-600 hover:underline">nesto</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.44%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">5</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/cmls/" class="text-teal-600 hover:underline">CMLS Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.49%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">6</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/wealthsimple/" class="text-teal-600 hover:underline">Wealthsimple</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.49%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">7</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/coastcapital/" class="text-teal-600 hover:underline">Coast Capital Savings</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.53%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">8</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/alterna/" class="text-teal-600 hover:underline">Alterna Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.69%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">9</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/meridian/" class="text-teal-600 hover:underline">Meridian Credit Union</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.69%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">10</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/rfa/" class="text-teal-600 hover:underline">RFA Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.74%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">11</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/firstnational/" class="text-teal-600 hover:underline">First National</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.84%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">12</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/hometrust/" class="text-teal-600 hover:underline">Home Trust</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.84%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">13</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/rbc/" class="text-teal-600 hover:underline">Royal Bank of Canada</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.84%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">14</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/bmo/" class="text-teal-600 hover:underline">Bank of Montreal</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">15</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/cibc/" class="text-teal-600 hover:underline">Canadian Imperial Bank of Commerce</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">16</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/manulife/" class="text-teal-600 hover:underline">Manulife Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">4.99%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">17</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/tangerine/" class="text-teal-600 hover:underline">Tangerine</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.04%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">18</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/desjardins/" class="text-teal-600 hover:underline">Desjardins</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.09%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">19</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/nationalbank/" class="text-teal-600 hover:underline">National Bank of Canada</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.14%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">20</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/scotiabank/" class="text-teal-600 hover:underline">Scotiabank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.15%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">21</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/td/" class="text-teal-600 hover:underline">TD Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.29%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Insured</td>
+      </tr>
+      <tr class="bg-slate-50">
+        <td class="p-3 border-t border-slate-200">22</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/simplii/" class="text-teal-600 hover:underline">Simplii Financial</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.34%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+      <tr>
+        <td class="p-3 border-t border-slate-200">23</td>
+        <td class="p-3 border-t border-slate-200 font-medium"><a href="/lenders/equitable/" class="text-teal-600 hover:underline">Equitable Bank</a></td>
+        <td class="p-3 border-t border-slate-200 font-semibold">5.59%</td>
+        <td class="p-3 border-t border-slate-200 text-slate-600">Uninsured</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Example on a $500,000 mortgage</h2>
+
+<div class="bg-emerald-50 rounded-lg p-6 mb-6 border border-emerald-100">
+  <h3 class="font-semibold text-emerald-800 mb-3">25-year amortization, monthly payment estimate:</h3>
+  <ul class="space-y-2 text-sm">
+    <li>At 4.34% (best 5-year fixed): <strong>$2,723/month</strong></li>
+    <li>At 6.49% (CIBC posted in this scrape): <strong>$3,346/month</strong></li>
+    <li class="text-emerald-700 font-semibold">Monthly difference: $623</li>
+    <li class="text-emerald-700 font-semibold">5-year difference: $37,380</li>
+  </ul>
+  <p class="text-sm mt-3">The best quote and the CIBC posted rate are the same figures as the week-45 post, so this estimate matches that post. Estimate your own payment with the <a href="/tools/mortgage-calculator/" class="text-teal-700 hover:underline font-medium">mortgage payment calculator</a>. Qualification still uses the stress-test rate — check it with the <a href="/tools/stress-test-qualifier/" class="text-teal-700 hover:underline font-medium">stress test qualifier</a> or the <a href="/guides/mortgage-stress-test/" class="text-teal-700 hover:underline font-medium">mortgage stress test guide</a>.</p>
+</div>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Insured vs uninsured</h2>
+
+<p class="mb-4">This week's lowest labeled <strong>insured</strong> 5-year fixed is ATB Financial at 4.34%. Next is True North Mortgage at 4.39% insured, then Butler Mortgage and nesto at 4.44% insured. Butler Mortgage rates in this scrape are labeled insured. nesto's 4.44% row is labeled insured, with an LTV of 0-65%. The lowest labeled <strong>uninsured</strong> 5-year fixed quotes are ATB Financial and True North Mortgage, tied at 4.59%. ATB's uninsured quote was 4.59% in the week-45 post. True North's uninsured quote was 4.69% in that post. Meridian Credit Union is 4.76% uninsured, compared with 4.74% in that post. Desjardins is 5.09% uninsured, up from 4.99% in that post. RFA Bank's uninsured 5-year fixed is 5.29%. Shop both <a href="/rates/insured/" class="text-teal-600 hover:underline font-medium">insured</a> and <a href="/rates/uninsured/" class="text-teal-600 hover:underline font-medium">uninsured</a> hubs if your down payment sits near 20%.</p>
+
+<p class="mb-3">The lowest advertised rates typically still require:</p>
+
+<ul class="list-disc list-inside space-y-1 mb-6 ml-4">
+  <li>Strong credit and documented income</li>
+  <li>Debt-service ratios within lender guidelines</li>
+  <li>Less than 20% down for insured pricing, or 20%+ for uninsured</li>
+</ul>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Should You Lock In Now?</h2>
+
+<p class="mb-4">For borrowers who value payment certainty, these 5-year fixed quotes are the current market — not a forecast. The October 28, 2026 Bank of Canada decision raised the overnight target by 25 basis points to 2.50%. The next scheduled announcement is December 9, 2026. Read the <a href="/blog/bank-of-canada-raises-rate-october-2026/" class="text-teal-600 hover:underline font-medium">October 28 recap</a>. Variable rates remain lower in this scrape (best 5-year variable 3.60% insured at Butler Mortgage; nesto 3.66% insured; Wealthsimple 3.70% insured), but they will move if prime moves after a future overnight-rate change. The <a href="/guides/fixed-vs-variable-mortgage-2026/" class="text-teal-600 hover:underline font-medium">fixed versus variable guide</a> walks through that choice. The <a href="/guides/bank-of-canada-rate-and-your-mortgage/" class="text-teal-600 hover:underline font-medium">Bank of Canada and your mortgage</a> guide separates the overnight rate, prime, and a fixed quote.</p>
+
+<h2 class="text-xl font-semibold mt-8 mb-4 text-slate-900">Tips for Rate Shopping</h2>
+
+<ol class="list-decimal list-inside space-y-2 mb-6 ml-4">
+  <li>Get pre-approved to hold a rate for 90-120 days</li>
+  <li>Compare rates AND terms (prepayment options, penalties)</li>
+  <li>Consider using a mortgage broker for access to more lenders</li>
+  <li>Don't forget to negotiate - even published rates often have room</li>
+</ol>
+
+<p class="mb-4">More context: the <a href="/mortgage-guide/" class="text-teal-600 hover:underline font-medium">mortgage guide</a> covers product choice, qualification, and closing costs alongside these weekly numbers. If a renewal is coming up, the <a href="/guides/2026-mortgage-renewal-playbook/" class="text-teal-600 hover:underline font-medium">2026 mortgage renewal playbook</a> walks through the timeline, and <a href="/guides/negotiate-mortgage-rate/" class="text-teal-600 hover:underline font-medium">how much below posted you can negotiate</a> is the conversation with the lender. Rates self-reported by Canadian borrowers online are aggregated on the <a href="/real-mortgage-rates/" class="text-teal-600 hover:underline font-medium">real mortgage rates</a> page. The <a href="/blog/below-the-line-mortgage-rate-report-november-2026/" class="text-teal-600 hover:underline font-medium">November 2026 below-the-line report</a> covers those reported rates for October 2026. To place one renewal offer on that distribution, use the <a href="/tools/renewal-offer-checker/" class="text-teal-600 hover:underline font-medium">renewal offer checker</a>.</p>`,
+    author: "Andrew",
+    authorTitle: "Rate Analyst",
+    date: "2026-11-16",
+    category: "rates",
+    tags: ["best rates", "fixed mortgage", "weekly update", "rate comparison"],
+    readTime: 5,
+    featured: true,
+    image: "/blog/best-rates-week-39-2026.jpg"
+  },
+  {
     slug: novemberReport.slug,
     title: novemberReport.title,
     excerpt: novemberReport.excerpt,
