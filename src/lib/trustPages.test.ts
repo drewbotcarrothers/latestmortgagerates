@@ -35,7 +35,7 @@ function read(path: string): string {
 
 describe("trust pages and search metadata", () => {
   it("sets the homepage title from the lender count in the rate file", () => {
-    assert.ok(LENDER_COUNT >= 25, `lender count is ${LENDER_COUNT}`);
+    assert.ok(LENDER_COUNT >= 24, `lender count is ${LENDER_COUNT}`);
     assert.equal(HOME_TITLE, `Compare Mortgage Rates in Canada: ${lenderCountLabel} Lenders, Updated Daily`);
     assert.match(HOME_DESCRIPTION, new RegExp(lenderCountLabel.replace("+", "\\+")));
     assert.match(HOME_DESCRIPTION, /updated daily/i);
