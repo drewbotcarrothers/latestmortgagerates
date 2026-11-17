@@ -5,6 +5,8 @@ import {
   calculateBcPropertyTransferTax,
   calculateBcPttPayableAfterFthb,
   albertaLandTitlesFee,
+  ontarioProvincialLandTransferTax,
+  torontoMunicipalLandTransferTax,
   calculateMonthlyPayment,
   calculateMortgagePenalty,
   calculateRefinance,
@@ -214,6 +216,14 @@ describe("BC first-time home buyers' exemption (on or after 1 April 2024)", () =
     assert.equal(saskatchewanMortgageRegistrationFee(640_000), 525);
     assert.equal(saskatchewanTitleTransferFee(500), 0);
     assert.equal(saskatchewanTitleTransferFee(6_300), 25);
+    // Toronto MLTT matches Ontario through $3 million on a one- or two-family home.
+    assert.equal(torontoMunicipalLandTransferTax(400_000), 4_475);
+    assert.equal(torontoMunicipalLandTransferTax(600_000), ontarioProvincialLandTransferTax(600_000));
+    assert.equal(torontoMunicipalLandTransferTax(3_000_000), ontarioProvincialLandTransferTax(3_000_000));
+    // April 1, 2026 schedule: 4.40% on the slice from $3 million to $3.5 million.
+    const atThreeMillion = torontoMunicipalLandTransferTax(3_000_000);
+    assert.equal(torontoMunicipalLandTransferTax(3_500_000), atThreeMillion + 500_000 * 0.044);
+    assert.ok(torontoMunicipalLandTransferTax(3_500_000) > ontarioProvincialLandTransferTax(3_500_000));
   });
 
   it("does not use the retired $500k / $525k phase-out as the current program", () => {

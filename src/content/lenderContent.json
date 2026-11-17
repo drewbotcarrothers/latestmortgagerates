@@ -897,6 +897,12 @@
       }
     ],
     "howRatesCompare": "<p>Treat Wealthsimple as a <strong>brokered rate shop</strong>, not as a sixth Big 5 bank. The cards at the top of this page are what we scrape from their mortgage site. On many days their advertised insured 5-year fixed and variable specials sit below typical Big 5 <em>posted</em> rates; the fair comparison is against Big 5 <em>discounted</em> specials and against other digital channels such as nesto. Match term, insured vs uninsured, and prepayment rules before you declare a winner.</p><p>We do not write a Wealthsimple average or a fake spread versus RBC or TD in this article. Open <a href=\"/lenders/td/\">TD</a>, <a href=\"/lenders/rbc/\">RBC</a>, and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> hubs, then come back to this matrix. If our scrape shows a dash for uninsured, that means we do not have that cell today—not that Wealthsimple never offers uninsured mortgages.</p>",
+    "extraSections": [
+      {
+        "heading": "Current Wealthsimple mortgage rates",
+        "html": "<p>The insured fixed and variable cards at the top of this page are the current Wealthsimple mortgage rates in our scrape. Wealthsimple is a brokerage: the partner lender, not Wealthsimple, is the name on the mortgage. The page suits someone who will apply online and compare an insured special with a Big 5 branch quote. It is a weak fit in Quebec or the territories, which Wealthsimple’s own coverage list leaves out, or if you need a branch to hold the file.</p><p>Uninsured availability depends on the partner. If a cell is missing, that product was not in the scrape. Do not fill the blank from memory.</p>"
+      }
+    ],
     "shoppingTips": [
       "Ask which partner lender is funding the mortgage, and get the contract rate, term, and insured vs uninsured label in writing. Wealthsimple is the broker, not the lien holder.",
       "Compare the live Wealthsimple row with a Big 5 special and a monoline on the same product—not against a posted 5-year rate from a bank homepage.",
@@ -1219,6 +1225,7 @@
     "tagline": "All-in-one banking that puts your mortgage to work.",
     "seoTitle": "Manulife Bank Mortgage Rates | Manulife One & Posted 2026",
     "seoDescription": "Compare Manulife Bank mortgage rates and Manulife One. See posted fixed and variable offers plus the all-in-one account, then check today's rates.",
+    "heroIntro": "Manulife Bank mortgage rates from the latest scrape, including closed fixed and variable terms. Manulife One is a separate all-in-one account, not the same product as those closed rows.",
     "overview": "<p>Manulife Bank is a Schedule I Canadian bank and a subsidiary of Manulife Financial. It is not a mortgage-only monoline. The distinctive product is <strong>Manulife One</strong>: an all-in-one account that can combine a mortgage, a line of credit, and day-to-day deposits so interest is charged on the net borrowed balance after you deposit income. Manulife also sells more conventional <strong>Manulife Bank Select</strong> fixed and variable mortgages for borrowers who want a standard closed term without operating their chequing account inside the mortgage.</p><p>Shop Manulife if the all-in-one structure matches how you actually hold cash. If you only want the lowest 5-year sticker rate and will keep a separate chequing account at another bank, start with the live rates on this page and still compare <a href=\"/rates/5-year-fixed/\">5-year fixed</a> offers from other lenders. For a different all-in-one style product, see <a href=\"/lenders/scotiabank/\">Scotiabank's STEP</a>.</p>",
     "specialties": [
       "All-in-one mortgage banking",
@@ -1269,7 +1276,17 @@
       "Manulife Bank still stress-tests new originations. A One application is not a bypass of GDS/TDS.",
       "If you like the all-in-one idea but want a bank you already use, compare the structure to Scotiabank STEP rather than comparing brand slogans."
     ],
+    "extraSections": [
+      {
+        "heading": "Current Manulife mortgage rates",
+        "html": "<p>The cards and term tables on this page are the current Manulife mortgage rates from our scrape. Use the closed fixed or variable row when you are comparing a standard term. Manulife One is a different contract: deposits reduce the balance that interest is charged on, and that only helps if cash actually sits in the account.</p><p>Manulife suits a household that will park paycheques against the mortgage. It is a weak fit if you want the simplest closed payment and will keep day-to-day banking somewhere else. A home-equity line that is not Manulife One is described in the <a href=\"/guides/heloc-rates-canada/\">HELOC rates guide</a>.</p>"
+      }
+    ],
     "faqs": [
+      {
+        "question": "What are Manulife mortgage rates?",
+        "answer": "The current Manulife mortgage rates are the fixed and variable rows in the table on this page, including insured and uninsured five-year terms when the scrape has them. This answer does not repeat a percentage. Manulife One is not one of those closed-term rows."
+      },
       {
         "question": "What is Manulife One?",
         "answer": "Manulife One is an all-in-one banking and mortgage account. Deposits sit against the borrowed balance so you pay interest on the net amount, and you can usually access available credit without opening a separate HELOC application. It is more flexible than a simple closed mortgage and requires more discipline. It is optional; Manulife also offers conventional Select mortgages."
@@ -1302,6 +1319,7 @@
       { "href": "/tools/stress-test-qualifier/", "label": "Mortgage stress test calculator" },
       { "href": "/tools/refinance-calculator/", "label": "Refinance calculator" },
       { "href": "/glossary/heloc/", "label": "HELOC glossary" },
+      { "href": "/guides/heloc-rates-canada/", "label": "HELOC rates in Canada" },
       { "href": "/mortgage-guide/", "label": "Mortgage Toolkit ($29)" }
     ]
   },
@@ -1801,7 +1819,7 @@
     "name": "Meridian Credit Union",
     "tagline": "Ontario's largest credit union, owned by the people it serves.",
     "seoDescription": "Compare current Meridian Credit Union mortgage rates in Ontario—fixed, variable, and HELOC. See how Meridian stacks up vs the Big 5, then check today's table.",
-    "heroIntro": "Compare current Meridian Credit Union mortgage rates in Ontario versus the banks. Member-owned lending with live fixed, variable, and HELOC figures above.",
+    "heroIntro": "Meridian mortgage rates for Ontario members. The fixed and variable cards above are the scrape. A HELOC is a separate product and is not a row in this mortgage table.",
     "overview": "<p>Meridian Credit Union is Ontario's largest credit union: a member-owned cooperative, not one of the federally chartered Big 5 banks. It offers closed fixed-rate and variable-rate residential mortgages and home equity lines of credit, with advisors who work Ontario files rather than a national call centre. The <strong>Maximum Mortgage</strong> program is Meridian's bundled setup—pairing the mortgage with other Meridian products can change the rate you are offered. Membership is part of how credit unions work; plan to join if you are not already a member.</p><p>Use the live cards and matrix on this page as the source for <strong>Meridian Credit Union mortgage rates</strong>. We do not invent a 5-year number here. Compare the same term and insured vs uninsured label with <a href=\"/lenders/td/\">TD</a>, other Ontario options, and the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> hub. For Toronto-area context see <a href=\"/cities/toronto/\">Toronto mortgage rates</a>. High-ratio deals still face insurer qualifying-rate rules; run the <a href=\"/tools/stress-test-qualifier/\">stress test calculator</a> before you treat a pre-approval as a ceiling.</p>",
     "specialties": [
       "Credit union mortgages",
@@ -1844,6 +1862,12 @@
       }
     ],
     "howRatesCompare": "<p>Meridian prices as an Ontario credit union. It is not automatically cheaper than <a href=\"/lenders/td/\">TD</a> or a monoline on every term. Some weeks a Big 5 special in Toronto undercuts Meridian; some relationship or uninsured files look better in-house. The only honest comparison is the live matrix on this page versus the <a href=\"/rates/5-year-fixed/\">5-year fixed</a> and <a href=\"/rates/variable/\">variable</a> tables, using the same insured vs uninsured label.</p><p>Do not paste a rate into this article. Ask whether you were quoted a special or a posted rate, and whether Maximum Mortgage conditions are attached.</p>",
+    "extraSections": [
+      {
+        "heading": "Current Meridian mortgage rates",
+        "html": "<p>The cards and the term table are the current Meridian mortgage rates from our scrape. Compare the same term and the same insured or uninsured label with a Big 5 special before you treat a Meridian quote as the low. Meridian suits an Ontario member who wants a credit union and may use the Maximum Mortgage bundle. It does not suit a buyer who needs a lender outside Ontario.</p><p>Meridian also offers a home-equity line. That price is not in the mortgage scrape. The revolving cap is explained in the <a href=\"/guides/heloc-rates-canada/\">HELOC rates guide</a>.</p>"
+      }
+    ],
     "shoppingTips": [
       "Budget time to become a Meridian member if you are not one already. Membership is part of the credit-union model, not an optional extra.",
       "Ask whether the quote includes a Maximum Mortgage discount and which products you must keep to hold that rate.",
@@ -2158,7 +2182,7 @@
     "name": "Coast Capital Savings",
     "tagline": "A B.C. federal credit union with a 20 percent privilege, a 30 percent \"You're the Boss\" option, and penalty-free renewal inside six months.",
     "seoDescription": "Coast Capital Savings mortgage rates for B.C. members. See the 20 and 30 percent prepayment privileges, the HELOC at 65 percent of value, and the six-month early-renewal window.",
-    "heroIntro": "Coast Capital Savings is a federal credit union in British Columbia. The insured and uninsured five-year rows above are the scrape. Membership and the charge type are the rest of the decision.",
+    "heroIntro": "Coast Capital mortgage rates for a B.C. federal credit union. The insured and uninsured five-year rows above are the scrape. Membership and the charge type are the rest of the decision.",
     "overview": "<p>Coast Capital Savings is a member-owned credit union based in British Columbia. Its own materials call it a federal credit union (the mobile app is named for CCS Federal Credit Union), which is a different charter from a provincial credit union and a different charter from a Big Six bank. You become a member to hold the mortgage. The practical lending area is British Columbia property and B.C. members. A purchase in another province belongs with a lender that is built for that province.</p><p>The prepayment page is more specific than \"flexible.\" On most closed mortgages you may prepay up to 20 percent of the original principal once each calendar year. The \"You're the Boss Mortgage\" raises that to 30 percent of the original principal each loan year, and that 30 percent can be split into more than one payment. You cannot use the privilege inside 30 days of paying the mortgage out. Mortgages whose agreements were prepared before 1 November 2018, and that are not You're the Boss, may be allowed to use the privilege only on the anniversary date. Double-up is separate: on a payment date you can pay up to twice the regular payment, and the extra goes to principal. Closed terms longer than five years are subject only to 90 days' interest as a prepayment penalty after the first five years. That is Coast Capital's wording, and it is a reason to look at a seven- or ten-year term if you might need out in year six.</p><p>A variable mortgage keeps the payment flat when Coast Capital's prime moves, until it cannot. More of the payment goes to interest when prime rises. If the payment no longer covers the interest, the trigger rate, Coast Capital can change the payment. That is a different variable design from a lender that reprices the payment at every prime change. Ask which one you are being offered. An open mortgage can be prepaid without a penalty. A closed mortgage that exceeds the privilege, or that is refinanced, renewed early outside the exception, or transferred, can incur one. We did not extract a full IRD formula from the public basics page. The prepayment calculator on the site is an estimate. The agreement is the charge. Phone or book the appointment for the real number.</p><p>Renewal has three member-facing promises worth writing down. Inside six months of maturity you can renew early with no penalty. Renewing with Coast Capital does not require you to re-qualify. And you can port the mortgage to a new home, keep the rate and the remaining term, and skip the prepayment penalty if you meet the conditions. Member renewal rates are negotiated with an advisor, not copied from the new-business cells above. A HELOC is offered at up to 65 percent of the home's value, interest only on what you draw, reusable as you repay. It is not a substitute for reading whether the first mortgage is a collateral charge or a conventional charge. Coast Capital publishes a \"collateral versus conventional\" note with its mortgage documents. Ask which one they will register. A collateral charge is harder to hand to another lender at maturity. The <a href=\"/guides/switching-mortgage-lenders-at-renewal/\">switch guide</a> is the checklist, and it reminds you that a provincial or federal credit union is outside OSFI's straight-switch bulletin. Ask Coast Capital which qualifying rate they would use if you are the one arriving, not leaving.</p>",
     "specialties": [
       "B.C. federal credit union",
@@ -2209,11 +2233,19 @@
     ],
     "extraSections": [
       {
+        "heading": "Current Coast Capital mortgage rates",
+        "html": "<p>The five-year fixed and variable cards at the top of this page are the current Coast Capital mortgage rates in our scrape, insured and uninsured. A missing cell means that product was not on the page we read. Those figures are captured offers, not an approval.</p><p>Coast Capital suits a British Columbia member who wants a credit-union mortgage, a large annual prepayment, and an early-renewal window inside six months. It does not suit a buyer outside B.C., or someone who needs a national broker to fund the loan. The home-equity line they publish, up to 65 percent of value, is a separate product from these closed rows. See the <a href=\"/guides/heloc-rates-canada/\">HELOC rates guide</a> for how that 65 percent cap works.</p>"
+      },
+      {
         "heading": "Federal credit union, B.C. mortgage",
         "html": "<p>\"Federal\" describes the charter, not a national branch map. Coast Capital's mortgage business is a British Columbia membership business. The HELOC, the renewal promises, and the prepayment bands are published for that membership. A borrower moving to Alberta does not take the credit union with them the way a Big Six bank follows a transfer. Porting, on their renewal page, is about bringing the same mortgage to a new home while remaining with Coast Capital, which implies the new home still fits their lending area. Confirm the new city before you rely on the port to avoid a penalty.</p><p>Deposit insurance for a federal credit union is not the same sentence as CDIC for a Schedule I bank, and it is not the same sentence as a provincial credit-union scheme. Ask the branch which scheme covers your deposits and whether the mortgage entity is the same legal name. Then decide the rate. The <a href=\"/guides/banks-vs-monoline-lenders-vs-credit-unions/\">lender-type guide</a> is the background, not a substitute for that answer.</p>"
       }
     ],
     "faqs": [
+      {
+        "question": "What are Coast Capital mortgage rates?",
+        "answer": "Coast Capital mortgage rates are the insured and uninsured fixed and variable rows in the table on this page. The scrape is the source. This answer does not type in a percentage, because the next scrape can move the cell."
+      },
       {
         "question": "Is Coast Capital a bank?",
         "answer": "No. Coast Capital Savings is a federal credit union, member-owned, lending in British Columbia. You join as a member. It is not Scotiabank or Vancity, and a federal charter does not mean it originates mortgages in every province."

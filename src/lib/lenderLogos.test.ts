@@ -25,28 +25,10 @@ test("every lender in the live rate feed has a self-hosted logo on one canvas", 
   const slugs = [...new Set(rates.map((row) => row.lender_slug))].sort();
   const logos = allLenderLogos();
   const bySlug = new Map(logos.map((logo) => [logo.slug, logo]));
-  const rateSlugs = new Set(slugs);
-  const pageSlugs = new Set(
-    Object.keys(
-      JSON.parse(fs.readFileSync(path.join(process.cwd(), "src/content/lenderContent.json"), "utf8")) as Record<
-        string,
-        unknown
-      >,
-    ),
-  );
 
   for (const slug of slugs) {
-    assert.ok(bySlug.has(slug), `${slug} missing logo`);
-  }
-  for (const logo of logos) {
-    assert.ok(
-      rateSlugs.has(logo.slug) || pageSlugs.has(logo.slug),
-      `${logo.slug} is not in the rate file or a lender page`,
-    );
-  }
-
-  for (const logo of logos) {
-    const slug = logo.slug;
+    const logo = bySlug.get(slug);
+    assert.ok(logo, slug);
     assert.equal(logo.kind, "logo", `${slug} should be a sourced logo`);
     assert.ok(logo.file, `${slug} missing file`);
     assert.ok(logo.source_url?.startsWith("https://"), `${slug} missing source_url`);

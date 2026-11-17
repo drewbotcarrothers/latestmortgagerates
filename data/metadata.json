@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-16T10:54:33Z",
+  "last_updated": "2026-11-16T20:44:36Z",
   "total_rates": 284,
   "total_lenders": 24,
   "live_rates": 284,
@@ -39,203 +39,203 @@
       "lender": "rbc",
       "success": true,
       "rates_found": 11,
-      "duration": 0.2613339424133301,
+      "duration": 0.2802917957305908,
       "error": null
     },
     {
       "lender": "td",
       "success": true,
       "rates_found": 24,
-      "duration": 0.5131320953369141,
+      "duration": 0.497344970703125,
       "error": null
     },
     {
       "lender": "bmo",
       "success": true,
       "rates_found": 10,
-      "duration": 0.9738419055938721,
+      "duration": 1.2435789108276367,
       "error": null
     },
     {
       "lender": "scotiabank",
       "success": true,
       "rates_found": 8,
-      "duration": 0.8840560913085938,
+      "duration": 0.6390969753265381,
       "error": null
     },
     {
       "lender": "cibc",
       "success": true,
       "rates_found": 11,
-      "duration": 0.9527580738067627,
+      "duration": 1.0231711864471436,
       "error": null
     },
     {
       "lender": "nationalbank",
       "success": true,
       "rates_found": 3,
-      "duration": 3.9978229999542236,
+      "duration": 3.814901828765869,
       "error": null
     },
     {
       "lender": "nesto",
       "success": true,
       "rates_found": 4,
-      "duration": 2.735266923904419,
+      "duration": 3.1435060501098633,
       "error": null
     },
     {
       "lender": "tangerine",
       "success": true,
       "rates_found": 16,
-      "duration": 4.135780096054077,
+      "duration": 3.3209068775177,
       "error": null
     },
     {
       "lender": "eqbank",
       "success": true,
       "rates_found": 0,
-      "duration": 0.11545205116271973,
+      "duration": 0.11736583709716797,
       "error": "skipped: EQ Bank no longer publishes direct mortgage rates"
     },
     {
       "lender": "simplii",
       "success": true,
       "rates_found": 5,
-      "duration": 0.7812240123748779,
+      "duration": 0.856827974319458,
       "error": null
     },
     {
       "lender": "alterna",
       "success": true,
       "rates_found": 16,
-      "duration": 0.3146841526031494,
+      "duration": 0.32732605934143066,
       "error": null
     },
     {
       "lender": "wealthsimple",
       "success": true,
       "rates_found": 2,
-      "duration": 3.665454864501953,
+      "duration": 3.6888928413391113,
       "error": null
     },
     {
       "lender": "meridian",
       "success": true,
       "rates_found": 15,
-      "duration": 0.345181941986084,
+      "duration": 1.63663911819458,
       "error": null
     },
     {
       "lender": "desjardins",
       "success": true,
       "rates_found": 19,
-      "duration": 0.4846031665802002,
+      "duration": 0.37662696838378906,
       "error": null
     },
     {
       "lender": "vancity",
       "success": true,
       "rates_found": 3,
-      "duration": 0.7455790042877197,
+      "duration": 0.9045650959014893,
       "error": null
     },
     {
       "lender": "coastcapital",
       "success": true,
       "rates_found": 4,
-      "duration": 0.6398708820343018,
+      "duration": 0.5285739898681641,
       "error": null
     },
     {
       "lender": "atb",
       "success": true,
       "rates_found": 26,
-      "duration": 0.2844269275665283,
+      "duration": 0.2996838092803955,
       "error": null
     },
     {
       "lender": "firstnational",
       "success": true,
       "rates_found": 28,
-      "duration": 4.519653081893921,
+      "duration": 4.2432451248168945,
       "error": null
     },
     {
       "lender": "mcap",
       "success": true,
       "rates_found": 0,
-      "duration": 0.11301398277282715,
+      "duration": 0.1107628345489502,
       "error": "skipped: MCAP does not publish public consumer mortgage rates"
     },
     {
       "lender": "laurentian",
       "success": false,
       "rates_found": 0,
-      "duration": 5.009454965591431,
+      "duration": 4.742841958999634,
       "error": "Scraper returned no rates; previous rows will be kept"
     },
     {
       "lender": "manulife",
       "success": true,
       "rates_found": 12,
-      "duration": 0.7876691818237305,
+      "duration": 0.8265330791473389,
       "error": null
     },
     {
       "lender": "rfa",
       "success": true,
       "rates_found": 11,
-      "duration": 1.3217058181762695,
+      "duration": 1.3720779418945312,
       "error": null
     },
     {
       "lender": "cmls",
       "success": true,
       "rates_found": 16,
-      "duration": 0.33853793144226074,
+      "duration": 0.46204304695129395,
       "error": null
     },
     {
       "lender": "butlermortgage",
       "success": true,
       "rates_found": 9,
-      "duration": 1.609447956085205,
+      "duration": 0.47948288917541504,
       "error": null
     },
     {
       "lender": "streetcapital",
       "success": true,
       "rates_found": 0,
-      "duration": 0.1096498966217041,
+      "duration": 0.10749697685241699,
       "error": "skipped: Street Capital no longer publishes rates"
     },
     {
       "lender": "centum",
       "success": true,
       "rates_found": 0,
-      "duration": 0.10743880271911621,
+      "duration": 0.10913205146789551,
       "error": "skipped: Centum is a brokerage, not a direct lender"
     },
     {
       "lender": "truenorth",
       "success": true,
       "rates_found": 16,
-      "duration": 5.820061922073364,
+      "duration": 5.8653037548065186,
       "error": null
     },
     {
       "lender": "equitable",
       "success": true,
       "rates_found": 5,
-      "duration": 0.9591798782348633,
+      "duration": 0.8132460117340088,
       "error": null
     },
     {
       "lender": "hometrust",
       "success": true,
       "rates_found": 10,
-      "duration": 0.5525460243225098,
+      "duration": 0.5223329067230225,
       "error": null
     }
   ]

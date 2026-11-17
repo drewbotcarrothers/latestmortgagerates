@@ -12,6 +12,7 @@ import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import LenderLogo from "@/components/LenderLogo";
+import DiscoveryLinks from "@/components/DiscoveryLinks";
 import RateAnswer from "@/components/RateAnswer";
 
 
@@ -76,6 +77,7 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <DiscoveryLinks className="mb-6" />
           <RateAnswer focus="fixed" />
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

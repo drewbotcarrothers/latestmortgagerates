@@ -1,3 +1,4 @@
+import DiscoveryLinks from "@/components/DiscoveryLinks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getPostBySlug } from "@/content/blog";
@@ -48,7 +49,7 @@ export default function GuidesIndex() {
           </nav>
           <h1 className="text-4xl font-bold">Mortgage guides</h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-200">
-            Explanations that sit next to the rate tables: how to read a posted rate, how reported rates are aggregated, and which comparison to open before you renew or buy. Andrew writes these pages. The numbers in a comparison come from the daily scrape or from the reported-rate file, and the page says which.
+            Explanations that sit next to the rate tables: how to read a posted rate, how reported rates are aggregated, and which comparison to open before you renew or buy. Andrew writes these pages. The numbers in a comparison come from the daily scrape or from the reported-rate file, and the page says which. For a home-equity line, start with the <a href="/guides/heloc-rates-canada/" className="text-white underline">HELOC rates guide</a>.
           </p>
         </div>
       </header>
@@ -105,6 +106,11 @@ export default function GuidesIndex() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="rounded-xl border border-slate-200 bg-white p-6">
+          <h2 className="text-2xl font-bold text-slate-900">Lender pages next to these guides</h2>
+          <DiscoveryLinks className="mt-3" />
         </section>
 
         <section className="rounded-xl border border-slate-200 bg-white p-6">

@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page from "../../views/lenders/LendersIndex";
+import { lenderCountLabel } from "../../lib/lenderCount";
+---
+<BaseLayout
+  title="Mortgage Lenders in Canada: Banks, Credit Unions, Brokers"
+  description={`Lender pages for the ${lenderCountLabel} Canadian lenders in our daily scrape, including Scotiabank, Simplii, nesto, and CMLS. Rates on each page come from that scrape.`}
+  canonical="https://latestmortgagerates.ca/lenders/"
+>
+  <Page client:load />
+</BaseLayout>

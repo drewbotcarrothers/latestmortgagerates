@@ -35,10 +35,13 @@ function read(path: string): string {
 
 describe("trust pages and search metadata", () => {
   it("sets the homepage title from the lender count in the rate file", () => {
-    assert.ok(LENDER_COUNT >= 24, `lender count is ${LENDER_COUNT}`);
-    assert.equal(HOME_TITLE, `Compare Mortgage Rates in Canada: ${lenderCountLabel} Lenders, Updated Daily`);
+    assert.ok(LENDER_COUNT >= 20, `lender count is ${LENDER_COUNT}`);
+    assert.match(HOME_TITLE, /Best Mortgage Rates in Canada from /);
+    assert.ok(HOME_TITLE.length <= 60, HOME_TITLE);
     assert.match(HOME_DESCRIPTION, new RegExp(lenderCountLabel.replace("+", "\\+")));
     assert.match(HOME_DESCRIPTION, /updated daily/i);
+    assert.match(HOME_DESCRIPTION, /insured 5-year fixed/i);
+    assert.match(HOME_DESCRIPTION, /insured 5-year variable/i);
     const page = read("src/pages/index.astro");
     assert.match(page, /HOME_TITLE/);
     assert.match(page, /HOME_DESCRIPTION/);

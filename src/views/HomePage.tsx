@@ -16,6 +16,7 @@ import CommunityCallout from "@/components/community/CommunityCallout";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+import DiscoveryLinks from "@/components/DiscoveryLinks";
 import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 import RateAnswer from "@/components/RateAnswer";
 
@@ -147,8 +148,11 @@ export default function Home() {
       <div className="hero-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-            <h1 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates</h1>
-            <p className="text-sm text-slate-400 mt-1 md:mt-0">Top lenders ranked by lowest rate</p>
+            <h1 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates in Canada</h1>
+            <p className="text-sm text-slate-300 mt-1 md:mt-0 md:text-right">
+              Insured 5-year fixed from {marketStats.fixedInsured ? `${marketStats.fixedInsured.lowest.rate.toFixed(2)}%` : "the table"}.
+              Insured 5-year variable from {marketStats.variableInsured ? `${marketStats.variableInsured.lowest.rate.toFixed(2)}%` : "the table"}.
+            </p>
           </div>
           <RateHubLinks variant="pills" showToolsIndex className="mb-6" />
           
@@ -313,6 +317,11 @@ export default function Home() {
         <CommunityCallout className="mt-8" />
 
         <CompareLinks className="mt-8" />
+
+        <section className="card-default p-6 mt-8">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Lender and HELOC pages</h2>
+          <DiscoveryLinks />
+        </section>
 
         <StrikingDistanceLenderLinks className="mt-8" />
 

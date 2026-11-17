@@ -359,7 +359,40 @@ export function calculateBcPttPayableAfterFthb(fairMarketValue: number): number 
   );
 }
 
-/** Ontario provincial land transfer tax. Toronto MLTT is a second pass of the same brackets. */
+/**
+ * City of Toronto municipal land transfer tax for land that contains one or
+ * two single-family residences. Through $3 million the brackets match
+ * Ontario's provincial tax. Rates above $3 million took effect April 1, 2026
+ * (By-law 132-2026). Other property types stay at 2% above $400,000 and are
+ * not this schedule.
+ * https://www.toronto.ca/services-payments/property-taxes-utilities/municipal-land-transfer-tax-mltt/municipal-land-transfer-tax-mltt-rates-and-fees/
+ */
+export function torontoMunicipalLandTransferTax(price: number): number {
+  if (price <= 0) return 0;
+  const bands: [number, number][] = [
+    [55_000, 0.005],
+    [250_000, 0.01],
+    [400_000, 0.015],
+    [2_000_000, 0.02],
+    [3_000_000, 0.025],
+    [4_000_000, 0.044],
+    [5_000_000, 0.0545],
+    [10_000_000, 0.065],
+    [20_000_000, 0.0755],
+    [Number.POSITIVE_INFINITY, 0.086],
+  ];
+  let tax = 0;
+  let previous = 0;
+  for (const [cap, rate] of bands) {
+    const slice = Math.min(price, cap) - previous;
+    if (slice > 0) tax += slice * rate;
+    if (price <= cap) break;
+    previous = cap;
+  }
+  return tax;
+}
+
+/** Ontario provincial land transfer tax, including the extra 0.5% above $2 million on one or two single-family residences. */
 export function ontarioProvincialLandTransferTax(price: number): number {
   if (price <= 0) return 0;
   if (price <= 55_000) return price * 0.005;

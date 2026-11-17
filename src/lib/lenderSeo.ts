@@ -6,18 +6,59 @@ export interface LenderRateRow {
 }
 
 const TITLE_OVERRIDES: Record<string, (monthYear: string) => string> = {
-  wealthsimple: (monthYear) =>
-    `Wealthsimple Mortgage Rates Today (${monthYear}): Fixed & Variable vs Big 5`,
   atb: (monthYear) =>
     `ATB Mortgage Rates Today (${monthYear}) – ATB Financial Fixed, Variable & HELOC`,
   vancity: (monthYear) =>
     `Vancity Mortgage Rates Today (${monthYear}) – BC Fixed & Variable vs Banks`,
-  meridian: (monthYear) =>
-    `Meridian Credit Union Mortgage Rates Today (${monthYear}) – Ontario Fixed, Variable & HELOC`,
   truenorth: () => `True North Mortgage Rates Today – Fixed & Variable vs Big Banks`,
   td: (monthYear) =>
     `TD Mortgage Rates Today – Fixed, Variable & Special Offers (${monthYear})`,
 };
+
+/** Titles rewritten for queries that get impressions and no clicks. Kept to 60 characters. */
+const CTR_LABELS: Record<string, string> = {
+  manulife: "Manulife Mortgage Rates",
+  coastcapital: "Coast Capital Mortgage Rates",
+  meridian: "Meridian Mortgage Rates",
+  wealthsimple: "Wealthsimple Mortgage Rates",
+};
+
+const CTR_TAILS: Record<string, string> = {
+  manulife: "Manulife One is a separate all-in-one account.",
+  coastcapital: "A B.C. credit union, not a Big 5 bank.",
+  meridian: "An Ontario credit union.",
+  wealthsimple: "Insured quotes through brokers, not a Big 5 branch.",
+};
+
+/** 5-year fixed and variable, lowest scraped quote, in a title of at most 60 characters. */
+export function ctrLenderTitle(label: string, rates: LenderRateRow[]): string {
+  const fixed = bestRate(rates, 60, "fixed");
+  const variable = bestRate(rates, 60, "variable");
+  const bits: string[] = [];
+  if (fixed != null) bits.push(`${pct(fixed)} Fixed`);
+  if (variable != null) bits.push(`${pct(variable)} Var`);
+  const withPair = bits.length ? `${label}: ${bits.join(", ")}` : label;
+  if (withPair.length <= 60) return withPair;
+  const available = [fixed, variable].filter((rate): rate is number => rate != null);
+  if (available.length) {
+    const short = `${label} from ${pct(Math.min(...available))}`;
+    if (short.length <= 60) return short;
+  }
+  return label.length <= 60 ? label : label.slice(0, 60);
+}
+
+export function ctrLenderDescription(slug: string, lenderName: string, rates: LenderRateRow[]): string {
+  const fixed = bestRate(rates, 60, "fixed");
+  const variable = bestRate(rates, 60, "variable");
+  const bits: string[] = [];
+  if (fixed != null) bits.push(`5-year fixed from ${pct(fixed)}`);
+  if (variable != null) bits.push(`5-year variable from ${pct(variable)}`);
+  const lead = bits.length
+    ? `${lenderName} mortgage rates today: ${bits.join(" and ")}.`
+    : `Compare current ${lenderRatesKeyword(lenderName)}.`;
+  const tail = CTR_TAILS[slug] ?? "Figures are the latest scrape, not a commitment.";
+  return `${lead} ${tail}`;
+}
 
 /** Consecutive repeated words, e.g. "Mortgage Mortgage". */
 export function hasDoubledWord(text: string): boolean {
@@ -46,8 +87,11 @@ export function lenderSeoTitle(
   slug: string,
   lenderName: string,
   monthYear: string,
-  storedTitle?: string
+  storedTitle?: string,
+  rates: LenderRateRow[] = []
 ): string {
+  const ctrLabel = CTR_LABELS[slug];
+  if (ctrLabel) return ctrLenderTitle(ctrLabel, rates);
   const override = TITLE_OVERRIDES[slug];
   if (override) return override(monthYear);
   if (storedTitle && !hasDoubledWord(storedTitle)) return storedTitle;
@@ -92,6 +136,7 @@ export function lenderSeoDescription(input: {
   rates: LenderRateRow[];
 }): string {
   const { slug, lenderName, stored, tagline, rates } = input;
+  if (CTR_LABELS[slug]) return ctrLenderDescription(slug, lenderName, rates);
   if (slug === "truenorth") return trueNorthDescription(rates);
   if (slug === "td") return TD_DESCRIPTION;
   if (stored && !/guaranteed/i.test(stored) && !/\d+\.\d{2}\s*%/.test(stored)) {
