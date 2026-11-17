@@ -6,10 +6,15 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
-import { closingCostsGuide } from "@/content/calculatorGuides";
+import { closingCostExample, closingCostsGuide, ONTARIO_FTB_MAX_REBATE, TORONTO_MLTT_MAX_REBATE } from "@/content/calculatorGuides";
 import { closingProvinceGuide } from "@/content/toolExplainers";
 import GuideCTA from "@/components/GuideCTA";
 import AdUnit from "@/components/AdUnit";
+
+const TORONTO_MLTT_URL =
+  "https://www.toronto.ca/services-payments/property-taxes-utilities/municipal-land-transfer-tax-mltt/municipal-land-transfer-tax-mltt-rates-and-fees/";
+const ONTARIO_LTT_URL = "https://www.ontario.ca/laws/statute/90l06";
+const example = closingCostExample();
 
 const faqs = [
   {
@@ -46,6 +51,11 @@ const faqs = [
     question: "Do I pay land transfer tax in Alberta?",
     answer:
       "No provincial land transfer tax. Alberta buyers still budget for land-titles registration, legal fees, title insurance if you buy it, inspections, and any condo estoppel or status-certificate fees. That is why Alberta cash-to-close is often lower than an equivalent purchase in Ontario or B.C.",
+  },
+  {
+    question: "Does the calculator include legal fees, inspection, and title insurance?",
+    answer:
+      "Yes. Those three start at $1,500, $500, and $250 so the total is not only land transfer tax. Replace them with the quotes you actually receive. They are planning inputs, not amounts set by a province. Land transfer tax is calculated from the provincial and, in Toronto, municipal schedules.",
   },
   {
     question: "When do I actually pay closing costs?",
@@ -107,13 +117,38 @@ export default function ClosingCostsPage() {
                 <span>Closing Costs Calculator</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Closing Costs Calculator
+                Canada Closing Costs Calculator
               </h1>
               <p className="text-xl text-slate-300">
                 Closing costs in Canada are the cash you need on top of the down payment, and the largest piece is usually provincial transfer tax. This calculator applies each province’s formula, including Ontario, Toronto, and B.C. first-time buyer relief, so the total matches the rules below.
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 pt-8">
+          <section className="bg-white rounded-xl border border-slate-200 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">How Canadian closing costs work</h2>
+            <p className="text-slate-600 mb-3 leading-relaxed">
+              Closing costs are the cash you need on top of the down payment so title can transfer. The largest piece in Ontario, Toronto, and British Columbia is the transfer tax. Legal fees, a home inspection, and title insurance are separate. The form starts them at $1,500, $500, and $250 so you can see a total; those three are planning amounts you replace with quotes. They are not fees set by statute.
+            </p>
+            <p className="text-slate-600 mb-3 leading-relaxed">
+              Ontario land transfer tax, in the{" "}
+              <a href={ONTARIO_LTT_URL} className="text-teal-700 font-medium hover:underline">Land Transfer Tax Act</a>,
+              is 0.5% on the first $55,000, 1% to $250,000, 1.5% to $400,000, and 2% above $400,000, plus an extra 0.5% above $2 million when the land contains one or two single-family residences. A qualifying first-time buyer can get up to ${ONTARIO_FTB_MAX_REBATE.toLocaleString("en-CA")} back.
+              Toronto adds municipal land transfer tax on the same purchase. The{" "}
+              <a href={TORONTO_MLTT_URL} className="text-teal-700 font-medium hover:underline">City of Toronto rate schedule</a>{" "}
+              matches those brackets through $3 million for one or two single-family residences. Since April 1, 2026 the City charges 4.40% from $3 million to $4 million, then 5.45%, 6.50%, 7.55%, and 8.60%. The first-time municipal rebate is up to ${TORONTO_MLTT_MAX_REBATE.toLocaleString("en-CA")}.
+            </p>
+            <p className="text-slate-600 leading-relaxed">
+              Worked example, same functions as the form: a ${example.price.toLocaleString("en-CA")} home. Ontario land transfer tax is ${example.ontarioTax.toLocaleString("en-CA")}. A first-time buyer’s provincial refund on that price is ${example.ontarioRebate.toLocaleString("en-CA")}, so ${example.ontarioNet.toLocaleString("en-CA")} of provincial tax remains. British Columbia property transfer tax on the same price is ${example.bcTax.toLocaleString("en-CA")} before the first-time exemption of ${example.bcExemption.toLocaleString("en-CA")}. Add your own legal, inspection, and title-insurance quotes in the form. The province notes under the tool, the{" "}
+              <a href="/guides/closing-costs-canada-by-province/" className="text-teal-700 font-medium hover:underline">closing costs by province guide</a>,
+              and the{" "}
+              <a href="/tools/land-transfer-tax-calculator/" className="text-teal-700 font-medium hover:underline">land transfer tax calculator</a>{" "}
+              go further. Qualification is separate: the{" "}
+              <a href="/tools/stress-test-qualifier/" className="text-teal-700 font-medium hover:underline">stress test calculator</a>.
+            </p>
+          </section>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">

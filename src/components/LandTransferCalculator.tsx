@@ -7,6 +7,7 @@ import {
   calculateBcPropertyTransferTax,
   ontarioFirstTimeRebates,
   ontarioProvincialLandTransferTax,
+  torontoMunicipalLandTransferTax,
   montrealWelcomeTax,
   quebecWelcomeTaxOutsideMontreal,
 } from "@/lib/mortgageMath";
@@ -92,15 +93,19 @@ export default function LandTransferTaxCalculator() {
     const provincial =
       province === "quebec" && isMontreal ? montrealWelcomeTax(homePrice) : calculated.provincial;
     const baseMunicipal = calculated.municipal;
-    const explanation =
+    let explanation =
       province === "quebec" && isMontreal
         ? "Montreal 2026 duties: baseline until $552,300, then 2% to $1,104,700, 2.5% to $2,136,500, 3.5% to $3,113,000, and 4% above. The city's $700,000 example is $9,349."
         : calculated.explanation;
+    if (province === "ontario" && isToronto) {
+      explanation += " Toronto MLTT on one or two single-family residences matches those brackets through $3 million. Since April 1, 2026 the City charges 4.40% to $4 million, 5.45% to $5 million, 6.50% to $10 million, 7.55% to $20 million, and 8.60% above.";
+    }
     
-    // For Ontario, Toronto has additional municipal tax
+    // Toronto MLTT is its own schedule. Through $3 million it matches Ontario
+    // on a one- or two-family home. Above $3 million the April 1, 2026 rates apply.
     let totalMunicipal = baseMunicipal;
     if (province === "ontario" && isToronto) {
-      totalMunicipal = provincial; // Toronto LTT equals provincial
+      totalMunicipal = torontoMunicipalLandTransferTax(homePrice);
     }
 
     const total = provincial + totalMunicipal;
@@ -241,7 +246,7 @@ export default function LandTransferTaxCalculator() {
         
         {province === "ontario" && isToronto && (
           <p className="mt-2">
-            <strong>Toronto rebates:</strong> A qualifying first-time buyer can receive up to $4,000 of the provincial tax and up to $4,475 of the municipal tax, $8,475 combined. The municipal rebate does not replace the provincial one.
+            <strong>Toronto rebates:</strong> A qualifying first-time buyer can receive up to $4,000 of the provincial tax and up to $4,475 of the municipal tax, $8,475 combined. The municipal rebate does not replace the provincial one. The municipal figure uses the City’s one- or two-family schedule, including the higher rates above $3 million in force since April 1, 2026.
           </p>
         )}
 

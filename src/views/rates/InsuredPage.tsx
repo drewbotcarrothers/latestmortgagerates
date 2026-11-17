@@ -10,6 +10,7 @@ import AdUnit from "@/components/AdUnit";
 import EditorialByline, { RATE_HUB_SOURCES } from "@/components/EditorialByline";
 import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import DiscoveryLinks from "@/components/DiscoveryLinks";
 import LenderLogo from "@/components/LenderLogo";
 
 
@@ -70,6 +71,7 @@ export default function InsuredRatesPage({ buildDateIso }: { buildDateIso: strin
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <DiscoveryLinks className="mb-6" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
               <p className="text-sm text-slate-600">Best 5-Year Fixed</p>

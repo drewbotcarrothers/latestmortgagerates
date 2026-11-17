@@ -20,7 +20,7 @@ export const TODAY_PRODUCTS: TodayProduct[] = [
 ];
 
 /** Lender pages that get the dated "Today's rates" table. */
-export const STRIKING_DISTANCE_SLUGS = ["atb", "wealthsimple", "vancity", "meridian"] as const;
+export const STRIKING_DISTANCE_SLUGS = ["atb", "wealthsimple", "vancity", "meridian", "coastcapital", "manulife"] as const;
 
 export interface TodayRateRow {
   label: string;

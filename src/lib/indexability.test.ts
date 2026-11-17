@@ -133,6 +133,11 @@ describe("indexability", () => {
     }
     assert.ok(worstOverlap < 0.2, `max 5-shingle overlap is ${worstOverlap}`);
     assert.ok(overlapSum / overlapPairs < 0.05, `average 5-shingle overlap is ${overlapSum / overlapPairs}`);
+    assert.equal(isIndexablePath("/lenders/"), true);
+    assert.equal(isIndexablePath("/lenders/nesto/"), true);
+    assert.equal(isIndexablePath("/lenders/cmls/"), true);
+    assert.equal(isIndexablePath("/lenders/simplii/"), true);
+    assert.equal(isIndexablePath("/lenders/scotiabank/"), true);
     assert.equal(isIndexablePath("/lenders/td/"), true);
     assert.equal(isIndexablePath("/lenders/rbc/"), true);
     assert.equal(isIndexablePath("/lenders/bmo/"), true);
@@ -165,6 +170,42 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/guides/should-i-lock-in-variable-rate/"), true);
     assert.equal(isIndexablePath("/guides/2027-mortgage-renewal-wave/"), true);
     assert.equal(isIndexablePath("/guides/heloc-rates-canada/"), true);
+    const targets = [
+      "/guides/heloc-rates-canada/",
+      "/lenders/nesto/",
+      "/lenders/cmls/",
+      "/lenders/scotiabank/",
+      "/lenders/simplii/",
+    ];
+    const discovery = readFileSync(join(root, "src/lib/discoveryLinks.ts"), "utf8");
+    const lenderIndex = readFileSync(join(root, "src/views/lenders/LendersIndex.tsx"), "utf8");
+    for (const href of targets) {
+      assert.ok(discovery.includes(href), href);
+      assert.ok(lenderIndex.includes(href), href);
+    }
+    for (const file of [
+      "src/views/HomePage.tsx",
+      "src/views/guides/GuidesIndex.tsx",
+      "src/views/rates/FiveYearFixedPage.tsx",
+      "src/views/rates/VariablePage.tsx",
+      "src/views/rates/InsuredPage.tsx",
+      "src/views/rates/UninsuredPage.tsx",
+    ]) {
+      assert.match(readFileSync(join(root, file), "utf8"), /DiscoveryLinks/, file);
+    }
+    const big5 = readFileSync(join(root, "src/content/guides/bigFiveBanks.ts"), "utf8");
+    assert.match(big5, /\/guides\/heloc-rates-canada\//);
+    assert.match(big5, /\/lenders\/scotiabank\//);
+    assert.match(big5, /\/lenders\/simplii\//);
+    const lenderTypes = readFileSync(join(root, "src/content/guides/lenderTypes.ts"), "utf8");
+    assert.match(lenderTypes, /\/lenders\/nesto\//);
+    assert.match(lenderTypes, /\/lenders\/cmls\//);
+    assert.match(lenderTypes, /\/lenders\/simplii\//);
+    assert.match(lenderTypes, /\/lenders\/scotiabank\//);
+    assert.match(
+      readFileSync(join(root, "src/content/guides/renewalVsRefinance.ts"), "utf8"),
+      /\/guides\/heloc-rates-canada\//,
+    );
     assert.equal(isIndexablePath("/guides/closing-costs-canada-by-province/"), true);
     assert.equal(isIndexablePath("/guides/big-5-bank-mortgages-compared/"), true);
     assert.equal(isIndexablePath("/guides/blend-and-extend-mortgage/"), true);
