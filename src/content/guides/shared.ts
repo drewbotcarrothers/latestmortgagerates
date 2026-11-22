@@ -335,7 +335,7 @@ type ScrapedRate = {
   mortgage_type: string;
   posted_rate: number | null;
   scraped_at?: string;
-  raw_data?: { section?: string };
+  raw_data?: { section?: string; product?: string; source?: string };
 };
 
 function histRange(pick: (day: HistDay) => number): { min: number; max: number; first: number; last: number } {
@@ -349,14 +349,32 @@ function histRange(pick: (day: HistDay) => number): { min: number; max: number; 
   };
 }
 
-function scrapedSpecial(slug: string, termMonths: number, rateType: string, mortgageType: string): ScrapedRate {
-  const row = (rawRatesFile as ScrapedRate[]).find(
+function isAdvertisedSpecial(item: ScrapedRate): boolean {
+  const raw = item.raw_data;
+  if (!raw) return false;
+  if (raw.section === "special") return true;
+  // A dated fallback can omit section. The product name or the source id
+  // still marks it as the advertised special. An explicit posted shelf does
+  // not qualify on source alone.
+  if ((raw.product ?? "").toLowerCase().includes("special")) return true;
+  if (raw.section === "posted") return false;
+  return (raw.source ?? "").toLowerCase().includes("fallback");
+}
+
+export function scrapedSpecial(
+  slug: string,
+  termMonths: number,
+  rateType: string,
+  mortgageType: string,
+  rates: ScrapedRate[] = rawRatesFile as ScrapedRate[],
+): ScrapedRate {
+  const row = rates.find(
     (item) =>
       item.lender_slug === slug &&
       item.term_months === termMonths &&
       item.rate_type === rateType &&
       item.mortgage_type === mortgageType &&
-      item.raw_data?.section === "special",
+      isAdvertisedSpecial(item),
   );
   if (!row) throw new Error(`Rate file is missing ${slug} ${termMonths} ${rateType} ${mortgageType}.`);
   return row;
