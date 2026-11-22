@@ -11,12 +11,14 @@ import ast
 import json
 from html import escape
 
+from scrapers.cibc_scraper import CIBCScraper
 from scrapers.cmls_scraper import parse_cmls_html
 from scrapers.coastcapital_scraper import parse_coastcapital_html
 from scrapers.equitable_scraper import parse_equitable_html
 from scrapers.hometrust_scraper import parse_hometrust_html
 from scrapers.laurentian_scraper import parse_laurentian_html
-from scrapers.simplii_scraper import rates_from_page_and_api
+from scrapers.rate_parse import fallback_rows_to_rates
+from scrapers.simplii_scraper import SimpliiScraper, rates_from_page_and_api
 from models import MortgageType, RateType
 
 
@@ -445,6 +447,71 @@ def test_laurentian_text_grid_without_tables_and_error_page():
     ) == []
 
 
+def test_fallback_rows_label_advertised_specials():
+    cibc = CIBCScraper()
+    cibc.scraped_at = NOW
+    cibc_rows = cibc._get_fallback_rates()
+    cibc_five = _by(cibc_rows, 60, RateType.FIXED, MortgageType.UNINSURED)[0]
+    assert cibc_five.rate == Decimal("4.94")
+    assert cibc_five.raw_data["section"] == "special"
+    assert cibc_five.raw_data["source"] == "cibc_fallback_2026-09-14"
+    assert cibc_five.raw_data["product"] == "5-Year Fixed Special"
+    assert all(rate.raw_data["section"] == "special" for rate in cibc_rows)
+
+    simplii = SimpliiScraper()
+    simplii.scraped_at = NOW
+    simplii_rows = simplii._get_fallback_rates()
+    assert simplii_rows
+    assert all(rate.raw_data["section"] == "special" for rate in simplii_rows)
+    assert all("fallback" in rate.raw_data["source"] for rate in simplii_rows)
+
+    kwargs = dict(
+        lender_slug="cibc",
+        lender_name="Canadian Imperial Bank of Commerce",
+        source_url="https://www.cibc.com/en/interest-rates/mortgage-rates.html",
+        scraped_at=NOW,
+        source="cibc_fallback_test",
+        last_verified="2026-09-14",
+    )
+    overridden = fallback_rows_to_rates(
+        [{
+            "term": 60,
+            "type": RateType.FIXED,
+            "rate": "6.49",
+            "mortgage_type": "uninsured",
+            "product": "5-Year Fixed Closed",
+            "section": "posted",
+        }],
+        **kwargs,
+    )
+    assert overridden[0].raw_data["section"] == "posted"
+
+    posted_flag = fallback_rows_to_rates(
+        [{
+            "term": 60,
+            "type": RateType.FIXED,
+            "rate": "5.84",
+            "mortgage_type": "uninsured",
+            "product": "5 Year Fixed (Posted)",
+            "posted": True,
+        }],
+        **kwargs,
+    )
+    assert posted_flag[0].raw_data["section"] == "posted"
+
+    posted_name = fallback_rows_to_rates(
+        [{
+            "term": 60,
+            "type": RateType.FIXED,
+            "rate": "6.09",
+            "mortgage_type": "uninsured",
+            "product": "5-Year Fixed Posted Closed",
+        }],
+        **kwargs,
+    )
+    assert posted_name[0].raw_data["section"] == "posted"
+
+
 def test_backfill_does_not_shadow_json_module():
     source = Path(__file__).with_name("test_all_lenders_v2.py").read_text()
     tree = ast.parse(source)
@@ -464,5 +531,6 @@ if __name__ == "__main__":
     test_simplii_uses_category_18_not_apr()
     test_laurentian_reads_embedded_rate_grids_not_august_hardcode()
     test_laurentian_text_grid_without_tables_and_error_page()
+    test_fallback_rows_label_advertised_specials()
     test_backfill_does_not_shadow_json_module()
     print("ok")

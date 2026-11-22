@@ -12,7 +12,7 @@
     "verify-api": "node scripts/verify-static-api.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "tsx --test src/lib/*.test.ts scripts/*.test.ts",
+    "test": "tsx --test src/lib/*.test.ts src/content/guides/*.test.ts scripts/*.test.ts",
     "blog-to-social": "tsx scripts/blog-to-social.ts",
     "start": "astro preview"
   },

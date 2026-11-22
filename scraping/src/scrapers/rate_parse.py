@@ -260,6 +260,24 @@ def extract_rates_from_html(
     )
 
 
+def fallback_section(item: dict) -> str:
+    """Section stored on a dated fallback row.
+
+    These shelves are advertised specials, so the default is "special".
+    An explicit section wins. A posted shelf (posted=True, or a product
+    name that says Posted) stays "posted" so it is not relabeled as a special.
+    """
+    explicit = item.get("section")
+    if isinstance(explicit, str) and explicit.strip():
+        return explicit.strip()
+    if item.get("posted") is True:
+        return "posted"
+    product = str(item.get("product") or "")
+    if re.search(r"\bposted\b", product, re.IGNORECASE):
+        return "posted"
+    return "special"
+
+
 def fallback_rows_to_rates(
     rows: List[dict],
     *,
@@ -282,6 +300,7 @@ def fallback_rows_to_rates(
             "product": item.get("product"),
             "featured": item.get("featured", False),
             "last_verified": last_verified,
+            "section": fallback_section(item),
         }
         if item.get("spread"):
             raw_data["spread_to_prime"] = item["spread"]
