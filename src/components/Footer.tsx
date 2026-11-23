@@ -1,5 +1,6 @@
 
 import { lenderCountLabel } from "@/lib/lenderCount";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 interface FooterProps {
   showDisclaimer?: boolean;
@@ -223,8 +224,8 @@ export default function Footer({ showDisclaimer = true }: FooterProps) {
               {[
                 { href: "/rates/5-year-fixed/", label: "5-Year Fixed Rates" },
                 { href: "/rates/variable/", label: "Variable Rates" },
-                { href: "/rates/insured/", label: "Insured Rates" },
-                { href: "/rates/uninsured/", label: "Uninsured Rates" },
+                { href: "/rates/insured/", label: INSURED_SHORT_LABEL },
+                { href: "/rates/uninsured/", label: UNINSURED_SHORT_LABEL },
                 { href: "/compare/", label: "Compare Mortgages" },
                 { href: "/compare/fixed-vs-variable/", label: "Fixed vs Variable" },
                 { href: "/compare/insured-vs-uninsured/", label: "Insured vs Uninsured" },

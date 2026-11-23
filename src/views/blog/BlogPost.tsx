@@ -21,6 +21,12 @@ import { datasetFieldsForMonthlyReport, NOVEMBER_CHART_MARKER } from "@/lib/nove
 import { articleJsonLd, blogDateModified, isMonthlyRateReport } from "@/lib/articleSchema";
 import { monthlyReportDatasetJsonLd } from "@/lib/datasetSchema";
 import JsonLd from "@/components/JsonLd";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import {
+  INSURED_UNINSURED_EXPLANATION,
+  applyShortInsuranceLabels,
+  mentionsInsuredOrUninsured,
+} from "@/lib/mortgageTypeCopy";
 
 // Tool mapping for contextual sidebar links
 const toolMapping: Record<string, { href: string; icon: string; title: string; description: string }[]> = {
@@ -69,18 +75,28 @@ function getRelatedTools(post: typeof blogPosts[0]) {
 
 
 function BlogBody({ content }: { content: string }) {
+  const labeled = applyShortInsuranceLabels(content);
   const prose = "prose prose-base max-w-none prose-headings:text-slate-900 prose-headings:font-semibold prose-h2:text-xl prose-h3:text-lg prose-p:text-slate-600 prose-p:mb-4 prose-p:leading-relaxed prose-a:text-teal-600 hover:prose-a:text-teal-700 prose-strong:font-semibold prose-strong:text-slate-800 prose-li:text-slate-600 prose-table:border-collapse prose-table:w-full prose-th:bg-slate-100 prose-th:p-3 prose-th:text-left prose-th:text-sm prose-th:font-semibold prose-td:p-3 prose-td:text-sm prose-td:border-t prose-td:border-slate-200 prose-blockquote:border-l-4 prose-blockquote:border-teal-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-slate-600";
   const marker = content.includes(NOVEMBER_CHART_MARKER)
     ? NOVEMBER_CHART_MARKER
     : content.includes(COMMUNITY_CHART_MARKER)
       ? COMMUNITY_CHART_MARKER
       : null;
+  const note = mentionsInsuredOrUninsured(labeled) && !labeled.includes(INSURED_UNINSURED_EXPLANATION)
+    ? <InsuranceStatusNote className="mb-4" />
+    : null;
   if (!marker) {
-    return <div id="blog-content" className={prose} dangerouslySetInnerHTML={{ __html: content }} />;
+    return (
+      <div id="blog-content">
+        {note}
+        <div className={prose} dangerouslySetInnerHTML={{ __html: labeled }} />
+      </div>
+    );
   }
-  const [before, after] = content.split(marker);
+  const [before, after] = labeled.split(marker);
   return (
     <div id="blog-content">
+      {note}
       <div className={prose} dangerouslySetInnerHTML={{ __html: before }} />
       <div className="my-8 space-y-8 rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
         {marker === NOVEMBER_CHART_MARKER ? (

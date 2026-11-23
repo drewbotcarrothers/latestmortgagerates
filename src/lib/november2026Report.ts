@@ -421,7 +421,7 @@ ${headlines.map((cell) => `<li>${bullet(cell)}</li>`).join("\n")}
 <li>${productLabel(threeInsured)}: reported median ${formatRate(threeInsured.median)} (N = ${threeInsured.n}). 25th percentile ${formatRate(threeInsured.p25)} (N = ${threeInsured.n}). Lowest posted ${formatRate(threeInsured.lowestPosted)} (${lenderName(threeInsured.lowestPostedLender)}). The reported median is ${formatSpread(threeInsured.spreadVsLowestPosted)} that lowest posted rate. The Big-5 posted median for this insured cell is omitted. The combined 3-year fixed row and the uninsured row both use a Big-5 posted median of ${formatRate(three.big5PostedMedian)} (N = ${three.n} and N = ${threeUninsured.n}).</li>
 </ul>
 
-<p class="mb-4">Lowest posted is the median of each day's lowest posted rate. The Big-5 figure is the median of each day's Big-5 posted median. Both run across the ${snapshot.postedSnapshots} snapshots from October 3 to October 31. Prime discount is the median discount on every report for that term, so the table shows it on the all-statuses variable row. Insured and uninsured splits are published only when N is at least ${PUBLIC_CELL_MIN_N}.</p>
+<p class="mb-4">Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. Lowest posted is the median of each day's lowest posted rate. The Big-5 figure is the median of each day's Big-5 posted median. Both run across the ${snapshot.postedSnapshots} snapshots from October 3 to October 31. Prime discount is the median discount on every report for that term, so the table shows it on the all-statuses variable row. Insured and uninsured splits are published only when N is at least ${PUBLIC_CELL_MIN_N}.</p>
 
 ${productTable()}
 

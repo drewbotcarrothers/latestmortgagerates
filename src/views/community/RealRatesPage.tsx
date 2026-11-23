@@ -23,6 +23,7 @@ import {
 } from "@/lib/communityRates";
 import { realRatesDatasetJsonLd } from "@/lib/datasetSchema";
 import JsonLd from "@/components/JsonLd";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
 
 export default function RealRatesPage() {
   const takeaways = buildTakeaways();
@@ -57,6 +58,7 @@ export default function RealRatesPage() {
               What mortgage rate are people getting, and what is a realistic mortgage rate in Canada?
               This page compares the median rate {communityRates.attribution} with the lowest posted rate and the Big-5 posted median.
             </p>
+            <InsuranceStatusNote tone="onDark" className="mt-3 max-w-3xl" />
             <p className="mt-4 text-sm text-teal-100">
               As of {formatAsOf()} · {window30.from} to {window30.to} · {window30.usableRecords} reports · prime {formatRate(communityRates.prime)}
             </p>

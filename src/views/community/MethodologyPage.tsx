@@ -56,7 +56,7 @@ export default function MethodologyPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900">What is extracted</h2>
               <p className="mt-3">
-                Each kept report stores the rate, the term, fixed or variable, the lender when the person names one, and insured status only when they state it.
+                Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. Each kept report stores the rate, the term, fixed or variable, the lender when the person names one, and insured status only when they state it.
                 Many people never say whether the mortgage is insured, insurable, or uninsured. Those reports stay in an &quot;insured status not stated&quot; group. That group is compared with every posted rate for the same term and type, not only the insured shelf or the uninsured shelf.
               </p>
             </section>

@@ -8,6 +8,7 @@ import HowToSchema from "@/components/HowToSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import BankGapChart, { bankGapRows, omittedPostedNotes } from "@/components/community/BankGapChart";
 import CommunityDisclaimer from "@/components/community/CommunityDisclaimer";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
 import JsonLd from "@/components/JsonLd";
 import { negotiateGuide } from "@/content/guides/negotiateMeta";
 import { articleJsonLd } from "@/lib/articleSchema";
@@ -121,6 +122,7 @@ export default function NegotiateGuidePage() {
 
           <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
             <CommunityDisclaimer />
+            <InsuranceStatusNote />
 
             <section className="rounded-xl border border-slate-200 bg-white p-4">
               <h2 className="text-2xl font-bold text-slate-900">Discount below each bank’s posted rate</h2>

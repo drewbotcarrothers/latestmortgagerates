@@ -6,6 +6,8 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 import { stressTestExample, stressTestExtraFaqs, stressTestGuide } from "@/content/calculatorGuides";
 import { STRESS } from "@/content/guides/shared";
 import { OSFI_MQR_BACKGROUNDER_URL, STRAIGHT_SWITCH_STRESS_TEST_CITE } from "@/content/osfiStressTest";
@@ -286,6 +288,7 @@ export default function StressTestPage() {
                 </div>
               </section>
 
+              <InsuranceStatusNote className="mb-4" />
               <CalculatorGuide sections={stressTestGuide()} />
 
               <FAQSection faqs={[...faqs, ...stressTestExtraFaqs]} />
@@ -342,12 +345,12 @@ export default function StressTestPage() {
                   </li>
                   <li>
                     <a href="/rates/insured/" className="text-teal-600 hover:underline font-medium">
-                      Insured rates
+                      {INSURED_SHORT_LABEL}
                     </a>
                   </li>
                   <li>
                     <a href="/rates/uninsured/" className="text-teal-600 hover:underline font-medium">
-                      Uninsured rates
+                      {UNINSURED_SHORT_LABEL}
                     </a>
                   </li>
                   <li>

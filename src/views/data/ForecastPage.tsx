@@ -9,6 +9,7 @@ import {
 } from "@/lib/forecast2027";
 import type { BondSeries } from "@/lib/loadMarketSeries";
 import { publishedRates } from "@/lib/publishedRates";
+import { INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export function forecastLead(): string {
   const range = policyPrimeRange(publishedForecasts);
@@ -101,7 +102,7 @@ export default function ForecastPage({
             ? `On ${snap.latest.date}, the Government of Canada 5-year benchmark yield was ${formatPct(snap.latest.yield)}. The lowest 5-year fixed in the ${asOf} rate file, ${formatPct(snap.benchmarks.lowest.rate)} at ${snap.benchmarks.lowest.lenderName}, sits ${Math.abs(spread).toFixed(2)} percentage points above that yield.`
             : "The bond yield or the 5-year fixed shelf was not available when this page was built."}
           {snap.benchmarks.big5Median != null && snap.medianSpread != null
-            ? ` The Big Five median uninsured 5-year fixed is ${formatPct(snap.benchmarks.big5Median)}, ${Math.abs(snap.medianSpread).toFixed(2)} percentage points above the same yield.`
+            ? ` ${INSURED_UNINSURED_EXPLANATION} The Big Five median ${UNINSURED_SHORT_LABEL} 5-year fixed is ${formatPct(snap.benchmarks.big5Median)}, ${Math.abs(snap.medianSpread).toFixed(2)} percentage points above the same yield.`
             : ""}
         </p>
         <p className="mt-3">

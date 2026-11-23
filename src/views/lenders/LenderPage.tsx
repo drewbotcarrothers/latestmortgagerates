@@ -12,6 +12,7 @@ import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
 import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 import LenderRateOverview from "@/components/LenderRateOverview";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL, mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
 import Footer from "@/components/Footer";
 import EditorialByline, { LENDER_SOURCES } from "@/components/EditorialByline";
 
@@ -86,10 +87,7 @@ function getTermLabel(months: number): string {
 }
 
 function formatRateType(type: string | null | undefined): string {
-  if (type === "insured") return "Insured";
-  if (type === "uninsured") return "Uninsured";
-  if (!type) return "Not stated";
-  return type.charAt(0).toUpperCase() + type.slice(1);
+  return mortgageTypeShortLabel(type);
 }
 
 // Generate JSON-LD structured data
@@ -311,12 +309,11 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                   5-Year Fixed
                 </h3>
-                <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">Insured</span>
+                <span className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">{INSURED_SHORT_LABEL}</span>
               </div>
               {bestFixed5YInsured ? (
                 <>
                   <div className="text-3xl font-bold text-emerald-300 mb-1">{bestFixed5YInsured.rate.toFixed(2)}%</div>
-                  <p className="text-slate-300 text-sm">{formatRateType(bestFixed5YInsured.mortgage_type)}</p>
                   {bestFixed5YInsured.posted_rate && (
                     <p className="text-xs text-slate-400 line-through mt-1">Posted: {bestFixed5YInsured.posted_rate.toFixed(2)}%</p>
                   )}
@@ -343,12 +340,11 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                   5-Year Fixed
                 </h3>
-                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">{UNINSURED_SHORT_LABEL}</span>
               </div>
               {bestFixed5YUninsured ? (
                 <>
                   <div className="text-3xl font-bold text-slate-200 mb-1">{bestFixed5YUninsured.rate.toFixed(2)}%</div>
-                  <p className="text-slate-300 text-sm">{formatRateType(bestFixed5YUninsured.mortgage_type)}</p>
                   {bestFixed5YUninsured.posted_rate && (
                     <p className="text-xs text-slate-400 line-through mt-1">Posted: {bestFixed5YUninsured.posted_rate.toFixed(2)}%</p>
                   )}
@@ -375,12 +371,11 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
                   5-Year Variable
                 </h3>
-                <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">Insured</span>
+                <span className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">{INSURED_SHORT_LABEL}</span>
               </div>
               {bestVariable5YInsured ? (
                 <>
                   <div className="text-3xl font-bold text-teal-300 mb-1">{bestVariable5YInsured.rate.toFixed(2)}%</div>
-                  <p className="text-slate-300 text-sm">{formatRateType(bestVariable5YInsured.mortgage_type)}</p>
                   {bestVariable5YInsured.spread_to_prime && (
                     <p className="text-xs text-teal-300 mt-1">Spread: {bestVariable5YInsured.spread_to_prime}</p>
                   )}
@@ -407,12 +402,11 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
                   5-Year Variable
                 </h3>
-                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">Uninsured</span>
+                <span className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded">{UNINSURED_SHORT_LABEL}</span>
               </div>
               {bestVariable5YUninsured ? (
                 <>
                   <div className="text-3xl font-bold text-slate-200 mb-1">{bestVariable5YUninsured.rate.toFixed(2)}%</div>
-                  <p className="text-slate-300 text-sm">{formatRateType(bestVariable5YUninsured.mortgage_type)}</p>
                   {bestVariable5YUninsured.spread_to_prime && (
                     <p className="text-xs text-teal-300 mt-1">Spread: {bestVariable5YUninsured.spread_to_prime}</p>
                   )}

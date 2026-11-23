@@ -12,6 +12,8 @@ import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import LenderLogo from "@/components/LenderLogo";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL, mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
 import DiscoveryLinks from "@/components/DiscoveryLinks";
 import RateAnswer from "@/components/RateAnswer";
 
@@ -82,12 +84,12 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <p className="text-sm text-slate-600">Best Uninsured Rate</p>
+              <p className="text-sm text-slate-600">Best {UNINSURED_SHORT_LABEL}</p>
               <p className="text-3xl font-bold text-teal-600">{bestUninsured?.rate.toFixed(2) || "N/A"}%</p>
               <p className="text-sm text-slate-500">{bestUninsured?.lender_name || "Various lenders"}</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <p className="text-sm text-slate-600">Best Insured Rate</p>
+              <p className="text-sm text-slate-600">Best {INSURED_SHORT_LABEL}</p>
               <p className="text-3xl font-bold text-teal-600">{bestInsured?.rate.toFixed(2) || "N/A"}%</p>
               <p className="text-sm text-slate-500">{bestInsured?.lender_name || "Various lenders"}</p>
             </div>
@@ -125,9 +127,12 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
 
           {/* Rate Table */}
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900">Current 5-Year Fixed Rates</h2>
-              <span className="text-sm text-slate-500">{filteredRates.length} rates found</span>
+            <div className="px-6 py-4 border-b border-slate-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-slate-900">Current 5-Year Fixed Rates</h2>
+                <span className="text-sm text-slate-500">{filteredRates.length} rates found</span>
+              </div>
+              <InsuranceStatusNote className="mt-2" />
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -149,7 +154,7 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-600">
                         <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${rate.mortgage_type === "insured" ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
-                          {rate.mortgage_type === "insured" ? "Insured" : "Uninsured"}
+                          {mortgageTypeShortLabel(rate.mortgage_type)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-bold text-teal-600">{rate.rate.toFixed(2)}%</td>
@@ -188,7 +193,7 @@ export default function FiveYearFixedPage({ buildDateIso }: { buildDateIso: stri
               },
               {
                 question: "What is the difference between insured and uninsured 5-year fixed rates?",
-                answer: "Insured rates are for mortgages with less than 20% down payment (requiring CMHC insurance). They are typically 0.2-0.5% lower than uninsured rates because the lender has protection against default. Uninsured rates are for mortgages with 20%+ down payment.",
+                answer: "Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. Insured rates are typically 0.2-0.5% lower because the lender has protection against default.",
               },
               {
                 question: "Can I break a 5-year fixed mortgage early?",

@@ -1,3 +1,4 @@
+import { mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
 import { lenderList, postedSentence, rateSnapshot, type RateSnapshot } from "@/lib/rateSnapshot";
 
 type Focus = "hub" | "fixed" | "variable";
@@ -10,7 +11,7 @@ function productSentence(
   const who = lenderList(side.lowest.lenders);
   const insured =
     side.lowest.mortgageType === "insured" || side.lowest.mortgageType === "uninsured"
-      ? ` (${side.lowest.mortgageType})`
+      ? ` (${mortgageTypeShortLabel(side.lowest.mortgageType)})`
       : "";
   return `the lowest published ${label} is ${side.lowest.label} from ${who}${insured}`;
 }

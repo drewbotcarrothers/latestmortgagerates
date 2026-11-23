@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DISCOVERY_LINKS } from "@/lib/discoveryLinks";
 import { publishedRates } from "@/lib/publishedRates";
+import { INSURED_UNINSURED_EXPLANATION } from "@/lib/mortgageTypeCopy";
 
 const lenders = [...new Map(
   publishedRates.map((row) => [row.lender_slug, row.lender_name] as const),
@@ -20,7 +21,7 @@ export default function LendersIndex() {
           </nav>
           <h1 className="text-4xl font-bold">Mortgage lenders in Canada</h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-200">
-            Every lender in the daily rate scrape has a page. The figures on those pages are the quotes we captured, split by term and by insured or uninsured when the source labelled them.
+            Every lender in the daily rate scrape has a page. {INSURED_UNINSURED_EXPLANATION} The figures on those pages are the quotes we captured, split by term and by insured or uninsured when the source labelled them.
           </p>
         </div>
       </header>

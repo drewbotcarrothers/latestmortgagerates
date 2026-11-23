@@ -1,5 +1,7 @@
 "use client";
 
+import { mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
+
 interface Rate {
   lender_name: string;
   lender_slug: string;
@@ -37,12 +39,7 @@ export default function RateTableSchema({
   const itemList = rates.slice(0, 20).map((rate, index) => {
     const termYears = rate.term_months / 12;
     const rateType = rate.rate_type === "fixed" ? "Fixed" : "Variable";
-    const mortgageType =
-      rate.mortgage_type === "insured"
-        ? "Insured"
-        : rate.mortgage_type === "uninsured"
-          ? "Uninsured"
-          : "Not stated";
+    const mortgageType = mortgageTypeShortLabel(rate.mortgage_type);
 
     return {
       "@type": "ListItem",

@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export type SitePage =
   | "rates"
@@ -50,8 +51,8 @@ const MENUS: NavMenu[] = [
       { href: "/trends/", label: "Rate trends" },
       { href: "/rates/5-year-fixed/", label: "5-year fixed" },
       { href: "/rates/variable/", label: "Variable rates" },
-      { href: "/rates/insured/", label: "Insured rates" },
-      { href: "/rates/uninsured/", label: "Uninsured rates" },
+      { href: "/rates/insured/", label: INSURED_SHORT_LABEL },
+      { href: "/rates/uninsured/", label: UNINSURED_SHORT_LABEL },
     ],
   },
   {

@@ -1,5 +1,8 @@
 "use client";
 
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
+import InsuranceStatusNote from "./InsuranceStatusNote";
+
 import { useState, useMemo } from 'react';
 import RateTrendsChart from './RateTrendsChart';
 import type { HistoricalDataPoint } from './RateTrendsChart';
@@ -147,6 +150,7 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
             <p className="text-sm text-slate-500 mt-1">
               Track mortgage rate movements over time
             </p>
+            <InsuranceStatusNote className="mt-2" />
           </div>
           
           {/* Time Range Selector */}
@@ -196,7 +200,7 @@ export default function RateTrendsFull({ historicalData = [] }: RateTrendsFullPr
                 : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
             }`}
           >
-            {showInsured ? '✓' : ''} Show Insured Rates
+            {showInsured ? INSURED_SHORT_LABEL : UNINSURED_SHORT_LABEL}
           </button>
         </div>
       </div>

@@ -396,7 +396,7 @@ export default function AffordabilityCalculator() {
                     <div>
                       <p className="text-sm font-medium text-amber-800">CMHC Insurance Required</p>
                       <p className="text-xs text-amber-700 mt-1">
-                        With less than 20% down, you'll pay ${primaryResult.cmhcPremium.toLocaleString()} in premiums 
+                        With under 20% down (an insured mortgage), you'll pay ${primaryResult.cmhcPremium.toLocaleString()} in premiums 
                         (added to your mortgage balance).
                       </p>
                     </div>
@@ -413,7 +413,7 @@ export default function AffordabilityCalculator() {
                     <div>
                       <p className="text-sm font-medium text-emerald-800">Conventional Mortgage</p>
                       <p className="text-xs text-emerald-700 mt-1">
-                        With 20%+ down, you avoid CMHC premiums and get more flexibility!
+                        With 20% or more down (an uninsured mortgage), you avoid CMHC, Sagen, and Canada Guaranty premiums and get more flexibility!
                       </p>
                     </div>
                   </div>

@@ -11,6 +11,7 @@ import {
   termLabel,
 } from "@/lib/communityRates";
 import BankGapChart from "@/components/community/BankGapChart";
+import { UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export default function LenderCommunitySection({ slug }: { slug: string }) {
   const lender = lenderBySlug(slug);
@@ -27,7 +28,7 @@ export default function LenderCommunitySection({ slug }: { slug: string }) {
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">
         {name} rates {communityRates.attribution}, last 30 days, as of {formatAsOf()}.
-        The posted rate is this bank&apos;s uninsured rate in the current snapshot. Insured status on the reports is often unstated, so each row combines every status.
+        The posted rate is this bank&apos;s {UNINSURED_SHORT_LABEL} rate in the current snapshot. Insured status on the reports is often unstated, so each row combines every status.
       </p>
       {lender.matchedN >= communityRates.thresholds.publicMinN && lender.medianSpreadVsOwnPosted != null && (
         <p className="mt-3 text-sm text-slate-700">

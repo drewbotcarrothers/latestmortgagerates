@@ -1,5 +1,6 @@
 import DataArticle from "@/views/data/DataArticle";
 import { formatLongDate, formatPct } from "@/lib/dataFormat";
+import { INSURED_UNINSURED_EXPLANATION } from "@/lib/mortgageTypeCopy";
 
 export interface RateChangeRow {
   date: string;
@@ -74,7 +75,7 @@ export default function RateChangesPage({
         <p className="mt-3">
           A lender counts as higher or lower only by comparing the rate at the start of the window with the rate at the end.
           A cut that was followed by a larger hike finishes higher, so it is not counted as a lender that cut.
-          The count is of lenders, across insured and uninsured rows, not of individual products.
+          {INSURED_UNINSURED_EXPLANATION} The count is of lenders, across insured and uninsured rows, not of individual products.
         </p>
         <dl className="mt-4 grid gap-3 sm:grid-cols-3">
           <div className="rounded-lg border border-slate-200 bg-white p-4">

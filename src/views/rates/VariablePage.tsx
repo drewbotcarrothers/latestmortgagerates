@@ -14,6 +14,8 @@ import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import LenderLogo from "@/components/LenderLogo";
 import DiscoveryLinks from "@/components/DiscoveryLinks";
 import RateAnswer from "@/components/RateAnswer";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL, mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
 import { PRIME_RATE } from "@/lib/primeRate";
 
 
@@ -81,12 +83,12 @@ export default function VariableRatesPage({ buildDateIso }: { buildDateIso: stri
           <RateAnswer focus="variable" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <p className="text-sm text-slate-600">Best Uninsured</p>
+              <p className="text-sm text-slate-600">Best {UNINSURED_SHORT_LABEL}</p>
               <p className="text-3xl font-bold text-emerald-600">{bestUninsured?.rate.toFixed(2) || "N/A"}%</p>
               <p className="text-sm text-slate-500">{bestUninsured?.lender_name || "Various lenders"}</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <p className="text-sm text-slate-600">Best Insured</p>
+              <p className="text-sm text-slate-600">Best {INSURED_SHORT_LABEL}</p>
               <p className="text-3xl font-bold text-emerald-600">{bestInsured?.rate.toFixed(2) || "N/A"}%</p>
               <p className="text-sm text-slate-500">{bestInsured?.lender_name || "Various lenders"}</p>
             </div>
@@ -122,9 +124,12 @@ export default function VariableRatesPage({ buildDateIso }: { buildDateIso: stri
           />
 
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mb-8">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900">Current Variable Rates</h2>
-              <span className="text-sm text-slate-500">{filteredRates.length} rates found</span>
+            <div className="px-6 py-4 border-b border-slate-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-slate-900">Current Variable Rates</h2>
+                <span className="text-sm text-slate-500">{filteredRates.length} rates found</span>
+              </div>
+              <InsuranceStatusNote className="mt-2" />
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -147,7 +152,7 @@ export default function VariableRatesPage({ buildDateIso }: { buildDateIso: stri
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-600">
                         <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${rate.mortgage_type === "insured" ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-700"}`}>
-                          {rate.mortgage_type === "insured" ? "Insured" : "Uninsured"}
+                          {mortgageTypeShortLabel(rate.mortgage_type)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm font-bold text-emerald-600">{rate.rate.toFixed(2)}%</td>

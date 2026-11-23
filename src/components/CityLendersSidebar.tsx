@@ -1,6 +1,7 @@
 
 // Import rates data
 import { publishedRates as ratesData } from "@/lib/publishedRates";
+import { mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
 import LenderLogo from "@/components/LenderLogo";
 
 interface Rate {
@@ -54,11 +55,7 @@ export default function CityLendersSidebar({ cityName, maxLenders = 6 }: CityLen
               <div className="min-w-0">
               <p className="font-medium text-slate-900 group-hover:text-teal-700 text-sm truncate">{rate.lender_name}</p>
               <p className="text-xs text-slate-500">
-                {rate.mortgage_type === "insured"
-                  ? "Insured"
-                  : rate.mortgage_type === "uninsured"
-                    ? "Uninsured"
-                    : "Not stated"}
+                {mortgageTypeShortLabel(rate.mortgage_type)}
               </p>
               </div>
             </div>

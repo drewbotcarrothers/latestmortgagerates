@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import type { ChartOptions } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { productWithMortgageLabel } from '@/lib/mortgageTypeCopy';
 
 // Register Chart.js components
 ChartJS.register(
@@ -101,7 +102,7 @@ export default function RateTrendsChart({
     if (selectedType === 'fixed' || selectedType === 'both') {
       if (showInsured) {
         datasets.push({
-          label: 'Fixed Insured',
+          label: productWithMortgageLabel('Fixed', 'insured'),
           data: filteredData.map(d => d.fixed_insured_best_rate),
           borderColor: '#059669', // emerald-600
           backgroundColor: 'rgba(5, 150, 105, 0.1)',
@@ -112,7 +113,7 @@ export default function RateTrendsChart({
         });
       } else {
         datasets.push({
-          label: 'Fixed Uninsured',
+          label: productWithMortgageLabel('Fixed', 'uninsured'),
           data: filteredData.map(d => d.fixed_uninsured_best_rate),
           borderColor: '#10b981', // emerald-500
           backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -128,7 +129,7 @@ export default function RateTrendsChart({
     if (selectedType === 'variable' || selectedType === 'both') {
       if (showInsured) {
         datasets.push({
-          label: 'Variable Insured',
+          label: productWithMortgageLabel('Variable', 'insured'),
           data: filteredData.map(d => d.variable_insured_best_rate),
           borderColor: '#0e7490', // cyan-700
           backgroundColor: 'rgba(14, 116, 144, 0.1)',
@@ -139,7 +140,7 @@ export default function RateTrendsChart({
         });
       } else {
         datasets.push({
-          label: 'Variable Uninsured',
+          label: productWithMortgageLabel('Variable', 'uninsured'),
           data: filteredData.map(d => d.variable_uninsured_best_rate),
           borderColor: '#0d9488', // teal-600
           backgroundColor: 'rgba(13, 148, 136, 0.1)',
