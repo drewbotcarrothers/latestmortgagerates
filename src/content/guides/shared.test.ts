@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 import { fixedVsVariable } from "./fixedVsVariable.ts";
 import { communityRates, formatAsOf, type WeekPoint } from "../../lib/communityRates.ts";
 import {
+  MIN_WEEK_N,
   postedSnapshotBridge,
   scrapedSpecial,
   selectWeeklyComparison,
@@ -160,6 +161,34 @@ describe("weekly comparison", () => {
     assert.match(postedSnapshotBridge(comparison), /tells the same story from lender pages/);
   });
 
+  it("skips a week when either sample is below MIN_WEEK_N", () => {
+    assert.equal(MIN_WEEK_N, 5);
+    const weeks = [
+      week("2026-09-21", { n: 7, median: 4.34 }, { n: 39, median: 3.5 }),
+      week("2026-10-12", { n: MIN_WEEK_N, median: 4.39 }, { n: 53, median: 3.55 }),
+      week("2026-11-16", { n: 17, median: 4.54 }, { n: MIN_WEEK_N - 1, median: 3.89 }),
+      week("2026-11-23", { n: 1, median: 5.11 }, { n: 1, median: 4.04 }),
+    ];
+    const comparison = selectWeeklyComparison(weeks);
+    assert.ok(comparison);
+    assert.equal(comparison.early.weekStarting, "2026-09-21");
+    assert.equal(comparison.late.weekStarting, "2026-10-12");
+    assert.ok(comparison.early.fixedN >= MIN_WEEK_N && comparison.early.variableN >= MIN_WEEK_N);
+    assert.ok(comparison.late.fixedN >= MIN_WEEK_N && comparison.late.variableN >= MIN_WEEK_N);
+    const sentence = weeklyComparisonSentence(comparison);
+    assert.match(sentence, /week of September 21, 2026/);
+    assert.match(sentence, /week of October 12, 2026/);
+    assert.doesNotMatch(sentence, /November 23/);
+    assert.doesNotMatch(sentence, /5\.11%/);
+
+    const onlyOneQualifies = [
+      week("2026-11-16", { n: 17, median: 4.54 }, { n: 38, median: 3.89 }),
+      week("2026-11-23", { n: 1, median: 5.11 }, { n: 1, median: 4.04 }),
+    ];
+    assert.equal(selectWeeklyComparison(onlyOneQualifies), null);
+    assert.equal(weeklyComparisonSentence(selectWeeklyComparison(onlyOneQualifies)), "");
+  });
+
   it("says when the later fixed median is lower", () => {
     const comparison = selectWeeklyComparison([
       week("2026-10-19", { n: 18, median: 4.5 }, { n: 10, median: 3.6 }),
@@ -178,7 +207,15 @@ describe("weekly comparison", () => {
     const usable = weeksWithBothMedians(weeks);
     assert.equal(comparison.early.weekStarting, usable[0].weekStarting);
     assert.equal(comparison.late.weekStarting, usable[usable.length - 1].weekStarting);
+    assert.ok(comparison.early.fixedN >= MIN_WEEK_N && comparison.early.variableN >= MIN_WEEK_N);
+    assert.ok(comparison.late.fixedN >= MIN_WEEK_N && comparison.late.variableN >= MIN_WEEK_N);
     assert.notEqual(comparison.early.weekStarting, ABSENT_ANCHOR);
+    for (const item of weeks) {
+      const thin = item.fixed.n < MIN_WEEK_N || item.variable.n < MIN_WEEK_N || item.fixed.median == null || item.variable.median == null;
+      if (!thin) continue;
+      assert.notEqual(comparison.early.weekStarting, item.weekStarting);
+      assert.notEqual(comparison.late.weekStarting, item.weekStarting);
+    }
 
     const section = fixedVsVariable.sections.find((item) => item.id === "file");
     assert.ok(section);

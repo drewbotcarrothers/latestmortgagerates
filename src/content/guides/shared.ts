@@ -394,16 +394,20 @@ export interface WeeklyComparison {
   late: WeeklyMedian;
 }
 
+/** Both the fixed and variable medians need at least this many reports. */
+export const MIN_WEEK_N = 5;
+
 function finiteMedian(value: number | null): value is number {
   return value != null && Number.isFinite(value);
 }
 
-/** Weeks that publish both a fixed and a variable median, earliest first. */
+/** Weeks with both medians and a large enough sample on each, earliest first. */
 export function weeksWithBothMedians(weeks: readonly WeekPoint[]): WeeklyMedian[] {
   const usable: WeeklyMedian[] = [];
   const seen = new Set<string>();
   for (const week of weeks) {
     if (!finiteMedian(week.fixed.median) || !finiteMedian(week.variable.median)) continue;
+    if (week.fixed.n < MIN_WEEK_N || week.variable.n < MIN_WEEK_N) continue;
     if (seen.has(week.weekStarting)) continue;
     seen.add(week.weekStarting);
     usable.push({
@@ -419,7 +423,7 @@ export function weeksWithBothMedians(weeks: readonly WeekPoint[]): WeeklyMedian[
 }
 
 /**
- * Earliest and latest weeks with both medians.
+ * Earliest and latest weeks where both medians have N of at least MIN_WEEK_N.
  * Null when fewer than two such weeks exist, so a rolling window cannot throw.
  */
 export function selectWeeklyComparison(weeks: readonly WeekPoint[]): WeeklyComparison | null {
