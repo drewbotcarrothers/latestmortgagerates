@@ -76,10 +76,14 @@ export default function MortgageCalculatorPage({ children }: MortgageCalculatorP
               <span>Mortgage Calculator</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Mortgage Payment Calculator
+              Mortgage Payment Calculator Canada
             </h1>
             <p className="text-xl text-slate-300">
-              A Canadian fixed mortgage payment compounds semi-annually, even though this calculator’s payment uses a simpler monthly rate. The worked example below shows both formulas, then monthly payments next to accelerated bi-weekly.
+              A Canadian mortgage payment calculator for monthly, bi-weekly, weekly, and accelerated payments. A fixed-rate disclosure usually compounds semi-annually. This form uses a monthly rate, and the example below shows both. If your down payment is under 20%, price the premium in the{" "}
+              <a href="/tools/cmhc-insurance-calculator/" className="text-teal-200 underline hover:text-white">
+                CMHC insurance calculator
+              </a>
+              .
             </p>
           </div>
         </div>

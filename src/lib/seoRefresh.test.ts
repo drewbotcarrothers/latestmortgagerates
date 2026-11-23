@@ -29,8 +29,12 @@ describe("SEO refresh", () => {
   it("sets the closing-cost and mortgage calculator titles", () => {
     const closing = read("src/pages/tools/closing-costs-calculator/index.astro");
     const mortgage = read("src/pages/tools/mortgage-calculator/index.astro");
-    assert.match(closing, /Closing Costs Calculator Canada: Toronto LTT Included/);
-    assert.match(mortgage, /Mortgage Calculator Canada: Payments with Semi-Annual Compounding/);
+    assert.match(closing, /Closing Costs Calculator Canada: Every Province/);
+    assert.match(closing, /Ontario land transfer tax and Toronto MLTT/);
+    assert.match(closing, /Alberta land title fees/);
+    assert.match(mortgage, /Mortgage Payment Calculator Canada \| CMHC & Frequencies/);
+    assert.match(mortgage, /semi-annual compounding/);
+    assert.match(mortgage, /CMHC insurance/);
     assert.match(read("src/content/guides/stressTestGuide.ts"), /Mortgage Stress Test 2026/);
     assert.match(stressTestGuide.metaTitle, /Mortgage Stress Test 2026/);
   });
