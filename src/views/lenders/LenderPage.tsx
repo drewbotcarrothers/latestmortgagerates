@@ -8,7 +8,14 @@ import AdUnit from "@/components/AdUnit";
 import TodaysLenderRates from "@/components/TodaysLenderRates";
 import { compareHref, comparisonsForLender } from "@/lib/compare";
 import { STRIKING_DISTANCE_SLUGS } from "@/lib/todaysRates";
-import { lenderRatesHeading, lenderRatesKeyword } from "@/lib/lenderSeo";
+import {
+  lenderDirectAnswer,
+  lenderRatesHeading,
+  lenderRatesKeyword,
+  lenderSnippetFaqs,
+  manulifeOneParagraphs,
+  type LenderRateRow,
+} from "@/lib/lenderSeo";
 import LenderCommunitySection from "@/components/community/LenderCommunitySection";
 import LenderRateOverview from "@/components/LenderRateOverview";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
@@ -74,6 +81,8 @@ interface Rate {
   ltv_tier?: string | null;
   spread_to_prime?: string | null;
   source_url?: string | null;
+  scraped_at?: string | null;
+  raw_data?: { product?: string } | null;
 }
 
 // Generate static paths for all lenders
@@ -276,6 +285,9 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                 <h1 className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl">
                   {lenderRatesHeading(lenderName)}
                 </h1>
+                <p className="mt-2 text-base text-slate-800">
+                  {lenderDirectAnswer(lenderName, lenderRates as LenderRateRow[])}
+                </p>
                 <p className="mt-1 text-slate-600">
                   {content?.heroIntro || `Compare current ${lenderRatesKeyword(lenderName)} in Canada`}
                 </p>
@@ -290,6 +302,19 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {slug === "manulife" && (
+          <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">Manulife One</h2>
+            {manulifeOneParagraphs(lenderRates as LenderRateRow[]).map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 48)}
+                className="text-slate-600 leading-relaxed mb-3 last:mb-0 [&_a]:text-teal-700 [&_a]:font-medium [&_a]:hover:underline"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
+            ))}
+          </section>
+        )}
+
         {(STRIKING_DISTANCE_SLUGS as readonly string[]).includes(slug) && (
           <TodaysLenderRates lenderName={lenderName} rates={lenderRates} buildDateIso={buildDateIso} />
         )}
@@ -613,7 +638,17 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
 
         {(() => {
           const content = getLenderContent(slug);
-          if (!content) return null;
+          const liveFaqs = [
+            ...lenderSnippetFaqs(slug, lenderName, lenderRates as LenderRateRow[]),
+            ...(content?.faqs ?? []),
+          ];
+          if (!content) {
+            return (
+              <div className="mb-8">
+                <FAQSection faqs={liveFaqs} />
+              </div>
+            );
+          }
           const hasDepth =
             Boolean(content.whoItsFor) ||
             Boolean(content.products?.length) ||
@@ -622,7 +657,13 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
             Boolean(content.faqs?.length) ||
             Boolean(content.relatedLinks?.length) ||
             Boolean(content.extraSections?.length);
-          if (!hasDepth) return null;
+          if (!hasDepth) {
+            return (
+              <div className="mb-8">
+                <FAQSection faqs={liveFaqs} />
+              </div>
+            );
+          }
 
           return (
             <div className="space-y-8 mb-8">
@@ -686,9 +727,7 @@ export default function LenderPage({ slug, buildDateIso }: { slug: string; build
                 </section>
               ))}
 
-              {content.faqs && content.faqs.length > 0 && (
-                <FAQSection faqs={content.faqs} />
-              )}
+              <FAQSection faqs={liveFaqs} />
 
               {content.relatedLinks && content.relatedLinks.length > 0 && (
                 <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">

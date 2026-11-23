@@ -6,11 +6,13 @@ import { dirname, join } from "node:path";
 import { formatBuildMonthYear } from "./buildDate.ts";
 import {
   hasDoubledWord,
+  lenderDirectAnswer,
   lenderSeoDescription,
   lenderRatesHeading,
   lenderRatesKeyword,
   lenderSeoTitle,
-  trueNorthDescription,
+  lenderSnippetFaqs,
+  manulifeOneParagraphs,
   type LenderRateRow,
 } from "./lenderSeo.ts";
 import { buildTodayRows } from "./todaysRates.ts";
@@ -46,33 +48,28 @@ function lowestFiveYear(slug: string, type: "fixed" | "variable"): number {
 }
 
 describe("GSC near-page-1 lender SEO", () => {
-  it("builds ATB and Vancity titles from the build month and keeps CTR titles under 60 characters", () => {
+  it("builds live lender titles from the build month and keeps them under 60 characters", () => {
     assert.equal(monthYear, "Oct 2026");
+    const atbFixed = lowestFiveYear("atb", "fixed").toFixed(2);
     assert.equal(
-      lenderSeoTitle("atb", "ATB Financial", monthYear),
-      "ATB Mortgage Rates Today (Oct 2026) – ATB Financial Fixed, Variable & HELOC"
+      lenderSeoTitle("atb", "ATB Financial", monthYear, undefined, ratesFor("atb")),
+      `ATB Mortgage Rates Today (Oct 2026): 5-Yr Fixed from ${atbFixed}%`,
     );
-    assert.equal(
-      lenderSeoTitle("vancity", "Vancity", monthYear),
-      "Vancity Mortgage Rates Today (Oct 2026) – BC Fixed & Variable vs Banks"
-    );
+    assert.match(lenderSeoTitle("vancity", "Vancity", monthYear), /Vancity Mortgage Rates Today \(Oct 2026\)/);
+    const vancityTitle = lenderSeoTitle("vancity", "Vancity", monthYear, undefined, ratesFor("vancity"));
+    assert.doesNotMatch(vancityTitle, /5-Yr Fixed/);
+    assert.match(vancityTitle, /from 4\.22%/);
     const january = formatBuildMonthYear(new Date("2027-01-15T16:00:00Z"));
     assert.equal(january, "Jan 2027");
-    assert.match(lenderSeoTitle("atb", "ATB Financial", january), /\(Jan 2027\)/);
-    assert.doesNotMatch(
-      readFileSync(join(root, "src/lib/lenderSeo.ts"), "utf8"),
-      /Oct 2026/
-    );
-    assert.match(
-      readFileSync(join(root, "src/pages/lenders/[slug].astro"), "utf8"),
-      /formatBuildMonthYear/
-    );
-    for (const slug of ["manulife", "coastcapital", "meridian", "wealthsimple"]) {
+    assert.match(lenderSeoTitle("atb", "ATB Financial", january, undefined, ratesFor("atb")), /\(Jan 2027\)/);
+    assert.doesNotMatch(readFileSync(join(root, "src/lib/lenderSeo.ts"), "utf8"), /Oct 2026/);
+    assert.match(readFileSync(join(root, "src/pages/lenders/[slug].astro"), "utf8"), /formatBuildMonthYear/);
+    for (const slug of ["manulife", "coastcapital", "meridian", "wealthsimple", "butlermortgage", "truenorth"]) {
       const title = lenderSeoTitle(slug, String(asRecord(slug).name), monthYear, undefined, ratesFor(slug));
       assert.ok(title.length <= 60, `${slug} title is ${title.length}: ${title}`);
       assert.match(title, /Mortgage Rates/);
+      assert.match(title, /Today|\(Oct 2026\)/);
       assert.match(title, new RegExp(lowestFiveYear(slug, "fixed").toFixed(2)));
-      assert.match(title, new RegExp(lowestFiveYear(slug, "variable").toFixed(2)));
       const description = lenderSeoDescription({
         slug,
         lenderName: String(asRecord(slug).name),
@@ -80,7 +77,10 @@ describe("GSC near-page-1 lender SEO", () => {
         rates: ratesFor(slug),
       });
       assert.match(description, new RegExp(lowestFiveYear(slug, "fixed").toFixed(2)));
+      assert.match(description, /Updated /);
       assert.doesNotMatch(description, /guaranteed/i);
+      const answer = lenderDirectAnswer(String(asRecord(slug).name), ratesFor(slug));
+      assert.match(answer, new RegExp(lowestFiveYear(slug, "fixed").toFixed(2)));
     }
   });
 
@@ -159,7 +159,7 @@ describe("GSC near-page-1 lender SEO", () => {
 
   it("retitles TD away from the affordability calculator and targets refinance rates", () => {
     const td = asRecord("td");
-    const title = lenderSeoTitle("td", "TD Bank", monthYear);
+    const title = lenderSeoTitle("td", "TD Bank", monthYear, undefined, ratesFor("td"));
     const description = lenderSeoDescription({
       slug: "td",
       lenderName: "TD Bank",
@@ -168,7 +168,7 @@ describe("GSC near-page-1 lender SEO", () => {
     });
     assert.equal(
       title,
-      "TD Mortgage Rates Today – Fixed, Variable & Special Offers (Oct 2026)"
+      `TD Mortgage Rates Today (Oct 2026): 5-Yr Fixed from ${lowestFiveYear("td", "fixed").toFixed(2)}%`,
     );
     assert.doesNotMatch(title, /calculator|affordability/i);
     assert.doesNotMatch(description, /calculator|affordability/i);
@@ -197,10 +197,16 @@ describe("GSC near-page-1 lender SEO", () => {
   });
 
   it("fixes the True North doubled title and drops the guaranteed rate claim", () => {
-    const title = lenderSeoTitle("truenorth", "True North Mortgage", monthYear);
-    assert.equal(title, "True North Mortgage Rates Today – Fixed & Variable vs Big Banks");
+    const title = lenderSeoTitle("truenorth", "True North Mortgage", monthYear, undefined, ratesFor("truenorth"));
+    assert.match(title, /True North Mortgage Rates/);
+    assert.match(title, /5-Yr Fixed from/);
+    assert.ok(title.length <= 60, title);
     assert.equal(hasDoubledWord(title), false);
-    const description = trueNorthDescription(ratesFor("truenorth"));
+    const description = lenderSeoDescription({
+      slug: "truenorth",
+      lenderName: "True North Mortgage",
+      rates: ratesFor("truenorth"),
+    });
     assert.doesNotMatch(description, /guaranteed/i);
     const fiveYearFixed = Math.min(
       ...ratesFor("truenorth")
@@ -220,7 +226,7 @@ describe("GSC near-page-1 lender SEO", () => {
     for (const row of rates) names.set(row.lender_slug, row.lender_name);
     for (const [slug, name] of names) {
       const content = lenderContent[slug] ?? {};
-      const title = lenderSeoTitle(slug, name, monthYear, content.seoTitle as string | undefined);
+      const title = lenderSeoTitle(slug, name, monthYear, content.seoTitle as string | undefined, ratesFor(slug));
       const description = lenderSeoDescription({
         slug,
         lenderName: name,
@@ -286,6 +292,32 @@ describe("GSC near-page-1 lender SEO", () => {
       assert.match(link.href, /^\/lenders\/[a-z]+\/$/);
       assert.match(link.anchor, /mortgage rates/i);
     }
+  });
+
+  it("explains Manulife One from the bank rate page and the scrape", () => {
+    const paragraphs = manulifeOneParagraphs(ratesFor("manulife")).join(" ");
+    assert.match(paragraphs, /all-in-one mortgage/);
+    assert.match(paragraphs, /Base Rate is 5\.20%/);
+    assert.match(paragraphs, /Manulife Bank Prime at 4\.70%/);
+    assert.match(paragraphs, /prime \+ 0\.00%/);
+    assert.match(paragraphs, /Access Line of Credit/);
+    assert.match(paragraphs, /5\.70%/);
+    assert.match(paragraphs, /\/tools\/mortgage-calculator\//);
+    assert.doesNotMatch(paragraphs, /prime \+ 0\.50/i);
+    const questions = lenderSnippetFaqs("manulife", "Manulife Bank", ratesFor("manulife")).map((faq) =>
+      faq.question.toLowerCase(),
+    );
+    assert.ok(questions.some((question) => question.includes("manulife one interest rate")));
+    assert.ok(questions.some((question) => question.includes("line of credit")));
+    assert.ok(questions.some((question) => question.includes("payment calculator")));
+    const butler = lenderSnippetFaqs("butlermortgage", "Butler Mortgage", ratesFor("butlermortgage"));
+    assert.ok(butler.some((faq) => /review/i.test(faq.question)));
+    assert.doesNotMatch(butler.map((faq) => faq.answer).join(" "), /AggregateRating|ratingValue/);
+    const page = readFileSync(join(root, "src/views/lenders/LenderPage.tsx"), "utf8");
+    assert.match(page, /lenderDirectAnswer/);
+    assert.match(page, /manulifeOneParagraphs/);
+    assert.match(page, /lenderSnippetFaqs/);
+    assert.match(page, /FAQSection/);
   });
 
   it("does not emit review or star-rating fields in lender copy", () => {

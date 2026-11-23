@@ -118,10 +118,14 @@ export default function ClosingCostsPage() {
                 <span>Closing Costs Calculator</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Canada Closing Costs Calculator
+                Closing Costs Calculator for Every Province
               </h1>
               <p className="text-xl text-slate-300">
-                Closing costs in Canada are the cash you need on top of the down payment, and the largest piece is usually provincial transfer tax. This calculator applies each province’s formula, including Ontario, Toronto, and B.C. first-time buyer relief, so the total matches the rules below.
+                Estimate closing costs in every Canadian province. The form includes Ontario land transfer tax and Toronto’s municipal land transfer tax, B.C. property transfer tax, and Alberta land title fees, where there is no provincial land transfer tax. The province-by-province notes are in the{" "}
+                <a href="/guides/closing-costs-canada-by-province/" className="text-teal-200 underline hover:text-white">
+                  closing costs by province guide
+                </a>
+                .
               </p>
             </div>
           </div>
