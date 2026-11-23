@@ -60,7 +60,7 @@ export default function CMHCCalculatorPage() {
                 CMHC Mortgage Insurance Calculator
               </h1>
               <p className="text-xl text-slate-300">
-                Default insurance applies when the down payment is under 20% and the price is below $1.5 million. At $1.5 million or more this calculator charges no premium and the minimum down payment is 20%.
+                Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. Default insurance on this calculator applies when the down payment is under 20% and the price is below $1.5 million. At $1.5 million or more it charges no premium and the minimum down payment is 20%.
               </p>
             </div>
           </div>

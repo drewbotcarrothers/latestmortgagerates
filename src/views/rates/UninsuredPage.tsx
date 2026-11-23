@@ -13,6 +13,7 @@ import { publishedRates as ratesData } from "@/lib/publishedRates";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 import DiscoveryLinks from "@/components/DiscoveryLinks";
 import LenderLogo from "@/components/LenderLogo";
+import { INSURED_UNINSURED_EXPLANATION } from "@/lib/mortgageTypeCopy";
 
 
 interface Rate {
@@ -66,7 +67,7 @@ export default function UninsuredRatesPage({ buildDateIso }: { buildDateIso: str
                 Uninsured Mortgage Rates Canada
               </h1>
               <p className="text-xl text-slate-300">
-                Best rates for conventional mortgages with 20% or more down payment. No CMHC insurance required. Compare {new Set(filteredRates.map((r) => r.lender_slug)).size}+ lenders.
+                {INSURED_UNINSURED_EXPLANATION} Compare conventional rates from {new Set(filteredRates.map((r) => r.lender_slug)).size}+ lenders.
               </p>
               <EditorialByline reviewedIso={buildDateIso} sources={RATE_HUB_SOURCES} tone="onDark" />
             </div>
@@ -168,7 +169,7 @@ export default function UninsuredRatesPage({ buildDateIso }: { buildDateIso: str
             faqs={[
               {
                 question: "What is an uninsured (conventional) mortgage?",
-                answer: "An uninsured mortgage requires at least 20% down payment. You don't pay CMHC insurance premiums, and you can amortize up to 30 years instead of 25. These mortgages offer more flexibility for refinancing and accessing home equity.",
+                answer: "Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. You don't pay a CMHC, Sagen, or Canada Guaranty premium on an uninsured mortgage, and you can often amortize up to 30 years. Exactly 20% down is uninsured.",
               },
               {
                 question: "Why are uninsured rates higher than insured rates?",

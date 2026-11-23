@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import GuideCTA from "@/components/GuideCTA";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 import {
   BIG5_SLUGS,
   communityRates,
@@ -95,14 +97,15 @@ export default function RenewalOfferChecker() {
         </div>
         <fieldset>
           <legend className="mb-1 text-sm font-medium text-slate-800">Insured status</legend>
+          <InsuranceStatusNote className="mb-2" />
           <div className="space-y-1 text-sm text-slate-700">
             <label className="flex items-center gap-2">
               <input type="radio" name="insured" checked={insured === "uninsured"} onChange={() => setInsured("uninsured")} />
-              Uninsured (20% or more down)
+              {UNINSURED_SHORT_LABEL}
             </label>
             <label className="flex items-center gap-2">
               <input type="radio" name="insured" checked={insured === "insured"} onChange={() => setInsured("insured")} />
-              Insured (less than 20% down)
+              {INSURED_SHORT_LABEL}
             </label>
             <label className="flex items-center gap-2">
               <input type="radio" name="insured" checked={insured === "all"} onChange={() => setInsured("all")} />

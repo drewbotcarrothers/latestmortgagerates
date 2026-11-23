@@ -3,6 +3,7 @@ import { seriesChartSvg } from "@/lib/seriesChart";
 import { formatLongDate, formatPct } from "@/lib/dataFormat";
 import { BIG6, primeAnnouncements, primeFileFacts, type PrimeRateRow } from "@/lib/primeData";
 import { publishedRates } from "@/lib/publishedRates";
+import { INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 import type { PolicySeries } from "@/lib/loadMarketSeries";
 
 function money(value: number | null): string {
@@ -85,7 +86,7 @@ export default function PrimeRatePage({ policy }: { policy: PolicySeries }) {
         </div>
         {facts.tdVariablePosted != null ? (
           <p className="mt-3 text-sm text-slate-600">
-            TD's uninsured 5-year variable row in the same file stores a posted rate of {money(facts.tdVariablePosted)}.
+            {INSURED_UNINSURED_EXPLANATION} TD's {UNINSURED_SHORT_LABEL} 5-year variable row in the same file stores a posted rate of {money(facts.tdVariablePosted)}.
             The site config describes that as TD's separate mortgage prime, last checked against RBC's prime page on the date in the source note below.
             It is not a new scrape of a TD prime page.
           </p>

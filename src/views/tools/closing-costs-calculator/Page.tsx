@@ -6,6 +6,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import CalculatorRelatedTools from "@/components/CalculatorRelatedTools";
 import FAQSection from "@/components/FAQSection";
 import CalculatorGuide from "@/components/CalculatorGuide";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 import { closingCostExample, closingCostsGuide, ONTARIO_FTB_MAX_REBATE, TORONTO_MLTT_MAX_REBATE } from "@/content/calculatorGuides";
 import { closingProvinceGuide } from "@/content/toolExplainers";
 import GuideCTA from "@/components/GuideCTA";
@@ -330,12 +331,12 @@ export default function ClosingCostsPage() {
                   </li>
                   <li>
                     <a href="/rates/insured/" className="text-teal-600 hover:underline font-medium">
-                      Insured mortgage rates
+                      {INSURED_SHORT_LABEL}
                     </a>
                   </li>
                   <li>
                     <a href="/rates/uninsured/" className="text-teal-600 hover:underline font-medium">
-                      Uninsured mortgage rates
+                      {UNINSURED_SHORT_LABEL}
                     </a>
                   </li>
                   <li>

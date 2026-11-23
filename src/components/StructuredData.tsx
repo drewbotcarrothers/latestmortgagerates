@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { lenderCountLabel } from "@/lib/lenderCount";
 import { HOME_TITLE } from "@/lib/homeMeta";
 import { BOC_POLICY_RATE, PRIME_RATE } from "@/lib/primeRate";
+import { INSURED_UNINSURED_EXPLANATION } from "@/lib/mortgageTypeCopy";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 
 interface Rate {
@@ -171,7 +172,7 @@ export default function StructuredData({ rates, lastUpdated, pathname = "/" }: S
           name: "Should I choose an insured or uninsured mortgage?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Insured mortgages (with less than 20% down payment) typically offer rates 0.2% to 0.5% lower than uninsured mortgages but require mortgage insurance premiums of 0.6% to 4% of the loan amount through CMHC, Sagen, or Canada Guaranty. Uninsured mortgages (with 20% or more down payment) have slightly higher rates but no insurance premiums. For most buyers with less than 20% down, insured is the only option. With 20%+, calculate whether the lower rate justifies the insurance cost.",
+            text: `${INSURED_UNINSURED_EXPLANATION} Insured rates are often 0.2% to 0.5% lower, and the premium is usually 0.6% to 4% of the loan. Exactly 20% down is uninsured. With 20% or more down, compare that higher contract rate with the premium you would skip.`,
           },
         },
         {

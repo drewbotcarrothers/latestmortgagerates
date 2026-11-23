@@ -1,3 +1,4 @@
+import { INSURED_SHORT_LABEL, INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "../lib/mortgageTypeCopy";
 import { PRIME_RATE, PRIME_SPREAD, BOC_POLICY_RATE } from "../lib/primeRate";
 
 export interface GlossaryTerm {
@@ -23,7 +24,7 @@ export const relatedToolsMap: Record<string, { href: string; label: string }[]> 
   ],
   "conventional-mortgage": [
     { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
-    { href: "/rates/uninsured/", label: "Compare Uninsured Rates" },
+    { href: "/rates/uninsured/", label: UNINSURED_SHORT_LABEL },
   ],
   "down-payment": [
     { href: "/tools/affordability-calculator/", label: "Affordability Calculator" },
@@ -45,7 +46,15 @@ export const relatedToolsMap: Record<string, { href: string; label: string }[]> 
   ],
   "high-ratio-mortgage": [
     { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
-    { href: "/rates/insured/", label: "Compare Insured Rates" },
+    { href: "/rates/insured/", label: INSURED_SHORT_LABEL },
+  ],
+  "insured-mortgage": [
+    { href: "/rates/insured/", label: INSURED_SHORT_LABEL },
+    { href: "/tools/cmhc-insurance-calculator/", label: "CMHC Calculator" },
+  ],
+  "uninsured-mortgage": [
+    { href: "/rates/uninsured/", label: UNINSURED_SHORT_LABEL },
+    { href: "/compare/insured-vs-uninsured/", label: "Insured vs Uninsured" },
   ],
   "land-transfer-tax": [
     { href: "/tools/land-transfer-tax-calculator/", label: "Land Transfer Tax Calculator" },
@@ -145,13 +154,13 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "CMHC Insurance",
     slug: "cmhc-insurance",
     category: "Insurance",
-    definition: "Canada Mortgage and Housing Corporation insurance (or similar from Sagen or Canada Guaranty) required when your down payment is less than 20%. Premiums range from 0.6% to 4% of the mortgage amount and protect the lender if you default.",
+    definition: "Canada Mortgage and Housing Corporation insurance, or the same kind of coverage from Sagen or Canada Guaranty, required when your down payment is under 20%. Premiums range from 0.6% to 4% of the mortgage amount and protect the lender if you default. A down payment of exactly 20% does not require it.",
   },
   {
     term: "Conventional Mortgage",
     slug: "conventional-mortgage",
     category: "Mortgage Types",
-    definition: "A mortgage with at least 20% down payment that doesn't require CMHC insurance. Also called an uninsured mortgage. You can amortize up to 30 years and have more refinancing flexibility.",
+    definition: "A mortgage with 20% or more down. Exactly 20% counts. It does not require default insurance from CMHC, Sagen, or Canada Guaranty. Also called an uninsured mortgage. Amortization can run longer than on an insured mortgage, and refinancing is more flexible.",
   },
   {
     term: "Debt Service Ratios",
@@ -193,13 +202,19 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "High-Ratio Mortgage",
     slug: "high-ratio-mortgage",
     category: "Mortgage Types",
-    definition: "A mortgage with less than 20% down payment that requires mortgage default insurance (CMHC/Sagen/Canada Guaranty). These mortgages typically have slightly better interest rates but include insurance premiums.",
+    definition: "A mortgage with a down payment under 20% that requires mortgage default insurance from CMHC, Sagen, or Canada Guaranty. Also called an insured mortgage. The contract rate is often slightly lower, and the premium is usually added to the loan.",
   },
   {
     term: "Home Buyers' Plan (HBP)",
     slug: "home-buyers-plan",
     category: "Programs",
     definition: "A program allowing first-time buyers to withdraw up to $60,000 ($120,000 for couples) from their RRSP to buy a home. The amount must be repaid over 15 years, starting the second year after withdrawal.",
+  },
+  {
+    term: "Insured Mortgage",
+    slug: "insured-mortgage",
+    category: "Mortgage Types",
+    definition: `${INSURED_UNINSURED_EXPLANATION} Exactly 20% down is uninsured, not insured. The premium is paid to CMHC, Sagen, or Canada Guaranty and is usually added to the mortgage.`,
   },
   {
     term: "Interest Rate Differential (IRD)",
@@ -338,6 +353,12 @@ export const glossaryTerms: GlossaryTerm[] = [
     slug: "title-insurance",
     category: "Insurance",
     definition: "Insurance that protects against title defects, fraud, and ownership disputes. Required by most lenders in Canada. A one-time premium (~$250-$400) covers you for as long as you own the property.",
+  },
+  {
+    term: "Uninsured Mortgage",
+    slug: "uninsured-mortgage",
+    category: "Mortgage Types",
+    definition: `${INSURED_UNINSURED_EXPLANATION} Exactly 20% down is uninsured. A refinance is usually uninsured as well. There is no borrower-paid default-insurance premium.`,
   },
   {
     term: "Variable Rate Mortgage",

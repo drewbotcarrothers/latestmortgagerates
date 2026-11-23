@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import FAQSection from "@/components/FAQSection";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL, productWithMortgageLabel } from "@/lib/mortgageTypeCopy";
 import RateHubLinks from "@/components/RateHubLinks";
 import CompareLinks from "@/components/CompareLinks";
 import GuideCTA from "@/components/GuideCTA";
@@ -66,25 +68,25 @@ export default function ComparePage({ slug }: { slug: string }) {
   const lenderRows = isLender
     ? [
         {
-          label: "5-year fixed insured",
+          label: productWithMortgageLabel("5-year fixed", "insured"),
           left: ctx.leftLender?.fixed5Insured ?? null,
           right: ctx.rightLender?.fixed5Insured ?? null,
           hub: "/rates/insured/",
         },
         {
-          label: "5-year fixed uninsured",
+          label: productWithMortgageLabel("5-year fixed", "uninsured"),
           left: ctx.leftLender?.fixed5Uninsured ?? null,
           right: ctx.rightLender?.fixed5Uninsured ?? null,
           hub: "/rates/uninsured/",
         },
         {
-          label: "5-year variable insured",
+          label: productWithMortgageLabel("5-year variable", "insured"),
           left: ctx.leftLender?.variable5Insured ?? null,
           right: ctx.rightLender?.variable5Insured ?? null,
           hub: "/rates/variable/",
         },
         {
-          label: "5-year variable uninsured",
+          label: productWithMortgageLabel("5-year variable", "uninsured"),
           left: ctx.leftLender?.variable5Uninsured ?? null,
           right: ctx.rightLender?.variable5Uninsured ?? null,
           hub: "/rates/variable/",
@@ -135,6 +137,7 @@ export default function ComparePage({ slug }: { slug: string }) {
             Percentages below are live from our daily lender feed. A dash means that product is not in today&apos;s
             scrape — we do not invent a current rate. Always confirm with the lender.
           </p>
+          {page.slug === "insured-vs-uninsured" ? null : <InsuranceStatusNote className="mb-6" />}
 
           {slug === "td-vs-rbc" && ctx.leftLender && ctx.rightLender && (
             <div className="bg-white border border-slate-200 rounded-xl p-5 mb-6">
@@ -228,22 +231,22 @@ export default function ComparePage({ slug }: { slug: string }) {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               <ProductRateCard
-                label="Best 5-year fixed insured"
+                label={productWithMortgageLabel("Best 5-year fixed", "insured")}
                 pick={ctx.bestFixed5Insured}
                 href="/rates/5-year-fixed/"
               />
               <ProductRateCard
-                label="Best 5-year fixed uninsured"
+                label={productWithMortgageLabel("Best 5-year fixed", "uninsured")}
                 pick={ctx.bestFixed5Uninsured}
                 href="/rates/5-year-fixed/"
               />
               <ProductRateCard
-                label="Best 5-year variable insured"
+                label={productWithMortgageLabel("Best 5-year variable", "insured")}
                 pick={ctx.bestVariable5Insured}
                 href="/rates/variable/"
               />
               <ProductRateCard
-                label="Best 5-year variable uninsured"
+                label={productWithMortgageLabel("Best 5-year variable", "uninsured")}
                 pick={ctx.bestVariable5Uninsured}
                 href="/rates/variable/"
               />
@@ -388,12 +391,12 @@ export default function ComparePage({ slug }: { slug: string }) {
               </li>
               <li>
                 <a href="/rates/insured/" className="text-teal-600 hover:underline font-medium text-sm">
-                  Insured rates
+                  {INSURED_SHORT_LABEL}
                 </a>
               </li>
               <li>
                 <a href="/rates/uninsured/" className="text-teal-600 hover:underline font-medium text-sm">
-                  Uninsured rates
+                  {UNINSURED_SHORT_LABEL}
                 </a>
               </li>
             </ul>

@@ -1,3 +1,5 @@
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "./mortgageTypeCopy";
+
 export interface SiteLink {
   href: string;
   title: string;
@@ -89,13 +91,13 @@ export const RATE_HUBS: SiteLink[] = [
   },
   {
     href: "/rates/insured/",
-    title: "Insured Rates",
-    description: "High-ratio rates with under 20% down",
+    title: INSURED_SHORT_LABEL,
+    description: "Under 20% down, with CMHC, Sagen, or Canada Guaranty insurance",
   },
   {
     href: "/rates/uninsured/",
-    title: "Uninsured Rates",
-    description: "Conventional rates with 20%+ down",
+    title: UNINSURED_SHORT_LABEL,
+    description: "20% or more down, or a refinance, with no default-insurance premium",
   },
 ];
 
@@ -137,7 +139,7 @@ export const COMPARE_PAGES: SiteLink[] = [
   {
     href: "/compare/insured-vs-uninsured/",
     title: "Insured vs Uninsured",
-    description: "High-ratio premiums versus conventional rates",
+    description: "Under 20% down with default insurance, versus 20% or more down",
   },
   {
     href: "/compare/wealthsimple-vs-td/",

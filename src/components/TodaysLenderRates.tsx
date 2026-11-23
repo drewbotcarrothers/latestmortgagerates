@@ -1,4 +1,5 @@
 import { formatBuildDateLong } from "@/lib/buildDate";
+import { INSURED_SHORT_LABEL, INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 import {
   buildTodayRows,
   formatCell,
@@ -34,8 +35,8 @@ export default function TodaysLenderRates({ lenderName, rates, buildDateIso }: T
           <thead className="bg-slate-50">
             <tr>
               <th className="px-4 py-3 text-left font-medium text-slate-500">Product</th>
-              <th className="px-4 py-3 text-left font-medium text-slate-500">Insured</th>
-              <th className="px-4 py-3 text-left font-medium text-slate-500">Uninsured</th>
+              <th className="px-4 py-3 text-left font-medium text-slate-500" title={INSURED_UNINSURED_EXPLANATION}>{INSURED_SHORT_LABEL}</th>
+              <th className="px-4 py-3 text-left font-medium text-slate-500" title={INSURED_UNINSURED_EXPLANATION}>{UNINSURED_SHORT_LABEL}</th>
               <th className="px-4 py-3 text-left font-medium text-slate-500">Posted</th>
               <th className="px-4 py-3 text-left font-medium text-slate-500">Posted vs discounted</th>
             </tr>

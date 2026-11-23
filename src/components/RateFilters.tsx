@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 interface FilterState {
   term: string;
@@ -143,8 +144,8 @@ export default function RateFilters({ onFilterChange, lenders }: RateFiltersProp
                 className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
               >
                 <option value="all">All Types</option>
-                <option value="insured">Insured (≤20% down)</option>
-                <option value="uninsured">Uninsured (&gt;20% down)</option>
+                <option value="insured">{INSURED_SHORT_LABEL}</option>
+                <option value="uninsured">{UNINSURED_SHORT_LABEL}</option>
               </select>
             </div>
 

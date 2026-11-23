@@ -12,6 +12,7 @@ import CommunityCallout from "@/components/community/CommunityCallout";
 import { publishedRates as ratesData } from "@/lib/publishedRates";
 import DiscoveryLinks from "@/components/DiscoveryLinks";
 import LenderLogo from "@/components/LenderLogo";
+import { INSURED_UNINSURED_EXPLANATION } from "@/lib/mortgageTypeCopy";
 
 
 interface Rate {
@@ -63,7 +64,7 @@ export default function InsuredRatesPage({ buildDateIso }: { buildDateIso: strin
                 Insured Mortgage Rates Canada
               </h1>
               <p className="text-xl text-slate-300">
-                Best rates for mortgages with less than 20% down payment. Compare high-ratio and CMHC-insured rates from {new Set(filteredRates.map((r) => r.lender_slug)).size}+ lenders.
+                {INSURED_UNINSURED_EXPLANATION} Compare high-ratio rates from {new Set(filteredRates.map((r) => r.lender_slug)).size}+ lenders.
               </p>
               <EditorialByline reviewedIso={buildDateIso} sources={RATE_HUB_SOURCES} tone="onDark" />
             </div>
@@ -165,7 +166,7 @@ export default function InsuredRatesPage({ buildDateIso }: { buildDateIso: strin
             faqs={[
               {
                 question: "What is an insured mortgage?",
-                answer: "An insured mortgage (also called high-ratio) is required when your down payment is less than 20% of the purchase price. You pay mortgage default insurance (CMHC, Sagen, or Canada Guaranty) to protect the lender. The insurance premium is typically added to your mortgage balance.",
+                answer: "Uninsured mortgages are for buyers putting 20% or more down (or refinancing); insured mortgages have under 20% down and require mortgage default insurance. An insured mortgage (also called high-ratio) is that second case. You pay the premium to CMHC, Sagen, or Canada Guaranty, and it is typically added to your mortgage balance. Exactly 20% down is uninsured.",
               },
               {
                 question: "Why are insured rates lower than uninsured rates?",

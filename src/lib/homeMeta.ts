@@ -29,4 +29,4 @@ export const HOME_TITLE = lowestHeadline
   ? `Best Mortgage Rates in Canada from ${pct(lowestHeadline)}`
   : `Compare Mortgage Rates in Canada: ${lenderCountLabel} Lenders, Updated Daily`;
 
-export const HOME_DESCRIPTION = `Today's lowest insured 5-year variable is ${pct(HOME_INSURED_FIVE_YEAR_VARIABLE)} and the lowest insured 5-year fixed is ${pct(HOME_INSURED_FIVE_YEAR_FIXED)}, from ${lenderCountLabel} Canadian lenders, updated daily.`;
+export const HOME_DESCRIPTION = `Today's lowest insured 5-year variable is ${pct(HOME_INSURED_FIVE_YEAR_VARIABLE)} and the lowest insured 5-year fixed is ${pct(HOME_INSURED_FIVE_YEAR_FIXED)}, from ${lenderCountLabel} Canadian lenders, updated daily. Insured means under 20% down; uninsured means 20% or more down.`;

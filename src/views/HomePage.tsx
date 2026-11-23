@@ -19,6 +19,7 @@ import AdUnit from "@/components/AdUnit";
 import DiscoveryLinks from "@/components/DiscoveryLinks";
 import StrikingDistanceLenderLinks from "@/components/StrikingDistanceLenderLinks";
 import RateAnswer from "@/components/RateAnswer";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 interface FilterState {
   term: string;
@@ -150,8 +151,8 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
             <h1 className="text-lg font-medium text-slate-200 tracking-wide uppercase">Today's Best Mortgage Rates in Canada</h1>
             <p className="text-sm text-slate-300 mt-1 md:mt-0 md:text-right">
-              Insured 5-year fixed from {marketStats.fixedInsured ? `${marketStats.fixedInsured.lowest.rate.toFixed(2)}%` : "the table"}.
-              Insured 5-year variable from {marketStats.variableInsured ? `${marketStats.variableInsured.lowest.rate.toFixed(2)}%` : "the table"}.
+              {INSURED_SHORT_LABEL} 5-year fixed from {marketStats.fixedInsured ? `${marketStats.fixedInsured.lowest.rate.toFixed(2)}%` : "the table"}.
+              {INSURED_SHORT_LABEL} 5-year variable from {marketStats.variableInsured ? `${marketStats.variableInsured.lowest.rate.toFixed(2)}%` : "the table"}.
             </p>
           </div>
           <RateHubLinks variant="pills" showToolsIndex className="mb-6" />
@@ -164,7 +165,7 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                   <a href="/rates/5-year-fixed/" className="hover:text-white transition">5-Year Fixed</a>
                 </h3>
-                <a href="/rates/insured/" className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded hover:bg-emerald-500/30">Insured</a>
+                <a href="/rates/insured/" className="text-xs text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded hover:bg-emerald-500/30">{INSURED_SHORT_LABEL}</a>
               </div>
               {marketStats.fixedInsured?.top3.length ? (
                 <div className="space-y-2">
@@ -196,7 +197,7 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                   <a href="/rates/5-year-fixed/" className="hover:text-white transition">5-Year Fixed</a>
                 </h3>
-                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">Uninsured</a>
+                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">{UNINSURED_SHORT_LABEL}</a>
               </div>
               {marketStats.fixedUninsured?.top3.length ? (
                 <div className="space-y-2">
@@ -228,7 +229,7 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
                   <a href="/rates/variable/" className="hover:text-white transition">5-Year Variable</a>
                 </h3>
-                <a href="/rates/insured/" className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded hover:bg-teal-500/30">Insured</a>
+                <a href="/rates/insured/" className="text-xs text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded hover:bg-teal-500/30">{INSURED_SHORT_LABEL}</a>
               </div>
               {marketStats.variableInsured?.top3.length ? (
                 <div className="space-y-2">
@@ -260,7 +261,7 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-teal-400"></span>
                   <a href="/rates/variable/" className="hover:text-white transition">5-Year Variable</a>
                 </h3>
-                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">Uninsured</a>
+                <a href="/rates/uninsured/" className="text-xs text-slate-300 bg-slate-500/20 px-2 py-0.5 rounded hover:bg-slate-500/30">{UNINSURED_SHORT_LABEL}</a>
               </div>
               {marketStats.variableUninsured?.top3.length ? (
                 <div className="space-y-2">
@@ -309,7 +310,7 @@ export default function Home() {
           lastUpdated={metadata.last_updated}
           termLabel={filters.term === "all" ? "All Terms" : `${parseInt(filters.term) / 12}-Year`}
           rateTypeLabel={filters.rateType === "all" ? "Fixed & Variable" : filters.rateType === "fixed" ? "Fixed" : "Variable"}
-          mortgageTypeLabel={filters.mortgageType === "all" ? "Insured & Uninsured" : filters.mortgageType === "insured" ? "Insured" : "Uninsured"}
+          mortgageTypeLabel={filters.mortgageType === "all" ? `${INSURED_SHORT_LABEL} & ${UNINSURED_SHORT_LABEL}` : filters.mortgageType === "insured" ? INSURED_SHORT_LABEL : UNINSURED_SHORT_LABEL}
         />
 
         <RateHubLinks className="mt-8" />

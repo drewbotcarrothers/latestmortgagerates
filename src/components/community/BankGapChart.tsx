@@ -74,7 +74,7 @@ export default function BankGapChart({
     <figure>
       <figcaption className="mb-3 text-sm text-slate-600">
         {caption ??
-          `The bank's own posted rate (uninsured product in the current snapshot) versus the median rate ${communityRates.attribution} from that bank. All insured statuses are combined.`}
+          `The bank's own posted rate (Uninsured (20%+ down) in the current snapshot) versus the median rate ${communityRates.attribution} from that bank. All insured statuses are combined.`}
       </figcaption>
       <ul className="mb-4 flex flex-wrap gap-4 text-xs font-medium text-slate-700" aria-hidden="true">
         <li className="flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-full" style={{ background: TEAL }} /> Reported median</li>

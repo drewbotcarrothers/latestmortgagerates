@@ -10,6 +10,7 @@ import {
 } from "@/lib/breakCosts";
 import { formatCad, formatLongDate, formatPct } from "@/lib/dataFormat";
 import { publishedRates } from "@/lib/publishedRates";
+import { INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export default function BreakCostsPage() {
   const examples = buildBreakExamples(publishedRates);
@@ -28,7 +29,7 @@ export default function BreakCostsPage() {
       <section>
         <h2 className="text-2xl font-bold text-slate-900">Illustrative posted-rate IRD</h2>
         <p className="mt-3">
-          Same balance, same remaining term, each bank's own uninsured rates from the rate file.
+          {INSURED_UNINSURED_EXPLANATION} Same balance, same remaining term, each bank's own {UNINSURED_SHORT_LABEL} rates from the rate file.
           A blank interest-rate differential means the file does not have both posted shelves the formula needs.
           The figure is an illustration, not a payout quote.
         </p>
@@ -84,7 +85,7 @@ export default function BreakCostsPage() {
         <h2 className="text-2xl font-bold text-slate-900">Assumptions</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5">
           <li>Balance {formatCad(BREAK_BALANCE)}, with {BREAK_MONTHS} months left on a 5-year fixed.</li>
-          <li>The contract rate is that bank's current uninsured 5-year fixed special in the rate file.</li>
+          <li>The contract rate is that bank's current {UNINSURED_SHORT_LABEL} 5-year fixed special in the rate file.</li>
           <li>The original discount is assumed to equal today's posted-minus-special gap. The funding-day posted rate is not in the file.</li>
           <li>The comparison posted rate is the current 3-year posted rate. Thirty-six months is an exact 3-year term, so the remainder is not rounded to a neighbouring term.</li>
           <li>The charge shown is the greater of that posted-rate IRD and three months' interest on the balance. Administration and discharge fees are excluded.</li>

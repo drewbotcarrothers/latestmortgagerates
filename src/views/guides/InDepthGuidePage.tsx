@@ -11,6 +11,8 @@ import EditorialByline from "@/components/EditorialByline";
 import EditorialSections from "@/components/EditorialSections";
 import JsonLd from "@/components/JsonLd";
 import { guideBySlug } from "@/content/inDepthGuides";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_UNINSURED_EXPLANATION, mentionsInsuredOrUninsured } from "@/lib/mortgageTypeCopy";
 import { articleJsonLd, guideDates } from "@/lib/articleSchema";
 
 export default function InDepthGuidePage({ slug }: { slug: string }) {
@@ -67,6 +69,10 @@ export default function InDepthGuidePage({ slug }: { slug: string }) {
           </section>
 
           <div className="mx-auto max-w-3xl space-y-8 px-4 py-8">
+            {mentionsInsuredOrUninsured(JSON.stringify(guide.sections)) &&
+            !JSON.stringify(guide.sections).includes(INSURED_UNINSURED_EXPLANATION) ? (
+              <InsuranceStatusNote />
+            ) : null}
             <EditorialSections sections={guide.sections} />
             <AdUnit format="display" />
             {guideHasInlineTeaser(slug) ? <GuideInlineTeaser slug={slug} /> : null}

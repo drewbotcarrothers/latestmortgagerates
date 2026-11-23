@@ -6,6 +6,8 @@ import {
   type LenderRate,
   type OverviewRow,
 } from "@/lib/lenderOverview";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
+import InsuranceStatusNote from "./InsuranceStatusNote";
 
 function RateCell({
   rate,
@@ -63,6 +65,7 @@ export default function LenderRateOverview({ rates }: { rates: readonly LenderRa
           <div>
             <h2 className="text-xl font-bold text-slate-800">Rate Overview</h2>
             <p className="text-slate-500 text-sm mt-1">Best rate for each term and product type</p>
+            <InsuranceStatusNote className="mt-2" />
           </div>
           <div className="hidden sm:flex items-center gap-4 text-xs text-slate-500">
             <span className="flex items-center gap-1">
@@ -80,13 +83,13 @@ export default function LenderRateOverview({ rates }: { rates: readonly LenderRa
           <thead>
             <tr className="bg-slate-50">
               <th className="text-left px-6 py-3 font-semibold text-slate-700">Term</th>
-              <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed Insured</th>
-              <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed Uninsured</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed {INSURED_SHORT_LABEL}</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed {UNINSURED_SHORT_LABEL}</th>
               {showFixedUnstated ? (
                 <th className="text-center px-4 py-3 font-semibold text-slate-700">Fixed (not stated)</th>
               ) : null}
-              <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable Insured</th>
-              <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable Uninsured</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable {INSURED_SHORT_LABEL}</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable {UNINSURED_SHORT_LABEL}</th>
               {showVariableUnstated ? (
                 <th className="text-center px-4 py-3 font-semibold text-slate-700">Variable (not stated)</th>
               ) : null}

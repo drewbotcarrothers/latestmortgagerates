@@ -1,5 +1,6 @@
 "use client";
 
+import { productWithMortgageLabel } from "@/lib/mortgageTypeCopy";
 import { countsTowardUninsuredHeadline } from "@/lib/uninsuredHeadline";
 
 interface Rate {
@@ -36,7 +37,7 @@ export default function RateStats({ rates }: RateStatsProps) {
     },
     fixed5yrInsured: {
       rates: rates.filter(r => r.term_months === 60 && r.rate_type === "fixed" && r.mortgage_type === "insured"),
-      label: "5-Year Fixed (Insured)",
+      label: productWithMortgageLabel("5-Year Fixed", "insured"),
       icon: TrendingDownIcon,
       color: "teal",
     },

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { INSURED_UNINSURED_EXPLANATION, mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
+import InsuranceStatusNote from "./InsuranceStatusNote";
 import LenderLogo from "./LenderLogo";
 
 interface Rate {
@@ -93,9 +95,12 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
       insured: "bg-amber-50 text-amber-700 border-amber-200",
       uninsured: "bg-slate-50 text-slate-600 border-slate-200",
     };
-    const label = type === "insured" ? "Insured" : type === "uninsured" ? "Uninsured" : "Not stated";
+    const label = mortgageTypeShortLabel(type);
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type || ""] || "bg-amber-50 text-amber-800 border-amber-200"}`}>
+      <span
+        title={type === "insured" || type === "uninsured" ? INSURED_UNINSURED_EXPLANATION : undefined}
+        className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type || ""] || "bg-amber-50 text-amber-800 border-amber-200"}`}
+      >
         {label}
       </span>
     );
@@ -111,6 +116,9 @@ export default function RateComparisonTable({ rates }: RateComparisonTableProps)
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
+        <caption className="px-4 py-3 text-left">
+          <InsuranceStatusNote />
+        </caption>
         <thead>
           <tr className="bg-slate-50 border-b border-slate-200">
             <th className="text-left py-4 px-4 font-semibold text-slate-700 text-sm">

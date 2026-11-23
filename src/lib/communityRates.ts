@@ -1,4 +1,5 @@
 import { calculateMonthlyPayment } from "./mortgageMath";
+import { INSURED_SHORT_LABEL, INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "./mortgageTypeCopy";
 import communityData from "../data/community-rates.json";
 
 export const PUBLIC_MIN_N = 10;
@@ -111,8 +112,8 @@ export const BIG5_SLUGS = ["td", "rbc", "cibc", "bmo", "scotiabank"] as const;
 const INSURED_LABEL: Record<string, string> = {
   all: "all insured statuses",
   unknown: "insured status not stated",
-  insured: "insured",
-  uninsured: "uninsured",
+  insured: INSURED_SHORT_LABEL,
+  uninsured: UNINSURED_SHORT_LABEL,
   insurable: "insurable",
 };
 
@@ -596,8 +597,12 @@ export function buildFaqs(): FaqItem[] {
         : "We publish a bank gap only when at least 10 people report a rate from that bank for the same term and type, and the snapshot includes that bank's posted rate.",
     },
     {
+      question: "What do insured and uninsured mean on these tables?",
+      answer: INSURED_UNINSURED_EXPLANATION,
+    },
+    {
       question: "Why do some products show no number?",
-      answer: `A public cell is shown only when N is at least ${PUBLIC_MIN_N}. Charts may include a cell with ${CHART_MIN_N} to ${PUBLIC_MIN_N - 1} reports when the label says the sample is small. Insured status is often unstated, so many reports sit in a separate "insured status not stated" row instead of the insured or uninsured row.`,
+      answer: `A public cell is shown only when N is at least ${PUBLIC_MIN_N}. Charts may include a cell with ${CHART_MIN_N} to ${PUBLIC_MIN_N - 1} reports when the label says the sample is small. Insured status is often unstated, so many reports sit in a separate "insured status not stated" row instead of the ${INSURED_SHORT_LABEL} or ${UNINSURED_SHORT_LABEL} row.`,
     },
     {
       question: "Are these community rates a rate offer?",

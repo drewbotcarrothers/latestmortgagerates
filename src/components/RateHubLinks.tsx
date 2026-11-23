@@ -12,7 +12,7 @@ interface RateHubLinksProps {
 export default function RateHubLinks({
   currentHref,
   title = "Compare rates by type",
-  description = "Jump to today’s 5-year fixed, variable, insured, and uninsured mortgage rates.",
+  description = "Jump to today’s 5-year fixed and variable rates. Insured means under 20% down; uninsured means 20% or more down.",
   variant = "cards",
   showToolsIndex = false,
   className = "",

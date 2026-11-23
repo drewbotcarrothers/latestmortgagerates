@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { productWithMortgageLabel } from "@/lib/mortgageTypeCopy";
 
 interface RateDrop {
   product: string;
@@ -35,10 +36,10 @@ function detectRateDrops(
   const threshold = 0.05;
 
   const products: { key: keyof HistoricalEntry; label: string }[] = [
-    { key: "fixed_uninsured_best_rate", label: "5-Year Fixed (Uninsured)" },
-    { key: "fixed_insured_best_rate", label: "5-Year Fixed (Insured)" },
-    { key: "variable_uninsured_best_rate", label: "5-Year Variable (Uninsured)" },
-    { key: "variable_insured_best_rate", label: "5-Year Variable (Insured)" },
+    { key: "fixed_uninsured_best_rate", label: productWithMortgageLabel("5-Year Fixed", "uninsured") },
+    { key: "fixed_insured_best_rate", label: productWithMortgageLabel("5-Year Fixed", "insured") },
+    { key: "variable_uninsured_best_rate", label: productWithMortgageLabel("5-Year Variable", "uninsured") },
+    { key: "variable_insured_best_rate", label: productWithMortgageLabel("5-Year Variable", "insured") },
   ];
 
   for (const { key, label } of products) {

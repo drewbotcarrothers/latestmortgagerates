@@ -1,4 +1,5 @@
 import { lenderCountLabel } from "../lib/lenderCount";
+import { INSURED_SHORT_LABEL, INSURED_UNINSURED_EXPLANATION, UNINSURED_SHORT_LABEL } from "../lib/mortgageTypeCopy";
 
 export type CompareKind = "product" | "lender";
 
@@ -183,9 +184,9 @@ export const COMPARISONS: ComparisonPage[] = [
     keywords:
       "insured vs uninsured mortgage Canada, high ratio vs conventional, CMHC insured mortgage rates, uninsured mortgage rates, 20 percent down",
     intro:
-      "Insured (high-ratio) mortgages are for purchases with less than 20% down, up to the current federal price cap. You pay default insurance (CMHC, Sagen, or Canada Guaranty), and lenders often price those files cheaper because the insurer takes default risk. Uninsured (conventional) mortgages are for 20%+ down, or for purchases that cannot be insured. The premium can outweigh a lower insured rate — run the numbers with live rates, not a remembered spread from last year.",
+      `${INSURED_UNINSURED_EXPLANATION} Insured (high-ratio) mortgages are for purchases with under 20% down, up to the current federal price cap. You pay default insurance (CMHC, Sagen, or Canada Guaranty), and lenders often price those files cheaper because the insurer takes default risk. Uninsured (conventional) mortgages are for 20% or more down, or for purchases that cannot be insured. The premium can outweigh a lower insured rate — run the numbers with live rates, not a remembered spread from last year.`,
     left: {
-      name: "Insured (high-ratio)",
+      name: INSURED_SHORT_LABEL,
       shortName: "Insured",
       href: "/rates/insured/",
       summary:
@@ -208,7 +209,7 @@ export const COMPARISONS: ComparisonPage[] = [
       ],
     },
     right: {
-      name: "Uninsured (conventional)",
+      name: UNINSURED_SHORT_LABEL,
       shortName: "Uninsured",
       href: "/rates/uninsured/",
       summary:
@@ -252,7 +253,7 @@ export const COMPARISONS: ComparisonPage[] = [
       {
         question: "What is the difference between an insured and uninsured mortgage in Canada?",
         answer:
-          "Insured (high-ratio) mortgages require default insurance because the down payment is under 20% on an eligible purchase. Uninsured (conventional) mortgages have 20%+ down or cannot be insured. Insured specials often price lower; uninsured files skip the insurance premium.",
+          `${INSURED_UNINSURED_EXPLANATION} Insured specials often price lower; uninsured files skip the insurance premium. Exactly 20% down is uninsured.`,
       },
       {
         question: "What are today's best insured and uninsured 5-year fixed rates?",

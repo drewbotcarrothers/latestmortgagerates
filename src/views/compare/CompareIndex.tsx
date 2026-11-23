@@ -15,6 +15,8 @@ import {
   lenderComparisons,
   productComparisons,
 } from "@/lib/compare";
+import InsuranceStatusNote from "@/components/InsuranceStatusNote";
+import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export default function CompareIndex() {
   const rates = ratesData as MortgageRate[];
@@ -53,6 +55,7 @@ export default function CompareIndex() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <InsuranceStatusNote className="mb-6" />
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-slate-900 mb-2">Product comparisons</h2>
             <p className="text-slate-600 mb-4">
@@ -88,7 +91,7 @@ export default function CompareIndex() {
                     </h3>
                     <p className="text-slate-600 text-sm mb-4">{page.intro.slice(0, 180)}…</p>
                     <p className="text-sm text-teal-700 font-medium">
-                      Live 5-year fixed: insured {formatPct(ctx.bestFixed5Insured)} · uninsured{" "}
+                      Live 5-year fixed: {INSURED_SHORT_LABEL} {formatPct(ctx.bestFixed5Insured)} · {UNINSURED_SHORT_LABEL}{" "}
                       {formatPct(ctx.bestFixed5Uninsured)}
                     </p>
                   </a>
