@@ -11,6 +11,7 @@ import {
   formatAsOf,
   formatRate,
   type ProductCell,
+  type WeekPoint,
 } from "../../lib/communityRates";
 import { BOC_POLICY_RATE, PRIME_RATE, PRIME_SPREAD } from "../../lib/primeRate";
 import historicalFile from "../../../data/historical_rates.json";
@@ -380,15 +381,86 @@ export function scrapedSpecial(
   return row;
 }
 
-function weekMedian(weekStarting: string): { fixed: number; fixedN: number; variable: number; variableN: number } {
-  const week = communityRates.weekly.weeks.find((item) => item.weekStarting === weekStarting);
-  if (!week?.fixed.median || !week.variable.median) throw new Error(`Missing weekly medians for ${weekStarting}.`);
-  return {
-    fixed: week.fixed.median,
-    fixedN: week.fixed.n,
-    variable: week.variable.median,
-    variableN: week.variable.n,
-  };
+export interface WeeklyMedian {
+  weekStarting: string;
+  fixed: number;
+  fixedN: number;
+  variable: number;
+  variableN: number;
+}
+
+export interface WeeklyComparison {
+  early: WeeklyMedian;
+  late: WeeklyMedian;
+}
+
+/** Both the fixed and variable medians need at least this many reports. */
+export const MIN_WEEK_N = 5;
+
+function finiteMedian(value: number | null): value is number {
+  return value != null && Number.isFinite(value);
+}
+
+/** Weeks with both medians and a large enough sample on each, earliest first. */
+export function weeksWithBothMedians(weeks: readonly WeekPoint[]): WeeklyMedian[] {
+  const usable: WeeklyMedian[] = [];
+  const seen = new Set<string>();
+  for (const week of weeks) {
+    if (!finiteMedian(week.fixed.median) || !finiteMedian(week.variable.median)) continue;
+    if (week.fixed.n < MIN_WEEK_N || week.variable.n < MIN_WEEK_N) continue;
+    if (seen.has(week.weekStarting)) continue;
+    seen.add(week.weekStarting);
+    usable.push({
+      weekStarting: week.weekStarting,
+      fixed: week.fixed.median,
+      fixedN: week.fixed.n,
+      variable: week.variable.median,
+      variableN: week.variable.n,
+    });
+  }
+  usable.sort((a, b) => a.weekStarting.localeCompare(b.weekStarting));
+  return usable;
+}
+
+/**
+ * Earliest and latest weeks where both medians have N of at least MIN_WEEK_N.
+ * Null when fewer than two such weeks exist, so a rolling window cannot throw.
+ */
+export function selectWeeklyComparison(weeks: readonly WeekPoint[]): WeeklyComparison | null {
+  const usable = weeksWithBothMedians(weeks);
+  if (usable.length < 2) return null;
+  return { early: usable[0], late: usable[usable.length - 1] };
+}
+
+function weekMonth(iso: string): string {
+  return formatAsOf(iso).split(" ")[0] ?? iso;
+}
+
+/** Comparison sentence for the guide. Empty when the file cannot support one. */
+export function weeklyComparisonSentence(comparison: WeeklyComparison | null): string {
+  if (!comparison) return "";
+  const { early, late } = comparison;
+  const variableSentence = pct(early.variable) === pct(late.variable)
+    ? `The variable row is ${pct(early.variable)} at both ends.`
+    : `The variable row moves from ${pct(early.variable)} to ${pct(late.variable)}.`;
+  const fixedSentence = pct(early.fixed) === pct(late.fixed)
+    ? "The fixed row is the same at both ends."
+    : late.fixed > early.fixed
+      ? `The fixed row is higher in ${weekMonth(late.weekStarting)}.`
+      : `The fixed row is lower in ${weekMonth(late.weekStarting)}.`;
+  return `Inside the same file, the week of ${formatAsOf(early.weekStarting)} shows a 5-year fixed median of ${pct(early.fixed)} (N = ${early.fixedN}) and a variable median of ${pct(early.variable)} (N = ${early.variableN}). The week of ${formatAsOf(late.weekStarting)} shows ${pct(late.fixed)} fixed (N = ${late.fixedN}) and ${pct(late.variable)} variable (N = ${late.variableN}). ${variableSentence} ${fixedSentence}`;
+}
+
+/** Bridge into the posted-rate sentences. Names the same pattern only when the weeks show it. */
+export function postedSnapshotBridge(comparison: WeeklyComparison | null): string {
+  if (
+    comparison &&
+    pct(comparison.early.variable) === pct(comparison.late.variable) &&
+    comparison.late.fixed > comparison.early.fixed
+  ) {
+    return "The posted snapshot tells the same story from lender pages.";
+  }
+  return "The posted snapshot is read from lender pages.";
 }
 
 function shareBelow(rateType: "fixed" | "variable"): { share: number; n: number } {
@@ -446,8 +518,6 @@ export const POSTED_HISTORY = {
   variableInsuredBestLast: insuredVariableHist.last,
 };
 
-const earlyWeek = weekMedian("2026-09-14");
-const lateWeek = weekMedian("2026-10-12");
 const fixedShare = shareBelow("fixed");
 const variableShare = shareBelow("variable");
 
@@ -461,8 +531,7 @@ export const SPREAD = {
   fixedShareN: fixedShare.n,
   variableShare: variableShare.share,
   variableShareN: variableShare.n,
-  earlyWeek,
-  lateWeek,
+  weeklyComparison: selectWeeklyComparison(communityRates.weekly.weeks),
 };
 
 export const TERM_CHOICE = (() => {
