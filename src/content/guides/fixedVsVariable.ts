@@ -8,7 +8,9 @@ import {
   TERM_CHOICE as t,
   cad,
   pct,
+  postedSnapshotBridge,
   reportedRatesParagraph,
+  weeklyComparisonSentence,
 } from "./shared";
 import { formatAsOf } from "../../lib/communityRates";
 
@@ -67,7 +69,11 @@ export const fixedVsVariable: InDepthGuide = {
       paragraphs: [
         reportedRatesParagraph(),
         `The rounded gap between those two medians is ${pct(SPREAD.gap)}. The variable median of ${pct(SPREAD.variableMedian)} is ${pct(SPREAD.discount)} under big-bank prime of ${pct(SPREAD.prime)}, and the reported-rate file's own median prime discount on that 5-year variable cell is 0.90 points. In the same 30-day window, ${ (SPREAD.fixedShare * 100).toFixed(1) }% of the 5-year fixed reports with insured status not stated sit below the Big Five posted median (N = ${SPREAD.fixedShareN}), and ${ (SPREAD.variableShare * 100).toFixed(1) }% of the matching variable reports do (N = ${SPREAD.variableShareN}). Those shares are self-reported by Canadian borrowers online. They describe the file. They do not describe the rate you will be given.`,
-        `Inside the same file, the week of September 14, 2026 shows a 5-year fixed median of ${pct(SPREAD.earlyWeek.fixed)} (N = ${SPREAD.earlyWeek.fixedN}) and a variable median of ${pct(SPREAD.earlyWeek.variable)} (N = ${SPREAD.earlyWeek.variableN}). The week of October 12 shows ${pct(SPREAD.lateWeek.fixed)} fixed (N = ${SPREAD.lateWeek.fixedN}) and ${pct(SPREAD.lateWeek.variable)} variable (N = ${SPREAD.lateWeek.variableN}). The variable row is ${pct(SPREAD.variableMedian)} at both ends. The fixed row is higher in October. The posted snapshot tells the same story from lender pages. Across ${hist.days} days from ${formatAsOf(hist.from)} to ${formatAsOf(hist.to)}, prime stays ${pct(hist.prime)}. The lowest uninsured 5-year fixed rate ranges from ${pct(hist.fixedUninsuredBestMin)} to ${pct(hist.fixedUninsuredBestMax)} and ends at ${pct(hist.fixedUninsuredBestLast)}. The lowest insured 5-year variable ranges from ${pct(hist.variableInsuredBestMin)} to ${pct(hist.variableInsuredBestMax)}. Best-in-file is not a median and not an offer. It shows fixed postings moving while prime did not. Reported rates are on <a href="/real-mortgage-rates/">real mortgage rates</a>. Posted shelves are on <a href="/rates/5-year-fixed/">5-year fixed</a> and <a href="/rates/variable/">variable</a>. The <a href="/compare/fixed-vs-variable/">comparison page</a> puts a live pair side by side.`,
+        [
+          weeklyComparisonSentence(SPREAD.weeklyComparison),
+          postedSnapshotBridge(SPREAD.weeklyComparison),
+          `Across ${hist.days} days from ${formatAsOf(hist.from)} to ${formatAsOf(hist.to)}, prime stays ${pct(hist.prime)}. The lowest uninsured 5-year fixed rate ranges from ${pct(hist.fixedUninsuredBestMin)} to ${pct(hist.fixedUninsuredBestMax)} and ends at ${pct(hist.fixedUninsuredBestLast)}. The lowest insured 5-year variable ranges from ${pct(hist.variableInsuredBestMin)} to ${pct(hist.variableInsuredBestMax)}. Best-in-file is not a median and not an offer. It shows fixed postings moving while prime did not. Reported rates are on <a href="/real-mortgage-rates/">real mortgage rates</a>. Posted shelves are on <a href="/rates/5-year-fixed/">5-year fixed</a> and <a href="/rates/variable/">variable</a>. The <a href="/compare/fixed-vs-variable/">comparison page</a> puts a live pair side by side.`,
+        ].filter(Boolean).join(" "),
       ],
     },
     {
