@@ -446,7 +446,7 @@ export const POSTED_HISTORY = {
   variableInsuredBestLast: insuredVariableHist.last,
 };
 
-const earlyWeek = weekMedian("2026-09-14");
+const earlyWeek = weekMedian("2026-09-21");
 const lateWeek = weekMedian("2026-10-12");
 const fixedShare = shareBelow("fixed");
 const variableShare = shareBelow("variable");
