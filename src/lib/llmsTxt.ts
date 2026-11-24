@@ -64,6 +64,11 @@ export function buildLlmsTxt(): string {
     link("/rate-data/", "Rate data", "The posted-rate file behind the tables"),
     link("/methodology/", "Methodology", "How posted rates and borrower-reported rates are compiled"),
     link("/trends/", "Rate trends", "Posted-rate history from the daily scrape"),
+    link(
+      "/mortgage-rate-history/",
+      "Canadian mortgage rate history (weekly)",
+      "Weekly lowest 5-year rates, Big Five posted median, and big-bank prime, with a CSV",
+    ),
     ...reports,
   ];
 

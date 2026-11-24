@@ -135,6 +135,23 @@ const required = [
 for (const url of required) {
   if (!locs.includes(url)) fail(`sitemap missing ${url}`);
 }
+if (!locs.includes("https://latestmortgagerates.ca/mortgage-rate-history/")) {
+  fail("sitemap missing /mortgage-rate-history/");
+}
+if (locs.some((loc) => loc.includes("/embed/"))) {
+  fail("sitemap must not include the rate-history embed");
+}
+
+const historyCsv = assertFile("data/mortgage-rate-history.csv");
+const historyBody = readFileSync(historyCsv, "utf8");
+if (!historyBody.startsWith("week_start,lowest_5y_fixed_insured_under_20_down,")) {
+  fail("mortgage-rate-history.csv is missing the weekly header");
+}
+if (!historyBody.includes("big_five_median_5y_fixed_posted,big_bank_prime,source_note")) {
+  fail("mortgage-rate-history.csv is missing series columns");
+}
+const historyRows = historyBody.trim().split("\n");
+if (historyRows.length < 2) fail("mortgage-rate-history.csv has no data rows");
 for (const loc of locs) {
   if (!loc.startsWith("https://latestmortgagerates.ca")) {
     fail(`sitemap URL is not canonical host: ${loc}`);

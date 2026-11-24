@@ -11,6 +11,8 @@ export interface DatasetSchemaInput {
   temporalCoverage: string;
   dateModified: string;
   variableMeasured: string[];
+  /** Public download, when this dataset has a file. */
+  distribution?: { contentUrl: string; encodingFormat?: string };
 }
 
 /**
@@ -36,6 +38,16 @@ export function datasetJsonLd(input: DatasetSchemaInput) {
       },
     ],
     variableMeasured: input.variableMeasured,
+    ...(input.distribution
+      ? {
+          distribution: {
+            "@type": "DataDownload",
+            encodingFormat: input.distribution.encodingFormat ?? "text/csv",
+            contentUrl: input.distribution.contentUrl,
+          },
+          isAccessibleForFree: true,
+        }
+      : {}),
   };
 }
 

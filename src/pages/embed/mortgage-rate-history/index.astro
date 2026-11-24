@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Page from "../../../views/data/RateHistoryEmbed";
+import { EMBED_PAGE_URL, SERIES_META, loadWeeklyHistory } from "../../../lib/weeklyRateHistory.mjs";
+
+const history = loadWeeklyHistory();
+---
+
+<BaseLayout
+  title="Canadian mortgage rate history (weekly)"
+  description="Embeddable weekly Canadian mortgage rate chart from Latest Mortgage Rates."
+  canonical={EMBED_PAGE_URL}
+  noIndex={true}
+  robots="noindex, follow"
+>
+  <Page svg={history.chartSvg} series={SERIES_META} client:load />
+</BaseLayout>

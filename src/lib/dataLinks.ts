@@ -7,6 +7,11 @@ export interface DataLink {
 /** Hub links for the rate-data pages. Trailing slashes match the site. */
 export const DATA_LINKS: DataLink[] = [
   {
+    href: "/mortgage-rate-history/",
+    title: "Canadian mortgage rate history (weekly)",
+    description: "Weekly lowest 5-year rates, the Big Five posted median, and big-bank prime, with a CSV download",
+  },
+  {
     href: "/prime-rate/",
     title: "Prime rate in Canada today",
     description: "Big-bank prime, scraped lender primes, and the Bank of Canada policy rate",
@@ -56,5 +61,5 @@ export const DATA_LINKS: DataLink[] = [
 export const DATA_HUB = {
   href: "/rate-data/",
   title: "Rate data",
-  description: "Prime, break costs, rate changes, the bond spread, forecasts, and reported discounts",
+  description: "Weekly history, prime, break costs, rate changes, the bond spread, forecasts, and reported discounts",
 };

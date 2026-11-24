@@ -338,6 +338,8 @@ describe("original-data copy", () => {
     walk(join(root, "src/pages/rate-changes"));
     walk(join(root, "src/pages/mortgage-rate-forecast-2027"));
     walk(join(root, "src/pages/rate-data"));
+    walk(join(root, "src/pages/mortgage-rate-history"));
+    walk(join(root, "src/pages/embed"));
     walk(join(root, "src/pages/reports/discount-by-bank"));
     for (const file of [
       "src/lib/breakCosts.ts",
@@ -345,6 +347,8 @@ describe("original-data copy", () => {
       "src/lib/forecast2027.ts",
       "src/lib/discountByBank.ts",
       "src/lib/primeData.ts",
+      "src/lib/weeklyRateHistory.mjs",
+      "data/weekly-rate-file-snapshots.json",
       "data/rate-forecasts-2027.json",
       "data/boc-announcements.json",
     ]) {

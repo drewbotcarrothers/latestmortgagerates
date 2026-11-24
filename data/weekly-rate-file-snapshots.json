@@ -1,0 +1,1009 @@
+{
+  "description": "One data/rates.json snapshot per Monday-start week: the latest scrape date in that week. Lowest 5-year rates and the Big Five 5-year fixed posted median are computed from that file. Null means the snapshot had no rate for that series. Weeks with no rate file are omitted here and left blank when the page is built. Not interpolated.",
+  "rebuiltFromGit": true,
+  "weeks": [
+    {
+      "week_start": "2026-02-23",
+      "snapshot_date": "2026-03-01",
+      "commit": "51083c3b8dbfd6cf0012ce6b9d8048b2d22c2a3a",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 4.19,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.85,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 7
+    },
+    {
+      "week_start": "2026-03-02",
+      "snapshot_date": "2026-03-08",
+      "commit": "477f2f9d0a10d6333800d93383b2586157b59a6f",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 4.19,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.85,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 17
+    },
+    {
+      "week_start": "2026-03-09",
+      "snapshot_date": "2026-03-15",
+      "commit": "cfb17390f6552a36bdd2a7a85dd90ea0c90acfbd",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.64,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.64,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 31
+    },
+    {
+      "week_start": "2026-03-16",
+      "snapshot_date": "2026-03-22",
+      "commit": "7376dc1c3ba38216a13f8dabb9fec7781d687c27",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.79,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.7,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 31
+    },
+    {
+      "week_start": "2026-03-23",
+      "snapshot_date": "2026-03-29",
+      "commit": "ae016a33c47836edd7ba63acdd68dd732f7dc753",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.89,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-03-30",
+      "snapshot_date": "2026-04-05",
+      "commit": "57c1ffd31413d6594276cc54987dad8033fef80c",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.89,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-04-06",
+      "snapshot_date": "2026-04-12",
+      "commit": "0722e819ed81be7bf576b8b1080e4fc061e8bad0",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.79,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-04-13",
+      "snapshot_date": "2026-04-19",
+      "commit": "42a9101cce795f89835b5b365a9991661b4d423e",
+      "lowest_5y_fixed_insured": 3.64,
+      "lowest_5y_fixed_uninsured": 3.89,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": 5.355,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 4.62
+        }
+      ],
+      "posted_missing": [
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-04-20",
+      "snapshot_date": "2026-04-26",
+      "commit": "49a9e26cc972db9dd480e0b3253a0a39ed361d6f",
+      "lowest_5y_fixed_insured": 3.89,
+      "lowest_5y_fixed_uninsured": 3.89,
+      "lowest_5y_variable_insured": 3.45,
+      "lowest_5y_variable_uninsured": 3.6,
+      "big_five_median_5y_fixed_posted": 6.09,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 34
+    },
+    {
+      "week_start": "2026-04-27",
+      "snapshot_date": "2026-05-03",
+      "commit": "b3db7a33bc9846764654c7dcf3bbdaecafd257d3",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.99,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.3,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 34
+    },
+    {
+      "week_start": "2026-05-04",
+      "snapshot_date": "2026-05-08",
+      "commit": "80d48aedd9b3fbbc8c3767e2697e7c8823839cb3",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.99,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.3,
+      "big_five_median_5y_fixed_posted": 6.09,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 34
+    },
+    {
+      "week_start": "2026-05-11",
+      "snapshot_date": "2026-05-17",
+      "commit": "b5a813dbbd487934ab6072fd59c382d778f3bc02",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.94,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.3,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 34
+    },
+    {
+      "week_start": "2026-05-18",
+      "snapshot_date": "2026-05-24",
+      "commit": "82fb0f7ccaf39ec7c3b3a0f54f2c6fc9420ac8eb",
+      "lowest_5y_fixed_insured": 4.09,
+      "lowest_5y_fixed_uninsured": 4.04,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-05-25",
+      "snapshot_date": "2026-05-31",
+      "commit": "b70ba2a44ae0687683af8d245281a6b8370b987f",
+      "lowest_5y_fixed_insured": 4.09,
+      "lowest_5y_fixed_uninsured": 4.04,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-06-01",
+      "snapshot_date": "2026-06-07",
+      "commit": "e748882514e721c652bd96f7a4571837c157f1f0",
+      "lowest_5y_fixed_insured": 4.09,
+      "lowest_5y_fixed_uninsured": 4.04,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-06-08",
+      "snapshot_date": "2026-06-14",
+      "commit": "e2a6fa67951ba3d47723abed79e0b43ea8a64a5f",
+      "lowest_5y_fixed_insured": 4.09,
+      "lowest_5y_fixed_uninsured": 3.99,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-06-15",
+      "snapshot_date": "2026-06-21",
+      "commit": "986bb1004ebea906236ed8a54818391e05b69bf3",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.99,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-06-22",
+      "snapshot_date": "2026-06-28",
+      "commit": "2101deec3a4844d00c614cd197afa2d18257667f",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.94,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-06-29",
+      "snapshot_date": "2026-07-05",
+      "commit": "bd195cd3c635887963fdfa147865bd06406df605",
+      "lowest_5y_fixed_insured": 3.99,
+      "lowest_5y_fixed_uninsured": 3.94,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": 6.09,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 34
+    },
+    {
+      "week_start": "2026-07-06",
+      "snapshot_date": "2026-07-12",
+      "commit": "f3795e388f01a701d34ec37a3c672e5942791781",
+      "lowest_5y_fixed_insured": 4.04,
+      "lowest_5y_fixed_uninsured": 3.94,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-07-13",
+      "snapshot_date": "2026-07-19",
+      "commit": "82fc489010e0ac504db7031b2afed26157acda3a",
+      "lowest_5y_fixed_insured": 4.09,
+      "lowest_5y_fixed_uninsured": 3.94,
+      "lowest_5y_variable_insured": 3.4,
+      "lowest_5y_variable_uninsured": 3.65,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-07-20",
+      "snapshot_date": "2026-07-26",
+      "commit": "b0c9bc652ca7997440f2fdeff7f489e20bd0c043",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-07-27",
+      "snapshot_date": "2026-08-02",
+      "commit": "31a17a4b4126ee97b0c55b0e9b7b7aed65a5260b",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-08-03",
+      "snapshot_date": "2026-08-09",
+      "commit": "ef953c189bdddaaad10ccf9c14578486d3d602e2",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 33
+    },
+    {
+      "week_start": "2026-08-10",
+      "snapshot_date": "2026-08-16",
+      "commit": "ab78a2fdd440e4a0ec2a85c87ba07ebd7ea23717",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 23
+    },
+    {
+      "week_start": "2026-08-17",
+      "snapshot_date": "2026-08-23",
+      "commit": "33f8647e3ff7da9d32d63a25181200c64e935a3d",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 23
+    },
+    {
+      "week_start": "2026-08-24",
+      "snapshot_date": "2026-08-30",
+      "commit": "f3b43fba238c39fa9b3e58cbbf0b70d171f6f02e",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 23
+    },
+    {
+      "week_start": "2026-08-31",
+      "snapshot_date": "2026-09-06",
+      "commit": "34caabc6becfa2d22e4727b3c3a706526fcb734f",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 23
+    },
+    {
+      "week_start": "2026-09-07",
+      "snapshot_date": "2026-09-13",
+      "commit": "732ff6e050307264533dfc4ae3f224928a2574c9",
+      "lowest_5y_fixed_insured": 3.59,
+      "lowest_5y_fixed_uninsured": 3.74,
+      "lowest_5y_variable_insured": 2.95,
+      "lowest_5y_variable_uninsured": 3.15,
+      "big_five_median_5y_fixed_posted": null,
+      "posted_banks": [],
+      "posted_missing": [
+        "TD",
+        "RBC",
+        "CIBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 23
+    },
+    {
+      "week_start": "2026-09-14",
+      "snapshot_date": "2026-09-20",
+      "commit": "4ba64f7e4e9692d424c7da90e16249a358739b84",
+      "lowest_5y_fixed_insured": 4.06,
+      "lowest_5y_fixed_uninsured": 4.09,
+      "lowest_5y_variable_insured": 3.44,
+      "lowest_5y_variable_uninsured": 3.64,
+      "big_five_median_5y_fixed_posted": 6.29,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-09-21",
+      "snapshot_date": "2026-09-27",
+      "commit": "922ea6b216d270b9bd8c38ef3eed6370000e8461",
+      "lowest_5y_fixed_insured": 4.14,
+      "lowest_5y_fixed_uninsured": 4.14,
+      "lowest_5y_variable_insured": 3.44,
+      "lowest_5y_variable_uninsured": 3.6,
+      "big_five_median_5y_fixed_posted": 6.29,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-09-28",
+      "snapshot_date": "2026-10-04",
+      "commit": "0d5e6b36482f2d217a9289cbb42ad6958589aed6",
+      "lowest_5y_fixed_insured": 4.14,
+      "lowest_5y_fixed_uninsured": 4.29,
+      "lowest_5y_variable_insured": 3.44,
+      "lowest_5y_variable_uninsured": 3.6,
+      "big_five_median_5y_fixed_posted": 6.29,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-10-05",
+      "snapshot_date": "2026-10-11",
+      "commit": "35a884700ec57a9516e36e21f0c3fa149f269a7c",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.29,
+      "lowest_5y_variable_insured": 3.25,
+      "lowest_5y_variable_uninsured": 3.64,
+      "big_five_median_5y_fixed_posted": 6.29,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.09
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-10-12",
+      "snapshot_date": "2026-10-18",
+      "commit": "456584a5938dba075313a5191a65fc89ec1b9b1e",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.25,
+      "lowest_5y_variable_uninsured": 3.64,
+      "big_five_median_5y_fixed_posted": 6.315,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        }
+      ],
+      "posted_missing": [
+        "RBC",
+        "BMO",
+        "Scotiabank"
+      ],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-10-19",
+      "snapshot_date": "2026-10-25",
+      "commit": "148c5924bdfdeeede1b1df4159f76cdc4ed9d11a",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.25,
+      "lowest_5y_variable_uninsured": 3.64,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-10-26",
+      "snapshot_date": "2026-11-01",
+      "commit": "11d9e6e801725297f9c002e8577fcb0309b47b7e",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.45,
+      "lowest_5y_variable_uninsured": 3.89,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-11-02",
+      "snapshot_date": "2026-11-08",
+      "commit": "4b4ac8bb33274dae9e9365ef15b8182d9d33e6a9",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.6,
+      "lowest_5y_variable_uninsured": 3.94,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 25
+    },
+    {
+      "week_start": "2026-11-09",
+      "snapshot_date": "2026-11-15",
+      "commit": "8405bf7325ffffa57b2b81a923c78b5ca2a1535f",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.6,
+      "lowest_5y_variable_uninsured": 3.94,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 24
+    },
+    {
+      "week_start": "2026-11-16",
+      "snapshot_date": "2026-11-22",
+      "commit": "8c8df1d7f1bfe36d7f8daf3e70f089e8ecc31abd",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.6,
+      "lowest_5y_variable_uninsured": 3.94,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 24
+    },
+    {
+      "week_start": "2026-11-23",
+      "snapshot_date": "2026-11-24",
+      "commit": "28dc8089007a4d8711a1927926c57695ef7cd1a4",
+      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_uninsured": 4.59,
+      "lowest_5y_variable_insured": 3.6,
+      "lowest_5y_variable_uninsured": 3.94,
+      "big_five_median_5y_fixed_posted": 6.19,
+      "posted_banks": [
+        {
+          "slug": "td",
+          "name": "TD Bank",
+          "posted": 6.14
+        },
+        {
+          "slug": "rbc",
+          "name": "Royal Bank of Canada",
+          "posted": 6.19
+        },
+        {
+          "slug": "cibc",
+          "name": "Canadian Imperial Bank of Commerce",
+          "posted": 6.49
+        },
+        {
+          "slug": "bmo",
+          "name": "Bank of Montreal",
+          "posted": 6.09
+        },
+        {
+          "slug": "scotiabank",
+          "name": "Scotiabank",
+          "posted": 6.19
+        }
+      ],
+      "posted_missing": [],
+      "lender_count": 24
+    }
+  ]
+}
