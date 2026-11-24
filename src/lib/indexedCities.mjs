@@ -36,6 +36,8 @@ export function isIndexedCity(slug) {
 export function isIndexablePath(pathname) {
   const path = pathname.endsWith("/") ? pathname : `${pathname}/`;
   if (path.startsWith("/widget")) return false;
+  if (path.startsWith("/embed/") || path === "/embed/") return false;
+  if (path.startsWith("/data/")) return false;
   if (path.startsWith("/unsubscribed")) return false;
   if (path.startsWith("/unsubscribe")) return false;
   if (path.startsWith("/subscribe/confirmed")) return false;

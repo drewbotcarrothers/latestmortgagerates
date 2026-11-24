@@ -82,6 +82,7 @@ jobs:
         run: |
           node scripts/append-rate-changes.mjs
           node scripts/refresh-market-series.mjs
+          node scripts/update-weekly-rate-snapshots.mjs
 
       # Step 3: Commit data changes FIRST (before email)
       - name: Commit and push data

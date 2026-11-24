@@ -14,6 +14,7 @@ import {
 import { join } from "node:path";
 import { legacyRedirects } from "./src/lib/legacyRedirects.mjs";
 import { isIndexablePath } from "./src/lib/sitemapFilter.mjs";
+import { mortgageRateHistoryCsv } from "./src/lib/weeklyRateHistory.mjs";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 const srcDir = fileURLToPath(new URL("./src", import.meta.url));
@@ -129,6 +130,12 @@ function jsonApiFiles() {
 
         copyFileSync(join(root, "data/rates.json"), join(out, "rates.json"));
         copyFileSync(join(root, "data/metadata.json"), join(out, "metadata.json"));
+
+        // Rebuilt every deploy from the committed snapshots, so the CSV tracks
+        // the twice-daily scrape without a hand-edited file.
+        const dataOut = join(out, "data");
+        mkdirSync(dataOut, { recursive: true });
+        writeFlatFile(dataOut, "mortgage-rate-history.csv", mortgageRateHistoryCsv());
 
         // Astro emits sitemap-index.xml + sitemap-0.xml. robots.txt points at the index.
         // Keep a sitemap.xml copy of the urlset for the existing Search Console submission.

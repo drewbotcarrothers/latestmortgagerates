@@ -218,6 +218,7 @@ describe("trust pages and search metadata", () => {
       "src/pages/mortgage-rate-forecast-2027/index.astro",
       "src/pages/reports/discount-by-bank/index.astro",
       "src/pages/rate-data/index.astro",
+      "src/pages/mortgage-rate-history/index.astro",
       "src/pages/blog/[slug].astro",
     ];
     for (const path of datasetPages) {
@@ -233,6 +234,7 @@ describe("trust pages and search metadata", () => {
       "src/views/data/ForecastPage.tsx",
       "src/views/data/DiscountByBankPage.tsx",
       "src/views/data/RateDataPage.tsx",
+      "src/views/data/RateHistoryPage.tsx",
     ]) {
       assert.doesNotMatch(read(view), /datasetJsonLd|application\/ld\+json|realRatesDatasetJsonLd/, view);
     }

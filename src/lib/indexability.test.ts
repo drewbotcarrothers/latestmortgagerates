@@ -218,6 +218,9 @@ describe("indexability", () => {
     assert.equal(isIndexablePath("/mortgage-rate-forecast-2027/"), true);
     assert.equal(isIndexablePath("/reports/discount-by-bank/"), true);
     assert.equal(isIndexablePath("/rate-data/"), true);
+    assert.equal(isIndexablePath("/mortgage-rate-history/"), true);
+    assert.equal(isIndexablePath("/embed/mortgage-rate-history/"), false);
+    assert.equal(isIndexablePath("/data/mortgage-rate-history.csv"), false);
   });
 
   it("points robots.txt at the sitemap index and drops the Reddit share button", () => {

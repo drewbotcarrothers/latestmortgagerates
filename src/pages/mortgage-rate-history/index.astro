@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Page, { rateHistoryLead } from "../../views/data/RateHistoryPage";
+import { datasetJsonLd } from "../../lib/datasetSchema";
+import { CSV_URL, HISTORY_PAGE_URL, SERIES_META, loadWeeklyHistory } from "../../lib/weeklyRateHistory.mjs";
+
+const history = loadWeeklyHistory();
+const pageHistory = {
+  rows: history.rows,
+  lenders: history.lenders,
+  asOf: history.asOf,
+  dailyFrom: history.dailyFrom,
+  dailyTo: history.dailyTo,
+  dailyCount: history.dailyCount,
+  chartSvg: history.chartSvg,
+  embedSnippet: history.embedSnippet,
+  series: SERIES_META,
+};
+const lead = rateHistoryLead(pageHistory);
+const firstSnapshot = history.rows.find((row) => row.lowest_snapshot_date)?.lowest_snapshot_date ?? history.asOf;
+const dataset = datasetJsonLd({
+  name: "Canadian mortgage rate history (weekly)",
+  description: lead,
+  url: HISTORY_PAGE_URL,
+  temporalCoverage: firstSnapshot && history.asOf ? `${firstSnapshot}/${history.asOf}` : history.asOf ?? "",
+  dateModified: history.asOf ?? "",
+  variableMeasured: SERIES_META.map((series) => series.label),
+  distribution: { contentUrl: CSV_URL, encodingFormat: "text/csv" },
+});
+---
+
+<BaseLayout
+  title="Canadian mortgage rate history (weekly) | Latest Mortgage Rates"
+  description={lead}
+  canonical={HISTORY_PAGE_URL}
+  keywords="Canadian mortgage rate history, weekly mortgage rates, 5-year fixed, Big Five posted rate, prime rate"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+  <Page history={pageHistory} client:load />
+</BaseLayout>
