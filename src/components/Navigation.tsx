@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
 
 export type SitePage =
@@ -252,6 +253,7 @@ function GuideCta({
   return (
     <a
       href={GUIDE_HREF}
+      onClick={() => trackEvent("guide_cta_click", { source: "nav" })}
       className={`${ctaClass} ${current ? "ring-2 ring-teal-700 ring-offset-2" : ""} ${className}`}
       aria-current={current ? "page" : undefined}
       aria-label="Mortgage Guide and Renewal Toolkit, $29 CAD"

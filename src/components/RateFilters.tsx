@@ -2,176 +2,112 @@
 
 import { useState } from "react";
 import { INSURED_SHORT_LABEL, UNINSURED_SHORT_LABEL } from "@/lib/mortgageTypeCopy";
-
-interface FilterState {
-  term: string;
-  rateType: string;
-  mortgageType: string;
-  lender: string;
-}
+import {
+  DEFAULT_HOMEPAGE_FILTERS,
+  termFilterChips,
+  type HomepageFilters,
+} from "@/lib/homepageRates";
 
 interface RateFiltersProps {
-  onFilterChange: (filters: FilterState) => void;
-  lenders: string[];
+  onFilterChange: (filters: HomepageFilters) => void;
+  terms: readonly { term_months: number }[];
 }
 
-// Inline SVG icons
-const SlidersHorizontalIcon = () => (
-  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-  </svg>
-);
+function Chip({
+  active,
+  children,
+  onClick,
+}: {
+  active: boolean;
+  children: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={`rounded-full border px-3 py-1.5 text-[0.8125rem] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600 ${
+        active
+          ? "border-cyan-300 bg-cyan-50 font-semibold text-cyan-950 dark:border-cyan-700 dark:bg-cyan-950 dark:text-cyan-100"
+          : "border-slate-200 bg-white font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
 
-const XIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
+export default function RateFilters({ onFilterChange, terms }: RateFiltersProps) {
+  const [filters, setFilters] = useState<HomepageFilters>(DEFAULT_HOMEPAGE_FILTERS);
+  const termChips = termFilterChips(terms);
 
-export default function RateFilters({ onFilterChange, lenders }: RateFiltersProps) {
-  const [filters, setFilters] = useState<FilterState>({
-    term: "all",
-    rateType: "all",
-    mortgageType: "all",
-    lender: "all",
-  });
-
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const handleChange = (key: keyof FilterState, value: string) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
+  const update = (key: keyof HomepageFilters, value: string) => {
+    const next = { ...filters, [key]: value };
+    setFilters(next);
+    onFilterChange(next);
   };
-
-  const resetFilters = () => {
-    const newFilters = {
-      term: "all",
-      rateType: "all",
-      mortgageType: "all",
-      lender: "all",
-    };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
-  };
-
-  const hasActiveFilters = Object.values(filters).some(v => v !== "all");
-  const activeFilterCount = Object.values(filters).filter(v => v !== "all").length;
 
   return (
-    <div className="card-default overflow-hidden">
-      {/* Header Bar */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-200">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-teal-50 rounded-lg">
-            <SlidersHorizontalIcon />
-          </div>
-          <div>
-            <h2 className="font-semibold text-slate-900">Filter Rates</h2>
-            <p className="text-sm text-slate-500">Find your perfect mortgage rate</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {hasActiveFilters && (
-            <button
-              onClick={resetFilters}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-800 transition-colors"
-            >
-              <XIcon />
-              Clear ({activeFilterCount})
-            </button>
-          )}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="btn-secondary text-sm"
-          >
-            {isExpanded ? "Hide Filters" : "Show Filters"}
-          </button>
+    <div className="mt-4 flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div className="w-full shrink-0 text-xs font-semibold text-slate-600 sm:w-[108px] dark:text-slate-300">Term</div>
+        <div className="flex flex-1 flex-wrap gap-1.5" role="group" aria-label="Term">
+          {termChips.map((chip) => (
+            <Chip key={chip.value} active={filters.term === chip.value} onClick={() => update("term", chip.value)}>
+              {chip.label}
+            </Chip>
+          ))}
+          <Chip active={filters.term === "all"} onClick={() => update("term", "all")}>
+            All
+          </Chip>
         </div>
       </div>
 
-      {/* Filter Form */}
-      <div className={`transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-[500px]' : 'max-h-0'}`}>
-        <div className="p-4 bg-slate-50/50 border-t border-slate-200">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Term Filter */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-700">
-                Term
-              </label>
-              <select
-                value={filters.term}
-                onChange={(e) => handleChange("term", e.target.value)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-              >
-                <option value="all">All Terms</option>
-                <option value="6">6 Months</option>
-                <option value="12">1 Year</option>
-                <option value="24">2 Years</option>
-                <option value="36">3 Years</option>
-                <option value="48">4 Years</option>
-                <option value="60">5 Years</option>
-                <option value="84">7 Years</option>
-                <option value="120">10 Years</option>
-              </select>
-            </div>
-
-            {/* Rate Type Filter */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-700">
-                Rate Type
-              </label>
-              <select
-                value={filters.rateType}
-                onChange={(e) => handleChange("rateType", e.target.value)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-              >
-                <option value="all">All Types</option>
-                <option value="fixed">Fixed Rate</option>
-                <option value="variable">Variable Rate</option>
-              </select>
-            </div>
-
-            {/* Mortgage Type Filter */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-700">
-                Mortgage Type
-              </label>
-              <select
-                value={filters.mortgageType}
-                onChange={(e) => handleChange("mortgageType", e.target.value)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-              >
-                <option value="all">All Types</option>
-                <option value="insured">{INSURED_SHORT_LABEL}</option>
-                <option value="uninsured">{UNINSURED_SHORT_LABEL}</option>
-              </select>
-            </div>
-
-            {/* Lender Filter */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-700">
-                Lender
-              </label>
-              <select
-                value={filters.lender}
-                onChange={(e) => handleChange("lender", e.target.value)}
-                className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-              >
-                <option value="all">All Lenders</option>
-                {lenders.map((lender) => (
-                  <option key={lender} value={lender}>
-                    {lender.charAt(0).toUpperCase() + lender.slice(1).replace(/-/g, " ")}
-                  </option>
-                ))}
-              </select>
-              <div className="text-xs text-slate-500 mt-1">
-                {lenders.length} lenders available
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div className="w-full shrink-0 text-xs font-semibold text-slate-600 sm:w-[108px] dark:text-slate-300">
+          Down payment
         </div>
+        <div className="flex flex-1 flex-wrap gap-1.5" role="group" aria-label="Down payment">
+          <Chip active={filters.mortgageType === "all"} onClick={() => update("mortgageType", "all")}>
+            All
+          </Chip>
+          <Chip active={filters.mortgageType === "insured"} onClick={() => update("mortgageType", "insured")}>
+            {INSURED_SHORT_LABEL}
+          </Chip>
+          <Chip active={filters.mortgageType === "uninsured"} onClick={() => update("mortgageType", "uninsured")}>
+            {UNINSURED_SHORT_LABEL}
+          </Chip>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div className="w-full shrink-0 text-xs font-semibold text-slate-600 sm:w-[108px] dark:text-slate-300">Type</div>
+        <div className="flex flex-1 flex-wrap gap-1.5" role="group" aria-label="Rate type">
+          <Chip active={filters.rateType === "all"} onClick={() => update("rateType", "all")}>
+            All
+          </Chip>
+          <Chip active={filters.rateType === "fixed"} onClick={() => update("rateType", "fixed")}>
+            Fixed
+          </Chip>
+          <Chip active={filters.rateType === "variable"} onClick={() => update("rateType", "variable")}>
+            Variable
+          </Chip>
+        </div>
+        <label className="flex w-full min-w-[180px] max-w-none items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-slate-500 sm:max-w-[280px] dark:border-slate-600 dark:bg-slate-800">
+          <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path strokeLinecap="round" d="m20 20-3-3" />
+          </svg>
+          <input
+            type="search"
+            value={filters.lenderQuery}
+            onChange={(event) => update("lenderQuery", event.target.value)}
+            placeholder="Search lenders"
+            aria-label="Search lenders"
+            className="w-full bg-transparent text-[0.8125rem] text-slate-900 outline-none placeholder:text-slate-400 dark:text-white"
+          />
+        </label>
       </div>
     </div>
   );
