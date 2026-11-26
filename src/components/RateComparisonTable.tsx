@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { INSURED_UNINSURED_EXPLANATION, mortgageTypeShortLabel } from "@/lib/mortgageTypeCopy";
-import InsuranceStatusNote from "./InsuranceStatusNote";
+import { termChipLabel } from "@/lib/homepageRates";
 import LenderLogo from "./LenderLogo";
 
 interface Rate {
@@ -12,242 +11,188 @@ interface Rate {
   rate_type: string;
   rate: number;
   mortgage_type: string;
-  apr?: string | null;
-  posted_rate?: number | null;
-  ltv_tier?: string | null;
-  spread_to_prime?: string | null;
-  source_url?: string | null;
 }
 
 interface RateComparisonTableProps {
   rates: Rate[];
+  summary: string;
+  showAllLabel: string | null;
+  onShowAll: () => void;
+  onLenderClick: (rate: Rate) => void;
 }
 
-// Inline SVG icons
-const ArrowUpDownIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-  </svg>
-);
+function typeBadge(type: string) {
+  const variable = type === "variable";
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${
+        variable
+          ? "border-teal-200 bg-teal-50 text-teal-800"
+          : "border-emerald-200 bg-emerald-50 text-emerald-800"
+      }`}
+    >
+      {variable ? "Variable" : "Fixed"}
+    </span>
+  );
+}
 
-const ArrowUpIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-  </svg>
-);
+function downBadge(type: string) {
+  const insured = type === "insured";
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${
+        insured
+          ? "border-amber-200 bg-amber-50 text-amber-800"
+          : "border-slate-200 bg-slate-50 text-slate-600"
+      }`}
+    >
+      {mortgageTypeShortLabel(type)}
+    </span>
+  );
+}
 
-const ArrowDownIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-  </svg>
-);
-
-const ChevronRightIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-);
-
-export default function RateComparisonTable({ rates }: RateComparisonTableProps) {
-  const [sortField, setSortField] = useState<keyof Rate>("rate");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-
-  const handleSort = (field: keyof Rate) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortField(field);
-      setSortDirection("asc");
-    }
-  };
-
-  const sortedRates = [...rates].sort((a, b) => {
-    const aVal = a[sortField];
-    const bVal = b[sortField];
-    if (aVal == null && bVal == null) return 0;
-    if (aVal == null) return 1;
-    if (bVal == null) return -1;
-    
-    const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
-    return sortDirection === "asc" ? comparison : -comparison;
-  });
-
-  const getTermLabel = (months: number) => {
-    if (months < 12) return `${months}m`;
-    if (months === 12) return "1yr";
-    return `${months / 12}yr`;
-  };
-
-  const getRateTypeBadge = (type: string) => {
-    const styles: Record<string, string> = {
-      fixed: "bg-emerald-50 text-emerald-700 border-emerald-200",
-      variable: "bg-teal-50 text-teal-700 border-teal-200",
-    };
+function RateRow({
+  rate,
+  onLenderClick,
+  layout,
+}: {
+  rate: Rate;
+  onLenderClick: (rate: Rate) => void;
+  layout: "table" | "card";
+}) {
+  const href = `/lenders/${rate.lender_slug}/`;
+  const term = termChipLabel(rate.term_months);
+  if (layout === "card") {
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type] || "bg-slate-100 text-slate-700"}`}>
-        {type === "fixed" ? "Fixed" : "Variable"}
-      </span>
+      <div className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 border-b border-slate-200 px-2 py-3 dark:border-slate-700">
+        <a href={href} onClick={() => onLenderClick(rate)} className="inline-flex min-w-0 items-center gap-2 font-semibold text-slate-900 dark:text-white">
+          <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} loading="lazy" />
+          <span className="truncate">{rate.lender_name}</span>
+        </a>
+        <div className="text-right text-[1.0625rem] font-extrabold tabular-nums tracking-tight text-emerald-700">
+          {rate.rate.toFixed(2)}%
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          <span className="inline-flex items-center rounded-full border border-slate-200 px-2 py-0.5 text-xs text-slate-600 dark:border-slate-600 dark:text-slate-300">
+            {term} {rate.rate_type === "variable" ? "Variable" : "Fixed"}
+          </span>
+          {downBadge(rate.mortgage_type)}
+        </div>
+        <a
+          href={href}
+          onClick={() => onLenderClick(rate)}
+          className="justify-self-end rounded-lg border border-cyan-200 bg-teal-50 px-3 py-1.5 text-[0.8125rem] font-semibold text-cyan-900 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600"
+        >
+          View
+        </a>
+      </div>
     );
-  };
-
-  const getMortgageTypeBadge = (type: string | null | undefined) => {
-    const styles: Record<string, string> = {
-      insured: "bg-amber-50 text-amber-700 border-amber-200",
-      uninsured: "bg-slate-50 text-slate-600 border-slate-200",
-    };
-    const label = mortgageTypeShortLabel(type);
-    return (
-      <span
-        title={type === "insured" || type === "uninsured" ? INSURED_UNINSURED_EXPLANATION : undefined}
-        className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${styles[type || ""] || "bg-amber-50 text-amber-800 border-amber-200"}`}
-      >
-        {label}
-      </span>
-    );
-  };
-
-  const SortIcon = ({ field }: { field: keyof Rate }) => {
-    if (sortField !== field) return <ArrowUpDownIcon />;
-    return sortDirection === "asc" ? 
-      <span className="text-teal-600"><ArrowUpIcon /></span> : 
-      <span className="text-teal-600"><ArrowDownIcon /></span>;
-  };
+  }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full">
-        <caption className="px-4 py-3 text-left">
-          <InsuranceStatusNote />
-        </caption>
-        <thead>
-          <tr className="bg-slate-50 border-b border-slate-200">
-            <th className="text-left py-4 px-4 font-semibold text-slate-700 text-sm">
-              <button
-                onClick={() => handleSort("lender_name")}
-                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-              >
-                Lender
-                <SortIcon field="lender_name" />
-              </button>
-            </th>
-            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
-              <button
-                onClick={() => handleSort("term_months")}
-                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-              >
-                Term
-                <SortIcon field="term_months" />
-              </button>
-            </th>
-            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
-              Type
-            </th>
-            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm">
-              <button
-                onClick={() => handleSort("rate")}
-                className="flex items-center gap-1.5 hover:text-slate-900 transition-colors"
-              >
-                Rate
-                <SortIcon field="rate" />
-              </button>
-            </th>
-            <th className="text-left py-4 px-3 font-semibold text-slate-700 text-sm hidden sm:table-cell">
-              Details
-            </th>
-            <th className="text-right py-4 px-4 font-semibold text-slate-700 text-sm">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-200">
-          {sortedRates.length === 0 ? (
-            <tr>
-              <td colSpan={6} className="py-12 text-center text-slate-500">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-                    <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <p className="text-lg font-medium">No rates found</p>
-                  <p className="text-sm text-slate-400">Try adjusting your filters</p>
-                </div>
-              </td>
+    <tr className="border-b border-slate-200 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800/60">
+      <td className="px-4 py-3">
+        <a
+          href={href}
+          onClick={() => onLenderClick(rate)}
+          className="inline-flex min-w-0 items-center gap-2.5 font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600 dark:text-white"
+        >
+          <LenderLogo lenderSlug={rate.lender_slug} size="sm" showText={false} loading="lazy" />
+          <span className="truncate">{rate.lender_name}</span>
+        </a>
+      </td>
+      <td className="px-4 py-3">
+        <span className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          {term} {typeBadge(rate.rate_type)}
+        </span>
+      </td>
+      <td className="px-4 py-3">{downBadge(rate.mortgage_type)}</td>
+      <td className="px-4 py-3 text-[1.0625rem] font-extrabold tabular-nums tracking-tight text-emerald-700">
+        {rate.rate.toFixed(2)}%
+      </td>
+      <td className="px-4 py-3">
+        <a
+          href={href}
+          onClick={() => onLenderClick(rate)}
+          className="inline-flex items-center rounded-lg border border-cyan-200 bg-teal-50 px-3 py-1.5 text-[0.8125rem] font-semibold text-cyan-900 hover:bg-teal-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600"
+        >
+          View
+        </a>
+      </td>
+    </tr>
+  );
+}
+
+export default function RateComparisonTable({
+  rates,
+  summary,
+  showAllLabel,
+  onShowAll,
+  onLenderClick,
+}: RateComparisonTableProps) {
+  return (
+    <div>
+      <div className="hidden md:block">
+        <table className="w-full border-collapse">
+          <caption className="sr-only">Published Canadian mortgage rates, lowest first. {INSURED_UNINSURED_EXPLANATION}</caption>
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50 text-left text-xs font-semibold text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+              <th scope="col" className="px-4 py-2.5">Lender</th>
+              <th scope="col" className="px-4 py-2.5">Term / Type</th>
+              <th scope="col" className="px-4 py-2.5">Down payment</th>
+              <th scope="col" className="px-4 py-2.5">Rate</th>
+              <th scope="col" className="px-4 py-2.5">Action</th>
             </tr>
-          ) : (
-            sortedRates.map((rate, index) => (
-              <tr
-                key={index}
-                className="group hover:bg-slate-50/80 transition-colors"
-              >
-                <td className="py-4 px-4">
-                  <a
-                    href={`/lenders/${rate.lender_slug}/`}
-                    className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                  >
-                    <LenderLogo lenderSlug={rate.lender_slug} size="sm" />
-                  </a>
-                </td>
-                
-                <td className="py-4 px-3">
-                  <span className="font-medium text-slate-900">{getTermLabel(rate.term_months)}</span>
-                </td>
-                
-                <td className="py-4 px-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {getRateTypeBadge(rate.rate_type)}
-                    {getMortgageTypeBadge(rate.mortgage_type)}
-                  </div>
-                </td>
-                
-                <td className="py-4 px-3">
-                  <div className="flex flex-col">
-                    <span className="text-lg font-bold text-emerald-600">
-                      {rate.rate.toFixed(2)}%
-                    </span>
-                    {rate.posted_rate && (
-                      <span className="text-xs text-slate-400 line-through">
-                        {rate.posted_rate.toFixed(2)}%
-                      </span>
-                    )}
-                  </div>
-                </td>
-                
-                <td className="py-4 px-3 hidden sm:table-cell">
-                  <div className="text-sm text-slate-500">
-                    {(rate.apr || rate.spread_to_prime) ? (
-                      <div className="space-y-0.5">
-                        {rate.apr && <div>APR: {rate.apr}%</div>}
-                        {rate.spread_to_prime && <div>{rate.spread_to_prime}</div>}
-                      </div>
-                    ) : (
-                      <span className="text-slate-400">--</span>
-                    )}
-                  </div>
-                </td>
-                
-                <td className="py-4 px-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <a
-                      href={`/lenders/${rate.lender_slug}/`}
-                      className="inline-flex items-center gap-1 px-4 py-2 bg-teal-50 text-teal-800 text-sm font-medium rounded-lg border border-teal-200 hover:bg-teal-100 hover:border-teal-300 hover:text-teal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 transition-colors"
-                    >
-                      View
-                      <ChevronRightIcon />
-                    </a>
-                  </div>
+          </thead>
+          <tbody>
+            {rates.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-4 py-10 text-center text-slate-500">
+                  No rates match these filters.
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-      
-      <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 text-sm text-slate-500 flex items-center justify-between">
-        <span>Showing {sortedRates.length} rates</span>
-        <span className="text-xs text-slate-400">
-          Sorted by {sortField}
-        </span>
+            ) : (
+              rates.map((rate, index) => (
+                <RateRow
+                  key={`${rate.lender_slug}-${rate.term_months}-${rate.rate_type}-${rate.mortgage_type}-${rate.rate}-${index}`}
+                  rate={rate}
+                  layout="table"
+                  onLenderClick={onLenderClick}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="px-2 md:hidden">
+        {rates.length === 0 ? (
+          <p className="px-2 py-10 text-center text-slate-500">No rates match these filters.</p>
+        ) : (
+          rates.map((rate, index) => (
+            <RateRow
+              key={`m-${rate.lender_slug}-${rate.term_months}-${rate.rate_type}-${rate.mortgage_type}-${rate.rate}-${index}`}
+              rate={rate}
+              layout="card"
+              onLenderClick={onLenderClick}
+            />
+          ))
+        )}
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-50 px-4 py-3.5 dark:bg-slate-800/70">
+        <p className="text-[0.8125rem] text-slate-500 dark:text-slate-300">
+          {summary} {INSURED_UNINSURED_EXPLANATION}
+        </p>
+        {showAllLabel ? (
+          <button
+            type="button"
+            onClick={onShowAll}
+            className="inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-white px-4 py-2 text-sm font-semibold text-cyan-900 hover:bg-cyan-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-600 dark:bg-slate-900"
+          >
+            {showAllLabel}
+          </button>
+        ) : null}
       </div>
     </div>
   );

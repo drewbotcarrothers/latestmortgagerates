@@ -28,7 +28,8 @@ describe("exactly one h1 per page", () => {
     assert.equal(h1Count(home), 1);
     assert.match(home, /<Header\b/);
     assert.doesNotMatch(home, /<h1[^>]*>[^<]*Latest Mortgage Rates Canada/);
-    assert.match(home, /<h1[^>]*>\s*Today's Best Mortgage Rates in Canada\s*<\/h1>/);
+    assert.match(home, /<h1[^>]*>\s*\{HOMEPAGE_H1\}\s*<\/h1>/);
+    assert.match(readFileSync(join(src, "lib/homepageRates.ts"), "utf8"), /Canada's Lowest Mortgage Rates Today/);
     for (const file of walk(join(src, "components"))) {
       assert.equal(h1Count(readFileSync(file, "utf8")), 0, file);
     }

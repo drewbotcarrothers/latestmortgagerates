@@ -12,10 +12,13 @@ const SUBTEXT =
   "Lowest posted rates plus what Canadians actually got below posted. One email a month. Unsubscribe anytime.";
 
 type NewsletterSignupProps = {
-  /** Full-width navy band (homepage) or an in-page card. */
-  variant?: "band" | "card";
+  /** Full-width navy band, an in-page card, or the light homepage panel. */
+  variant?: "band" | "card" | "panel";
   /** Set on the homepage so the rate banner can scroll here. Omit elsewhere. */
   anchorId?: string;
+  introHeading?: string;
+  introText?: string;
+  onInteract?: (action: "focus" | "submit" | "iframe_click") => void;
 };
 
 let embedPromise: Promise<void> | null = null;
@@ -50,12 +53,52 @@ function loadEmbedScript(): Promise<void> {
   return embedPromise;
 }
 
-export default function NewsletterSignup({ variant = "card", anchorId }: NewsletterSignupProps) {
+export default function NewsletterSignup({
+  variant = "card",
+  anchorId,
+  introHeading,
+  introText,
+  onInteract,
+}: NewsletterSignupProps) {
   const rootRef = useRef<HTMLElement>(null);
   const fallbackId = useId();
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
   const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || !onInteract) return;
+
+    const onFocusIn = (event: FocusEvent) => {
+      if (event.target instanceof Node && root.contains(event.target)) onInteract("focus");
+    };
+    const onWindowBlur = () => {
+      const active = document.activeElement;
+      if (active instanceof HTMLIFrameElement && root.contains(active)) onInteract("iframe_click");
+    };
+    const onMessage = (event: MessageEvent) => {
+      const iframe = root.querySelector("iframe");
+      if (!iframe || event.source !== iframe.contentWindow) return;
+      const payload = typeof event.data === "string" ? event.data : JSON.stringify(event.data ?? "");
+      if (/submit|subscribed|success|thank/i.test(payload)) onInteract("submit");
+    };
+    const onClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("[data-reach-form], iframe")) onInteract("iframe_click");
+    };
+
+    root.addEventListener("focusin", onFocusIn);
+    root.addEventListener("click", onClick);
+    window.addEventListener("blur", onWindowBlur);
+    window.addEventListener("message", onMessage);
+    return () => {
+      root.removeEventListener("focusin", onFocusIn);
+      root.removeEventListener("click", onClick);
+      window.removeEventListener("blur", onWindowBlur);
+      window.removeEventListener("message", onMessage);
+    };
+  }, [onInteract, attempt, ready]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -111,13 +154,20 @@ export default function NewsletterSignup({ variant = "card", anchorId }: Newslet
   const shell =
     variant === "band"
       ? "bg-slate-900 py-12 text-white md:py-16"
-      : "rounded-xl bg-slate-900 p-6 text-white shadow-sm md:p-8";
+      : variant === "panel"
+        ? "rounded-2xl border border-slate-200 bg-white p-6 text-slate-900 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        : "rounded-xl bg-slate-900 p-6 text-white shadow-sm md:p-8";
+  const inner =
+    variant === "band" ? "mx-auto max-w-xl px-4" : variant === "panel" ? "" : "mx-auto max-w-xl";
+  const loadingColor = variant === "panel" ? "text-slate-500" : "text-slate-300";
 
   return (
     <section ref={rootRef} id={anchorId} aria-label="Email newsletter" className={shell}>
-      <div className={variant === "band" ? "mx-auto max-w-xl px-4" : "mx-auto max-w-xl"}>
+      <div className={inner}>
+        {introHeading ? <h2 className="text-lg font-bold tracking-tight">{introHeading}</h2> : null}
+        {introText ? <p className={`mt-1.5 text-sm leading-relaxed ${variant === "panel" ? "text-slate-600 dark:text-slate-300" : "text-slate-300"}`}>{introText}</p> : null}
         {!ready && !failed && (
-          <p className="mb-3 text-center text-sm text-slate-300">Loading the signup form…</p>
+          <p className={`mb-3 text-center text-sm ${loadingColor} ${introHeading ? "mt-4" : ""}`}>Loading the signup form…</p>
         )}
         <div
           className={`overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-teal-600/30 ${failed ? "hidden" : ""}`}
