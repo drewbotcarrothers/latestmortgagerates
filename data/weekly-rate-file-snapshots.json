@@ -968,23 +968,18 @@
     },
     {
       "week_start": "2026-11-23",
-      "snapshot_date": "2026-11-26",
+      "snapshot_date": "2026-11-27",
       "commit": null,
       "lowest_5y_fixed_insured": 4.34,
       "lowest_5y_fixed_uninsured": 4.59,
       "lowest_5y_variable_insured": 3.6,
       "lowest_5y_variable_uninsured": 3.94,
-      "big_five_median_5y_fixed_posted": 6.19,
+      "big_five_median_5y_fixed_posted": 6.165,
       "posted_banks": [
         {
           "slug": "td",
           "name": "TD Bank",
           "posted": 6.14
-        },
-        {
-          "slug": "rbc",
-          "name": "Royal Bank of Canada",
-          "posted": 6.19
         },
         {
           "slug": "cibc",
@@ -1002,8 +997,10 @@
           "posted": 6.19
         }
       ],
-      "posted_missing": [],
-      "lender_count": 24
+      "posted_missing": [
+        "RBC"
+      ],
+      "lender_count": 23
     }
   ]
 }
