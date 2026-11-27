@@ -21,6 +21,7 @@ from typing import List, Optional
 from src.database import Database
 from src.validator import RateValidator
 from src.models import ScrapingResult
+from src.carry_forward import carry_forward_previous_rates
 
 # Import all scrapers - ORIGINAL
 from src.scrapers.rbc_scraper import RBCScraper
@@ -95,17 +96,6 @@ EXPECTED_EMPTY_SLUGS = {
 
 def _is_skipped(result) -> bool:
     return (result.error_message or "").startswith("skipped:")
-
-
-def _carry_forward_previous(item) -> bool:
-    """Keep a previous live row. Drop the Laurentian August 2026 hardcode."""
-    raw = item.get("raw_data") if isinstance(item, dict) else None
-    source = ""
-    if isinstance(raw, dict):
-        source = str(raw.get("source") or "")
-    if source == "laurentian_fallback":
-        return False
-    return True
 
 
 class ScraperTimeout(Exception):
@@ -374,70 +364,34 @@ def scrape_all_lenders():
         print("="*80)
         
         prev_path = Path(__file__).parent.parent / "data" / "rates.json"
-        backfilled = 0
         if prev_path.exists():
             try:
                 with open(prev_path, 'r') as f:
                     prev_data = json.load(f)
                 
-                # Get previous live rates for failed lenders. Skip the
-                # Laurentian August 2026 hardcode so a failed scrape cannot
-                # republish the stale 4.79% 5-year promo.
-                prev_rates_for_failed = []
-                for item in prev_data:
-                    if isinstance(item, dict) and item.get("lender_slug") in failed_slugs:
-                        if not _carry_forward_previous(item):
-                            logger.info(
-                                f"Not carrying forward hardcoded {item.get('lender_slug')} row "
-                                f"({(item.get('raw_data') or {}).get('source')})"
-                            )
-                            continue
-                        prev_rates_for_failed.append(item)
-                        backfilled += 1
-                
-                # Convert previous JSON rates back to RawRate objects and merge
-                if prev_rates_for_failed:
-                    from src.models import RateType, MortgageType
-                    from decimal import Decimal
-                    from datetime import datetime
-                    
-                    for item in prev_rates_for_failed:
-                        try:
-                            # Skip if this lender already has rates in valid_rates
-                            if item["lender_slug"] in lender_counts:
-                                continue
-                                
-                            stale_rate = RawRate(
-                                lender_slug=item["lender_slug"],
-                                lender_name=item.get("lender_name", item["lender_slug"]),
-                                term_months=item["term_months"],
-                                rate_type=RateType(item["rate_type"]),
-                                mortgage_type=(
-                                    MortgageType(item["mortgage_type"])
-                                    if item.get("mortgage_type")
-                                    else None
-                                ),
-                                rate=Decimal(str(item["rate"])),
-                                posted_rate=Decimal(str(item["posted_rate"])) if item.get("posted_rate") else None,
-                                source_url=item.get("source_url", ""),
-                                scraped_at=datetime.fromisoformat(item["scraped_at"]) if item.get("scraped_at") else datetime.utcnow(),
-                                raw_data={
-                                    "source": f"{item['lender_slug']}_stale_fallback",
-                                    "apr": item.get("apr"),
-                                    "ltv_tier": item.get("ltv_tier"),
-                                    "spread_to_prime": item.get("spread_to_prime"),
-                                    "stale": True,
-                                    "note": "Rate carried forward from previous scrape"
-                                }
-                            )
-                            valid_rates.append(stale_rate)
-                            lender_counts[item["lender_slug"]] = lender_counts.get(item["lender_slug"], 0) + 1
-                        except Exception as e:
-                            logger.warning(f"Failed to convert previous rate for {item.get('lender_slug')}: {e}")
-                    
-                    print(f"Backfilled {backfilled} rates for {len(failed_slugs)} failed scraper(s): {sorted(failed_slugs)}")
-                else:
-                    print(f"No previous rates found for failed scrapers: {sorted(failed_slugs)}")
+                # Keep previous live rows for failed lenders. The Laurentian
+                # August 2026 hardcode is dropped inside carry_forward so a
+                # failed scrape cannot republish that 4.79% promo.
+                try:
+                    carried = carry_forward_previous_rates(
+                        prev_data,
+                        failed_slugs,
+                        set(lender_counts),
+                    )
+                except Exception as e:
+                    carried = []
+                    logger.warning(f"Failed to backfill from previous rates: {e}")
+                    print(f"Could not backfill: {e}")
+
+                if carried:
+                    valid_rates.extend(carried)
+                    for rate in carried:
+                        lender_counts[rate.lender_slug] = lender_counts.get(rate.lender_slug, 0) + 1
+                    kept = sorted({rate.lender_slug for rate in carried})
+                    print(f"Backfilled {len(carried)} rates for {len(kept)} failed scraper(s): {kept}")
+                missing = sorted(failed_slugs - {rate.lender_slug for rate in carried})
+                if missing:
+                    print(f"No previous rates found for failed scrapers: {missing}")
             except Exception as e:
                 logger.warning(f"Failed to backfill from previous rates: {e}")
                 print(f"Could not backfill: {e}")
@@ -518,8 +472,9 @@ def scrape_all_lenders():
         live_count = 0
         fallback_count = 0
         for rate in valid_rates:
-            source = (rate.raw_data or {}).get("source", "")
-            if "fallback" in str(source) or "stale" in str(source):
+            raw = rate.raw_data or {}
+            source = raw.get("source", "")
+            if raw.get("stale") or "fallback" in str(source) or "stale" in str(source):
                 fallback_count += 1
             else:
                 live_count += 1

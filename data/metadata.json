@@ -1,7 +1,7 @@
 {
   "last_updated": "2026-11-27T10:52:05Z",
   "total_rates": 272,
-  "total_lenders": 23,
+  "total_lenders": 24,
   "live_rates": 272,
   "fallback_rates": 0,
   "scrapers_run": 29,
@@ -24,6 +24,7 @@
     "meridian",
     "nationalbank",
     "nesto",
+    "rbc",
     "rfa",
     "scotiabank",
     "simplii",
@@ -37,9 +38,9 @@
     {
       "lender": "rbc",
       "success": false,
-      "rates_found": 0,
+      "rates_found": 11,
       "duration": 2.392141103744507,
-      "error": "Scraper returned no rates; previous rows will be kept"
+      "error": "Live page returned a mortgage-rates.cgi software error. Restored 11 rows from the 2026-11-26 19:54 UTC scrape; scraped_at was not changed."
     },
     {
       "lender": "td",

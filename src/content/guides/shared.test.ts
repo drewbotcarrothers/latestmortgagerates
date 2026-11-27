@@ -5,8 +5,10 @@ import { communityRates, formatAsOf, type WeekPoint } from "../../lib/communityR
 import {
   MIN_WEEK_N,
   postedSnapshotBridge,
+  resolveGuideSpecial,
   scrapedSpecial,
   selectWeeklyComparison,
+  staleAside,
   weeklyComparisonSentence,
   weeksWithBothMedians,
 } from "./shared.ts";
@@ -56,29 +58,65 @@ describe("scrapedSpecial", () => {
     assert.equal(row.rate, 4.94);
   });
 
-  it("throws when no matching special row exists", () => {
-    assert.throws(
-      () => scrapedSpecial("cibc", 60, "fixed", "uninsured", []),
-      /Rate file is missing cibc 60 fixed uninsured/,
+  it("returns null when no matching special row exists", () => {
+    assert.equal(scrapedSpecial("cibc", 60, "fixed", "uninsured", []), null);
+    assert.equal(scrapedSpecial("cibc", 60, "fixed", "uninsured", [{
+      ...fallback,
+      raw_data: { section: "posted", product: "Fixed closed", source: "cibc_live_scrape" },
+    }]), null);
+    assert.equal(scrapedSpecial("cibc", 60, "fixed", "uninsured", [{
+      ...fallback,
+      raw_data: {
+        section: "posted",
+        product: "5-Year Fixed Posted Closed",
+        source: "bmo_fallback_2026-09-14",
+      },
+    }]), null);
+  });
+
+  it("uses the 2026-11-26 RBC scrape when the rate file omits that special", () => {
+    const missing = resolveGuideSpecial("rbc", 60, "fixed", "uninsured", []);
+    assert.ok(missing);
+    assert.equal(missing.stale, true);
+    assert.equal(missing.rate, 5.14);
+    assert.equal(missing.posted_rate, 6.19);
+    assert.equal(missing.scraped_at?.slice(0, 10), "2026-11-26");
+    assert.equal(missing.raw_data?.source, "rbc_live_scrape");
+    assert.match(
+      staleAside(true, missing.scraped_at ?? "", "That RBC special"),
+      /not in the current rate file/,
     );
-    assert.throws(
-      () => scrapedSpecial("cibc", 60, "fixed", "uninsured", [{
-        ...fallback,
-        raw_data: { section: "posted", product: "Fixed closed", source: "cibc_live_scrape" },
-      }]),
-      /Rate file is missing cibc 60 fixed uninsured/,
-    );
-    assert.throws(
-      () => scrapedSpecial("cibc", 60, "fixed", "uninsured", [{
-        ...fallback,
-        raw_data: {
-          section: "posted",
-          product: "5-Year Fixed Posted Closed",
-          source: "bmo_fallback_2026-09-14",
-        },
-      }]),
-      /Rate file is missing cibc 60 fixed uninsured/,
-    );
+    assert.match(staleAside(true, missing.scraped_at ?? "", "That RBC special"), /2026-11-26/);
+    assert.match(staleAside(true, missing.scraped_at ?? "", "That RBC special"), /stale/);
+    assert.equal(staleAside(false, "2026-11-26", "That RBC special"), "");
+
+    const present = resolveGuideSpecial("rbc", 60, "fixed", "uninsured", [{
+      lender_slug: "rbc",
+      lender_name: "Royal Bank of Canada",
+      term_months: 60,
+      rate_type: "fixed",
+      rate: 5.14,
+      mortgage_type: "uninsured",
+      posted_rate: 6.19,
+      scraped_at: "2026-11-26T19:54:40.670087",
+      raw_data: { section: "special", source: "rbc_live_scrape", product: "5 Year Fixed Closed" },
+    }]);
+    assert.equal(present?.stale, false);
+    assert.equal(present?.rate, 5.14);
+
+    const carried = resolveGuideSpecial("rbc", 60, "fixed", "uninsured", [{
+      lender_slug: "rbc",
+      lender_name: "Royal Bank of Canada",
+      term_months: 60,
+      rate_type: "fixed",
+      rate: 5.14,
+      mortgage_type: "uninsured",
+      posted_rate: 6.19,
+      scraped_at: "2026-11-26T19:54:40.670087",
+      raw_data: { section: "special", source: "rbc_live_scrape", stale: true },
+    }]);
+    assert.equal(carried?.stale, true);
+    assert.equal(carried?.scraped_at?.slice(0, 10), "2026-11-26");
   });
 
   it("reads the CIBC 5-year fixed uninsured special from the rate file", () => {
