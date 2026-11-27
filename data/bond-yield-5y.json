@@ -5,10 +5,6 @@
   "source": "https://www.bankofcanada.ca/valet/observations/BD.CDN.5YR.DQ.YLD/json",
   "observations": [
     {
-      "date": "2025-10-10",
-      "yield": 2.74
-    },
-    {
       "date": "2025-10-14",
       "yield": 2.71
     },
@@ -1123,7 +1119,11 @@
     {
       "date": "2026-11-25",
       "yield": 3.41
+    },
+    {
+      "date": "2026-11-26",
+      "yield": 3.4
     }
   ],
-  "fetchedAt": "2026-11-27T12:01:18.187Z"
+  "fetchedAt": "2026-11-27T19:44:07.971Z"
 }
