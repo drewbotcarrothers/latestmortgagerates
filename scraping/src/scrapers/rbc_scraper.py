@@ -242,6 +242,18 @@ def rbc_has_core_posted(rates: List[RawRate]) -> bool:
     return found == {36, 60}
 
 
+def rbc_rates_cgi_failed(html: str) -> bool:
+    """True when RBC's rate script dies before it prints the tables.
+
+    On 2026-11-27 the public page returned HTTP 200 with a Perl error from
+    mortgage-rates.cgi and no rate grid. That is a failed scrape, not a
+    removed product and not a number we can invent.
+    """
+    if not html:
+        return False
+    return "Software error" in html and "mortgage-rates.cgi" in html
+
+
 class RBCScraper:
     """Scraper for RBC Royal Bank mortgage rates."""
     
@@ -265,6 +277,12 @@ class RBCScraper:
 
         try:
             html = fetch_html(self.RATE_URL, timeout=25.0)
+            if html and rbc_rates_cgi_failed(html):
+                logger.warning(
+                    "RBC mortgage-rates.cgi failed before it printed the rate tables "
+                    "(software error). Returning no rates so previous RBC rows are kept."
+                )
+                return []
             if html:
                 rates = build_rbc_rates(html, self.scraped_at, self.RATE_URL, "static_html")
                 if rbc_has_core_posted(rates):

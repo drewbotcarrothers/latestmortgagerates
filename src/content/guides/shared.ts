@@ -16,6 +16,7 @@ import {
 import { BOC_POLICY_RATE, PRIME_RATE, PRIME_SPREAD } from "../../lib/primeRate";
 import historicalFile from "../../../data/historical_rates.json";
 import rawRatesFile from "../../../data/rates.json";
+import { staleGuideSpecial } from "./staleSpecials";
 
 export interface GuideFaq {
   question: string;
@@ -368,7 +369,7 @@ export function scrapedSpecial(
   rateType: string,
   mortgageType: string,
   rates: ScrapedRate[] = rawRatesFile as ScrapedRate[],
-): ScrapedRate {
+): ScrapedRate | null {
   const row = rates.find(
     (item) =>
       item.lender_slug === slug &&
@@ -377,8 +378,41 @@ export function scrapedSpecial(
       item.mortgage_type === mortgageType &&
       isAdvertisedSpecial(item),
   );
-  if (!row) throw new Error(`Rate file is missing ${slug} ${termMonths} ${rateType} ${mortgageType}.`);
-  return row;
+  return row ?? null;
+}
+
+export type GuideSpecial = ScrapedRate & { stale: boolean };
+
+function carriedForward(row: ScrapedRate): boolean {
+  return Boolean(row.raw_data && (row.raw_data as { stale?: boolean }).stale);
+}
+
+/**
+ * The live special when the rate file has it. Otherwise the last scraped
+ * copy, marked stale. A missing row does not throw, so one lender cannot
+ * fail the Astro build.
+ */
+export function resolveGuideSpecial(
+  slug: string,
+  termMonths: number,
+  rateType: string,
+  mortgageType: string,
+  rates?: ScrapedRate[],
+): GuideSpecial | null {
+  const live = rates
+    ? scrapedSpecial(slug, termMonths, rateType, mortgageType, rates)
+    : scrapedSpecial(slug, termMonths, rateType, mortgageType);
+  if (live) return { ...live, stale: carriedForward(live) };
+  const fallback = staleGuideSpecial(slug, termMonths, rateType, mortgageType);
+  if (!fallback) return null;
+  return { ...fallback, stale: true };
+}
+
+/** Empty when the figure is in the current rate file. */
+export function staleAside(stale: boolean, asOf: string, what: string): string {
+  if (!stale) return "";
+  const date = (asOf || "").slice(0, 10);
+  return ` ${what} is not in the current rate file. It is the last scrape that included it (${date}) and it is stale.`;
 }
 
 export interface WeeklyMedian {
@@ -577,16 +611,34 @@ export const TERM_CHOICE = (() => {
   };
 })();
 
-const tdFixed = scrapedSpecial("td", 60, "fixed", "uninsured");
-const tdFixed3 = scrapedSpecial("td", 36, "fixed", "uninsured");
-const cibcFixed = scrapedSpecial("cibc", 60, "fixed", "uninsured");
-const cibcInsured = scrapedSpecial("cibc", 60, "fixed", "insured");
-const rbcFixed = scrapedSpecial("rbc", 60, "fixed", "uninsured");
-const rbcInsured = scrapedSpecial("rbc", 60, "fixed", "insured");
-const rbcVariable = scrapedSpecial("rbc", 60, "variable", "uninsured");
-const rbcVariableInsured = scrapedSpecial("rbc", 60, "variable", "insured");
+function sheetSpecial(
+  slug: string,
+  termMonths: number,
+  rateType: string,
+  mortgageType: string,
+): GuideSpecial {
+  const row = resolveGuideSpecial(slug, termMonths, rateType, mortgageType);
+  if (row) return row;
+  throw new Error(
+    `No last-known ${slug} ${termMonths} ${rateType} ${mortgageType} special is catalogued.`,
+  );
+}
 
-if (tdFixed.posted_rate == null || tdFixed3.posted_rate == null || cibcFixed.posted_rate == null || cibcInsured.posted_rate == null) {
+const tdFixed = sheetSpecial("td", 60, "fixed", "uninsured");
+const tdFixed3 = sheetSpecial("td", 36, "fixed", "uninsured");
+const cibcFixed = sheetSpecial("cibc", 60, "fixed", "uninsured");
+const cibcInsured = sheetSpecial("cibc", 60, "fixed", "insured");
+const rbcFixed = sheetSpecial("rbc", 60, "fixed", "uninsured");
+const rbcInsured = sheetSpecial("rbc", 60, "fixed", "insured");
+const rbcVariable = sheetSpecial("rbc", 60, "variable", "uninsured");
+const rbcVariableInsured = sheetSpecial("rbc", 60, "variable", "insured");
+
+if (
+  tdFixed.posted_rate == null ||
+  tdFixed3.posted_rate == null ||
+  cibcFixed.posted_rate == null ||
+  cibcInsured.posted_rate == null
+) {
   throw new Error("A bank row used as a rate-sheet example is missing its posted rate.");
 }
 
@@ -603,9 +655,14 @@ export const RATE_SHEET = {
   cibcInsuredSpecial: cibcInsured.rate,
   cibcInsuredDiscount: cibcInsured.posted_rate - cibcInsured.rate,
   rbcFixed: rbcFixed.rate,
+  rbcFixedStale: rbcFixed.stale,
+  rbcFixedAsOf: (rbcFixed.scraped_at ?? "").slice(0, 10),
   rbcInsured: rbcInsured.rate,
+  rbcInsuredStale: rbcInsured.stale,
   rbcVariable: rbcVariable.rate,
+  rbcVariableStale: rbcVariable.stale,
   rbcVariableInsured: rbcVariableInsured.rate,
+  rbcVariableInsuredStale: rbcVariableInsured.stale,
 };
 
 /** Posted-rate IRD on TD's own October 2026 row, plus three months' interest on a labelled balance. */

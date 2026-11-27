@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from models import MortgageType, RateType, RawRate
 from scrapers.bmo_scraper import build_bmo_rates
-from scrapers.rbc_scraper import build_rbc_rates
+from scrapers.rbc_scraper import build_rbc_rates, rbc_has_core_posted, rbc_rates_cgi_failed
 from scrapers.scotiabank_scraper import build_scotia_rates
 from deduplicator import RateDeduplicator
 from preserve_posted import preserve_posted_rates
@@ -67,6 +67,28 @@ def test_rbc_fixture_attaches_posted_shelves():
 
     assert all(not (rate.raw_data or {}).get("is_open") for rate in rates)
     assert not any(rate.term_months == 300 for rate in rates)
+
+
+def test_rbc_cgi_error_is_not_a_rate_grid():
+    """The live page on 2026-11-27 returned this Perl error and no tables."""
+    html = """
+    <h1>Software error:</h1>
+    <pre>Use of uninitialized value $rates{"0006470002"} in concatenation (.) or string at /usr1/rb_wwws/cgi-bin/rates-api/mortgage-rates.cgi line 626.
+    </pre>
+    <h2>Current Fixed and Variable Mortgage Rates</h2>
+    <p>The charts below show current purchase and switch special offers and posted rates.</p>
+    """
+    assert rbc_rates_cgi_failed(html)
+    rates = build_rbc_rates(
+        html,
+        SCRAPED_AT,
+        "https://www.rbcroyalbank.com/mortgages/mortgage-rates.html",
+        "static_html",
+    )
+    assert rates == []
+    assert rbc_has_core_posted(rates) is False
+    assert rbc_rates_cgi_failed("") is False
+    assert rbc_rates_cgi_failed("<h3>Posted Rates - Fixed Rate Mortgages</h3>") is False
 
 
 def test_bmo_fixture_attaches_posted_shelves():
@@ -216,6 +238,7 @@ def test_preserve_fills_a_blank_posted_rate_only():
 
 if __name__ == "__main__":
     test_rbc_fixture_attaches_posted_shelves()
+    test_rbc_cgi_error_is_not_a_rate_grid()
     test_bmo_fixture_attaches_posted_shelves()
     test_scotia_fixture_uses_public_posted_column()
     test_deduper_keeps_shelf_and_copies_it_onto_the_special()

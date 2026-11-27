@@ -6,6 +6,7 @@ import {
 } from "../../lib/mortgageMath";
 import { BOC_POLICY_RATE, PRIME_RATE, PRIME_SPREAD } from "../../lib/primeRate";
 import { REPORTED, cad, pct } from "./shared";
+import { staleGuideSpecial } from "./staleSpecials";
 
 /** Evening Eastern on October 23, 2026. These four pages were checked against the sources that day. */
 export const GUIDE_REVIEWED_ISO_BATCH4 = "2026-10-23T21:30:00Z";
@@ -63,6 +64,8 @@ interface Pair {
   variablePosted: number | null;
   spread: number;
   scraped: string;
+  /** True when either side is the last scrape, not a row in this rate file. */
+  stale: boolean;
 }
 
 const pairKeys = new Set<string>();
@@ -84,11 +87,50 @@ for (const key of pairKeys) {
     mortgageType,
     fixed: fixed.rate,
     variable: variable.rate,
-    fixedPosted: fixed.posted_rate,
-    variablePosted: variable.posted_rate,
+    fixedPosted: fixed.posted_rate ?? null,
+    variablePosted: variable.posted_rate ?? null,
     spread: Math.round((fixed.rate - variable.rate) * 100) / 100,
     scraped: (fixed.scraped_at ?? variable.scraped_at ?? "").slice(0, 10),
+    stale: false,
   });
+}
+
+export function resolveCitedPair(source: RateRow[], slug: string, mortgageType: string): Pair {
+  const fixedLive = source
+    .filter(
+      (row) =>
+        row.lender_slug === slug &&
+        row.term_months === 60 &&
+        row.rate_type === "fixed" &&
+        row.mortgage_type === mortgageType,
+    )
+    .sort((a, b) => a.rate - b.rate)[0];
+  const variableLive = source
+    .filter(
+      (row) =>
+        row.lender_slug === slug &&
+        row.term_months === 60 &&
+        row.rate_type === "variable" &&
+        row.mortgage_type === mortgageType,
+    )
+    .sort((a, b) => a.rate - b.rate)[0];
+  const fixed = fixedLive ?? staleGuideSpecial(slug, 60, "fixed", mortgageType);
+  const variable = variableLive ?? staleGuideSpecial(slug, 60, "variable", mortgageType);
+  if (!fixed || !variable) {
+    throw new Error(`No last-known 5-year pair for ${slug} ${mortgageType}.`);
+  }
+  return {
+    slug,
+    name: fixed.lender_name,
+    mortgageType,
+    fixed: fixed.rate,
+    variable: variable.rate,
+    fixedPosted: fixed.posted_rate ?? null,
+    variablePosted: variable.posted_rate ?? null,
+    spread: Math.round((fixed.rate - variable.rate) * 100) / 100,
+    scraped: (fixed.scraped_at ?? variable.scraped_at ?? "").slice(0, 10),
+    stale: !fixedLive || !variableLive,
+  };
 }
 pairs.sort((a, b) => a.name.localeCompare(b.name) || a.mortgageType.localeCompare(b.mortgageType));
 
@@ -112,8 +154,8 @@ export const RATE_FILE_AS_OF = scrapeDates[0] ?? "";
 
 function pair(slug: string, mortgageType: string): Pair {
   const found = pairs.find((item) => item.slug === slug && item.mortgageType === mortgageType);
-  if (!found) throw new Error(`Missing 5-year pair for ${slug} ${mortgageType}.`);
-  return found;
+  if (found) return found;
+  return resolveCitedPair(rows, slug, mortgageType);
 }
 
 const rbcUninsured = pair("rbc", "uninsured");
@@ -132,8 +174,9 @@ for (const row of uninsuredFixedOnly) {
 const uninsuredFixedRates = [...uninsuredFixedByLender.values()];
 const todayUninsuredFixedMedian = median(uninsuredFixedRates);
 
-const rbcThree = lowest("rbc", 36, "fixed", "uninsured");
-if (!rbcThree) throw new Error("Rate file is missing RBC's 3-year uninsured fixed special.");
+const rbcThreeLive = lowest("rbc", 36, "fixed", "uninsured");
+const rbcThree = rbcThreeLive ?? staleGuideSpecial("rbc", 36, "fixed", "uninsured");
+if (!rbcThree) throw new Error("No last-known RBC 3-year uninsured fixed special is catalogued.");
 
 export const SPREAD_TABLE = {
   caption: `Five-year fixed minus five-year variable, from data/rates.json, scraped ${RATE_FILE_AS_OF}. Each cell is the lowest row for that lender and insured status. A negative number means the fixed rate in the file is lower than the variable rate.`,
@@ -162,7 +205,8 @@ export const SPREAD = {
   todayUninsuredFixedMin: Math.min(...uninsuredFixedRates),
   todayUninsuredFixedMax: Math.max(...uninsuredFixedRates),
   rbcThreeFixed: rbcThree.rate,
-  rbcThreePosted: rbcThree.posted_rate,
+  rbcThreePosted: rbcThree.posted_rate ?? null,
+  rbcThreeStale: rbcThreeLive == null,
   narrowest: narrowestPair,
   widest: widestPair,
 };
