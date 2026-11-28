@@ -968,9 +968,9 @@
     },
     {
       "week_start": "2026-11-23",
-      "snapshot_date": "2026-11-27",
+      "snapshot_date": "2026-11-28",
       "commit": null,
-      "lowest_5y_fixed_insured": 4.34,
+      "lowest_5y_fixed_insured": 4.39,
       "lowest_5y_fixed_uninsured": 4.59,
       "lowest_5y_variable_insured": 3.6,
       "lowest_5y_variable_uninsured": 3.94,
